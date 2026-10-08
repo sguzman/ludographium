@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source_id": "libretro-no-intro",
+  "name": "Libretro Database: No-Intro imports",
+  "source_authors": [
+    "Libretro Database contributors",
+    "No-Intro contributors (upstream original DAT work)"
+  ],
+  "repository": "https://github.com/libretro/libretro-database",
+  "repository_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+  "repository_commit_date": "2026-10-05",
+  "declared_repository_license": "CC-BY-SA-4.0",
+  "license_url": "https://github.com/libretro/libretro-database/blob/fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90/LICENSE",
+  "rights_note": "Libretro repository declares CC BY-SA 4.0; third-party upstream rights require individual review. Source facts are unverified observations; no copyrighted game files/assets are included.",
+  "collected_at_utc": "2026-10-08",
+  "files": [
+    {
+      "platform": "snes",
+      "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+      "git_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+      "dat_version": "2026.08.01"
+    },
+    {
+      "platform": "gb",
+      "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+      "git_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+      "dat_version": "2026.08.01"
+    },
+    {
+      "platform": "gbc",
+      "source_path": "metadat/no-intro/Nintendo - Game Boy Color.dat",
+      "git_blob_sha": "9ad9d3e8cdac9ec8d00ab43f510d8e90a18bb149",
+      "dat_version": "2026.08.01"
+    },
+    {
+      "platform": "gba",
+      "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+      "git_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+      "dat_version": "2026.08.01"
+    }
+  ]
+}

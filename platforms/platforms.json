@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "namespace": "cheatarium-compatible",
+  "platforms": [
+    {
+      "id": "snes",
+      "name": "Super Nintendo Entertainment System",
+      "manufacturer": "Nintendo",
+      "kind": "home"
+    },
+    {
+      "id": "gb",
+      "name": "Game Boy",
+      "manufacturer": "Nintendo",
+      "kind": "handheld"
+    },
+    {
+      "id": "gbc",
+      "name": "Game Boy Color",
+      "manufacturer": "Nintendo",
+      "kind": "handheld"
+    },
+    {
+      "id": "gba",
+      "name": "Game Boy Advance",
+      "manufacturer": "Nintendo",
+      "kind": "handheld"
+    },
+    {
+      "id": "nds",
+      "name": "Nintendo DS",
+      "manufacturer": "Nintendo",
+      "kind": "handheld"
+    },
+    {
+      "id": "nes",
+      "name": "Nintendo Entertainment System",
+      "manufacturer": "Nintendo",
+      "kind": "home"
+    }
+  ]
+}
