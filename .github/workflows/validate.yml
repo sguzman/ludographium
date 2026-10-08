@@ -5,8 +5,6 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,18 +18,8 @@ jobs:
         run: python tools/build_distribution.py --check
       - name: Verify source field coverage report
         run: python tools/audit_catalog.py --check
-      - name: Import enriched metadata
-        run: python tools/import_enrichment.py --write
-      - name: Publish normalized claim indexes
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add generated/enrichment-v1/
-          if ! git diff --cached --quiet; then
-            git commit -m 'data: publish source-resolved Libretro bibliographic claims'
-            git push origin HEAD:main
-          fi
+      - name: Validate pinned bibliographic claims
+        run: python tools/import_enrichment.py --check
   rust:
     runs-on: ubuntu-latest
     steps:
