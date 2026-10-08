@@ -9,7 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BLOCK = re.compile(r"^game \(\r?\n(.*?)^\)\s*$", re.M | re.S)
-SCALAR = re.compile(r'^\s*([a-z0-9_]+)\s+"((?:\\.|[^"\\])*)"\s*
+SCALAR = re.compile(r'^\s*([a-z0-9_]+)\s+"((?:\\.|[^"\\])*)"\s*$', re.I)
+SCALAR_ATOM = re.compile(r'^\s*([a-z0-9_]+)\s+([^\s"()]+)\s*$', re.I)
 ROM = re.compile(r"^\s*rom\s*\(\s*crc\s+([0-9a-f]{8})\s*\)\s*$", re.I)
 ROM_BEGIN = re.compile(r"^\s*rom\s*\(\s*$", re.I)
 ROM_CRC = re.compile(r"^\s*crc\s+([0-9a-f]{8})\s*$", re.I)
