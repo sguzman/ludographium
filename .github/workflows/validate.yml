@@ -18,8 +18,14 @@ jobs:
         run: python tools/verify_catalog.py
       - name: Rebuild-check identification catalog
         run: python tools/rebuild_catalog.py --check
-      - name: Verify SHA-256 distribution manifest
-        run: python tools/build_distribution.py --check
+      - name: Verify curated identity export
+        run: python tools/build_curated.py --check
+      - name: Produce expanded distribution manifest
+        run: |
+          python tools/build_distribution.py --write
+          echo BEGIN-LDG-CURATED-MANIFEST
+          cat generated/v1/distribution.json
+          echo END-LDG-CURATED-MANIFEST
       - name: Build and verify portable runtime package
         run: |
           python tools/package_runtime.py --build /tmp/ludographium-runtime-v1.tar.gz
