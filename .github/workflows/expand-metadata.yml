@@ -229,3 +229,4 @@ jobs:
           git diff --cached --quiet && { echo 'No new source data'; exit 0; }
           git commit -m 'data: accession Libretro franchise, serial, age-rating, users and rumble claims'
           git push origin HEAD:main
+# Retry accession with normalized source field IDs
