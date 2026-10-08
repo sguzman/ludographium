@@ -64,7 +64,13 @@ Use `--platform all` to identify media or search titles across **every registere
 cargo run --locked -p ludographium -- --platform all --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 --curated
 ```
 
-For an exact local file, use `--file /path/to/game` instead of a hash. Input is streamed and never added to the catalog. The file's representation must exactly match the source checksum; headers, archives, and byte-swapped formats are not silently normalized.
+For an exact local file, use `--file /path/to/game` instead of a hash. Input is streamed and never added to the catalog. Compressed libraries can use `--zip` to inspect individual ZIP members without extracting them to disk:
+
+```sh
+cargo run --locked -p ludographium -- --platform all --zip /path/to/game.zip --enriched
+```
+
+Archive entries remain distinct source candidates, with bounds on the number of entries and decoded bytes. The file's representation must exactly match the source checksum; headers, archives, and byte-swapped formats are not silently normalized.
 
 Add `--enriched` to fingerprint, file, or title queries to include matched and unresolved bibliographic claims separately:
 
