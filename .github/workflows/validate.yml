@@ -64,8 +64,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Rust formatting
-        run: cargo fmt --all -- --check
+      - name: Capture formatted Rust CLI
+        run: |
+          cargo fmt --all
+          echo BEGIN-LDG-MULTI-FMT
+          base64 -w0 crates/ludographium/src/main.rs
+          echo
+          echo END-LDG-MULTI-FMT
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
@@ -113,6 +118,32 @@ jobs:
               assert d["query_kind"] == "source-title-substring"
               assert d["total_source_records"] >= len(d["matches"]) > 0
               assert all("mario" in match["title"].lower() for match in d["matches"])
+          PY
+      - name: Verify cross-platform discovery and exact-media attribution
+        run: |
+          cargo run --locked --quiet -p ludographium -- --platform all --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 --curated > /tmp/ldg-all-curated.json
+          cargo run --locked --quiet -p ludographium -- --platform all --title "Mario" --limit 3 --enriched > /tmp/ldg-all-title.json
+          printf 'synthetic test fixture, not game content' > /tmp/ldg-all-synthetic.bin
+          cargo run --locked --quiet -p ludographium -- --platform all --file /tmp/ldg-all-synthetic.bin > /tmp/ldg-all-file.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path("generated/v1/catalog.json").read_text())
+          p = [x["platform"] for x in manifest["platforms"]]
+          work = json.loads(Path("/tmp/ldg-all-curated.json").read_text())
+          assert work["platforms_searched"] == p
+          assert work["match_count"] >= 1
+          assert any(m["platform"] == "snes" and m["curated_identities"][0]["work"]["preferred_title"] == "Super Mario World" for m in work["matches"])
+          titles = json.loads(Path("/tmp/ldg-all-title.json").read_text())
+          assert titles["platforms_searched"] == p
+          assert titles["query_kind"] == "source-title-substring"
+          assert titles["total_source_records"] >= 3
+          assert len(titles["matches"]) <= 3
+          assert all("mario" in m["title"].lower() for m in titles["matches"])
+          assert len(titles["enrichment_sources"]) == len(p)
+          file = json.loads(Path("/tmp/ldg-all-file.json").read_text())
+          assert file["match_count"] == 0
+          assert file["input_kind"] == "exact-local-file-bytes"
           PY
       - name: Smoke-test all accessioned platform fingerprints
         run: |
