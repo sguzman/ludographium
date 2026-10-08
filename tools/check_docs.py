@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Validate internal Markdown links and the README's advertised catalog counts."""
 import json
+from collections import Counter
 from pathlib import Path
 import re
 from urllib.parse import unquote
@@ -34,11 +35,31 @@ def validate_markdown(root, files):
     return errors
 
 
+def validate_platform_tables(readme, consumer_guide, platforms):
+    """Ensure platform counts and consumer links cover the actual source manifest."""
+    expected_counts = Counter(p["source_records"] for p in platforms)
+    section = readme.split("## Collection", 1)[-1].split("## Repository structure", 1)[0]
+    rows = re.findall(r"^\\|\\s*[^|]+\\|\\s*([0-9][0-9,]*)\\s*\\|\\s*$", section, re.M)
+    shown = Counter(int(n.replace(",", "")) for n in rows)
+    if shown != expected_counts:
+        raise ValueError("README platform table differs from the source catalog")
+    for platform in platforms:
+        link = f"(../{platform['artifact_path']})"
+        if consumer_guide.count(link) != 1:
+            raise ValueError(
+                f"consumer guide must link {platform['artifact_path']} exactly once"
+            )
+
+
 def validate_readme_totals(root):
     readme = (root / "README.md").read_text(encoding="utf-8")
     catalog = json.loads((root / "generated/v1/catalog.json").read_bytes())
     enrichment = json.loads((root / "reports/enrichment-coverage-v1.json").read_bytes())
     distribution = json.loads((root / "generated/v1/distribution.json").read_bytes())
+    registry = json.loads((root / "sources/libretro-enrichment.json").read_bytes())
+    consumer_guide = (root / "docs/CONSUMERS.md").read_text(encoding="utf-8")
+    validate_platform_tables(readme, consumer_guide, catalog["platforms"])
+
     if catalog["source_revision"] != enrichment["source_revision"]:
         raise ValueError("source and enrichment reports differ in revision")
     totals = {
@@ -58,6 +79,11 @@ def validate_readme_totals(root):
             raise ValueError(f"README has stale {key} ({totals[key]:,})")
     if len(distribution["artifacts"]) != len(catalog["platforms"])*2+2:
         raise ValueError("distribution artifact count disagrees with source platforms")
+    expected_source_count = len(registry["files"])
+    if f"{expected_source_count} pinned Libretro DATs" not in readme:
+        raise ValueError(f"README has stale field-source count: {expected_source_count}")
+    if f"{len(distribution['artifacts'])} consumer artifacts" not in readme:
+        raise ValueError("README has stale runtime artifact count")
     return totals
 
 

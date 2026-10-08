@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "tools"))
-from check_docs import validate_markdown
+from check_docs import validate_markdown, validate_platform_tables
 
 
 class DocumentationTests(unittest.TestCase):
@@ -31,6 +31,19 @@ class DocumentationTests(unittest.TestCase):
         file = self.root / "README.md"
         file.write_text(chr(96) * 3 + "sh\n# Sample\n")
         self.assertIn("unclosed", validate_markdown(self.root, [file])[0])
+
+    def test_platform_table_and_consumer_links(self):
+        platforms = [
+            {"platform": "gb", "source_records": 8, "artifact_path": "generated/v1/gb.json"},
+            {"platform": "snes", "source_records": 11, "artifact_path": "generated/v1/snes.json"},
+        ]
+        readme = "## Collection\\n| Platform | Source records |\\n| A | 8 |\\n| B | 11 |\\n| **Total** | **19** |\\n\\n## Repository structure"
+        consumer = "[GB](../generated/v1/gb.json) [SNES](../generated/v1/snes.json)"
+        validate_platform_tables(readme, consumer, platforms)
+        with self.assertRaisesRegex(ValueError, "platform table"):
+            validate_platform_tables(readme.replace("| B | 11 |", "| B | 10 |"), consumer, platforms)
+        with self.assertRaisesRegex(ValueError, "consumer guide"):
+            validate_platform_tables(readme, consumer.replace("../generated/v1/gb.json", "missing"), platforms)
 
     def test_outside_root_cannot_be_linked(self):
         file = self.root / "README.md"
