@@ -60,7 +60,7 @@ The Rust `EnrichedPlatformCatalog::open(root, platform)` API verifies the source
 cargo run --locked -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4
 ```
 
-The Python `tools/lookup_enrichment.py` provides a corresponding offline interface. Neither needs game binaries or original DAT files during lookup.
+The Python `tools/lookup_enrichment.py` provides a corresponding offline interface. Both return the enrichment source ID and revision, while individual claims retain their original parsed `source_fields`, source path, Git blob SHA, and source ordinal. Unquoted numeric upstream fields remain strings; consumers may interpret those values separately. Neither interface needs game binaries or original DAT files during lookup.
 
 ## Portable runtime distribution
 

@@ -38,7 +38,7 @@ The per-platform [catalog manifest](../generated/v1/catalog.json) records the so
 
 ## Bibliographic claim model: enrichment-v1
 
-The `generated/enrichment-v1/<platform>.json` files preserve developer, publisher, release-year, release-month, genre, franchise, serial, ESRB rating, player count, and rumble-support claims from the pinned Libretro bibliographic DATs. Each claim carries its field name and value, original CRC32, source-title comment, file path, blob SHA, ordinal, and resolution status.
+The `generated/enrichment-v1/<platform>.json` files preserve developer, publisher, release-year, release-month, genre, franchise, serial, ESRB rating, player count, and rumble-support claims from the pinned Libretro bibliographic DATs. Each claim carries its field name and value, original CRC32, source-title comment, file path, blob SHA, ordinal, all original parsed `source_fields`, and resolution status. The enclosing enrichment bundle records the source ID and revision, both exposed by read-only consumers.
 
 Quoted and unquoted single-token source values remain source strings; counts and hardware flags are not silently interpreted as verified game properties. A claim is attached to a base observation only when a CRC32 has exactly one candidate and the metadata comment exactly matches that source record's title. Other observations remain unresolved with an explicit reason: `comment_mismatch`, `unmatched_crc`, `missing_comment`, `missing_value`, or `ambiguous_crc`. This is a match between source records, not verification of bibliographic facts.
 
