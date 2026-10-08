@@ -52,13 +52,23 @@ fn format_enriched_match(found: &EnrichedMediaMatch<'_>) -> Value {
 
 /// Add manually curated work/release/build identities only when exact source
 /// provenance and fingerprint both match a validated curated build.
-fn with_curated(mut output: Value, found: &MediaMatch<'_>, curated: Option<&CuratedCatalog>) -> Value {
+fn with_curated(
+    mut output: Value,
+    found: &MediaMatch<'_>,
+    curated: Option<&CuratedCatalog>,
+) -> Value {
     if let Some(catalog) = curated {
-        let identities: Vec<Value> = catalog.for_media(found).iter().map(|identity| json!({
-            "work": identity.work,
-            "release": identity.release,
-            "build": identity.build,
-        })).collect();
+        let identities: Vec<Value> = catalog
+            .for_media(found)
+            .iter()
+            .map(|identity| {
+                json!({
+                    "work": identity.work,
+                    "release": identity.release,
+                    "build": identity.build,
+                })
+            })
+            .collect();
         if let Value::Object(ref mut map) = output {
             map.insert("curated_identities".into(), json!(identities));
         }
