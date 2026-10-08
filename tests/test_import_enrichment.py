@@ -38,7 +38,7 @@ class EnrichmentTests(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0]["crc32"], "ABCD1234")
         with self.assertRaisesRegex(ValueError, "unterminated ROM"):
-            parse_field_dat(raw.replace(b" )", b" x"), field="developer")
+            parse_field_dat(raw.replace(b"\n )\n)", b"\n)"), field="developer")
 
     def test_bad_fields_fail_closed(self):
         malformed = SOURCE.replace(b'developer "Example Studio"', b'developer (bad)')
