@@ -2,7 +2,7 @@ import sys
 import unittest
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from lookup import find_matches
+from lookup import find_matches, find_title_matches
 
 DATA = {'platform':'gb', 'source_id':'libretro-no-intro','source_revision':'abc',
         'source_path':'archive.dat','source_blob_sha':'hash', 'records':[
@@ -26,6 +26,16 @@ class Lookups(unittest.TestCase):
             find_matches(DATA,sha1='bad')
     def test_absent(self):
         self.assertEqual(find_matches(DATA,sha1='C'*40), [])
+    def test_title_casefold_bounded_and_never_deduplicates(self):
+        found = find_title_matches(DATA, "sAm", limit=1)
+        self.assertEqual(found['query_kind'], 'source-title-substring')
+        self.assertEqual(found['total_source_records'], 1)
+        self.assertEqual(found['matches'][0]['source']['ordinal'], 1)
+        self.assertEqual(find_title_matches(DATA, "zzz")['match_count'], 0)
+        with self.assertRaises(ValueError):
+            find_title_matches(DATA, " ")
+        with self.assertRaises(ValueError):
+            find_title_matches(DATA, "sample", limit=0)
 
 if __name__ == '__main__':
     unittest.main()

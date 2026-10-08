@@ -6,7 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 
-from lookup import find_matches
+from lookup import find_matches, find_title_matches
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -57,7 +57,9 @@ def join_claims(matches, claims):
     return result
 
 
-def lookup(root, platform, *, sha1=None, crc32=None, size=None):
+def lookup(root, platform, *, sha1=None, crc32=None, size=None, title=None, limit=50):
+    if platform not in {"snes", "gb", "gbc", "gba", "nes", "nds"}:
+        raise ValueError("unsupported platform")
     distribution = json.loads((root / "generated/v1/distribution.json").read_bytes())
     if distribution.get("schema_version") != 1 or distribution.get("kind") != "ludographium-distribution":
         raise ValueError("unsupported distribution manifest")
@@ -69,6 +71,19 @@ def lookup(root, platform, *, sha1=None, crc32=None, size=None):
         raise ValueError("source and enrichment snapshot mismatch")
     if base["source_revision"] != distribution["source_revision"]:
         raise ValueError("distribution revision mismatch")
+    if title is not None:
+        if sha1 is not None or crc32 is not None or size is not None:
+            raise ValueError("title discovery must not be combined with hashes or size")
+        found = find_title_matches(base, title, limit=limit)
+        expanded = join_claims(found["matches"], enriched["claims"])
+        return {
+            "query_kind": "source-title-substring",
+            "total_source_records": found["total_source_records"],
+            "match_count": len(expanded),
+            "matches": expanded,
+        }
+    if limit != 50:
+        raise ValueError("limit only applies to title discovery")
     matches = find_matches(base, sha1=sha1, crc32=crc32, size=size)
     expanded = join_claims(matches, enriched["claims"])
     return {"match_count": len(expanded), "matches": expanded}
@@ -81,9 +96,12 @@ def main():
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--sha1")
     g.add_argument("--crc32")
+    g.add_argument("--title")
+    p.add_argument("--limit", type=int, default=50)
     p.add_argument("--size", type=int)
     a = p.parse_args()
-    result = lookup(a.root, a.platform, sha1=a.sha1, crc32=a.crc32, size=a.size)
+    result = lookup(a.root, a.platform, sha1=a.sha1, crc32=a.crc32, size=a.size,
+                    title=a.title, limit=a.limit)
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
 

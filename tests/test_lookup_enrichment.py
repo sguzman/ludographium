@@ -31,6 +31,16 @@ class EnrichedLookupTests(unittest.TestCase):
         self.assertEqual([x["field"] for x in result[0]["metadata_claims"]], ["developer"])
         self.assertEqual([x["field"] for x in result[0]["unresolved_source_claims"]], ["publisher"])
 
+    def test_title_discovery_with_verified_bundle(self):
+        # Reuses the pinned repository corpus and its existing SHA-256 manifest.
+        repo = Path(__file__).resolve().parents[1]
+        result = lookup(repo, "gb", title="10-pin bowling", limit=5)
+        self.assertEqual(result["query_kind"], "source-title-substring")
+        self.assertEqual(result["matches"][0]["source"]["ordinal"], 1)
+        self.assertIn("metadata_claims", result["matches"][0])
+        with self.assertRaises(ValueError):
+            lookup(repo, "gb", title=" ")
+
     def test_integrity_check_refuses_modified_enrichment(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
