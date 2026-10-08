@@ -340,6 +340,10 @@ mod tests {
             .metadata_claims
             .iter()
             .all(|claim| claim.resolution.status == "matched"));
+        assert!(matches[0].metadata_claims.iter().any(|claim| {
+            claim.source_fields.get("developer").map(String::as_str) == Some("Griptonite Games")
+        }));
+        assert_eq!(catalog.source_revision(), catalog.base().source().revision);
     }
 
     #[test]
