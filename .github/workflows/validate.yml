@@ -14,6 +14,8 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
+      - name: Rebuild-check identification catalog
+        run: python tools/rebuild_catalog.py --check
       - name: Verify SHA-256 distribution manifest
         run: python tools/build_distribution.py --check
       - name: Verify source field coverage report
