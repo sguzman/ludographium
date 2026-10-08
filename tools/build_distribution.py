@@ -23,6 +23,21 @@ def build_distribution(root: Path):
             raise ValueError(f"duplicate platform: {platform}")
         paths.add(expected)
 
+    # The enrichment index is optional for earlier v1 snapshots. When a
+    # source register exists, its four normalized claim bundles are published.
+    enrichment_registry = root / "sources/libretro-enrichment.json"
+    if enrichment_registry.exists():
+        enrichment = json.loads(enrichment_registry.read_bytes())
+        if enrichment.get("schema_version") != 1:
+            raise ValueError("unsupported enrichment source registry")
+        if enrichment["repository_revision"] != catalog["source_revision"]:
+            raise ValueError("enrichment and base source revisions differ")
+        valid_platforms = {p["platform"] for p in catalog["platforms"]}
+        for platform in sorted({f["platform"] for f in enrichment["files"]}):
+            if platform not in valid_platforms:
+                raise ValueError(f"unregistered enrichment platform: {platform}")
+            paths.add(f"generated/enrichment-v1/{platform}.json")
+
     artifacts = []
     for path in sorted(paths):
         data = (root / path).read_bytes()
