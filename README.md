@@ -31,4 +31,6 @@ This repository owns the metadata and its formats. It does **not** modify Starby
 
 ## Status
 
-New repository; initial dataset and tooling are being bootstrapped. See [roadmap](docs/ROADMAP.md) for the difference between implemented data, provisional source imports, and future curation.
+The first accession holds **12,780 source observations** from pinned Libretro No-Intro DATs for SNES, Game Boy, Game Boy Color and Game Boy Advance. The unmodified text DATs live in `archive/`, their normalized source observations in `generated/v1/`, and a machine-readable manifest in [`generated/v1/catalog.json`](generated/v1/catalog.json). These are **imported source claims**, not hand-verified canonical identities.
+
+The importer, integrity validator and offline fingerprint lookup CLI are included. Run `python3 tools/verify_catalog.py` and `python3 -m unittest discover -s tests -v` before distributing an update.

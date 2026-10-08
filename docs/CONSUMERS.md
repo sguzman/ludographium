@@ -19,6 +19,15 @@ Never search a ROM in this repository, auto-execute cheats, or claim that an unm
 
 A future consolidated `catalog.json` manifest will reference deterministic, per-platform files with byte lengths, SHA-256 digests, source attribution and contract versions. Cached consumers should pin a Git commit or release and verify it before use. The v1 JSON source records are a **provisional import contract**, not a promise that future curated APIs will have the same shape.
 
+## Offline lookup example
+
+```sh
+python3 tools/verify_catalog.py
+python3 tools/lookup.py --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
+```
+
+This returns the imported title and original source locator for a known source fingerprint. It does not open a ROM, assert legal ownership, launch an emulator or verify gameplay.
+
 ## ID and compatibility requirements
 
 - Respect stable `gb`, `gbc`, `gba`, `snes`, `nds` etc platform IDs shared by convention with Cheatarium; do not mutate Cheatarium to enforce this.

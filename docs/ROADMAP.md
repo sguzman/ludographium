@@ -6,9 +6,9 @@ This is a roadmap, not a changelog or a list of implied completed features.
 
 - [x] Define repository boundaries, layered identity and evidence rules.
 - [x] Pin the initial Libretro No-Intro source revision and file blobs.
-- [ ] Import and retain intact source snapshots for SNES, GB, GBC and GBA.
-- [ ] Build validated, deterministic per-platform source observation bundles.
-- [ ] Add input parser tests, checksum/record validation and a repeatable rebuild command.
+- [x] Import and retain intact source snapshots for SNES, GB, GBC and GBA.
+- [x] Build validated, deterministic per-platform source observation bundles.
+- [x] Add input parser tests, checksum/record validation and a repeatable rebuild command.
 - [ ] Inspect source licensing for each planned dataset, especially third-party overrides.
 
 ## Phase B: defensible identities
