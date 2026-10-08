@@ -3,6 +3,7 @@
 //! A fingerprint match associates media bytes with an upstream source record.
 //! It does not establish a canonical work, release, or build identity.
 
+pub mod collection;
 pub mod curated;
 pub mod enrichment;
 
