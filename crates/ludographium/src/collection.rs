@@ -90,12 +90,14 @@ fn read_error(error: zip::result::ZipError) -> CatalogError {
 ///
 /// Refuses excessive entry counts, oversized members and large aggregate
 /// uncompressed archives. All member content is streamed and fingerprinted.
-pub fn fingerprint_zip<R: Read + Seek>(reader: R)
-    -> Result<Vec<ZipMemberFingerprint>, CatalogError>
-{
+pub fn fingerprint_zip<R: Read + Seek>(
+    reader: R,
+) -> Result<Vec<ZipMemberFingerprint>, CatalogError> {
     let mut archive = zip::ZipArchive::new(reader).map_err(read_error)?;
     if archive.len() > MAX_ZIP_ENTRIES {
-        return Err(CatalogError::Invalid("ZIP archive has too many entries".into()));
+        return Err(CatalogError::Invalid(
+            "ZIP archive has too many entries".into(),
+        ));
     }
     let mut total = 0u64;
     let mut entries = Vec::new();
@@ -105,18 +107,29 @@ pub fn fingerprint_zip<R: Read + Seek>(reader: R)
             continue;
         }
         if file.size() > MAX_ZIP_MEMBER_BYTES
-            || total.checked_add(file.size()).is_none_or(|n| n > MAX_ZIP_TOTAL_BYTES)
+            || total
+                .checked_add(file.size())
+                .is_none_or(|n| n > MAX_ZIP_TOTAL_BYTES)
         {
-            return Err(CatalogError::Invalid("ZIP member exceeds allowed decoded size".into()));
+            return Err(CatalogError::Invalid(
+                "ZIP member exceeds allowed decoded size".into(),
+            ));
         }
         let entry_name = file.name().to_owned();
         let (sha1, size) = fingerprint_reader_bounded(&mut file, MAX_ZIP_MEMBER_BYTES)?;
-        total = total.checked_add(size)
+        total = total
+            .checked_add(size)
             .ok_or_else(|| CatalogError::Invalid("ZIP uncompressed size overflow".into()))?;
         if total > MAX_ZIP_TOTAL_BYTES {
-            return Err(CatalogError::Invalid("ZIP exceeds aggregate decoded-size limit".into()));
+            return Err(CatalogError::Invalid(
+                "ZIP exceeds aggregate decoded-size limit".into(),
+            ));
         }
-        entries.push(ZipMemberFingerprint { entry_name, sha1, size });
+        entries.push(ZipMemberFingerprint {
+            entry_name,
+            sha1,
+            size,
+        });
     }
     Ok(entries)
 }
@@ -143,7 +156,9 @@ fn fingerprint_reader_bounded<R: Read>(
             .checked_add(length as u64)
             .ok_or_else(|| CatalogError::Invalid("media input length overflow".into()))?;
         if count > limit {
-            return Err(CatalogError::Invalid("media input exceeds allowed byte limit".into()));
+            return Err(CatalogError::Invalid(
+                "media input exceeds allowed byte limit".into(),
+            ));
         }
         digest.update(&buffer[..length]);
     }
@@ -217,14 +232,21 @@ impl CatalogCollection {
 
     /// Match every regular ZIP member against all platforms. Members are not
     /// merged even when they share bytes or a filename.
-    pub fn lookup_zip<R: Read + Seek>(&self, archive: R)
-        -> Result<Vec<ZipMemberMatch<'_>>, CatalogError>
-    {
-        fingerprint_zip(archive)?.into_iter().map(|member| {
-            let matches = self.lookup_sha1(&member.sha1)?.into_iter()
-                .filter(|match_| match_.media.size == member.size).collect();
-            Ok(ZipMemberMatch { member, matches })
-        }).collect()
+    pub fn lookup_zip<R: Read + Seek>(
+        &self,
+        archive: R,
+    ) -> Result<Vec<ZipMemberMatch<'_>>, CatalogError> {
+        fingerprint_zip(archive)?
+            .into_iter()
+            .map(|member| {
+                let matches = self
+                    .lookup_sha1(&member.sha1)?
+                    .into_iter()
+                    .filter(|match_| match_.media.size == member.size)
+                    .collect();
+                Ok(ZipMemberMatch { member, matches })
+            })
+            .collect()
     }
 
     pub fn search_titles(
@@ -286,7 +308,11 @@ impl EnrichedCatalogCollection {
     /// Returns each platform's pinned bibliographic source ID and revision.
     pub fn enrichment_sources(&self) -> impl Iterator<Item = (&str, &str, &str)> {
         self.indexes.iter().map(|index| {
-            (index.base().platform(), index.source_id(), index.source_revision())
+            (
+                index.base().platform(),
+                index.source_id(),
+                index.source_revision(),
+            )
         })
     }
 
@@ -327,14 +353,21 @@ impl EnrichedCatalogCollection {
     }
 
     /// Archive lookup with the original bibliographic source evidence.
-    pub fn lookup_zip<R: Read + Seek>(&self, archive: R)
-        -> Result<Vec<EnrichedZipMemberMatch<'_>>, CatalogError>
-    {
-        fingerprint_zip(archive)?.into_iter().map(|member| {
-            let matches = self.lookup_sha1(&member.sha1)?.into_iter()
-                .filter(|match_| match_.base.media.size == member.size).collect();
-            Ok(EnrichedZipMemberMatch { member, matches })
-        }).collect()
+    pub fn lookup_zip<R: Read + Seek>(
+        &self,
+        archive: R,
+    ) -> Result<Vec<EnrichedZipMemberMatch<'_>>, CatalogError> {
+        fingerprint_zip(archive)?
+            .into_iter()
+            .map(|member| {
+                let matches = self
+                    .lookup_sha1(&member.sha1)?
+                    .into_iter()
+                    .filter(|match_| match_.base.media.size == member.size)
+                    .collect();
+                Ok(EnrichedZipMemberMatch { member, matches })
+            })
+            .collect()
     }
 
     pub fn search_titles(
@@ -376,9 +409,16 @@ mod tests {
     fn synthetic_zip() -> Vec<u8> {
         use std::io::{Cursor, Write};
         let mut writer = zip::ZipWriter::new(Cursor::new(Vec::new()));
-        writer.start_file("nested/example.gb", zip::write::SimpleFileOptions::default()
-            .compression_method(zip::CompressionMethod::Deflated)).unwrap();
-        writer.write_all(b"synthetic test data, not a game file").unwrap();
+        writer
+            .start_file(
+                "nested/example.gb",
+                zip::write::SimpleFileOptions::default()
+                    .compression_method(zip::CompressionMethod::Deflated),
+            )
+            .unwrap();
+        writer
+            .write_all(b"synthetic test data, not a game file")
+            .unwrap();
         writer.finish().unwrap().into_inner()
     }
 
@@ -390,7 +430,8 @@ mod tests {
         assert_eq!(fingerprints.len(), 1);
         assert_eq!(fingerprints[0].entry_name, "nested/example.gb");
         assert_eq!(fingerprints[0].size, 36);
-        let (expected, count) = fingerprint_reader(&b"synthetic test data, not a game file"[..]).unwrap();
+        let (expected, count) =
+            fingerprint_reader(&b"synthetic test data, not a game file"[..]).unwrap();
         assert_eq!(fingerprints[0].sha1, expected);
         assert_eq!(fingerprints[0].size, count);
         let collection = CatalogCollection::open(root()).unwrap();
@@ -398,7 +439,9 @@ mod tests {
         assert_eq!(scanned.len(), 1);
         assert!(scanned[0].matches.is_empty());
         let enriched = EnrichedCatalogCollection::open(root()).unwrap();
-        assert!(enriched.lookup_zip(Cursor::new(&zip)).unwrap()[0].matches.is_empty());
+        assert!(enriched.lookup_zip(Cursor::new(&zip)).unwrap()[0]
+            .matches
+            .is_empty());
         assert!(fingerprint_zip(Cursor::new(b"not a zip".as_slice())).is_err());
     }
 

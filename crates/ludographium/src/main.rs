@@ -101,20 +101,27 @@ fn lookup_all_platforms(
             let result = collection.search_titles(query, limit)?;
             (result.matches, Some(result.total_source_records))
         } else if let Some(path) = file {
-            (collection.lookup_reader(BufReader::new(File::open(path)?))?, None)
+            (
+                collection.lookup_reader(BufReader::new(File::open(path)?))?,
+                None,
+            )
         } else if let Some(hash) = sha1 {
             (collection.lookup_sha1(hash)?, None)
         } else {
-            (collection.lookup_crc32(crc32.unwrap(), size.unwrap())?, None)
+            (
+                collection.lookup_crc32(crc32.unwrap(), size.unwrap())?,
+                None,
+            )
         };
         if title.is_none() && file.is_none() {
             if let Some(expected) = size {
                 found.retain(|hit| hit.base.media.size == expected);
             }
         }
-        let matches: Vec<Value> = found.iter().map(|hit| {
-            with_curated(format_enriched_match(hit), &hit.base, curated)
-        }).collect();
+        let matches: Vec<Value> = found
+            .iter()
+            .map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated))
+            .collect();
         let mut output = json!({
             "platform_scope": "all-registered",
             "platforms_searched": platforms,
@@ -140,20 +147,27 @@ fn lookup_all_platforms(
             let result = collection.search_titles(query, limit)?;
             (result.matches, Some(result.total_source_records))
         } else if let Some(path) = file {
-            (collection.lookup_reader(BufReader::new(File::open(path)?))?, None)
+            (
+                collection.lookup_reader(BufReader::new(File::open(path)?))?,
+                None,
+            )
         } else if let Some(hash) = sha1 {
             (collection.lookup_sha1(hash)?, None)
         } else {
-            (collection.lookup_crc32(crc32.unwrap(), size.unwrap())?, None)
+            (
+                collection.lookup_crc32(crc32.unwrap(), size.unwrap())?,
+                None,
+            )
         };
         if title.is_none() && file.is_none() {
             if let Some(expected) = size {
                 found.retain(|hit| hit.media.size == expected);
             }
         }
-        let matches: Vec<Value> = found.iter().map(|hit| {
-            with_curated(format_match(hit), hit, curated)
-        }).collect();
+        let matches: Vec<Value> = found
+            .iter()
+            .map(|hit| with_curated(format_match(hit), hit, curated))
+            .collect();
         let mut output = json!({
             "platform_scope": "all-registered",
             "platforms_searched": platforms,
@@ -200,23 +214,38 @@ fn lookup_zip_mode(
         if enriched {
             let all = EnrichedCatalogCollection::open(root)?;
             platforms = all.platform_ids().map(ToOwned::to_owned).collect();
-            enrichment_sources = all.enrichment_sources()
+            enrichment_sources = all
+                .enrichment_sources()
                 .map(|(p, id, revision)| json!({"platform":p, "id":id, "revision":revision}))
                 .collect();
             for found in all.lookup_zip(BufReader::new(File::open(path)?))? {
-                let matches = found.matches.iter().map(|hit| {
-                    with_curated(format_enriched_match(hit), &hit.base, curated)
-                }).collect();
-                members.push(zip_entry(&found.member.entry_name, &found.member.sha1, found.member.size, matches));
+                let matches = found
+                    .matches
+                    .iter()
+                    .map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated))
+                    .collect();
+                members.push(zip_entry(
+                    &found.member.entry_name,
+                    &found.member.sha1,
+                    found.member.size,
+                    matches,
+                ));
             }
         } else {
             let all = CatalogCollection::open(root)?;
             platforms = all.platform_ids().map(ToOwned::to_owned).collect();
             for found in all.lookup_zip(BufReader::new(File::open(path)?))? {
-                let matches = found.matches.iter().map(|hit| {
-                    with_curated(format_match(hit), hit, curated)
-                }).collect();
-                members.push(zip_entry(&found.member.entry_name, &found.member.sha1, found.member.size, matches));
+                let matches = found
+                    .matches
+                    .iter()
+                    .map(|hit| with_curated(format_match(hit), hit, curated))
+                    .collect();
+                members.push(zip_entry(
+                    &found.member.entry_name,
+                    &found.member.sha1,
+                    found.member.size,
+                    matches,
+                ));
             }
         }
     } else if enriched {
@@ -228,26 +257,41 @@ fn lookup_zip_mode(
             "revision": catalog.source_revision()
         }));
         for member in fingerprint_zip(BufReader::new(File::open(path)?))? {
-            let matches = catalog.lookup_sha1(&member.sha1)?.iter()
+            let matches = catalog
+                .lookup_sha1(&member.sha1)?
+                .iter()
                 .filter(|hit| hit.base.media.size == member.size)
                 .map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated))
                 .collect();
-            members.push(zip_entry(&member.entry_name, &member.sha1, member.size, matches));
+            members.push(zip_entry(
+                &member.entry_name,
+                &member.sha1,
+                member.size,
+                matches,
+            ));
         }
     } else {
         let catalog = PlatformCatalog::open(root, platform)?;
         platforms.push(platform.to_owned());
         for member in fingerprint_zip(BufReader::new(File::open(path)?))? {
-            let matches = catalog.lookup_sha1(&member.sha1)?.iter()
+            let matches = catalog
+                .lookup_sha1(&member.sha1)?
+                .iter()
                 .filter(|hit| hit.media.size == member.size)
                 .map(|hit| with_curated(format_match(hit), hit, curated))
                 .collect();
-            members.push(zip_entry(&member.entry_name, &member.sha1, member.size, matches));
+            members.push(zip_entry(
+                &member.entry_name,
+                &member.sha1,
+                member.size,
+                matches,
+            ));
         }
     }
-    let match_count: usize = members.iter().map(|entry: &Value| {
-        entry["match_count"].as_u64().unwrap_or(0) as usize
-    }).sum();
+    let match_count: usize = members
+        .iter()
+        .map(|entry: &Value| entry["match_count"].as_u64().unwrap_or(0) as usize)
+        .sum();
     let mut result = json!({
         "input_kind": "read-only-zip-members",
         "platform_scope": if platform == "all" { "all-registered" } else { "selected" },
