@@ -18,7 +18,7 @@ The first accession comes from a pinned [Libretro Database](https://github.com/l
 | Game Boy Advance | 3,692 |
 | **Total** | **12,780** |
 
-These counts represent **source records**, not unique games or independently verified releases. Current records include source titles and available regions, serials, date fields, file sizes, and CRC32/MD5/SHA-1 fingerprints. Coverage will expand to richer bibliographic information and additional systems.
+These counts represent **source records**, not unique games or independently verified releases. Current records include source titles and available regions, serials, date fields, file sizes, and CRC32/MD5/SHA-1 fingerprints. Coverage will expand to richer bibliographic information and additional systems. A [source-coverage audit](reports/source-coverage-v1.json) measures which fields are populated and highlights repeated source titles and fingerprints.
 
 ## How it is organized
 

@@ -10,6 +10,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Generate deterministic source-observation JSON for all four platforms.
 - [x] Validate imports, source identities, generated outputs, and counts.
 - [x] Provide a basic offline SHA-1 and CRC32 lookup utility.
+- [x] Publish reproducible per-platform field-coverage and repeated-fingerprint audits.
 - [ ] Complete source-specific redistribution review for future providers.
 
 ## Identity and curation

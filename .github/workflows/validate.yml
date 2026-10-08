@@ -16,12 +16,8 @@ jobs:
         run: python tools/verify_catalog.py
       - name: Verify SHA-256 distribution manifest
         run: python tools/build_distribution.py --check
-      - name: Prepare source-coverage report
-        run: |
-          python tools/audit_catalog.py --write
-          echo BEGIN-LUDOGRAPHIUM-COVERAGE
-          cat reports/source-coverage-v1.json
-          echo END-LUDOGRAPHIUM-COVERAGE
+      - name: Verify source field coverage report
+        run: python tools/audit_catalog.py --check
   rust:
     runs-on: ubuntu-latest
     steps:

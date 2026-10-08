@@ -23,9 +23,11 @@ The importer checks the raw DAT against the expected Git blob SHA before produci
 ```sh
 python3 -m unittest discover -s tests -v
 python3 tools/verify_catalog.py
+python3 tools/build_distribution.py --check
+python3 tools/audit_catalog.py --check
 ```
 
-The verification command reimports all four archived DATs, compares the generated JSON bytes with the committed artifacts, and checks each input/output Git blob SHA and manifest count. The tests cover parser and lookup behavior, including checksum validation and ambiguous CRC32 matches.
+The verification command reimports all four archived DATs, compares the generated JSON bytes with the committed artifacts, and checks each input/output Git blob SHA and manifest count. The tests cover parser and lookup behavior, including checksum validation and ambiguous CRC32 matches. The distribution check validates SHA-256 digests, while the source audit checks metadata field counts and repeated identifiers against the committed report.
 
 ## Adding or updating a source
 
