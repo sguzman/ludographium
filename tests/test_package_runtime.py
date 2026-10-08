@@ -47,6 +47,32 @@ class PackagingTests(unittest.TestCase):
             self.assertEqual(tar.extractfile("generated/v1/catalog.json").read(),
                              b'{"catalog":"example"}\n')
 
+    def test_attribution_files_travel_with_runtime_index(self):
+        payloads = {
+            "sources/libretro-no-intro.json": b'{"source_id":"pinned"}\n',
+            "sources/libretro-enrichment.json": b'{"source_id":"fields"}\n',
+            "METADATA-NOTICE.md": b"# Source attribution\n",
+        }
+        for name, data in payloads.items():
+            target = self.root / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_bytes(data)
+            self.manifest["artifacts"].append({
+                "path": name, "bytes": len(data),
+                "sha256": hashlib.sha256(data).hexdigest(),
+            })
+        self.write_manifest()
+        with tarfile.open(fileobj=BytesIO(build_archive(self.root)), mode="r:gz") as tar:
+            names = set(tar.getnames())
+            self.assertEqual(names, set(payloads) | {
+                "generated/v1/catalog.json", "generated/v1/distribution.json"
+            })
+            self.assertEqual(tar.extractfile("METADATA-NOTICE.md").read(),
+                             payloads["METADATA-NOTICE.md"])
+        (self.root / "sources/libretro-no-intro.json").write_bytes(b"changed")
+        with self.assertRaisesRegex(ValueError, "checksum/size mismatch"):
+            build_archive(self.root)
+
     def test_rejects_corrupted_artifact(self):
         (self.root / self.path).write_bytes(b"tampered")
         with self.assertRaisesRegex(ValueError, "checksum/size mismatch"):
