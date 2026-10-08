@@ -89,6 +89,11 @@ fn valid_hash(s: &str, width: usize) -> bool {
     s.len() == width && s.bytes().all(|b| b.is_ascii_hexdigit())
 }
 
+fn source_fields_agree(claim: &MetadataClaim) -> bool {
+    claim.source_fields.get(&claim.field) == claim.value.as_ref()
+        && claim.source_fields.get("comment") == claim.source_comment.as_ref()
+}
+
 fn checked_enrichment_file(root: &Path, platform: &str) -> Result<Vec<u8>, CatalogError> {
     let distribution: Distribution =
         serde_json::from_slice(&fs::read(root.join("generated/v1/distribution.json"))?)?;
@@ -158,6 +163,7 @@ impl EnrichedPlatformCatalog {
                 || claim.source_ordinal == 0
                 || claim.field.is_empty()
                 || claim.source_path.is_empty()
+                || !source_fields_agree(claim)
             {
                 return Err(CatalogError::Invalid(
                     "malformed provenance-bearing claim".into(),
@@ -388,6 +394,33 @@ mod tests {
             .unwrap()
             .is_empty());
         assert!(catalog.lookup_sha1(&"0".repeat(40)).unwrap().is_empty());
+    }
+
+    #[test]
+    fn rejected_claims_cannot_disagree_with_original_source_fields() {
+        let mut fields = BTreeMap::new();
+        fields.insert("developer".to_owned(), "Example Studio".to_owned());
+        fields.insert("comment".to_owned(), "Example (USA)".to_owned());
+        let mut claim = MetadataClaim {
+            field: "developer".into(),
+            value: Some("Example Studio".into()),
+            source_fields: fields,
+            crc32: "ABCD1234".into(),
+            source_ordinal: 1,
+            source_comment: Some("Example (USA)".into()),
+            source_path: "metadat/developer/example.dat".into(),
+            source_blob_sha: "a".repeat(40),
+            resolution: ClaimResolution {
+                status: "matched".into(),
+                base_source_ordinal: Some(1),
+            },
+        };
+        assert!(source_fields_agree(&claim));
+        claim.value = Some("Different Studio".into());
+        assert!(!source_fields_agree(&claim));
+        claim.value = Some("Example Studio".into());
+        claim.source_comment = Some("Different title".into());
+        assert!(!source_fields_agree(&claim));
     }
 
     #[test]
