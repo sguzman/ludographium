@@ -1,28 +1,44 @@
-# Metadata source strategy (2026-10-08)
+# Metadata source strategy
 
-The initial No-Intro-derived accession is excellent for **image identification**, but it is not a complete bibliographic catalog. Richer work/release metadata requires other sources and, critically, separately evaluated reuse rights. Do not download everything merely because an API makes it possible.
+*Research status: 2026-10-08.*
 
-| Provider | Potential value | Access/rights assessment | Current decision |
+The initial No-Intro-derived accession provides strong coverage for cartridge image identification. Bibliographic completeness requires different kinds of evidence: publication history, localizations, publisher and developer credits, alternate titles, and edition relationships. New providers are assessed on both data quality and permitted redistribution.
+
+## Candidate sources
+
+| Provider | Relevant metadata | Reuse considerations | Status |
 | --- | --- | --- | --- |
-| [Libretro Database](https://github.com/libretro/libretro-database) / [No-Intro](https://datomatic.no-intro.org/) | Cartridge titles, regions, serials, revision hints, CRC32/MD5/SHA-1, occasional date fragments | Libretro repo declares CC BY-SA 4.0; original upstream authors must be credited; check third-party components separately | **First pinned source accession active** |
-| [Redump](https://wiki.redump.info/Redump) | Optical media labels, versions, disc checksums and identifiers | Public informational database; a general redistribution license has **not** been established here | Research-only; no bulk mirror until rights review |
-| [GameTDB](https://www.gametdb.com/Main/FAQ) | Nintendo platform game metadata, IDs, cover references | FAQ encourages use in software with a GameTDB link and contacting maintainers; explicitly says website reuse requires permission | Seek permission/clarification before redistributing its records in a public repository; art separately |
-| [MobyGames API](https://www.mobygames.com/api/subscribe/) | Publishers, developers, dates, editions, platform bibliographic metadata | Subscription/API usage and attribution obligations; explicitly prohibits repackaging/reselling data | **Do not bulk-import or mirror** into Ludographium absent explicit permission |
-| [ScreenScraper API](https://www.screenscraper.fr/webapi2.php) | Localized titles, media references, platform and game metadata | Requires developer credentials; free distributed applications or prior authorization; rate limits/quotas | No bulk mirror without project authorization and rights clarification |
-| [TheGamesDB API](https://api.thegamesdb.net/) | Publishers, developers, platform descriptions and game dates | API endpoints exist, but redistribution terms require separate review | Candidate; no import until terms reviewed |
-| [OpenVGDB](https://github.com/OpenVGDB/OpenVGDB/issues/43) | Large ROM/game metadata cross-reference | Public license ambiguity noted in an unresolved issue | Hold pending clear license |
+| [Libretro Database](https://github.com/libretro/libretro-database) / [No-Intro](https://datomatic.no-intro.org/) | Cartridge titles, serials, regions, revisions and CRC32/MD5/SHA-1 fingerprints | Libretro declares CC BY-SA 4.0; original contributors and third-party content require attribution and source-specific review | **Imported:** four pinned platform DATs |
+| [Redump](https://wiki.redump.info/Redump) | Disc identifiers, media revisions and fingerprints | Publicly accessible reference material; bulk redistribution rights are not established by this assessment | Research candidate |
+| [GameTDB](https://www.gametdb.com/Main/FAQ) | Nintendo release identifiers, labels and art references | Terms differentiate software use, site reuse and artwork; clarification is needed for redistribution in this repository | Permission review |
+| [MobyGames API](https://www.mobygames.com/api/subscribe/) | Publisher/developer credits, release history, platforms and editions | API terms and attribution requirements constrain redistribution and repackaging | Rights review before import |
+| [ScreenScraper](https://www.screenscraper.fr/webapi2.php) | Localized titles, platform records and media references | API access, rate limits and developer/application authorizations apply; metadata and image rights need separate review | Authorization review |
+| [TheGamesDB](https://api.thegamesdb.net/) | Titles, companies, release dates and descriptions | Redistribution permission and API terms need further review | Research candidate |
+| [OpenVGDB](https://github.com/OpenVGDB/OpenVGDB/issues/43) | Game and ROM-metadata cross-references | Public reuse license remains insufficiently clear from the material reviewed | Rights review |
 
-## Acquisition priorities
+This table records *research leads*, not approved import sources. The specific terms and source versions will be rechecked at accession time.
 
-1. **Fingerprint reliability:** finish source snapshot parity, explicit header/no-header byte-domain rules, collisions/ambiguity handling.
-2. **Bibliographic enrichment:** source independently documented publisher, developer, original release dates and alternate/localized titles. Assert only what each provider actually supports.
-3. **Canonical identities:** resolve competing claims with stable work/release/build IDs, documented decisions and unresolved links.
-4. **Media:** point to licensed artwork only after asset-specific rights checks; image URLs alone are not permission to rehost.
+## Selection criteria
 
-## Import qualification
+A useful upstream collection should provide:
 
-For each proposed source, first record authorship/maintainer, scope, update cadence, machine interface and access requirements, license/contract for bulk redistribution, attribution requirements, revision pinning capabilities, and whether raw mirrors are allowed. A service permitting queries from a free frontend does not necessarily permit rebuilding and republishing its entire database.
+- Clear authorship and stable, citable record identities.
+- Coverage of fields missing from the existing fingerprint archive.
+- A reliable update history or immutable downloadable snapshots.
+- Provenance sufficient to distinguish claims from independently checked facts.
+- Permitted access, transformation, attribution, and redistribution under stated terms.
+- Identifiers or correspondence evidence that support conservative reconciliation.
 
-Avoid treating scraped website entries as public-domain facts without analyzing database rights and terms. **No dataset is approved solely because it is publicly viewable.**
+Public availability and an available API are different from permission to publish an independent database. Metadata licenses and image/media rights are evaluated separately.
 
-Primary documentation and the source register, not this exploratory matrix alone, govern actual accessions.
+## Order of work
+
+**First, reliable identity evidence.** Maintain fidelity to imported source records, validate exact byte domains, and make collisions or uncertain joins visible.
+
+**Second, bibliographic enrichment.** Add carefully sourced release dates, companies, editions, and localized titles, with attribution for each provider.
+
+**Third, canonical curation.** Resolve sources into stable work, release, and build entities with explicit supporting evidence and a record of unresolved disagreements.
+
+**Finally, media references.** Develop an asset-reference layer once the provenance and rights for each asset category are defined.
+
+Provider approvals and actual snapshot identities are maintained in the [source register](../sources/), rather than inferred from this research matrix.

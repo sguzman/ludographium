@@ -1,8 +1,13 @@
-# Sources
+# Source register
 
-A source register is a public ledger of **which evidence Ludographium depends upon**. We do not silently scrape or combine database values without attribution.
+Ludographium's source register records the origin, snapshot identity, and reuse conditions of each imported dataset. It provides the attribution and audit trail behind the machine-readable catalog.
 
-- [Libretro / No-Intro DATs](libretro-no-intro.json): pinned SNES, GB, GBC and GBA snapshots, checksums and reuse caveats.
-- Redump, GameTDB, MobyGames and other sources remain **candidates** until their reuse conditions, coverage, fetch workflow and provenance requirements have been reviewed.
+## Accessioned sources
 
-Provider rights and suitability are assessed in [the source strategy](../docs/SOURCE-STRATEGY.md). The Libretro Database declares CC BY-SA 4.0; data originating in No-Intro is credited accordingly. Do not imply that independently sourced cover art or descriptions inherit this permission. For all imported claims, retain the upstream file and ordinal.
+- [Libretro Database / No-Intro-derived DATs](libretro-no-intro.json) — pinned source files for SNES, Game Boy, Game Boy Color and Game Boy Advance, with upstream paths, Git blob hashes, authorship and licensing context.
+
+Original source files are preserved under [`archive/libretro-no-intro/`](../archive/libretro-no-intro/). Their imported observations are published in [`generated/v1/`](../generated/v1/).
+
+## Additional providers
+
+Other candidate catalogs and their reuse considerations are described in [metadata source strategy](../docs/SOURCE-STRATEGY.md). Each new accession will receive a source-specific register entry once the evidence, revision and permission requirements have been established.

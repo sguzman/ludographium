@@ -1,29 +1,35 @@
-# Provenance and reuse policy
+# Provenance and reuse
 
-Every imported snapshot must document the exact upstream organization, repository, revision, source path, Git blob SHA, source revision/version when provided, URL, collection date and declared license. Attribution must survive generated exports.
+A useful game catalog must let readers distinguish an original observation, an imported source claim, and a later editorial interpretation. Ludographium keeps that evidence chain explicit.
 
-**Original vs. interpretation:** untouched DAT files go under `archive/<source>/`. Transformed records go under `generated/`; explanatory corrections go in future `curated/`. The original is never silently patched, and a source author's claim never becomes a test result just because it was indexed.
+## Source accession
 
-## Initial source
+Each accession identifies the upstream project and authors, repository or distribution URL, immutable snapshot revision, original file path, source-file identity, retrieval date, and stated rights information. Generated records retain their source identity and ordinal so an individual claim can be traced to its original context.
 
-The first collection uses the Libretro Database repository's `metadat/no-intro` DATs. Libretro's repository declares **CC BY-SA 4.0** and explains that the DATs are imported from No-Intro and other groups. Attribution therefore names both Libretro and the No-Intro upstream, and identifies the specific snapshot rather than crediting Ludographium as original author.
+Original source files reside in `archive/`; source registers in `sources/`; and reproducible transformations in `generated/`. Curated corrections will use separate records rather than changing the evidence archive.
 
-- https://github.com/libretro/libretro-database
-- https://github.com/libretro/libretro-database/blob/master/LICENSE
-- https://github.com/libretro/libretro-database/blob/master/README.md
-- https://creativecommons.org/licenses/by-sa/4.0/
-- https://datomatic.no-intro.org/
+## First collection: Libretro and No-Intro
 
-**Caveat:** repository-level licensing does not guarantee that every third-party dataset, image or description carries identical rights. Track component terms and hold back any material whose redistribution rights are unclear. Downloading or indexing an image URL is not a license to redistribute the image. Do not ingest paywalled/API data contrary to contractual terms.
+The current collection comes from the [Libretro Database](https://github.com/libretro/libretro-database), using the `metadat/no-intro` DAT files derived from the work of [No-Intro](https://datomatic.no-intro.org/).
 
-For redistributed material from CC BY-SA sources, comply with attribution, ShareAlike and marking adaptations. Code, if later licensed separately, must clearly distinguish its license from third-party dataset terms. Consumers inheriting source content must preserve attribution. See `sources/` for source-specific attribution.
+- **Repository revision:** `fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90`
+- **DAT header version:** `2026.08.01`
+- **Collection date:** 2026-10-08 UTC
+- **Declared Libretro repository license:** [Creative Commons Attribution-ShareAlike 4.0](https://creativecommons.org/licenses/by-sa/4.0/), per the [upstream license file](https://github.com/libretro/libretro-database/blob/fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90/LICENSE)
+- **File-level source identities:** [`sources/libretro-no-intro.json`](../sources/libretro-no-intro.json)
 
-## Required evidence for each accession
+Both Libretro contributors and upstream No-Intro contributors are credited. The repository-level license statement is not automatically proof that every third-party component, description, or media asset is covered by the same terms. Source-specific rights and permitted reuse are assessed before expanding the archive.
 
-- Source identifier, upstream author/project, repository URL, upstream file path.
-- Immutable revision and original file blob hash; content digest when available.
-- Retrieval/collection timestamp, tooling/version, source declared license and rights caveats.
-- Original files if redistribution is allowed; transformed records tied back to the original ordinal or upstream identifier.
-- Counts, validation failures and any deliberate exclusions.
+The current JSON indexes are transformations of the DAT inputs. Attribution and ShareAlike obligations associated with eligible CC BY-SA material apply to redistributed adaptations. Separately sourced descriptions and images require their own rights assessment.
 
-Never present title-based matches as verified, and do not make a claim about publishing date or product code without provenance.
+## Evidence quality
+
+An imported name, date, serial, or fingerprint is attributed to its source; importing it does not independently verify it. Two providers may disagree, or may be describing different releases of the same work. Such differences remain visible until supported curation resolves them.
+
+Future curated assertions will record their evidence and decision basis. Lookup results from the current exports are specifically **source fingerprint associations**, not authentication certificates or verified work identities.
+
+## Integrity
+
+The [source register](../sources/libretro-no-intro.json) includes each original DAT's Git blob SHA. The [catalog manifest](../generated/v1/catalog.json) records those identities alongside the generated JSON blob identities and record counts. The [verification tool](../tools/verify_catalog.py) reproduces the exports and checks all registered identities.
+
+See [importing and validation](IMPORTING.md) for the rebuild procedure and [source evaluation](SOURCE-STRATEGY.md) for prospective providers.

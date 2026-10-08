@@ -1,35 +1,37 @@
 # Roadmap
 
-This is a roadmap, not a changelog or a list of implied completed features.
+Ludographium is growing from a source-faithful identification index into a catalog of distinct works, releases, and media variants with documented evidence. The roadmap separates completed infrastructure from planned expansion.
 
-## Phase A: reliable source accession
+## Source foundation
 
-- [x] Define repository boundaries, layered identity and evidence rules.
-- [x] Pin the initial Libretro No-Intro source revision and file blobs.
-- [x] Import and retain intact source snapshots for SNES, GB, GBC and GBA.
-- [x] Build validated, deterministic per-platform source observation bundles.
-- [x] Add input parser tests, checksum/record validation and a repeatable rebuild command.
-- [ ] Inspect source licensing for each planned dataset, especially third-party overrides.
+- [x] Define the catalog's scope and layered identity model.
+- [x] Register an immutable Libretro / No-Intro-derived source snapshot.
+- [x] Preserve original SNES, GB, GBC, and GBA DAT files.
+- [x] Generate deterministic source-observation JSON for all four platforms.
+- [x] Validate imports, source identities, generated outputs, and counts.
+- [x] Provide a basic offline SHA-1 and CRC32 lookup utility.
+- [ ] Complete source-specific redistribution review for future providers.
 
-## Phase B: defensible identities
+## Identity and curation
 
-- [ ] Build conservative candidate matches across independent providers and localized aliases.
-- [ ] Store disputed fields and alternative assertions with source locators.
-- [ ] Curate canonical work, release and build identities without overwriting sources.
-- [ ] Add stable ID mapping to Cheatarium's platform/game/revision terms.
-- [ ] Add NES and DS, then broaden to other console and handheld libraries.
+- [ ] Design stable identifiers for game works, releases, and builds.
+- [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
+- [ ] Preserve conflicting assertions and editorial resolution evidence.
+- [ ] Establish evidence-based correspondences with external game metadata collections.
+- [ ] Extend the collection to NES and Nintendo DS, followed by additional systems.
 
-## Phase C: distribution
+## Distribution and consumers
 
-- [ ] SHA-256 verified, reproducible, versioned offline release manifests.
-- [ ] Read-only Rust consumer and CLI for exact fingerprint lookup.
-- [ ] Document platform-specific normalization and exact byte domains.
-- [ ] Publish migration/compatibility rules for future contract versions.
+- [ ] Publish per-artifact SHA-256 digests and byte lengths in a release manifest.
+- [ ] Provide a versioned Rust read-only client with exact-fingerprint lookup.
+- [ ] Specify and test platform-specific byte-domain and header normalization rules.
+- [ ] Publish compatibility and migration guidance for future consumer contracts.
 
-## Phase D: enrichment
+## Bibliographic enrichment
 
-- [ ] Additional release metadata with licensed/permitted sources: publisher, developer, dates, languages, serials.
-- [ ] Art reference registry with separate rights review; do not redistribute protected images by default.
-- [ ] Source corrections, conflict reports and incremental refresh automation.
+- [ ] Accession sources for publishers, developers, publication dates and localized titles, as reuse permits.
+- [ ] Curate source corrections without modifying original archives.
+- [ ] Introduce an attributed art-reference catalog with rights metadata.
+- [ ] Support incremental source refreshes and reproducible index releases.
 
-Keep the README a clear introduction. Detailed progress and implementation logs live here and in commit history.
+Current data counts and usage examples are maintained in the [README](../README.md). Implementation history lives in Git commits.
