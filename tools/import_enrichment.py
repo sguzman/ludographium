@@ -11,6 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 BLOCK = re.compile(r"^game \(\r?\n(.*?)^\)\s*$", re.M | re.S)
 SCALAR = re.compile(r'^\s*([a-z0-9_]+)\s+"((?:\\.|[^"\\])*)"\s*$', re.I)
 ROM = re.compile(r"^\s*rom\s*\(\s*crc\s+([0-9a-f]{8})\s*\)\s*$", re.I)
+ROM_BEGIN = re.compile(r"^\s*rom\s*\(\s*$", re.I)
+ROM_CRC = re.compile(r"^\s*crc\s+([0-9a-f]{8})\s*$", re.I)
+ROM_END = re.compile(r"^\s*\)\s*$")
 
 
 def blob_sha(raw):
@@ -32,14 +35,29 @@ def parse_field_dat(raw, *, field):
     for ordinal, block in enumerate(blocks, 1):
         values = {}
         crc = None
+        in_rom = False
         for line in block.group(1).splitlines():
             if not line.strip():
                 continue
+            if in_rom:
+                if ROM_END.fullmatch(line):
+                    in_rom = False
+                    continue
+                field = ROM_CRC.fullmatch(line)
+                if field and crc is None:
+                    crc = field[1].upper()
+                    continue
+                raise ValueError(f"unsupported multiline ROM field at {ordinal}: {line[:100]}")
             rm = ROM.fullmatch(line)
             if rm:
                 if crc is not None:
                     raise ValueError(f"duplicate crc in source occurrence {ordinal}")
                 crc = rm[1].upper()
+                continue
+            if ROM_BEGIN.fullmatch(line):
+                if crc is not None:
+                    raise ValueError(f"duplicate ROM at source occurrence {ordinal}")
+                in_rom = True
                 continue
             sm = SCALAR.fullmatch(line)
             if sm is None:
@@ -48,6 +66,8 @@ def parse_field_dat(raw, *, field):
             if key in values:
                 raise ValueError(f"duplicate {key} at source occurrence {ordinal}")
             values[key] = unquote(sm[2])
+        if in_rom:
+            raise ValueError(f"unterminated ROM block at source occurrence {ordinal}")
         if crc is None:
             raise ValueError(f"missing crc at source occurrence {ordinal}")
         observations.append({

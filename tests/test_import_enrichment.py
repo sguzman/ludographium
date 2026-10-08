@@ -26,6 +26,20 @@ class EnrichmentTests(unittest.TestCase):
         self.assertEqual(rows[0]["source_ordinal"], 1)
         self.assertIsNone(rows[1]["comment"])
 
+    def test_multiline_crc_records(self):
+        raw = b'''game (
+ comment "Sample (USA)"
+ developer "Studio"
+ rom (
+  crc ABCD1234
+ )
+)'''
+        rows = parse_field_dat(raw, field="developer")
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0]["crc32"], "ABCD1234")
+        with self.assertRaisesRegex(ValueError, "unterminated ROM"):
+            parse_field_dat(raw.replace(b" )", b" x"), field="developer")
+
     def test_bad_fields_fail_closed(self):
         malformed = SOURCE.replace(b'developer "Example Studio"', b'developer (bad)')
         with self.assertRaisesRegex(ValueError, "unsupported source line"):
