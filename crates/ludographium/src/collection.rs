@@ -129,6 +129,9 @@ impl CatalogCollection {
     pub fn search_titles(&self, query: &str, limit: usize)
         -> Result<CollectionTitleSearch<'_>, CatalogError>
     {
+        if limit == 0 || limit > 200 {
+            return Err(CatalogError::Invalid("title search limit must be in 1..=200".into()));
+        }
         let mut matches = Vec::new();
         let mut total_source_records = 0usize;
         for index in &self.indexes {
@@ -203,6 +206,9 @@ impl EnrichedCatalogCollection {
     pub fn search_titles(&self, query: &str, limit: usize)
         -> Result<EnrichedCollectionTitleSearch<'_>, CatalogError>
     {
+        if limit == 0 || limit > 200 {
+            return Err(CatalogError::Invalid("title search limit must be in 1..=200".into()));
+        }
         let mut matches = Vec::new();
         let mut total_source_records = 0usize;
         for index in &self.indexes {
@@ -247,6 +253,7 @@ mod tests {
         assert!(titles.matches.iter().all(|m| m.record.name.to_lowercase().contains("mario")));
         assert!(all.search_titles(" ", 5).is_err());
         assert!(all.search_titles("mario", 0).is_err());
+        assert!(all.search_titles("mario", 201).is_err());
         assert!(all.lookup_reader(&b"synthetic bytes"[..]).unwrap().is_empty());
     }
 
@@ -257,6 +264,7 @@ mod tests {
         assert_eq!(hits.len(), 1);
         assert_eq!(hits[0].base.platform, "snes");
         assert!(hits[0].metadata_claims.iter().all(|c| c.resolution.status == "matched"));
+        assert!(all.search_titles("metroid", 0).is_err());
         let result = all.search_titles("metroid", 2).unwrap();
         assert!(result.total_source_records >= 2);
         assert!(!result.matches.is_empty());
