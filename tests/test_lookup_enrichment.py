@@ -38,6 +38,7 @@ class EnrichedLookupTests(unittest.TestCase):
             (root / "generated/enrichment-v1").mkdir(parents=True)
             base = {
                 "source_id": "source", "source_revision": "rev", "platform": "gb",
+                "source_path": "example.dat", "source_blob_sha": "abc",
                 "records": [{
                     "source_ordinal": 1, "name": "Example", "roms": [{
                         "name": "example.gb", "size": 128, "sha1": "A"*40, "crc32": "ABCDEF01"
