@@ -12,6 +12,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Provide a basic offline SHA-1 and CRC32 lookup utility.
 - [x] Provide exact raw-byte SHA-1 streaming lookup for local files and in-memory emulator data.
 - [x] Provide bounded source-title discovery in both Rust and Python, including attributed enrichment.
+- [x] Support dynamic cross-platform fingerprint, stream, and title lookup through the Rust CLI and library.
 - [x] Publish reproducible per-platform field-coverage and repeated-fingerprint audits.
 - [ ] Complete source-specific redistribution review for future providers.
 

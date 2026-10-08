@@ -58,6 +58,12 @@ Source-title discovery is also available when no fingerprint is known. Results r
 cargo run --locked -p ludographium -- --platform nes --title "Mario" --limit 5
 ```
 
+Use `--platform all` to identify media or search titles across **every registered system** when the platform is not known. The Rust library offers the equivalent `CatalogCollection` and `EnrichedCatalogCollection` APIs:
+
+```sh
+cargo run --locked -p ludographium -- --platform all --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 --curated
+```
+
 For an exact local file, use `--file /path/to/game` instead of a hash. Input is streamed and never added to the catalog. The file's representation must exactly match the source checksum; headers, archives, and byte-swapped formats are not silently normalized.
 
 Add `--enriched` to fingerprint, file, or title queries to include matched and unresolved bibliographic claims separately:

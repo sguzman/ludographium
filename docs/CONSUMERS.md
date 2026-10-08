@@ -43,6 +43,20 @@ python3 tools/lookup.py --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8C
 
 The example resolves to one source observation for `10-Pin Bowling (USA) (Proto)` in the Game Boy DAT. The tool reads committed JSON indexes, not game files. It also supports `--crc32` with the mandatory `--size` byte count.
 
+## Cross-platform identification
+
+If a consumer does not know the console in advance, it can use `--platform all` to search the source manifests in their registered order. The result contains `platforms_searched`, `platform_scope: all-registered`, and each match's actual platform and complete source locator. Ambiguous matches are retained as separate source occurrences, never merged.
+
+```sh
+cargo run --locked -p ludographium -- --platform all --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 --curated
+cargo run --locked -p ludographium -- --platform all --title "Mario" --limit 5 --enriched
+cargo run --locked -p ludographium -- --platform all --file /path/to/a-game
+```
+
+The Rust library exposes `CatalogCollection::open(root)` and `EnrichedCatalogCollection::open(root)` with matching `lookup_sha1`, `lookup_crc32`, `lookup_bytes`, `lookup_reader`, and `search_titles` methods. Each collection enumerates the pinned manifest dynamically and verifies the relevant indexes on opening. Raw bytes are fingerprinted **once** for all systems; they are not copied or modified.
+
+Title-search limits apply globally to source records (1–200), not individual media entries. `total_source_records` counts all original title matches across systems before limiting the output. These searches identify source observations, not canonical works. Identity resolution remains an explicit evidence-based step.
+
 ## Matching exact local media bytes
 
 Emulator and library consumers can supply an in-memory byte slice through `PlatformCatalog::lookup_bytes`, or a streaming Rust `Read` source through `PlatformCatalog::lookup_reader`. The corresponding methods on `EnrichedPlatformCatalog` preserve the source-attributed bibliographic claims.
