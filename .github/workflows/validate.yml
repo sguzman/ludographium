@@ -24,14 +24,22 @@ jobs:
         run: python tools/import_enrichment.py --check
       - name: Verify enrichment coverage report
         run: python tools/audit_enrichment.py --check
-      - name: Prepare unresolved-source reconciliation queue
-        run: |
-          python tools/triage_enrichment.py --write
-          echo BEGIN-LDG-RECONCILIATION-QUEUE
-          cat reports/reconciliation-queue-v1.json
-          echo END-LDG-RECONCILIATION-QUEUE
+      - name: Verify provenance-linked reconciliation queue
+        run: python tools/triage_enrichment.py --check
       - name: Validate curated identity ledger
         run: python tools/validate_curated.py
+      - name: Verify Python title search and enriched claims
+        run: |
+          python tools/lookup.py --platform nes --title Mario --limit 5 > /tmp/ludographium-python-title.json
+          python tools/lookup_enrichment.py --platform nes --title Mario --limit 5 > /tmp/ludographium-python-enriched-title.json
+          python - <<'PY'
+          import json
+          for name in ("/tmp/ludographium-python-title.json", "/tmp/ludographium-python-enriched-title.json"):
+              value = json.load(open(name))
+              assert value["query_kind"] == "source-title-substring"
+              assert value["total_source_records"] >= len(value["matches"]) > 0
+              assert all("mario" in hit["title"].lower() for hit in value["matches"])
+          PY
       - name: Verify enriched fingerprint lookup
         run: |
           python tools/lookup_enrichment.py --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-enriched.json
