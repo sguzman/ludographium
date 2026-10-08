@@ -2,63 +2,64 @@
 
 **A provenance-first catalog of console and handheld video games.**
 
-Ludographium collects and organizes the metadata needed to identify games across platforms, regions, editions, and revisions. It preserves original source records alongside structured, machine-readable indexes so emulators, library managers, and research tools can use the same evidence without depending on a live service.
+Ludographium collects structured metadata about console games and their releases. Original sources remain attributable and unchanged; normalized indexes make the records useful to emulators, library managers, and research tools without depending on a live service.
 
-The catalog focuses on game metadata: names, platforms, publication details, product identifiers, media fingerprints, and provenance. Game binaries, firmware, cheats, and executable modifications belong outside this collection.
+It catalogs titles, versions, regions, publication facts, product identifiers, and media fingerprints. It is not a ROM archive, cheat collection, or gameplay ontology.
 
-## The collection
+## Collection
 
-The first accession comes from a pinned [Libretro Database](https://github.com/libretro/libretro-database) snapshot of No-Intro-derived DAT files.
+The initial accession spans four Nintendo platforms:
 
 | Platform | Source records |
 | --- | ---: |
-| Super Nintendo Entertainment System | 4,268 |
+| Super Nintendo | 4,268 |
 | Game Boy | 2,254 |
 | Game Boy Color | 2,566 |
 | Game Boy Advance | 3,692 |
 | **Total** | **12,780** |
 
-These counts represent **source records**, not unique games or independently verified releases. Current records include source titles and available regions, serials, date fields, file sizes, and CRC32/MD5/SHA-1 fingerprints. Coverage will expand to richer bibliographic information and additional systems. A [source-coverage audit](reports/source-coverage-v1.json) measures which fields are populated and highlights repeated source titles and fingerprints.
+These are original source observations, **not a count of distinct games**. Every record has an upstream title and fingerprint information, with additional fields depending on what the source provides.
 
-## How it is organized
+Twenty more pinned Libretro DATs supply **44,683 bibliographic claims** across developer, publisher, release year, release month, and genre. Strict CRC32-and-title comparison attaches **40,875 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
 
-| Location | Purpose |
+[Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Source registers](sources/README.md)
+
+## Repository structure
+
+| Location | Description |
 | --- | --- |
-| [`archive/`](archive/libretro-no-intro/) | Original, unchanged source DAT files |
-| [`sources/`](sources/) | Source register, authorship, pinned revisions, and rights information |
-| [`generated/v1/`](generated/v1/) | Deterministic JSON indexes, [catalog](generated/v1/catalog.json) and [SHA-256 manifest](generated/v1/distribution.json) |
+| [`archive/`](archive/) | Unmodified original DATs |
+| [`sources/`](sources/) | Pinned source revisions, attribution, and reuse information |
+| [`generated/`](generated/) | Reproducible identification and bibliographic claim indexes |
+| [`curated/`](curated/v1/identities.json) | Evidence-backed work/release/build identity ledger (not yet populated) |
 | [`platforms/`](platforms/platforms.json) | Platform identifiers |
-| [`tools/`](tools/) | Import, verification, and local lookup utilities |
-| [`docs/`](docs/SCOPE.md) | Data model, provenance, consumer guidance, and plans |
+| [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
+| [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
-An imported record is a **source observation**. It is kept distinct from the curated identities planned for individual games, releases, and builds. That separation preserves conflicting evidence instead of prematurely merging games that happen to share a title or serial.
+The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for nine consumer artifacts.
 
-## Use the catalog
+## Use the data
 
-The initial indexes are readable offline. For example, the following checks the archive and looks up a known Game Boy media fingerprint:
-
-```sh
-python3 tools/verify_catalog.py
-python3 tools/lookup.py --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
-```
-
-The lookup returns matching source observations and their provenance. Fingerprint matching identifies a particular byte representation in the source database; it does not by itself establish a canonical game identity.
-
-A [Rust library and CLI](crates/ludographium/) also load these indexes with Git blob and SHA-256 integrity checks:
+The Rust reader validates the source indexes before returning matches:
 
 ```sh
-cargo run -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
+cargo run --locked -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
 ```
 
+Add `--enriched` to include matched and unresolved bibliographic claims separately:
 
-Ludographium is designed to be consumed independently by emulator frontends such as Starbyte and other applications. Its current interchange format is described in the [consumer guide](docs/CONSUMERS.md).
+```sh
+cargo run --locked -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4
+```
+
+Python lookup tools offer equivalent access. A match associates a fingerprint with an upstream record; it does not automatically establish a unique game, release, or build identity. A future curated layer will make those links explicit, with evidence.
 
 ## Documentation
 
-- [Scope and identity boundaries](docs/SCOPE.md)
-- [Data model](docs/MODEL.md)
-- [Provenance and reuse](docs/PROVENANCE.md)
-- [Consumer guide](docs/CONSUMERS.md)
-- [Import and validation](docs/IMPORTING.md)
-- [Source evaluation](docs/SOURCE-STRATEGY.md)
-- [Roadmap](docs/ROADMAP.md)
+- [Scope](docs/SCOPE.md) and [data model](docs/MODEL.md)
+- [Curated identity framework](docs/IDENTITIES.md)
+- [Provenance and licensing](docs/PROVENANCE.md)
+- [Offline consumer interface](docs/CONSUMERS.md)
+- [Importing and validating](docs/IMPORTING.md)
+- [Source acquisition strategy](docs/SOURCE-STRATEGY.md)
+- [Quality reports](reports/README.md) and [roadmap](docs/ROADMAP.md)
