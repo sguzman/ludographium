@@ -38,6 +38,8 @@ class EnrichedLookupTests(unittest.TestCase):
         self.assertEqual(result["query_kind"], "source-title-substring")
         self.assertEqual(result["matches"][0]["source"]["ordinal"], 1)
         self.assertIn("metadata_claims", result["matches"][0])
+        self.assertEqual(result["enrichment_source"]["id"], "libretro-metadata")
+        self.assertTrue(all("source_fields" in c for c in result["matches"][0]["metadata_claims"]))
         with self.assertRaises(ValueError):
             lookup(repo, "gb", title=" ")
 
@@ -57,6 +59,7 @@ class EnrichedLookupTests(unittest.TestCase):
             }
             enriched = {
                 "base_source_id": "source", "base_source_revision": "rev", "platform": "gb",
+                "source_id": "metadata-demo", "source_revision": "rev",
                 "claims": []
             }
             base_path = root / "generated/v1/gb.json"

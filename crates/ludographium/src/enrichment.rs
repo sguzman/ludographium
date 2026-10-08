@@ -6,7 +6,7 @@
 use crate::{CatalogError, MediaMatch, PlatformCatalog};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::fs;
 use std::path::Path;
 
@@ -49,6 +49,8 @@ pub struct ClaimResolution {
 pub struct MetadataClaim {
     pub field: String,
     pub value: Option<String>,
+    /// The original source's parsed fields, including unquoted numeric values.
+    pub source_fields: BTreeMap<String, String>,
     pub crc32: String,
     pub source_ordinal: usize,
     pub source_comment: Option<String>,
@@ -77,6 +79,7 @@ pub struct EnrichedTitleSearch<'a> {
 pub struct EnrichedPlatformCatalog {
     base: PlatformCatalog,
     source_id: String,
+    source_revision: String,
     claims: Vec<MetadataClaim>,
     attached: HashMap<(usize, String), Vec<usize>>,
     unresolved: HashMap<String, Vec<usize>>,
@@ -213,6 +216,7 @@ impl EnrichedPlatformCatalog {
         Ok(Self {
             base,
             source_id: bundle.source_id,
+            source_revision: bundle.source_revision,
             claims: bundle.claims,
             attached,
             unresolved,
@@ -221,6 +225,10 @@ impl EnrichedPlatformCatalog {
 
     pub fn source_id(&self) -> &str {
         &self.source_id
+    }
+
+    pub fn source_revision(&self) -> &str {
+        &self.source_revision
     }
 
     pub fn base(&self) -> &PlatformCatalog {

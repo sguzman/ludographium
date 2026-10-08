@@ -32,6 +32,7 @@ def join_claims(matches, claims):
             "field": claim["field"],
             "value": claim["value"],
             "source_comment": claim["source_comment"],
+            "source_fields": claim.get("source_fields", {}),
             "source_path": claim["source_path"],
             "source_blob_sha": claim["source_blob_sha"],
             "source_ordinal": claim["source_ordinal"],
@@ -79,6 +80,10 @@ def lookup(root, platform, *, sha1=None, crc32=None, size=None, title=None, limi
         return {
             "query_kind": "source-title-substring",
             "total_source_records": found["total_source_records"],
+            "enrichment_source": {
+                "id": enriched["source_id"],
+                "revision": enriched["source_revision"],
+            },
             "match_count": len(expanded),
             "matches": expanded,
         }
@@ -86,7 +91,11 @@ def lookup(root, platform, *, sha1=None, crc32=None, size=None, title=None, limi
         raise ValueError("limit only applies to title discovery")
     matches = find_matches(base, sha1=sha1, crc32=crc32, size=size)
     expanded = join_claims(matches, enriched["claims"])
-    return {"match_count": len(expanded), "matches": expanded}
+    return {
+        "enrichment_source": {"id": enriched["source_id"], "revision": enriched["source_revision"]},
+        "match_count": len(expanded),
+        "matches": expanded,
+    }
 
 
 def main():

@@ -112,6 +112,10 @@ fn run() -> Result<(), Box<dyn Error>> {
             json!({
                 "query_kind": "source-title-substring",
                 "total_source_records": results.total_records,
+                "enrichment_source": {
+                    "id": catalog.source_id(),
+                    "revision": catalog.source_revision(),
+                },
                 "match_count": results.matches.len(),
                 "matches": results.matches.iter().map(format_enriched_match).collect::<Vec<_>>(),
             })
@@ -148,6 +152,10 @@ fn run() -> Result<(), Box<dyn Error>> {
             catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?
         };
         json!({
+            "enrichment_source": {
+                "id": catalog.source_id(),
+                "revision": catalog.source_revision(),
+            },
             "match_count": found.len(),
             "matches": found.iter().map(format_enriched_match).collect::<Vec<_>>()
         })
