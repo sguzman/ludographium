@@ -75,3 +75,4 @@ jobs:
           git diff --cached --quiet && { echo 'No new accession data'; exit 0; }
           git commit -m 'data: accession NES and Nintendo DS identification and bibliographic sources'
           git push origin HEAD:main
+# Retry after multiline DAT parsing support
