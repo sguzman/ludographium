@@ -4,6 +4,7 @@
 //! It does not establish a canonical work, release, or build identity.
 
 pub mod enrichment;
+pub mod curated;
 
 use serde::Deserialize;
 use sha1::{Digest, Sha1};
