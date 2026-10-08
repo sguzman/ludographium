@@ -14,6 +14,12 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
+      - name: Prepare distribution manifest
+        run: |
+          python tools/build_distribution.py --write
+          echo BEGIN-LUDOGRAPHIUM-DISTRIBUTION
+          cat generated/v1/distribution.json
+          echo END-LUDOGRAPHIUM-DISTRIBUTION
   rust:
     runs-on: ubuntu-latest
     steps:
