@@ -56,7 +56,7 @@ def validate_readme_totals(root):
     for key, phrase in expected_phrases.items():
         if phrase not in readme:
             raise ValueError(f"README has stale {key} ({totals[key]:,})")
-    if len(distribution["artifacts"]) != len(catalog["platforms"])*2+1:
+    if len(distribution["artifacts"]) != len(catalog["platforms"])*2+2:
         raise ValueError("distribution artifact count disagrees with source platforms")
     return totals
 

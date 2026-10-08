@@ -24,7 +24,7 @@ def build_distribution(root: Path):
         paths.add(expected)
 
     # The enrichment index is optional for earlier v1 snapshots. When a
-    # source register exists, its four normalized claim bundles are published.
+    # source register exists, its platform-normalized claim bundles are published.
     enrichment_registry = root / "sources/libretro-enrichment.json"
     if enrichment_registry.exists():
         enrichment = json.loads(enrichment_registry.read_bytes())
@@ -37,6 +37,10 @@ def build_distribution(root: Path):
             if platform not in valid_platforms:
                 raise ValueError(f"unregistered enrichment platform: {platform}")
             paths.add(f"generated/enrichment-v1/{platform}.json")
+
+    # The curated ledger is a separately validated, source-backed projection.
+    if (root / "curated/v1/identities.json").exists():
+        paths.add("generated/curated-v1/identities.json")
 
     artifacts = []
     for path in sorted(paths):

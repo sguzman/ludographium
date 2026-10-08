@@ -15,7 +15,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = Path("generated/v1/distribution.json")
-SAFE = re.compile(r"^generated/(?:v1|enrichment-v1)/[a-z0-9._-]+\.json$")
+SAFE = re.compile(r"^generated/(?:v1|enrichment-v1|curated-v1)/[a-z0-9._-]+\.json$")
 
 
 def runtime_files(root):
