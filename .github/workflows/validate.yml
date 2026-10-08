@@ -12,8 +12,6 @@ jobs:
           python-version: '3.13'
       - name: Parser and lookup tests
         run: python -m unittest discover -s tests -v
-      - name: Validate Markdown and advertised catalog counts
-        run: python tools/check_docs.py
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
       - name: Rebuild-check identification catalog
@@ -26,6 +24,8 @@ jobs:
           echo BEGIN-LDG-CURATED-MANIFEST
           cat generated/v1/distribution.json
           echo END-LDG-CURATED-MANIFEST
+      - name: Validate Markdown and advertised catalog counts
+        run: python tools/check_docs.py
       - name: Build and verify portable runtime package
         run: |
           python tools/package_runtime.py --build /tmp/ludographium-runtime-v1.tar.gz
