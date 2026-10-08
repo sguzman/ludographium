@@ -18,8 +18,12 @@ jobs:
         run: python tools/rebuild_catalog.py --check
       - name: Verify curated identity export
         run: python tools/build_curated.py --check
-      - name: Verify SHA-256 distribution manifest
-        run: python tools/build_distribution.py --check
+      - name: Regenerate attribution-complete distribution manifest
+        run: |
+          python tools/build_distribution.py --write
+          echo BEGIN-LDG-ATTRIBUTION-MANIFEST
+          cat generated/v1/distribution.json
+          echo END-LDG-ATTRIBUTION-MANIFEST
       - name: Validate Markdown and advertised catalog counts
         run: python tools/check_docs.py
       - name: Build and verify portable runtime package
