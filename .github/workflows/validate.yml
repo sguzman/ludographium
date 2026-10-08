@@ -24,6 +24,12 @@ jobs:
         run: python tools/import_enrichment.py --check
       - name: Verify enrichment coverage report
         run: python tools/audit_enrichment.py --check
+      - name: Prepare unresolved-source reconciliation queue
+        run: |
+          python tools/triage_enrichment.py --write
+          echo BEGIN-LDG-RECONCILIATION-QUEUE
+          cat reports/reconciliation-queue-v1.json
+          echo END-LDG-RECONCILIATION-QUEUE
       - name: Validate curated identity ledger
         run: python tools/validate_curated.py
       - name: Verify enriched fingerprint lookup
@@ -34,21 +40,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Capture formatted Rust source
-        run: |
-          cargo fmt --all
-          echo BEGIN-LDG-FMT-LIB
-          base64 -w0 crates/ludographium/src/lib.rs
-          echo
-          echo END-LDG-FMT-LIB
-          echo BEGIN-LDG-FMT-ENRICHMENT
-          base64 -w0 crates/ludographium/src/enrichment.rs
-          echo
-          echo END-LDG-FMT-ENRICHMENT
-          echo BEGIN-LDG-FMT-MAIN
-          base64 -w0 crates/ludographium/src/main.rs
-          echo
-          echo END-LDG-FMT-MAIN
+      - name: Rust formatting
+        run: cargo fmt --all -- --check
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
