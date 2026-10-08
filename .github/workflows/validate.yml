@@ -21,14 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Build and test Rust client
-        run: cargo test --workspace --all-targets
-      - name: Capture dependency lockfile
-        run: |
-          echo BEGIN-LUDOGRAPHIUM-CARGO-LOCK
-          base64 -w0 Cargo.lock
-          echo
-          echo END-LUDOGRAPHIUM-CARGO-LOCK
+        run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
         run: |
-          cargo run --quiet -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037 > /tmp/ludographium.json
+          cargo run --locked --quiet -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037 > /tmp/ludographium.json
           python -c 'import json; d=json.load(open("/tmp/ludographium.json")); assert d["match_count"] == 1; assert d["matches"][0]["title"] == "10-Pin Bowling (USA) (Proto)"'
