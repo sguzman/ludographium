@@ -1,0 +1,44 @@
+# Curated game identities
+
+Ludographium's curated ledger links source observations to stable identities for a game, its platform-specific publication, and an identifiable media build. This is a bibliographic identity system, not a gameplay ontology.
+
+The ledger is deliberately empty while the source record collection is being reconciled. **No canonical games have been created automatically.** Imported metadata remains useful independently through the source indexes.
+
+## Identity levels
+
+- **Work** (`ldg:w:<uuid-v4>`): an identified game across its observed editions.
+- **Release** (`ldg:r:<uuid-v4>`): a labeled publication on a known console or handheld platform, linked to a work.
+- **Build** (`ldg:b:<uuid-v4>`): a particular media or revision identity linked to a release.
+
+Identifiers are opaque UUIDv4 values. They are not hashes, normalized names, titles, serials, upstream ordinal numbers, or inferred joins. An identifier is never recycled for a different entity.
+
+## Each curated record carries its evidence
+
+Every work, release, and build requires a clear human-readable rationale and one or more **source occurrence locators**:
+
+```json
+{
+  "source_id": "libretro-no-intro",
+  "source_revision": "<pinned-git-revision>",
+  "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+  "source_blob_sha": "<original-file-git-blob-sha>",
+  "source_ordinal": 1
+}
+```
+
+The placeholder strings above illustrate the fields, not a real ledger entry. Locators are checked against the archived base and bibliographic source observations. For enrichment, the locator points to the original field DAT occurrence, not the merged consumer view.
+
+A cited observation supports the fact that a source made a claim. Evidence alone is not proof that two similarly named regional or revision variants constitute the same canonical identity; the decision rationale must record the basis of that interpretation.
+
+## Curation and validation
+
+```sh
+python3 tools/validate_curated.py
+python3 tools/validate_curated.py --mint-id work
+python3 tools/validate_curated.py --mint-id release
+python3 tools/validate_curated.py --mint-id build
+```
+
+The validator checks UUID formatting, uniqueness, release-to-work and build-to-release references, registered platforms, required rationales, and the existence of each exact source citation. It does **not** automate identity reconciliation or test an emulator. A source conflict may remain unmerged indefinitely.
+
+The editable ledger is [`curated/v1/identities.json`](../curated/v1/identities.json). Curated identities will be distributed to consumers only after a separate versioned export and referential-validation contract is established.
