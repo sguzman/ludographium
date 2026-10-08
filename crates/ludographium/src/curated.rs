@@ -105,19 +105,29 @@ fn integrity_checked_bytes(root: &Path) -> Result<Vec<u8>, CatalogError> {
     let raw = fs::read(root.join("generated/v1/distribution.json"))?;
     let manifest: Manifest = serde_json::from_slice(&raw)?;
     if manifest.schema_version != 1 || manifest.kind != "ludographium-distribution" {
-        return Err(CatalogError::Invalid("invalid curated distribution manifest".into()));
+        return Err(CatalogError::Invalid(
+            "invalid curated distribution manifest".into(),
+        ));
     }
     let path = "generated/curated-v1/identities.json";
-    let matching: Vec<_> = manifest.artifacts.iter().filter(|a| a.path == path).collect();
+    let matching: Vec<_> = manifest
+        .artifacts
+        .iter()
+        .filter(|a| a.path == path)
+        .collect();
     if matching.len() != 1 {
-        return Err(CatalogError::Invalid("missing or duplicated curated artifact".into()));
+        return Err(CatalogError::Invalid(
+            "missing or duplicated curated artifact".into(),
+        ));
     }
     let bytes = fs::read(root.join(path))?;
     let entry = matching[0];
     let mut digest = Sha256::new();
     digest.update(&bytes);
     if bytes.len() != entry.bytes || format!("{:x}", digest.finalize()) != entry.sha256 {
-        return Err(CatalogError::Invalid("curated artifact integrity mismatch".into()));
+        return Err(CatalogError::Invalid(
+            "curated artifact integrity mismatch".into(),
+        ));
     }
     Ok(bytes)
 }
@@ -128,22 +138,31 @@ impl CuratedCatalog {
         let bytes = integrity_checked_bytes(root)?;
         let export: Export = serde_json::from_slice(&bytes)?;
         if export.schema_version != 1 || export.kind != "curated-identity-ledger" {
-            return Err(CatalogError::Invalid("unsupported curated identity export".into()));
+            return Err(CatalogError::Invalid(
+                "unsupported curated identity export".into(),
+            ));
         }
         let mut seen = HashSet::new();
         let mut works = HashMap::new();
         for (index, item) in export.works.iter().enumerate() {
-            if !seen.insert(&item.id) || item.evidence.is_empty() || item.preferred_title.is_empty() {
-                return Err(CatalogError::Invalid("invalid or duplicated curated work".into()));
+            if !seen.insert(&item.id) || item.evidence.is_empty() || item.preferred_title.is_empty()
+            {
+                return Err(CatalogError::Invalid(
+                    "invalid or duplicated curated work".into(),
+                ));
             }
             works.insert(item.id.clone(), index);
         }
         let mut releases = HashMap::new();
         for (index, item) in export.releases.iter().enumerate() {
-            if !seen.insert(&item.id) || !works.contains_key(&item.work_id)
-                || item.evidence.is_empty() || item.release_label.is_empty()
+            if !seen.insert(&item.id)
+                || !works.contains_key(&item.work_id)
+                || item.evidence.is_empty()
+                || item.release_label.is_empty()
             {
-                return Err(CatalogError::Invalid("invalid curated release relationship".into()));
+                return Err(CatalogError::Invalid(
+                    "invalid curated release relationship".into(),
+                ));
             }
             releases.insert(item.id.clone(), index);
         }
@@ -151,14 +170,19 @@ impl CuratedCatalog {
         let mut by_fingerprint: HashMap<(String, String, u64), Vec<usize>> = HashMap::new();
         let mut platform_catalogs: HashMap<String, PlatformCatalog> = HashMap::new();
         for (index, item) in export.builds.iter().enumerate() {
-            let release = releases.get(&item.release_id)
+            let release = releases
+                .get(&item.release_id)
                 .map(|i| &export.releases[*i])
                 .ok_or_else(|| CatalogError::Invalid("orphan curated build".into()))?;
-            if !seen.insert(&item.id) || item.evidence.is_empty()
-                || item.media.size == 0 || item.media.sha1.len() != 40
+            if !seen.insert(&item.id)
+                || item.evidence.is_empty()
+                || item.media.size == 0
+                || item.media.sha1.len() != 40
                 || !item.media.sha1.bytes().all(|b| b.is_ascii_hexdigit())
             {
-                return Err(CatalogError::Invalid("invalid curated build fingerprint or ID".into()));
+                return Err(CatalogError::Invalid(
+                    "invalid curated build fingerprint or ID".into(),
+                ));
             }
             if !platform_catalogs.contains_key(&release.platform) {
                 platform_catalogs.insert(
@@ -168,12 +192,19 @@ impl CuratedCatalog {
             }
             let source = &platform_catalogs[&release.platform];
             let found = source.lookup_sha1(&item.media.sha1)?;
-            if !found.iter().any(|m| m.media.size == item.media.size
-                && item.evidence.iter().any(|ref_| locator_matches(m, ref_)))
-            {
-                return Err(CatalogError::Invalid("curated media is absent from its original evidence".into()));
+            if !found.iter().any(|m| {
+                m.media.size == item.media.size
+                    && item.evidence.iter().any(|ref_| locator_matches(m, ref_))
+            }) {
+                return Err(CatalogError::Invalid(
+                    "curated media is absent from its original evidence".into(),
+                ));
             }
-            let key = (release.platform.clone(), item.media.sha1.clone(), item.media.size);
+            let key = (
+                release.platform.clone(),
+                item.media.sha1.clone(),
+                item.media.size,
+            );
             by_fingerprint.entry(key).or_default().push(index);
         }
 
@@ -194,17 +225,32 @@ impl CuratedCatalog {
     /// Resolve only builds whose exact original cited occurrence matches this media.
     /// The empty list means that source media is not curated, not that the game is unknown.
     pub fn for_media(&self, found: &MediaMatch<'_>) -> Vec<CuratedMediaMatch<'_>> {
-        let Some(sha1) = found.media.sha1.as_deref() else { return Vec::new() };
+        let Some(sha1) = found.media.sha1.as_deref() else {
+            return Vec::new();
+        };
         let key = (found.platform.to_owned(), sha1.to_owned(), found.media.size);
-        self.by_fingerprint.get(&key).into_iter().flat_map(|v| v.iter()).filter_map(|i| {
-            let build = &self.builds[*i];
-            if !build.evidence.iter().any(|ref_| locator_matches(found, ref_)) {
-                return None;
-            }
-            let release = &self.releases[*self.release_by_id.get(&build.release_id)?];
-            let work = &self.works[*self.work_by_id.get(&release.work_id)?];
-            Some(CuratedMediaMatch { work, release, build })
-        }).collect()
+        self.by_fingerprint
+            .get(&key)
+            .into_iter()
+            .flat_map(|v| v.iter())
+            .filter_map(|i| {
+                let build = &self.builds[*i];
+                if !build
+                    .evidence
+                    .iter()
+                    .any(|ref_| locator_matches(found, ref_))
+                {
+                    return None;
+                }
+                let release = &self.releases[*self.release_by_id.get(&build.release_id)?];
+                let work = &self.works[*self.work_by_id.get(&release.work_id)?];
+                Some(CuratedMediaMatch {
+                    work,
+                    release,
+                    build,
+                })
+            })
+            .collect()
     }
 }
 
@@ -222,7 +268,9 @@ mod tests {
         let curated = CuratedCatalog::open(root()).unwrap();
         assert_eq!(curated.counts(), (4, 4, 4));
         let platform = PlatformCatalog::open(root(), "snes").unwrap();
-        let hits = platform.lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765").unwrap();
+        let hits = platform
+            .lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765")
+            .unwrap();
         assert_eq!(hits.len(), 1);
         let linked = curated.for_media(&hits[0]);
         assert_eq!(linked.len(), 1);

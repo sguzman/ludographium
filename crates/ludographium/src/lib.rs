@@ -3,8 +3,8 @@
 //! A fingerprint match associates media bytes with an upstream source record.
 //! It does not establish a canonical work, release, or build identity.
 
-pub mod enrichment;
 pub mod curated;
+pub mod enrichment;
 
 use serde::Deserialize;
 use sha1::{Digest, Sha1};
