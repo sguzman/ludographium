@@ -37,6 +37,16 @@
       "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
       "git_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
       "dat_version": "2026.08.01"
+    },
+    {
+      "platform": "nes",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo Entertainment System.dat",
+      "git_blob_sha": "e1eee8354b76a30ca57b3a138c1eebedb7174936"
+    },
+    {
+      "platform": "nds",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
+      "git_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb"
     }
   ]
 }

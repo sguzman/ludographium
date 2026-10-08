@@ -133,6 +133,60 @@
       "field": "releaseyear",
       "source_path": "metadat/releaseyear/Nintendo - Super Nintendo Entertainment System.dat",
       "git_blob_sha": "64344bbea82c8e43bf9293aac2be7bec3f2fac93"
+    },
+    {
+      "platform": "nes",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Nintendo Entertainment System.dat",
+      "git_blob_sha": "b0aefb81236ce0dcc38d03b7e8d70a4336192345"
+    },
+    {
+      "platform": "nes",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Nintendo Entertainment System.dat",
+      "git_blob_sha": "8bbc371d175383d48979d247bc62cb32d9da65ed"
+    },
+    {
+      "platform": "nes",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Nintendo Entertainment System.dat",
+      "git_blob_sha": "d63081455c50ffc7380a268755d2f2e09f26ad99"
+    },
+    {
+      "platform": "nes",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Nintendo Entertainment System.dat",
+      "git_blob_sha": "3cfcbaf2a524281e56d65489923822b8d0f7d084"
+    },
+    {
+      "platform": "nes",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Nintendo Entertainment System.dat",
+      "git_blob_sha": "cc56f6d848df4d7cf0456458734abd65a31b7224"
+    },
+    {
+      "platform": "nds",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Nintendo DS.dat",
+      "git_blob_sha": "83424594a131518faee751931a56c8e8ebd3569e"
+    },
+    {
+      "platform": "nds",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Nintendo DS.dat",
+      "git_blob_sha": "b6e5a19b2eb0818611f01df9192b5dab12a42dc6"
+    },
+    {
+      "platform": "nds",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Nintendo DS.dat",
+      "git_blob_sha": "1ee5aacdb9d85d1ba2dff7a8f1a06104bb2c21ba"
+    },
+    {
+      "platform": "nds",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Nintendo DS.dat",
+      "git_blob_sha": "e9011ce08432d2e3dee2edfd63fec3d0606d01f3"
     }
   ]
 }
