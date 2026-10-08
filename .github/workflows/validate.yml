@@ -62,21 +62,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Capture canonical Rust formatting
-        run: |
-          cargo fmt --all
-          echo BEGIN-LDG-CANONICAL-LIB
-          base64 -w0 crates/ludographium/src/lib.rs
-          echo
-          echo END-LDG-CANONICAL-LIB
-          echo BEGIN-LDG-CANONICAL-ENRICHMENT
-          base64 -w0 crates/ludographium/src/enrichment.rs
-          echo
-          echo END-LDG-CANONICAL-ENRICHMENT
-          echo BEGIN-LDG-CANONICAL-MAIN
-          base64 -w0 crates/ludographium/src/main.rs
-          echo
-          echo END-LDG-CANONICAL-MAIN
+      - name: Rust formatting
+        run: cargo fmt --all -- --check
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
