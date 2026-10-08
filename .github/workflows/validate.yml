@@ -20,6 +20,12 @@ jobs:
         run: python tools/audit_catalog.py --check
       - name: Validate pinned bibliographic claims
         run: python tools/import_enrichment.py --check
+      - name: Build source enrichment coverage report
+        run: |
+          python tools/audit_enrichment.py --write
+          echo BEGIN-LUDOGRAPH-ENRICHMENT-COVERAGE
+          cat reports/enrichment-coverage-v1.json
+          echo END-LUDOGRAPH-ENRICHMENT-COVERAGE
       - name: Verify enriched fingerprint lookup
         run: |
           python tools/lookup_enrichment.py --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-enriched.json
@@ -28,21 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Format Rust consumer sources
-        run: |
-          cargo fmt --all
-          echo BEGIN-LUDOGRAPH-FMT-LIB
-          base64 -w0 crates/ludographium/src/lib.rs
-          echo
-          echo END-LUDOGRAPH-FMT-LIB
-          echo BEGIN-LUDOGRAPH-FMT-ENRICHMENT
-          base64 -w0 crates/ludographium/src/enrichment.rs
-          echo
-          echo END-LUDOGRAPH-FMT-ENRICHMENT
-          echo BEGIN-LUDOGRAPH-FMT-MAIN
-          base64 -w0 crates/ludographium/src/main.rs
-          echo
-          echo END-LUDOGRAPH-FMT-MAIN
+      - name: Rust formatting
+        run: cargo fmt --all -- --check
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
