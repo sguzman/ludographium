@@ -331,6 +331,216 @@
       "field": "rumble",
       "source_path": "metadat/rumble/Nintendo - Nintendo DS.dat",
       "git_blob_sha": "da10ceb0cfee17574e88cb91cd98ada18203c1dd"
+    },
+    {
+      "platform": "n64",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "e52a920e445cf19c3259fad43d5d2c1b1e8bd81e"
+    },
+    {
+      "platform": "genesis",
+      "field": "developer",
+      "source_path": "metadat/developer/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "40209bd37a4c5c6a3ebb5db097566e9adfc751eb"
+    },
+    {
+      "platform": "sms",
+      "field": "developer",
+      "source_path": "metadat/developer/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "050b5ca10296ec3d18c98d194a215f4a0e3a2dee"
+    },
+    {
+      "platform": "gg",
+      "field": "developer",
+      "source_path": "metadat/developer/Sega - Game Gear.dat",
+      "git_blob_sha": "3a4c07a3371eb1f597ed8ce13232a53061bad400"
+    },
+    {
+      "platform": "n64",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "8e7fadfb10724a9421a9c733380808f54ab4723d"
+    },
+    {
+      "platform": "genesis",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "86098bba5730603f38f307f06e476371b7e4aa05"
+    },
+    {
+      "platform": "sms",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "3bdf008a5ea700c3288a06cc200abfbb6175466a"
+    },
+    {
+      "platform": "gg",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Sega - Game Gear.dat",
+      "git_blob_sha": "bca965d66ec6ab205219d89b2db4fe564f5dd5ea"
+    },
+    {
+      "platform": "n64",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "06f213aa3a5b342b7caf14af814b0b6639bfba03"
+    },
+    {
+      "platform": "genesis",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "4866ce2fb546d059e6e68e268386ef7d0f81dbe2"
+    },
+    {
+      "platform": "sms",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "0dd8d1a16fefb2ebe7da9e48e44f61330e03453d"
+    },
+    {
+      "platform": "gg",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Sega - Game Gear.dat",
+      "git_blob_sha": "f413caa72fb87d236d5a04b5b5c0fd2c424e0dc5"
+    },
+    {
+      "platform": "n64",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "4aeffc3c8d8540258382ff01688781306f682b25"
+    },
+    {
+      "platform": "genesis",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "6fe5aba852bef89b82d5891e9c391fa18f42c517"
+    },
+    {
+      "platform": "sms",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "fbe2e88b872514dfcd6e2c10b2c2a8161fbbec4a"
+    },
+    {
+      "platform": "gg",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Sega - Game Gear.dat",
+      "git_blob_sha": "b45e28b6aa7896af0d55359de2181b25061d037b"
+    },
+    {
+      "platform": "n64",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "bb32dadd1763835c645211f93a57430c21707ba7"
+    },
+    {
+      "platform": "genesis",
+      "field": "genre",
+      "source_path": "metadat/genre/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "d81f41fe50cb23e7865e6778089e650283b46258"
+    },
+    {
+      "platform": "sms",
+      "field": "genre",
+      "source_path": "metadat/genre/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "0af70791d1f2f4d0eeb04305deb757f35aa77542"
+    },
+    {
+      "platform": "gg",
+      "field": "genre",
+      "source_path": "metadat/genre/Sega - Game Gear.dat",
+      "git_blob_sha": "a0ee3c199c985d5d515d93ce91ab0fdc8316a8e6"
+    },
+    {
+      "platform": "n64",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "7222e1a472d29955dccd83c9d76f80cb3fd11a09"
+    },
+    {
+      "platform": "genesis",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "95257b83ef1d3c881e4066ca24a9b5bc52351f82"
+    },
+    {
+      "platform": "sms",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "550eafaf2c76219991f3e6f706909593eb2d5f9e"
+    },
+    {
+      "platform": "gg",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Sega - Game Gear.dat",
+      "git_blob_sha": "4cc87a58e05c06217a1989d7e60d7c91b6fe7972"
+    },
+    {
+      "platform": "n64",
+      "field": "serial",
+      "source_path": "metadat/serial/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "a8f197ac3bd08ab98389dd411b3be0c9d0af7fe8"
+    },
+    {
+      "platform": "genesis",
+      "field": "serial",
+      "source_path": "metadat/serial/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "854b067581b53aad23b25081b71dad4b2778a75f"
+    },
+    {
+      "platform": "sms",
+      "field": "serial",
+      "source_path": "metadat/serial/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "70a20475c04946a51c484d3fd7bf24fabbe33141"
+    },
+    {
+      "platform": "gg",
+      "field": "serial",
+      "source_path": "metadat/serial/Sega - Game Gear.dat",
+      "git_blob_sha": "949adb4b2ba1e0215051013f7a8cd249a73869cc"
+    },
+    {
+      "platform": "genesis",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "6975d62032c3ba0c50e289744b3115897cd30637"
+    },
+    {
+      "platform": "sms",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "dd241998357bcf93348e18576d78c4df4c9b88f2"
+    },
+    {
+      "platform": "gg",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Sega - Game Gear.dat",
+      "git_blob_sha": "2604916534194940862d22606420706ae227e87e"
+    },
+    {
+      "platform": "n64",
+      "field": "users",
+      "source_path": "metadat/maxusers/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "7963165f5d02278328f18244ceafea77aece1fa9"
+    },
+    {
+      "platform": "genesis",
+      "field": "users",
+      "source_path": "metadat/maxusers/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "98e5529c559abbe7d0e121a4ef603936c972bff0"
+    },
+    {
+      "platform": "sms",
+      "field": "users",
+      "source_path": "metadat/maxusers/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "9d13a94403643922edfe4133a583787b677656ec"
+    },
+    {
+      "platform": "gg",
+      "field": "users",
+      "source_path": "metadat/maxusers/Sega - Game Gear.dat",
+      "git_blob_sha": "1895a6f7a4236a30cefe4000bd89dd189707d574"
     }
   ]
 }

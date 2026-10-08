@@ -37,6 +37,30 @@
       "name": "Nintendo Entertainment System",
       "manufacturer": "Nintendo",
       "kind": "home"
+    },
+    {
+      "id": "n64",
+      "name": "Nintendo 64",
+      "manufacturer": "Nintendo",
+      "kind": "home"
+    },
+    {
+      "id": "genesis",
+      "name": "Sega Mega Drive / Genesis",
+      "manufacturer": "Sega",
+      "kind": "home"
+    },
+    {
+      "id": "sms",
+      "name": "Sega Master System / Mark III",
+      "manufacturer": "Sega",
+      "kind": "home"
+    },
+    {
+      "id": "gg",
+      "name": "Sega Game Gear",
+      "manufacturer": "Sega",
+      "kind": "handheld"
     }
   ]
 }

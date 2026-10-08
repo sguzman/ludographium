@@ -2,13 +2,13 @@
 
 *Research status: 2026-10-08.*
 
-The pinned No-Intro-derived accession covers identification across six Nintendo platforms; accompanying Libretro DATs add attributed company, release-year, release-month, and genre claims. Bibliographic completeness requires different kinds of evidence: publication history, localizations, publisher and developer credits, alternate titles, and edition relationships. New providers are assessed on both data quality and permitted redistribution.
+The pinned No-Intro-derived accession covers identification across ten Nintendo and Sega platforms; accompanying Libretro DATs add attributed company, release-year, release-month, and genre claims. Bibliographic completeness requires different kinds of evidence: publication history, localizations, publisher and developer credits, alternate titles, and edition relationships. New providers are assessed on both data quality and permitted redistribution.
 
 ## Candidate sources
 
 | Provider | Relevant metadata | Reuse considerations | Status |
 | --- | --- | --- | --- |
-| [Libretro Database](https://github.com/libretro/libretro-database) / [No-Intro](https://datomatic.no-intro.org/) | Cartridge titles, serials, regions, revisions and CRC32/MD5/SHA-1 fingerprints | Libretro declares CC BY-SA 4.0; original contributors and third-party content require attribution and source-specific review | **Imported:** six identification DATs and 53 bibliographic DATs |
+| [Libretro Database](https://github.com/libretro/libretro-database) / [No-Intro](https://datomatic.no-intro.org/) | Cartridge titles, serials, regions, revisions and CRC32/MD5/SHA-1 fingerprints | Libretro declares CC BY-SA 4.0; original contributors and third-party content require attribution and source-specific review | **Imported:** ten identification DATs and 88 bibliographic DATs |
 | [Redump](https://wiki.redump.info/Redump) | Disc identifiers, media revisions and fingerprints | Publicly accessible reference material; bulk redistribution rights are not established by this assessment | Research candidate |
 | [GameTDB](https://www.gametdb.com/Main/FAQ) | Nintendo release identifiers, labels and art references | Terms differentiate software use, site reuse and artwork; clarification is needed for redistribution in this repository | Permission review |
 | [MobyGames API](https://www.mobygames.com/api/subscribe/) | Publisher/developer credits, release history, platforms and editions | API terms and attribution requirements constrain redistribution and repackaging | Rights review before import |

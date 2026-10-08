@@ -8,7 +8,7 @@ It catalogs titles, versions, regions, publication facts, product identifiers, a
 
 ## Collection
 
-The current source accession spans six Nintendo platforms:
+The current accession spans ten console and handheld platforms:
 
 | Platform | Source records |
 | --- | ---: |
@@ -18,11 +18,15 @@ The current source accession spans six Nintendo platforms:
 | Game Boy Advance | 3,692 |
 | Nintendo Entertainment System | 14,132 |
 | Nintendo DS | 7,701 |
-| **Total** | **34,613** |
+| Nintendo 64 | 1,435 |
+| Sega Mega Drive / Genesis | 3,365 |
+| Sega Master System | 1,163 |
+| Sega Game Gear | 915 |
+| **Total** | **41,491** |
 
 These are original source observations, **not a count of distinct games**. Every record has an upstream title and fingerprint information, with additional fields depending on what the source provides.
 
-53 pinned Libretro DATs supply **91,701 bibliographic claims** across developer, publisher, release-year, release-month, genre, franchise, serial, age-rating, player-count, and rumble fields. Strict CRC32-and-title comparison attaches **79,503 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
+88 pinned Libretro DATs supply **129,008 bibliographic claims** across developer, publisher, release-year, release-month, genre, franchise, serial, age-rating, player-count, and rumble fields. Strict CRC32-and-title comparison attaches **98,856 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
 
 [Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Source registers](sources/README.md)
 
@@ -38,7 +42,7 @@ These are original source observations, **not a count of distinct games**. Every
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
-The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for thirteen consumer artifacts. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use.
+The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 21 consumer artifacts. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use.
 
 ## Use the data
 

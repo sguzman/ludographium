@@ -47,6 +47,26 @@
       "platform": "nds",
       "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
       "git_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb"
+    },
+    {
+      "platform": "n64",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+      "git_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17"
+    },
+    {
+      "platform": "genesis",
+      "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+      "git_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5"
+    },
+    {
+      "platform": "sms",
+      "source_path": "metadat/no-intro/Sega - Master System - Mark III.dat",
+      "git_blob_sha": "d147adac8430db3d474c694b97900eb8c46bb1a9"
+    },
+    {
+      "platform": "gg",
+      "source_path": "metadat/no-intro/Sega - Game Gear.dat",
+      "git_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc"
     }
   ]
 }

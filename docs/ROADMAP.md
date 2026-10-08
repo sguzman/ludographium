@@ -7,7 +7,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Define the catalog's scope and layered identity model.
 - [x] Register an immutable Libretro / No-Intro-derived source snapshot.
 - [x] Preserve original SNES, GB, GBC, GBA, NES, and Nintendo DS DAT files.
-- [x] Generate deterministic source-observation JSON for all six platforms.
+- [x] Generate deterministic source-observation JSON for all ten platforms.
 - [x] Validate imports, source identities, generated outputs, and counts.
 - [x] Provide a basic offline SHA-1 and CRC32 lookup utility.
 - [x] Provide bounded source-title discovery in both Rust and Python, including attributed enrichment.
