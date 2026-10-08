@@ -1,7 +1,206 @@
 {
   "schema_version": 1,
   "kind": "curated-identity-ledger",
-  "works": [],
-  "releases": [],
-  "builds": []
+  "works": [
+    {
+      "id": "ldg:w:d123c43e-617b-4ca4-a4e7-8dba950e5345",
+      "preferred_title": "Super Mario World",
+      "rationale": "This initial work identity represents the title asserted by the pinned identification source for Super Mario World (USA). No other regional editions, reissues, or related games are silently grouped under it.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 3444
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:ee39c95a-1f6b-40da-811f-f2567fc3b8db",
+      "preferred_title": "Sonic the Hedgehog",
+      "rationale": "This initial work identity represents the title asserted by the pinned identification source for Sonic The Hedgehog (USA, Europe). No other regional editions, reissues, or related games are silently grouped under it.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 2518
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:ca47d036-d8d6-4b54-834d-57830934896b",
+      "preferred_title": "Metroid Fusion",
+      "rationale": "This initial work identity represents the title asserted by the pinned identification source for Metroid Fusion (USA). No other regional editions, reissues, or related games are silently grouped under it.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 2086
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:9df4fc1a-b69d-4608-8c9c-c6e24035d23f",
+      "preferred_title": "Super Mario 64",
+      "rationale": "This initial work identity represents the title asserted by the pinned identification source for Super Mario 64 (USA). No other regional editions, reissues, or related games are silently grouped under it.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 1150
+        }
+      ]
+    }
+  ],
+  "releases": [
+    {
+      "id": "ldg:r:f54ad53a-5977-4bf3-890c-ad1a4b3286a3",
+      "work_id": "ldg:w:d123c43e-617b-4ca4-a4e7-8dba950e5345",
+      "platform": "snes",
+      "release_label": "Super Mario World (USA)",
+      "rationale": "The source explicitly identifies this platform-specific Super Mario World (USA) media observation. Territory labels remain source claims; no publication date or separate edition correspondence is inferred.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 3444
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:c9cdb041-2099-4d6a-9ae1-474b61cc6d47",
+      "work_id": "ldg:w:ee39c95a-1f6b-40da-811f-f2567fc3b8db",
+      "platform": "genesis",
+      "release_label": "Sonic The Hedgehog (USA, Europe)",
+      "rationale": "The source explicitly identifies this platform-specific Sonic The Hedgehog (USA, Europe) media observation. Territory labels remain source claims; no publication date or separate edition correspondence is inferred.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 2518
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:b9ba6971-1955-4fe0-99db-46a64ebfe4f8",
+      "work_id": "ldg:w:ca47d036-d8d6-4b54-834d-57830934896b",
+      "platform": "gba",
+      "release_label": "Metroid Fusion (USA)",
+      "rationale": "The source explicitly identifies this platform-specific Metroid Fusion (USA) media observation. Territory labels remain source claims; no publication date or separate edition correspondence is inferred.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 2086
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:542160c2-0d30-4dc7-80a5-7f348c179af0",
+      "work_id": "ldg:w:9df4fc1a-b69d-4608-8c9c-c6e24035d23f",
+      "platform": "n64",
+      "release_label": "Super Mario 64 (USA)",
+      "rationale": "The source explicitly identifies this platform-specific Super Mario 64 (USA) media observation. Territory labels remain source claims; no publication date or separate edition correspondence is inferred.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 1150
+        }
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "id": "ldg:b:b6e04467-fd33-45ce-9e5d-4ff1edff427c",
+      "release_id": "ldg:r:f54ad53a-5977-4bf3-890c-ad1a4b3286a3",
+      "build_label": "Super Mario World (USA) - recorded media image",
+      "rationale": "This build is bounded to the source's single recorded media byte representation: 524288 bytes and SHA-1 6B47BB75D16514B6A476AA0C73A683A2A4C18765. Header transformations and separate revisions are not assumed equivalent.",
+      "media": {
+        "sha1": "6B47BB75D16514B6A476AA0C73A683A2A4C18765",
+        "size": 524288
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 3444
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:7e9d7330-f58c-42be-916d-f99a963cd8a4",
+      "release_id": "ldg:r:c9cdb041-2099-4d6a-9ae1-474b61cc6d47",
+      "build_label": "Sonic The Hedgehog (USA, Europe) - recorded media image",
+      "rationale": "This build is bounded to the source's single recorded media byte representation: 524288 bytes and SHA-1 6DDB7DE1E17E7F6CDB88927BD906352030DAA194. Header transformations and separate revisions are not assumed equivalent.",
+      "media": {
+        "sha1": "6DDB7DE1E17E7F6CDB88927BD906352030DAA194",
+        "size": 524288
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 2518
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:b111aac8-0a2f-4026-86fd-363e25c89d87",
+      "release_id": "ldg:r:b9ba6971-1955-4fe0-99db-46a64ebfe4f8",
+      "build_label": "Metroid Fusion (USA) - recorded media image",
+      "rationale": "This build is bounded to the source's single recorded media byte representation: 8388608 bytes and SHA-1 CA33F4348C2C05DD330D37B97E2C5A69531DFE87. Header transformations and separate revisions are not assumed equivalent.",
+      "media": {
+        "sha1": "CA33F4348C2C05DD330D37B97E2C5A69531DFE87",
+        "size": 8388608
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 2086
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:120c2459-2ca1-41fa-b0e2-2b23e28d4aa6",
+      "release_id": "ldg:r:542160c2-0d30-4dc7-80a5-7f348c179af0",
+      "build_label": "Super Mario 64 (USA) - recorded media image",
+      "rationale": "This build is bounded to the source's single recorded media byte representation: 8388608 bytes and SHA-1 9BEF1128717F958171A4AFAC3ED78EE2BB4E86CE. Header transformations and separate revisions are not assumed equivalent.",
+      "media": {
+        "sha1": "9BEF1128717F958171A4AFAC3ED78EE2BB4E86CE",
+        "size": 8388608
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 1150
+        }
+      ]
+    }
+  ]
 }

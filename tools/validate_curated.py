@@ -2,6 +2,7 @@
 """Validate manually curated game/release/build identities against source evidence."""
 import argparse
 import json
+import re
 import uuid
 from pathlib import Path
 
@@ -11,7 +12,7 @@ KINDS = {"works": "w", "releases": "r", "builds": "b"}
 REQUIRED = {
     "works": {"id", "preferred_title", "rationale", "evidence"},
     "releases": {"id", "work_id", "platform", "release_label", "rationale", "evidence"},
-    "builds": {"id", "release_id", "build_label", "rationale", "evidence"},
+    "builds": {"id", "release_id", "build_label", "rationale", "evidence", "media"},
 }
 REF_KEYS = {"source_id", "source_revision", "source_path", "source_blob_sha", "source_ordinal"}
 
@@ -44,22 +45,32 @@ def evidence_key(ref):
 def available_sources(root):
     """Read registered observations, not guess from source names or filenames."""
     catalog = json.loads((root / "generated/v1/catalog.json").read_bytes())
-    refs = set()
+    refs = {}
     for item in catalog["platforms"]:
+        platform = item["platform"]
         bundle = json.loads((root / item["artifact_path"]).read_bytes())
         for row in bundle["records"]:
-            refs.add((
+            key = (
                 bundle["source_id"], bundle["source_revision"],
                 bundle["source_path"], bundle["source_blob_sha"], row["source_ordinal"]
-            ))
-        path = root / f"generated/enrichment-v1/{item['platform']}.json"
+            )
+            if key in refs:
+                raise ValueError("repeated source occurrence locator")
+            refs[key] = {
+                "platform": platform,
+                "media": {(m["sha1"], m["size"]) for m in row["roms"] if m.get("sha1")},
+            }
+        path = root / f"generated/enrichment-v1/{platform}.json"
         if path.exists():
             enriched = json.loads(path.read_bytes())
             for claim in enriched["claims"]:
-                refs.add((
+                key = (
                     enriched["source_id"], enriched["source_revision"],
                     claim["source_path"], claim["source_blob_sha"], claim["source_ordinal"]
-                ))
+                )
+                if key in refs:
+                    raise ValueError("repeated enrichment occurrence locator")
+                refs[key] = {"platform": platform, "media": set()}
     return refs
 
 
@@ -104,9 +115,31 @@ def validate_ledger(ledger, platform_ids, available):
             raise ValueError(f"{item['id']} references an unknown work")
         if item["platform"] not in platform_ids:
             raise ValueError(f"{item['id']} uses an unknown platform")
+        if not any(available[evidence_key(ref)]["platform"] == item["platform"]
+                   for ref in item["evidence"]):
+            raise ValueError(f"{item['id']} has no evidence from its stated platform")
+
+    used_media = set()
     for item in ledger["builds"]:
-        if item["release_id"] not in indexed["releases"]:
+        release = indexed["releases"].get(item["release_id"])
+        if release is None:
             raise ValueError(f"{item['id']} references an unknown release")
+        media = item["media"]
+        if (not isinstance(media, dict) or set(media) != {"sha1", "size"}
+                or not isinstance(media["sha1"], str)
+                or re.fullmatch(r"[A-F0-9]{40}", media["sha1"]) is None
+                or not isinstance(media["size"], int) or isinstance(media["size"], bool)
+                or media["size"] <= 0):
+            raise ValueError(f"{item['id']} requires an exact SHA-1 and byte size")
+        fingerprint = (media["sha1"], media["size"])
+        if not any(available[evidence_key(ref)]["platform"] == release["platform"]
+                   and fingerprint in available[evidence_key(ref)]["media"]
+                   for ref in item["evidence"]):
+            raise ValueError(f"{item['id']} media fingerprint is absent from its cited source")
+        scoped = (release["platform"], *fingerprint)
+        if scoped in used_media:
+            raise ValueError(f"{item['id']} repeats an already curated media identity")
+        used_media.add(scoped)
     return counts
 
 

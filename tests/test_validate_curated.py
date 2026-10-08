@@ -11,6 +11,7 @@ BUILD = "ldg:b:33333333-3333-4333-8333-333333333333"
 REF = {"source_id": "src", "source_revision": "rev", "source_path": "x.dat",
        "source_blob_sha": "abc", "source_ordinal": 1}
 KEY = ("src", "rev", "x.dat", "abc", 1)
+AVAILABLE = {KEY: {"platform": "gb", "media": {("A"*40, 128)}}}
 
 
 def fixture():
@@ -25,47 +26,63 @@ def fixture():
         "builds": [{"id": BUILD, "release_id": RELEASE,
                     "build_label": "Source ROM revision",
                     "rationale": "Specific source-observed media fingerprint",
-                    "evidence": [dict(REF)]}],
+                    "evidence": [dict(REF)], "media": {"sha1": "A"*40, "size": 128}}],
     }
 
 
 class CuratedTests(unittest.TestCase):
     def test_valid_hierarchy(self):
-        self.assertEqual(validate_ledger(fixture(), {"gb"}, {KEY}),
+        self.assertEqual(validate_ledger(fixture(), {"gb"}, AVAILABLE),
                          {"works": 1, "releases": 1, "builds": 1})
 
     def test_no_title_based_keys(self):
         ledger = fixture()
         ledger["works"][0]["id"] = "ldg:w:sample"
         with self.assertRaisesRegex(ValueError, "stable identity"):
-            validate_ledger(ledger, {"gb"}, {KEY})
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
 
     def test_unknown_evidence(self):
         ledger = fixture()
         ledger["works"][0]["evidence"][0]["source_ordinal"] = 2
         with self.assertRaisesRegex(ValueError, "unknown source occurrence"):
-            validate_ledger(ledger, {"gb"}, {KEY})
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
 
     def test_wrong_platform_and_missing_parents(self):
         ledger = fixture()
         ledger["releases"][0]["platform"] = "invalid"
         with self.assertRaisesRegex(ValueError, "unknown platform"):
-            validate_ledger(ledger, {"gb"}, {KEY})
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
         ledger = fixture()
         ledger["builds"][0]["release_id"] = WORK
         with self.assertRaisesRegex(ValueError, "unknown release"):
-            validate_ledger(ledger, {"gb"}, {KEY})
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
 
     def test_bad_evidence_fails_closed(self):
         ledger = fixture()
         ledger["works"][0]["evidence"][0]["extra"] = "inferred"
         with self.assertRaisesRegex(ValueError, "exact source"):
-            validate_ledger(ledger, {"gb"}, {KEY})
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
+
+    def test_build_must_match_exact_cited_media(self):
+        ledger = fixture()
+        ledger["builds"][0]["media"]["size"] = 129
+        with self.assertRaisesRegex(ValueError, "media fingerprint"):
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
+        ledger["builds"][0]["media"]["size"] = 128
+        ledger["builds"][0]["media"]["sha1"] = "not-a-valid-hash"
+        with self.assertRaisesRegex(ValueError, "exact SHA-1"):
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
+
+    def test_release_evidence_must_be_same_platform(self):
+        ledger = fixture()
+        with self.assertRaisesRegex(ValueError, "no evidence from its stated platform"):
+            validate_ledger(ledger, {"gb", "gba"},
+                            {KEY: {"platform": "gba", "media": {("A"*40, 128)}}})
 
     def test_empty_ledger_does_not_fabricate_games(self):
         ledger = {"schema_version": 1, "kind": "curated-identity-ledger",
                   "works": [], "releases": [], "builds": []}
-        self.assertEqual(validate_ledger(ledger, {"gb"}, set()),
+        self.assertEqual(validate_ledger(ledger, {"gb"}, {}),
                          {"works": 0, "releases": 0, "builds": 0})
 
 
