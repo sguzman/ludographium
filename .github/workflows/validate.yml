@@ -20,12 +20,10 @@ jobs:
         run: python tools/audit_catalog.py --check
       - name: Validate pinned bibliographic claims
         run: python tools/import_enrichment.py --check
-      - name: Build source enrichment coverage report
-        run: |
-          python tools/audit_enrichment.py --write
-          echo BEGIN-LUDOGRAPH-ENRICHMENT-COVERAGE
-          cat reports/enrichment-coverage-v1.json
-          echo END-LUDOGRAPH-ENRICHMENT-COVERAGE
+      - name: Verify enrichment coverage report
+        run: python tools/audit_enrichment.py --check
+      - name: Validate curated identity ledger
+        run: python tools/validate_curated.py
       - name: Verify enriched fingerprint lookup
         run: |
           python tools/lookup_enrichment.py --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-enriched.json
