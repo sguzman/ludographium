@@ -36,6 +36,17 @@ class DistributionTests(unittest.TestCase):
                          hashlib.sha256(b'{"sample":"game"}\n').hexdigest())
         self.assertEqual(result["artifacts"][1]["bytes"], len(b'{"sample":"game"}\n'))
 
+    def test_register_requires_attribution_notice(self):
+        (self.root / "sources").mkdir()
+        (self.root / "sources/libretro-no-intro.json").write_text('{"source_id":"upstream"}')
+        with self.assertRaisesRegex(ValueError, "METADATA-NOTICE"):
+            build_distribution(self.root)
+        (self.root / "METADATA-NOTICE.md").write_text("# Metadata attribution")
+        manifest = build_distribution(self.root)
+        paths = {entry["path"] for entry in manifest["artifacts"]}
+        self.assertIn("METADATA-NOTICE.md", paths)
+        self.assertIn("sources/libretro-no-intro.json", paths)
+
     def test_modification_changes_output(self):
         original = canonical_bytes(self.root)
         (self.root / "generated/v1/gb.json").write_bytes(b"changed")
