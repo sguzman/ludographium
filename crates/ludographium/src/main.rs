@@ -1,14 +1,13 @@
 //! Offline fingerprint and raw-file lookup CLI. Local input is streamed, not retained.
-use ludographium::collection::registered_platforms;
+use ludographium::collection::{CatalogCollection, EnrichedCatalogCollection};
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
-use sha1::{Digest, Sha1};
 use std::env;
 use std::error::Error;
 use std::fs::File;
-use std::io::{BufReader, Read};
+use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
@@ -78,26 +77,8 @@ fn with_curated(
     output
 }
 
-/// Compute a local input fingerprint *once* for all-platform search.
-/// No game file is retained, normalized, or copied to the metadata catalog.
-fn exact_file_hash(path: &str) -> Result<(String, u64), Box<dyn Error>> {
-    let mut input = BufReader::new(File::open(path)?);
-    let mut digest = Sha1::new();
-    let mut bytes = 0u64;
-    let mut buffer = [0u8; 65536];
-    loop {
-        let n = input.read(&mut buffer)?;
-        if n == 0 {
-            break;
-        }
-        bytes = bytes
-            .checked_add(n as u64)
-            .ok_or_else(|| CatalogError::Invalid("local input byte length overflows u64".into()))?;
-        digest.update(&buffer[..n]);
-    }
-    Ok((format!("{:X}", digest.finalize()), bytes))
-}
-
+/// The CLI uses the same collection APIs available to emulator frontends.
+/// Local media is hashed once; no title-based or platform-based identity merging occurs.
 #[allow(clippy::too_many_arguments)]
 fn lookup_all_platforms(
     root: &Path,
@@ -110,109 +91,87 @@ fn lookup_all_platforms(
     enriched: bool,
     curated: Option<&CuratedCatalog>,
 ) -> Result<Value, Box<dyn Error>> {
-    let platforms = registered_platforms(root)?;
-    let file_hash = if let Some(path) = file {
-        Some(exact_file_hash(path)?)
+    if enriched {
+        let collection = EnrichedCatalogCollection::open(root)?;
+        let platforms: Vec<&str> = collection.platform_ids().collect();
+        let source_info: Vec<Value> = collection.enrichment_sources().map(|(platform, id, revision)| {
+            json!({ "platform": platform, "id": id, "revision": revision })
+        }).collect();
+        let (mut found, total) = if let Some(query) = title {
+            let result = collection.search_titles(query, limit)?;
+            (result.matches, Some(result.total_source_records))
+        } else if let Some(path) = file {
+            (collection.lookup_reader(BufReader::new(File::open(path)?))?, None)
+        } else if let Some(hash) = sha1 {
+            (collection.lookup_sha1(hash)?, None)
+        } else {
+            (collection.lookup_crc32(crc32.unwrap(), size.unwrap())?, None)
+        };
+        if title.is_none() && file.is_none() {
+            if let Some(expected) = size {
+                found.retain(|hit| hit.base.media.size == expected);
+            }
+        }
+        let matches: Vec<Value> = found.iter().map(|hit| {
+            with_curated(format_enriched_match(hit), &hit.base, curated)
+        }).collect();
+        let mut output = json!({
+            "platform_scope": "all-registered",
+            "platforms_searched": platforms,
+            "enrichment_sources": source_info,
+            "match_count": matches.len(),
+            "matches": matches
+        });
+        if let Some(total) = total {
+            output["query_kind"] = json!("source-title-substring");
+            output["total_source_records"] = json!(total);
+        } else {
+            output["input_kind"] = json!(if file.is_some() {
+                "exact-local-file-bytes"
+            } else {
+                "fingerprint"
+            });
+        }
+        Ok(output)
     } else {
-        None
-    };
-    let effective_hash = sha1.or_else(|| file_hash.as_ref().map(|(hash, _)| hash.as_str()));
-    let effective_size = size.or_else(|| file_hash.as_ref().map(|(_, bytes)| *bytes));
-    let mut matches = Vec::new();
-    let mut title_record_total = 0usize;
-    let mut enrichment_sources = Vec::new();
-
-    for platform in &platforms {
-        if enriched {
-            let catalog = EnrichedPlatformCatalog::open(root, platform)?;
-            enrichment_sources.push(json!({
-                "platform": platform,
-                "id": catalog.source_id(),
-                "revision": catalog.source_revision()
-            }));
-            if let Some(query) = title {
-                let remaining = limit.saturating_sub(title_record_total.min(limit));
-                let result = catalog.search_titles(query, remaining.max(1))?;
-                title_record_total += result.total_records;
-                if remaining != 0 {
-                    matches.extend(
-                        result.matches.iter().map(|hit| {
-                            with_curated(format_enriched_match(hit), &hit.base, curated)
-                        }),
-                    );
-                }
-            } else {
-                let found = if let Some(hash) = effective_hash {
-                    catalog.lookup_sha1(hash)?
-                } else {
-                    catalog.lookup_crc32(crc32.unwrap(), effective_size.unwrap())?
-                };
-                matches.extend(
-                    found
-                        .iter()
-                        .filter(|hit| effective_size.is_none_or(|n| hit.base.media.size == n))
-                        .map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated)),
-                );
-            }
+        let collection = CatalogCollection::open(root)?;
+        let platforms: Vec<&str> = collection.platform_ids().collect();
+        let (mut found, total) = if let Some(query) = title {
+            let result = collection.search_titles(query, limit)?;
+            (result.matches, Some(result.total_source_records))
+        } else if let Some(path) = file {
+            (collection.lookup_reader(BufReader::new(File::open(path)?))?, None)
+        } else if let Some(hash) = sha1 {
+            (collection.lookup_sha1(hash)?, None)
         } else {
-            let catalog = PlatformCatalog::open(root, platform)?;
-            if let Some(query) = title {
-                let remaining = limit.saturating_sub(title_record_total.min(limit));
-                let result = catalog.search_titles(query, remaining.max(1))?;
-                title_record_total += result.total;
-                if remaining != 0 {
-                    for record in result.records {
-                        for media in &record.roms {
-                            let hit = MediaMatch {
-                                platform: catalog.platform(),
-                                record,
-                                media,
-                                source: catalog.source(),
-                            };
-                            matches.push(with_curated(format_match(&hit), &hit, curated));
-                        }
-                    }
-                }
-            } else {
-                let found = if let Some(hash) = effective_hash {
-                    catalog.lookup_sha1(hash)?
-                } else {
-                    catalog.lookup_crc32(crc32.unwrap(), effective_size.unwrap())?
-                };
-                matches.extend(
-                    found
-                        .iter()
-                        .filter(|hit| effective_size.is_none_or(|n| hit.media.size == n))
-                        .map(|hit| with_curated(format_match(hit), hit, curated)),
-                );
+            (collection.lookup_crc32(crc32.unwrap(), size.unwrap())?, None)
+        };
+        if title.is_none() && file.is_none() {
+            if let Some(expected) = size {
+                found.retain(|hit| hit.media.size == expected);
             }
         }
-    }
-    let mut output = json!({
-        "platform_scope": "all-registered",
-        "platforms_searched": platforms,
-        "match_count": matches.len(),
-        "matches": matches
-    });
-    if let Some(obj) = output.as_object_mut() {
-        if title.is_some() {
-            obj.insert("query_kind".into(), json!("source-title-substring"));
-            obj.insert("total_source_records".into(), json!(title_record_total));
+        let matches: Vec<Value> = found.iter().map(|hit| {
+            with_curated(format_match(hit), hit, curated)
+        }).collect();
+        let mut output = json!({
+            "platform_scope": "all-registered",
+            "platforms_searched": platforms,
+            "match_count": matches.len(),
+            "matches": matches
+        });
+        if let Some(total) = total {
+            output["query_kind"] = json!("source-title-substring");
+            output["total_source_records"] = json!(total);
         } else {
-            obj.insert(
-                "input_kind".into(),
-                json!(if file.is_some() {
-                    "exact-local-file-bytes"
-                } else {
-                    "fingerprint"
-                }),
-            );
+            output["input_kind"] = json!(if file.is_some() {
+                "exact-local-file-bytes"
+            } else {
+                "fingerprint"
+            });
         }
-        if enriched {
-            obj.insert("enrichment_sources".into(), json!(enrichment_sources));
-        }
+        Ok(output)
     }
-    Ok(output)
 }
 
 fn run() -> Result<(), Box<dyn Error>> {
