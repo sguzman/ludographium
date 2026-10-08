@@ -39,6 +39,21 @@ python3 tools/lookup.py --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8C
 
 The example resolves to one source observation for `10-Pin Bowling (USA) (Proto)` in the Game Boy DAT. The tool reads committed JSON indexes, not game files. It also supports `--crc32` with the mandatory `--size` byte count.
 
+## Matching exact local media bytes
+
+Emulator and library consumers can supply an in-memory byte slice through `PlatformCatalog::lookup_bytes`, or a streaming Rust `Read` source through `PlatformCatalog::lookup_reader`. The corresponding methods on `EnrichedPlatformCatalog` preserve the source-attributed bibliographic claims.
+
+For a standalone file on disk, the Rust CLI offers:
+
+```sh
+cargo run --locked -p ludographium -- --platform gba --file /path/to/a-game.gba
+cargo run --locked -p ludographium -- --enriched --platform gba --file /path/to/a-game.gba
+```
+
+This hashes **exactly the supplied bytes** with SHA-1, checks the original file length, and returns all matching source observations. Input is read with bounded memory and is never copied into Ludographium. An unmatched result does not establish that a game is unknown; differing archive compression, copier headers, byte ordering, patches, or other representations can change fingerprints.
+
+This is not a container extractor or a platform-specific byte-normalization layer. Consumers must explicitly choose the byte representation they want to identify. Full ZIP/archive support and verified per-platform normalization rules remain future work.
+
 ## Discovering source titles
 
 Source-title search is intentionally separate from fingerprint identification. It searches original source title strings, preserving individual edition and revision records and their source provenance.

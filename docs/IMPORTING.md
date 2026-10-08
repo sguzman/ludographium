@@ -34,6 +34,10 @@ The verification command reimports all six archived identification DATs, compare
 
 The entire identification catalog can be reconstructed with `python3 tools/rebuild_catalog.py --write`. The `tools/fetch_pinned_sources.py` helper retrieves missing, revision-pinned original metadata files and checks their Git blob identities. Existing source files are never silently replaced.
 
+## Identifying a locally held game image
+
+The read-only Rust CLI accepts `--file /path/to/image` as an alternative to `--sha1` or `--crc32 --size`. Local file content is streamed for SHA-1 comparison; it is not archived, uploaded, or otherwise stored. A raw file representation that differs from the pinned source DAT (for example, a byte-swapped Nintendo 64 image, copier header, or ZIP container) will not necessarily match. The catalog does not silently transform inputs.
+
 ## Distributing runtime metadata
 
 The [packager](../tools/package_runtime.py) verifies every file against the SHA-256 distribution manifest before creating a normalized runtime tarball. The archive contains only the portable `generated/` metadata and has deterministic file ordering, permissions, timestamps, and gzip header.

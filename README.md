@@ -46,7 +46,7 @@ The [distribution manifest](generated/v1/distribution.json) publishes byte lengt
 
 ## Use the data
 
-The Rust reader validates the source indexes before returning matches:
+The Rust reader validates the source indexes before returning matches. Consumers may supply a known fingerprint or stream exact local media bytes without storing the file in Ludographium:
 
 ```sh
 cargo run --locked -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
@@ -58,7 +58,9 @@ Source-title discovery is also available when no fingerprint is known. Results r
 cargo run --locked -p ludographium -- --platform nes --title "Mario" --limit 5
 ```
 
-Add `--enriched` to fingerprint or title queries to include matched and unresolved bibliographic claims separately:
+For an exact local file, use `--file /path/to/game` instead of a hash. Input is streamed and never added to the catalog. The file's representation must exactly match the source checksum; headers, archives, and byte-swapped formats are not silently normalized.
+
+Add `--enriched` to fingerprint, file, or title queries to include matched and unresolved bibliographic claims separately:
 
 ```sh
 cargo run --locked -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4
