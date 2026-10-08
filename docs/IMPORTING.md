@@ -14,7 +14,7 @@ python3 tools/import_dat.py \
   --output generated/v1/gb.json
 ```
 
-Substitute `snes`, `gbc`, or `gba` for `gb` to rebuild the other current exports.
+Substitute `snes`, `gbc`, `gba`, `nes`, or `nds` for `gb` to rebuild the other current exports.
 
 The importer checks the raw DAT against the expected Git blob SHA before producing JSON. The Git blob identity is computed as SHA-1 over the bytes `blob <byte-count>\0<original-file-bytes>`; it is different from SHA-1 of the DAT file alone.
 
@@ -30,7 +30,9 @@ python3 tools/audit_enrichment.py --check
 python3 tools/validate_curated.py
 ```
 
-The verification command reimports all four archived DATs, compares the generated JSON bytes with the committed artifacts, and checks each input/output Git blob SHA and manifest count. The tests cover parser and lookup behavior, including checksum validation and ambiguous CRC32 matches. The distribution check validates SHA-256 digests, while the source audit checks metadata field counts and repeated identifiers against the committed report.
+The verification command reimports all six archived identification DATs, compares the generated JSON bytes with the committed artifacts, and checks each input/output Git blob SHA and manifest count. The tests cover parser and lookup behavior, including checksum validation and ambiguous CRC32 matches. The distribution check validates SHA-256 digests, while the source audit checks metadata field counts and repeated identifiers against the committed report.
+
+The entire identification catalog can be reconstructed with `python3 tools/rebuild_catalog.py --write`. The `tools/fetch_pinned_sources.py` helper retrieves missing, revision-pinned original metadata files and checks their Git blob identities. Existing source files are never silently replaced.
 
 ## Adding or updating a source
 

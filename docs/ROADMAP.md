@@ -6,8 +6,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 - [x] Define the catalog's scope and layered identity model.
 - [x] Register an immutable Libretro / No-Intro-derived source snapshot.
-- [x] Preserve original SNES, GB, GBC, and GBA DAT files.
-- [x] Generate deterministic source-observation JSON for all four platforms.
+- [x] Preserve original SNES, GB, GBC, GBA, NES, and Nintendo DS DAT files.
+- [x] Generate deterministic source-observation JSON for all six platforms.
 - [x] Validate imports, source identities, generated outputs, and counts.
 - [x] Provide a basic offline SHA-1 and CRC32 lookup utility.
 - [x] Publish reproducible per-platform field-coverage and repeated-fingerprint audits.
@@ -20,7 +20,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
-- [ ] Extend the collection to NES and Nintendo DS, followed by additional systems.
+- [x] Extend the catalog with NES and Nintendo DS identification and bibliographic sources.
+- [ ] Expand to additional consoles and handhelds with audited source snapshots.
 
 ## Distribution and consumers
 
@@ -31,7 +32,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 ## Bibliographic enrichment
 
-- [x] Accession 20 developer, publisher, release-year, release-month, and genre metadata DATs.
+- [x] Accession 29 developer, publisher, release-year, release-month, and genre metadata DATs.
 - [x] Implement conservative claim resolution, coverage reports, and integrity-checked Rust/Python access.
 - [ ] Expand to localized titles, richer dates, and independently sourced company credits as reuse permits.
 - [ ] Curate source corrections without modifying original archives.
