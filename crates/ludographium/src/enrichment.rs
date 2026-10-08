@@ -82,10 +82,16 @@ fn checked_enrichment_file(root: &Path, platform: &str) -> Result<Vec<u8>, Catal
     let distribution: Distribution =
         serde_json::from_slice(&fs::read(root.join("generated/v1/distribution.json"))?)?;
     if distribution.schema_version != 1 || distribution.kind != "ludographium-distribution" {
-        return Err(CatalogError::Invalid("invalid distribution manifest".into()));
+        return Err(CatalogError::Invalid(
+            "invalid distribution manifest".into(),
+        ));
     }
     let path = format!("generated/enrichment-v1/{platform}.json");
-    let matching: Vec<_> = distribution.artifacts.iter().filter(|a| a.path == path).collect();
+    let matching: Vec<_> = distribution
+        .artifacts
+        .iter()
+        .filter(|a| a.path == path)
+        .collect();
     if matching.len() != 1 {
         return Err(CatalogError::Invalid(format!(
             "missing or duplicate enrichment artifact: {platform}"
@@ -97,12 +103,16 @@ fn checked_enrichment_file(root: &Path, platform: &str) -> Result<Vec<u8>, Catal
     digest.update(&bytes);
     let actual = format!("{:x}", digest.finalize());
     if bytes.len() != artifact.bytes || artifact.sha256 != actual {
-        return Err(CatalogError::Invalid(format!("enrichment SHA-256 mismatch: {platform}")));
+        return Err(CatalogError::Invalid(format!(
+            "enrichment SHA-256 mismatch: {platform}"
+        )));
     }
     let base: serde_json::Value =
         serde_json::from_slice(&fs::read(root.join("generated/v1/catalog.json"))?)?;
     if base["source_revision"] != distribution.source_revision {
-        return Err(CatalogError::Invalid("distribution/base revision mismatch".into()));
+        return Err(CatalogError::Invalid(
+            "distribution/base revision mismatch".into(),
+        ));
     }
     Ok(bytes)
 }
@@ -123,7 +133,9 @@ impl EnrichedPlatformCatalog {
             || bundle.base_source_revision != base.source().revision
             || bundle.claim_count != bundle.claims.len()
         {
-            return Err(CatalogError::Invalid("enrichment/base metadata mismatch".into()));
+            return Err(CatalogError::Invalid(
+                "enrichment/base metadata mismatch".into(),
+            ));
         }
 
         let mut attached: HashMap<(usize, String), Vec<usize>> = HashMap::new();
@@ -136,7 +148,9 @@ impl EnrichedPlatformCatalog {
                 || claim.field.is_empty()
                 || claim.source_path.is_empty()
             {
-                return Err(CatalogError::Invalid("malformed provenance-bearing claim".into()));
+                return Err(CatalogError::Invalid(
+                    "malformed provenance-bearing claim".into(),
+                ));
             }
             *counted.entry(claim.resolution.status.clone()).or_insert(0) += 1;
             if claim.resolution.status == "matched" {
@@ -147,27 +161,54 @@ impl EnrichedPlatformCatalog {
                     CatalogError::Invalid("matched claim has invalid source target".into())
                 })?;
                 let comment_matches = claim.source_comment.as_deref() == Some(record.name.as_str());
-                let media_matches = record.roms.iter().any(|m| m.crc32.as_deref() == Some(&claim.crc32));
+                let media_matches = record
+                    .roms
+                    .iter()
+                    .any(|m| m.crc32.as_deref() == Some(&claim.crc32));
                 if claim.value.is_none() || !comment_matches || !media_matches {
-                    return Err(CatalogError::Invalid("matched claim contradicts base evidence".into()));
+                    return Err(CatalogError::Invalid(
+                        "matched claim contradicts base evidence".into(),
+                    ));
                 }
-                attached.entry((ordinal, claim.crc32.clone())).or_default().push(index);
+                attached
+                    .entry((ordinal, claim.crc32.clone()))
+                    .or_default()
+                    .push(index);
             } else if matches!(
                 claim.resolution.status.as_str(),
-                "unmatched_crc" | "ambiguous_crc" | "missing_comment" | "comment_mismatch" | "missing_value"
+                "unmatched_crc"
+                    | "ambiguous_crc"
+                    | "missing_comment"
+                    | "comment_mismatch"
+                    | "missing_value"
             ) {
                 if claim.resolution.base_source_ordinal.is_some() {
-                    return Err(CatalogError::Invalid("unresolved claim has a target".into()));
+                    return Err(CatalogError::Invalid(
+                        "unresolved claim has a target".into(),
+                    ));
                 }
-                unresolved.entry(claim.crc32.clone()).or_default().push(index);
+                unresolved
+                    .entry(claim.crc32.clone())
+                    .or_default()
+                    .push(index);
             } else {
-                return Err(CatalogError::Invalid("unrecognized enrichment resolution".into()));
+                return Err(CatalogError::Invalid(
+                    "unrecognized enrichment resolution".into(),
+                ));
             }
         }
         if counted != bundle.resolution_counts {
-            return Err(CatalogError::Invalid("enrichment resolution counts mismatch".into()));
+            return Err(CatalogError::Invalid(
+                "enrichment resolution counts mismatch".into(),
+            ));
         }
-        Ok(Self { base, source_id: bundle.source_id, claims: bundle.claims, attached, unresolved })
+        Ok(Self {
+            base,
+            source_id: bundle.source_id,
+            claims: bundle.claims,
+            attached,
+            unresolved,
+        })
     }
 
     pub fn source_id(&self) -> &str {
@@ -201,7 +242,11 @@ impl EnrichedPlatformCatalog {
                     .flat_map(|v| v.iter())
                     .map(|index| &self.claims[*index])
                     .collect();
-                EnrichedMediaMatch { base, metadata_claims, unresolved_source_claims }
+                EnrichedMediaMatch {
+                    base,
+                    metadata_claims,
+                    unresolved_source_claims,
+                }
             })
             .collect()
     }
@@ -240,11 +285,19 @@ mod tests {
     #[test]
     fn known_game_has_attributed_metadata() {
         let catalog = EnrichedPlatformCatalog::open(root(), "gba").unwrap();
-        let matches = catalog.lookup_sha1("FC6163F99B71B05C10686A0D29010B31274E1DC4").unwrap();
+        let matches = catalog
+            .lookup_sha1("FC6163F99B71B05C10686A0D29010B31274E1DC4")
+            .unwrap();
         assert_eq!(matches.len(), 1);
-        assert!(matches[0].metadata_claims.iter().any(|claim|
-            claim.field == "developer" && claim.value.as_deref() == Some("Griptonite Games")));
-        assert!(matches[0].metadata_claims.iter().all(|claim| claim.resolution.status == "matched"));
+        assert!(matches[0]
+            .metadata_claims
+            .iter()
+            .any(|claim| claim.field == "developer"
+                && claim.value.as_deref() == Some("Griptonite Games")));
+        assert!(matches[0]
+            .metadata_claims
+            .iter()
+            .all(|claim| claim.resolution.status == "matched"));
     }
 
     #[test]

@@ -39,7 +39,10 @@ fn format_enriched_match(found: &EnrichedMediaMatch<'_>) -> Value {
     let mut result = format_match(&found.base);
     if let Value::Object(ref mut map) = result {
         map.insert("metadata_claims".to_owned(), json!(found.metadata_claims));
-        map.insert("unresolved_source_claims".to_owned(), json!(found.unresolved_source_claims));
+        map.insert(
+            "unresolved_source_claims".to_owned(),
+            json!(found.unresolved_source_claims),
+        );
     }
     result
 }

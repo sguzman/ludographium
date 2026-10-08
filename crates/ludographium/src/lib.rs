@@ -305,7 +305,10 @@ impl PlatformCatalog {
 
     /// Lookup a source record by its one-based original ordinal.
     pub fn source_record(&self, ordinal: usize) -> Option<&SourceRecord> {
-        ordinal.checked_sub(1).and_then(|i| self.records.get(i)).filter(|r| r.source_ordinal == ordinal)
+        ordinal
+            .checked_sub(1)
+            .and_then(|i| self.records.get(i))
+            .filter(|r| r.source_ordinal == ordinal)
     }
 
     pub fn platform(&self) -> &str {
