@@ -14,16 +14,16 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
-      - name: Rebuild expanded distribution manifest
-        run: |
-          python tools/build_distribution.py --write
-          echo BEGIN-LUDOGRAPH-ENRICHMENT-MANIFEST
-          cat generated/v1/distribution.json
-          echo END-LUDOGRAPH-ENRICHMENT-MANIFEST
+      - name: Verify SHA-256 distribution manifest
+        run: python tools/build_distribution.py --check
       - name: Verify source field coverage report
         run: python tools/audit_catalog.py --check
       - name: Validate pinned bibliographic claims
         run: python tools/import_enrichment.py --check
+      - name: Verify enriched fingerprint lookup
+        run: |
+          python tools/lookup_enrichment.py --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-enriched.json
+          python -c 'import json; d=json.load(open("/tmp/ludographium-enriched.json")); assert d["match_count"] == 1; assert "developer" in {c["field"] for c in d["matches"][0]["metadata_claims"]}'
   rust:
     runs-on: ubuntu-latest
     steps:
