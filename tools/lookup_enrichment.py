@@ -4,6 +4,7 @@ import argparse
 from collections import defaultdict
 import hashlib
 import json
+import re
 from pathlib import Path
 
 from lookup import find_matches, find_title_matches
@@ -59,8 +60,8 @@ def join_claims(matches, claims):
 
 
 def lookup(root, platform, *, sha1=None, crc32=None, size=None, title=None, limit=50):
-    if platform not in {"snes", "gb", "gbc", "gba", "nes", "nds"}:
-        raise ValueError("unsupported platform")
+    if not isinstance(platform, str) or not re.fullmatch(r"[a-z0-9]+", platform):
+        raise ValueError("invalid platform identifier")
     distribution = json.loads((root / "generated/v1/distribution.json").read_bytes())
     if distribution.get("schema_version") != 1 or distribution.get("kind") != "ludographium-distribution":
         raise ValueError("unsupported distribution manifest")
@@ -100,7 +101,7 @@ def lookup(root, platform, *, sha1=None, crc32=None, size=None, title=None, limi
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--platform", choices=("snes", "gb", "gbc", "gba", "nes", "nds"), required=True)
+    p.add_argument("--platform", required=True)
     p.add_argument("--root", type=Path, default=ROOT)
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--sha1")

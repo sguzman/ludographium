@@ -67,7 +67,8 @@ def find_matches(data, *, sha1=None, crc32=None, size=None):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--platform', choices=('snes', 'gb', 'gbc', 'gba', 'nes', 'nds'), required=True)
+    p.add_argument('--platform', required=True)
+    p.add_argument('--root', type=Path, default=ROOT)
     h = p.add_mutually_exclusive_group(required=True)
     h.add_argument('--sha1')
     h.add_argument('--crc32')
@@ -75,7 +76,13 @@ def main():
     p.add_argument('--limit', type=int, default=50)
     p.add_argument('--size', type=int, help='exact media length in bytes')
     a = p.parse_args()
-    data = json.loads((ROOT / f'generated/v1/{a.platform}.json').read_text())
+    if not re.fullmatch(r'[a-z0-9]+', a.platform):
+        p.error('invalid platform identifier')
+    manifest = json.loads((a.root / 'generated/v1/catalog.json').read_bytes())
+    registered = {entry['platform'] for entry in manifest['platforms']}
+    if a.platform not in registered:
+        p.error(f'unknown platform: {a.platform}; available: {", ".join(sorted(registered))}')
+    data = json.loads((a.root / f'generated/v1/{a.platform}.json').read_bytes())
     if a.title is not None:
         if a.size is not None:
             p.error('--size is not meaningful for title discovery')

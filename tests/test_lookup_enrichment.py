@@ -81,6 +81,10 @@ class EnrichedLookupTests(unittest.TestCase):
             extra_path.write_text(json.dumps(enriched) + "modified")
             with self.assertRaisesRegex(ValueError, "digest/size mismatch"):
                 lookup(root, "gb", sha1="A"*40)
+            with self.assertRaisesRegex(ValueError, "invalid platform identifier"):
+                lookup(root, "../escape", sha1="A"*40)
+            with self.assertRaisesRegex(ValueError, "missing or repeated artifact"):
+                lookup(root, "genesis", sha1="A"*40)
 
 
 if __name__ == "__main__":

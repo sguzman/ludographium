@@ -7,7 +7,7 @@ use std::error::Error;
 use std::path::PathBuf;
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <snes|gb|gbc|gba|nes|nds> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>])"
+    "Usage: ludographium --platform <platform-id> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>])"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
