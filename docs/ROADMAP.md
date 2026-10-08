@@ -15,7 +15,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 ## Identity and curation
 
-- [ ] Design stable identifiers for game works, releases, and builds.
+- [x] Establish evidence-validated UUID identifiers for work, release, and build records (empty ledger).
+- [ ] Curate individual game/release/build identities with supported correspondence evidence.
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
@@ -30,7 +31,9 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 ## Bibliographic enrichment
 
-- [ ] Accession sources for publishers, developers, publication dates and localized titles, as reuse permits.
+- [x] Accession 20 developer, publisher, release-year, release-month, and genre metadata DATs.
+- [x] Implement conservative claim resolution, coverage reports, and integrity-checked Rust/Python access.
+- [ ] Expand to localized titles, richer dates, and independently sourced company credits as reuse permits.
 - [ ] Curate source corrections without modifying original archives.
 - [ ] Introduce an attributed art-reference catalog with rights metadata.
 - [ ] Support incremental source refreshes and reproducible index releases.

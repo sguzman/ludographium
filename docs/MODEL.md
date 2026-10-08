@@ -1,6 +1,6 @@
 # Data model
 
-Ludographium separates **what a source says** from **how the catalog interprets it**. The first implemented layer is an immutable-snapshot-based source index; curated work, release, and build identities are planned.
+Ludographium separates **what a source says** from **how the catalog interprets it**. Identification and bibliographic source indexes are implemented; curated work, release, and build identities have a validated but empty ledger.
 
 ## Source observations: v1
 
@@ -36,7 +36,15 @@ locates an occurrence within one source snapshot. It is **not** a permanent iden
 
 The per-platform [catalog manifest](../generated/v1/catalog.json) records the source revision, counts, input archive paths and Git blob SHAs, and generated artifact paths and Git blob SHAs.
 
-## Curated identity model (planned)
+## Bibliographic claim model: enrichment-v1
+
+The `generated/enrichment-v1/<platform>.json` files preserve publisher, developer, release-year, release-month, and genre claims from 20 additional pinned Libretro DAT files. Each claim carries its field name and value, original CRC32, source-title comment, file path, blob SHA, ordinal, and resolution status.
+
+A claim is attached to a base observation only when a CRC32 has exactly one candidate and the metadata comment exactly matches that source record's title. Other observations remain unresolved with an explicit reason: `comment_mismatch`, `unmatched_crc`, `missing_comment`, `missing_value`, or `ambiguous_crc`. This is a match between source records, not verification of bibliographic facts.
+
+See the [enrichment coverage report](../reports/enrichment-coverage-v1.json) and the [offline consumer guide](CONSUMERS.md).
+
+## Curated identity model (schema established; ledger not yet populated)
 
 - **Work:** a stable identity for an underlying game.
 - **Release:** a platform, region, edition, and publication identity associated with a work.
@@ -46,7 +54,7 @@ The per-platform [catalog manifest](../generated/v1/catalog.json) records the so
 
 Curated records will retain source assertions and their disagreements. A reconciliation decision will include supporting evidence and its confidence or verification status; it will not rewrite the imported snapshot.
 
-The distinction between `imported`, `corroborated`, `manually-verified`, `disputed`, and `unknown` is reserved for future curated assertions. **No such verification status is currently claimed by the source indexes.**
+The [identity ledger](../curated/v1/identities.json) currently contains no manually resolved canonical games. Its [identity rules](IDENTITIES.md) validate opaque UUIDv4 IDs, supporting source occurrences, and release/build parent relationships.
 
 ## Versioning
 
