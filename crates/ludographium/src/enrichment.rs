@@ -64,6 +64,14 @@ pub struct EnrichedMediaMatch<'a> {
     pub unresolved_source_claims: Vec<&'a MetadataClaim>,
 }
 
+/// Bounded title discovery with source-attributed claims for returned media.
+/// `total_records` counts title matches before applying the result limit.
+#[derive(Debug)]
+pub struct EnrichedTitleSearch<'a> {
+    pub total_records: usize,
+    pub matches: Vec<EnrichedMediaMatch<'a>>,
+}
+
 /// Loads the base index and all per-platform enriched claims from a verified distribution.
 /// This index never silently promotes an unmatched claim into an asserted game fact.
 pub struct EnrichedPlatformCatalog {
@@ -251,6 +259,32 @@ impl EnrichedPlatformCatalog {
             .collect()
     }
 
+    /// Discover source records by their original titles and include source claims.
+    /// This is not a canonical work search. Limit applies to source records.
+    pub fn search_titles(
+        &self,
+        query: &str,
+        limit: usize,
+    ) -> Result<EnrichedTitleSearch<'_>, CatalogError> {
+        let title_search = self.base.search_titles(query, limit)?;
+        let records = title_search
+            .records
+            .into_iter()
+            .flat_map(|record| {
+                record.roms.iter().map(move |media| MediaMatch {
+                    platform: self.base.platform(),
+                    record,
+                    media,
+                    source: self.base.source(),
+                })
+            })
+            .collect();
+        Ok(EnrichedTitleSearch {
+            total_records: title_search.total,
+            matches: self.attach(records),
+        })
+    }
+
     pub fn lookup_sha1(&self, hash: &str) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
         Ok(self.attach(self.base.lookup_sha1(hash)?))
     }
@@ -298,6 +332,18 @@ mod tests {
             .metadata_claims
             .iter()
             .all(|claim| claim.resolution.status == "matched"));
+    }
+
+    #[test]
+    fn enriched_title_discovery_preserves_claim_provenance() {
+        let catalog = EnrichedPlatformCatalog::open(root(), "gb").unwrap();
+        let results = catalog.search_titles("10-PIN BOWLING", 10).unwrap();
+        assert!(results.total_records >= 1);
+        assert_eq!(results.matches[0].base.record.name, "10-Pin Bowling (USA) (Proto)");
+        assert_eq!(results.matches[0].base.record.source_ordinal, 1);
+        assert!(results.matches[0].metadata_claims.iter().all(|c|
+            c.resolution.status == "matched"));
+        assert!(catalog.search_titles("  ", 10).is_err());
     }
 
     #[test]
