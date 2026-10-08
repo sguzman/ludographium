@@ -367,7 +367,14 @@ mod tests {
 
     #[test]
     fn loads_all_accessioned_platforms() {
-        for (platform, count) in [("snes", 4268), ("gb", 2254), ("gbc", 2566), ("gba", 3692)] {
+        for (platform, count) in [
+            ("snes", 4268),
+            ("gb", 2254),
+            ("gbc", 2566),
+            ("gba", 3692),
+            ("nes", 14132),
+            ("nds", 7701),
+        ] {
             let index = PlatformCatalog::open(root(), platform).unwrap();
             assert_eq!(index.len(), count);
             assert_eq!(index.platform(), platform);
