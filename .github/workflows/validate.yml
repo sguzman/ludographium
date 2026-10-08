@@ -64,13 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Capture formatted Rust CLI
-        run: |
-          cargo fmt --all
-          echo BEGIN-LDG-MULTI-FMT
-          base64 -w0 crates/ludographium/src/main.rs
-          echo
-          echo END-LDG-MULTI-FMT
+      - name: Rust formatting
+        run: cargo fmt --all -- --check
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
