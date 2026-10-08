@@ -13,6 +13,7 @@ It is **not** a ROM collection, a cheat archive, a game ontology, or an emulator
 - [Provenance and licensing](docs/PROVENANCE.md)
 - [Read-only consumer contract](docs/CONSUMERS.md)
 - [Source register](sources/README.md)
+- [Future metadata sources and reuse restrictions](docs/SOURCE-STRATEGY.md)
 - [Platforms](platforms/platforms.json)
 - [Importing source metadata](docs/IMPORTING.md)
 - [Offline catalog manifest](generated/v1/catalog.json)
