@@ -24,7 +24,7 @@ These are original source observations, **not a count of distinct games**. Every
 
 Twenty-nine pinned Libretro DATs supply **59,276 bibliographic claims** across developer, publisher, release year, release month, and genre. Strict CRC32-and-title comparison attaches **51,570 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
 
-[Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Source registers](sources/README.md)
+[Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Source registers](sources/README.md)
 
 ## Repository structure
 
@@ -48,7 +48,13 @@ The Rust reader validates the source indexes before returning matches:
 cargo run --locked -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
 ```
 
-Add `--enriched` to include matched and unresolved bibliographic claims separately:
+Source-title discovery is also available when no fingerprint is known. Results remain original source records, not merged game identities:
+
+```sh
+cargo run --locked -p ludographium -- --platform nes --title "Mario" --limit 5
+```
+
+Add `--enriched` to fingerprint or title queries to include matched and unresolved bibliographic claims separately:
 
 ```sh
 cargo run --locked -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4

@@ -39,6 +39,19 @@ python3 tools/lookup.py --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8C
 
 The example resolves to one source observation for `10-Pin Bowling (USA) (Proto)` in the Game Boy DAT. The tool reads committed JSON indexes, not game files. It also supports `--crc32` with the mandatory `--size` byte count.
 
+## Discovering source titles
+
+Source-title search is intentionally separate from fingerprint identification. It searches original source title strings, preserving individual edition and revision records and their source provenance.
+
+```sh
+cargo run --locked -p ludographium -- --platform nes --title "Mario" --limit 5
+cargo run --locked -p ludographium -- --enriched --platform nes --title "Mario" --limit 5
+```
+
+Both Rust and Python support bounded, case-insensitive substring title queries (default limit: 50; permitted range: 1–200 records). The response includes `query_kind: source-title-substring`, `total_source_records` before limiting, and the returned `matches`. A record can have multiple media entries, so `match_count` counts displayed media occurrences, while `total_source_records` counts matching source records.
+
+Spelling, accents, and edition annotations remain source-provided. Search is a discovery mechanism, not evidence that titles are synonymous or that records describe the same creative work.
+
 ## Bibliographic claims
 
 The Rust `EnrichedPlatformCatalog::open(root, platform)` API verifies the source index and enrichment bundle, then supports `lookup_sha1` and `lookup_crc32`. The CLI uses `--enriched` to return matched `metadata_claims` separately from `unresolved_source_claims`:

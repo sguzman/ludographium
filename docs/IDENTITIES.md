@@ -30,6 +30,12 @@ The placeholder strings above illustrate the fields, not a real ledger entry. Lo
 
 A cited observation supports the fact that a source made a claim. Evidence alone is not proof that two similarly named regional or revision variants constitute the same canonical identity; the decision rationale must record the basis of that interpretation.
 
+## Reviewing disputed source claims
+
+The [reconciliation queue](../reports/reconciliation-queue-v1.json) groups unresolved bibliographic source claims, with upstream source-occurrence locators and possible base-record candidates. The [review tool](../tools/triage_enrichment.py) supports platform, resolution-status, and CRC32 filters.
+
+A shared CRC32 or similar title is only **a lead for investigation**. It is not enough by itself to create an accepted release/build link. Actual curation should preserve contradictory source observations, cite supporting evidence, and document why a decision was made. The current ledger contains no automatically assigned identities.
+
 ## Curation and validation
 
 ```sh

@@ -10,6 +10,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Generate deterministic source-observation JSON for all six platforms.
 - [x] Validate imports, source identities, generated outputs, and counts.
 - [x] Provide a basic offline SHA-1 and CRC32 lookup utility.
+- [x] Provide bounded source-title discovery in both Rust and Python, including attributed enrichment.
 - [x] Publish reproducible per-platform field-coverage and repeated-fingerprint audits.
 - [ ] Complete source-specific redistribution review for future providers.
 
@@ -34,6 +35,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 - [x] Accession 29 developer, publisher, release-year, release-month, and genre metadata DATs.
 - [x] Implement conservative claim resolution, coverage reports, and integrity-checked Rust/Python access.
+- [x] Publish deterministic discrepancy groups for targeted source reconciliation.
 - [ ] Expand to localized titles, richer dates, and independently sourced company credits as reuse permits.
 - [ ] Curate source corrections without modifying original archives.
 - [ ] Introduce an attributed art-reference catalog with rights metadata.
