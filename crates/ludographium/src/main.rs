@@ -1,10 +1,10 @@
 //! Offline fingerprint and raw-file lookup CLI. Local input is streamed, not retained.
+use ludographium::collection::registered_platforms;
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use sha1::{Digest, Sha1};
-use std::collections::HashSet;
 use std::env;
 use std::error::Error;
 use std::fs::File;
@@ -76,42 +76,6 @@ fn with_curated(
         }
     }
     output
-}
-
-/// Obtain the platform order from the published manifest, never from a
-/// hardcoded list that can become stale when a new system is accessioned.
-fn registered_platforms(root: &Path) -> Result<Vec<String>, Box<dyn Error>> {
-    let raw = std::fs::read(root.join("generated/v1/catalog.json"))?;
-    let manifest: Value = serde_json::from_slice(&raw)?;
-    if manifest["schema_version"] != 1 || manifest["kind"] != "source-catalog" {
-        return Err(CatalogError::Invalid("unsupported platform catalog".into()).into());
-    }
-    let entries = manifest["platforms"]
-        .as_array()
-        .ok_or_else(|| CatalogError::Invalid("catalog platform list is missing".into()))?;
-    if entries.is_empty() {
-        return Err(CatalogError::Invalid("catalog has no platforms".into()).into());
-    }
-    let mut ids = Vec::new();
-    let mut seen = HashSet::new();
-    for entry in entries {
-        let id = entry["platform"]
-            .as_str()
-            .ok_or_else(|| CatalogError::Invalid("invalid registered platform".into()))?;
-        if id.is_empty()
-            || !id
-                .bytes()
-                .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
-            || !seen.insert(id.to_owned())
-            || entry["artifact_path"] != format!("generated/v1/{id}.json")
-        {
-            return Err(
-                CatalogError::Invalid("duplicate or unsafe registered platform".into()).into(),
-            );
-        }
-        ids.push(id.to_owned());
-    }
-    Ok(ids)
 }
 
 /// Compute a local input fingerprint *once* for all-platform search.
