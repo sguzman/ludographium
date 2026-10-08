@@ -18,6 +18,18 @@ jobs:
         run: python tools/rebuild_catalog.py --check
       - name: Verify SHA-256 distribution manifest
         run: python tools/build_distribution.py --check
+      - name: Build and verify portable runtime package
+        run: |
+          python tools/package_runtime.py --build /tmp/ludographium-runtime-v1.tar.gz
+          python tools/package_runtime.py --verify /tmp/ludographium-runtime-v1.tar.gz
+      - name: Publish portable runtime package
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-runtime-v1
+          path: /tmp/ludographium-runtime-v1.tar.gz
+          if-no-files-found: error
+          retention-days: 14
       - name: Verify source field coverage report
         run: python tools/audit_catalog.py --check
       - name: Validate pinned bibliographic claims
