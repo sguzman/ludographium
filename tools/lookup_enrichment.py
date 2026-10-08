@@ -76,7 +76,7 @@ def lookup(root, platform, *, sha1=None, crc32=None, size=None):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--platform", choices=("snes", "gb", "gbc", "gba"), required=True)
+    p.add_argument("--platform", choices=("snes", "gb", "gbc", "gba", "nes", "nds"), required=True)
     p.add_argument("--root", type=Path, default=ROOT)
     g = p.add_mutually_exclusive_group(required=True)
     g.add_argument("--sha1")

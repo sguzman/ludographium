@@ -42,7 +42,7 @@ def find_matches(data, *, sha1=None, crc32=None, size=None):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('--platform', choices=('snes', 'gb', 'gbc', 'gba'), required=True)
+    p.add_argument('--platform', choices=('snes', 'gb', 'gbc', 'gba', 'nes', 'nds'), required=True)
     h = p.add_mutually_exclusive_group(required=True)
     h.add_argument('--sha1')
     h.add_argument('--crc32')
