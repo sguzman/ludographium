@@ -403,16 +403,15 @@ mod tests {
 
     #[test]
     fn loads_all_accessioned_platforms() {
-        for (platform, count) in [
-            ("snes", 4268),
-            ("gb", 2254),
-            ("gbc", 2566),
-            ("gba", 3692),
-            ("nes", 14132),
-            ("nds", 7701),
-        ] {
+        let raw = fs::read(root().join("generated/v1/catalog.json")).unwrap();
+        let manifest: serde_json::Value = serde_json::from_slice(&raw).unwrap();
+        let platforms = manifest["platforms"].as_array().unwrap();
+        assert!(platforms.len() >= 10);
+        for item in platforms {
+            let platform = item["platform"].as_str().unwrap();
+            let count = item["source_records"].as_u64().unwrap() as usize;
             let index = PlatformCatalog::open(root(), platform).unwrap();
-            assert_eq!(index.len(), count);
+            assert_eq!(index.len(), count, "platform {platform}");
             assert_eq!(index.platform(), platform);
         }
     }

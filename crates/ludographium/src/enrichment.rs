@@ -317,9 +317,12 @@ mod tests {
 
     #[test]
     fn all_platform_enrichments_are_integrity_checked() {
-        for platform in ["snes", "gb", "gbc", "gba", "nes", "nds"] {
+        let raw = fs::read(root().join("generated/v1/catalog.json")).unwrap();
+        let manifest: serde_json::Value = serde_json::from_slice(&raw).unwrap();
+        for item in manifest["platforms"].as_array().unwrap() {
+            let platform = item["platform"].as_str().unwrap();
             let catalog = EnrichedPlatformCatalog::open(root(), platform).unwrap();
-            assert!(catalog.claim_count() > 0);
+            assert!(catalog.claim_count() > 0, "platform {platform}");
             assert_eq!(catalog.source_id(), "libretro-metadata");
         }
     }

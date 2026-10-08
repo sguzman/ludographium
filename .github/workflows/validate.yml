@@ -84,14 +84,16 @@ jobs:
               assert d["total_source_records"] >= len(d["matches"]) > 0
               assert all("mario" in match["title"].lower() for match in d["matches"])
           PY
-      - name: Smoke-test NES and DS fingerprint matching
+      - name: Smoke-test all accessioned platform fingerprints
         run: |
           python - <<'PY'
           import json
           import subprocess
           from pathlib import Path
-          for platform in ("nes", "nds"):
-              bundle = json.loads(Path(f"generated/v1/{platform}.json").read_text())
+          manifest = json.loads(Path("generated/v1/catalog.json").read_text())
+          for item in manifest["platforms"]:
+              platform = item["platform"]
+              bundle = json.loads(Path(item["artifact_path"]).read_text())
               hash_value = bundle["records"][0]["roms"][0]["sha1"]
               for enriched in (False, True):
                   cmd = ["cargo", "run", "--locked", "--quiet", "-p", "ludographium",
