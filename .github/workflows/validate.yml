@@ -18,12 +18,8 @@ jobs:
         run: python tools/rebuild_catalog.py --check
       - name: Verify curated identity export
         run: python tools/build_curated.py --check
-      - name: Regenerate attribution-complete distribution manifest
-        run: |
-          python tools/build_distribution.py --write
-          echo BEGIN-LDG-ATTRIBUTION-MANIFEST
-          cat generated/v1/distribution.json
-          echo END-LDG-ATTRIBUTION-MANIFEST
+      - name: Verify SHA-256 distribution manifest
+        run: python tools/build_distribution.py --check
       - name: Validate Markdown and advertised catalog counts
         run: python tools/check_docs.py
       - name: Build and verify portable runtime package
@@ -68,13 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Capture canonical Rust ZIP tests
-        run: |
-          cargo fmt --all
-          echo BEGIN-LDG-ZIP-TEST-FORMAT
-          base64 -w0 crates/ludographium/src/collection.rs
-          echo
-          echo END-LDG-ZIP-TEST-FORMAT
+      - name: Rust formatting
+        run: cargo fmt --all -- --check
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
