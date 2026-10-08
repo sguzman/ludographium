@@ -153,6 +153,17 @@ jobs:
           cargo run --locked --quiet -p ludographium -- --platform all --zip /tmp/ludographium-synthetic.zip --enriched > /tmp/ldg-zip-all.json
           cargo run --locked --quiet -p ludographium -- --platform gb --zip /tmp/ludographium-synthetic.zip > /tmp/ldg-zip-gb.json
           python - <<'PY'
+          import zipfile
+          with zipfile.ZipFile("/tmp/ludographium-excessive.zip", "w") as archive:
+              for number in range(257):
+                  archive.writestr(f"synthetic-{number}.txt", "")
+          PY
+          if cargo run --locked --quiet -p ludographium -- --platform all --zip /tmp/ludographium-excessive.zip > /tmp/ldg-excessive.out 2>/tmp/ldg-excessive.err; then
+            echo "Unsafe excessive-entry archive was accepted"
+            exit 1
+          fi
+          grep -q "too many entries" /tmp/ldg-excessive.err
+          python - <<'PY'
           import json
           for file in ("/tmp/ldg-zip-all.json", "/tmp/ldg-zip-gb.json"):
               data = json.load(open(file))

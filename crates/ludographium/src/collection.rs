@@ -423,6 +423,14 @@ mod tests {
     }
 
     #[test]
+    fn decoded_stream_limits_are_enforced() {
+        let bytes = b"synthetic-data";
+        assert!(fingerprint_reader_bounded(&bytes[..], 3).is_err());
+        assert_eq!(fingerprint_reader_bounded(&bytes[..], bytes.len() as u64).unwrap().1,
+                   bytes.len() as u64);
+    }
+
+    #[test]
     fn zip_identification_streams_without_writing_members() {
         use std::io::Cursor;
         let zip = synthetic_zip();
