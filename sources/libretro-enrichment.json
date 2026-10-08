@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "source_id": "libretro-metadata",
+  "name": "Libretro Database bibliographic field DATs",
+  "source_authors": [
+    "Libretro Database contributors",
+    "Metadata contributors and upstream source authors"
+  ],
+  "repository": "https://github.com/libretro/libretro-database",
+  "repository_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+  "repository_commit_date": "2026-10-05",
+  "collected_at_utc": "2026-10-08",
+  "declared_repository_license": "CC-BY-SA-4.0",
+  "license_url": "https://github.com/libretro/libretro-database/blob/fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90/LICENSE",
+  "rights_note": "Libretro's declared repository license is CC BY-SA 4.0; third-party material requires component review. Claims are attributed source observations, not independently verified bibliographic facts.",
+  "files": [
+    {
+      "platform": "gb",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Game Boy.dat",
+      "git_blob_sha": "faa2490761f3e5754e797cc92278f91b4f5feb6c"
+    },
+    {
+      "platform": "gb",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Game Boy.dat",
+      "git_blob_sha": "a6e65ab045662919c9792b90470858af89362f9e"
+    },
+    {
+      "platform": "gb",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Game Boy.dat",
+      "git_blob_sha": "e0a7b3355b1850e15db8d6b30fc3970fbf495bf0"
+    },
+    {
+      "platform": "gb",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Game Boy.dat",
+      "git_blob_sha": "703a115e6b27c15f808b5709eacabf8f964041f8"
+    },
+    {
+      "platform": "gb",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Game Boy.dat",
+      "git_blob_sha": "34f9da3df44fd45edecfbcb27147fa54b187b76d"
+    },
+    {
+      "platform": "gba",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Game Boy Advance.dat",
+      "git_blob_sha": "b4bad57c5a112053df6a9052a83c329d950fc8cc"
+    },
+    {
+      "platform": "gba",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Game Boy Advance.dat",
+      "git_blob_sha": "26c2c8a2972fec03c9fe4729397bc1b2e2d12709"
+    },
+    {
+      "platform": "gba",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Game Boy Advance.dat",
+      "git_blob_sha": "d19b47bde6afc202a4d7fb14a3d8048a56bed22f"
+    },
+    {
+      "platform": "gba",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Game Boy Advance.dat",
+      "git_blob_sha": "e7b1b832ab4a959cc430875195c0ca595a37fe52"
+    },
+    {
+      "platform": "gba",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Game Boy Advance.dat",
+      "git_blob_sha": "00ffd79810209ca10d2765e970346867cbb646aa"
+    },
+    {
+      "platform": "gbc",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Game Boy Color.dat",
+      "git_blob_sha": "e3f492ccb5cafb372490d2a486aa29847835f1c0"
+    },
+    {
+      "platform": "gbc",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Game Boy Color.dat",
+      "git_blob_sha": "6a6c3ea84138a3862a7dbbc8d23f3545f0fe9f2a"
+    },
+    {
+      "platform": "gbc",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Game Boy Color.dat",
+      "git_blob_sha": "7e54a977c3056c4137865a13f33c49f9f9342945"
+    },
+    {
+      "platform": "gbc",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Game Boy Color.dat",
+      "git_blob_sha": "e5f33a48aa2d4357100f2cf7f55c46c081ce7638"
+    },
+    {
+      "platform": "gbc",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Game Boy Color.dat",
+      "git_blob_sha": "bad98c5e78964ae73cdb93a3ad6ea70be4de8df5"
+    },
+    {
+      "platform": "snes",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Super Nintendo Entertainment System.dat",
+      "git_blob_sha": "729d012f54672bf10f905b8d027398442d909d86"
+    },
+    {
+      "platform": "snes",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Super Nintendo Entertainment System.dat",
+      "git_blob_sha": "8b2a9a2421b2d5f4538b1c3ceadc12cb71782cd9"
+    },
+    {
+      "platform": "snes",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Super Nintendo Entertainment System.dat",
+      "git_blob_sha": "add2d9fe6548b35c2136ed7f3e4cddf844aeec04"
+    },
+    {
+      "platform": "snes",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Super Nintendo Entertainment System.dat",
+      "git_blob_sha": "a07e6117ec97225d058035902a34815466fc3fe2"
+    },
+    {
+      "platform": "snes",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Super Nintendo Entertainment System.dat",
+      "git_blob_sha": "64344bbea82c8e43bf9293aac2be7bec3f2fac93"
+    }
+  ]
+}
