@@ -22,6 +22,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Format Rust sources for publication
+        run: |
+          cargo fmt --all
+          echo BEGIN-LUDOGRAPH-RUST-LIB
+          base64 -w0 crates/ludographium/src/lib.rs
+          echo
+          echo END-LUDOGRAPH-RUST-LIB
+          echo BEGIN-LUDOGRAPH-RUST-MAIN
+          base64 -w0 crates/ludographium/src/main.rs
+          echo
+          echo END-LUDOGRAPH-RUST-MAIN
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
