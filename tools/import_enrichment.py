@@ -48,12 +48,12 @@ def parse_field_dat(raw, *, field):
             if key in values:
                 raise ValueError(f"duplicate {key} at source occurrence {ordinal}")
             values[key] = unquote(sm[2])
-        if crc is None or field not in values:
-            raise ValueError(f"missing {field}/crc at source occurrence {ordinal}")
+        if crc is None:
+            raise ValueError(f"missing crc at source occurrence {ordinal}")
         observations.append({
             "source_ordinal": ordinal,
             "crc32": crc,
-            "value": values[field],
+            "value": values.get(field),
             "comment": values.get("comment"),
             "source_fields": values,
         })
@@ -83,7 +83,9 @@ def import_platform(root, registry, platform):
             raise ValueError(f"source mismatch: {filename}")
         for record in parse_field_dat(raw, field=f["field"]):
             candidates = crc_index.get(record["crc32"], [])
-            if not candidates:
+            if record["value"] is None:
+                status, target = "missing_value", None
+            elif not candidates:
                 status, target = "unmatched_crc", None
             elif len(candidates) > 1:
                 status, target = "ambiguous_crc", None
