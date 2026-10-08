@@ -42,7 +42,7 @@ These are original source observations, **not a count of distinct games**. Every
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
-The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 22 consumer artifacts, including a curated identity index. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use.
+The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 25 consumer artifacts, including curated identities, both source registers, and a standalone metadata-attribution notice. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use.
 
 ## Use the data
 
