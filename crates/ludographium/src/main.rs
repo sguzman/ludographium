@@ -1,5 +1,5 @@
 //! Offline fingerprint and raw-file lookup CLI. Local input is streamed, not retained.
-use ludographium::collection::{CatalogCollection, EnrichedCatalogCollection};
+use ludographium::collection::{fingerprint_zip, CatalogCollection, EnrichedCatalogCollection};
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
@@ -11,7 +11,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>)"
+    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>)"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -174,6 +174,94 @@ fn lookup_all_platforms(
     }
 }
 
+fn zip_entry(name: &str, hash: &str, bytes: u64, matches: Vec<Value>) -> Value {
+    json!({
+        "entry_name": name,
+        "sha1": hash,
+        "size": bytes,
+        "match_count": matches.len(),
+        "matches": matches,
+    })
+}
+
+/// Fingerprint ZIP members in memory-bounded streams; never extract to disk.
+/// Each member remains a separate candidate with its own original archive name.
+fn lookup_zip_mode(
+    root: &Path,
+    platform: &str,
+    path: &str,
+    enriched: bool,
+    curated: Option<&CuratedCatalog>,
+) -> Result<Value, Box<dyn Error>> {
+    let mut members = Vec::new();
+    let mut platforms = Vec::new();
+    let mut enrichment_sources = Vec::new();
+    if platform == "all" {
+        if enriched {
+            let all = EnrichedCatalogCollection::open(root)?;
+            platforms = all.platform_ids().map(ToOwned::to_owned).collect();
+            enrichment_sources = all.enrichment_sources()
+                .map(|(p, id, revision)| json!({"platform":p, "id":id, "revision":revision}))
+                .collect();
+            for found in all.lookup_zip(BufReader::new(File::open(path)?))? {
+                let matches = found.matches.iter().map(|hit| {
+                    with_curated(format_enriched_match(hit), &hit.base, curated)
+                }).collect();
+                members.push(zip_entry(&found.member.entry_name, &found.member.sha1, found.member.size, matches));
+            }
+        } else {
+            let all = CatalogCollection::open(root)?;
+            platforms = all.platform_ids().map(ToOwned::to_owned).collect();
+            for found in all.lookup_zip(BufReader::new(File::open(path)?))? {
+                let matches = found.matches.iter().map(|hit| {
+                    with_curated(format_match(hit), hit, curated)
+                }).collect();
+                members.push(zip_entry(&found.member.entry_name, &found.member.sha1, found.member.size, matches));
+            }
+        }
+    } else if enriched {
+        let catalog = EnrichedPlatformCatalog::open(root, platform)?;
+        platforms.push(platform.to_owned());
+        enrichment_sources.push(json!({
+            "platform": platform,
+            "id": catalog.source_id(),
+            "revision": catalog.source_revision()
+        }));
+        for member in fingerprint_zip(BufReader::new(File::open(path)?))? {
+            let matches = catalog.lookup_sha1(&member.sha1)?.iter()
+                .filter(|hit| hit.base.media.size == member.size)
+                .map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated))
+                .collect();
+            members.push(zip_entry(&member.entry_name, &member.sha1, member.size, matches));
+        }
+    } else {
+        let catalog = PlatformCatalog::open(root, platform)?;
+        platforms.push(platform.to_owned());
+        for member in fingerprint_zip(BufReader::new(File::open(path)?))? {
+            let matches = catalog.lookup_sha1(&member.sha1)?.iter()
+                .filter(|hit| hit.media.size == member.size)
+                .map(|hit| with_curated(format_match(hit), hit, curated))
+                .collect();
+            members.push(zip_entry(&member.entry_name, &member.sha1, member.size, matches));
+        }
+    }
+    let match_count: usize = members.iter().map(|entry: &Value| {
+        entry["match_count"].as_u64().unwrap_or(0) as usize
+    }).sum();
+    let mut result = json!({
+        "input_kind": "read-only-zip-members",
+        "platform_scope": if platform == "all" { "all-registered" } else { "selected" },
+        "platforms_searched": platforms,
+        "member_count": members.len(),
+        "match_count": match_count,
+        "members": members,
+    });
+    if enriched {
+        result["enrichment_sources"] = json!(enrichment_sources);
+    }
+    Ok(result)
+}
+
 fn run() -> Result<(), Box<dyn Error>> {
     let mut args = env::args().skip(1);
     let mut platform = None;
@@ -183,6 +271,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut size = None;
     let mut title = None;
     let mut file = None;
+    let mut zip = None;
     let mut limit: usize = 50;
     let mut limit_explicit = false;
     let mut enriched = false;
@@ -203,7 +292,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 return Ok(());
             }
             "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit"
-            | "--file" => args
+            | "--file" | "--zip" => args
                 .next()
                 .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
             _ => {
@@ -220,6 +309,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "--size" => size = Some(value.parse::<u64>()?),
             "--title" => title = Some(value),
             "--file" => file = Some(value),
+            "--zip" => zip = Some(value),
             "--limit" => {
                 limit = value.parse::<usize>()?;
                 limit_explicit = true;
@@ -232,11 +322,13 @@ fn run() -> Result<(), Box<dyn Error>> {
     let query_modes = usize::from(sha1.is_some())
         + usize::from(crc32.is_some())
         + usize::from(title.is_some())
-        + usize::from(file.is_some());
+        + usize::from(file.is_some())
+        + usize::from(zip.is_some());
     if query_modes != 1
         || (crc32.is_some() && size.is_none())
         || (title.is_some() && size.is_some())
         || (file.is_some() && (size.is_some() || limit_explicit))
+        || (zip.is_some() && (size.is_some() || limit_explicit))
         || (title.is_none() && limit_explicit)
         || (title.is_some() && (limit == 0 || limit > 200))
     {
@@ -247,6 +339,11 @@ fn run() -> Result<(), Box<dyn Error>> {
     } else {
         None
     };
+    if let Some(ref archive_path) = zip {
+        let output = lookup_zip_mode(&root, &platform, archive_path, enriched, curated.as_ref())?;
+        println!("{}", serde_json::to_string_pretty(&output)?);
+        return Ok(());
+    }
     if platform == "all" {
         let output = lookup_all_platforms(
             &root,
