@@ -3,14 +3,16 @@ use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
+use sha1::{Digest, Sha1};
+use std::collections::HashSet;
 use std::env;
 use std::error::Error;
 use std::fs::File;
-use std::io::BufReader;
-use std::path::PathBuf;
+use std::io::{BufReader, Read};
+use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>)"
+    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>)"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -74,6 +76,164 @@ fn with_curated(
         }
     }
     output
+}
+
+/// Obtain the platform order from the published manifest, never from a
+/// hardcoded list that can become stale when a new system is accessioned.
+fn registered_platforms(root: &Path) -> Result<Vec<String>, Box<dyn Error>> {
+    let raw = std::fs::read(root.join("generated/v1/catalog.json"))?;
+    let manifest: Value = serde_json::from_slice(&raw)?;
+    if manifest["schema_version"] != 1 || manifest["kind"] != "source-catalog" {
+        return Err(CatalogError::Invalid("unsupported platform catalog".into()).into());
+    }
+    let entries = manifest["platforms"].as_array().ok_or_else(|| {
+        CatalogError::Invalid("catalog platform list is missing".into())
+    })?;
+    if entries.is_empty() {
+        return Err(CatalogError::Invalid("catalog has no platforms".into()).into());
+    }
+    let mut ids = Vec::new();
+    let mut seen = HashSet::new();
+    for entry in entries {
+        let id = entry["platform"].as_str().ok_or_else(|| {
+            CatalogError::Invalid("invalid registered platform".into())
+        })?;
+        if id.is_empty()
+            || !id.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+            || !seen.insert(id.to_owned())
+            || entry["artifact_path"] != format!("generated/v1/{id}.json")
+        {
+            return Err(CatalogError::Invalid("duplicate or unsafe registered platform".into()).into());
+        }
+        ids.push(id.to_owned());
+    }
+    Ok(ids)
+}
+
+/// Compute a local input fingerprint *once* for all-platform search.
+/// No game file is retained, normalized, or copied to the metadata catalog.
+fn exact_file_hash(path: &str) -> Result<(String, u64), Box<dyn Error>> {
+    let mut input = BufReader::new(File::open(path)?);
+    let mut digest = Sha1::new();
+    let mut bytes = 0u64;
+    let mut buffer = [0u8; 65536];
+    loop {
+        let n = input.read(&mut buffer)?;
+        if n == 0 {
+            break;
+        }
+        bytes = bytes.checked_add(n as u64).ok_or_else(|| {
+            CatalogError::Invalid("local input byte length overflows u64".into())
+        })?;
+        digest.update(&buffer[..n]);
+    }
+    Ok((format!("{:X}", digest.finalize()), bytes))
+}
+
+#[allow(clippy::too_many_arguments)]
+fn lookup_all_platforms(
+    root: &Path,
+    sha1: Option<&str>,
+    crc32: Option<&str>,
+    size: Option<u64>,
+    title: Option<&str>,
+    file: Option<&str>,
+    limit: usize,
+    enriched: bool,
+    curated: Option<&CuratedCatalog>,
+) -> Result<Value, Box<dyn Error>> {
+    let platforms = registered_platforms(root)?;
+    let file_hash = if let Some(path) = file {
+        Some(exact_file_hash(path)?)
+    } else {
+        None
+    };
+    let effective_hash = sha1.or_else(|| file_hash.as_ref().map(|(hash, _)| hash.as_str()));
+    let effective_size = size.or_else(|| file_hash.as_ref().map(|(_, bytes)| *bytes));
+    let mut matches = Vec::new();
+    let mut title_record_total = 0usize;
+    let mut enrichment_sources = Vec::new();
+
+    for platform in &platforms {
+        if enriched {
+            let catalog = EnrichedPlatformCatalog::open(root, platform)?;
+            enrichment_sources.push(json!({
+                "platform": platform,
+                "id": catalog.source_id(),
+                "revision": catalog.source_revision()
+            }));
+            if let Some(query) = title {
+                let remaining = limit.saturating_sub(title_record_total.min(limit));
+                let result = catalog.search_titles(query, remaining.max(1))?;
+                title_record_total += result.total_records;
+                if remaining != 0 {
+                    matches.extend(result.matches.iter().map(|hit| {
+                        with_curated(format_enriched_match(hit), &hit.base, curated)
+                    }));
+                }
+            } else {
+                let found = if let Some(hash) = effective_hash {
+                    catalog.lookup_sha1(hash)?
+                } else {
+                    catalog.lookup_crc32(crc32.unwrap(), effective_size.unwrap())?
+                };
+                matches.extend(found.iter().filter(|hit| {
+                    effective_size.is_none_or(|n| hit.base.media.size == n)
+                }).map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated)));
+            }
+        } else {
+            let catalog = PlatformCatalog::open(root, platform)?;
+            if let Some(query) = title {
+                let remaining = limit.saturating_sub(title_record_total.min(limit));
+                let result = catalog.search_titles(query, remaining.max(1))?;
+                title_record_total += result.total;
+                if remaining != 0 {
+                    for record in result.records {
+                        for media in &record.roms {
+                            let hit = MediaMatch {
+                                platform: catalog.platform(),
+                                record,
+                                media,
+                                source: catalog.source(),
+                            };
+                            matches.push(with_curated(format_match(&hit), &hit, curated));
+                        }
+                    }
+                }
+            } else {
+                let found = if let Some(hash) = effective_hash {
+                    catalog.lookup_sha1(hash)?
+                } else {
+                    catalog.lookup_crc32(crc32.unwrap(), effective_size.unwrap())?
+                };
+                matches.extend(found.iter().filter(|hit| {
+                    effective_size.is_none_or(|n| hit.media.size == n)
+                }).map(|hit| with_curated(format_match(hit), hit, curated)));
+            }
+        }
+    }
+    let mut output = json!({
+        "platform_scope": "all-registered",
+        "platforms_searched": platforms,
+        "match_count": matches.len(),
+        "matches": matches
+    });
+    if let Some(obj) = output.as_object_mut() {
+        if title.is_some() {
+            obj.insert("query_kind".into(), json!("source-title-substring"));
+            obj.insert("total_source_records".into(), json!(title_record_total));
+        } else {
+            obj.insert("input_kind".into(), json!(if file.is_some() {
+                "exact-local-file-bytes"
+            } else {
+                "fingerprint"
+            }));
+        }
+        if enriched {
+            obj.insert("enrichment_sources".into(), json!(enrichment_sources));
+        }
+    }
+    Ok(output)
 }
 
 fn run() -> Result<(), Box<dyn Error>> {
@@ -149,6 +309,14 @@ fn run() -> Result<(), Box<dyn Error>> {
     } else {
         None
     };
+    if platform == "all" {
+        let output = lookup_all_platforms(
+            &root, sha1.as_deref(), crc32.as_deref(), size, title.as_deref(),
+            file.as_deref(), limit, enriched, curated.as_ref()
+        )?;
+        println!("{}", serde_json::to_string_pretty(&output)?);
+        return Ok(());
+    }
     let output = if let Some(ref query) = title {
         if enriched {
             let catalog = EnrichedPlatformCatalog::open(&root, &platform)?;
