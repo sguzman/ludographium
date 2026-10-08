@@ -14,7 +14,7 @@ STATUSES = (
 )
 
 
-def summarize(bundle, base):
+def summarize(bundle, base, fields=None):
     if bundle.get("schema_version") != 1 or bundle.get("kind") != "source-enrichment-claims":
         raise ValueError("unsupported enrichment bundle")
     if base.get("source_revision") != bundle.get("base_source_revision"):
@@ -30,7 +30,8 @@ def summarize(bundle, base):
     by_field = {}
     matched_records = set()
     conflicting = defaultdict(set)
-    for field in FIELDS:
+    fields = fields or (*FIELDS, *sorted({c["field"] for c in claims} - set(FIELDS)))
+    for field in fields:
         field_claims = [c for c in claims if c["field"] == field]
         counts = Counter(c["resolution"]["status"] for c in field_claims)
         target_records = set()
@@ -67,13 +68,14 @@ def summarize(bundle, base):
 
 def report(root):
     source = json.loads((root / "sources/libretro-enrichment.json").read_bytes())
+    fields = (*FIELDS, *sorted({f["field"] for f in source["files"]} - set(FIELDS)))
     platforms = []
     for platform in sorted({f["platform"] for f in source["files"]}):
         base = json.loads((root / f"generated/v1/{platform}.json").read_bytes())
         bundle = json.loads((root / f"generated/enrichment-v1/{platform}.json").read_bytes())
         if bundle["source_revision"] != source["repository_revision"] or base["platform"] != platform:
             raise ValueError("source mismatch")
-        platforms.append(summarize(bundle, base))
+        platforms.append(summarize(bundle, base, fields=fields))
     totals = Counter()
     for p in platforms:
         totals.update(p["resolution_counts"])

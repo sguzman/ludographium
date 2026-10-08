@@ -40,6 +40,26 @@ class EnrichmentTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unterminated ROM"):
             parse_field_dat(raw.replace(b"\n )\n)", b"\n)"), field="developer")
 
+    def test_numeric_source_fields_preserve_original_atoms(self):
+        raw = b'''game (
+ comment "Example (USA)"
+ users 4
+ rom ( crc ABCD1234 )
+)
+game (
+ comment "Other (USA)"
+ rumble 1
+ rom (
+  crc DEADBEEF
+ )
+)'''
+        users = parse_field_dat(raw, field="users")
+        rumble = parse_field_dat(raw, field="rumble")
+        self.assertEqual(users[0]["value"], "4")
+        self.assertEqual(users[0]["source_fields"]["users"], "4")
+        self.assertEqual(rumble[1]["value"], "1")
+        self.assertIsNone(rumble[0]["value"])
+
     def test_bad_fields_fail_closed(self):
         malformed = SOURCE.replace(b'developer "Example Studio"', b'developer (bad)')
         with self.assertRaisesRegex(ValueError, "unsupported source line"):

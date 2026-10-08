@@ -39,6 +39,17 @@ class AuditEnrichmentTests(unittest.TestCase):
         self.assertEqual(value["different_values_for_one_field"], 1)
         self.assertEqual(value["conflict_samples"][0]["values"], ["X", "Y"])
 
+    def test_additional_source_field_in_report(self):
+        bundle = {
+            "schema_version": 1, "kind": "source-enrichment-claims",
+            "platform": "gb", "base_source_revision": "abc",
+            "claim_count": 1, "resolution_counts": {"matched": 1},
+            "claims": [claim("franchise", "Series", "matched", 1)],
+        }
+        value = summarize(bundle, BASE, fields=("developer", "franchise"))
+        self.assertEqual(value["fields"]["franchise"]["matched_base_records"], 1)
+        self.assertEqual(value["fields"]["developer"]["claims"], 0)
+
     def test_invalid_counts(self):
         bundle = {
             "schema_version": 1, "kind": "source-enrichment-claims",
