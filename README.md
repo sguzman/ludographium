@@ -38,7 +38,7 @@ Twenty-nine pinned Libretro DATs supply **59,276 bibliographic claims** across d
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
-The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for thirteen consumer artifacts.
+The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for thirteen consumer artifacts. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use.
 
 ## Use the data
 

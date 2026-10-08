@@ -28,6 +28,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 - [x] Publish deterministic per-artifact SHA-256 digests and byte lengths in a distribution manifest.
 - [x] Provide a v0.1 Rust read-only client and CLI with integrity-checked exact-fingerprint lookup.
+- [x] Build and CI-verify a metadata-only, reproducible runtime archive.
+- [ ] Publish permanent versioned data releases, independent of short-lived CI artifacts.
 - [ ] Specify and test platform-specific byte-domain and header normalization rules.
 - [ ] Publish compatibility and migration guidance for future consumer contracts.
 

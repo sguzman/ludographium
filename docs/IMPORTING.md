@@ -34,6 +34,17 @@ The verification command reimports all six archived identification DATs, compare
 
 The entire identification catalog can be reconstructed with `python3 tools/rebuild_catalog.py --write`. The `tools/fetch_pinned_sources.py` helper retrieves missing, revision-pinned original metadata files and checks their Git blob identities. Existing source files are never silently replaced.
 
+## Distributing runtime metadata
+
+The [packager](../tools/package_runtime.py) verifies every file against the SHA-256 distribution manifest before creating a normalized runtime tarball. The archive contains only the portable `generated/` metadata and has deterministic file ordering, permissions, timestamps, and gzip header.
+
+```sh
+python3 tools/package_runtime.py --build /tmp/ludographium-runtime-v1.tar.gz
+python3 tools/package_runtime.py --verify /tmp/ludographium-runtime-v1.tar.gz
+```
+
+Consumers can extract this tarball and set the extracted directory as their catalog root.
+
 ## Adding or updating a source
 
 1. Evaluate authorship, coverage, distribution method, and reuse conditions; see [source evaluation](SOURCE-STRATEGY.md).
