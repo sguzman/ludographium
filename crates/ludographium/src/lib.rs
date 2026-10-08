@@ -12,6 +12,7 @@ use std::collections::HashMap;
 use std::error::Error;
 use std::fmt;
 use std::fs;
+use std::io::Read;
 use std::path::{Component, Path};
 
 #[derive(Debug)]
@@ -375,6 +376,38 @@ impl PlatformCatalog {
             .collect()
     }
 
+    /// Fingerprint the exact bytes supplied by a consumer without copying them
+    /// into the catalog. No platform headers or byte orders are normalized.
+    pub fn lookup_bytes(&self, bytes: &[u8]) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
+        self.lookup_reader(bytes)
+    }
+
+    /// Stream an exact media byte representation through SHA-1 with bounded memory.
+    ///
+    /// Metadata source sizes are checked in addition to the digest. A different
+    /// header, byte order or container representation will not be auto-corrected.
+    pub fn lookup_reader<R: Read>(&self, mut input: R) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
+        let mut hasher = Sha1::new();
+        let mut total = 0u64;
+        let mut buffer = [0u8; 65536];
+        loop {
+            let count = input.read(&mut buffer)?;
+            if count == 0 {
+                break;
+            }
+            total = total
+                .checked_add(count as u64)
+                .ok_or_else(|| CatalogError::Invalid("input byte length overflows u64".into()))?;
+            hasher.update(&buffer[..count]);
+        }
+        let hash = format!("{:X}", hasher.finalize());
+        let matches = self.collect_matches(self.by_sha1.get(&hash));
+        Ok(matches
+            .into_iter()
+            .filter(|found| found.media.size == total)
+            .collect())
+    }
+
     /// Exact SHA-1 match; returns every matching source occurrence, including duplicates.
     pub fn lookup_sha1(&self, sha1: &str) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
         let key = validate_hex(sha1, 40)?;
@@ -450,6 +483,46 @@ mod tests {
             hits[0].source.git_blob_sha,
             "0ead6bff1f819075793605985a9ee2dcb3c0c3ab"
         );
+    }
+
+    #[test]
+    fn raw_byte_stream_lookup_is_exact_and_does_not_mutate_input() {
+        let data = b"abc";
+        let fixture = Bundle {
+            schema_version: 1,
+            kind: "source-observations".into(),
+            platform: "example".into(),
+            source_id: "fixture".into(),
+            source_revision: "v1".into(),
+            source_path: "fixture.dat".into(),
+            source_blob_sha: "fixture-blob".into(),
+            record_count: 1,
+            rom_count: 1,
+            records: vec![SourceRecord {
+                source_ordinal: 1,
+                name: "Synthetic byte identity".into(),
+                region: None,
+                serial: None,
+                description: None,
+                releaseyear: None,
+                releasemonth: None,
+                releaseday: None,
+                roms: vec![MediaFile {
+                    name: "fixture.bin".into(),
+                    size: 3,
+                    crc32: None,
+                    md5: None,
+                    sha1: Some("A9993E364706816ABA3E25717850C26C9CD0D89D".into()),
+                    serial: None,
+                }],
+            }],
+        };
+        let index = PlatformCatalog::from_bundle(fixture).unwrap();
+        assert_eq!(index.lookup_bytes(data).unwrap().len(), 1);
+        assert_eq!(index.lookup_reader(data.as_slice()).unwrap().len(), 1);
+        assert!(index.lookup_bytes(b"abc\0").unwrap().is_empty());
+        assert!(index.lookup_bytes(b"ABC").unwrap().is_empty());
+        assert_eq!(data, b"abc");
     }
 
     #[test]
