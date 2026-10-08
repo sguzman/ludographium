@@ -386,7 +386,10 @@ impl PlatformCatalog {
     ///
     /// Metadata source sizes are checked in addition to the digest. A different
     /// header, byte order or container representation will not be auto-corrected.
-    pub fn lookup_reader<R: Read>(&self, mut input: R) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
+    pub fn lookup_reader<R: Read>(
+        &self,
+        mut input: R,
+    ) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
         let mut hasher = Sha1::new();
         let mut total = 0u64;
         let mut buffer = [0u8; 65536];
