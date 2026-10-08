@@ -135,6 +135,14 @@ pub struct MediaMatch<'a> {
     pub source: &'a SourceIdentity,
 }
 
+/// Source-title substring search, retaining original source-record order.
+/// `total` counts matching records before pagination, not canonical games.
+#[derive(Debug)]
+pub struct TitleSearch<'a> {
+    pub total: usize,
+    pub records: Vec<&'a SourceRecord>,
+}
+
 /// In-memory index for one platform, built once and reused across lookups.
 pub struct PlatformCatalog {
     platform: String,
@@ -311,6 +319,28 @@ impl PlatformCatalog {
             .filter(|r| r.source_ordinal == ordinal)
     }
 
+    /// Case-insensitive Unicode-lowercase substring lookup of original source titles.
+    ///
+    /// This is discovery, NOT an identity match. Accents and other Unicode
+    /// distinctions are not stripped. Results follow the original source order.
+    pub fn search_titles(&self, query: &str, limit: usize) -> Result<TitleSearch<'_>, CatalogError> {
+        let query = query.trim().to_lowercase();
+        if query.is_empty() || limit == 0 || limit > 200 {
+            return Err(CatalogError::Invalid("title query must be nonempty and limit must be 1..=200".into()));
+        }
+        let mut total = 0usize;
+        let mut records = Vec::new();
+        for record in &self.records {
+            if record.name.to_lowercase().contains(&query) {
+                total += 1;
+                if records.len() < limit {
+                    records.push(record);
+                }
+            }
+        }
+        Ok(TitleSearch { total, records })
+    }
+
     pub fn platform(&self) -> &str {
         &self.platform
     }
@@ -379,6 +409,22 @@ mod tests {
             assert_eq!(index.len(), count);
             assert_eq!(index.platform(), platform);
         }
+    }
+
+    #[test]
+    fn searches_original_titles_without_inventing_game_identities() {
+        let index = PlatformCatalog::open(root(), "gb").unwrap();
+        let first = index.search_titles("10-pin bowling", 10).unwrap();
+        assert!(first.total >= 1);
+        assert_eq!(first.records[0].name, "10-Pin Bowling (USA) (Proto)");
+        assert_eq!(first.records[0].source_ordinal, 1);
+        let paged = index.search_titles("game", 1).unwrap();
+        assert!(paged.total >= paged.records.len());
+        assert_eq!(paged.records.len(), 1);
+        assert!(index.search_titles("  ", 10).is_err());
+        assert!(index.search_titles("game", 0).is_err());
+        assert!(index.search_titles("game", 201).is_err());
+        assert_eq!(index.search_titles("impossible-zzzyyyy", 50).unwrap().total, 0);
     }
 
     #[test]
