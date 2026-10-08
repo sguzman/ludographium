@@ -35,7 +35,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 ## Bibliographic enrichment
 
-- [x] Accession 29 developer, publisher, release-year, release-month, and genre metadata DATs.
+- [x] Accession 53 pinned Libretro field-metadata DATs spanning developer, publisher, date, genre, franchise, serial, age rating, player count, and rumble.
 - [x] Implement conservative claim resolution, coverage reports, and integrity-checked Rust/Python access.
 - [x] Publish deterministic discrepancy groups for targeted source reconciliation.
 - [ ] Expand to localized titles, richer dates, and independently sourced company credits as reuse permits.

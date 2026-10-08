@@ -22,7 +22,7 @@ The current source accession spans six Nintendo platforms:
 
 These are original source observations, **not a count of distinct games**. Every record has an upstream title and fingerprint information, with additional fields depending on what the source provides.
 
-Twenty-nine pinned Libretro DATs supply **59,276 bibliographic claims** across developer, publisher, release year, release month, and genre. Strict CRC32-and-title comparison attaches **51,570 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
+53 pinned Libretro DATs supply **91,701 bibliographic claims** across developer, publisher, release-year, release-month, genre, franchise, serial, age-rating, player-count, and rumble fields. Strict CRC32-and-title comparison attaches **79,503 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
 
 [Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Source registers](sources/README.md)
 

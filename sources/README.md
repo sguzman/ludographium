@@ -5,7 +5,7 @@ Ludographium's source register records the origin, snapshot identity, and reuse 
 ## Accessioned sources
 
 - [Libretro Database / No-Intro-derived DATs](libretro-no-intro.json) — six pinned SNES, Game Boy, Game Boy Color, Game Boy Advance, NES, and Nintendo DS source files, with upstream paths, Git blob hashes, authorship and licensing context.
-- [Libretro bibliographic DATs](libretro-enrichment.json): 29 revision-pinned developer, publisher, release-year, release-month, and genre source files.
+- [Libretro bibliographic DATs](libretro-enrichment.json): 53 revision-pinned developer, publisher, release-year, release-month, and genre source files.
 
 Original source files are preserved under [`archive/libretro-no-intro/`](../archive/libretro-no-intro/). Their observations are published as [identification indexes](../generated/v1/) and separate [bibliographic claims](../generated/enrichment-v1/).
 

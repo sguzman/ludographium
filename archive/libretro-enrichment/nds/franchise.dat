@@ -1,0 +1,583 @@
+clrmamepro (
+	name "Nintendo - Nintendo DS"
+	description "Nintendo - Nintendo DS"
+)
+
+game (
+	comment "Assassin's Creed - Altair's Chronicles (Europe) (En,Fr,De,Es,It)"
+	franchise "Assassin's Creed"
+	rom (crc 1F7E982C )
+)
+
+game (
+	comment "Assassin's Creed - Altair's Chronicles (USA) (En,Fr,Es)"
+	franchise "Assassin's Creed"
+	rom ( crc 38A9A637 )
+)
+
+game (
+	comment "Assassin's Creed II - Discovery (Europe) (En,Fr,De,Es,It,Nl,Sv,No,Da) (NDSi Enhanced)"
+	franchise "Assassin's Creed"
+	rom (crc 37D52B38 )
+)
+
+game (
+	comment "Assassin's Creed II - Discovery (USA) (En,Fr,Es) (NDSi Enhanced)"
+	franchise "Assassin's Creed"
+	rom (crc 3B902942 )
+)
+
+game (
+	franchise "Pokémon"
+	rom ( crc 777EB04F )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc B552501C )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 7BB14936 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 95CF004D )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 0DDBE664 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc C6EACC7D )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 2646AE79 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 91E863E7 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 732BC6DC )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 1ED511AB )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 4D4433D9 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 2F025937 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 0041AE66 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc A54A9984 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 3B0F21C6 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 533A6E55 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 99AFB52F )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 308F9D56 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 2E6901A8 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 27F31411 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 8B4CBA44 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 36D0A539 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc D8EA6090 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 968CDE08 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 94E4A5B5 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc FA496FD0 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc EE469543 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 69D628E8 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 9253921D )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 71ACA63A )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 37E9D9E5 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 95A4FCAB )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc E2D87EBF )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc BA6D0397 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 94244B24 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc C180A0E9 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc B64A5EFB )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 0A994C0C )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 9B4C38AE )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 50238ECB )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 4B3E6450 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 0E3670CD )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 06CE7DD3 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 2CA88FAA )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc AA3E6B39 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc EA70C572 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 32657121 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 84427823 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc DCF7050B )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 87CF7B1F )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc D4427FD1 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc CCB87B15 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 4F6E5580 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc D3E316EF )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc A9833314 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 672539F1 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc CAA820CB )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 691A264D )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc CC4C2BEF )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc BE130BC9 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 8FE6A84C )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 2FE1A094 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 50DD7518 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 23850525 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc FC7D8F28 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc AA6224A2 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 66B25E29 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc E2A6A6CF )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc AE2DB9A9 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 4EF99339 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 9928FD8D )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 29C68B2B )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 523E8A13 )
+)
+game (
+	franchise "Pokémon"
+	rom ( crc 33AF46D5 )
+)
+
+game (
+	comment "Advance Wars - Days of Ruin (USA) (En,Fr,Es)"
+	franchise "Advance Wars"
+	rom ( crc EAC313F3 )
+)
+
+game (
+	comment "Advance Wars - Dual Strike (USA, Australia)"
+	franchise "Advance Wars"
+	rom ( crc 4D9A91E3 )
+)
+
+game (
+	comment "Age of Empires - The Age of Kings (Europe) (En,Fr,De)"
+	franchise "Age of Empires"
+	rom ( crc B5AECC63 )
+)
+
+game (
+	comment "Animal Crossing - Wild World (Europe) (En,Fr,De,Es,It)"
+	franchise "Animal Crossing"
+	rom ( crc C677970C )
+)
+
+game (
+	comment "Asphalt - Urban GT (USA) (En,Fr,Es)"
+	franchise "Asphalt"
+	rom ( crc 4F604498 )
+)
+
+game (
+	comment "Bomberman (USA)"
+	franchise "Bomberman"
+	rom ( crc 4A51692E )
+)
+
+game (
+	comment "Bomberman Land Touch! (Europe) (En,Fr,De,Es,It)"
+	franchise "Bomberman"
+	rom ( crc 7A3B375D )
+)
+
+game (
+	comment "Castlevania - Dawn of Sorrow (USA)"
+	franchise "Castlevania"
+	rom ( crc 135737F6 )
+)
+
+game (
+	comment "Castlevania - Portrait of Ruin (Europe) (En,Fr,De,Es,It)"
+	franchise "Castlevania"
+	rom ( crc 772BA12A )
+)
+
+game (
+	comment "Chrono Trigger (USA) (En,Fr)"
+	franchise "Chrono"
+	rom ( crc B3836946 )
+)
+
+game (
+	comment "Contra 4 (USA)"
+	franchise "Contra"
+	rom ( crc B9DF4B8E )
+)
+
+game (
+	comment "DK - Jungle Climber (USA)"
+	franchise "Donkey Kong"
+	rom ( crc 038EED18 )
+)
+
+game (
+	comment "Dragon Quest Heroes - Rocket Slime (USA)"
+	franchise "Dragon Quest"
+	rom ( crc 076053F0 )
+)
+
+game (
+	comment "Dragon Quest IX - Sentinels of the Starry Skies (USA) (En,Fr,Es)"
+	franchise "Dragon Quest"
+	rom ( crc AACE5E9C )
+)
+
+game (
+	comment "Grand Theft Auto - Chinatown Wars (USA) (En,Fr,De,Es,It)"
+	franchise "Grand Theft Auto"
+	rom ( crc CC50CF7E )
+)
+
+game (
+	comment "Kirby - Canvas Curse (USA)"
+	franchise "Kirby"
+	rom ( crc FE7DC5EE )
+)
+
+game (
+	comment "Legend of Zelda, The - Phantom Hourglass (USA) (En,Fr,Es)"
+	franchise "The Legend of Zelda"
+	rom ( crc 8B431C41 )
+)
+
+game (
+	comment "Legend of Zelda, The - Spirit Tracks (USA) (En,Fr,Es) (Rev 1)"
+	franchise "The Legend of Zelda"
+	rom ( crc 319A13E5 )
+)
+
+game (
+	comment "Lunar Knights (Europe) (En,Fr,De,Es,It)"
+	franchise "Boktai"
+	rom ( crc 84953087 )
+)
+
+game (
+	comment "Madagascar (USA)"
+	franchise "Madagascar"
+	rom ( crc 2EC117B7 )
+)
+
+game (
+	comment "Mario & Luigi - Partners in Time (Europe) (En,Fr,De,Es,It)"
+	franchise "Mario"
+	rom ( crc 3184FBC4 )
+)
+
+game (
+	comment "Mario Kart DS (Europe) (En,Fr,De,Es,It)"
+	franchise "Mario Kart"
+	rom ( crc 94E8127E )
+)
+
+game (
+	comment "Mario vs. Donkey Kong 2 - March of the Minis (Europe) (En,Fr,De,Es,It)"
+	franchise "Mario vs. Donkey Kong"
+	rom ( crc 11652805 )
+)
+
+game (
+	comment "Need for Speed - Underground 2 (USA) (En,Fr,De,Es,It)"
+	franchise "Need for Speed"
+	rom ( crc C37AB273 )
+)
+
+game (
+	comment "New Super Mario Bros. (Europe) (En,Fr,De,Es,It)"
+	franchise "Super Mario"
+	rom ( crc F443F9BF )
+)
+
+game (
+	comment "Phoenix Wright - Ace Attorney (USA)"
+	franchise "Ace Attorney"
+	rom ( crc BE5FB8D8 )
+)
+
+game (
+	comment "Planet Puzzle League (USA)"
+	franchise "Puzzle League"
+	rom ( crc E26F344A )
+)
+
+game (
+	comment "Pokemon Dash (USA)"
+	franchise "Pokemon"
+	rom ( crc 0D8B2B06 )
+)
+
+game (
+	comment "Professor Layton and the Curious Village (USA, Australia)"
+	franchise "Professor Layton"
+	rom ( crc 08DAC15E )
+)
+
+game (
+	comment "Professor Layton and the Unwound Future (USA)"
+	franchise "Professor Layton"
+	rom ( crc B311E1EC )
+)
+
+game (
+	comment "Sonic Rush (Europe) (En,Ja,Fr,De,Es,It)"
+	franchise "Sonic the Hedgehog"
+	rom ( crc 0A0DEC19 )
+)
+
+game (
+	comment "Sonic Rush Adventure (Europe) (En,Ja,Fr,De,Es,It)"
+	franchise "Sonic the Hedgehog"
+	rom ( crc 0131034B )
+)
+
+game (
+	comment "Spider-Man 2 (USA)"
+	franchise "Spider-Man"
+	rom ( crc 3B275B19 )
+)
+
+game (
+	comment "Spider-Man 3 (United Kingdom)"
+	franchise "Spider-Man"
+	rom ( crc 49EB3DD7 )
+)
+
+game (
+	comment "Star Wars - Episode III - Revenge of the Sith (Europe) (En,Fr,De,Es,It,Nl)"
+	franchise "Star Wars"
+	rom ( crc 3F3F7DC8 )
+)
+
+game (
+	comment "Super Mario 64 DS (Europe) (En,Fr,De,Es,It)"
+	franchise "Super Mario"
+	rom ( crc 29715DEC )
+)
+
+game (
+	comment "Tony Hawk's American Sk8land (Europe) (En,Fr,De,Es,It)"
+	franchise "Tony Hawk's"
+	rom ( crc EA283807 )
+)
+
+game (
+	comment "Tony Hawk's Downhill Jam (Europe) (En,Fr,De,Es,It)"
+	franchise "Tony Hawk's"
+	rom ( crc ED75B040 )
+)
+
+game (
+	comment "WarioWare - Touched! (Europe) (En,Fr,De,Es,It)"
+	franchise "WarioWare"
+	rom ( crc 8CAF8639 )
+)
+
+game (
+	comment "Worms - Open Warfare (USA)"
+	franchise "Worms"
+	rom ( crc ECB40FD3 )
+)
+
+game (
+	comment "Worms - Open Warfare 2 (USA) (En,Fr)"
+	franchise "Worms"
+	rom ( crc 500C0C53 )
+)
+
+game (
+	comment "Yoshi Touch & Go (Europe) (En,Fr,De,Es,It)"
+	franchise "Yoshi"
+	rom ( crc 1D829D6F )
+)
+
+game (
+	comment "Yu-Gi-Oh! - Nightmare Troubadour (USA)"
+	franchise "Yu-Gi-Oh!"
+	rom ( crc 2CEFE04D )
+)

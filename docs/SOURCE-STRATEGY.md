@@ -8,7 +8,7 @@ The pinned No-Intro-derived accession covers identification across six Nintendo 
 
 | Provider | Relevant metadata | Reuse considerations | Status |
 | --- | --- | --- | --- |
-| [Libretro Database](https://github.com/libretro/libretro-database) / [No-Intro](https://datomatic.no-intro.org/) | Cartridge titles, serials, regions, revisions and CRC32/MD5/SHA-1 fingerprints | Libretro declares CC BY-SA 4.0; original contributors and third-party content require attribution and source-specific review | **Imported:** six identification DATs and 29 bibliographic DATs |
+| [Libretro Database](https://github.com/libretro/libretro-database) / [No-Intro](https://datomatic.no-intro.org/) | Cartridge titles, serials, regions, revisions and CRC32/MD5/SHA-1 fingerprints | Libretro declares CC BY-SA 4.0; original contributors and third-party content require attribution and source-specific review | **Imported:** six identification DATs and 53 bibliographic DATs |
 | [Redump](https://wiki.redump.info/Redump) | Disc identifiers, media revisions and fingerprints | Publicly accessible reference material; bulk redistribution rights are not established by this assessment | Research candidate |
 | [GameTDB](https://www.gametdb.com/Main/FAQ) | Nintendo release identifiers, labels and art references | Terms differentiate software use, site reuse and artwork; clarification is needed for redistribution in this repository | Permission review |
 | [MobyGames API](https://www.mobygames.com/api/subscribe/) | Publisher/developer credits, release history, platforms and editions | API terms and attribution requirements constrain redistribution and repackaging | Rights review before import |
