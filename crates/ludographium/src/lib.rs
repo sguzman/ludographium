@@ -215,13 +215,11 @@ impl PlatformCatalog {
             || distribution.source_id != manifest.source_id
             || distribution.source_revision != manifest.source_revision
         {
-            return Err(CatalogError::Invalid("distribution/source catalog mismatch".into()));
+            return Err(CatalogError::Invalid(
+                "distribution/source catalog mismatch".into(),
+            ));
         }
-        verify_distribution_artifact(
-            &distribution,
-            "generated/v1/catalog.json",
-            &manifest_bytes,
-        )?;
+        verify_distribution_artifact(&distribution, "generated/v1/catalog.json", &manifest_bytes)?;
 
         let entry = manifest
             .platforms
@@ -252,7 +250,9 @@ impl PlatformCatalog {
             || bundle.rom_count != entry.rom_fingerprints
             || bundle.records.len() != bundle.record_count
         {
-            return Err(CatalogError::Invalid("manifest/bundle metadata mismatch".into()));
+            return Err(CatalogError::Invalid(
+                "manifest/bundle metadata mismatch".into(),
+            ));
         }
         let roms = bundle.records.iter().map(|r| r.roms.len()).sum::<usize>();
         if roms != bundle.rom_count {
@@ -266,12 +266,17 @@ impl PlatformCatalog {
         let mut by_crc32_size: HashMap<(String, u64), Vec<(usize, usize)>> = HashMap::new();
         for (record_index, record) in bundle.records.iter().enumerate() {
             if record.source_ordinal != record_index + 1 || record.name.is_empty() {
-                return Err(CatalogError::Invalid("invalid source record ordinal/title".into()));
+                return Err(CatalogError::Invalid(
+                    "invalid source record ordinal/title".into(),
+                ));
             }
             for (rom_index, media) in record.roms.iter().enumerate() {
                 if let Some(ref hash) = media.sha1 {
                     let hash = validate_hex(hash, 40)?;
-                    by_sha1.entry(hash).or_default().push((record_index, rom_index));
+                    by_sha1
+                        .entry(hash)
+                        .or_default()
+                        .push((record_index, rom_index));
                 }
                 if let Some(ref hash) = media.crc32 {
                     let hash = validate_hex(hash, 8)?;
@@ -370,7 +375,10 @@ mod tests {
         assert_eq!(hits[0].record.source_ordinal, 1);
         assert_eq!(hits[0].media.size, 131072);
         assert_eq!(hits[0].source.source_id, "libretro-no-intro");
-        assert_eq!(hits[0].source.git_blob_sha, "0ead6bff1f819075793605985a9ee2dcb3c0c3ab");
+        assert_eq!(
+            hits[0].source.git_blob_sha,
+            "0ead6bff1f819075793605985a9ee2dcb3c0c3ab"
+        );
     }
 
     #[test]
@@ -435,30 +443,31 @@ mod tests {
     #[test]
     fn git_blob_hash_matches_committed_source() {
         let data = fs::read(root().join("archive/libretro-no-intro/gb.dat")).unwrap();
-        assert_eq!(git_blob_sha(&data), "0ead6bff1f819075793605985a9ee2dcb3c0c3ab");
+        assert_eq!(
+            git_blob_sha(&data),
+            "0ead6bff1f819075793605985a9ee2dcb3c0c3ab"
+        );
     }
     #[test]
     fn distribution_rejects_modified_bytes() {
         let raw = fs::read(root().join("generated/v1/distribution.json")).unwrap();
         let distribution: DistributionManifest = serde_json::from_slice(&raw).unwrap();
         let original = fs::read(root().join("generated/v1/gb.json")).unwrap();
-        assert!(verify_distribution_artifact(
-            &distribution,
-            "generated/v1/gb.json",
-            &original,
-        ).is_ok());
+        assert!(
+            verify_distribution_artifact(&distribution, "generated/v1/gb.json", &original,).is_ok()
+        );
         let mut corrupted = original;
         corrupted.push(b'x');
-        assert!(verify_distribution_artifact(
-            &distribution,
-            "generated/v1/gb.json",
-            &corrupted,
-        ).is_err());
+        assert!(
+            verify_distribution_artifact(&distribution, "generated/v1/gb.json", &corrupted,)
+                .is_err()
+        );
         assert!(verify_distribution_artifact(
             &distribution,
             "generated/v1/unknown.json",
             b"sample",
-        ).is_err());
+        )
+        .is_err());
     }
 
     #[test]
@@ -468,5 +477,4 @@ mod tests {
             "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
         );
     }
-
 }

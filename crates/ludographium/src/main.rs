@@ -51,7 +51,11 @@ fn run() -> Result<(), Box<dyn Error>> {
             "--root" | "--platform" | "--sha1" | "--crc32" | "--size" => args
                 .next()
                 .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
-            _ => return Err(CatalogError::Invalid(format!("unknown option: {arg}\n{}", usage())).into()),
+            _ => {
+                return Err(
+                    CatalogError::Invalid(format!("unknown option: {arg}\n{}", usage())).into(),
+                )
+            }
         };
         match arg.as_str() {
             "--root" => root = PathBuf::from(value),
