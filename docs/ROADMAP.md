@@ -17,8 +17,9 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 ## Identity and curation
 
-- [x] Establish evidence-validated UUID identifiers for work, release, and build records (empty ledger).
-- [ ] Curate individual game/release/build identities with supported correspondence evidence.
+- [x] Establish evidence-validated UUID identifiers for work, release, and build records.
+- [x] Curate initial source-grounded work/release/build identity examples with exact media evidence.
+- [ ] Expand curated identities and evidence-backed correspondences across editions and providers.
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
@@ -30,6 +31,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Publish deterministic per-artifact SHA-256 digests and byte lengths in a distribution manifest.
 - [x] Provide a v0.1 Rust read-only client and CLI with integrity-checked exact-fingerprint lookup.
 - [x] Build and CI-verify a metadata-only, reproducible runtime archive.
+- [x] Include validated curated identities in the portable integrity manifest and runtime archive.
 - [ ] Publish permanent versioned data releases, independent of short-lived CI artifacts.
 - [ ] Specify and test platform-specific byte-domain and header normalization rules.
 - [ ] Publish compatibility and migration guidance for future consumer contracts.

@@ -37,12 +37,12 @@ These are original source observations, **not a count of distinct games**. Every
 | [`archive/`](archive/) | Unmodified original DATs |
 | [`sources/`](sources/) | Pinned source revisions, attribution, and reuse information |
 | [`generated/`](generated/) | Reproducible identification and bibliographic claim indexes |
-| [`curated/`](curated/v1/identities.json) | Evidence-backed work/release/build identity ledger (not yet populated) |
+| [`curated/`](curated/v1/identities.json) | Evidence-backed work, release and build identities (four initial curated entries) |
 | [`platforms/`](platforms/platforms.json) | Platform identifiers |
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
-The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 21 consumer artifacts. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use.
+The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 22 consumer artifacts, including a curated identity index. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use.
 
 ## Use the data
 
@@ -66,7 +66,7 @@ Add `--enriched` to fingerprint, file, or title queries to include matched and u
 cargo run --locked -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4
 ```
 
-Python lookup tools offer equivalent access. A match associates a fingerprint with an upstream record; it does not automatically establish a unique game, release, or build identity. A future curated layer will make those links explicit, with evidence.
+Python lookup tools offer equivalent access. A match associates a fingerprint with an upstream record; it does not automatically establish a unique game, release, or build identity. Four evidence-backed curated seed identities now demonstrate how those links are represented; other source records remain uncurated.
 
 ## Documentation
 

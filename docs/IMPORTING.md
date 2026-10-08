@@ -28,9 +28,10 @@ python3 tools/audit_catalog.py --check
 python3 tools/import_enrichment.py --check
 python3 tools/audit_enrichment.py --check
 python3 tools/validate_curated.py
+python3 tools/build_curated.py --check
 ```
 
-The verification command reimports all six archived identification DATs, compares the generated JSON bytes with the committed artifacts, and checks each input/output Git blob SHA and manifest count. The tests cover parser and lookup behavior, including checksum validation and ambiguous CRC32 matches. The distribution check validates SHA-256 digests, while the source audit checks metadata field counts and repeated identifiers against the committed report.
+The verification command reimports all ten archived identification DATs, compares the generated JSON bytes with the committed artifacts, and checks each input/output Git blob SHA and manifest count. The tests cover parser and lookup behavior, including checksum validation and ambiguous CRC32 matches. The distribution check validates SHA-256 digests, while the source audit checks metadata field counts and repeated identifiers against the committed report.
 
 The entire identification catalog can be reconstructed with `python3 tools/rebuild_catalog.py --write`. The `tools/fetch_pinned_sources.py` helper retrieves missing, revision-pinned original metadata files and checks their Git blob identities. Existing source files are never silently replaced.
 
@@ -66,4 +67,4 @@ Other source formats require independently audited parsers and source-specific m
 
 ## What import results mean
 
-Successful import establishes fidelity to the pinned DAT input, not independent verification of its claims. The exports preserve upstream names, dates, serials and media fingerprints as observations. Curated game identities will be an additional layer.
+Successful import establishes fidelity to the pinned DAT input, not independent verification of its claims. The exports preserve upstream names, dates, serials and media fingerprints as observations. Curated game identities are maintained as a separate, explicitly evidence-backed layer.

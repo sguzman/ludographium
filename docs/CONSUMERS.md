@@ -15,7 +15,7 @@ The [v1 catalog manifest](../generated/v1/catalog.json) lists the available plat
 | Nintendo Entertainment System | [`generated/v1/nes.json`](../generated/v1/nes.json) |
 | Nintendo DS | [`generated/v1/nds.json`](../generated/v1/nds.json) |
 
-Each base bundle contains source observations and fingerprints. Matching [enrichment bundles](../generated/enrichment-v1/) contain attributed bibliographic and technical claims (including publishers, developers, genre, franchise, serial, age rating, player counts, and rumble support), together with unresolved source evidence. Neither is a canonical work/release/build registry.
+Each base bundle contains source observations and fingerprints. Matching [enrichment bundles](../generated/enrichment-v1/) contain attributed bibliographic and technical claims (including publishers, developers, genre, franchise, serial, age rating, player counts, and rumble support), together with unresolved source evidence. Neither is a canonical work/release/build registry. A separate [curated identity index](../generated/curated-v1/identities.json) publishes the deliberately selected work, release, and media-build identifiers.
 
 ## Matching a local image
 
@@ -79,7 +79,7 @@ The Python `tools/lookup_enrichment.py` provides a corresponding offline interfa
 
 ## Portable runtime distribution
 
-Consumers do not need the repository's original DAT archives or development files. The standard-library packager builds a **deterministic** gzip-compressed tar archive containing only the distribution manifest and its thirteen indexed artifacts.
+Consumers do not need the repository's original DAT archives or development files. The standard-library packager builds a **deterministic** gzip-compressed tar archive containing only the distribution manifest and its 22 indexed artifacts, including the curated identity export.
 
 ```sh
 python3 tools/package_runtime.py --build /tmp/ludographium-runtime-v1.tar.gz
@@ -105,6 +105,6 @@ cargo run -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD78
 
 The distribution manifest is not signed; consumers should obtain it from a trusted, pinned Git revision or release. A future independent release packaging process may add signed attestations and publishing guarantees.
 
-Platform identifiers such as `snes`, `gb`, `gbc`, `gba`, `nes`, and `nds` follow the project's registry and are compatible by convention with related datasets. Cross-project game/revision joins will be added after curated identifiers and correspondence evidence exist.
+Platform identifiers such as `snes`, `gb`, `gbc`, `gba`, `nes`, `nds`, `n64`, `genesis`, `sms`, and `gg` follow the project's registry and are compatible by convention with related datasets. Cross-project game/revision joins should use the curated correspondence and source evidence, not inferred title slugs.
 
 The source-observation v1 format is an early interface. Breaking semantics will be introduced through versioned contracts; unknown or unmatched games remain legitimate lookup results.

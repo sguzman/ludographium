@@ -47,4 +47,4 @@ python3 tools/validate_curated.py --mint-id build
 
 The validator checks UUID formatting, uniqueness, release-to-work and build-to-release references, registered platforms, required rationales, same-platform evidence, exact source citations, and build SHA-1/byte-size equality against the cited source records. It does **not** automate identity reconciliation or test an emulator. A source conflict may remain unmerged indefinitely.
 
-The editable ledger is [`curated/v1/identities.json`](../curated/v1/identities.json). Curated identities will be distributed to consumers only after a separate versioned export and referential-validation contract is established.
+The editable ledger is [`curated/v1/identities.json`](../curated/v1/identities.json). Its validated, deterministic consumer projection lives in [`generated/curated-v1/identities.json`](../generated/curated-v1/identities.json), is included in the SHA-256 distribution manifest and portable runtime, and can be regenerated with `python3 tools/build_curated.py --write`. The source ledger remains the editorial authority.
