@@ -72,6 +72,19 @@ jobs:
           python -c 'import json; d=json.load(open("/tmp/ludographium.json")); assert d["match_count"] == 1; assert d["matches"][0]["title"] == "10-Pin Bowling (USA) (Proto)"'
           cargo run --locked --quiet -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-rust-enriched.json
           python -c 'import json; d=json.load(open("/tmp/ludographium-rust-enriched.json")); assert d["match_count"] == 1; assert "developer" in {c["field"] for c in d["matches"][0]["metadata_claims"]}'
+      - name: Verify raw-file SHA-1 streaming without retaining media
+        run: |
+          printf 'synthetic fixture, not a game ROM' > /tmp/ludographium-synthetic.bin
+          cargo run --locked --quiet -p ludographium -- --platform gg --file /tmp/ludographium-synthetic.bin > /tmp/ldg-file.json
+          cargo run --locked --quiet -p ludographium -- --enriched --platform gg --file /tmp/ludographium-synthetic.bin > /tmp/ldg-enriched-file.json
+          python - <<'PY'
+          import json
+          for filename in ("/tmp/ldg-file.json", "/tmp/ldg-enriched-file.json"):
+              data = json.load(open(filename))
+              assert data["input_kind"] == "exact-local-file-bytes"
+              assert data["match_count"] == 0
+              assert data["matches"] == []
+          PY
       - name: Verify bounded title discovery with and without enrichment
         run: |
           cargo run --locked --quiet -p ludographium -- --platform nes --title Mario --limit 5 > /tmp/ldg-title.json
