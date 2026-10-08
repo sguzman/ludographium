@@ -293,6 +293,19 @@ impl EnrichedPlatformCatalog {
         })
     }
 
+    /// Match exact raw bytes while retaining bibliographic claim provenance.
+    pub fn lookup_bytes(&self, bytes: &[u8]) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
+        Ok(self.attach(self.base.lookup_bytes(bytes)?))
+    }
+
+    /// Read a media stream without retaining its bytes in the catalog.
+    pub fn lookup_reader<R: std::io::Read>(
+        &self,
+        input: R,
+    ) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
+        Ok(self.attach(self.base.lookup_reader(input)?))
+    }
+
     pub fn lookup_sha1(&self, hash: &str) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
         Ok(self.attach(self.base.lookup_sha1(hash)?))
     }
@@ -370,6 +383,7 @@ mod tests {
     fn invalid_hash_and_unknown_games() {
         let catalog = EnrichedPlatformCatalog::open(root(), "gb").unwrap();
         assert!(catalog.lookup_sha1("bogus").is_err());
+        assert!(catalog.lookup_bytes(b"synthetic test bytes, not a game").unwrap().is_empty());
         assert!(catalog.lookup_sha1(&"0".repeat(40)).unwrap().is_empty());
     }
 
