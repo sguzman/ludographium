@@ -14,6 +14,15 @@ def build_distribution(root: Path):
     if catalog.get("schema_version") != 1 or catalog.get("kind") != "source-catalog":
         raise ValueError("unsupported source catalog")
     paths = {"generated/v1/catalog.json"}
+
+    # Portable metadata must carry the original source and licensing evidence.
+    # These extra artifacts are optional only for minimal test/legacy catalogs
+    # that contain no original source registers.
+    base_register = root / "sources/libretro-no-intro.json"
+    if base_register.exists():
+        if not (root / "METADATA-NOTICE.md").exists():
+            raise ValueError("metadata source register requires METADATA-NOTICE.md")
+        paths.update(("sources/libretro-no-intro.json", "METADATA-NOTICE.md"))
     for entry in catalog["platforms"]:
         platform = entry["platform"]
         expected = f"generated/v1/{platform}.json"
@@ -27,6 +36,7 @@ def build_distribution(root: Path):
     # source register exists, its platform-normalized claim bundles are published.
     enrichment_registry = root / "sources/libretro-enrichment.json"
     if enrichment_registry.exists():
+        paths.add("sources/libretro-enrichment.json")
         enrichment = json.loads(enrichment_registry.read_bytes())
         if enrichment.get("schema_version") != 1:
             raise ValueError("unsupported enrichment source registry")
