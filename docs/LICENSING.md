@@ -22,6 +22,6 @@ No blanket claim is made that all upstream database records, descriptions, trade
 
 ## Consumer guidance
 
-Applications may use Ludographium's MIT-licensed software independently of the data collection. When distributing catalog data or a [portable runtime archive](CONSUMERS.md), preserve the metadata's source attribution and comply with the applicable external licensing conditions. Consumers can inspect the original source registry entries without needing game binaries.
+Applications may use Ludographium's MIT-licensed software independently of the data collection. The [portable runtime archive](CONSUMERS.md) includes `METADATA-NOTICE.md` and both original source registers as SHA-256-verified artifacts. When distributing catalog data, keep those attribution materials and comply with applicable external licensing conditions. Consumers can inspect the original source registry entries without needing game binaries.
 
 This document explains project licensing boundaries; it does not grant rights on behalf of third-party data authors.
