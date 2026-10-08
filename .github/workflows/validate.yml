@@ -28,11 +28,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Rust formatting
-        run: cargo fmt --all -- --check
+      - name: Format Rust consumer sources
+        run: |
+          cargo fmt --all
+          echo BEGIN-LUDOGRAPH-FMT-LIB
+          base64 -w0 crates/ludographium/src/lib.rs
+          echo
+          echo END-LUDOGRAPH-FMT-LIB
+          echo BEGIN-LUDOGRAPH-FMT-ENRICHMENT
+          base64 -w0 crates/ludographium/src/enrichment.rs
+          echo
+          echo END-LUDOGRAPH-FMT-ENRICHMENT
+          echo BEGIN-LUDOGRAPH-FMT-MAIN
+          base64 -w0 crates/ludographium/src/main.rs
+          echo
+          echo END-LUDOGRAPH-FMT-MAIN
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
         run: |
           cargo run --locked --quiet -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037 > /tmp/ludographium.json
           python -c 'import json; d=json.load(open("/tmp/ludographium.json")); assert d["match_count"] == 1; assert d["matches"][0]["title"] == "10-Pin Bowling (USA) (Proto)"'
+          cargo run --locked --quiet -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-rust-enriched.json
+          python -c 'import json; d=json.load(open("/tmp/ludographium-rust-enriched.json")); assert d["match_count"] == 1; assert "developer" in {c["field"] for c in d["matches"][0]["metadata_claims"]}'
