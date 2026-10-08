@@ -14,3 +14,13 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and test Rust client
+        run: cargo test --workspace --all-targets
+      - name: Verify Rust CLI offline lookup
+        run: |
+          cargo run --quiet -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037 > /tmp/ludographium.json
+          python -c 'import json; d=json.load(open("/tmp/ludographium.json")); assert d["match_count"] == 1; assert d["matches"][0]["title"] == "10-Pin Bowling (USA) (Proto)"'
