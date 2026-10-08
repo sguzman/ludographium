@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path, PurePosixPath
 from urllib.parse import quote
 from urllib.request import urlopen
@@ -21,7 +22,7 @@ def source_path(entry, collection):
     if collection == "base":
         return Path("archive/libretro-no-intro") / f"{platform}.dat"
     field = entry["field"]
-    if not field.isalnum() or field.lower() != field:
+    if not re.fullmatch(r"[a-z][a-z0-9_]*", field):
         raise ValueError("invalid field identifier")
     return Path("archive/libretro-enrichment") / platform / f"{field}.dat"
 
