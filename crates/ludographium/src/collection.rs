@@ -198,6 +198,13 @@ impl EnrichedCatalogCollection {
         self.indexes.iter().map(|index| index.base().platform())
     }
 
+    /// Returns each platform's pinned bibliographic source ID and revision.
+    pub fn enrichment_sources(&self) -> impl Iterator<Item = (&str, &str, &str)> {
+        self.indexes.iter().map(|index| {
+            (index.base().platform(), index.source_id(), index.source_revision())
+        })
+    }
+
     pub fn lookup_sha1(&self, value: &str) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
         let mut matches = Vec::new();
         for index in &self.indexes {
