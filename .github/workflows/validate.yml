@@ -22,6 +22,12 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets
+      - name: Capture dependency lockfile
+        run: |
+          echo BEGIN-LUDOGRAPHIUM-CARGO-LOCK
+          base64 -w0 Cargo.lock
+          echo
+          echo END-LUDOGRAPHIUM-CARGO-LOCK
       - name: Verify Rust CLI offline lookup
         run: |
           cargo run --quiet -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037 > /tmp/ludographium.json
