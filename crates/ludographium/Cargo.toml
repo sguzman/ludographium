@@ -1,0 +1,11 @@
+[package]
+name = "ludographium"
+version = "0.1.0"
+edition = "2021"
+description = "Offline, provenance-aware console game metadata lookup"
+publish = false
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+sha1 = "0.10"

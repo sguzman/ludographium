@@ -1,0 +1,93 @@
+//! Offline fingerprint lookup CLI. Accepts hashes only; does not open game files.
+use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
+use serde_json::{json, Value};
+use std::env;
+use std::error::Error;
+use std::path::PathBuf;
+
+fn usage() -> &'static str {
+    "Usage: ludographium --platform <snes|gb|gbc|gba> [--root <catalog-directory>] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes>)"
+}
+
+fn format_match(found: &MediaMatch<'_>) -> Value {
+    json!({
+        "platform": found.platform,
+        "title": found.record.name,
+        "region_claim": found.record.region,
+        "serial_claim": found.record.serial,
+        "rom": {
+            "name": found.media.name,
+            "size": found.media.size,
+            "sha1": found.media.sha1,
+            "md5": found.media.md5,
+            "crc32": found.media.crc32,
+            "serial": found.media.serial,
+        },
+        "source": {
+            "id": found.source.source_id,
+            "revision": found.source.revision,
+            "path": found.source.path,
+            "ordinal": found.record.source_ordinal,
+            "blob_sha": found.source.git_blob_sha,
+        },
+        "interpretation": "source-fingerprint-association-not-verified-game-identity",
+    })
+}
+
+fn run() -> Result<(), Box<dyn Error>> {
+    let mut args = env::args().skip(1);
+    let mut platform = None;
+    let mut root = PathBuf::from(".");
+    let mut sha1 = None;
+    let mut crc32 = None;
+    let mut size = None;
+
+    while let Some(arg) = args.next() {
+        let value = match arg.as_str() {
+            "--help" | "-h" => {
+                println!("{}", usage());
+                return Ok(());
+            }
+            "--root" | "--platform" | "--sha1" | "--crc32" | "--size" => args
+                .next()
+                .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
+            _ => return Err(CatalogError::Invalid(format!("unknown option: {arg}\n{}", usage())).into()),
+        };
+        match arg.as_str() {
+            "--root" => root = PathBuf::from(value),
+            "--platform" => platform = Some(value),
+            "--sha1" => sha1 = Some(value),
+            "--crc32" => crc32 = Some(value),
+            "--size" => size = Some(value.parse::<u64>()?),
+            _ => unreachable!(),
+        }
+    }
+
+    let platform = platform.ok_or_else(|| CatalogError::Invalid(usage().into()))?;
+    if sha1.is_some() == crc32.is_some() || (crc32.is_some() && size.is_none()) {
+        return Err(CatalogError::Invalid(usage().into()).into());
+    }
+    let catalog = PlatformCatalog::open(root, &platform)?;
+    let found = if let Some(hash) = sha1 {
+        let mut matches = catalog.lookup_sha1(&hash)?;
+        if let Some(byte_len) = size {
+            matches.retain(|m| m.media.size == byte_len);
+        }
+        matches
+    } else {
+        catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?
+    };
+    let output = json!({
+        "match_count": found.len(),
+        "matches": found.iter().map(format_match).collect::<Vec<_>>(),
+    });
+    println!("{}", serde_json::to_string_pretty(&output)?);
+    Ok(())
+}
+
+fn main() {
+    if let Err(err) = run() {
+        eprintln!("{err}");
+        std::process::exit(1);
+    }
+}
