@@ -77,7 +77,15 @@ def validate_readme_totals(root):
     for key, phrase in expected_phrases.items():
         if phrase not in readme:
             raise ValueError(f"README has stale {key} ({totals[key]:,})")
-    if len(distribution["artifacts"]) != len(catalog["platforms"])*2+2:
+    expected_paths = {
+        "METADATA-NOTICE.md",
+        "sources/libretro-no-intro.json",
+        "sources/libretro-enrichment.json",
+    }
+    actual_paths = {item["path"] for item in distribution["artifacts"]}
+    if not expected_paths.issubset(actual_paths):
+        raise ValueError("distribution is missing source attribution artifacts")
+    if len(distribution["artifacts"]) != len(catalog["platforms"])*2+5:
         raise ValueError("distribution artifact count disagrees with source platforms")
     expected_source_count = len(registry["files"])
     if f"{expected_source_count} pinned Libretro DATs" not in readme:
