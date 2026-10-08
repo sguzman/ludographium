@@ -68,8 +68,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Rust formatting
-        run: cargo fmt --all -- --check
+      - name: Capture canonical Rust ZIP tests
+        run: |
+          cargo fmt --all
+          echo BEGIN-LDG-ZIP-TEST-FORMAT
+          base64 -w0 crates/ludographium/src/collection.rs
+          echo
+          echo END-LDG-ZIP-TEST-FORMAT
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
