@@ -1,13 +1,15 @@
-//! Offline fingerprint lookup CLI. Accepts hashes only; does not open game files.
+//! Offline fingerprint and raw-file lookup CLI. Local input is streamed, not retained.
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
 use std::error::Error;
+use std::fs::File;
+use std::io::BufReader;
 use std::path::PathBuf;
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>])"
+    "Usage: ludographium --platform <platform-id> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>)"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -55,6 +57,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut crc32 = None;
     let mut size = None;
     let mut title = None;
+    let mut file = None;
     let mut limit: usize = 50;
     let mut limit_explicit = false;
     let mut enriched = false;
@@ -69,7 +72,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 println!("{}", usage());
                 return Ok(());
             }
-            "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit" => {
+            "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit" | "--file" => {
                 args.next()
                     .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?
             }
@@ -86,6 +89,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "--crc32" => crc32 = Some(value),
             "--size" => size = Some(value.parse::<u64>()?),
             "--title" => title = Some(value),
+            "--file" => file = Some(value),
             "--limit" => {
                 limit = value.parse::<usize>()?;
                 limit_explicit = true;
@@ -95,11 +99,14 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
 
     let platform = platform.ok_or_else(|| CatalogError::Invalid(usage().into()))?;
-    let query_modes =
-        usize::from(sha1.is_some()) + usize::from(crc32.is_some()) + usize::from(title.is_some());
+    let query_modes = usize::from(sha1.is_some())
+        + usize::from(crc32.is_some())
+        + usize::from(title.is_some())
+        + usize::from(file.is_some());
     if query_modes != 1
         || (crc32.is_some() && size.is_none())
         || (title.is_some() && size.is_some())
+        || (file.is_some() && (size.is_some() || limit_explicit))
         || (title.is_none() && limit_explicit)
         || (title.is_some() && (limit == 0 || limit > 200))
     {
@@ -148,10 +155,13 @@ fn run() -> Result<(), Box<dyn Error>> {
                 matches.retain(|m| m.base.media.size == byte_len);
             }
             matches
+        } else if let Some(ref path) = file {
+            catalog.lookup_reader(BufReader::new(File::open(path)?))?
         } else {
             catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?
         };
         json!({
+            "input_kind": if file.is_some() { "exact-local-file-bytes" } else { "fingerprint" },
             "enrichment_source": {
                 "id": catalog.source_id(),
                 "revision": catalog.source_revision(),
@@ -167,10 +177,13 @@ fn run() -> Result<(), Box<dyn Error>> {
                 matches.retain(|m| m.media.size == byte_len);
             }
             matches
+        } else if let Some(ref path) = file {
+            catalog.lookup_reader(BufReader::new(File::open(path)?))?
         } else {
             catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?
         };
         json!({
+            "input_kind": if file.is_some() { "exact-local-file-bytes" } else { "fingerprint" },
             "match_count": found.len(),
             "matches": found.iter().map(format_match).collect::<Vec<_>>()
         })
