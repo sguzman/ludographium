@@ -118,18 +118,17 @@ fn run() -> Result<(), Box<dyn Error>> {
         } else {
             let catalog = PlatformCatalog::open(&root, &platform)?;
             let results = catalog.search_titles(query, limit)?;
-            let matches: Vec<Value> = results.records.iter()
-                .flat_map(|record| {
-                    record.roms.iter().map(move |media| {
-                        format_match(&MediaMatch {
-                            platform: catalog.platform(),
-                            record,
-                            media,
-                            source: catalog.source(),
-                        })
-                    })
-                })
-                .collect();
+            let mut matches: Vec<Value> = Vec::new();
+            for record in results.records {
+                for media in &record.roms {
+                    matches.push(format_match(&MediaMatch {
+                        platform: catalog.platform(),
+                        record,
+                        media,
+                        source: catalog.source(),
+                    }));
+                }
+            }
             json!({
                 "query_kind": "source-title-substring",
                 "total_source_records": results.total,
