@@ -18,12 +18,8 @@ jobs:
         run: python tools/rebuild_catalog.py --check
       - name: Verify curated identity export
         run: python tools/build_curated.py --check
-      - name: Produce expanded distribution manifest
-        run: |
-          python tools/build_distribution.py --write
-          echo BEGIN-LDG-CURATED-MANIFEST
-          cat generated/v1/distribution.json
-          echo END-LDG-CURATED-MANIFEST
+      - name: Verify SHA-256 distribution manifest
+        run: python tools/build_distribution.py --check
       - name: Validate Markdown and advertised catalog counts
         run: python tools/check_docs.py
       - name: Build and verify portable runtime package
