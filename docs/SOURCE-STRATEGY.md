@@ -35,7 +35,7 @@ Public availability and an available API are different from permission to publis
 
 **First, reliable identity evidence.** Maintain fidelity to imported source records, validate exact byte domains, and make collisions or uncertain joins visible.
 
-**Second, bibliographic enrichment.** Add carefully sourced release dates, companies, editions, and localized titles, with attribution for each provider.
+**Second, bibliographic enrichment.** Extend the existing Libretro company, date, and genre claims with localized titles, more precise release histories, and independent corroboration where permitted.
 
 **Third, canonical curation.** Resolve sources into stable work, release, and build entities with explicit supporting evidence and a record of unresolved disagreements.
 
