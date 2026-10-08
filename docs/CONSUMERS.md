@@ -72,6 +72,21 @@ This hashes **exactly the supplied bytes** with SHA-1, checks the original file 
 
 This is not a container extractor or a platform-specific byte-normalization layer. Consumers must explicitly choose the byte representation they want to identify. Full ZIP/archive support and verified per-platform normalization rules remain future work.
 
+## Read-only ZIP identification
+
+Use `--zip` to inspect individual members of a ZIP archive without extracting files to disk:
+
+```sh
+cargo run --locked -p ludographium -- --platform all --zip /path/to/collection.zip --enriched
+cargo run --locked -p ludographium -- --platform gbc --zip /path/to/single-game.zip
+```
+
+Each member returns its original archive entry name, SHA-1, byte length, and source matches. Members without matches remain visible. Both `CatalogCollection` and `EnrichedCatalogCollection` expose `lookup_zip` for use in Rust applications.
+
+The reader handles stored and Deflate-compressed ZIP entries. It does not extract, save, patch, strip headers from, or change member bytes. Resource limits are **256 entries**, **1 GiB decoded per member**, and **2 GiB decoded in total**. Unsupported or unreadable entries return an error. ZIP identification does not establish canonical game identity, and the collection never stores game binaries.
+
+Use `--file` for one uncompressed media representation and `--zip` for ZIP members. Other archive formats are not yet supported.
+
 ## Discovering source titles
 
 Source-title search is intentionally separate from fingerprint identification. It searches original source title strings, preserving individual edition and revision records and their source provenance.
