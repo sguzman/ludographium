@@ -1,0 +1,77 @@
+name: One-time Nintendo metadata accession
+on:
+  push:
+    paths:
+      - '.github/workflows/acquire-nintendo.yml'
+permissions:
+  contents: write
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Accession pinned NES and DS source records
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          rev = "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90"
+          base_path = Path("sources/libretro-no-intro.json")
+          extra_path = Path("sources/libretro-enrichment.json")
+          base = json.loads(base_path.read_text())
+          extra = json.loads(extra_path.read_text())
+          assert base["repository_revision"] == extra["repository_revision"] == rev
+          base_additions = [
+              ("nes", "metadat/no-intro/Nintendo - Nintendo Entertainment System.dat", "e1eee8354b76a30ca57b3a138c1eebedb7174936"),
+              ("nds", "metadat/no-intro/Nintendo - Nintendo DS.dat", "5f2d9c780607181004d922ec3f74dee129405afb"),
+          ]
+          field_additions = [
+              ("nes", "developer", "b0aefb81236ce0dcc38d03b7e8d70a4336192345"),
+              ("nes", "publisher", "8bbc371d175383d48979d247bc62cb32d9da65ed"),
+              ("nes", "releaseyear", "d63081455c50ffc7380a268755d2f2e09f26ad99"),
+              ("nes", "releasemonth", "3cfcbaf2a524281e56d65489923822b8d0f7d084"),
+              ("nes", "genre", "cc56f6d848df4d7cf0456458734abd65a31b7224"),
+              ("nds", "developer", "83424594a131518faee751931a56c8e8ebd3569e"),
+              ("nds", "publisher", "b6e5a19b2eb0818611f01df9192b5dab12a42dc6"),
+              ("nds", "releaseyear", "1ee5aacdb9d85d1ba2dff7a8f1a06104bb2c21ba"),
+              ("nds", "genre", "e9011ce08432d2e3dee2edfd63fec3d0606d01f3"),
+          ]
+          name = {"nes": "Nintendo - Nintendo Entertainment System.dat", "nds": "Nintendo - Nintendo DS.dat"}
+          for platform, path, sha in base_additions:
+              assert not any(x["platform"] == platform for x in base["files"])
+              base["files"].append({"platform": platform, "source_path": path,
+                                    "git_blob_sha": sha})
+          for platform, field, sha in field_additions:
+              assert not any(x["platform"] == platform and x["field"] == field for x in extra["files"])
+              extra["files"].append({
+                  "platform": platform, "field": field,
+                  "source_path": f"metadat/{field}/{name[platform]}",
+                  "git_blob_sha": sha,
+              })
+          base_path.write_text(json.dumps(base, indent=2, ensure_ascii=False) + "\n")
+          extra_path.write_text(json.dumps(extra, indent=2, ensure_ascii=False) + "\n")
+          print("Registered 2 platform identification sources and 9 enrichment files")
+          PY
+          python3 tools/fetch_pinned_sources.py
+          python3 tools/rebuild_catalog.py --write
+          python3 tools/import_enrichment.py --write
+          python3 tools/audit_catalog.py --write
+          python3 tools/audit_enrichment.py --write
+          python3 tools/build_distribution.py --write
+          python3 -m unittest discover -s tests -v
+          python3 tools/rebuild_catalog.py --check
+          python3 tools/verify_catalog.py
+          python3 tools/import_enrichment.py --check
+          python3 tools/build_distribution.py --check
+          python3 tools/audit_catalog.py --check
+          python3 tools/audit_enrichment.py --check
+          python3 tools/validate_curated.py
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add sources/ archive/ generated/ reports/
+          git diff --cached --quiet && { echo 'No new accession data'; exit 0; }
+          git commit -m 'data: accession NES and Nintendo DS identification and bibliographic sources'
+          git push origin HEAD:main
