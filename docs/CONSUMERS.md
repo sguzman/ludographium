@@ -15,7 +15,7 @@ The [v1 catalog manifest](../generated/v1/catalog.json) lists the available plat
 | Nintendo Entertainment System | [`generated/v1/nes.json`](../generated/v1/nes.json) |
 | Nintendo DS | [`generated/v1/nds.json`](../generated/v1/nds.json) |
 
-Each base bundle contains source observations and fingerprints. Matching [enrichment bundles](../generated/enrichment-v1/) contain bibliographic field claims and unresolved evidence. Neither is a canonical work/release/build registry.
+Each base bundle contains source observations and fingerprints. Matching [enrichment bundles](../generated/enrichment-v1/) contain attributed bibliographic and technical claims (including publishers, developers, genre, franchise, serial, age rating, player counts, and rumble support), together with unresolved source evidence. Neither is a canonical work/release/build registry.
 
 ## Matching a local image
 
