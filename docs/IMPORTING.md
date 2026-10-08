@@ -25,6 +25,9 @@ python3 -m unittest discover -s tests -v
 python3 tools/verify_catalog.py
 python3 tools/build_distribution.py --check
 python3 tools/audit_catalog.py --check
+python3 tools/import_enrichment.py --check
+python3 tools/audit_enrichment.py --check
+python3 tools/validate_curated.py
 ```
 
 The verification command reimports all four archived DATs, compares the generated JSON bytes with the committed artifacts, and checks each input/output Git blob SHA and manifest count. The tests cover parser and lookup behavior, including checksum validation and ambiguous CRC32 matches. The distribution check validates SHA-256 digests, while the source audit checks metadata field counts and repeated identifiers against the committed report.
@@ -38,7 +41,11 @@ The verification command reimports all four archived DATs, compares the generate
 5. Update the catalog manifest and run the tests and integrity verifier.
 6. Review changes to public contracts and documentation before committing.
 
-The present importer accepts the clrmamepro-style DAT syntax used by the pinned No-Intro-derived files. Other source formats require their own audited parser and source-specific mapping.
+The base importer handles the No-Intro-derived DATs. The separately registered [Libretro bibliographic sources](../sources/libretro-enrichment.json) are processed by `tools/import_enrichment.py` from the original files under `archive/libretro-enrichment/`.
+
+To update the bibliographic collection, rebuild its indexes with `python3 tools/import_enrichment.py --write`, then regenerate the quality report with `python3 tools/audit_enrichment.py --write` and the distribution manifest with `python3 tools/build_distribution.py --write`. Commit the related source registers, raw files, generated indexes, reports, and manifest as one coherent accession.
+
+Other source formats require independently audited parsers and source-specific mappings.
 
 ## What import results mean
 

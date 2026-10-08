@@ -2,7 +2,7 @@
 
 The reports in this directory describe how much metadata is available in each imported source collection. They are generated from pinned source observations, not from inferred game identities.
 
-The current [field-coverage report](source-coverage-v1.json) summarizes the SNES, Game Boy, Game Boy Color, and Game Boy Advance imports. It records the number of source records and media entries, the presence of individual release and media fields, and repeated values that may need later reconciliation.
+The [identification report](source-coverage-v1.json) and [enrichment report](enrichment-coverage-v1.json) summarize the SNES, Game Boy, Game Boy Color, and Game Boy Advance imports. It records the number of source records and media entries, the presence of individual release and media fields, and repeated values that may need later reconciliation.
 
 The report deliberately distinguishes:
 
@@ -12,11 +12,15 @@ The report deliberately distinguishes:
 
 None of these is a count of unique games, distinct releases, verified identities, or cryptographic collisions. A missing region or release date means that field is absent in the upstream observation; information may still be implicit in the title or available from another provider.
 
+The enrichment report measures accepted and unresolved source claims, base records enriched with at least one field, and any divergent accepted values for the same field of one source record.
+
 ## Rebuild
 
 ```sh
 python3 tools/audit_catalog.py --write
 python3 tools/audit_catalog.py --check
+python3 tools/audit_enrichment.py --write
+python3 tools/audit_enrichment.py --check
 ```
 
 The report is deterministic for a given collection snapshot. It is a diagnostic research aid, separate from the versioned consumer distribution manifest.
