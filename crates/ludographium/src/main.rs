@@ -7,7 +7,7 @@ use std::error::Error;
 use std::path::PathBuf;
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <snes|gb|gbc|gba|nes|nds> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes>)"
+    "Usage: ludographium --platform <snes|gb|gbc|gba|nes|nds> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>])"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -54,6 +54,9 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut sha1 = None;
     let mut crc32 = None;
     let mut size = None;
+    let mut title = None;
+    let mut limit: usize = 50;
+    let mut limit_explicit = false;
     let mut enriched = false;
 
     while let Some(arg) = args.next() {
@@ -66,7 +69,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 println!("{}", usage());
                 return Ok(());
             }
-            "--root" | "--platform" | "--sha1" | "--crc32" | "--size" => args
+            "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit" => args
                 .next()
                 .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
             _ => {
@@ -81,15 +84,60 @@ fn run() -> Result<(), Box<dyn Error>> {
             "--sha1" => sha1 = Some(value),
             "--crc32" => crc32 = Some(value),
             "--size" => size = Some(value.parse::<u64>()?),
+            "--title" => title = Some(value),
+            "--limit" => {
+                limit = value.parse::<usize>()?;
+                limit_explicit = true;
+            }
             _ => unreachable!(),
         }
     }
 
     let platform = platform.ok_or_else(|| CatalogError::Invalid(usage().into()))?;
-    if sha1.is_some() == crc32.is_some() || (crc32.is_some() && size.is_none()) {
+    let query_modes = usize::from(sha1.is_some())
+        + usize::from(crc32.is_some())
+        + usize::from(title.is_some());
+    if query_modes != 1
+        || (crc32.is_some() && size.is_none())
+        || (title.is_some() && size.is_some())
+        || (title.is_none() && limit_explicit)
+        || (title.is_some() && (limit == 0 || limit > 200))
+    {
         return Err(CatalogError::Invalid(usage().into()).into());
     }
-    let output = if enriched {
+    let output = if let Some(ref query) = title {
+        if enriched {
+            let catalog = EnrichedPlatformCatalog::open(&root, &platform)?;
+            let results = catalog.search_titles(query, limit)?;
+            json!({
+                "query_kind": "source-title-substring",
+                "total_source_records": results.total_records,
+                "match_count": results.matches.len(),
+                "matches": results.matches.iter().map(format_enriched_match).collect::<Vec<_>>(),
+            })
+        } else {
+            let catalog = PlatformCatalog::open(&root, &platform)?;
+            let results = catalog.search_titles(query, limit)?;
+            let matches: Vec<Value> = results.records.iter()
+                .flat_map(|record| {
+                    record.roms.iter().map(move |media| {
+                        format_match(&MediaMatch {
+                            platform: catalog.platform(),
+                            record,
+                            media,
+                            source: catalog.source(),
+                        })
+                    })
+                })
+                .collect();
+            json!({
+                "query_kind": "source-title-substring",
+                "total_source_records": results.total,
+                "match_count": matches.len(),
+                "matches": matches,
+            })
+        }
+    } else if enriched {
         let catalog = EnrichedPlatformCatalog::open(&root, &platform)?;
         let found = if let Some(hash) = sha1 {
             let mut matches = catalog.lookup_sha1(&hash)?;
