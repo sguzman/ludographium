@@ -49,8 +49,11 @@ def validate_readme_totals(root):
     }
     if f"**{totals['identification records']:,}**" not in readme:
         raise ValueError(f"README missing current identification total: {totals['identification records']:,}")
-    for key in ("bibliographic claims", "matched claims"):
-        phrase = f"**{totals[key]:,} {key}**"
+    expected_phrases = {
+        "bibliographic claims": f"**{totals['bibliographic claims']:,} bibliographic claims**",
+        "matched claims": f"**{totals['matched claims']:,} claims**",
+    }
+    for key, phrase in expected_phrases.items():
         if phrase not in readme:
             raise ValueError(f"README has stale {key} ({totals[key]:,})")
     if len(distribution["artifacts"]) != len(catalog["platforms"])*2+1:
