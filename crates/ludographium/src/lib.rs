@@ -5,6 +5,7 @@
 
 use serde::Deserialize;
 use sha1::{Digest, Sha1};
+use sha2::Sha256;
 use std::collections::HashMap;
 use std::error::Error;
 use std::fmt;
@@ -58,6 +59,22 @@ struct ManifestPlatform {
     artifact_git_blob_sha: String,
     source_records: usize,
     rom_fingerprints: usize,
+}
+
+#[derive(Debug, Deserialize)]
+struct DistributionManifest {
+    schema_version: u32,
+    kind: String,
+    source_id: String,
+    source_revision: String,
+    artifacts: Vec<DistributionArtifact>,
+}
+
+#[derive(Debug, Deserialize)]
+struct DistributionArtifact {
+    path: String,
+    bytes: usize,
+    sha256: String,
 }
 
 #[derive(Debug, Deserialize)]
@@ -132,6 +149,36 @@ fn git_blob_sha(bytes: &[u8]) -> String {
     format!("{:x}", hash.finalize())
 }
 
+fn sha256_hex(bytes: &[u8]) -> String {
+    let mut hash = Sha256::new();
+    hash.update(bytes);
+    format!("{:x}", hash.finalize())
+}
+
+fn verify_distribution_artifact(
+    distribution: &DistributionManifest,
+    path: &str,
+    bytes: &[u8],
+) -> Result<(), CatalogError> {
+    let matches: Vec<_> = distribution
+        .artifacts
+        .iter()
+        .filter(|entry| entry.path == path)
+        .collect();
+    if matches.len() != 1 {
+        return Err(CatalogError::Invalid(format!(
+            "missing or duplicate distribution entry for {path}"
+        )));
+    }
+    let artifact = matches[0];
+    if artifact.bytes != bytes.len() || artifact.sha256 != sha256_hex(bytes) {
+        return Err(CatalogError::Invalid(format!(
+            "SHA-256 or byte-length mismatch for {path}"
+        )));
+    }
+    Ok(())
+}
+
 fn validate_hex(input: &str, width: usize) -> Result<String, CatalogError> {
     if input.len() != width || !input.bytes().all(|b| b.is_ascii_hexdigit()) {
         return Err(CatalogError::Invalid(format!(
@@ -161,6 +208,20 @@ impl PlatformCatalog {
         if manifest.schema_version != 1 || manifest.kind != "source-catalog" {
             return Err(CatalogError::Invalid("unsupported catalog manifest".into()));
         }
+        let distribution_bytes = fs::read(root.join("generated/v1/distribution.json"))?;
+        let distribution: DistributionManifest = serde_json::from_slice(&distribution_bytes)?;
+        if distribution.schema_version != 1
+            || distribution.kind != "ludographium-distribution"
+            || distribution.source_id != manifest.source_id
+            || distribution.source_revision != manifest.source_revision
+        {
+            return Err(CatalogError::Invalid("distribution/source catalog mismatch".into()));
+        }
+        verify_distribution_artifact(
+            &distribution,
+            "generated/v1/catalog.json",
+            &manifest_bytes,
+        )?;
 
         let entry = manifest
             .platforms
@@ -180,6 +241,7 @@ impl PlatformCatalog {
                 entry.artifact_path
             )));
         }
+        verify_distribution_artifact(&distribution, &entry.artifact_path, &bytes)?;
         let bundle: Bundle = serde_json::from_slice(&bytes)?;
         if bundle.schema_version != 1
             || bundle.kind != "source-observations"
@@ -375,4 +437,36 @@ mod tests {
         let data = fs::read(root().join("archive/libretro-no-intro/gb.dat")).unwrap();
         assert_eq!(git_blob_sha(&data), "0ead6bff1f819075793605985a9ee2dcb3c0c3ab");
     }
+    #[test]
+    fn distribution_rejects_modified_bytes() {
+        let raw = fs::read(root().join("generated/v1/distribution.json")).unwrap();
+        let distribution: DistributionManifest = serde_json::from_slice(&raw).unwrap();
+        let original = fs::read(root().join("generated/v1/gb.json")).unwrap();
+        assert!(verify_distribution_artifact(
+            &distribution,
+            "generated/v1/gb.json",
+            &original,
+        ).is_ok());
+        let mut corrupted = original;
+        corrupted.push(b'x');
+        assert!(verify_distribution_artifact(
+            &distribution,
+            "generated/v1/gb.json",
+            &corrupted,
+        ).is_err());
+        assert!(verify_distribution_artifact(
+            &distribution,
+            "generated/v1/unknown.json",
+            b"sample",
+        ).is_err());
+    }
+
+    #[test]
+    fn sha256_known_vector() {
+        assert_eq!(
+            sha256_hex(b"abc"),
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        );
+    }
+
 }

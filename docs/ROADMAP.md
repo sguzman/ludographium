@@ -22,8 +22,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 
 ## Distribution and consumers
 
-- [ ] Publish per-artifact SHA-256 digests and byte lengths in a release manifest.
-- [ ] Provide a versioned Rust read-only client with exact-fingerprint lookup.
+- [x] Publish deterministic per-artifact SHA-256 digests and byte lengths in a distribution manifest.
+- [x] Provide a v0.1 Rust read-only client and CLI with integrity-checked exact-fingerprint lookup.
 - [ ] Specify and test platform-specific byte-domain and header normalization rules.
 - [ ] Publish compatibility and migration guidance for future consumer contracts.
 

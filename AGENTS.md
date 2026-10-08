@@ -14,8 +14,8 @@ The dataset is metadata only. Source archives contain attribution-eligible DATs 
 2. Keep source bytes intact when redistribution is permitted. Changes and interpretations belong in generated or curated data.
 3. Retain source ordinal or equivalent source-native record identity, with a reliable route back to the exact snapshot.
 4. Treat imported fields as source claims. Distinguish work, regional/platform release, and media build; document unresolved joins rather than deriving canonical identities from names.
-5. Produce deterministic exports, record import exceptions, and validate manifest counts and integrity metadata.
-6. Run `python3 -m unittest discover -s tests -v` and `python3 tools/verify_catalog.py` before shipping index or importer changes.
+5. Produce deterministic exports, record import exceptions, and validate source and distribution integrity metadata.
+6. Run `python3 -m unittest discover -s tests -v`, `python3 tools/verify_catalog.py`, `python3 tools/build_distribution.py --check`, and `cargo test --workspace --all-targets` before shipping index or consumer changes.
 7. Review current `main` before modifying files and commit coherent changes directly when authorized.
 
 ## Documentation conventions

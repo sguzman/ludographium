@@ -26,7 +26,7 @@ These counts represent **source records**, not unique games or independently ver
 | --- | --- |
 | [`archive/`](archive/libretro-no-intro/) | Original, unchanged source DAT files |
 | [`sources/`](sources/) | Source register, authorship, pinned revisions, and rights information |
-| [`generated/v1/`](generated/v1/) | Deterministic per-platform JSON indexes and a [catalog manifest](generated/v1/catalog.json) |
+| [`generated/v1/`](generated/v1/) | Deterministic JSON indexes, [catalog](generated/v1/catalog.json) and [SHA-256 manifest](generated/v1/distribution.json) |
 | [`platforms/`](platforms/platforms.json) | Platform identifiers |
 | [`tools/`](tools/) | Import, verification, and local lookup utilities |
 | [`docs/`](docs/SCOPE.md) | Data model, provenance, consumer guidance, and plans |
@@ -43,6 +43,13 @@ python3 tools/lookup.py --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8C
 ```
 
 The lookup returns matching source observations and their provenance. Fingerprint matching identifies a particular byte representation in the source database; it does not by itself establish a canonical game identity.
+
+A [Rust library and CLI](crates/ludographium/) also load these indexes with Git blob and SHA-256 integrity checks:
+
+```sh
+cargo run -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
+```
+
 
 Ludographium is designed to be consumed independently by emulator frontends such as Starbyte and other applications. Its current interchange format is described in the [consumer guide](docs/CONSUMERS.md).
 
