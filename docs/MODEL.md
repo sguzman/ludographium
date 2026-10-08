@@ -1,36 +1,53 @@
-# Data model: first collection
+# Data model
 
-## Source observations (implemented first)
+Ludographium separates **what a source says** from **how the catalog interprets it**. The first implemented layer is an immutable-snapshot-based source index; curated work, release, and build identities are planned.
 
-Each import is one pinned **source snapshot**, grouped by platform. The current `source-observations-v1` envelope contains:
+## Source observations: v1
 
-- `schema_version` = 1, `kind` = `source-observations`.
-- `platform`, `source_id`, `source_revision`, `source_path`, `source_blob_sha`.
-- `dat_version`: descriptive upstream metadata, not a substitute for the pinned Git revision.
-- `records`: an ordered list of source game blocks, preserving their title and source ordinal.
-- Each record: `source_ordinal`, `name`, optional `description` / `region` / `serial` and `roms` array.
-- Each ROM: original name, size, CRC32, MD5, SHA-1, optional serial; all are **assertions in the source**.
+The current per-platform exports are `generated/v1/<platform>.json`. Each is a JSON object with the following fields:
 
-Records are *not* deduplicated by title, hash or serial. Unrecognized fields must be recorded or rejected explicitly by the importer, not silently discarded. The source snapshot can be retrieved by exact upstream revision and path. For auditability, we also keep the untouched input in `archive/` when source terms permit.
+| Field | Description |
+| --- | --- |
+| `schema_version` | Integer `1` |
+| `kind` | `source-observations` |
+| `platform` | Platform identifier, such as `gb` |
+| `source_id`, `source_revision` | Source identity and pinned repository commit |
+| `source_path`, `source_blob_sha` | Upstream DAT path and Git blob SHA |
+| `source_license` | License declared in the source register |
+| `dat_version` | DAT header version, when present |
+| `record_count`, `rom_count` | Counts of imported source records and media entries |
+| `records` | Ordered source observations |
 
-**No invented data:** absent values are omitted/null, never inferred as a release date, region, locale or truth of compatibility. In particular a `region` field of `USA` in a multi-region title is not a reliable list of all release territories.
+Each element of `records` contains a one-based `source_ordinal`, the source's `name`, and a `roms` array. Available scalar attributes such as `region`, `serial`, `description`, `releaseyear`, `releasemonth`, and `releaseday` are retained as provided by the upstream DAT. A ROM entry preserves its source filename, integer `size`, and available `crc32`, `md5`, `sha1`, or `serial`.
 
-## Planned curated entities
+The importer preserves source values rather than interpreting them as facts about all territories or editions. For example, a `region` value of `USA` on a multi-territory title is one upstream field, not an exhaustive map of release regions. Optional values may be absent; the importer does not synthesize missing dates or identifiers.
 
-These are **not** implied by the first import:
+Records are neither merged nor deduplicated by name, checksum, or serial. The importer rejects unsupported syntax, and the archived DAT remains the original evidence.
 
-1. **Work:** an intentionally resolved underlying game, with stable Ludographium ID.
-2. **Release:** a platform/territory/language/publication identity, distinct from other regional or edition releases.
-3. **Build:** a particular revision/variant, disc or media manifest, with multiple possible hashes/identifiers.
-4. **Assertion:** a value plus source, locator, license, collection date, verification type and any conflicting assertions.
-5. **Assets:** optional references to identified, correctly licensed artwork or other media.
+## Source occurrence identity
 
-A bridge can connect source-observation records to a curated release or build only with cited evidence and explicit resolution state. Do not create canonical IDs merely by stripping parenthetical qualifiers from filenames.
+The tuple
 
-## Source conflict treatment
+```text
+(source_id, source_revision, source_path, source_ordinal)
+```
 
-Conflicting assertions coexist as claims. A curated record may choose a value if evidence supports it and it records *why*; it never alters archived inputs. We distinguish `imported`, `corroborated`, `manually-verified`, `disputed` and `unknown` states as future evidence quality values. Importing a checksum is not the same as personally re-dumping or executing a game.
+locates an occurrence within one source snapshot. It is **not** a permanent identifier for a game. An upstream update may reorder records; canonical game identifiers must survive such changes.
 
-## Stable IDs
+The per-platform [catalog manifest](../generated/v1/catalog.json) records the source revision, counts, input archive paths and Git blob SHAs, and generated artifact paths and Git blob SHAs.
 
-`source_id + source_revision + source_path + source_ordinal` identifies an occurrence in **one snapshot**, not a durable game. Future stable work/release/build IDs live in curated records and survive upstream reordering. Never use a name or a content hash alone as a canonical work ID.
+## Curated identity model (planned)
+
+- **Work:** a stable identity for an underlying game.
+- **Release:** a platform, region, edition, and publication identity associated with a work.
+- **Build/media variant:** a concrete content revision or media manifest associated with a release.
+- **Assertion:** a sourced field value, its evidence locator, and its resolution or verification state.
+- **Asset reference:** optional metadata pointing to media with separately reviewed rights.
+
+Curated records will retain source assertions and their disagreements. A reconciliation decision will include supporting evidence and its confidence or verification status; it will not rewrite the imported snapshot.
+
+The distinction between `imported`, `corroborated`, `manually-verified`, `disputed`, and `unknown` is reserved for future curated assertions. **No such verification status is currently claimed by the source indexes.**
+
+## Versioning
+
+`schema_version: 1` describes the current source-index structure. Fields may be added compatibly; breaking changes will require a new major schema and migration guidance. Source data can change when a newer upstream snapshot is accessioned, independent of the schema version.

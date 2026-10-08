@@ -2,37 +2,56 @@
 
 **A provenance-first catalog of console and handheld video games.**
 
-Ludographium collects the *metadata* that makes console games identifiable: official and alternate titles, platforms, regions, revisions, product codes, known media fingerprints, publication information, and source references. It is intended to become a dependable, emulator-independent catalog that Starbyte and other programs can read locally.
+Ludographium collects and organizes the metadata needed to identify games across platforms, regions, editions, and revisions. It preserves original source records alongside structured, machine-readable indexes so emulators, library managers, and research tools can use the same evidence without depending on a live service.
 
-It is **not** a ROM collection, a cheat archive, a game ontology, or an emulator. Ludographium never distributes game binaries, firmware, or executable cheats.
+The catalog focuses on game metadata: names, platforms, publication details, product identifiers, media fingerprints, and provenance. Game binaries, firmware, cheats, and executable modifications belong outside this collection.
 
-## Explore
+## The collection
 
-- [Design and boundaries](docs/SCOPE.md)
+The first accession comes from a pinned [Libretro Database](https://github.com/libretro/libretro-database) snapshot of No-Intro-derived DAT files.
+
+| Platform | Source records |
+| --- | ---: |
+| Super Nintendo Entertainment System | 4,268 |
+| Game Boy | 2,254 |
+| Game Boy Color | 2,566 |
+| Game Boy Advance | 3,692 |
+| **Total** | **12,780** |
+
+These counts represent **source records**, not unique games or independently verified releases. Current records include source titles and available regions, serials, date fields, file sizes, and CRC32/MD5/SHA-1 fingerprints. Coverage will expand to richer bibliographic information and additional systems.
+
+## How it is organized
+
+| Location | Purpose |
+| --- | --- |
+| [`archive/`](archive/libretro-no-intro/) | Original, unchanged source DAT files |
+| [`sources/`](sources/) | Source register, authorship, pinned revisions, and rights information |
+| [`generated/v1/`](generated/v1/) | Deterministic per-platform JSON indexes and a [catalog manifest](generated/v1/catalog.json) |
+| [`platforms/`](platforms/platforms.json) | Platform identifiers |
+| [`tools/`](tools/) | Import, verification, and local lookup utilities |
+| [`docs/`](docs/SCOPE.md) | Data model, provenance, consumer guidance, and plans |
+
+An imported record is a **source observation**. It is kept distinct from the curated identities planned for individual games, releases, and builds. That separation preserves conflicting evidence instead of prematurely merging games that happen to share a title or serial.
+
+## Use the catalog
+
+The initial indexes are readable offline. For example, the following checks the archive and looks up a known Game Boy media fingerprint:
+
+```sh
+python3 tools/verify_catalog.py
+python3 tools/lookup.py --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
+```
+
+The lookup returns matching source observations and their provenance. Fingerprint matching identifies a particular byte representation in the source database; it does not by itself establish a canonical game identity.
+
+Ludographium is designed to be consumed independently by emulator frontends such as Starbyte and other applications. Its current interchange format is described in the [consumer guide](docs/CONSUMERS.md).
+
+## Documentation
+
+- [Scope and identity boundaries](docs/SCOPE.md)
 - [Data model](docs/MODEL.md)
-- [Provenance and licensing](docs/PROVENANCE.md)
-- [Read-only consumer contract](docs/CONSUMERS.md)
-- [Source register](sources/README.md)
-- [Future metadata sources and reuse restrictions](docs/SOURCE-STRATEGY.md)
-- [Platforms](platforms/platforms.json)
-- [Importing source metadata](docs/IMPORTING.md)
-- [Offline catalog manifest](generated/v1/catalog.json)
+- [Provenance and reuse](docs/PROVENANCE.md)
+- [Consumer guide](docs/CONSUMERS.md)
+- [Import and validation](docs/IMPORTING.md)
+- [Source evaluation](docs/SOURCE-STRATEGY.md)
 - [Roadmap](docs/ROADMAP.md)
-
-## Organizing principle
-
-**Original sources are evidence, not truth by decree.** Each source snapshot stays attributable and intact. Imported rows retain a link to the exact upstream repository revision and source record; later curated identities never silently overwrite them.
-
-A release title is not necessarily a distinct game. A ROM fingerprint is not the identity of an abstract work. A product code may apply to several builds. Regional names and revisions must not be collapsed because their filenames look similar.
-
-## Consumers
-
-Ludographium publishes reproducible, versioned, offline-readable source indexes; later curated releases will add persistent game identities. A consumer should be able to match a media file by a supported checksum, inspect its exact source evidence, and display an appropriately qualified title/region without inferring unknown facts. No consumer needs to contact Ludographium at runtime.
-
-This repository owns the metadata and its formats. It does **not** modify Starbyte or Cheatarium.
-
-## Status
-
-The first accession holds **12,780 source observations** from pinned Libretro No-Intro DATs for SNES, Game Boy, Game Boy Color and Game Boy Advance. The unmodified text DATs live in `archive/`, their normalized source observations in `generated/v1/`, and a machine-readable manifest in [`generated/v1/catalog.json`](generated/v1/catalog.json). These are **imported source claims**, not hand-verified canonical identities.
-
-The importer, integrity validator and offline fingerprint lookup CLI are included. Run `python3 tools/verify_catalog.py` and `python3 -m unittest discover -s tests -v` before distributing an update.

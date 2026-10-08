@@ -1,30 +1,35 @@
-# Ludographium contribution and agent rules
+# Ludographium maintainer guide
 
-This is the **Ludographium repository only**. Its purpose is a provenance-first, reusable collection of **console/handheld game metadata**. Maintain it as a domain-specific catalog, not a catch-all game theory project.
+This file describes working conventions for contributors and automated development agents. Project purpose and public usage belong in the [README](README.md); technical contracts belong in [docs/](docs/SCOPE.md).
 
-## Hard boundaries
+## Repository responsibilities
 
-- **Do not edit Starbyte, Cheatarium, Gameaerium, Sourcearium, Observatorium, or other repositories.** Ludographium only supplies data for those projects to consume later.
-- No ROMs, game binaries, disc images, firmware, executable patches or cheats. Fingerprint metadata is fine; copyrighted artwork needs explicit independent rights review.
-- No speculative canonical game joins based on slug, filename, checksum or serial alone. Preserve work vs release vs build distinctions.
-- Do not claim that an imported field is independently verified. Imported DAT values are source assertions.
-- Never put personal chat language, internal venting, or AI interaction notes into public-facing project documents.
+Ludographium maintains the console/handheld game metadata archive, source register, import tooling, curated identity records (as they become available), and published data artifacts. Downstream integrations are developed against its published interfaces.
 
-## Data accession checklist
+The dataset is metadata only. Source archives contain attribution-eligible DATs and other metadata sources, not ROMs, disc images, firmware, cheats, or game-media assets without documented redistribution rights.
 
-1. Pin upstream organization, repo, immutable revision, original source path, Git blob SHA, DAT/data version and license/rights caveats.
-2. Preserve the source bytes unmodified when redistribution is permitted. Source records are not to be patched to make the import look cleaner.
-3. Generate the per-platform index without data loss, and retain each source record's original ordinal plus its exact snapshot information.
-4. Record exceptions and unmatched content rather than inventing values.
-5. Run `python3 -m unittest discover -s tests -v` and `python3 tools/verify_catalog.py`.
-6. Keep source attribution in all redistributed data. Carefully review terms before adding new providers.
-7. Commit a coherent change directly to Ludographium's `main` when authorized and report what was done and what remains.
+## Accession workflow
 
-## Maintaining project shape
+1. Register each source's author, location, immutable revision, original path, content identity, retrieval date, and known license or rights constraints.
+2. Keep source bytes intact when redistribution is permitted. Changes and interpretations belong in generated or curated data.
+3. Retain source ordinal or equivalent source-native record identity, with a reliable route back to the exact snapshot.
+4. Treat imported fields as source claims. Distinguish work, regional/platform release, and media build; document unresolved joins rather than deriving canonical identities from names.
+5. Produce deterministic exports, record import exceptions, and validate manifest counts and integrity metadata.
+6. Run `python3 -m unittest discover -s tests -v` and `python3 tools/verify_catalog.py` before shipping index or importer changes.
+7. Review current `main` before modifying files and commit coherent changes directly when authorized.
 
-- README: a clear introduction, boundaries, navigation and short current status; **not** a running list of every coding task.
-- `docs/ROADMAP.md`: outstanding work and completed milestones; `docs/`: contracts and rationale.
-- `archive/`: pristine source evidence; `sources/`: manifests and attribution; `generated/`: reproducible export; future `curated/`: independently resolved identities.
-- Consumers are read-only and offline. Respect source evidence and published contract versions; never silently change source semantics.
+## Documentation conventions
 
-Before altering or replacing an existing file, inspect current repository state to avoid overwriting concurrent work.
+- **README:** purpose, current coverage, repository layout, usage, and key documentation links.
+- **docs/SCOPE.md:** boundaries and relationships between kinds of records.
+- **docs/MODEL.md:** field-level data contracts and identity distinctions.
+- **docs/PROVENANCE.md:** sourcing, attribution, licensing, and evidence preservation.
+- **docs/CONSUMERS.md:** published read-only data interfaces and compatibility.
+- **docs/IMPORTING.md:** reproducible build and validation procedures.
+- **docs/ROADMAP.md:** future milestones; detailed change history belongs in Git commits.
+
+Prefer technical descriptions over contributor policy in public documentation. Keep examples and status synchronized with the committed code and data.
+
+## Data layout
+
+`archive/` preserves original sources, `sources/` records provenance, `generated/` publishes repeatable outputs, and a future `curated/` directory will hold resolved identities. Platform identifiers are stable within each published schema; changing a consumer-facing contract requires an explicit migration.

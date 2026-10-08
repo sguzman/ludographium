@@ -1,32 +1,29 @@
-# Scope and mission
+# Scope
 
-Ludographium is a public, emulator-independent metadata archive for **console and handheld video games**. Its job is to collect evidence, preserve attribution, normalize useful factual records conservatively, and distribute reproducible read-only data.
+Ludographium is a reusable catalog of **console and handheld video-game metadata**. Its core purpose is to identify and describe games across regions, platforms, releases, and revisions while preserving the evidence for each recorded fact.
 
-## In scope
+## Cataloged information
 
-- Platform identifiers and known aliases.
-- Source record titles, localized titles, regions, languages, serial/product codes and release/revision labels.
-- Publishers, developers, release dates, ratings and other bibliographic facts **when sourced**.
-- Non-executable file-identification metadata: filename hints, file sizes, CRC32, MD5, SHA-1, SHA-256, disc IDs, header IDs, and normalization rules.
-- Optional references to cover art, manuals and screenshots (asset hosting requires rights review).
-- Exact, traceable source snapshots; curated corrections and conflict resolution **separate** from raw evidence.
-- Versioned offline consumer indexes usable by emulators, library managers and frontends.
+The scope includes platform identifiers; original and localized titles; publication and release information; regional and language variants; developers and publishers; product and serial codes; edition or revision indicators; and media-identification metadata such as file sizes and cryptographic or legacy checksums.
 
-## Out of scope
+References to cover artwork, screenshots, and packaging may be cataloged when their provenance and reuse conditions are understood. Asset descriptions and links are distinct from hosting or redistributing those assets.
 
-- ROMs, disc images, ISOs, BIOS/firmware, copyrighted game assets without appropriate rights.
-- Cheats, passwords, unlockables, patches and executable modifications (Cheatarium).
-- Emulation cores or program-specific UI/launcher logic (Starbyte and future emulators).
-- Game mechanics ontology, semantic relations such as narrative worlds, or ambitious genre taxonomies (possible future Gameaerium).
+Game binaries, disc images, firmware, executable patches, and cheat-code collections are outside the catalog. Ludographium also does not attempt an ontology of gameplay mechanics, narrative concepts, or the meaning of games as cultural works.
 
-## Identity is layered
+## Three levels of identity
 
-A game *work*, a product/release, and a particular digital image/build are different things. The source-import layer deliberately does **not** assert a canonical work identity. It records what a source says about an item. Future curated IDs can link several source claims to one identified release/work while keeping the original source claims intact.
+| Level | Meaning | Example distinction |
+| --- | --- | --- |
+| **Work** | The underlying game as an identified creative work | A game across several platforms or localized editions |
+| **Release** | A publication on a particular platform, in a territory, edition, or language configuration | North American and Japanese editions |
+| **Build / media variant** | A particular revision or identifiable byte representation | Revision A and Revision B cartridge images |
 
-Names are evidence, not unique keys. Platform + CRC32 is useful but collision-prone. SHA-1/MD5/CRC32 are fingerprints of content variants, **not** proofs of a unique artistic game or of a legitimate copy. Use SHA-256 when independently available; never invent it from other hashes.
+These levels are a **curation target**, not yet a claim that every imported record has been assigned a canonical identity. The current source-observation layer preserves the assertions of the original provider without merging them.
 
-## Relationships
+Titles, filenames, product codes, and hashes have different identifying power. A checksum may characterize an exact file; it does not identify an abstract work. Likewise, similar regional titles do not establish that two records refer to the same release.
 
-- Ludographium describes games; Cheatarium describes cheats for candidate games and revisions. Link by stable platform IDs and eventually verified revision identifiers, **never by optimistic title-slug joins**.
-- Starbyte may read a published Ludographium index; Ludographium never edits Starbyte's code.
-- Sourcearium is for textual corpora; Observatorium is for time/event observations. Ludographium keeps the domain-specific game catalog and provenance, without importing either project's unrelated datasets.
+## Interoperability
+
+The catalog exports platform-scoped records for offline lookup by emulators, frontends, library managers, and preservation tools. Platform identifiers can align with other game-related datasets, including Cheatarium; cross-catalog links require explicit evidence for game and build identity rather than matching title slugs.
+
+See [the data model](MODEL.md) for record definitions and [the consumer guide](CONSUMERS.md) for the current export format.
