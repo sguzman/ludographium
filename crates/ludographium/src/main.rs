@@ -1,4 +1,5 @@
 //! Offline fingerprint and raw-file lookup CLI. Local input is streamed, not retained.
+use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
@@ -9,7 +10,7 @@ use std::io::BufReader;
 use std::path::PathBuf;
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>)"
+    "Usage: ludographium --platform <platform-id> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>)"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -49,6 +50,22 @@ fn format_enriched_match(found: &EnrichedMediaMatch<'_>) -> Value {
     result
 }
 
+/// Add manually curated work/release/build identities only when exact source
+/// provenance and fingerprint both match a validated curated build.
+fn with_curated(mut output: Value, found: &MediaMatch<'_>, curated: Option<&CuratedCatalog>) -> Value {
+    if let Some(catalog) = curated {
+        let identities: Vec<Value> = catalog.for_media(found).iter().map(|identity| json!({
+            "work": identity.work,
+            "release": identity.release,
+            "build": identity.build,
+        })).collect();
+        if let Value::Object(ref mut map) = output {
+            map.insert("curated_identities".into(), json!(identities));
+        }
+    }
+    output
+}
+
 fn run() -> Result<(), Box<dyn Error>> {
     let mut args = env::args().skip(1);
     let mut platform = None;
@@ -61,10 +78,15 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut limit: usize = 50;
     let mut limit_explicit = false;
     let mut enriched = false;
+    let mut show_curated = false;
 
     while let Some(arg) = args.next() {
         if arg == "--enriched" {
             enriched = true;
+            continue;
+        }
+        if arg == "--curated" {
+            show_curated = true;
             continue;
         }
         let value = match arg.as_str() {
@@ -112,6 +134,11 @@ fn run() -> Result<(), Box<dyn Error>> {
     {
         return Err(CatalogError::Invalid(usage().into()).into());
     }
+    let curated = if show_curated {
+        Some(CuratedCatalog::open(&root)?)
+    } else {
+        None
+    };
     let output = if let Some(ref query) = title {
         if enriched {
             let catalog = EnrichedPlatformCatalog::open(&root, &platform)?;
@@ -124,7 +151,9 @@ fn run() -> Result<(), Box<dyn Error>> {
                     "revision": catalog.source_revision(),
                 },
                 "match_count": results.matches.len(),
-                "matches": results.matches.iter().map(format_enriched_match).collect::<Vec<_>>(),
+                "matches": results.matches.iter().map(|hit| {
+                    with_curated(format_enriched_match(hit), &hit.base, curated.as_ref())
+                }).collect::<Vec<_>>(),
             })
         } else {
             let catalog = PlatformCatalog::open(&root, &platform)?;
@@ -132,12 +161,13 @@ fn run() -> Result<(), Box<dyn Error>> {
             let mut matches: Vec<Value> = Vec::new();
             for record in results.records {
                 for media in &record.roms {
-                    matches.push(format_match(&MediaMatch {
+                    let hit = MediaMatch {
                         platform: catalog.platform(),
                         record,
                         media,
                         source: catalog.source(),
-                    }));
+                    };
+                    matches.push(with_curated(format_match(&hit), &hit, curated.as_ref()));
                 }
             }
             json!({
@@ -167,7 +197,9 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "revision": catalog.source_revision(),
             },
             "match_count": found.len(),
-            "matches": found.iter().map(format_enriched_match).collect::<Vec<_>>()
+            "matches": found.iter().map(|hit| {
+                with_curated(format_enriched_match(hit), &hit.base, curated.as_ref())
+            }).collect::<Vec<_>>()
         })
     } else {
         let catalog = PlatformCatalog::open(root, &platform)?;
@@ -185,7 +217,9 @@ fn run() -> Result<(), Box<dyn Error>> {
         json!({
             "input_kind": if file.is_some() { "exact-local-file-bytes" } else { "fingerprint" },
             "match_count": found.len(),
-            "matches": found.iter().map(format_match).collect::<Vec<_>>()
+            "matches": found.iter().map(|hit| {
+                with_curated(format_match(hit), hit, curated.as_ref())
+            }).collect::<Vec<_>>()
         })
     };
     println!("{}", serde_json::to_string_pretty(&output)?);
