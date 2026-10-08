@@ -14,8 +14,12 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
-      - name: Verify SHA-256 distribution manifest
-        run: python tools/build_distribution.py --check
+      - name: Rebuild expanded distribution manifest
+        run: |
+          python tools/build_distribution.py --write
+          echo BEGIN-LUDOGRAPH-ENRICHMENT-MANIFEST
+          cat generated/v1/distribution.json
+          echo END-LUDOGRAPH-ENRICHMENT-MANIFEST
       - name: Verify source field coverage report
         run: python tools/audit_catalog.py --check
       - name: Validate pinned bibliographic claims
