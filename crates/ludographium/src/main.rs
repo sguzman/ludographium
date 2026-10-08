@@ -86,24 +86,28 @@ fn registered_platforms(root: &Path) -> Result<Vec<String>, Box<dyn Error>> {
     if manifest["schema_version"] != 1 || manifest["kind"] != "source-catalog" {
         return Err(CatalogError::Invalid("unsupported platform catalog".into()).into());
     }
-    let entries = manifest["platforms"].as_array().ok_or_else(|| {
-        CatalogError::Invalid("catalog platform list is missing".into())
-    })?;
+    let entries = manifest["platforms"]
+        .as_array()
+        .ok_or_else(|| CatalogError::Invalid("catalog platform list is missing".into()))?;
     if entries.is_empty() {
         return Err(CatalogError::Invalid("catalog has no platforms".into()).into());
     }
     let mut ids = Vec::new();
     let mut seen = HashSet::new();
     for entry in entries {
-        let id = entry["platform"].as_str().ok_or_else(|| {
-            CatalogError::Invalid("invalid registered platform".into())
-        })?;
+        let id = entry["platform"]
+            .as_str()
+            .ok_or_else(|| CatalogError::Invalid("invalid registered platform".into()))?;
         if id.is_empty()
-            || !id.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+            || !id
+                .bytes()
+                .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
             || !seen.insert(id.to_owned())
             || entry["artifact_path"] != format!("generated/v1/{id}.json")
         {
-            return Err(CatalogError::Invalid("duplicate or unsafe registered platform".into()).into());
+            return Err(
+                CatalogError::Invalid("duplicate or unsafe registered platform".into()).into(),
+            );
         }
         ids.push(id.to_owned());
     }
@@ -122,9 +126,9 @@ fn exact_file_hash(path: &str) -> Result<(String, u64), Box<dyn Error>> {
         if n == 0 {
             break;
         }
-        bytes = bytes.checked_add(n as u64).ok_or_else(|| {
-            CatalogError::Invalid("local input byte length overflows u64".into())
-        })?;
+        bytes = bytes
+            .checked_add(n as u64)
+            .ok_or_else(|| CatalogError::Invalid("local input byte length overflows u64".into()))?;
         digest.update(&buffer[..n]);
     }
     Ok((format!("{:X}", digest.finalize()), bytes))
@@ -167,9 +171,11 @@ fn lookup_all_platforms(
                 let result = catalog.search_titles(query, remaining.max(1))?;
                 title_record_total += result.total_records;
                 if remaining != 0 {
-                    matches.extend(result.matches.iter().map(|hit| {
-                        with_curated(format_enriched_match(hit), &hit.base, curated)
-                    }));
+                    matches.extend(
+                        result.matches.iter().map(|hit| {
+                            with_curated(format_enriched_match(hit), &hit.base, curated)
+                        }),
+                    );
                 }
             } else {
                 let found = if let Some(hash) = effective_hash {
@@ -177,9 +183,12 @@ fn lookup_all_platforms(
                 } else {
                     catalog.lookup_crc32(crc32.unwrap(), effective_size.unwrap())?
                 };
-                matches.extend(found.iter().filter(|hit| {
-                    effective_size.is_none_or(|n| hit.base.media.size == n)
-                }).map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated)));
+                matches.extend(
+                    found
+                        .iter()
+                        .filter(|hit| effective_size.is_none_or(|n| hit.base.media.size == n))
+                        .map(|hit| with_curated(format_enriched_match(hit), &hit.base, curated)),
+                );
             }
         } else {
             let catalog = PlatformCatalog::open(root, platform)?;
@@ -206,9 +215,12 @@ fn lookup_all_platforms(
                 } else {
                     catalog.lookup_crc32(crc32.unwrap(), effective_size.unwrap())?
                 };
-                matches.extend(found.iter().filter(|hit| {
-                    effective_size.is_none_or(|n| hit.media.size == n)
-                }).map(|hit| with_curated(format_match(hit), hit, curated)));
+                matches.extend(
+                    found
+                        .iter()
+                        .filter(|hit| effective_size.is_none_or(|n| hit.media.size == n))
+                        .map(|hit| with_curated(format_match(hit), hit, curated)),
+                );
             }
         }
     }
@@ -223,11 +235,14 @@ fn lookup_all_platforms(
             obj.insert("query_kind".into(), json!("source-title-substring"));
             obj.insert("total_source_records".into(), json!(title_record_total));
         } else {
-            obj.insert("input_kind".into(), json!(if file.is_some() {
-                "exact-local-file-bytes"
-            } else {
-                "fingerprint"
-            }));
+            obj.insert(
+                "input_kind".into(),
+                json!(if file.is_some() {
+                    "exact-local-file-bytes"
+                } else {
+                    "fingerprint"
+                }),
+            );
         }
         if enriched {
             obj.insert("enrichment_sources".into(), json!(enrichment_sources));
@@ -311,8 +326,15 @@ fn run() -> Result<(), Box<dyn Error>> {
     };
     if platform == "all" {
         let output = lookup_all_platforms(
-            &root, sha1.as_deref(), crc32.as_deref(), size, title.as_deref(),
-            file.as_deref(), limit, enriched, curated.as_ref()
+            &root,
+            sha1.as_deref(),
+            crc32.as_deref(),
+            size,
+            title.as_deref(),
+            file.as_deref(),
+            limit,
+            enriched,
+            curated.as_ref(),
         )?;
         println!("{}", serde_json::to_string_pretty(&output)?);
         return Ok(());
