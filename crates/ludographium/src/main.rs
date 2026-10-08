@@ -1,4 +1,5 @@
 //! Offline fingerprint lookup CLI. Accepts hashes only; does not open game files.
+use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
@@ -6,7 +7,7 @@ use std::error::Error;
 use std::path::PathBuf;
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <snes|gb|gbc|gba> [--root <catalog-directory>] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes>)"
+    "Usage: ludographium --platform <snes|gb|gbc|gba> [--root <catalog-directory>] [--enriched] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes>)"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -34,6 +35,15 @@ fn format_match(found: &MediaMatch<'_>) -> Value {
     })
 }
 
+fn format_enriched_match(found: &EnrichedMediaMatch<'_>) -> Value {
+    let mut result = format_match(&found.base);
+    if let Value::Object(ref mut map) = result {
+        map.insert("metadata_claims".to_owned(), json!(found.metadata_claims));
+        map.insert("unresolved_source_claims".to_owned(), json!(found.unresolved_source_claims));
+    }
+    result
+}
+
 fn run() -> Result<(), Box<dyn Error>> {
     let mut args = env::args().skip(1);
     let mut platform = None;
@@ -41,8 +51,13 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut sha1 = None;
     let mut crc32 = None;
     let mut size = None;
+    let mut enriched = false;
 
     while let Some(arg) = args.next() {
+        if arg == "--enriched" {
+            enriched = true;
+            continue;
+        }
         let value = match arg.as_str() {
             "--help" | "-h" => {
                 println!("{}", usage());
@@ -71,20 +86,37 @@ fn run() -> Result<(), Box<dyn Error>> {
     if sha1.is_some() == crc32.is_some() || (crc32.is_some() && size.is_none()) {
         return Err(CatalogError::Invalid(usage().into()).into());
     }
-    let catalog = PlatformCatalog::open(root, &platform)?;
-    let found = if let Some(hash) = sha1 {
-        let mut matches = catalog.lookup_sha1(&hash)?;
-        if let Some(byte_len) = size {
-            matches.retain(|m| m.media.size == byte_len);
-        }
-        matches
+    let output = if enriched {
+        let catalog = EnrichedPlatformCatalog::open(&root, &platform)?;
+        let found = if let Some(hash) = sha1 {
+            let mut matches = catalog.lookup_sha1(&hash)?;
+            if let Some(byte_len) = size {
+                matches.retain(|m| m.base.media.size == byte_len);
+            }
+            matches
+        } else {
+            catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?
+        };
+        json!({
+            "match_count": found.len(),
+            "matches": found.iter().map(format_enriched_match).collect::<Vec<_>>()
+        })
     } else {
-        catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?
+        let catalog = PlatformCatalog::open(root, &platform)?;
+        let found = if let Some(hash) = sha1 {
+            let mut matches = catalog.lookup_sha1(&hash)?;
+            if let Some(byte_len) = size {
+                matches.retain(|m| m.media.size == byte_len);
+            }
+            matches
+        } else {
+            catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?
+        };
+        json!({
+            "match_count": found.len(),
+            "matches": found.iter().map(format_match).collect::<Vec<_>>()
+        })
     };
-    let output = json!({
-        "match_count": found.len(),
-        "matches": found.iter().map(format_match).collect::<Vec<_>>(),
-    });
     println!("{}", serde_json::to_string_pretty(&output)?);
     Ok(())
 }
