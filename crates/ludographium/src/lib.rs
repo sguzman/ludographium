@@ -3,6 +3,8 @@
 //! A fingerprint match associates media bytes with an upstream source record.
 //! It does not establish a canonical work, release, or build identity.
 
+pub mod enrichment;
+
 use serde::Deserialize;
 use sha1::{Digest, Sha1};
 use sha2::Sha256;
@@ -299,6 +301,11 @@ impl PlatformCatalog {
             by_sha1,
             by_crc32_size,
         })
+    }
+
+    /// Lookup a source record by its one-based original ordinal.
+    pub fn source_record(&self, ordinal: usize) -> Option<&SourceRecord> {
+        ordinal.checked_sub(1).and_then(|i| self.records.get(i)).filter(|r| r.source_ordinal == ordinal)
     }
 
     pub fn platform(&self) -> &str {
