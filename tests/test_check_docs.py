@@ -37,7 +37,7 @@ class DocumentationTests(unittest.TestCase):
             {"platform": "gb", "source_records": 8, "artifact_path": "generated/v1/gb.json"},
             {"platform": "snes", "source_records": 11, "artifact_path": "generated/v1/snes.json"},
         ]
-        readme = "## Collection\\n| Platform | Source records |\\n| A | 8 |\\n| B | 11 |\\n| **Total** | **19** |\\n\\n## Repository structure"
+        readme = "## Collection\n| Platform | Source records |\n| A | 8 |\n| B | 11 |\n| **Total** | **19** |\n\n## Repository structure"
         consumer = "[GB](../generated/v1/gb.json) [SNES](../generated/v1/snes.json)"
         validate_platform_tables(readme, consumer, platforms)
         with self.assertRaisesRegex(ValueError, "platform table"):

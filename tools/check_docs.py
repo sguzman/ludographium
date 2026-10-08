@@ -39,7 +39,7 @@ def validate_platform_tables(readme, consumer_guide, platforms):
     """Ensure platform counts and consumer links cover the actual source manifest."""
     expected_counts = Counter(p["source_records"] for p in platforms)
     section = readme.split("## Collection", 1)[-1].split("## Repository structure", 1)[0]
-    rows = re.findall(r"^\\|\\s*[^|]+\\|\\s*([0-9][0-9,]*)\\s*\\|\\s*$", section, re.M)
+    rows = re.findall(r"^\|\s*[^|]+\|\s*([0-9][0-9,]*)\s*\|\s*$", section, re.M)
     shown = Counter(int(n.replace(",", "")) for n in rows)
     if shown != expected_counts:
         raise ValueError("README platform table differs from the source catalog")
