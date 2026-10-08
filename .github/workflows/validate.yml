@@ -12,6 +12,8 @@ jobs:
           python-version: '3.13'
       - name: Parser and lookup tests
         run: python -m unittest discover -s tests -v
+      - name: Validate Markdown and advertised catalog counts
+        run: python tools/check_docs.py
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
       - name: Rebuild-check identification catalog
