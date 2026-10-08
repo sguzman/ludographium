@@ -18,6 +18,8 @@ jobs:
         run: python tools/build_distribution.py --check
       - name: Verify source field coverage report
         run: python tools/audit_catalog.py --check
+      - name: Dry-run enrichment accession
+        run: python tools/import_enrichment.py --write
   rust:
     runs-on: ubuntu-latest
     steps:
