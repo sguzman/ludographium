@@ -30,21 +30,28 @@ struct RegistryPlatform {
 pub fn registered_platforms(root: impl AsRef<Path>) -> Result<Vec<String>, CatalogError> {
     let raw = fs::read(root.as_ref().join("generated/v1/catalog.json"))?;
     let registry: Registry = serde_json::from_slice(&raw)?;
-    if registry.schema_version != 1 || registry.kind != "source-catalog"
+    if registry.schema_version != 1
+        || registry.kind != "source-catalog"
         || registry.platforms.is_empty()
     {
-        return Err(CatalogError::Invalid("unsupported or empty source catalog".into()));
+        return Err(CatalogError::Invalid(
+            "unsupported or empty source catalog".into(),
+        ));
     }
     let mut result = Vec::with_capacity(registry.platforms.len());
     let mut seen = HashSet::new();
     for item in registry.platforms {
         let id = item.platform;
         if id.is_empty()
-            || !id.bytes().all(|c| c.is_ascii_lowercase() || c.is_ascii_digit())
+            || !id
+                .bytes()
+                .all(|c| c.is_ascii_lowercase() || c.is_ascii_digit())
             || item.artifact_path != format!("generated/v1/{id}.json")
             || !seen.insert(id.clone())
         {
-            return Err(CatalogError::Invalid("unsafe or repeated platform registration".into()));
+            return Err(CatalogError::Invalid(
+                "unsafe or repeated platform registration".into(),
+            ));
         }
         result.push(id);
     }
@@ -62,7 +69,8 @@ fn fingerprint_reader<R: Read>(mut input: R) -> Result<(String, u64), CatalogErr
         if length == 0 {
             break;
         }
-        count = count.checked_add(length as u64)
+        count = count
+            .checked_add(length as u64)
             .ok_or_else(|| CatalogError::Invalid("media input length overflow".into()))?;
         digest.update(&buffer[..length]);
     }
@@ -89,7 +97,8 @@ pub struct CatalogCollection {
 impl CatalogCollection {
     pub fn open(root: impl AsRef<Path>) -> Result<Self, CatalogError> {
         let root = root.as_ref();
-        let indexes = registered_platforms(root)?.iter()
+        let indexes = registered_platforms(root)?
+            .iter()
             .map(|p| PlatformCatalog::open(root, p))
             .collect::<Result<Vec<_>, _>>()?;
         Ok(Self { indexes })
@@ -107,7 +116,11 @@ impl CatalogCollection {
         Ok(matches)
     }
 
-    pub fn lookup_crc32(&self, value: &str, size: u64) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
+    pub fn lookup_crc32(
+        &self,
+        value: &str,
+        size: u64,
+    ) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
         let mut matches = Vec::new();
         for index in &self.indexes {
             matches.extend(index.lookup_crc32(value, size)?);
@@ -122,15 +135,22 @@ impl CatalogCollection {
     /// Hash the input once, then compare exact SHA-1 and byte length across platforms.
     pub fn lookup_reader<R: Read>(&self, input: R) -> Result<Vec<MediaMatch<'_>>, CatalogError> {
         let (hash, size) = fingerprint_reader(input)?;
-        Ok(self.lookup_sha1(&hash)?.into_iter()
-            .filter(|hit| hit.media.size == size).collect())
+        Ok(self
+            .lookup_sha1(&hash)?
+            .into_iter()
+            .filter(|hit| hit.media.size == size)
+            .collect())
     }
 
-    pub fn search_titles(&self, query: &str, limit: usize)
-        -> Result<CollectionTitleSearch<'_>, CatalogError>
-    {
+    pub fn search_titles(
+        &self,
+        query: &str,
+        limit: usize,
+    ) -> Result<CollectionTitleSearch<'_>, CatalogError> {
         if limit == 0 || limit > 200 {
-            return Err(CatalogError::Invalid("title search limit must be in 1..=200".into()));
+            return Err(CatalogError::Invalid(
+                "title search limit must be in 1..=200".into(),
+            ));
         }
         let mut matches = Vec::new();
         let mut total_source_records = 0usize;
@@ -143,13 +163,19 @@ impl CatalogCollection {
                 for record in found.records {
                     for media in &record.roms {
                         matches.push(MediaMatch {
-                            platform: index.platform(), record, media, source: index.source(),
+                            platform: index.platform(),
+                            record,
+                            media,
+                            source: index.source(),
                         });
                     }
                 }
             }
         }
-        Ok(CollectionTitleSearch { total_source_records, matches })
+        Ok(CollectionTitleSearch {
+            total_source_records,
+            matches,
+        })
     }
 }
 
@@ -161,7 +187,8 @@ pub struct EnrichedCatalogCollection {
 impl EnrichedCatalogCollection {
     pub fn open(root: impl AsRef<Path>) -> Result<Self, CatalogError> {
         let root = root.as_ref();
-        let indexes = registered_platforms(root)?.iter()
+        let indexes = registered_platforms(root)?
+            .iter()
             .map(|p| EnrichedPlatformCatalog::open(root, p))
             .collect::<Result<Vec<_>, _>>()?;
         Ok(Self { indexes })
@@ -179,9 +206,11 @@ impl EnrichedCatalogCollection {
         Ok(matches)
     }
 
-    pub fn lookup_crc32(&self, value: &str, size: u64)
-        -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError>
-    {
+    pub fn lookup_crc32(
+        &self,
+        value: &str,
+        size: u64,
+    ) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
         let mut matches = Vec::new();
         for index in &self.indexes {
             matches.extend(index.lookup_crc32(value, size)?);
@@ -189,25 +218,31 @@ impl EnrichedCatalogCollection {
         Ok(matches)
     }
 
-    pub fn lookup_bytes(&self, data: &[u8])
-        -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError>
-    {
+    pub fn lookup_bytes(&self, data: &[u8]) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
         self.lookup_reader(data)
     }
 
-    pub fn lookup_reader<R: Read>(&self, input: R)
-        -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError>
-    {
+    pub fn lookup_reader<R: Read>(
+        &self,
+        input: R,
+    ) -> Result<Vec<EnrichedMediaMatch<'_>>, CatalogError> {
         let (hash, size) = fingerprint_reader(input)?;
-        Ok(self.lookup_sha1(&hash)?.into_iter()
-            .filter(|hit| hit.base.media.size == size).collect())
+        Ok(self
+            .lookup_sha1(&hash)?
+            .into_iter()
+            .filter(|hit| hit.base.media.size == size)
+            .collect())
     }
 
-    pub fn search_titles(&self, query: &str, limit: usize)
-        -> Result<EnrichedCollectionTitleSearch<'_>, CatalogError>
-    {
+    pub fn search_titles(
+        &self,
+        query: &str,
+        limit: usize,
+    ) -> Result<EnrichedCollectionTitleSearch<'_>, CatalogError> {
         if limit == 0 || limit > 200 {
-            return Err(CatalogError::Invalid("title search limit must be in 1..=200".into()));
+            return Err(CatalogError::Invalid(
+                "title search limit must be in 1..=200".into(),
+            ));
         }
         let mut matches = Vec::new();
         let mut total_source_records = 0usize;
@@ -219,7 +254,10 @@ impl EnrichedCatalogCollection {
                 matches.extend(found.matches);
             }
         }
-        Ok(EnrichedCollectionTitleSearch { total_source_records, matches })
+        Ok(EnrichedCollectionTitleSearch {
+            total_source_records,
+            matches,
+        })
     }
 }
 
@@ -243,31 +281,47 @@ mod tests {
     #[test]
     fn exact_media_and_titles_retain_individual_platform_matches() {
         let all = CatalogCollection::open(root()).unwrap();
-        let hits = all.lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765").unwrap();
+        let hits = all
+            .lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765")
+            .unwrap();
         assert_eq!(hits.len(), 1);
         assert_eq!(hits[0].platform, "snes");
         assert_eq!(hits[0].record.name, "Super Mario World (USA)");
         let titles = all.search_titles("mario", 3).unwrap();
         assert!(titles.total_source_records >= 3);
         assert!(!titles.matches.is_empty());
-        assert!(titles.matches.iter().all(|m| m.record.name.to_lowercase().contains("mario")));
+        assert!(titles
+            .matches
+            .iter()
+            .all(|m| m.record.name.to_lowercase().contains("mario")));
         assert!(all.search_titles(" ", 5).is_err());
         assert!(all.search_titles("mario", 0).is_err());
         assert!(all.search_titles("mario", 201).is_err());
-        assert!(all.lookup_reader(&b"synthetic bytes"[..]).unwrap().is_empty());
+        assert!(all
+            .lookup_reader(&b"synthetic bytes"[..])
+            .unwrap()
+            .is_empty());
     }
 
     #[test]
     fn enriched_matches_do_not_lose_source_claims() {
         let all = EnrichedCatalogCollection::open(root()).unwrap();
-        let hits = all.lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765").unwrap();
+        let hits = all
+            .lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765")
+            .unwrap();
         assert_eq!(hits.len(), 1);
         assert_eq!(hits[0].base.platform, "snes");
-        assert!(hits[0].metadata_claims.iter().all(|c| c.resolution.status == "matched"));
+        assert!(hits[0]
+            .metadata_claims
+            .iter()
+            .all(|c| c.resolution.status == "matched"));
         assert!(all.search_titles("metroid", 0).is_err());
         let result = all.search_titles("metroid", 2).unwrap();
         assert!(result.total_source_records >= 2);
         assert!(!result.matches.is_empty());
-        assert!(all.lookup_reader(&b"synthetic bytes"[..]).unwrap().is_empty());
+        assert!(all
+            .lookup_reader(&b"synthetic bytes"[..])
+            .unwrap()
+            .is_empty());
     }
 }
