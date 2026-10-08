@@ -44,9 +44,9 @@ def parse_field_dat(raw, *, field):
                 if ROM_END.fullmatch(line):
                     in_rom = False
                     continue
-                field = ROM_CRC.fullmatch(line)
-                if field and crc is None:
-                    crc = field[1].upper()
+                crc_match = ROM_CRC.fullmatch(line)
+                if crc_match and crc is None:
+                    crc = crc_match[1].upper()
                     continue
                 raise ValueError(f"unsupported multiline ROM field at {ordinal}: {line[:100]}")
             rm = ROM.fullmatch(line)
