@@ -2,7 +2,7 @@
 
 The reports in this directory describe how much metadata is available in each imported source collection. They are generated from pinned source observations, not from inferred game identities.
 
-The [identification report](source-coverage-v1.json) and [enrichment report](enrichment-coverage-v1.json) summarize the SNES, Game Boy, Game Boy Color, and Game Boy Advance imports. It records the number of source records and media entries, the presence of individual release and media fields, and repeated values that may need later reconciliation.
+The [identification report](source-coverage-v1.json) and [enrichment report](enrichment-coverage-v1.json) summarize the six-platform SNES, Game Boy, Game Boy Color, Game Boy Advance, NES, and Nintendo DS source collections. It records the number of source records and media entries, the presence of individual release and media fields, and repeated values that may need later reconciliation.
 
 The report deliberately distinguishes:
 
