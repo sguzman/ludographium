@@ -78,6 +78,7 @@ Python lookup tools offer equivalent access. A match associates a fingerprint wi
 
 - [Scope](docs/SCOPE.md) and [data model](docs/MODEL.md)
 - [Curated identity framework](docs/IDENTITIES.md)
+- [Licensing and third-party attribution](docs/LICENSING.md)
 - [Provenance and licensing](docs/PROVENANCE.md)
 - [Offline consumer interface](docs/CONSUMERS.md)
 - [Importing and validating](docs/IMPORTING.md)
