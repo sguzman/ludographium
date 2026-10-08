@@ -64,9 +64,8 @@ def review_platform(base, enriched, sample_limit=8):
     ))
     samples = []
     for status in STATUSES:
-        samples.extend(group for group in groups if group["status"] == status) if sample_limit is None else None
-        if sample_limit is not None:
-            samples.extend(group for group in groups if group["status"] == status][:sample_limit])
+        eligible = [group for group in groups if group["status"] == status]
+        samples.extend(eligible if sample_limit is None else eligible[:sample_limit])
     return {
         "platform": base["platform"],
         "source_claims": sum(value["claim_count"] for value in counts.values()),
@@ -116,10 +115,6 @@ def main():
                            any(c not in "0123456789abcdefABCDEF" for c in args.crc32)):
             p.error("--crc32 requires eight hexadecimal characters")
         value = build_report(args.root, sample_limit=None)
-        rows = [g for plat in value["platforms"] for g in plat["samples"]
-                if (args.platform is None or args.platform == plat["platform"])
-                and (args.status is None or args.status == g["status"])
-                and (args.crc32 is None or args.crc32.upper() == g["crc32"])]
         # Include the platform because source locators are platform scoped.
         matches = [{**g, "platform": p["platform"]}
                    for p in value["platforms"]
