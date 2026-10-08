@@ -23,6 +23,7 @@ The dataset is metadata only. Source archives contain attribution-eligible DATs 
 - **README:** purpose, current coverage, repository layout, usage, and key documentation links.
 - **docs/SCOPE.md:** boundaries and relationships between kinds of records.
 - **docs/MODEL.md:** field-level data contracts and identity distinctions.
+- **docs/IDENTITIES.md:** curated identity requirements and evidence validation.
 - **docs/PROVENANCE.md:** sourcing, attribution, licensing, and evidence preservation.
 - **docs/CONSUMERS.md:** published read-only data interfaces and compatibility.
 - **docs/IMPORTING.md:** reproducible build and validation procedures.
@@ -32,4 +33,4 @@ Prefer technical descriptions over contributor policy in public documentation. K
 
 ## Data layout
 
-`archive/` preserves original sources, `sources/` records provenance, `generated/` publishes repeatable outputs, and `curated/` contains the evidence-validated source-evidence-validated identity ledger. Platform identifiers are stable within each published schema; changing a consumer-facing contract requires an explicit migration.
+`archive/` preserves original sources, `sources/` records provenance, `generated/` publishes repeatable outputs, and `curated/` contains the evidence-validated identity ledger. Platform identifiers are stable within each published schema; changing a consumer-facing contract requires an explicit migration.
