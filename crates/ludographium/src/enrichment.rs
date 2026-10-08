@@ -339,10 +339,15 @@ mod tests {
         let catalog = EnrichedPlatformCatalog::open(root(), "gb").unwrap();
         let results = catalog.search_titles("10-PIN BOWLING", 10).unwrap();
         assert!(results.total_records >= 1);
-        assert_eq!(results.matches[0].base.record.name, "10-Pin Bowling (USA) (Proto)");
+        assert_eq!(
+            results.matches[0].base.record.name,
+            "10-Pin Bowling (USA) (Proto)"
+        );
         assert_eq!(results.matches[0].base.record.source_ordinal, 1);
-        assert!(results.matches[0].metadata_claims.iter().all(|c|
-            c.resolution.status == "matched"));
+        assert!(results.matches[0]
+            .metadata_claims
+            .iter()
+            .all(|c| c.resolution.status == "matched"));
         assert!(catalog.search_titles("  ", 10).is_err());
     }
 

@@ -69,9 +69,10 @@ fn run() -> Result<(), Box<dyn Error>> {
                 println!("{}", usage());
                 return Ok(());
             }
-            "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit" => args
-                .next()
-                .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
+            "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit" => {
+                args.next()
+                    .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?
+            }
             _ => {
                 return Err(
                     CatalogError::Invalid(format!("unknown option: {arg}\n{}", usage())).into(),
@@ -94,9 +95,8 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
 
     let platform = platform.ok_or_else(|| CatalogError::Invalid(usage().into()))?;
-    let query_modes = usize::from(sha1.is_some())
-        + usize::from(crc32.is_some())
-        + usize::from(title.is_some());
+    let query_modes =
+        usize::from(sha1.is_some()) + usize::from(crc32.is_some()) + usize::from(title.is_some());
     if query_modes != 1
         || (crc32.is_some() && size.is_none())
         || (title.is_some() && size.is_some())

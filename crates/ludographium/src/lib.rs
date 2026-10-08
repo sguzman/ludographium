@@ -323,10 +323,16 @@ impl PlatformCatalog {
     ///
     /// This is discovery, NOT an identity match. Accents and other Unicode
     /// distinctions are not stripped. Results follow the original source order.
-    pub fn search_titles(&self, query: &str, limit: usize) -> Result<TitleSearch<'_>, CatalogError> {
+    pub fn search_titles(
+        &self,
+        query: &str,
+        limit: usize,
+    ) -> Result<TitleSearch<'_>, CatalogError> {
         let query = query.trim().to_lowercase();
         if query.is_empty() || limit == 0 || limit > 200 {
-            return Err(CatalogError::Invalid("title query must be nonempty and limit must be 1..=200".into()));
+            return Err(CatalogError::Invalid(
+                "title query must be nonempty and limit must be 1..=200".into(),
+            ));
         }
         let mut total = 0usize;
         let mut records = Vec::new();
@@ -424,7 +430,10 @@ mod tests {
         assert!(index.search_titles("  ", 10).is_err());
         assert!(index.search_titles("game", 0).is_err());
         assert!(index.search_titles("game", 201).is_err());
-        assert_eq!(index.search_titles("impossible-zzzyyyy", 50).unwrap().total, 0);
+        assert_eq!(
+            index.search_titles("impossible-zzzyyyy", 50).unwrap().total,
+            0
+        );
     }
 
     #[test]
