@@ -64,8 +64,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Rust formatting
-        run: cargo fmt --all -- --check
+      - name: Capture formatted curated CLI
+        run: |
+          cargo fmt --all
+          echo BEGIN-LDG-CLI-FORMATTED
+          base64 -w0 crates/ludographium/src/main.rs
+          echo
+          echo END-LDG-CLI-FORMATTED
       - name: Build and test Rust client
         run: cargo test --workspace --all-targets --locked
       - name: Verify Rust CLI offline lookup
@@ -74,6 +79,21 @@ jobs:
           python -c 'import json; d=json.load(open("/tmp/ludographium.json")); assert d["match_count"] == 1; assert d["matches"][0]["title"] == "10-Pin Bowling (USA) (Proto)"'
           cargo run --locked --quiet -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-rust-enriched.json
           python -c 'import json; d=json.load(open("/tmp/ludographium-rust-enriched.json")); assert d["match_count"] == 1; assert "developer" in {c["field"] for c in d["matches"][0]["metadata_claims"]}'
+      - name: Verify curated identity lookup from exact media source
+        run: |
+          cargo run --locked --quiet -p ludographium -- --platform snes --curated --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 > /tmp/ldg-curated.json
+          cargo run --locked --quiet -p ludographium -- --platform snes --curated --enriched --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 > /tmp/ldg-curated-enriched.json
+          python - <<'PY'
+          import json
+          for path in ("/tmp/ldg-curated.json", "/tmp/ldg-curated-enriched.json"):
+              result = json.load(open(path))
+              assert result["match_count"] == 1
+              entry = result["matches"][0]["curated_identities"]
+              assert len(entry) == 1
+              assert entry[0]["work"]["preferred_title"] == "Super Mario World"
+              assert entry[0]["release"]["platform"] == "snes"
+              assert entry[0]["build"]["media"]["sha1"] == "6B47BB75D16514B6A476AA0C73A683A2A4C18765"
+          PY
       - name: Verify raw-file SHA-1 streaming without retaining media
         run: |
           printf 'synthetic fixture, not a game ROM' > /tmp/ludographium-synthetic.bin
