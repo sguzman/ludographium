@@ -44,6 +44,19 @@ jobs:
         run: python tools/triage_enrichment.py --check
       - name: Verify conservative identity-revision candidate review
         run: python tools/triage_identities.py --verify
+      - name: Audit curated exact-media bibliographic evidence
+        run: python tools/audit_curated_claims.py --verify
+      - name: Export curated field-claim evidence for review
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: python tools/audit_curated_claims.py --export /tmp/ludographium-curated-claims-v1.json
+      - name: Upload curated field-claim audit
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-curated-claims-v1
+          path: /tmp/ludographium-curated-claims-v1.json
+          if-no-files-found: error
+          retention-days: 14
       - name: Validate curated identity ledger
         run: python tools/validate_curated.py
       - name: Generate full evidence-only identity review artifact
