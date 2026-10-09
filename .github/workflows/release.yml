@@ -1,0 +1,98 @@
+name: Publish versioned metadata
+
+on:
+  push:
+    tags:
+      - 'data-v*'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ludographium-data-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Require a version tag on main history
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_REF_TYPE" == 'tag' ]]
+          [[ "$GITHUB_REF_NAME" =~ ^data-v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || {
+            echo 'Expected data-vMAJOR.MINOR.PATCH, without prerelease suffixes or leading zeroes'
+            exit 1
+          }
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/main || {
+            echo 'Release tag must point to a commit on main history'
+            exit 1
+          }
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Test and verify metadata, attribution, and documentation
+        run: |
+          set -euo pipefail
+          python -m unittest discover -s tests -v
+          python tools/verify_catalog.py
+          python tools/rebuild_catalog.py --check
+          python tools/build_curated.py --check
+          python tools/build_distribution.py --check
+          python tools/check_docs.py
+          python tools/audit_catalog.py --check
+          python tools/import_enrichment.py --check
+          python tools/audit_enrichment.py --check
+          python tools/triage_enrichment.py --check
+          python tools/validate_curated.py
+      - name: Validate Rust offline reader
+        run: |
+          cargo fmt --all -- --check
+          cargo test --workspace --all-targets --locked
+      - name: Stage and verify portable release
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/prepare_release.py --tag "$GITHUB_REF_NAME" --output "$RUNNER_TEMP/release"
+          cd "$RUNNER_TEMP/release"
+          sha256sum --check "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz.sha256"
+          python "$GITHUB_WORKSPACE/tools/package_runtime.py" --root "$GITHUB_WORKSPACE" \
+            --verify "$RUNNER_TEMP/release/ludographium-runtime-${GITHUB_REF_NAME}.tar.gz"
+      - name: Transfer verified release assets
+        uses: actions/upload-artifact@v4
+        with:
+          name: validated-data-release
+          path: ${{ runner.temp }}/release/
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-data-release
+          path: ${{ runner.temp }}/release
+      - name: Verify transferred checksum and publish GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP/release"
+          sha256sum --check "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz.sha256"
+          gh release create "$GITHUB_REF_NAME" \
+            "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz" \
+            "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz.sha256" \
+            --verify-tag --latest=false \
+            --title "Ludographium metadata ${GITHUB_REF_NAME}" \
+            --notes-file RELEASE_NOTES.md
