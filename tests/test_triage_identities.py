@@ -81,6 +81,32 @@ class RevisionReviewTests(unittest.TestCase):
         data["records"][1]["roms"][0]["sha1"] = None
         self.assertEqual(revisions_for_platform(data), [])
 
+    def test_report_is_deterministic_and_tied_to_catalog_revision(self):
+        import json
+        import tempfile
+        from triage_identities import build_report
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "generated/v1").mkdir(parents=True)
+            (root / "generated/v1/catalog.json").write_text(json.dumps({
+                "schema_version": 1, "source_revision": "revision",
+                "platforms": [{"platform": "gb", "artifact_path": "generated/v1/gb.json"}],
+            }))
+            (root / "generated/v1/gb.json").write_text(json.dumps(bundle([
+                "Game (World)", "Game (World) (Rev 1)"
+            ])))
+            left = build_report(root)
+            right = build_report(root)
+            self.assertEqual(left, right)
+            self.assertEqual(left["kind"], "exact-edition-revision-review")
+            self.assertEqual(left["platforms"][0]["review_groups"], 1)
+            self.assertEqual(left["platforms"][0]["source_observations"], 2)
+            changed = bundle(["Game (World)", "Game (World) (Rev 1)"])
+            changed["source_revision"] = "other"
+            (root / "generated/v1/gb.json").write_text(json.dumps(changed))
+            with self.assertRaisesRegex(ValueError, "revision mismatch"):
+                build_report(root)
+
     def test_rejects_unsupported_schema(self):
         data = bundle([])
         data["schema_version"] = 2
