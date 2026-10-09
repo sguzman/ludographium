@@ -582,15 +582,16 @@ mod tests {
     fn normalized_zip_scans_non_seekable_members_and_keeps_original_size() {
         use std::io::{Cursor, Write};
         let mut writer = zip::ZipWriter::new(Cursor::new(Vec::new()));
-        writer.add_directory(
-            "nested/",
-            zip::write::SimpleFileOptions::default(),
-        ).unwrap();
-        writer.start_file(
-            "nested/synthetic.nes",
-            zip::write::SimpleFileOptions::default()
-                .compression_method(zip::CompressionMethod::Deflated),
-        ).unwrap();
+        writer
+            .add_directory("nested/", zip::write::SimpleFileOptions::default())
+            .unwrap();
+        writer
+            .start_file(
+                "nested/synthetic.nes",
+                zip::write::SimpleFileOptions::default()
+                    .compression_method(zip::CompressionMethod::Deflated),
+            )
+            .unwrap();
         let mut bytes = vec![0u8; 16 + 16_384];
         bytes[..4].copy_from_slice(b"NES\x1a");
         bytes[4] = 1;
@@ -622,10 +623,7 @@ mod tests {
             .unwrap();
         assert_eq!(actual[0].member.normalized.size, 16_384);
         assert!(actual[0].matches.is_empty());
-        assert!(fingerprint_zip_normalized(
-            Cursor::new(&zip),
-            MediaFormat::N64V64
-        ).is_err());
+        assert!(fingerprint_zip_normalized(Cursor::new(&zip), MediaFormat::N64V64).is_err());
     }
 
     #[test]
