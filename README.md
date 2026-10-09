@@ -8,7 +8,7 @@ It catalogs titles, versions, regions, publication facts, product identifiers, a
 
 ## Collection
 
-The current accession spans ten console and handheld platforms:
+The original v1 JSON baseline covers ten console and handheld platforms (retained for compatibility). **The expanded bulk SQLite collection now covers 75 platform collections and 117,145 original source observations**, with [complete provenance and coverage details](docs/BULK-EXPANSION.md).
 
 | Platform | Source records |
 | --- | ---: |
@@ -26,9 +26,9 @@ The current accession spans ten console and handheld platforms:
 
 These are original source observations, **not a count of distinct games**. Every record has an upstream title and fingerprint information, with additional fields depending on what the source provides.
 
-88 pinned Libretro DATs supply **129,008 bibliographic claims** across developer, publisher, release-year, release-month, genre, franchise, serial, age-rating, player-count, and rumble fields. Strict CRC32-and-title comparison attaches **98,856 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
+The original 88 pinned Libretro field DATs supply **129,008 bibliographic claims** across developer, publisher, release-year, release-month, genre, franchise, serial, age-rating, player-count, and rumble fields. Strict CRC32-and-title comparison attaches **98,856 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
 
-[Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Source registers](sources/README.md)
+[75-platform bulk expansion](docs/BULK-EXPANSION.md) · [Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Source registers](sources/README.md)
 
 ## Repository structure
 
@@ -43,6 +43,12 @@ These are original source observations, **not a count of distinct games**. Every
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
 The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 25 consumer artifacts, including curated identities, both source registers, and a standalone metadata-attribution notice. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use. The [latest pinned dataset, **data-v1.4.0**](https://github.com/sguzman/ludographium/releases/tag/data-v1.4.0), adds the complete offline SQLite corpus alongside the original integrity-checked JSON runtime. Earlier releases remain intact and individually addressable; consult the [release history](docs/DATA-RELEASES.md) for version-specific coverage. Consumers can consult the [dataset release history](docs/DATA-RELEASES.md) and [versioned publication policy](docs/RELEASING.md).
+
+## Expanded 75-platform dataset
+
+The [bulk-accessioned SQLite corpus](docs/BULK-EXPANSION.md) contains **117,145 source records and media fingerprints** plus **167,640 bibliographic source claims** spanning 75 dedicated console/handheld collections. Of these, **112,948 field claims** are conservatively matched; **19,763 source records** have some attached field metadata. The 65 new identification DATs and 279 additional bibliographic DATs are pinned by source revision and original Git blob hash. All original source files are preserved inside the expanded SQLite artifact, including metadata with missing or ambiguous checksums.
+
+The existing ten-platform release remains an independently reproducible, compatible baseline. Source observations are not asserted to be distinct game identities.
 
 ## Complete metadata corpus
 
@@ -96,7 +102,7 @@ Python lookup tools offer equivalent access. A match associates a fingerprint wi
 - [Curated identity framework](docs/IDENTITIES.md), [revision candidate review](docs/IDENTITY-REVIEW.md), [cross-source field review](docs/CROSS-SOURCE-REVIEW.md), and [dataset release history](docs/DATA-RELEASES.md)
 - [Licensing and third-party attribution](docs/LICENSING.md)
 - [Provenance and licensing](docs/PROVENANCE.md)
-- [Full-corpus SQLite export](docs/CORPUS.md), [offline consumer interface](docs/CONSUMERS.md), and [version compatibility](docs/COMPATIBILITY.md)
+- [75-platform bulk data accession](docs/BULK-EXPANSION.md), [full-corpus SQLite export](docs/CORPUS.md), [offline consumer interface](docs/CONSUMERS.md), and [version compatibility](docs/COMPATIBILITY.md)
 - [Importing and validating](docs/IMPORTING.md)
 - [Source acquisition strategy](docs/SOURCE-STRATEGY.md)
 - [Quality reports](reports/README.md) and [roadmap](docs/ROADMAP.md)
