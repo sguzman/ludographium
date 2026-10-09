@@ -32,6 +32,20 @@ def prepare_release(root: Path, tag: str, output: Path) -> tuple[Path, Path, Pat
     if manifest["schema_version"] != 1:
         raise ValueError("unsupported distribution schema")
 
+    # Enumerate source-backed identities in the immutable portable projection.
+    # The projection itself is covered by the distribution manifest.
+    identity_path = root / "generated/curated-v1/identities.json"
+    curated_summary = ""
+    if identity_path.exists():
+        curated = json.loads(identity_path.read_bytes())
+        if curated.get("schema_version") != 1 or curated.get("kind") != "curated-identity-ledger":
+            raise ValueError("unsupported curated identity projection")
+        curated_summary = (
+            f"- Curated identities: {len(curated['works'])} works, "
+            f"{len(curated['releases'])} releases, "
+            f"{len(curated['builds'])} exact media builds\\n"
+        )
+
     archive = build_archive(root)
     digest = hashlib.sha256(archive).hexdigest()
     name = f"ludographium-runtime-{tag}.tar.gz"
@@ -50,6 +64,7 @@ def prepare_release(root: Path, tag: str, output: Path) -> tuple[Path, Path, Pat
         f"- Upstream collection: `{manifest['source_id']}`\n"
         f"- Pinned source revision: `{manifest['source_revision']}`\n"
         f"- Manifest-verified artifacts: {len(manifest['artifacts'])}\n"
+        f"{curated_summary}"
         f"- Archive SHA-256: `{digest}`\n\n"
         "Verify the downloaded archive and its `.sha256` file together using "
         f"`sha256sum -c {name}.sha256`. The extracted archive contains "
