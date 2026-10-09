@@ -42,7 +42,7 @@ These are original source observations, **not a count of distinct games**. Every
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
-The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 25 consumer artifacts, including curated identities, both source registers, and a standalone metadata-attribution notice. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use. The first pinned dataset, [**data-v1.0.0**](https://github.com/sguzman/ludographium/releases/tag/data-v1.0.0), is published with a checksum-verified runtime archive and source attribution. Future snapshots use the [versioned release workflow](docs/RELEASING.md).
+The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 25 consumer artifacts, including curated identities, both source registers, and a standalone metadata-attribution notice. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use. The [latest pinned dataset, **data-v1.1.0**](https://github.com/sguzman/ludographium/releases/tag/data-v1.1.0), contains the expanded curated identity graph. The original [data-v1.0.0](https://github.com/sguzman/ludographium/releases/tag/data-v1.0.0) remains available unchanged. Consumers can consult the [dataset release history](docs/DATA-RELEASES.md) and [versioned publication policy](docs/RELEASING.md).
 
 ## Use the data
 
@@ -85,7 +85,7 @@ Python lookup tools offer equivalent access. A match associates a fingerprint wi
 ## Documentation
 
 - [Scope](docs/SCOPE.md), [data model](docs/MODEL.md), and [media byte domains](docs/BYTE-DOMAINS.md)
-- [Curated identity framework](docs/IDENTITIES.md)
+- [Curated identity framework](docs/IDENTITIES.md) and [dataset release history](docs/DATA-RELEASES.md)
 - [Licensing and third-party attribution](docs/LICENSING.md)
 - [Provenance and licensing](docs/PROVENANCE.md)
 - [Offline consumer interface](docs/CONSUMERS.md) and [version compatibility](docs/COMPATIBILITY.md)
