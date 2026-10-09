@@ -80,6 +80,7 @@ jobs:
           cargo test --workspace --all-targets --locked
           python tools/smoke_media_formats.py
           python tools/smoke_runtime.py
+          python tools/smoke_curated_revisions.py
       - name: Stage and verify portable release
         shell: bash
         env:
