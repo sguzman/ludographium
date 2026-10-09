@@ -10,7 +10,7 @@ It catalogs titles, versions, regions, publication facts, product identifiers, a
 
 ## Collection
 
-The original v1 JSON baseline covers ten console and handheld platforms (retained for compatibility). **The expanded bulk SQLite collection now covers 75 platform collections and 117,145 original source observations**, with [complete provenance and coverage details](docs/BULK-EXPANSION.md).
+The original v1 JSON baseline covers ten console and handheld platforms (retained for compatibility). **The Git clone now contains the original text DAT metadata for all 75 platform collections and 117,145 source observations**, with [complete provenance and coverage details](docs/BULK-EXPANSION.md). The 65 added identification DATs and 279 bibliographic DATs are [tracked under `archive/libretro-bulk/metadat/`](archive/libretro-bulk/metadat), not stored exclusively in a generated database or fetched on demand.
 
 | Platform | Source records |
 | --- | ---: |
@@ -36,7 +36,7 @@ The original 88 pinned Libretro DATs supply **129,008 bibliographic claims** acr
 
 | Location | Description |
 | --- | --- |
-| [`archive/`](archive/) | Unmodified original DATs |
+| [`archive/`](archive/) | Unmodified original DATs, including all 344 pinned additional console/handheld sources |
 | [`sources/`](sources/) | Pinned source revisions, attribution, and reuse information |
 | [`generated/`](generated/) | Reproducible identification and bibliographic claim indexes |
 | [`data/wikidata/v1/`](data/wikidata/v1/) | Small, attributed, human-readable Wikidata JSONL source files |
