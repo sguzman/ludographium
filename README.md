@@ -42,7 +42,7 @@ These are original source observations, **not a count of distinct games**. Every
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
 
-The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 25 consumer artifacts, including curated identities, both source registers, and a standalone metadata-attribution notice. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use. A separate [versioned data release workflow](docs/RELEASING.md) publishes permanent, checksum-verified snapshots when a release tag is created.
+The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 25 consumer artifacts, including curated identities, both source registers, and a standalone metadata-attribution notice. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use. The first pinned dataset, [**data-v1.0.0**](https://github.com/sguzman/ludographium/releases/tag/data-v1.0.0), is published with a checksum-verified runtime archive and source attribution. Future snapshots use the [versioned release workflow](docs/RELEASING.md).
 
 ## Use the data
 
@@ -86,7 +86,7 @@ Python lookup tools offer equivalent access. A match associates a fingerprint wi
 - [Curated identity framework](docs/IDENTITIES.md)
 - [Licensing and third-party attribution](docs/LICENSING.md)
 - [Provenance and licensing](docs/PROVENANCE.md)
-- [Offline consumer interface](docs/CONSUMERS.md)
+- [Offline consumer interface](docs/CONSUMERS.md) and [version compatibility](docs/COMPATIBILITY.md)
 - [Importing and validating](docs/IMPORTING.md)
 - [Source acquisition strategy](docs/SOURCE-STRATEGY.md)
 - [Quality reports](reports/README.md) and [roadmap](docs/ROADMAP.md)
