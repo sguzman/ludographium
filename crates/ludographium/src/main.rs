@@ -212,10 +212,7 @@ fn lookup_zip_normalized_mode(
     enriched: bool,
     curated: Option<&CuratedCatalog>,
 ) -> Result<Value, Box<dyn Error>> {
-    let fingerprints = fingerprint_zip_normalized(
-        BufReader::new(File::open(path)?),
-        format,
-    )?;
+    let fingerprints = fingerprint_zip_normalized(BufReader::new(File::open(path)?), format)?;
     let mut members = Vec::new();
     let mut source = None;
     if enriched {
@@ -478,7 +475,12 @@ fn run() -> Result<(), Box<dyn Error>> {
     if let Some(format) = media_format {
         if let Some(ref archive_path) = zip {
             let output = lookup_zip_normalized_mode(
-                &root, &platform, archive_path, format, enriched, curated.as_ref(),
+                &root,
+                &platform,
+                archive_path,
+                format,
+                enriched,
+                curated.as_ref(),
             )?;
             println!("{}", serde_json::to_string_pretty(&output)?);
             return Ok(());
