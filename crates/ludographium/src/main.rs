@@ -6,6 +6,7 @@ use ludographium::collection::{
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::media::{fingerprint_normalized, MediaFormat};
+use ludographium::runtime::verify_runtime_root;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
@@ -15,7 +16,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>  | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>  | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -405,8 +406,13 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut limit_explicit = false;
     let mut enriched = false;
     let mut show_curated = false;
+    let mut verify_runtime = false;
 
     while let Some(arg) = args.next() {
+        if arg == "--verify-runtime" {
+            verify_runtime = true;
+            continue;
+        }
         if arg == "--enriched" {
             enriched = true;
             continue;
@@ -447,6 +453,40 @@ fn run() -> Result<(), Box<dyn Error>> {
             }
             _ => unreachable!(),
         }
+    }
+
+    if verify_runtime {
+        if platform.is_some()
+            || sha1.is_some()
+            || crc32.is_some()
+            || size.is_some()
+            || title.is_some()
+            || file.is_some()
+            || zip.is_some()
+            || zip_entry.is_some()
+            || media_format.is_some()
+            || limit_explicit
+            || enriched
+            || show_curated
+        {
+            return Err(CatalogError::Invalid(
+                "--verify-runtime accepts only the optional --root directory".into(),
+            )
+            .into());
+        }
+        let checked = verify_runtime_root(&root)?;
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json!({
+                "verified": true,
+                "input_kind": "runtime-root",
+                "artifact_count": checked.artifact_count,
+                "total_artifact_bytes": checked.total_artifact_bytes,
+                "source_id": checked.source_id,
+                "source_revision": checked.source_revision,
+            }))?
+        );
+        return Ok(());
     }
 
     let platform = platform.ok_or_else(|| CatalogError::Invalid(usage().into()))?;
