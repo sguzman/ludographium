@@ -1,5 +1,7 @@
 # Bulk console and handheld metadata accession
 
+**Offline clone status (2026-10-09): complete.** All 65 additional identification DATs and 279 bibliographic DATs are committed as original text at [`archive/libretro-bulk/metadat/`](../archive/libretro-bulk/metadat). Together they contain **344 verified source files / 24,212,591 bytes**. The ten original source collections remain in their existing `archive/` paths. The extra sources are no longer dependent on an upstream request or SQLite release for access. The per-source bytes and Git blob SHAs match the existing manifests; a **Rust integration test** rechecks every original file on ordinary CI runs. No new Python tooling or SQLite assets were added for this accession.
+
 Ludographium now has a reproducible **75-platform**, **117,145-source-observation** console metadata database. It is not a hand-curated subset: one importer processes every original DAT source record, its media fingerprints, and every corresponding available bibliographic field DAT claim.
 
 ## Coverage of the expanded pinned source snapshot
@@ -28,7 +30,7 @@ Collection is at the **DAT-file level** using a deterministic, documented source
 - same immutable upstream repository revision: `fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90`;
 - declared upstream repository license **CC BY-SA 4.0**, with underlying No-Intro and third-party rights still separately applicable.
 
-The expanded SQLite database embeds the **original byte-for-byte DAT inputs** in `source_archives` and `field_archives`, and also includes their source registers in `provenance`. It contains no game ROMs, firmware, executable programs, game images or cheat codes.
+The **Git repository contains the original byte-for-byte DAT inputs as ordinary text files**. Historical expanded SQLite artifacts also embed original inputs in `source_archives` and `field_archives`, but are optional derived outputs, not the source corpus. It contains no game ROMs, firmware, executable programs, game images or cheat codes.
 
 ## Conservative field association
 
@@ -44,7 +46,11 @@ Some PlayStation and other optical-media metadata files give serials but omit CR
 
 Matching field claims are *source associations*, not independent factual verification and not canonical game/release identities.
 
-## Build and verify
+## Locally cloned text sources
+
+The paths follow the original upstream tree, for example `archive/libretro-bulk/metadat/no-intro/Atari - 2600.dat` and `archive/libretro-bulk/metadat/developer/Atari - 2600.dat`. Browse or process them directly after cloning, without an internet request or database. `cargo test --workspace --all-targets --locked` validates exact source lengths, SHA-1 Git blob identities, UTF-8 text encoding and the complete file inventory, without Python or SQLite.
+
+## Legacy optional database build and verify
 
 The [dedicated bulk CI workflow](../.github/workflows/expand-corpus.yml) performs the entire process without a manual game-by-game queue:
 
@@ -56,7 +62,7 @@ python3 tools/enrich_expanded_corpus.py --build \
 python3 tools/enrich_expanded_corpus.py --verify --db /tmp/ludographium-expanded.sqlite
 ```
 
-The two build steps fetch only the manifest-selected, **revision- and Git-blob-pinned** source files. They fail closed on missing source files, checksum drift, unsupported input syntax, duplicate or malformed platform registries, source-claim mismatches, and database integrity errors. The pipeline verifies source and media counts against the previous ten-platform baseline and exercises synthetic regression cases for mismatched titles, serial-only claims, and tampered source input.
+The historical optional build steps fetch only manifest-selected, **revision- and Git-blob-pinned** inputs when using their default mode; the original text files are now already tracked in Git, so consumers of the clone do not need those steps. They fail closed on missing source files, checksum drift, unsupported input syntax, duplicate or malformed platform registries, source-claim mismatches, and database integrity errors. The pipeline verifies source and media counts against the previous ten-platform baseline and exercises synthetic regression cases for mismatched titles, serial-only claims, and tampered source input.
 
 Use a regular SQLite client or:
 
