@@ -57,14 +57,12 @@ jobs:
           cd "$RUNNER_TEMP"
           sha256sum ludographium-wikidata.sqlite > ludographium-wikidata.sqlite.sha256
           sha256sum --check ludographium-wikidata.sqlite.sha256
-      - name: Preserve entire independent snapshot and reconciled offline database
+      - name: Preserve independent structured-source JSON snapshot
         uses: actions/upload-artifact@v4
         with:
           name: ludographium-wikidata-independent-source
           path: |
             ${{ runner.temp }}/wikidata-snapshot.json
             ${{ runner.temp }}/wikidata-snapshot.sha256
-            ${{ runner.temp }}/ludographium-wikidata.sqlite
-            ${{ runner.temp }}/ludographium-wikidata.sqlite.sha256
           if-no-files-found: error
           retention-days: 14
