@@ -46,6 +46,22 @@ def prepare_release(root: Path, tag: str, output: Path) -> tuple[Path, Path, Pat
             f"{len(curated['builds'])} exact media builds\n"
         )
 
+    # A full-corpus SQLite companion is built and checked by the publication
+    # workflow from the same pinned indexes. Do not conflate source observations
+    # with reviewed canonical game identities.
+    corpus_summary = ""
+    coverage_path = root / "reports/enrichment-coverage-v1.json"
+    if coverage_path.exists() and all("source_records" in p for p in
+                                       json.loads((root / "generated/v1/catalog.json").read_bytes())["platforms"]):
+        catalog = json.loads((root / "generated/v1/catalog.json").read_bytes())
+        enrichment = json.loads(coverage_path.read_bytes())
+        source_records = sum(p["source_records"] for p in catalog["platforms"])
+        corpus_summary = (
+            f"- Full SQLite corpus: {source_records:,} source observations, "
+            f"{enrichment['total_claims']:,} attributed field claims "
+            "(source observations are not distinct canonical works)\n"
+        )
+
     archive = build_archive(root)
     digest = hashlib.sha256(archive).hexdigest()
     name = f"ludographium-runtime-{tag}.tar.gz"
@@ -65,10 +81,15 @@ def prepare_release(root: Path, tag: str, output: Path) -> tuple[Path, Path, Pat
         f"- Pinned source revision: `{manifest['source_revision']}`\n"
         f"- Manifest-verified artifacts: {len(manifest['artifacts'])}\n"
         f"{curated_summary}"
+        f"{corpus_summary}"
         f"- Archive SHA-256: `{digest}`\n\n"
         "Verify the downloaded archive and its `.sha256` file together using "
         f"`sha256sum -c {name}.sha256`. The extracted archive contains "
         "`generated/v1/distribution.json` for per-file SHA-256 verification.\n\n"
+        "The release workflow also publishes a separately SHA-256-verified "
+        f"ludographium-corpus-{tag}.sqlite companion with all source records, "
+        "media fingerprints and resolved/unresolved metadata claims for offline SQL queries. "
+        "The database does not automatically assert work/release identities.\n\n"
         "Original Ludographium code is MIT-licensed; upstream metadata retains "
         "its own source-specific rights and attribution. Consult `METADATA-NOTICE.md` "
         "inside the archive. The archive checksum verifies bytes but is not a digital signature.\n",
