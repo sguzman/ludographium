@@ -76,6 +76,7 @@ jobs:
           python tools/validate_curated.py
           python tools/triage_identities.py --verify
           python tools/audit_curated_claims.py --verify
+          python tools/prioritize_identity_review.py --verify
       - name: Validate Rust offline reader
         run: |
           cargo fmt --all -- --check
