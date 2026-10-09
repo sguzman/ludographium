@@ -77,6 +77,8 @@ jobs:
           python tools/triage_identities.py --verify
           python tools/audit_curated_claims.py --verify
           python tools/prioritize_identity_review.py --verify
+          python tools/build_corpus.py --build --db "$RUNNER_TEMP/validated-corpus.sqlite"
+          python tools/build_corpus.py --verify --db "$RUNNER_TEMP/validated-corpus.sqlite"
       - name: Validate Rust offline reader
         run: |
           cargo fmt --all -- --check
@@ -91,7 +93,11 @@ jobs:
         run: |
           set -euo pipefail
           python tools/prepare_release.py --tag "$RELEASE_TAG" --output "$RUNNER_TEMP/release"
+          cp "$RUNNER_TEMP/validated-corpus.sqlite" "$RUNNER_TEMP/release/ludographium-corpus-${RELEASE_TAG}.sqlite"
+          python tools/build_corpus.py --verify --db "$RUNNER_TEMP/release/ludographium-corpus-${RELEASE_TAG}.sqlite"
           cd "$RUNNER_TEMP/release"
+          sha256sum "ludographium-corpus-${RELEASE_TAG}.sqlite" > "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256"
+          sha256sum --check "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256"
           sha256sum --check "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256"
           python "$GITHUB_WORKSPACE/tools/package_runtime.py" --root "$GITHUB_WORKSPACE" \
             --verify "$RUNNER_TEMP/release/ludographium-runtime-${RELEASE_TAG}.tar.gz"
@@ -124,6 +130,7 @@ jobs:
           set -euo pipefail
           cd "$RUNNER_TEMP/release"
           sha256sum --check "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256"
+          sha256sum --check "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256"
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             echo "Release $RELEASE_TAG exists; refusing to overwrite assets"
             exit 1
@@ -138,6 +145,8 @@ jobs:
             gh release create "$RELEASE_TAG" \
               "ludographium-runtime-${RELEASE_TAG}.tar.gz" \
               "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256" \
+              "ludographium-corpus-${RELEASE_TAG}.sqlite" \
+              "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256" \
               --target "$GITHUB_SHA" --latest=false \
               --title "Ludographium metadata ${RELEASE_TAG}" \
               --notes-file RELEASE_NOTES.md
@@ -145,6 +154,8 @@ jobs:
             gh release create "$RELEASE_TAG" \
               "ludographium-runtime-${RELEASE_TAG}.tar.gz" \
               "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256" \
+              "ludographium-corpus-${RELEASE_TAG}.sqlite" \
+              "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256" \
               --verify-tag --latest=false \
               --title "Ludographium metadata ${RELEASE_TAG}" \
               --notes-file RELEASE_NOTES.md
