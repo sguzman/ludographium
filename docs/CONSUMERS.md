@@ -30,7 +30,7 @@ Each base bundle contains source observations and fingerprints. Matching [enrich
 
 A matching digest associates a file with a source record. It does not independently verify provenance, legitimacy, game identity, or emulator compatibility. CRC32 collisions are possible; the lookup CLI deliberately returns every match.
 
-Headers, trimming, byte-swapping, patches, and other transformations can change fingerprints. The current exports have **no platform-specific normalization contract**. Applications should compare known byte representations rather than assuming a particular header-stripping strategy.
+Headers, trimming, byte-swapping, patches, and other transformations can change fingerprints. Exact-byte comparison remains the default. For specifically declared local-file representations, the Rust client now offers [opt-in platform-specific conversions](BYTE-DOMAINS.md); no source index is rewritten, and no format is guessed automatically.
 
 ## Command-line example
 
@@ -70,7 +70,7 @@ cargo run --locked -p ludographium -- --enriched --platform gba --file /path/to/
 
 This hashes **exactly the supplied bytes** with SHA-1, checks the original file length, and returns all matching source observations. Input is read with bounded memory and is never copied into Ludographium. An unmatched result does not establish that a game is unknown; differing archive compression, copier headers, byte ordering, patches, or other representations can change fingerprints.
 
-This is not a container extractor or a platform-specific byte-normalization layer. Consumers must explicitly choose the byte representation they want to identify. Full ZIP/archive support and verified per-platform normalization rules remain future work.
+Exact-byte lookup does not extract containers or silently normalize media. Consumers may explicitly select a supported NES iNES, SNES copier-header, or N64 byte-order [conversion](BYTE-DOMAINS.md) for uncompressed `--file` input. All other byte representations are matched as supplied.
 
 ## Read-only ZIP identification
 
@@ -85,7 +85,19 @@ Each member returns its original archive entry name, SHA-1, byte length, and sou
 
 The reader handles stored and Deflate-compressed ZIP entries. It does not extract, save, patch, strip headers from, or change member bytes. Resource limits are **256 entries**, **1 GiB decoded per member**, and **2 GiB decoded in total**. Unsupported or unreadable entries return an error. ZIP identification does not establish canonical game identity, and the collection never stores game binaries.
 
-Use `--file` for one uncompressed media representation and `--zip` for ZIP members. Other archive formats are not yet supported.
+Use `--file` for one uncompressed media representation and `--zip` for ZIP members. Other archive formats are not yet supported. ZIP members are never normalized automatically, even when an opt-in normalization rule exists for standalone media files.
+
+## Explicit byte-domain lookup
+
+The default `--file` option preserves raw bytes. For media formats with an explicitly documented transformation, add `--media-format` with the corresponding platform; examples and guardrails are in [Media byte-domain contracts](BYTE-DOMAINS.md):
+
+```sh
+cargo run --locked -p ludographium -- --platform nes --file /path/to/title.nes --media-format nes-ines
+cargo run --locked -p ludographium -- --platform snes --file /path/to/title.smc --media-format snes-copier512
+cargo run --locked -p ludographium -- --platform n64 --file /path/to/title.v64 --media-format n64-v64
+```
+
+These operations stream input with bounded memory, never modify files, and include the selected conversion, transformed digest, and transformed size in the JSON result. `--platform all`, `--zip`, and wrong-platform conversions are deliberately rejected. A transformed digest association does not establish canonical game identity.
 
 ## Discovering source titles
 
