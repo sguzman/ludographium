@@ -121,7 +121,8 @@ def source_items(snapshot):
             seen[qid] = label or seen.get(qid)
             if "date" in row:
                 date = row["date"]
-                dates.add((qid, date["value"], date.get("datatype")))
+                if date.get("type") in ("literal", "typed-literal"):
+                    dates.add((qid, date["value"], date.get("datatype")))
         yield platform, seen, sorted(dates)
 
 
