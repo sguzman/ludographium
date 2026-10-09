@@ -85,7 +85,7 @@ Each member returns its original archive entry name, SHA-1, byte length, and sou
 
 The reader handles stored and Deflate-compressed ZIP entries. It does not extract, save, patch, strip headers from, or change member bytes. Resource limits are **256 entries**, **1 GiB decoded per member**, and **2 GiB decoded in total**. Unsupported or unreadable entries return an error. ZIP identification does not establish canonical game identity, and the collection never stores game binaries.
 
-Use `--file` for one uncompressed media representation and `--zip` for ZIP members. Other archive formats are not yet supported. ZIP members are never normalized automatically, even when an opt-in normalization rule exists for standalone media files.
+Use `--file` for one uncompressed media representation and `--zip` for ZIP members. Other archive formats are not yet supported. ZIP members are never normalized automatically. For a ZIP containing members of one supported format, `--media-format` enables explicit normalization with the same entry and decoded-size bounds. See [media byte domains](BYTE-DOMAINS.md); mixed or malformed members fail instead of being silently discarded.
 
 ## Explicit byte-domain lookup
 
@@ -97,7 +97,7 @@ cargo run --locked -p ludographium -- --platform snes --file /path/to/title.smc 
 cargo run --locked -p ludographium -- --platform n64 --file /path/to/title.v64 --media-format n64-v64
 ```
 
-These operations stream input with bounded memory, never modify files, and include the selected conversion, transformed digest, and transformed size in the JSON result. `--platform all`, `--zip`, and wrong-platform conversions are deliberately rejected. A transformed digest association does not establish canonical game identity.
+These operations stream input with bounded memory, never modify files, and include the selected conversion, transformed digest, and transformed size in the JSON result. Explicit `--zip` normalization is also available for archives whose regular members all satisfy the selected format; each output record preserves its original name and byte size. `--platform all`, unsupported modes, and wrong-platform conversions are deliberately rejected. A transformed digest association does not establish canonical game identity.
 
 ## Discovering source titles
 
