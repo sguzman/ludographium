@@ -1,6 +1,6 @@
 # Complete offline console metadata corpus
 
-The bulk corpus export provides **one queryable SQLite database for the entire pinned collection**, rather than an individually curated game list. It is derived automatically from the existing immutable identification and bibliographic source indexes.
+The bulk corpus builder can generate **a queryable local SQLite index for the pinned collection**, rather than requiring individual game curation. It is derived automatically from the existing immutable text-based identification and bibliographic source indexes. **SQLite is a generated consumer index, not canonical source data or an asset for future releases.** See the [text-first data policy](DATA-FORMATS.md).
 
 The **original ten-platform v1 baseline** contains:
 
