@@ -17,16 +17,26 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Publish reproducible per-platform field-coverage and repeated-fingerprint audits.
 - [ ] Complete source-specific redistribution review for future providers.
 
+## Bulk metadata coverage
+
+- [x] Assemble a ten-platform source-observation catalog and preserve original metadata and media fingerprints.
+- [x] Materialize a complete, queryable SQLite export of every source record, media entry and bibliographic field claim, including all unresolved associations.
+- [x] Validate aggregate coverage, full input-source integrity, exact claim attachments and deterministic source-to-SQLite transformation.
+- [x] Deliver the complete SQLite corpus as a CI artifact, independently of optional manually curated identity examples.
+- [ ] Extend the source universe with other console and handheld systems by pinned bulk imports, with separate licensing/provenance review per provider.
+- [ ] Add separately sourced metadata providers and bulk, auditable cross-provider reconciliation; quantify coverage and ambiguous joins.
+- [ ] Publish a durable, versioned SQLite companion for downstream offline consumers.
+
 ## Identity and curation
 
 - [x] Establish evidence-validated UUID identifiers for work, release, and build records.
 - [x] Curate source-grounded work/release/build identities, including independently hashed regional and revision records across Game Boy, Color, Advance, Nintendo DS, Master System and Game Gear.
-- [ ] Continue extending curated identities and independent cross-provider correspondence evidence; initial same-platform edition/revision curation is complete.
+- [ ] Develop a corpus-wide evidence-based candidate-identity pipeline with explicit uncertainty, stable identifiers and exception-only review. The selected curated examples remain validation fixtures; serial game-by-game curation is not the production workflow.
 - [x] Provide conservative, provenance-preserving revision candidate discovery without generating canonical relationships.
 - [x] Reject conflicting work/release ownership of a source occurrence during curation validation.
 - [x] Verify the same parent-evidence and ownership invariants in the Rust offline reader.
 - [x] Audit curated media against separately attributed field-DAT claims and prioritize revision leads by field-claim availability without auto-curation.
-- [x] Curate additional exact revision groups on GBA, SNES, Nintendo 64 and Sega Genesis using original observation locators and separately attributed claim coverage.
+- [x] Preserve prior exact-revision curation as test fixtures without making manually reviewed entries a prerequisite to metadata ingestion.
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
