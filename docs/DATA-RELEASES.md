@@ -1,6 +1,6 @@
 # Dataset release history
 
-Ludographium data tags identify immutable metadata snapshots independently of the Rust client, JSON schema versions, and upstream source revisions. Each published release carries a deterministic metadata-only runtime archive, a SHA-256 checksum, the original source registers, and attribution notices.
+Ludographium data tags identify immutable metadata snapshots independently of the Rust client, JSON schema versions, and upstream source revisions. Each published release carries a deterministic metadata-only runtime archive, a SHA-256 checksum, the original source registers, and attribution notices. Since `data-v1.4.0`, releases also contain a complete, SHA-256-verified SQLite corpus asset for offline SQL access to every source observation.
 
 | Dataset | Published | Curated works | Curated releases | Exact builds | Summary |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -8,6 +8,17 @@ Ludographium data tags identify immutable metadata snapshots independently of th
 | [`data-v1.1.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.1.0) | 2026-10-09 | 8 | 10 | 12 | Four additional reviewed works with distinct same-platform revisions and regional releases |
 | [`data-v1.2.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.2.0) | 2026-10-09 | 11 | 13 | 19 | Three additional revision families, including the first curated Nintendo DS title, and conservative review tooling |
 | [`data-v1.3.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.3.0) | 2026-10-09 | 15 | 17 | 28 | Four additional exact revision families and source-linked field-claim audit infrastructure |
+| [`data-v1.4.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.4.0) | 2026-10-09 | 15 | 17 | 28 | Full, queryable SQLite corpus across ten platforms; 41,491 source records, 129,008 preserved metadata claims |
+
+## Changes in data-v1.4.0
+
+- **Complete offline SQLite corpus:** one normalized, indexed database covering all **41,491** identification source observations, **41,491** media fingerprints, and **129,008** attributed bibliographic claims across ten platforms. Unlike the separate curated examples, every original record is included.
+- **Conservative metadata association:** **98,856** claims are linked to original source observations by the pinned, exact title-and-unique-CRC resolution rules; **16,937** source observations have one or more matched field claims. All other claims retain their unresolved statuses and original upstream evidence.
+- **Self-contained provenance:** source repository revisions, original DAT file paths and blob SHA identifiers, original source fields, source notices and declared licensing are retained in the database.
+- **Offline query and tests:** SQLite indexes support title and media-fingerprint lookups, an explicit matched-claims view, and unrestricted examination of unresolved claims. Tests verify complete counts, attribution, preservation, tamper rejection, SQLite foreign-key integrity, and deterministic rebuild.
+- **Durable published asset:** `ludographium-corpus-data-v1.4.0.sqlite` and a SHA-256 companion sit beside the existing JSON runtime archive. Both were verified by the release pipeline. See [full-corpus use](CORPUS.md).
+
+The pinned source revision and optional curated work/release/build ledger are unchanged from `data-v1.3.0`. This is a **corpus-wide consumer capability**, not a new batch of individually entered game identities.
 
 ## Changes in data-v1.3.0
 
