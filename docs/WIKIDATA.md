@@ -4,6 +4,14 @@ Wikidata is a separate, CC0-licensed source of structured game metadata. Its sou
 
 The [official Wikidata licensing policy](https://www.wikidata.org/wiki/Wikidata:Licensing) places structured item and property data under CC0. No Wikipedia article prose, artwork, game files, cover images, or third-party descriptions are copied.
 
+## Verified first accession
+
+The first completed source capture on **2026-10-09** includes **16 platform mappings, 15,868 original Wikidata item/platform observations, 29,333 literal publication-date statements, 8,971 source-title candidate links, and 8,908 console source observations with a candidate**. Among the candidate links, **126** were explicitly marked ambiguous rather than resolved.
+
+[Snapshot lock and source checksums](../sources/wikidata-accession-v1.json) · [Successful capture, verification and reconciliation](https://github.com/sguzman/ludographium/actions/runs/37968964983)
+
+The resulting separate SQLite database retained all **117,145** Libretro source observations and **167,640** attributed field claims unchanged. It adds independent Wikidata entities, dates, exact query-response evidence and noncanonical title candidates.
+
 ## Bulk accession
 
 The [source register](../sources/wikidata-v1.json) declares 16 Wikidata platform IDs across the existing 75-platform console corpus. It includes original ten-system families and selected additional Atari, Nintendo, Xbox and PlayStation collections.
@@ -54,7 +62,7 @@ python3 tools/reconcile_wikidata.py --verify \
 
 The underlying expanded database is pinned to its published SHA-256. Source query bodies and results have independent digests. CI asserts unchanged original identification and bibliographic record counts, performs SQLite and foreign-key checks, verifies query evidence, tests ambiguous cases using synthetic fixtures, and uploads the resulting snapshot plus complete offline enriched database.
 
-The initial queries cover 16 explicitly mapped platform categories, not all 75. Other platforms require grounded Wikidata platform IDs and should be added in **batches**, with coverage and ambiguous-candidate statistics, never per-game data entry.
+The first successful batch covers 16 explicitly mapped platform categories, not all 75. Other platforms require grounded Wikidata platform IDs and should be added in **batches**, with coverage and ambiguous-candidate statistics, never per-game data entry.
 
 ## Accuracy and source-rights boundaries
 
