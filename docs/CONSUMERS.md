@@ -1,6 +1,6 @@
 # Consumer guide
 
-Ludographium publishes source-indexed metadata for read-only, offline use by emulator frontends, game-library tools, and related software.
+Ludographium publishes source-indexed metadata for read-only, offline use by emulator frontends, game-library tools, and related software. Canonical data are stored as text sources, including [16 Wikidata JSONL collections](../data/wikidata/v1/). SQLite is an optional reproducible local index. Existing versioned SQLite assets remain historical downloads, but [new publications are text-first](DATA-FORMATS.md).
 
 ## Entire corpus in one SQLite database
 
