@@ -45,6 +45,17 @@ class ReleasePreparationTests(unittest.TestCase):
         second, _, _ = prepare_release(self.root, "data-v1.0.0", self.out)
         self.assertEqual(second.read_bytes(), data)
 
+    def test_real_pinned_ledger_counts_appear_in_release_notes(self):
+        project_root = Path(__file__).resolve().parents[1]
+        with tempfile.TemporaryDirectory() as output:
+            archive, checksums, notes = prepare_release(
+                project_root, "data-v1.1.0", Path(output)
+            )
+            content = notes.read_text(encoding="utf-8")
+            self.assertIn("8 works, 10 releases, 12 exact media builds\\n", content)
+            self.assertTrue(archive.exists())
+            self.assertTrue(checksums.exists())
+
     def test_refuses_stale_manifest_and_tampering(self):
         path = self.root / "generated/v1/gb.json"
         path.write_text('{"game":"different"}\n')
