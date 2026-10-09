@@ -34,7 +34,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Provide a v0.1 Rust read-only client and CLI with integrity-checked exact-fingerprint lookup.
 - [x] Build and CI-verify a metadata-only, reproducible runtime archive.
 - [x] Include validated curated identities in the portable integrity manifest and runtime archive.
-- [ ] Publish permanent versioned data releases, independent of short-lived CI artifacts.
+- [x] Implement a tag-gated, fully validated release workflow with checksum-verified, versioned runtime assets.
+- [ ] Publish the first permanent versioned data release, independent of short-lived CI artifacts.
 - [ ] Specify and test platform-specific byte-domain and header normalization rules.
 - [ ] Publish compatibility and migration guidance for future consumer contracts.
 
