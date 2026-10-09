@@ -20,7 +20,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 ## Identity and curation
 
 - [x] Establish evidence-validated UUID identifiers for work, release, and build records.
-- [x] Curate source-grounded work/release/build identities, including independently hashed regional and revision records across four additional platforms.
+- [x] Curate source-grounded work/release/build identities, including independently hashed regional and revision records across Game Boy, Color, Advance, Nintendo DS, Master System and Game Gear.
 - [ ] Continue extending curated identities and independent cross-provider correspondence evidence; initial same-platform edition/revision curation is complete.
 - [x] Provide conservative, provenance-preserving revision candidate discovery without generating canonical relationships.
 - [x] Reject conflicting work/release ownership of a source occurrence during curation validation.
