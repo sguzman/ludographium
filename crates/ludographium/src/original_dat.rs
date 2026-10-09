@@ -130,8 +130,9 @@ fn pairs(line: &str) -> Result<BTreeMap<String, String>, CatalogError> {
                         terminated = true;
                         break;
                     }
-                    b'\\' if pos + 1 < bytes.len()
-                        && (bytes[pos + 1] == b'\\' || bytes[pos + 1] == b'"') =>
+                    b'\\'
+                        if pos + 1 < bytes.len()
+                            && (bytes[pos + 1] == b'\\' || bytes[pos + 1] == b'"') =>
                     {
                         output.push_str(&line[start..pos]);
                         output.push(bytes[pos + 1] as char);
@@ -184,7 +185,10 @@ fn parse_dat(bytes: &[u8]) -> Result<Vec<Game>, CatalogError> {
             if !game.fields.get("name").is_some_and(|name| !name.is_empty())
                 || game.media.is_empty()
             {
-                return Err(invalid(format!("incomplete DAT game at line {}", index + 1)));
+                return Err(invalid(format!(
+                    "incomplete DAT game at line {}",
+                    index + 1
+                )));
             }
             records.push(game);
             in_game = false;
@@ -203,7 +207,8 @@ fn parse_dat(bytes: &[u8]) -> Result<Vec<Game>, CatalogError> {
                     return Err(invalid("DAT ROM entry is empty"));
                 }
                 if let Some(size) = rom.get("size") {
-                    size.parse::<u64>().map_err(|_| invalid("invalid DAT ROM size"))?;
+                    size.parse::<u64>()
+                        .map_err(|_| invalid("invalid DAT ROM size"))?;
                 }
                 for (key, len) in [("crc", 8), ("md5", 32), ("sha1", 40)] {
                     if let Some(hash) = rom.get(key) {
@@ -216,7 +221,10 @@ fn parse_dat(bytes: &[u8]) -> Result<Vec<Game>, CatalogError> {
             } else {
                 let mut field = pairs(line)?;
                 if field.len() != 1 {
-                    return Err(invalid(format!("malformed DAT scalar at line {}", index + 1)));
+                    return Err(invalid(format!(
+                        "malformed DAT scalar at line {}",
+                        index + 1
+                    )));
                 }
                 let (key, value) = field.pop_first().expect("one field");
                 if game.fields.insert(key.clone(), value).is_some() {
@@ -238,7 +246,9 @@ fn safe_entry(item: &PinnedFile) -> bool {
     let platform = &item.platform;
     let path = &item.source_path;
     !platform.is_empty()
-        && platform.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+        && platform
+            .bytes()
+            .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
         && path.starts_with("metadat/no-intro/")
         && path.ends_with(".dat")
         && !path["metadat/no-intro/".len()..].contains('/')
@@ -246,20 +256,29 @@ fn safe_entry(item: &PinnedFile) -> bool {
         && item.git_blob_sha.bytes().all(|b| b.is_ascii_hexdigit())
 }
 
-fn load_one(root: &Path, register: &Register, entry: &PinnedFile, expanded: bool) -> Result<Platform, CatalogError> {
+fn load_one(
+    root: &Path,
+    register: &Register,
+    entry: &PinnedFile,
+    expanded: bool,
+) -> Result<Platform, CatalogError> {
     if !safe_entry(entry) {
         return Err(invalid("unsafe source manifest path, platform or digest"));
     }
     let relative = if expanded {
         root.join("archive/libretro-bulk").join(&entry.source_path)
     } else {
-        root.join("archive/libretro-no-intro").join(format!("{}.dat", entry.platform))
+        root.join("archive/libretro-no-intro")
+            .join(format!("{}.dat", entry.platform))
     };
     let bytes = fs::read(&relative)?;
     if entry.bytes.is_some_and(|expected| expected != bytes.len())
         || blob_sha(&bytes) != entry.git_blob_sha
     {
-        return Err(invalid(format!("DAT source hash/size mismatch: {}", entry.platform)));
+        return Err(invalid(format!(
+            "DAT source hash/size mismatch: {}",
+            entry.platform
+        )));
     }
     Ok(Platform {
         id: entry.platform.clone(),
@@ -273,7 +292,11 @@ fn load_one(root: &Path, register: &Register, entry: &PinnedFile, expanded: bool
     })
 }
 
-fn format_match(platform: &Platform, game: &Game, media: Option<&BTreeMap<String, String>>) -> Value {
+fn format_match(
+    platform: &Platform,
+    game: &Game,
+    media: Option<&BTreeMap<String, String>>,
+) -> Value {
     json!({
         "platform": platform.id,
         "title": game.fields["name"],
@@ -313,7 +336,9 @@ impl OriginalDatCatalog {
             }
         }
         if platforms.is_empty() {
-            return Err(invalid(format!("unknown original DAT source platform: {selection}")));
+            return Err(invalid(format!(
+                "unknown original DAT source platform: {selection}"
+            )));
         }
         Ok(Self { platforms })
     }
@@ -323,14 +348,23 @@ impl OriginalDatCatalog {
     }
 
     pub fn source_record_count(&self) -> usize {
-        self.platforms.iter().map(|platform| platform.games.len()).sum()
+        self.platforms
+            .iter()
+            .map(|platform| platform.games.len())
+            .sum()
     }
 
     /// Direct text-source title search, one result per original source observation.
-    pub fn search_titles(&self, value: &str, limit: usize) -> Result<(usize, Vec<Value>), CatalogError> {
+    pub fn search_titles(
+        &self,
+        value: &str,
+        limit: usize,
+    ) -> Result<(usize, Vec<Value>), CatalogError> {
         let needle = value.trim().to_lowercase();
         if needle.is_empty() || !(1..=200).contains(&limit) {
-            return Err(invalid("title search requires nonempty text and limit 1..=200"));
+            return Err(invalid(
+                "title search requires nonempty text and limit 1..=200",
+            ));
         }
         let mut total = 0;
         let mut matches = Vec::new();
@@ -367,7 +401,10 @@ impl OriginalDatCatalog {
         for platform in &self.platforms {
             for record in &platform.games {
                 for media in &record.media {
-                    if !media.get(kind).is_some_and(|digest| digest.eq_ignore_ascii_case(value)) {
+                    if !media
+                        .get(kind)
+                        .is_some_and(|digest| digest.eq_ignore_ascii_case(value))
+                    {
                         continue;
                     }
                     // Never treat missing source sizes as if they were a verified
@@ -395,7 +432,9 @@ impl OriginalDatCatalog {
                 break;
             }
             digest.update(&buf[..got]);
-            size = size.checked_add(got as u64).ok_or_else(|| invalid("input too large"))?;
+            size = size
+                .checked_add(got as u64)
+                .ok_or_else(|| invalid("input too large"))?;
         }
         self.lookup_sha1(&format!("{:x}", digest.finalize()), Some(size))
     }
@@ -412,7 +451,10 @@ mod tests {
         assert_eq!(parsed[0].fields["developer"], "Example");
         assert_eq!(parsed[0].media[0]["custom"], "X");
         assert_eq!(parsed[0].media[0]["crc"], "DEADBEEF");
-        assert_eq!(pairs(r#"name "Pokémon \"Blue\"""#).unwrap()["name"], "Pokémon \"Blue\"");
+        assert_eq!(
+            pairs(r#"name "Pokémon \"Blue\"""#).unwrap()["name"],
+            "Pokémon \"Blue\""
+        );
     }
     #[test]
     fn malformed_input_is_rejected() {
