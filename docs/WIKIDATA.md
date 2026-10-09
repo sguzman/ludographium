@@ -8,9 +8,9 @@ The [official Wikidata licensing policy](https://www.wikidata.org/wiki/Wikidata:
 
 The first completed source capture on **2026-10-09** includes **16 platform mappings, 15,868 original Wikidata item/platform observations, 29,333 literal publication-date statements, 8,971 source-title candidate links, and 8,908 console source observations with a candidate**. Among the candidate links, **126** were explicitly marked ambiguous rather than resolved.
 
-[Snapshot lock and source checksums](../sources/wikidata-accession-v1.json) · [Successful capture, verification and reconciliation](https://github.com/sguzman/ludographium/actions/runs/37968964983)
+[Snapshot lock and source checksums](../sources/wikidata-accession-v1.json) · [Successful capture, verification and reconciliation](https://github.com/sguzman/ludographium/actions/runs/37968964983) · [Published `data-v1.6.0` release](https://github.com/sguzman/ludographium/releases/tag/data-v1.6.0)
 
-The resulting separate SQLite database retained all **117,145** Libretro source observations and **167,640** attributed field claims unchanged. It adds independent Wikidata entities, dates, exact query-response evidence and noncanonical title candidates.
+The [published Wikidata-enriched SQLite database](https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-data-v1.6.0.sqlite) retained all **117,145** Libretro source observations and **167,640** attributed field claims unchanged. It adds independent Wikidata entities, dates, exact query-response evidence and noncanonical title candidates.
 
 ## Bulk accession
 
