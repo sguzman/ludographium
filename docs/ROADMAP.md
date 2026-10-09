@@ -24,6 +24,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [ ] Continue extending curated identities and independent cross-provider correspondence evidence; initial same-platform edition/revision curation is complete.
 - [x] Provide conservative, provenance-preserving revision candidate discovery without generating canonical relationships.
 - [x] Reject conflicting work/release ownership of a source occurrence during curation validation.
+- [x] Verify the same parent-evidence and ownership invariants in the Rust offline reader.
+- [x] Audit curated media against separately attributed field-DAT claims and prioritize revision leads by field-claim availability without auto-curation.
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
