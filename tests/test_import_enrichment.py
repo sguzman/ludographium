@@ -58,6 +58,28 @@ class EnrichmentTests(unittest.TestCase):
             parse_field_dat(raw.replace(b'  size 12345', b'  serial "Again"'),
                             field="serial")
 
+    def test_inline_serial_only_rom_without_crc(self):
+        raw = b'''game (
+ comment "Sample Disc"
+ rom ( serial "ULAS-42043" )
+)'''
+        with self.assertRaisesRegex(ValueError, "missing crc"):
+            parse_field_dat(raw, field="serial")
+        rows = parse_field_dat(raw, field="serial", allow_missing_crc=True)
+        self.assertEqual(rows[0]["value"], "ULAS-42043")
+        self.assertIsNone(rows[0]["crc32"])
+        self.assertEqual(rows[0]["source_fields"]["rom_serial"], "ULAS-42043")
+
+    def test_inline_crc_plus_serial_retains_both(self):
+        raw = b'''game (
+ comment "Sample Disc"
+ rom ( crc 0123ABCD serial "ULUS-10080" )
+)'''
+        rows = parse_field_dat(raw, field="serial")
+        self.assertEqual(rows[0]["crc32"], "0123ABCD")
+        self.assertEqual(rows[0]["value"], "ULUS-10080")
+        self.assertEqual(rows[0]["source_fields"]["rom_serial"], "ULUS-10080")
+
     def test_numeric_source_fields_preserve_original_atoms(self):
         raw = b'''game (
  comment "Example (USA)"
