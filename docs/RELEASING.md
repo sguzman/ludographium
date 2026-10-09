@@ -31,4 +31,4 @@ The version here illustrates syntax; staging locally does **not** create a GitHu
 
 ## Consumer guarantees
 
-Consumers should pin a specific data tag rather than following a mutable `main` branch or an expiring Actions artifact. Check the companion `.sha256` checksum against the downloaded tarball and retain the exact tag/commit identity in downstream provenance. The extracted `generated/v1/distribution.json` provides SHA-256 hashes for individual metadata files. Source claims and curated identities are not interchangeable; consult the [consumer guide](CONSUMERS.md) for those contracts.
+Consumers should pin a specific data tag rather than following a mutable `main` branch or an expiring Actions artifact. Check the companion `.sha256` checksum against the downloaded tarball and retain the exact tag/commit identity in downstream provenance. The extracted `generated/v1/distribution.json` provides SHA-256 hashes for individual metadata files. Source claims and curated identities are not interchangeable; consult the [consumer guide](CONSUMERS.md) and [compatibility/migration guide](COMPATIBILITY.md) for those contracts.
