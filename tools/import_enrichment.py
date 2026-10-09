@@ -48,6 +48,15 @@ def parse_field_dat(raw, *, field):
                 if crc_match and crc is None:
                     crc = crc_match[1].upper()
                     continue
+                rm_field = SCALAR.fullmatch(line)
+                rm_atom = SCALAR_ATOM.fullmatch(line) if rm_field is None else None
+                if rm_field is not None or rm_atom is not None:
+                    parsed = rm_field or rm_atom
+                    key = "rom_" + parsed[1].lower()
+                    if key in values:
+                        raise ValueError(f"duplicate {key} at source occurrence {ordinal}")
+                    values[key] = unquote(rm_field[2]) if rm_field is not None else rm_atom[2]
+                    continue
                 raise ValueError(f"unsupported multiline ROM field at {ordinal}: {line[:100]}")
             rm = ROM.fullmatch(line)
             if rm:
@@ -75,7 +84,7 @@ def parse_field_dat(raw, *, field):
         observations.append({
             "source_ordinal": ordinal,
             "crc32": crc,
-            "value": values.get(field),
+            "value": values.get(field, values.get("rom_" + field)),
             "comment": values.get("comment"),
             "source_fields": values,
         })
