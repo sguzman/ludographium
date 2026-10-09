@@ -10,9 +10,14 @@ A new release must use a new tag; do not move or reuse a published data tag. His
 
 ## Publishing
 
-The [versioned release workflow](../.github/workflows/release.yml) responds only to a newly pushed `data-vMAJOR.MINOR.PATCH` tag pointing to a commit on `main` history. It reruns Python, Rust, source-provenance, manifest, curated-identity, and documentation checks. Only after all checks pass does it publish a GitHub Release with a versioned runtime archive, its SHA-256 checksum file, and source-revision/rights notes. The publishing job has the only `contents: write` permission.
+The [versioned release workflow](../.github/workflows/release.yml) supports two explicit publication routes:
 
-Maintainers should inspect the current `main` CI results and data/source rights before creating a tag. The workflow is deliberately not automatic on every `main` push. A failed publication should be diagnosed and rerun at the *same verified commit*; it must not be fixed by silently repointing a public tag. The workflow rejects malformed tags and tags outside `main` history. It does not publish prereleases.
+1. **Release request on main.** Change [`.github/data-release.json`](../.github/data-release.json) to contain a new dataset tag (for example `{"schema_version":1,"tag":"data-v1.0.0"}`). Only a change to that exact file on `main` starts the request-based publisher. The requested tag is validated, all metadata and software checks rerun, and the workflow publishes a GitHub Release while creating an unmoved tag at the exact verified commit. A tag or release that already exists cannot be overwritten.
+2. **Existing tag.** Push a new `data-vMAJOR.MINOR.PATCH` tag pointing to a commit on `main` history. The same validation and packaging checks run; publication requires that the tag exists rather than creating one.
+
+Both routes validate Python, Rust, source provenance, manifests, curated identities, and documentation before uploading a versioned runtime archive, SHA-256 checksum file, and source-revision/rights notes. Only the publish job gets `contents: write` permission. The workflow is **not** invoked on ordinary `main` commits: a release request file change or a new data tag is required.
+
+Review licensing and successful `main` CI before initiating a release. If publication fails, investigate and rerun the *same immutable revision* rather than moving an existing tag or replacing release assets. New dataset versions get new tags. Neither route publishes prereleases.
 
 The release assets can also be staged entirely offline from a checkout at that commit:
 
