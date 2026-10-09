@@ -40,6 +40,25 @@ jobs:
         run: python tools/import_enrichment.py --check
       - name: Verify enrichment coverage report
         run: python tools/audit_enrichment.py --check
+      - name: Build and validate entire offline SQLite metadata corpus
+        run: |
+          python tools/build_corpus.py --build --db "$RUNNER_TEMP/ludographium-corpus.sqlite"
+          python tools/build_corpus.py --verify --db "$RUNNER_TEMP/ludographium-corpus.sqlite"
+          python tools/build_corpus.py --title "Mario" --limit 5 --db "$RUNNER_TEMP/ludographium-corpus.sqlite" > "$RUNNER_TEMP/corpus-mario.json"
+          python -c 'import json,sys; v=json.load(open(sys.argv[1])); assert v["match_count"] == 5; assert all("mario" in x["title"].lower() for x in v["matches"])' "$RUNNER_TEMP/corpus-mario.json"
+          cd "$RUNNER_TEMP"
+          sha256sum ludographium-corpus.sqlite > ludographium-corpus.sqlite.sha256
+          sha256sum --check ludographium-corpus.sqlite.sha256
+      - name: Upload complete offline metadata corpus
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-complete-corpus-sqlite
+          path: |
+            ${{ runner.temp }}/ludographium-corpus.sqlite
+            ${{ runner.temp }}/ludographium-corpus.sqlite.sha256
+          if-no-files-found: error
+          retention-days: 14
       - name: Verify provenance-linked reconciliation queue
         run: python tools/triage_enrichment.py --check
       - name: Verify conservative identity-revision candidate review
