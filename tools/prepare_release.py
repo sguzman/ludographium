@@ -1,0 +1,76 @@
+#!/usr/bin/env python3
+"""Stage a reproducible, versioned Ludographium metadata release.
+
+Release tags version a frozen dataset, not the Rust crate or the v1 JSON schema.
+No GitHub credentials or network access are needed to prepare a release.
+"""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import re
+
+from build_distribution import canonical_bytes
+from package_runtime import build_archive
+
+ROOT = Path(__file__).resolve().parents[1]
+TAG = re.compile(r"data-v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\Z")
+
+
+def validate_tag(tag: str) -> None:
+    if not TAG.fullmatch(tag):
+        raise ValueError("data release tag must be data-vMAJOR.MINOR.PATCH with no leading zeroes")
+
+
+def prepare_release(root: Path, tag: str, output: Path) -> tuple[Path, Path, Path]:
+    validate_tag(tag)
+    manifest_path = root / "generated/v1/distribution.json"
+    original = manifest_path.read_bytes()
+    if original != canonical_bytes(root):
+        raise ValueError("distribution manifest is out of date; refuse to release")
+    manifest = json.loads(original)
+    if manifest["schema_version"] != 1:
+        raise ValueError("unsupported distribution schema")
+
+    archive = build_archive(root)
+    digest = hashlib.sha256(archive).hexdigest()
+    name = f"ludographium-runtime-{tag}.tar.gz"
+    output.mkdir(parents=True, exist_ok=True)
+    archive_path = output / name
+    checksum_path = output / f"{name}.sha256"
+    notes_path = output / "RELEASE_NOTES.md"
+    archive_path.write_bytes(archive)
+    checksum_path.write_text(f"{digest}  {name}\n", encoding="utf-8")
+    notes_path.write_text(
+        f"## Ludographium metadata {tag}\n\n"
+        "This is a pinned, offline-readable metadata release. It contains no game ROMs, "
+        "firmware, or game executables. The archive includes its source registers and "
+        "metadata attribution notice.\n\n"
+        f"- Distribution schema: `{manifest['schema_version']}`\n"
+        f"- Upstream collection: `{manifest['source_id']}`\n"
+        f"- Pinned source revision: `{manifest['source_revision']}`\n"
+        f"- Manifest-verified artifacts: {len(manifest['artifacts'])}\n"
+        f"- Archive SHA-256: `{digest}`\n\n"
+        "Verify the downloaded archive and its `.sha256` file together using "
+        f"`sha256sum -c {name}.sha256`. The extracted archive contains "
+        "`generated/v1/distribution.json` for per-file SHA-256 verification.\n\n"
+        "Original Ludographium code is MIT-licensed; upstream metadata retains "
+        "its own source-specific rights and attribution. Consult `METADATA-NOTICE.md` "
+        "inside the archive. The archive checksum verifies bytes but is not a digital signature.\n",
+        encoding="utf-8",
+    )
+    return archive_path, checksum_path, notes_path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--tag", required=True)
+    parser.add_argument("--output", required=True, type=Path)
+    parser.add_argument("--root", type=Path, default=ROOT)
+    args = parser.parse_args()
+    archive, checksum, notes = prepare_release(args.root, args.tag, args.output)
+    print(f"STAGED {archive.name}, {checksum.name}, {notes.name}")
+
+
+if __name__ == "__main__":
+    main()
