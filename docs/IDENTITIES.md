@@ -2,7 +2,7 @@
 
 Ludographium's curated ledger links source observations to stable identities for a game, its platform-specific publication, and an identifiable media build. This is a bibliographic identity system, not a gameplay ontology.
 
-The ledger now includes **8 works, 10 releases, and 12 exact media builds**. The initial four examples are single-observation identities; four newer examples demonstrate narrowly scoped revision and regional correspondences for Super Mario Land, Pokémon Crystal Version, Alex Kidd in Miracle World, and Columns. Each source occurrence and SHA-1 remains individually attributed. Most observations remain uncurated, and grouping is an explicit editorial decision, never an automatic title merge.
+The ledger now includes **11 works, 13 releases, and 19 exact media builds**. The initial four examples are single-observation identities; seven newer examples demonstrate narrowly scoped revision and regional correspondences for Super Mario Land, Pokémon Crystal Version, Alex Kidd in Miracle World, Columns, Link's Awakening, Advance Wars, and Animal Crossing: Wild World. Each source occurrence and SHA-1 remains individually attributed. Most observations remain uncurated, and grouping is an explicit editorial decision, never an automatic title merge.
 
 ## Identity levels
 
