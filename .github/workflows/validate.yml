@@ -173,6 +173,8 @@ jobs:
               assert [x["entry_name"] for x in data["members"]] == ["nested/one.gb", "two.txt"]
               assert all(len(x["sha1"]) == 40 and x["size"] > 0 for x in data["members"])
           PY
+      - name: Verify explicit media conversion through CLI using synthetic fixtures
+        run: python tools/smoke_media_formats.py
       - name: Smoke-test all accessioned platform fingerprints
         run: |
           python - <<'PY'
