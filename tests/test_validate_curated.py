@@ -107,6 +107,24 @@ class CuratedTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "another platform's media"):
             validate_ledger(ledger, {"gb", "gba"}, available)
 
+    def test_cannot_assign_same_source_occurrence_to_two_works(self):
+        ledger = fixture()
+        another = dict(ledger["works"][0])
+        another["id"] = "ldg:w:44444444-4444-4444-8444-444444444444"
+        another["evidence"] = [dict(REF)]
+        ledger["works"].append(another)
+        with self.assertRaisesRegex(ValueError, "competing curated works"):
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
+
+    def test_cannot_assign_same_source_occurrence_to_two_releases(self):
+        ledger = fixture()
+        another = dict(ledger["releases"][0])
+        another["id"] = "ldg:r:55555555-5555-4555-8555-555555555555"
+        another["evidence"] = [dict(REF)]
+        ledger["releases"].append(another)
+        with self.assertRaisesRegex(ValueError, "competing curated releases"):
+            validate_ledger(ledger, {"gb"}, AVAILABLE)
+
     def test_empty_ledger_does_not_fabricate_games(self):
         ledger = {"schema_version": 1, "kind": "curated-identity-ledger",
                   "works": [], "releases": [], "builds": []}
