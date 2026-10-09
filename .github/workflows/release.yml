@@ -12,7 +12,6 @@ on:
 
 permissions:
   contents: read
-  actions: read
 
 concurrency:
   group: ludographium-data-release-${{ github.ref }}
@@ -104,26 +103,38 @@ jobs:
           assert db.execute("SELECT COUNT(*) FROM claims WHERE crc32 IS NULL AND resolution_status='missing_crc'").fetchone()[0] > 0
           print("PASS: expanded accession exactly matches validated 75-system coverage")
           PY
-      - name: Retrieve immutable independent Wikidata snapshot and indexed corpus
-        uses: actions/download-artifact@v4
-        with:
-          name: ludographium-wikidata-independent-source
-          run-id: 37968964983
-          github-token: ${{ github.token }}
-          path: ${{ runner.temp }}/wikidata-pinned
-      - name: Audit the exact pinned independent-provider snapshot
+      - name: Rebuild independent Wikidata layer from permanent pinned source snapshot
+        shell: bash
         run: |
           set -euo pipefail
-          printf '%s  %s\n' \
-            db9d4c66041de776438b4316b34e1c648671889aea944efc6268446252f68734 \
-            "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json" | sha256sum --check -
-          printf '%s  %s\n' \
-            cecf94a6604a78a7794cd6ed9c66a32fbb18cae244397ada58af1ae0e33afd45 \
-            "$RUNNER_TEMP/wikidata-pinned/ludographium-wikidata.sqlite" | sha256sum --check -
-          python tools/wikidata_source.py --verify --snapshot "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json"
+          mkdir -p "$RUNNER_TEMP/wikidata-pinned"
+          base="https://github.com/sguzman/ludographium/releases/download/data-v1.6.0"
+          curl -fL --retry 4 --retry-delay 4 \
+            -o "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json" \
+            "$base/ludographium-wikidata-source-data-v1.6.0.json"
+          python - "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json" <<'PY'
+          import hashlib, json, pathlib, sys
+          lock = json.loads(pathlib.Path("sources/wikidata-accession-v1.json").read_text())
+          actual = hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes()).hexdigest()
+          assert actual == lock["source_snapshot_sha256"], (actual, lock["source_snapshot_sha256"])
+          print("PASS: permanent pinned Wikidata source snapshot digest")
+          PY
+          python tools/wikidata_source.py --verify \
+            --snapshot "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json"
+          python tools/reconcile_wikidata.py --build \
+            --from-db "$RUNNER_TEMP/expanded-complete.sqlite" \
+            --db "$RUNNER_TEMP/wikidata-pinned/ludographium-wikidata.sqlite" \
+            --snapshot "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json"
           python tools/reconcile_wikidata.py --verify \
             --db "$RUNNER_TEMP/wikidata-pinned/ludographium-wikidata.sqlite" \
             --snapshot "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json"
+          python - "$RUNNER_TEMP/wikidata-pinned/ludographium-wikidata.sqlite" <<'PY'
+          import hashlib, json, pathlib, sys
+          lock = json.loads(pathlib.Path("sources/wikidata-accession-v1.json").read_text())
+          actual = hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes()).hexdigest()
+          assert actual == lock["reconciled_sqlite_sha256"], (actual, lock["reconciled_sqlite_sha256"])
+          print("PASS: Wikidata offline dataset rebuilt byte-for-byte from released source")
+          PY
       - name: Stage and verify portable release
         shell: bash
         env:
