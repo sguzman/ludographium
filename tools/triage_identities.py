@@ -71,6 +71,14 @@ def revisions_for_platform(bundle):
             continue
         if not any(x["revision"] is not None for x in items):
             continue
+        if len({x["revision"] for x in items}) != len(items):
+            # Some sources store multiple byte domains (for example,
+            # headered and headerless images) under the *same* title.
+            # Such data cannot be treated as a simple revision pair.
+            continue
+        if len({x["size"] for x in items}) != 1:
+            # Different-length variants require format-specific investigation.
+            continue
         if len({x["sha1"] for x in items}) != len(items):
             # Equal hashes or duplicate source observations require separate
             # investigation, never implicit revision equivalence.
