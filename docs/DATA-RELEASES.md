@@ -6,6 +6,17 @@ Ludographium data tags identify immutable metadata snapshots independently of th
 | --- | --- | ---: | ---: | ---: | --- |
 | [`data-v1.0.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.0.0) | 2026-10-09 | 4 | 4 | 4 | First durable offline dataset, ten platforms, source claims and provenance, original single-observation identity examples |
 | [`data-v1.1.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.1.0) | 2026-10-09 | 8 | 10 | 12 | Four additional reviewed works with distinct same-platform revisions and regional releases |
+| [`data-v1.2.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.2.0) | 2026-10-09 | 11 | 13 | 19 | Three additional revision families, including the first curated Nintendo DS title, and conservative review tooling |
+
+## Changes in data-v1.2.0
+
+- Curated **The Legend of Zelda: Link's Awakening** for Game Boy, preserving the original, Rev 1, and Rev 2 as three distinct media builds under one narrowly scoped USA/Europe release label.
+- Curated **Advance Wars** for Game Boy Advance, preserving the original USA and Rev 1 media images separately.
+- Curated **Animal Crossing: Wild World** for Nintendo DS, preserving the original USA and Rev 1 media images separately. This introduces the first curated Nintendo DS work.
+- Added a deterministic [revision candidate review workflow](IDENTITY-REVIEW.md) that scans all ten platform source catalogs and flags only exact edition-name pairs, with single observation per revision qualifier, equal byte lengths, distinct SHA-1 values, and complete upstream evidence locators. Review candidates are not automatically accepted work/release/build identities.
+- Strengthened curation validation to reject conflicting ownership of source occurrences across curated works or releases.
+
+The original Libretro revision and the 41,491 base source observations are unchanged. The newly curated identities are additional attributed editorial records, not a retroactive claim of game verification. The runtime archive still contains no game ROMs or firmware.
 
 ## Changes in data-v1.1.0
 
