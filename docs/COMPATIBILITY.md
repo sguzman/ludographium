@@ -29,7 +29,15 @@ tar -xzf "ludographium-runtime-$tag.tar.gz" -C "$HOME/.local/share/ludographium/
 
 The checksum must come from a release reference the consumer already trusts; a matching checksum downloaded alongside a compromised archive is not an independent authenticity guarantee. Checksums are **not signed attestations**. Retain the release tag, Git commit, source revision, and archive SHA-256 in the consuming application's lockfile or audit log. Never select an unversioned release URL for a reproducible pipeline.
 
-After extraction, the directory is a valid Ludographium runtime root for the Rust reader (using `--root`). It contains `generated/v1/distribution.json`, which declares sizes and SHA-256 digests for each included artifact, plus `METADATA-NOTICE.md` and the source registers. The archive contains no ROMs, firmware, binaries, or original source DAT archives.
+After extraction, the directory is a valid Ludographium runtime root for the Rust reader (using `--root`). The Rust CLI can audit every declared file in the extracted distribution without the original DATs:
+
+```sh
+cargo run --locked -p ludographium -- --verify-runtime --root "$HOME/.local/share/ludographium/$tag"
+```
+
+This command verifies the complete artifact inventory, SHA-256 digests, declared sizes, platform references, and source revision; it rejects missing, modified, or symlinked artifacts. It validates the runtime **against the included manifest**, not the authenticity of that manifest. Always verify the release archive checksum from a trusted reference first.
+
+The runtime contains `generated/v1/distribution.json`, which declares sizes and SHA-256 digests for each included artifact, plus `METADATA-NOTICE.md` and the source registers. The archive contains no ROMs, firmware, binaries, or original source DAT archives.
 
 ## Consumer rules for the v1 contract
 
