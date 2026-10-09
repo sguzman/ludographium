@@ -2,6 +2,12 @@
 
 Ludographium publishes source-indexed metadata for read-only, offline use by emulator frontends, game-library tools, and related software.
 
+## Entire corpus in one SQLite database
+
+The complete [offline SQLite corpus](CORPUS.md) materializes **every** registered original source observation, every exact media fingerprint and every attributed bibliographic claim across ten systems. Query it with a regular SQLite client or `tools/build_corpus.py --title/--sha1`. Source records with no attached field claims remain included; unresolved claims remain in `claims` rather than disappearing or being silently assigned. The SQLite file is built automatically in CI and accompanied by a SHA-256 checksum. A versioned release asset is part of the publication workflow.
+
+The separately curated work/release/build dataset is optional editorial interpretation, not the catalog's completeness limit.
+
 ## Available artifacts
 
 The [v1 catalog manifest](../generated/v1/catalog.json) lists the available platform bundles and their input and output Git blob SHAs:
