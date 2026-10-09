@@ -387,7 +387,8 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "--media-format {} requires --platform {} and --file",
                 format.name(),
                 format.platform()
-            )).into());
+            ))
+            .into());
         }
     }
     let curated = if show_curated {
@@ -400,7 +401,8 @@ fn run() -> Result<(), Box<dyn Error>> {
         let fingerprint = fingerprint_normalized(BufReader::new(File::open(input_path)?), format)?;
         let output = if enriched {
             let catalog = EnrichedPlatformCatalog::open(&root, &platform)?;
-            let matches: Vec<Value> = catalog.lookup_sha1(&fingerprint.sha1)?
+            let matches: Vec<Value> = catalog
+                .lookup_sha1(&fingerprint.sha1)?
                 .into_iter()
                 .filter(|hit| hit.base.media.size == fingerprint.size)
                 .map(|hit| with_curated(format_enriched_match(&hit), &hit.base, curated.as_ref()))
@@ -419,7 +421,8 @@ fn run() -> Result<(), Box<dyn Error>> {
             })
         } else {
             let catalog = PlatformCatalog::open(&root, &platform)?;
-            let matches: Vec<Value> = catalog.lookup_sha1(&fingerprint.sha1)?
+            let matches: Vec<Value> = catalog
+                .lookup_sha1(&fingerprint.sha1)?
                 .into_iter()
                 .filter(|hit| hit.media.size == fingerprint.size)
                 .map(|hit| with_curated(format_match(&hit), &hit, curated.as_ref()))
