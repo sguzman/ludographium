@@ -1,0 +1,83 @@
+name: Reproduce pinned independent metadata
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - sources/wikidata-v1.json
+      - sources/wikidata-accession-v1.json
+      - tools/wikidata_source.py
+      - tools/reconcile_wikidata.py
+      - .github/workflows/release.yml
+      - .github/workflows/reproduce-wikidata.yml
+
+permissions:
+  contents: read
+
+jobs:
+  reproducible-independent-corpus:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Retrieve immutable original 75-platform corpus and raw Wikidata source snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://github.com/sguzman/ludographium/releases/download/data-v1.6.0"
+          curl -fL --retry 4 --retry-delay 4 \
+            -o "$RUNNER_TEMP/expanded-base.sqlite" "$base/ludographium-expanded-data-v1.6.0.sqlite"
+          curl -fL --retry 4 --retry-delay 4 \
+            -o "$RUNNER_TEMP/wikidata-snapshot.json" "$base/ludographium-wikidata-source-data-v1.6.0.json"
+          python - "$RUNNER_TEMP/expanded-base.sqlite" "$RUNNER_TEMP/wikidata-snapshot.json" <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          import sys
+          lock = json.loads(Path("sources/wikidata-accession-v1.json").read_bytes())
+          for name,expected in zip(sys.argv[1:], (
+              lock["base_sqlite_sha256"], lock["source_snapshot_sha256"]
+          )):
+              actual = hashlib.sha256(Path(name).read_bytes()).hexdigest()
+              if actual != expected:
+                  raise SystemExit(f"Source SHA-256 mismatch: {name}")
+              print("PASS: immutable source digest", Path(name).name, actual)
+          PY
+      - name: Reconstruct complete independent provider layer without any live source queries
+        run: |
+          set -euo pipefail
+          python tools/wikidata_source.py --verify --snapshot "$RUNNER_TEMP/wikidata-snapshot.json"
+          python tools/reconcile_wikidata.py --build \
+            --from-db "$RUNNER_TEMP/expanded-base.sqlite" \
+            --snapshot "$RUNNER_TEMP/wikidata-snapshot.json" \
+            --db "$RUNNER_TEMP/recreated-wikidata.sqlite"
+          python tools/reconcile_wikidata.py --verify \
+            --snapshot "$RUNNER_TEMP/wikidata-snapshot.json" \
+            --db "$RUNNER_TEMP/recreated-wikidata.sqlite"
+          python - "$RUNNER_TEMP/recreated-wikidata.sqlite" <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          import sqlite3
+          import sys
+          lock = json.loads(Path("sources/wikidata-accession-v1.json").read_bytes())
+          actual = hashlib.sha256(Path(sys.argv[1]).read_bytes()).hexdigest()
+          if actual != lock["reconciled_sqlite_sha256"]:
+              raise SystemExit(f"Reproduction SHA-256 mismatch: {actual}")
+          db = sqlite3.connect(sys.argv[1])
+          values = [
+              db.execute(f"SELECT count(*) FROM {table}").fetchone()[0]
+              for table in ("games", "claims", "wikidata_items",
+                            "wikidata_dates", "wikidata_link_candidates")
+          ]
+          assert values == [117145, 167640, 15868, 29333, 8971], values
+          assert db.execute(
+              "SELECT count(*) FROM wikidata_link_candidates "
+              "WHERE status='ambiguous_wikidata_title'"
+          ).fetchone()[0] == 126
+          print("PASS: exact independent-source SQLite reproduction", actual)
+          PY
