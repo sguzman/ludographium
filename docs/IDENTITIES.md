@@ -2,7 +2,7 @@
 
 Ludographium's curated ledger links source observations to stable identities for a game, its platform-specific publication, and an identifiable media build. This is a bibliographic identity system, not a gameplay ontology.
 
-The ledger currently includes four deliberately selected source-grounded identities, each with one platform release and an exact media build. These initial records demonstrate the curation contract; they are **not** an automatic grouping of similar regional titles. Most source observations remain uncurated.
+The ledger now includes **8 works, 10 releases, and 12 exact media builds**. The initial four examples are single-observation identities; four newer examples demonstrate narrowly scoped revision and regional correspondences for Super Mario Land, Pokémon Crystal Version, Alex Kidd in Miracle World, and Columns. Each source occurrence and SHA-1 remains individually attributed. Most observations remain uncurated, and grouping is an explicit editorial decision, never an automatic title merge.
 
 ## Identity levels
 
@@ -34,7 +34,7 @@ A cited observation supports the fact that a source made a claim. Evidence alone
 
 The [reconciliation queue](../reports/reconciliation-queue-v1.json) groups unresolved bibliographic source claims, with upstream source-occurrence locators and possible base-record candidates. The [review tool](../tools/triage_enrichment.py) supports platform, resolution-status, and CRC32 filters.
 
-A shared CRC32 or similar title is only **a lead for investigation**. It is not enough by itself to create an accepted release/build link. The curated seed deliberately establishes only one documented regional media representation per work. Further releases require independent correspondence review.
+A shared CRC32 or similar title is only **a lead for investigation**. It is not enough by itself to create an accepted release/build link. The original seed used one documented media representation per work. The subsequent curation batch links records with the same named game and explicit source revision qualifiers on the same platform. For Super Mario Land and Columns, the revision labels share a bounded release while the build identities remain distinct. Pokémon Crystal Version and Alex Kidd in Miracle World retain separate release identities for differing territory claims. Future correspondences require explicit evidence review, especially across platforms, publishers, or unrelated providers.
 
 ## Curation and validation
 
@@ -45,6 +45,6 @@ python3 tools/validate_curated.py --mint-id release
 python3 tools/validate_curated.py --mint-id build
 ```
 
-The validator checks UUID formatting, uniqueness, release-to-work and build-to-release references, registered platforms, required rationales, same-platform evidence, exact source citations, and build SHA-1/byte-size equality against the cited source records. It does **not** automate identity reconciliation or test an emulator. A source conflict may remain unmerged indefinitely.
+The validator checks UUID formatting, uniqueness, release-to-work and build-to-release references, registered platforms, required rationales, work-to-release-to-build evidence subset relationships, exact source citations, and build SHA-1/byte-size equality against the cited source records. It does **not** automate identity reconciliation or test an emulator. A source conflict may remain unmerged indefinitely.
 
 The editable ledger is [`curated/v1/identities.json`](../curated/v1/identities.json). Its validated, deterministic consumer projection lives in [`generated/curated-v1/identities.json`](../generated/curated-v1/identities.json), is included in the SHA-256 distribution manifest and portable runtime, and can be regenerated with `python3 tools/build_curated.py --write`. The source ledger remains the editorial authority.
