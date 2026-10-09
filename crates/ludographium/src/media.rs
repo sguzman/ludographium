@@ -76,9 +76,23 @@ pub fn fingerprint_normalized<R: Read + Seek>(
 ) -> Result<NormalizedFingerprint, CatalogError> {
     let file_len = input.seek(SeekFrom::End(0))?;
     input.seek(SeekFrom::Start(0))?;
+    fingerprint_normalized_stream(input, file_len, format)
+}
 
-    let (start, size) = match format {
+/// Convert a non-seekable input (including a decoded ZIP entry) without
+/// extracting to disk. The file_len parameter is the declared decoded byte
+/// length, not the compressed ZIP size. Enforce exact consumption.
+pub fn fingerprint_normalized_stream<R: Read>(
+    mut input: R,
+    file_len: u64,
+    format: MediaFormat,
+) -> Result<NormalizedFingerprint, CatalogError> {
+    let mut digest = Sha1::new();
+    let size = match format {
         MediaFormat::NesInes => {
+            if file_len < 16 {
+                return Err(invalid("iNES header is truncated"));
+            }
             let mut header = [0u8; 16];
             input.read_exact(&mut header)?;
             if &header[..4] != b"NES\x1a" {
@@ -97,15 +111,13 @@ pub fn fingerprint_normalized<R: Read + Seek>(
             if header[4] == 0 {
                 return Err(invalid("iNES header has no PRG ROM"));
             }
-            // Strict legacy iNES 1.0. Extra material is rejected instead of
-            // accidentally hashing a truncated or padded media representation.
             let prg = u64::from(header[4]) * 16_384;
             let chr = u64::from(header[5]) * 8_192;
             let expected = 16 + prg + chr;
             if file_len != expected {
                 return Err(invalid("iNES PRG+CHR sizes do not match the file length"));
             }
-            (16, prg + chr)
+            prg + chr
         }
         MediaFormat::SnesCopier512 => {
             if file_len <= 512 || (file_len - 512) % 32_768 != 0 {
@@ -113,7 +125,9 @@ pub fn fingerprint_normalized<R: Read + Seek>(
                     "expected a 512-byte copier prefix and whole 32-KiB ROM banks",
                 ));
             }
-            (512, file_len - 512)
+            let mut header = [0u8; 512];
+            input.read_exact(&mut header)?;
+            file_len - 512
         }
         MediaFormat::N64V64 | MediaFormat::N64N64 => {
             if file_len < 4 || file_len % 4 != 0 {
@@ -131,14 +145,17 @@ pub fn fingerprint_normalized<R: Read + Seek>(
                     "Nintendo 64 byte-order signature does not match selected format",
                 ));
             }
-            (0, file_len)
+            digest.update([0x80, 0x37, 0x12, 0x40]);
+            file_len
         }
     };
 
-    input.seek(SeekFrom::Start(start))?;
-    let mut hasher = Sha1::new();
+    let mut remaining = if matches!(format, MediaFormat::N64V64 | MediaFormat::N64N64) {
+        size - 4
+    } else {
+        size
+    };
     let mut buffer = [0u8; 65_536];
-    let mut remaining = size;
     while remaining > 0 {
         let length = remaining.min(buffer.len() as u64) as usize;
         input.read_exact(&mut buffer[..length])?;
@@ -156,11 +173,18 @@ pub fn fingerprint_normalized<R: Read + Seek>(
             }
             MediaFormat::NesInes | MediaFormat::SnesCopier512 => {}
         }
-        hasher.update(bytes);
+        digest.update(bytes);
         remaining -= length as u64;
     }
+
+    // Reject streams longer than their declared size. This matters for ZIP
+    // entries with inconsistent metadata or custom Read implementations.
+    let mut extra = [0u8; 1];
+    if input.read(&mut extra)? != 0 {
+        return Err(invalid("decoded input exceeds its declared size"));
+    }
     Ok(NormalizedFingerprint {
-        sha1: format!("{:X}", hasher.finalize()),
+        sha1: format!("{:X}", digest.finalize()),
         size,
         media_format: format.name(),
     })
