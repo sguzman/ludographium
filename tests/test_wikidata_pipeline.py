@@ -120,6 +120,17 @@ class WikidataTests(unittest.TestCase):
         with open_readonly(self.output) as db:
             self.assertEqual(db.execute("SELECT date_datatype FROM wikidata_dates").fetchone()[0], DT)
 
+    def test_unknown_wikidata_date_is_retained_not_invented(self):
+        rows = bindings()
+        rows[0]["date"] = {"type": "bnode", "value": "anonymous-unknown-date"}
+        snap = self.acquire(rows)
+        self.assertEqual(validate_snapshot(register(self.root), snap)["dated_rows"], 0)
+        result = build(self.root, self.extended, self.snapshot_path, self.output)
+        self.assertEqual(result["wikidata_publication_date_claims"], 0)
+        with open_readonly(self.output) as db:
+            raw = db.execute("SELECT raw_response FROM wikidata_queries").fetchone()[0]
+            self.assertIn("anonymous-unknown-date", raw)
+
     def test_no_guessy_title_normalization(self):
         self.assertEqual(title_key("Brand New Console Game (USA) (Rev 1)"),
                          "brand new console game")
