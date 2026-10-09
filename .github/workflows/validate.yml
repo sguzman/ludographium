@@ -175,6 +175,8 @@ jobs:
           PY
       - name: Verify explicit media conversion through CLI using synthetic fixtures
         run: python tools/smoke_media_formats.py
+      - name: Verify multi-variant curated source identities through Rust CLI
+        run: python tools/smoke_curated_revisions.py
       - name: Verify extracted runtime integrity using synthetic tampering
         run: python tools/smoke_runtime.py
       - name: Smoke-test all accessioned platform fingerprints
