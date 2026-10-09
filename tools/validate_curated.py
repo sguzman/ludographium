@@ -110,6 +110,21 @@ def validate_ledger(ledger, platform_ids, available):
             if any(key not in available for key in keys):
                 raise ValueError(f"{identity} references an unknown source occurrence")
         counts[section] = len(rows)
+    # A single source occurrence cannot prove two competing *curated*
+    # work or publication identities. These owners must be explicit and
+    # disjoint; unresolved ambiguity stays in the review queue instead.
+    for section in ("works", "releases"):
+        owners = {}
+        for item in ledger[section]:
+            for ref in item["evidence"]:
+                key = evidence_key(ref)
+                previous = owners.setdefault(key, item["id"])
+                if previous != item["id"]:
+                    raise ValueError(
+                        f"source occurrence belongs to competing curated {section}: "
+                        f"{previous} and {item['id']}"
+                    )
+
     for item in ledger["releases"]:
         work = indexed["works"].get(item["work_id"])
         if work is None:
