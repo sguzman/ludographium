@@ -40,6 +40,24 @@ class EnrichmentTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unterminated ROM"):
             parse_field_dat(raw.replace(b"\n )\n)", b"\n)"), field="developer")
 
+    def test_rom_level_serial_preserved_and_resolved(self):
+        raw = b'''game (
+ comment "Example (USA)"
+ rom (
+  crc ABCD1234
+  serial "ULUS-10080"
+  size 12345
+ )
+)'''
+        rows = parse_field_dat(raw, field="serial")
+        self.assertEqual(rows[0]["value"], "ULUS-10080")
+        self.assertEqual(rows[0]["source_fields"]["rom_serial"], "ULUS-10080")
+        self.assertEqual(rows[0]["source_fields"]["rom_size"], "12345")
+        self.assertEqual(rows[0]["crc32"], "ABCD1234")
+        with self.assertRaisesRegex(ValueError, "duplicate rom_serial"):
+            parse_field_dat(raw.replace(b'  size 12345', b'  serial "Again"'),
+                            field="serial")
+
     def test_numeric_source_fields_preserve_original_atoms(self):
         raw = b'''game (
  comment "Example (USA)"
