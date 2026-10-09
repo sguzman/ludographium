@@ -68,7 +68,7 @@ python3 tools/enrich_expanded_corpus.py --db /tmp/ludographium-expanded.sqlite -
 
 The source IDs in the expanded SQLite are deterministic, lowercased alphanumeric forms of the upstream collection names, not claims of canonical hardware taxonomies. Original source names and revision evidence remain in the source register and the source paths.
 
-The original ten-system JSON runtime is **not rewritten** by this expansion. The published expanded SQLite companion is a separate versioned dataset asset with a SHA-256 checksum.
+The original ten-system JSON runtime is **not rewritten** by this expansion. The [published `data-v1.5.0` expanded SQLite companion](https://github.com/sguzman/ludographium/releases/download/data-v1.5.0/ludographium-expanded-data-v1.5.0.sqlite) is a separate durable dataset asset, with its [SHA-256 checksum](https://github.com/sguzman/ludographium/releases/download/data-v1.5.0/ludographium-expanded-data-v1.5.0.sqlite.sha256).
 
 ## What remains
 
