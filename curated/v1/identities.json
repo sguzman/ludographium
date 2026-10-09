@@ -211,6 +211,97 @@
           "source_ordinal": 286
         }
       ]
+    },
+    {
+      "id": "ldg:w:bdc7aa80-cc41-4879-91d9-0a9787a71d63",
+      "preferred_title": "Super Mario Advance 4",
+      "rationale": "The pinned gba source identifies Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) and 2 explicit revision-labelled media observations. The same platform and edition string, apart from source revision suffixes, support a narrowly bounded editorial work correspondence. Matching field-DAT claims provide additional attributed context but do not independently establish publication history; other editions, ports and adaptations remain outside this work grouping.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3118
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3119
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3120
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:6ea9ca0f-6df7-4eb5-9490-7094e18f8a73",
+      "preferred_title": "Donkey Kong Country 2: Diddy's Kong Quest",
+      "rationale": "The pinned snes source identifies Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) and 1 explicit revision-labelled media observation. The same platform and edition string, apart from source revision suffixes, support a narrowly bounded editorial work correspondence. Matching field-DAT claims provide additional attributed context but do not independently establish publication history; other editions, ports and adaptations remain outside this work grouping.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 707
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 708
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:19182227-8eea-4db5-9a34-c339c8bd143f",
+      "preferred_title": "Banjo-Kazooie",
+      "rationale": "The pinned n64 source identifies Banjo-Kazooie (USA) and 1 explicit revision-labelled media observation. The same platform and edition string, apart from source revision suffixes, support a narrowly bounded editorial work correspondence. Matching field-DAT claims provide additional attributed context but do not independently establish publication history; other editions, ports and adaptations remain outside this work grouping.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 79
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 80
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:b1955ddf-5b02-4223-93fc-0383e4f1920e",
+      "preferred_title": "Golden Axe",
+      "rationale": "The pinned genesis source identifies Golden Axe (World) and 1 explicit revision-labelled media observation. The same platform and edition string, apart from source revision suffixes, support a narrowly bounded editorial work correspondence. Matching field-DAT claims provide additional attributed context but do not independently establish publication history; other editions, ports and adaptations remain outside this work grouping.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 1099
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 1101
+        }
+      ]
     }
   ],
   "releases": [
@@ -461,6 +552,105 @@
           "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
           "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
           "source_ordinal": 286
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:7883aade-dd1c-4134-9e98-70d6f190bdd2",
+      "work_id": "ldg:w:bdc7aa80-cc41-4879-91d9-0a9787a71d63",
+      "platform": "gba",
+      "release_label": "Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan)",
+      "rationale": "The original source lists the same Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) edition label for an unmarked media image and explicitly labelled revisions. All cited variants remain separate exact SHA-1 and byte-length builds. Territory and revision qualifiers are source observations, not independently verified release chronology.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3118
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3119
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3120
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:14210073-f7a9-426e-860d-8358a0a06da0",
+      "work_id": "ldg:w:6ea9ca0f-6df7-4eb5-9490-7094e18f8a73",
+      "platform": "snes",
+      "release_label": "Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr)",
+      "rationale": "The original source lists the same Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) edition label for an unmarked media image and explicitly labelled revision. All cited variants remain separate exact SHA-1 and byte-length builds. Territory and revision qualifiers are source observations, not independently verified release chronology.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 707
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 708
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:5df99cb9-e16c-4d14-9891-9f04ac2e25b2",
+      "work_id": "ldg:w:19182227-8eea-4db5-9a34-c339c8bd143f",
+      "platform": "n64",
+      "release_label": "Banjo-Kazooie (USA)",
+      "rationale": "The original source lists the same Banjo-Kazooie (USA) edition label for an unmarked media image and explicitly labelled revision. All cited variants remain separate exact SHA-1 and byte-length builds. Territory and revision qualifiers are source observations, not independently verified release chronology.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 79
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 80
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:42d109b7-47f6-4576-b9e1-88a938dd6423",
+      "work_id": "ldg:w:b1955ddf-5b02-4223-93fc-0383e4f1920e",
+      "platform": "genesis",
+      "release_label": "Golden Axe (World)",
+      "rationale": "The original source lists the same Golden Axe (World) edition label for an unmarked media image and explicitly labelled revision. All cited variants remain separate exact SHA-1 and byte-length builds. Territory and revision qualifiers are source observations, not independently verified release chronology.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 1099
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 1101
         }
       ]
     }
@@ -824,6 +1014,177 @@
           "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
           "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
           "source_ordinal": 286
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:1fb08be0-8dea-4e70-906d-b22c66e8719c",
+      "release_id": "ldg:r:7883aade-dd1c-4134-9e98-70d6f190bdd2",
+      "build_label": "Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) - recorded media image",
+      "rationale": "The pinned gba original source occurrence 3118 explicitly records the Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) media image with SHA-1 19F7928BC4FFD733D71884DAE9AD9B7F4007D38D and 4194304 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "19F7928BC4FFD733D71884DAE9AD9B7F4007D38D",
+        "size": 4194304
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3118
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:2e38c378-d2f0-48e8-950b-f3194bc7c10d",
+      "release_id": "ldg:r:7883aade-dd1c-4134-9e98-70d6f190bdd2",
+      "build_label": "Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) (Rev 1) - recorded media image",
+      "rationale": "The pinned gba original source occurrence 3119 explicitly records the Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) (Rev 1) media image with SHA-1 FB38A1284013AB4E2480A1AADCEC9400D3A63A1D and 4194304 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "FB38A1284013AB4E2480A1AADCEC9400D3A63A1D",
+        "size": 4194304
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3119
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:84baea19-23f6-4b12-bd19-c7e58e8605c2",
+      "release_id": "ldg:r:7883aade-dd1c-4134-9e98-70d6f190bdd2",
+      "build_label": "Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) (Rev 2) - recorded media image",
+      "rationale": "The pinned gba original source occurrence 3120 explicitly records the Super Mario Advance 4 - Super Mario 3 + Mario Brothers (Japan) (Rev 2) media image with SHA-1 B3349AD79D20F1AE77D3E120F60D60EDDDBBC2D2 and 4194304 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "B3349AD79D20F1AE77D3E120F60D60EDDDBBC2D2",
+        "size": 4194304
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 3120
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:53845d06-cbcc-4447-b3c8-220997563bd4",
+      "release_id": "ldg:r:14210073-f7a9-426e-860d-8358a0a06da0",
+      "build_label": "Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) - recorded media image",
+      "rationale": "The pinned snes original source occurrence 707 explicitly records the Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) media image with SHA-1 3EC2035962918B5523D8B4745406F46F2A739B8D and 4194304 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "3EC2035962918B5523D8B4745406F46F2A739B8D",
+        "size": 4194304
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 707
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:8704935d-4479-479d-a96e-82147c54b1c9",
+      "release_id": "ldg:r:14210073-f7a9-426e-860d-8358a0a06da0",
+      "build_label": "Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) (Rev 1) - recorded media image",
+      "rationale": "The pinned snes original source occurrence 708 explicitly records the Donkey Kong Country 2 - Diddy's Kong Quest (USA) (En,Fr) (Rev 1) media image with SHA-1 69D0F91BFD05837B44023E33A6699AA28FCA19CB and 4194304 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "69D0F91BFD05837B44023E33A6699AA28FCA19CB",
+        "size": 4194304
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Super Nintendo Entertainment System.dat",
+          "source_blob_sha": "e5fd6f704182d0dc6deeb67d6d27059f03fce43d",
+          "source_ordinal": 708
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:8937584f-aa96-4af8-bc22-9b7bcba88661",
+      "release_id": "ldg:r:5df99cb9-e16c-4d14-9891-9f04ac2e25b2",
+      "build_label": "Banjo-Kazooie (USA) - recorded media image",
+      "rationale": "The pinned n64 original source occurrence 79 explicitly records the Banjo-Kazooie (USA) media image with SHA-1 1FE1632098865F639E22C11B9A81EE8F29C75D7A and 16777216 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "1FE1632098865F639E22C11B9A81EE8F29C75D7A",
+        "size": 16777216
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 79
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:ec82b210-4474-4ecf-9a8a-1c77606f1fa6",
+      "release_id": "ldg:r:5df99cb9-e16c-4d14-9891-9f04ac2e25b2",
+      "build_label": "Banjo-Kazooie (USA) (Rev 1) - recorded media image",
+      "rationale": "The pinned n64 original source occurrence 80 explicitly records the Banjo-Kazooie (USA) (Rev 1) media image with SHA-1 DED6EE166E740AD1BC810FD678A84B48E245AB80 and 16777216 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "DED6EE166E740AD1BC810FD678A84B48E245AB80",
+        "size": 16777216
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
+          "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
+          "source_ordinal": 80
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:d3e15918-43b8-4810-b502-b09012842668",
+      "release_id": "ldg:r:42d109b7-47f6-4576-b9e1-88a938dd6423",
+      "build_label": "Golden Axe (World) - recorded media image",
+      "rationale": "The pinned genesis original source occurrence 1099 explicitly records the Golden Axe (World) media image with SHA-1 564E51F6B7FE5281F281D5FCB66767AB83ECF7B9 and 524288 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "564E51F6B7FE5281F281D5FCB66767AB83ECF7B9",
+        "size": 524288
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 1099
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:823446a3-d43a-4b64-8648-ff9c892c398a",
+      "release_id": "ldg:r:42d109b7-47f6-4576-b9e1-88a938dd6423",
+      "build_label": "Golden Axe (World) (Rev A) - recorded media image",
+      "rationale": "The pinned genesis original source occurrence 1101 explicitly records the Golden Axe (World) (Rev A) media image with SHA-1 2CE17105CA916FBBE3AC9AE3A2086E66B07996DD and 524288 bytes. This exact byte representation is distinct from every other cited revision; no normalization, interchangeability or independent verification is inferred.",
+      "media": {
+        "sha1": "2CE17105CA916FBBE3AC9AE3A2086E66B07996DD",
+        "size": 524288
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Mega Drive - Genesis.dat",
+          "source_blob_sha": "8fe228375e1b064f5f09c5edf9e4cb1ad4e85af5",
+          "source_ordinal": 1101
         }
       ]
     }
