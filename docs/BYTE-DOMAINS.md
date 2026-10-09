@@ -30,9 +30,10 @@ For ZIP members, the same explicit conversion is available without extracting co
 ```sh
 cargo run --locked -p ludographium -- --platform nes --zip /path/to/nes-game.zip --media-format nes-ines
 cargo run --locked -p ludographium -- --platform n64 --zip /path/to/n64-game.zip --media-format n64-v64 --enriched
+cargo run --locked -p ludographium -- --platform nes --zip /path/to/mixed-archive.zip --media-format nes-ines --zip-entry games/title.nes
 ```
 
-The response marks `input_kind: "explicit-normalized-zip-members"`. Each regular member retains its own `entry_name`, `original_size`, `normalized_sha1`, `normalized_size`, `match_count`, and `matches`. Archive directories are excluded. **Every regular member must satisfy the chosen format**; a mixed-content archive containing other file types fails rather than silently accepting a partial conversion. Original entry names, decoded-size limits (256 entries, 1 GiB/member, 2 GiB total), and separate matches are preserved. A ZIP member's `normalized_sha1` is never labeled as the SHA-1 of its original bytes.
+The response marks `input_kind: "explicit-normalized-zip-members"`. Each regular member retains its own `entry_name`, `original_size`, `normalized_sha1`, `normalized_size`, `match_count`, and `matches`. Archive directories are excluded. By default, **every regular member must satisfy the chosen format**; a mixed-content archive containing other file types fails instead of silently accepting a partial conversion. To inspect exactly one member of a mixed archive, add `--zip-entry <exact-member-name>` along with `--zip` and `--media-format`. The selector is case-sensitive, retains the full archive path, and rejects missing or duplicate member names. Other entries are not interpreted as media; declared ZIP entry and size limits still apply. Original entry names, decoded-size limits (256 entries, 1 GiB/member, 2 GiB total), and separate matches are preserved. A ZIP member's `normalized_sha1` is never labeled as the SHA-1 of its original bytes.
 
 ## What this does **not** claim
 
