@@ -1,0 +1,665 @@
+clrmamepro (
+	name "SNK - Neo Geo Pocket Color"
+	description "SNK - Neo Geo Pocket Color"
+)
+
+game (
+	comment "Biomotor Unitron (Japan)"
+	users 2
+	rom ( crc FCBBE494 )
+)
+
+game (
+	comment "Big Bang Pro Wrestling (Japan) (En,Ja)"
+	users 2
+	rom ( crc F1716FDF )
+)
+
+game (
+	comment "Bakumatsu Rouman Tokubetsu Hen - Gekka no Kenshi - Tsuki ni Saku Hana, Chiri Yuku Hana (Japan)"
+	users 2
+	rom ( crc BE913CFA )
+)
+
+game (
+	comment "Bikkuriman 2000 - Viva! Pocket Festival! (Japan)"
+	users 1
+	rom ( crc 7A2D7635 )
+)
+
+game (
+	comment "Biomotor Unitron (USA, Europe)"
+	users 2
+	rom ( crc 3807DF4F )
+)
+
+game (
+	comment "Cool Cool Jam (Japan)"
+	users 2
+	rom ( crc 0FD6F378 )
+)
+
+game (
+	comment "Cool Boarders Pocket (Japan, Europe) (En,Ja)"
+	users 1
+	rom ( crc 2ED72635 )
+)
+
+game (
+	comment "Bust-A-Move Pocket (USA)"
+	users 2
+	rom ( crc B073D601 )
+)
+
+game (
+	comment "Bust-A-Move Pocket (USA) (Beta)"
+	users 2
+	rom ( crc 78A1361D )
+)
+
+game (
+	comment "Cool Cool Jam (USA) (Proto)"
+	users 2
+	rom ( crc 4D8D27F0 )
+)
+
+game (
+	comment "Crush Roller (World) (En,Ja)"
+	users 2
+	rom ( crc F20FF9F2 )
+)
+
+game (
+	comment "Delta Warp (Japan) (En,Ja)"
+	users 2
+	rom ( crc 1273B10E )
+)
+
+game (
+	comment "Dark Arms - Beast Buster 1999 (World) (En,Ja)"
+	users 2
+	rom ( crc 77CAA548 )
+)
+
+game (
+	comment "Densetsu no Ogre Battle Gaiden - Zenobia no Ouji (Japan)"
+	users 2
+	rom ( crc EEEEFD6A )
+)
+
+game (
+	comment "Densha de Go! 2 on NeoGeo Pocket (Japan)"
+	users 2
+	rom ( crc A0334549 )
+)
+
+game (
+	comment "Dive Alert - Burn Hen (Japan) (Beta)"
+	users 2
+	rom ( crc D9817A88 )
+)
+
+game (
+	comment "Dive Alert - Burn Hen (Japan)"
+	users 2
+	rom ( crc C213941D )
+)
+
+game (
+	comment "Dive Alert - Matt's Version (USA, Europe)"
+	users 2
+	rom ( crc EF75081B )
+)
+
+game (
+	comment "Dive Alert - Becky's Version (USA, Europe)"
+	users 2
+	rom ( crc 83DB5772 )
+)
+
+game (
+	comment "Dive Alert - Rebecca Hen (Japan)"
+	users 2
+	rom ( crc 3C4AF4F5 )
+)
+
+game (
+	comment "Dokodemo Mahjong (Japan)"
+	users 1
+	rom ( crc 78C21B5E )
+)
+
+game (
+	comment "Dynamite Slugger (Japan, Europe) (En,Ja)"
+	users 2
+	rom ( crc 7F1779CD )
+)
+
+game (
+	comment "Evolution - Eternal Dungeons (Europe) (vA1)"
+	users 2
+	rom ( crc BE47E531 )
+)
+
+game (
+	comment "Fantastic Night Dreams - Cotton (Japan)"
+	users 1
+	rom ( crc B8A12409 )
+)
+
+game (
+	comment "Evolution - Eternal Dungeons (Europe) (v03)"
+	users 2
+	rom ( crc A60582F8 )
+)
+
+game (
+	comment "Faselei! (USA, Europe)"
+	users 1
+	rom ( crc E705E30E )
+)
+
+game (
+	comment "Fantastic Night Dreams - Cotton (Europe)"
+	users 1
+	rom ( crc 1BF412F5 )
+)
+
+game (
+	comment "Faselei! (Japan)"
+	users 1
+	rom ( crc 8F585838 )
+)
+
+game (
+	comment "Fatal Fury - First Contact - Pocket Fighting Series (World) (En,Ja)"
+	users 2
+	rom ( crc E7E5D6E8 )
+)
+
+game (
+	comment "Ganbare Neo Poke-kun (Kari) (Japan)"
+	users 2
+	rom ( crc 6DF986A3 )
+)
+
+game (
+	comment "Infinity Cure (Japan)"
+	users 1
+	rom ( crc 32DC2AA2 )
+)
+
+game (
+	comment "Kikou Seiki Unitron - Sono Tsuide. Hikari Umareru Chi Yori. (Japan)"
+	users 2
+	rom ( crc F029F1C0 )
+)
+
+game (
+	comment "King of Fighters R-2 - Pocket Fighting Series (World) (En,Ja)"
+	users 2
+	rom ( crc 9BC63F27 )
+)
+
+game (
+	comment "King of Fighters R-2 - Pocket Fighting Series (Japan) (En,Ja) (Demo 1)"
+	users 2
+	rom ( crc E3AE79C0 )
+)
+
+game (
+	comment "King of Fighters R-2 - Pocket Fighting Series (Japan) (En,Ja) (Demo 2)"
+	users 2
+	rom ( crc 76544C97 )
+)
+
+game (
+	comment "King of Fighters, The - Battle de Paradise (Japan)"
+	users 2
+	rom ( crc 77E37BAC )
+)
+
+game (
+	comment "Magical Drop Pocket (USA, Europe)"
+	users 2
+	rom ( crc 7712F82D )
+)
+
+game (
+	comment "Last Blade, The - Beyond the Destiny (USA, Europe)"
+	users 2
+	rom ( crc 4238A840 )
+)
+
+game (
+	comment "Magical Drop Pocket (Japan)"
+	users 2
+	rom ( crc 694CE2DC )
+)
+
+game (
+	comment "Memories Off - Pure (Japan)"
+	users 1
+	rom ( crc 7F919DDE )
+)
+
+game (
+	comment "Metal Slug - 1st Mission (World) (En,Ja)"
+	users 1
+	rom ( crc D29EC1BA )
+)
+
+game (
+	comment "Metal Slug - 2nd Mission (World) (En,Ja)"
+	users 1
+	rom ( crc 18E692A5 )
+)
+
+game (
+	comment "Mizuki Shigeru no Youkai Shashinkan (Japan)"
+	users 1
+	rom ( crc DDE08335 )
+)
+
+game (
+	comment "Mezase! Kanji Ou (Japan)"
+	users 1
+	rom ( crc A52E1C82 )
+)
+
+game (
+	comment "Neo Baccarat - Pocket Casino Series (Japan, Europe) (En) (v16)"
+	users 2
+	rom ( crc 22AAB454 )
+)
+
+game (
+	comment "Neo Baccarat - Pocket Casino Series (Japan, Europe) (En) (Beta)"
+	users 2
+	rom ( crc 80880498 )
+)
+
+game (
+	comment "Neo Cherry Master Color - Pocket Casino Series (World) (En,Ja)"
+	users 2
+	rom ( crc 2F6EB991 )
+)
+
+game (
+	comment "Neo Derby Champ Daiyosou (Japan)"
+	users 1
+	rom ( crc 4760564A )
+)
+
+game (
+	comment "Neo Dragon's Wild - Pocket Casino Series (World) (En,Ja) (v11)"
+	users 1
+	rom ( crc 225FD7F9 )
+)
+
+game (
+	comment "Neo Dragon's Wild - Pocket Casino Series (World) (En,Ja) (v13)"
+	users 1
+	rom ( crc 5D028C99 )
+)
+
+game (
+	comment "Neo Mystery Bonus - Pocket Casino Series (World) (En,Ja)"
+	users 1
+	rom ( crc E79DC5B3 )
+)
+
+game (
+	comment "Neo Poke Pro Yakyuu (Japan) (v32)"
+	users 2
+	rom ( crc C624388F )
+)
+
+game (
+	comment "Neo Poke Pro Yakyuu (Japan) (v1F)"
+	users 2
+	rom ( crc 3CA883A5 )
+)
+
+game (
+	comment "Neo Turf Masters - Pocket Sports Series (World) (En,Ja)"
+	users 2
+	rom ( crc E0E853DD )
+)
+
+game (
+	comment "NeoGeo Cup '98 Plus Color - Pocket Sports Series (World) (En,Ja)"
+	users 1
+	rom ( crc C0DA4FE9 )
+)
+
+game (
+	comment "Nige-ron-pa (Japan)"
+	users 1
+	rom ( crc A9063D9E )
+)
+
+game (
+	comment "Oekaki Puzzle (Japan)"
+	users 1
+	rom ( crc A9118E82 )
+)
+
+game (
+	comment "Pac-Man (World) (En,Ja)"
+	users 1
+	rom ( crc 21E8CC15 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku - Porcano 2 (Japan)"
+	users 1
+	rom ( crc 96DDFBE3 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Azteca (Japan) (v04)"
+	users 1
+	rom ( crc 9FF16520 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Azteca (Japan) (v03)"
+	users 1
+	rom ( crc 2314440A )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Azteca (Japan) (v06)"
+	users 1
+	rom ( crc C9B55E6B )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Dekahel 2 (Japan)"
+	users 1
+	rom ( crc 346F3C46 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - e-CUP (Japan) (v04)"
+	users 1
+	rom ( crc 0A7C32DF )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Delsol 2 (Japan)"
+	users 1
+	rom ( crc 1EA69DB1 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - e-CUP (Japan) (v03)"
+	users 1
+	rom ( crc B5311753 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Hanabi (Japan) (v03)"
+	users 1
+	rom ( crc 4014FF42 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Hanabi (Japan) (v05)"
+	users 1
+	rom ( crc A0C26F9B )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Hanabi (Japan) (v04)"
+	users 1
+	rom ( crc 2A4F45AB )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Ward of Lights (Japan) (v03)"
+	users 1
+	rom ( crc D46CBC54 )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Ohanabi (Japan)"
+	users 1
+	rom ( crc 8A88C50F )
+)
+
+game (
+	comment "Pachi-Slot Aruze Oukoku Pocket - Ward of Lights (Japan) (v04)"
+	users 1
+	rom ( crc A54EC305 )
+)
+
+game (
+	comment "Pachinko Hisshou Guide - Pocket Parlor (Japan)"
+	users 1
+	rom ( crc 543DC257 )
+)
+
+game (
+	comment "Pachinko Hisshou Guide - Pocket Parlor (Japan) (Beta)"
+	users 1
+	rom ( crc CCF07C2F )
+)
+
+game (
+	comment "Party Mail (Japan) (Beta)"
+	users 1
+	rom ( crc F2284A95 )
+)
+
+game (
+	comment "Party Mail (Japan)"
+	users 1
+	rom ( crc 4DA8A1C0 )
+)
+
+game (
+	comment "Pocket Love - if (Japan)"
+	users 1
+	rom ( crc C2EE1EE5 )
+)
+
+game (
+	comment "Picture Puzzle (Europe)"
+	users 1
+	rom ( crc 6F2D35E6 )
+)
+
+game (
+	comment "Pocket Reversi (Europe) (vA1)"
+	users 1
+	rom ( crc 22C07C25 )
+)
+
+game (
+	comment "Pocket Reversi (Japan)"
+	users 1
+	rom ( crc D115FEDF )
+)
+
+game (
+	comment "Pocket Reversi (Europe) (v03)"
+	users 1
+	rom ( crc 9589F2F2 )
+)
+
+game (
+	comment "Puyo Pop (Japan) (En,Ja) (v05)"
+	users 1
+	rom ( crc 3090B2FD )
+)
+
+game (
+	comment "Puyo Pop (USA) (En,Ja) (v06)"
+	users 1
+	rom ( crc 5EA9559E )
+)
+
+game (
+	comment "Pocket Tennis Color - Pocket Sports Series (World) (En,Ja)"
+	users 1
+	rom ( crc E0B9AA22 )
+)
+
+game (
+	comment "Puzzle Bobble Mini (Europe)"
+	users 2
+	rom ( crc D31312DC )
+)
+
+game (
+	comment "Puzzle Bobble Mini (Japan) (En)"
+	users 2
+	rom ( crc D6544F6C )
+)
+
+game (
+	comment "Puzzle Link (USA, Europe)"
+	users 1
+	rom ( crc 8D0610AC )
+)
+
+game (
+	comment "Puzzle Link 2 (USA, Europe)"
+	users 1
+	rom ( crc BA9CA21C )
+)
+
+game (
+	comment "Renketsu Puzzle Tsunagete Pon! Color (Japan)"
+	users 1
+	rom ( crc C3F3E83C )
+)
+
+game (
+	comment "Rockman - Battle & Fighters (Japan)"
+	users 1
+	rom ( crc 3C010642 )
+)
+
+game (
+	comment "Shanghai Mini (World) (En,Ja)"
+	users 2
+	rom ( crc 90732D53 )
+)
+
+game (
+	comment "Samurai Shodown! 2 - Pocket Fighting Series (World) (En,Ja)"
+	users 2
+	rom ( crc 58A62FB2 )
+)
+
+game (
+	comment "Shanghai Mini (World) (En,Ja) (Beta 1)"
+	users 2
+	rom ( crc 79620C3F )
+)
+
+game (
+	comment "Shanghai Mini (World) (En,Ja) (Beta 2)"
+	users 2
+	rom ( crc 920AF0ED )
+)
+
+game (
+	comment "Shinki Sekai Evolution - Hateshinai Dungeon (Japan)"
+	users 2
+	rom ( crc E006F42F )
+)
+
+game (
+	comment "Shougi no Tatsujin Color (Japan)"
+	users 2
+	rom ( crc 1F2872ED )
+)
+
+game (
+	comment "SNK Gals' Fighters (Japan)"
+	users 2
+	rom ( crc D73B5B9F )
+)
+
+game (
+	comment "SNK vs. Capcom - Card Fighters 2 - Expand Edition (Japan)"
+	users 2
+	rom ( crc CCBCFDA7 )
+)
+
+game (
+	comment "SNK Gals' Fighters (USA, Europe)"
+	users 2
+	rom ( crc B02C2BE7 )
+)
+
+game (
+	comment "SNK vs. Capcom - Card Fighters' Clash - Capcom Version (USA, Europe)"
+	users 2
+	rom ( crc 80CE137B )
+)
+
+game (
+	comment "SNK vs. Capcom - Card Fighters' Clash - SNK Version (USA, Europe)"
+	users 2
+	rom ( crc 94B63A97 )
+)
+
+game (
+	comment "SNK vs. Capcom - Gekitotsu Card Fighters - Capcom Supporter Version (Japan)"
+	users 2
+	rom ( crc 9217159B )
+)
+
+game (
+	comment "SNK vs. Capcom - Gekitotsu Card Fighters - SNK Supporter Version (Japan)"
+	users 2
+	rom ( crc 7065295C )
+)
+
+game (
+	comment "SNK vs. Capcom - The Match of the Millennium (World) (En,Ja)"
+	users 2
+	rom ( crc 682A7A7B )
+)
+
+game (
+	comment "Sonic The Hedgehog - Pocket Adventure (World) (En,Ja)"
+	users 2
+	rom ( crc 8BD22145 )
+)
+
+game (
+	comment "Sonic The Hedgehog - Pocket Adventure (World) (Beta)"
+	users 2
+	rom ( crc 45FC3BCA )
+)
+
+game (
+	comment "Soreike!! Hanafuda Doujou (Japan)"
+	users 2
+	rom ( crc 05FA3EB0 )
+)
+
+game (
+	comment "Super Real Mahjong - Premium Collection (Japan)"
+	users 1
+	rom ( crc C6E620C3 )
+)
+
+game (
+	comment "Tsunagete Pon! 2 (Japan)"
+	users 1
+	rom ( crc 129091BB )
+)
+
+game (
+	comment "Wrestling Madness (Japan) (En) (Beta)"
+	users 2
+	rom ( crc 16B0BE9B )
+)
+

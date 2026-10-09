@@ -1,0 +1,95 @@
+clrmamepro (
+	name "SNK - Neo Geo Pocket Color"
+	description "SNK - Neo Geo Pocket Color"
+)
+
+game (
+	comment "Fatal Fury - First Contact - Pocket Fighting Series (World) (En,Ja)"
+	franchise "Fatal Fury"
+	rom ( crc E7E5D6E8 )
+)
+
+game (
+	comment "King of Fighters R-2 - Pocket Fighting Series (World) (En,Ja)"
+	franchise "The King of Fighters"
+	rom ( crc 9BC63F27 )
+)
+
+game (
+	comment "King of Fighters R-2 - Pocket Fighting Series (Japan) (En,Ja) (Demo 1)"
+	franchise "The King of Fighters"
+	rom ( crc E3AE79C0 )
+)
+
+game (
+	comment "King of Fighters R-2 - Pocket Fighting Series (Japan) (En,Ja) (Demo 2)"
+	franchise "The King of Fighters"
+	rom ( crc 76544C97 )
+)
+
+game (
+	comment "King of Fighters, The - Battle de Paradise (Japan)"
+	franchise "The King of Fighters"
+	rom ( crc 77E37BAC )
+)
+
+game (
+	comment "Metal Slug - 1st Mission (World) (En,Ja)"
+	franchise "Metal Slug"
+	rom ( crc D29EC1BA )
+)
+
+game (
+	comment "Metal Slug - 2nd Mission (World) (En,Ja)"
+	franchise "Metal Slug"
+	rom ( crc 18E692A5 )
+)
+
+game (
+	comment "Pac-Man (World) (En,Ja)"
+	franchise "Pac-Man"
+	rom ( crc 21E8CC15 )
+)
+
+game (
+	comment "Puyo Pop (Japan) (En,Ja) (v05)"
+	franchise "Puyo Puyo"
+	rom ( crc 3090B2FD )
+)
+
+game (
+	comment "Puyo Pop (USA) (En,Ja) (v06)"
+	franchise "Puyo Puyo"
+	rom ( crc 5EA9559E )
+)
+
+game (
+	comment "Samurai Shodown! 2 - Pocket Fighting Series (World) (En,Ja)"
+	franchise "Samurai Shodown"
+	rom ( crc 58A62FB2 )
+)
+
+game (
+	comment "SNK vs. Capcom - Card Fighters 2 - Expand Edition (Japan)"
+	franchise "SNK Vs. Capcom"
+	rom ( crc CCBCFDA7 )
+)
+
+game (
+	comment "SNK vs. Capcom - Gekitotsu Card Fighters - Capcom Supporter Version (Japan)"
+	franchise "SNK Vs. Capcom"
+	rom ( crc 9217159B )
+)
+
+game (
+	comment "Sonic The Hedgehog - Pocket Adventure (World) (En,Ja)"
+	franchise "Sonic"
+	rom ( crc 8BD22145 )
+)
+
+game (
+	comment "Sonic The Hedgehog - Pocket Adventure (World) (Beta)"
+	franchise "Sonic"
+	rom ( crc 45FC3BCA )
+)
+
