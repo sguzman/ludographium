@@ -4,6 +4,7 @@
 //! never merges game works based on titles or checksum coincidences.
 
 use crate::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
+use crate::media::{fingerprint_normalized_stream, MediaFormat, NormalizedFingerprint};
 use crate::{CatalogError, MediaMatch, PlatformCatalog};
 use serde::Deserialize;
 use sha1::{Digest, Sha1};
@@ -72,6 +73,25 @@ pub struct ZipMemberFingerprint {
     pub size: u64,
 }
 
+/// Original name and declared decoded length are preserved as source
+/// context; fingerprint bytes come from an explicit conversion contract.
+#[derive(Debug)]
+pub struct NormalizedZipMemberFingerprint {
+    pub entry_name: String,
+    pub original_size: u64,
+    pub normalized: NormalizedFingerprint,
+}
+
+pub struct NormalizedZipMemberMatch<'a> {
+    pub member: NormalizedZipMemberFingerprint,
+    pub matches: Vec<MediaMatch<'a>>,
+}
+
+pub struct EnrichedNormalizedZipMemberMatch<'a> {
+    pub member: NormalizedZipMemberFingerprint,
+    pub matches: Vec<EnrichedMediaMatch<'a>>,
+}
+
 pub struct ZipMemberMatch<'a> {
     pub member: ZipMemberFingerprint,
     pub matches: Vec<MediaMatch<'a>>,
@@ -129,6 +149,53 @@ pub fn fingerprint_zip<R: Read + Seek>(
             entry_name,
             sha1,
             size,
+        });
+    }
+    Ok(entries)
+}
+
+/// Stream a selected conversion of each regular ZIP member, preserving the
+/// same decoded-size and entry-count limits used for raw ZIP lookup.
+///
+/// The conversion is explicit, applies to every regular member, and aborts
+/// the entire lookup if any member is malformed for the selected format.
+/// No media bytes are extracted onto disk or retained after hashing.
+pub fn fingerprint_zip_normalized<R: Read + Seek>(
+    reader: R,
+    format: MediaFormat,
+) -> Result<Vec<NormalizedZipMemberFingerprint>, CatalogError> {
+    let mut archive = zip::ZipArchive::new(reader).map_err(read_error)?;
+    if archive.len() > MAX_ZIP_ENTRIES {
+        return Err(CatalogError::Invalid(
+            "ZIP archive has too many entries".into(),
+        ));
+    }
+    let mut total = 0u64;
+    let mut entries = Vec::new();
+    for i in 0..archive.len() {
+        let mut file = archive.by_index(i).map_err(read_error)?;
+        if file.is_dir() {
+            continue;
+        }
+        let original_size = file.size();
+        if original_size > MAX_ZIP_MEMBER_BYTES
+            || total
+                .checked_add(original_size)
+                .is_none_or(|n| n > MAX_ZIP_TOTAL_BYTES)
+        {
+            return Err(CatalogError::Invalid(
+                "ZIP member exceeds allowed decoded size".into(),
+            ));
+        }
+        let entry_name = file.name().to_owned();
+        let normalized = fingerprint_normalized_stream(&mut file, original_size, format)?;
+        total = total
+            .checked_add(original_size)
+            .ok_or_else(|| CatalogError::Invalid("ZIP uncompressed size overflow".into()))?;
+        entries.push(NormalizedZipMemberFingerprint {
+            entry_name,
+            original_size,
+            normalized,
         });
     }
     Ok(entries)
