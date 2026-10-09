@@ -84,9 +84,7 @@ fn allowed_artifact(path: &str) -> bool {
     file.ends_with(".json")
         && file.len() > ".json".len()
         && file.bytes().all(|ch| {
-            ch.is_ascii_lowercase()
-                || ch.is_ascii_digit()
-                || matches!(ch, b'.' | b'_' | b'-')
+            ch.is_ascii_lowercase() || ch.is_ascii_digit() || matches!(ch, b'.' | b'_' | b'-')
         })
 }
 
@@ -123,7 +121,9 @@ pub fn verify_runtime_root(root: impl AsRef<Path>) -> Result<RuntimeVerification
         || distribution.source_revision.is_empty()
         || distribution.artifacts.is_empty()
     {
-        return Err(invalid("invalid or unsupported runtime distribution manifest"));
+        return Err(invalid(
+            "invalid or unsupported runtime distribution manifest",
+        ));
     }
 
     let mut seen = HashSet::new();
@@ -135,8 +135,7 @@ pub fn verify_runtime_root(root: impl AsRef<Path>) -> Result<RuntimeVerification
                 artifact.path
             )));
         }
-        if artifact.sha256.len() != 64
-            || !artifact.sha256.bytes().all(|ch| ch.is_ascii_hexdigit())
+        if artifact.sha256.len() != 64 || !artifact.sha256.bytes().all(|ch| ch.is_ascii_hexdigit())
         {
             return Err(invalid(format!(
                 "invalid SHA-256 in distribution entry: {}",
@@ -160,7 +159,10 @@ pub fn verify_runtime_root(root: impl AsRef<Path>) -> Result<RuntimeVerification
                 .checked_add(n as u64)
                 .ok_or_else(|| invalid("runtime byte count overflow"))?;
             if count > artifact.bytes {
-                return Err(invalid(format!("file expanded while hashing: {}", artifact.path)));
+                return Err(invalid(format!(
+                    "file expanded while hashing: {}",
+                    artifact.path
+                )));
             }
             hasher.update(&buffer[..n]);
         }
@@ -180,7 +182,9 @@ pub fn verify_runtime_root(root: impl AsRef<Path>) -> Result<RuntimeVerification
         "METADATA-NOTICE.md",
     ] {
         if !seen.contains(path) {
-            return Err(invalid(format!("missing required runtime artifact: {path}")));
+            return Err(invalid(format!(
+                "missing required runtime artifact: {path}"
+            )));
         }
     }
 
@@ -192,7 +196,9 @@ pub fn verify_runtime_root(root: impl AsRef<Path>) -> Result<RuntimeVerification
         || catalog.source_revision != distribution.source_revision
         || catalog.platforms.is_empty()
     {
-        return Err(invalid("runtime catalog and distribution identities disagree"));
+        return Err(invalid(
+            "runtime catalog and distribution identities disagree",
+        ));
     }
     let mut platforms = HashSet::new();
     for platform in &catalog.platforms {
