@@ -50,6 +50,10 @@ The [released bulk SQLite corpus](https://github.com/sguzman/ludographium/releas
 
 The existing ten-platform release remains an independently reproducible, compatible baseline. Source observations are not asserted to be distinct game identities.
 
+## Independent Wikidata observations
+
+A [separate CC0 Wikidata accession](docs/WIKIDATA.md) adds **15,868 platform-linked item observations** and **29,333 independently attributed publication-date claims** across 16 console mappings. The reproducible bulk matcher generated **8,971 title-based review candidates**, identifying 8,908 existing source observations with possible Wikidata counterparts; **126 links are explicitly ambiguous**. They are **not** accepted work or release identities. The raw query results and SHA-256 values are pinned in the [source accession register](sources/wikidata-accession-v1.json).
+
 ## Complete metadata corpus
 
 **All 41,491 source observations and all 129,008 bibliographic claims can now be queried from one offline SQLite database.** The [full-corpus export](docs/CORPUS.md) automatically combines source records, exact media checksums, and individually attributed field claims across all ten platforms. It retains all unresolved statements, so only the 98,856 safely matched claims are attached to their corresponding source observations. In the current snapshot, **16,937** source records have one or more matched bibliographic claims.
