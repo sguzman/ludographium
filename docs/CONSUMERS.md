@@ -4,9 +4,9 @@ Ludographium publishes source-indexed metadata for read-only, offline use by emu
 
 ## Entire corpus in one SQLite database
 
-The complete [offline SQLite corpus](CORPUS.md) materializes **every** registered original source observation, every exact media fingerprint and every attributed bibliographic claim across ten systems. Query it with a regular SQLite client or `tools/build_corpus.py --title/--sha1`. Source records with no attached field claims remain included; unresolved claims remain in `claims` rather than disappearing or being silently assigned. The SQLite file is built automatically in CI and accompanied by a SHA-256 checksum. The [`data-v1.4.0` SQLite release asset](https://github.com/sguzman/ludographium/releases/download/data-v1.4.0/ludographium-corpus-data-v1.4.0.sqlite) is permanent and separately checksummed.
+The original [ten-platform offline SQLite corpus](CORPUS.md) materializes every v1-registered source observation and field claim. The [expanded 75-platform corpus](BULK-EXPANSION.md) includes **117,145 source observations and 167,640 attributed metadata claims**, with additional original DATs and bibliographic source registers embedded in SQLite. Query it with a regular SQLite client or `tools/build_corpus.py --title/--sha1`. Source records with no attached field claims remain included; unresolved claims remain in `claims` rather than disappearing or being silently assigned. The SQLite file is built automatically in CI and accompanied by a SHA-256 checksum. The [`data-v1.4.0` SQLite release asset](https://github.com/sguzman/ludographium/releases/download/data-v1.4.0/ludographium-corpus-data-v1.4.0.sqlite) is permanent and separately checksummed.
 
-The separately curated work/release/build dataset is optional editorial interpretation, not the catalog's completeness limit.
+The separately curated work/release/build dataset is optional editorial interpretation, not the catalog's completeness limit. The full expanded SQLite can be opened by ordinary SQLite tools without any manual curation, Rust, or network access.
 
 ## Available artifacts
 
