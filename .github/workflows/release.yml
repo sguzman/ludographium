@@ -123,18 +123,18 @@ jobs:
             --verify "$RUNNER_TEMP/release/ludographium-runtime-${RELEASE_TAG}.tar.gz"
           cat >> "$RUNNER_TEMP/release/RELEASE_NOTES.md" <<'EOF'
 
-### Expanded console-game metadata accession
+          ### Expanded console-game metadata accession
 
-The separately released expanded SQLite database includes **117,145 original source observations
-across 75 console and handheld platform collections**, and **167,640 bibliographic source claims**
-(112,948 exact-source-attached claims). These are **source observations, not a count of unique games**.
+          The separately released expanded SQLite database includes **117,145 original source observations
+          across 75 console and handheld platform collections**, and **167,640 bibliographic source claims**
+          (112,948 exact-source-attached claims). These are **source observations, not a count of unique games**.
 
-Additional coverage comes from 65 individually hash-pinned No-Intro identification DATs and 279
-pinned field-metadata DATs. Their original bytes, provenance, source revisions and source paths
-are stored in the expanded SQLite file. Ambiguous and checksum-free source claims remain
-unresolved rather than being silently attached to game identities. No ROMs or executables
-are included. All source-specific reuse and attribution notices continue to apply.
-EOF
+          Additional coverage comes from 65 individually hash-pinned No-Intro identification DATs and 279
+          pinned field-metadata DATs. Their original bytes, provenance, source revisions and source paths
+          are stored in the expanded SQLite file. Ambiguous and checksum-free source claims remain
+          unresolved rather than being silently attached to game identities. No ROMs or executables
+          are included. All source-specific reuse and attribution notices continue to apply.
+          EOF
       - name: Transfer verified release assets
         uses: actions/upload-artifact@v4
         with:
