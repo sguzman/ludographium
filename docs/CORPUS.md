@@ -9,7 +9,7 @@ The **original ten-platform v1 baseline** contains:
 - all source-record media entries, exact hashes, titles, regions, serials and other upstream record fields;
 - all unresolved and conflicting claim observations with their original status, value and source citations.
 
-The separately [released bulk-expanded collection](BULK-EXPANSION.md) in `data-v1.5.0` now includes **75 platform collections, 117,145 identification observations and 167,640 bibliographic claims** (112,948 conservatively matched). The v1 ten-platform SQLite and JSON packages remain available for consumers pinned to that original contract.
+The Git checkout now includes [the 344 extra original text DAT files](../archive/libretro-bulk/metadat), alongside the prior ten platform archives and the checked-in Wikidata JSONL corpus. A historical, optional [bulk-expanded SQLite build](BULK-EXPANSION.md) from `data-v1.5.0` includes **75 platform collections, 117,145 identification observations and 167,640 bibliographic claims** (112,948 conservatively matched). The v1 ten-platform SQLite and JSON packages remain available for consumers pinned to that original contract.
 
 Those 41,491 baseline observations are **not asserted to be 41,491 distinct games**. The database preserves separate original source occurrences and does not manufacture work or release identities by normalizing titles or inventing relationships.
 
