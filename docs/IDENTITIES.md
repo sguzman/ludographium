@@ -34,6 +34,8 @@ A cited observation supports the fact that a source made a claim. Evidence alone
 
 The [reconciliation queue](../reports/reconciliation-queue-v1.json) groups unresolved bibliographic source claims, with upstream source-occurrence locators and possible base-record candidates. The [review tool](../tools/triage_enrichment.py) supports platform, resolution-status, and CRC32 filters. A separate [exact-edition revision review](IDENTITY-REVIEW.md) examines source records whose title differs only by a final revision qualifier; it creates **candidate evidence**, not curated identities.
 
+The [cross-source evidence review](CROSS-SOURCE-REVIEW.md) provides exact-media field-DAT coverage for accepted builds and a prioritized view of uncurated revision candidates. Related DAT series are not necessarily independent authorities, and bibliographic coverage never authenticates an identity.
+
 A shared CRC32 or similar title is only **a lead for investigation**. It is not enough by itself to create an accepted release/build link. The original seed used one documented media representation per work. The subsequent curation batch links records with the same named game and explicit source revision qualifiers on the same platform. For Super Mario Land and Columns, the revision labels share a bounded release while the build identities remain distinct. Pokémon Crystal Version and Alex Kidd in Miracle World retain separate release identities for differing territory claims. Future correspondences require explicit evidence review, especially across platforms, publishers, or unrelated providers.
 
 ## Curation and validation
