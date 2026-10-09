@@ -11,9 +11,10 @@ python3 tools/triage_identities.py --summary
 python3 tools/triage_identities.py --review --platform gb --title "Super Mario Land" --limit 10
 python3 tools/triage_identities.py --review --platform sms --title "Phantasy Star" --limit 10
 python3 tools/triage_identities.py --verify
+python3 tools/triage_identities.py --export /tmp/ludographium-identity-review-v1.json
 ```
 
-`--review` prints matching groups as JSON with `edition_label`, the **pinned source revision**, original source record titles, `(Rev X)` qualifiers, one SHA-1 and byte length for each observation, and the complete `source_id/source_revision/source_path/source_blob_sha/source_ordinal` locator. `--summary` shows counts per registered platform; `--verify` checks all inputs and known revision fixtures as part of CI. A review is bounded to 1-100 displayed groups, with a default of 25.
+`--review` prints matching groups as JSON with `edition_label`, the **pinned source revision**, original source record titles, `(Rev X)` qualifiers, one SHA-1 and byte length for each observation, and the complete `source_id/source_revision/source_path/source_blob_sha/source_ordinal` locator. `--summary` shows counts per registered platform; `--verify` checks all inputs and known revision fixtures as part of CI. A review is bounded to 1-100 displayed groups, with a default of 25. `--export` writes the complete review-only data in deterministic, compact JSON for offline examination. Successful main-branch CI runs also upload `ludographium-identity-review-v1` as a short-lived (14-day) review artifact; this is **not** a permanently released or curated dataset.
 
 ## What the tool considers
 
