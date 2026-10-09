@@ -75,9 +75,37 @@ class CuratedTests(unittest.TestCase):
 
     def test_release_evidence_must_be_same_platform(self):
         ledger = fixture()
-        with self.assertRaisesRegex(ValueError, "no evidence from its stated platform"):
+        with self.assertRaisesRegex(ValueError, "another platform's media"):
             validate_ledger(ledger, {"gb", "gba"},
                             {KEY: {"platform": "gba", "media": {("A"*40, 128)}}})
+
+    def test_rejects_evidence_not_in_parent_work_or_release(self):
+        second = dict(REF, source_ordinal=2)
+        key2 = ("src", "rev", "x.dat", "abc", 2)
+        available = dict(AVAILABLE)
+        available[key2] = {"platform": "gb", "media": {("B"*40, 128)}}
+
+        ledger = fixture()
+        ledger["releases"][0]["evidence"] = [second]
+        with self.assertRaisesRegex(ValueError, "not cited by its work"):
+            validate_ledger(ledger, {"gb"}, available)
+
+        ledger = fixture()
+        ledger["works"][0]["evidence"].append(second)
+        ledger["builds"][0]["evidence"] = [second]
+        with self.assertRaisesRegex(ValueError, "not cited by its release"):
+            validate_ledger(ledger, {"gb"}, available)
+
+    def test_release_rejects_cross_platform_extra_evidence(self):
+        second = dict(REF, source_ordinal=2)
+        key2 = ("src", "rev", "x.dat", "abc", 2)
+        ledger = fixture()
+        ledger["works"][0]["evidence"].append(second)
+        ledger["releases"][0]["evidence"].append(second)
+        available = dict(AVAILABLE)
+        available[key2] = {"platform": "gba", "media": {("B"*40, 128)}}
+        with self.assertRaisesRegex(ValueError, "another platform's media"):
+            validate_ledger(ledger, {"gb", "gba"}, available)
 
     def test_empty_ledger_does_not_fabricate_games(self):
         ledger = {"schema_version": 1, "kind": "curated-identity-ledger",
