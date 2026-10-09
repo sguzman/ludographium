@@ -1,0 +1,409 @@
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-07-09T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-07-15T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-06-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-10-15T00:00:00Z"}],"english_label":null,"qid":"Q12384"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Superman","qid":"Q29715"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-05-01T00:00:00Z"}],"english_label":"Star Wars","qid":"Q54317"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Star Wars: The Empire Strikes Back","qid":"Q54325"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-12-31T00:00:00Z"}],"english_label":"Star Wars: Return of the Jedi - Death Star Battle","qid":"Q54331"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-11-01T00:00:00Z"}],"english_label":"Battlezone","qid":"Q55616"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"3-D Tic-Tac-Toe","qid":"Q88604"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-06-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-01-01T00:00:00Z"}],"english_label":null,"qid":"Q88855"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"River Raid","qid":"Q88972"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Zaxxon","qid":"Q91247"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-01-01T00:00:00Z"}],"english_label":"Basic Math","qid":"Q130678"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-01-01T00:00:00Z"}],"english_label":"Circus","qid":"Q164478"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-05-22T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-07-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-11-02T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-10-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1993-01-01T00:00:00Z"}],"english_label":null,"qid":"Q173626"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1976-05-13T00:00:00Z"}],"english_label":"Breakout","qid":"Q177491"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-09-01T00:00:00Z"}],"english_label":"Air-Sea Battle","qid":"Q182251"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-04-19T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-06-04T00:00:00Z"}],"english_label":"Dig Dug","qid":"Q204105"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-04-17T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-03-02T00:00:00Z"}],"english_label":"Space Invaders","qid":"Q220665"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-09-19T00:00:00Z"}],"english_label":"Private Eye","qid":"Q259486"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Tennis","qid":"Q344361"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Adventure","qid":"Q379915"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-10-21T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-09-24T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-10-01T00:00:00Z"}],"english_label":"Stargate","qid":"Q445221"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Summer Games","qid":"Q454924"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1976-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1976-10-01T00:00:00Z"}],"english_label":"Night Driver","qid":"Q474102"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-03-18T00:00:00Z"}],"english_label":"The Activision Decathlon","qid":"Q475051"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Chopper Command","qid":"Q475055"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-06-05T00:00:00Z"}],"english_label":"Wizard of Wor","qid":"Q488692"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Miner 2049er","qid":"Q499021"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Phoenix","qid":"Q517640"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Frogger","qid":"Q524267"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-06-28T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-08-01T00:00:00Z"}],"english_label":"Elevator Action","qid":"Q591171"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Spider-Man","qid":"Q597257"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-06-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-09-01T00:00:00Z"}],"english_label":"Mario Bros.","qid":"Q610968"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-11-10T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-12-26T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-12-20T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2010-02-23T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2014-05-15T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2018-02-18T00:00:00Z"}],"english_label":"Crazy Climber","qid":"Q611289"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Kaboom!","qid":"Q644479"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-12-14T00:00:00Z"}],"english_label":"Klax","qid":"Q677764"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-04-08T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-06-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-01-01T00:00:00Z"}],"english_label":"Double Dragon","qid":"Q698705"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-11-01T00:00:00Z"}],"english_label":"Asteroids","qid":"Q748890"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"BASIC Programming","qid":"Q753581"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-01-01T00:00:00Z"}],"english_label":"Thrust","qid":"Q771794"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-11-12T00:00:00Z"}],"english_label":"Berzerk","qid":"Q829331"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Bobby Is Going Home","qid":"Q888718"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Pengo","qid":"Q917027"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-11-18T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-02-01T00:00:00Z"}],"english_label":"Gyruss","qid":"Q917503"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"River Patrol","qid":"Q950338"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-11-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-10-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-10-01T00:00:00Z"}],"english_label":"Millipede","qid":"Q968020"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-12-01T00:00:00Z"}],"english_label":"E.T. the Extra-Terrestrial","qid":"Q977919"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-11-27T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-05-01T00:00:00Z"}],"english_label":"BurgerTime","qid":"Q1014915"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-08-01T00:00:00Z"}],"english_label":"Front Line","qid":"Q1040033"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-06-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2010-11-03T00:00:00Z"}],"english_label":"Centipede","qid":"Q1053648"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Lock 'n' Chase","qid":"Q1093914"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-05-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-09-27T00:00:00Z"}],"english_label":null,"qid":"Q1115150"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-02-25T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-07-01T00:00:00Z"}],"english_label":"Congo Bongo","qid":"Q1125773"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Star Raiders","qid":"Q1136685"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Crystal Castles","qid":"Q1142341"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-10-13T00:00:00Z"}],"english_label":"Custer's Revenge","qid":"Q1146147"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-11-01T00:00:00Z"}],"english_label":"Time Pilot","qid":"Q1151504"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-02-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1994-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-07-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2006-11-15T00:00:00Z"}],"english_label":"Defender","qid":"Q1182593"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Demon Attack","qid":"Q1186437"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-12-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2006-11-14T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-02-08T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-02-09T00:00:00Z"}],"english_label":"Rampage","qid":"Q1192318"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-09-07T00:00:00Z"}],"english_label":"Galaxian","qid":"Q1192514"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Missile Command","qid":"Q1192794"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-09-20T00:00:00Z"}],"english_label":"Pooyan","qid":"Q1199765"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-12-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-06-21T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-10-18T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-04-15T00:00:00Z"}],"english_label":"Kung-Fu Master","qid":"Q1319139"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-09-01T00:00:00Z"}],"english_label":"Pole Position","qid":"Q1337036"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":null,"qid":"Q1422227"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-05-01T00:00:00Z"}],"english_label":"Yars' Revenge","qid":"Q1507926"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Gorf","qid":"Q1517301"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1995-06-23T00:00:00Z"}],"english_label":"Mr. Do!","qid":"Q1557589"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-12-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-02-01T00:00:00Z"}],"english_label":"Q*bert","qid":"Q1565343"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-07-16T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-10-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-10-01T00:00:00Z"}],"english_label":"Joust","qid":"Q1567550"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-08-13T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-01-01T00:00:00Z"}],"english_label":"Jr. Pac-Man","qid":"Q1572086"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-04-20T00:00:00Z"}],"english_label":null,"qid":"Q1573878"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-10-27T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-06-21T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-04-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1992-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1992-02-20T00:00:00Z"}],"english_label":"Track & Field","qid":"Q1630875"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Moon Patrol","qid":"Q1665781"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Tapper","qid":"Q1669142"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Jungle Hunt","qid":"Q1713469"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-09-01T00:00:00Z"}],"english_label":"Spy Hunter","qid":"Q1788165"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-10-01T00:00:00Z"}],"english_label":"Winter Games","qid":"Q1790249"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Super Cobra","qid":"Q1815131"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Montezuma's Revenge","qid":"Q1946230"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Quest for Quintana Roo","qid":"Q1952382"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Journey Escape","qid":"Q1995120"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-03-14T00:00:00Z"}],"english_label":"The Texas Chainsaw Massacre","qid":"Q2069424"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Pepsi Invaders","qid":"Q2069785"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Haunted House","qid":"Q2075966"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Raiders of the Lost Ark","qid":"Q2100878"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Jawbreaker","qid":"Q2104469"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-13T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1993-11-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-06-01T00:00:00Z"}],"english_label":"Ms. Pac-Man","qid":"Q2141683"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-01-01T00:00:00Z"}],"english_label":"Ghostbusters II","qid":"Q2185497"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Keystone Kapers","qid":"Q2214754"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-07-15T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-06-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-06-15T00:00:00Z"}],"english_label":"Donkey Kong Jr.","qid":"Q2264301"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-06-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-09-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"}],"english_label":"Popeye","qid":"Q2303119"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Laser Blast","qid":"Q2527852"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-12-01T00:00:00Z"}],"english_label":"Xenophobe","qid":"Q2530073"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-01-01T00:00:00Z"}],"english_label":"Combat","qid":"Q2588960"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Warlords","qid":"Q2589426"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Kangaroo","qid":"Q2617620"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-10-08T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-12-01T00:00:00Z"}],"english_label":"Bump 'n' Jump","qid":"Q2623012"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-04-05T00:00:00Z"}],"english_label":"Pac-Man","qid":"Q2626874"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Gravitar","qid":"Q2646223"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Venture","qid":"Q2654149"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Circus Atari","qid":"Q2669734"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Fast Eddie","qid":"Q2675300"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2010-07-01T00:00:00Z"}],"english_label":"Duck Attack!","qid":"Q2679021"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2006-01-01T00:00:00Z"}],"english_label":"A-VCS-tec Challenge","qid":"Q2679461"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Buck Rogers: Planet of Zoom","qid":"Q2682583"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"G.I. Joe: Cobra Strike","qid":"Q2686630"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2006-01-01T00:00:00Z"}],"english_label":"Medieval Mayhem","qid":"Q2741259"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"}],"english_label":"Oystron","qid":"Q2741292"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2002-01-01T00:00:00Z"}],"english_label":"Warring Worms","qid":"Q2741447"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Juno First","qid":"Q2753199"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Up'n Down","qid":"Q2762472"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Oink!","qid":"Q2788606"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-11-26T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-05-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-08-10T00:00:00Z"}],"english_label":"Ikari Warriors","qid":"Q2796607"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-02-01T00:00:00Z"}],"english_label":"Enduro","qid":"Q2835899"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":null,"qid":"Q2841397"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Family Composer","qid":"Q2855412"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Atlantis","qid":"Q2869418"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Bachelor Party","qid":"Q2878259"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Star Fox","qid":"Q2881324"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Basketball","qid":"Q2887242"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Beat 'Em & Eat 'Em","qid":"Q2892913"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Canyon Bomber","qid":"Q2936913"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Carnival","qid":"Q2939793"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Air Raiders","qid":"Q3284186"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Megamania","qid":"Q3284373"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-10-01T00:00:00Z"}],"english_label":"Halloween","qid":"Q3285065"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Mangià","qid":"Q3285750"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Mouse Trap","qid":"Q3326170"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-01-01T00:00:00Z"}],"english_label":"Pete Rose Pennant Fever","qid":"Q3376397"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Sorcerer's Apprentice","qid":"Q3491151"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-12-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-12-31T00:00:00Z"}],"english_label":"Star Trek","qid":"Q3496992"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Vanguard","qid":"Q3554578"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Alien","qid":"Q3611745"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Astrosmash","qid":"Q3627661"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Amidar","qid":"Q3776897"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Masters of the Universe: The Power of He-Man","qid":"Q3851636"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"NASL Soccer","qid":"Q3869390"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Pitfall II: Lost Caverns","qid":"Q3905832"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Smurf: Rescue in Gargamel's Castle","qid":"Q3963055"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Tron: Deadly Discs","qid":"Q3999665"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1992-01-01T00:00:00Z"}],"english_label":"Acid Drop","qid":"Q4033261"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Barnstorming","qid":"Q4034859"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Fast Food","qid":"Q4038649"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Omega Race","qid":"Q4044306"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-09-11T00:00:00Z"}],"english_label":"Star Ship","qid":"Q4133050"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-03-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-04-01T00:00:00Z"}],"english_label":"Asteroids Deluxe","qid":"Q4188002"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"A Game of Concentration","qid":"Q4656920"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Adventures of Tron","qid":"Q4686655"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Air Raid","qid":"Q4698161"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Airlock","qid":"Q4698812"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Go Go Home Monster","qid":"Q4726393"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Alpha Beam with Ernie","qid":"Q4734987"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Video Pinball","qid":"Q4785083"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Armor Ambush","qid":"Q4793690"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Armor Battle","qid":"Q4793691"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Artillery Duel","qid":"Q4801139"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Assault","qid":"Q4808556"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Asterix","qid":"Q4810728"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Atari Video Cube","qid":"Q4812844"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Bank Heist","qid":"Q4855930"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Baseball","qid":"Q4866420"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Beamrider","qid":"Q4876224"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Fantastic Voyage","qid":"Q4914584"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-01-01T00:00:00Z"}],"english_label":"Blackjack","qid":"Q4923044"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-04-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-03-01T00:00:00Z"}],"english_label":"Borderline","qid":"Q4944681"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Bowling","qid":"Q4951133"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-07-01T00:00:00Z"}],"english_label":"Boxing","qid":"Q4951720"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Brain Games","qid":"Q4955766"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Casino","qid":"Q5048841"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Chase the Chuck Wagon","qid":"Q5087226"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Chuck Norris Superkicks","qid":"Q5115643"}
+{"dates":[],"english_label":"Combat 2","qid":"Q5150597"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Communist Mutants from Space","qid":"Q5154312"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-09-22T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-10-01T00:00:00Z"}],"english_label":"Ghostbusters","qid":"Q5165990"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Cosmic Ark","qid":"Q5174042"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Crazy Balloon","qid":"Q5183115"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Crossbow","qid":"Q5188515"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Dandy","qid":"Q5215764"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-20T00:00:00Z"}],"english_label":"Deadly Duck","qid":"Q5245620"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Deep Scan","qid":"Q5250293"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Demons to Diamonds","qid":"Q5256308"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Dodge 'Em","qid":"Q5287827"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-01-01T00:00:00Z"}],"english_label":"Double Dunk","qid":"Q5299751"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-05-21T00:00:00Z"}],"english_label":"Dragonfire","qid":"Q5305362"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Dragonstomper","qid":"Q5305448"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Dragster","qid":"Q5305511"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Eggomania","qid":"Q5347930"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":null,"qid":"Q5396942"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Fishing Derby","qid":"Q5455016"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"NFL Football","qid":"Q5465780"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Freeway","qid":"Q5501239"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Frogger II: ThreeeDeep!","qid":"Q5505259"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-08-14T00:00:00Z"}],"english_label":"Frostbite","qid":"Q5506197"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Ghost Manor","qid":"Q5557107"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Golf","qid":"Q5580552"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Gopher","qid":"Q5584264"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Gremlins","qid":"Q5607342"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2010-07-01T00:00:00Z"}],"english_label":"Halo 2600","qid":"Q5643315"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":null,"qid":"Q5775978"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Condor Attack","qid":"Q5782590"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Dancing Plate","qid":"Q5797977"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Dice Puzzle","qid":"Q5805565"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Tanks but No Tanks","qid":"Q5847962"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Flag Capture","qid":"Q5862408"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Harbor Escape","qid":"Q5892261"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"King Kong","qid":"Q5959827"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"I Want My Mommy","qid":"Q5979465"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Ice Hockey","qid":"Q5985284"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"M*A*S*H","qid":"Q5988047"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Malagai","qid":"Q5990429"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Maze Craze","qid":"Q6007844"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Night Stalker","qid":"Q6042891"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Racquetball","qid":"Q6096045"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"RealSports Volleyball","qid":"Q6102252"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Rescue Terra I","qid":"Q6106118"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Skindiver","qid":"Q6122659"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Seahawk","qid":"Q6122734"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":null,"qid":"Q6129971"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"}],"english_label":"Spiderdroid","qid":"Q6133224"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Threshold","qid":"Q6146230"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1975-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1975-10-01T00:00:00Z"}],"english_label":"Jet Fighter","qid":"Q6188835"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Karate","qid":"Q6368705"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Kool-Aid Man","qid":"Q6430567"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-09-01T00:00:00Z"}],"english_label":"Krull","qid":"Q6439288"}
+{"dates":[],"english_label":"The Lord of the Rings: Journey to Rivendell","qid":"Q6680121"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"}],"english_label":"Midnight Magic","qid":"Q6842713"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Mountain King","qid":"Q6925026"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Mr. Do's Castle","qid":"Q6928590"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Name This Game","qid":"Q6961508"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-01-01T00:00:00Z"}],"english_label":"Off the Wall","qid":"Q7078998"}
+{"dates":[],"english_label":"Outer Space","qid":"Q7112009"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Party Mix","qid":"Q7140923"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Pelé's Soccer","qid":"Q7161823"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Phaser Patrol","qid":"Q7180988"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-02-22T00:00:00Z"}],"english_label":"Plaque Attack","qid":"Q7201691"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-04-01T00:00:00Z"}],"english_label":"Pleiades","qid":"Q7204454"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Polaris","qid":"Q7209123"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Pressure Cooker","qid":"Q7241701"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Quadrun","qid":"Q7268434"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Rabbit Transit","qid":"Q7278626"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Reactor","qid":"Q7300327"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"}],"english_label":"RealSports Boxing","qid":"Q7300820"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"RealSports Tennis","qid":"Q7300822"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"RealSports Football","qid":"Q7301366"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Revenge of the Beefsteak Tomatoes","qid":"Q7317922"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-06-01T00:00:00Z"}],"english_label":"Robot Tank","qid":"Q7353373"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Roc'n Rope","qid":"Q7353649"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-01-01T00:00:00Z"}],"english_label":"Save Mary","qid":"Q7428010"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Sea Battle","qid":"Q7439840"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Seaquest","qid":"Q7441601"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"}],"english_label":"Skate Boardin'","qid":"Q7534105"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Skeet Shoot","qid":"Q7534270"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Skiing","qid":"Q7535140"}
+{"dates":[],"english_label":"Sky Diver","qid":"Q7537302"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Slot Racers","qid":"Q7541410"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-12-31T00:00:00Z"}],"english_label":"Solar Fox","qid":"Q7555897"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-01-01T00:00:00Z"}],"english_label":"Solaris","qid":"Q7557033"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Space War","qid":"Q7572546"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Spacechase","qid":"Q7572657"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Sssnake","qid":"Q7586647"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Stampede","qid":"Q7597473"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Star Strike","qid":"Q7600917"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-12-31T00:00:00Z"}],"english_label":"Star Trek: The Rebel Universe","qid":"Q7601024"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Star Voyager","qid":"Q7601068"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Star Wars: Jedi Arena","qid":"Q7601092"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Stargunner","qid":"Q7601891"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Starmaster","qid":"Q7602119"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1975-01-01T00:00:00Z"}],"english_label":"Steeplechase","qid":"Q7605932"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-09-11T00:00:00Z"}],"english_label":"Street Racer","qid":"Q7622905"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-01-01T00:00:00Z"}],"english_label":"Surround","qid":"Q7646895"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-04-07T00:00:00Z"}],"english_label":"Tac/Scan","qid":"Q7673660"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Tax Avoiders","qid":"Q7689365"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-12-31T00:00:00Z"}],"english_label":"Taz","qid":"Q7690375"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Tooth Protectors","qid":"Q7824252"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Towering Inferno","qid":"Q7829814"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Tunnel Runner","qid":"Q7853294"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-03-15T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2024-05-09T00:00:00Z"}],"english_label":"Tutankham","qid":"Q7856907"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Video Chess","qid":"Q7927809"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1981-01-01T00:00:00Z"}],"english_label":"Video Life","qid":"Q7927851"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-09-11T00:00:00Z"}],"english_label":"Video Olympics","qid":"Q7927865"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2005-10-01T00:00:00Z"}],"english_label":"Wizard","qid":"Q8028724"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Worm War 1","qid":"Q8036848"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"X-Man","qid":"Q8041456"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Parachute","qid":"Q8273133"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1988-01-01T00:00:00Z"}],"english_label":"32 in 1","qid":"Q9551740"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-07-01T00:00:00Z"}],"english_label":"Crackpots","qid":"Q10261337"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Grand Prix","qid":"Q10290923"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1977-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Indy 500","qid":"Q10302032"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Infiltrate","qid":"Q10302118"}
+{"dates":[],"english_label":"Laser Gates","qid":"Q10316453"}
+{"dates":[],"english_label":"Sneak 'N Peek","qid":"Q10372441"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Space Shuttle: A Journey into Space","qid":"Q15726502"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-10-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-10-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-03-01T00:00:00Z"}],"english_label":"RealSports Baseball","qid":"Q15726606"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1986-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2008-01-01T00:00:00Z"}],"english_label":"Actionauts","qid":"Q16144871"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Snoopy and the Red Baron","qid":"Q16167812"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Space Cavern","qid":"Q16259275"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Frankenstein's Monster","qid":"Q16259544"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2008-01-01T00:00:00Z"}],"english_label":"Grogger","qid":"Q16267163"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Sky Jinks","qid":"Q16267626"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Sword of Saros","qid":"Q16968947"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Dishaster","qid":"Q17151091"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-09-01T00:00:00Z"}],"english_label":"Lost Luggage","qid":"Q17182655"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-01-01T00:00:00Z"}],"english_label":"Fatal Run","qid":"Q18274877"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Math Grand Prix","qid":"Q19706867"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Dolphin","qid":"Q20874771"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Entombed","qid":"Q20874777"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Spike's Peak","qid":"Q21190222"}
+{"dates":[],"english_label":"Revenge of the Apes","qid":"Q22019738"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Spider Fighter","qid":"Q22908982"}
+{"dates":[],"english_label":"Mr. Postman","qid":"Q28677562"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Burning Desire","qid":"Q48889307"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-01-01T00:00:00Z"}],"english_label":"Secret Quest","qid":"Q48999698"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Robin Hood","qid":"Q50100143"}
+{"dates":[],"english_label":"Miniature Golf","qid":"Q55623207"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Stellar Track","qid":"Q56276940"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Riddle of the Sphinx","qid":"Q56351311"}
+{"dates":[],"english_label":"Desert Falcon","qid":"Q56353878"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Marauder","qid":"Q56760025"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Human Cannonball","qid":"Q58465463"}
+{"dates":[],"english_label":"RealSports Basketball","qid":"Q58477753"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Space Jockey","qid":"Q60754863"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Word Zapper","qid":"Q60755168"}
+{"dates":[],"english_label":"Video Checkers","qid":"Q62506960"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Gamma-Attack","qid":"Q66318446"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Z-Tack","qid":"Q74114820"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Wall-Defender","qid":"Q74114860"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Backgammon","qid":"Q85744832"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Fireball","qid":"Q85760981"}
+{"dates":[],"english_label":"Great Escape","qid":"Q85764418"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Cubicolor","qid":"Q100701966"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Big Bird's Egg Catch","qid":"Q101960031"}
+{"dates":[],"english_label":"Wabbit","qid":"Q105576476"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"}],"english_label":"Home Run","qid":"Q105615126"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Obelix","qid":"Q105621215"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Othello","qid":"Q105626635"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Pigs in Space","qid":"Q105637148"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-01-01T00:00:00Z"}],"english_label":"Radar Lock","qid":"Q105639732"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"RealSports Soccer","qid":"Q105675584"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-01-01T00:00:00Z"}],"english_label":"Sentinel","qid":"Q105688903"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Space Battle","qid":"Q105730657"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Submarine Commander","qid":"Q105749532"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1979-01-01T00:00:00Z"}],"english_label":"Slot Machine","qid":"Q105763900"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Frog Bog","qid":"Q106489720"}
+{"dates":[],"english_label":"Cross Force","qid":"Q107432804"}
+{"dates":[],"english_label":"Tomarc the Barbarian","qid":"Q107451787"}
+{"dates":[],"english_label":"Motocross Racer","qid":"Q107452200"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"M.A.D.","qid":"Q108211199"}
+{"dates":[],"english_label":"Gangster Alley","qid":"Q108936120"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Red Sea Crossing","qid":"Q110488283"}
+{"dates":[],"english_label":"Fathom","qid":"Q112577948"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-12-31T00:00:00Z"}],"english_label":"Wing War","qid":"Q115251523"}
+{"dates":[],"english_label":"No Escape!","qid":"Q115805789"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-10-01T00:00:00Z"}],"english_label":"Swordquest: Earthworld","qid":"Q116465961"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-02-01T00:00:00Z"}],"english_label":"Swordquest: Fireworld","qid":"Q116465968"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-02-01T00:00:00Z"}],"english_label":"Swordquest: Waterworld","qid":"Q116465971"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Mines of Minos","qid":"Q118536030"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2023-04-01T00:00:00Z"}],"english_label":"Xanthiom 2600","qid":"Q122029031"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Venetian Blinds","qid":"Q122826958"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2023-01-01T00:00:00Z"}],"english_label":"Slicks Racing","qid":"Q123018666"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2019-01-01T00:00:00Z"}],"english_label":"Dog Walk","qid":"Q123042812"}
+{"dates":[],"english_label":"Beany Bopper","qid":"Q123505831"}
+{"dates":[],"english_label":"Super Football","qid":"Q123920433"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-10-01T00:00:00Z"}],"english_label":"Outlaw","qid":"Q124540344"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1980-01-01T00:00:00Z"}],"english_label":"Space Invaders","qid":"Q124618554"}
+{"dates":[],"english_label":"Time Race","qid":"Q124800424"}
+{"dates":[],"english_label":null,"qid":"Q125145920"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Rubik's Cube","qid":"Q125728633"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"Quick Step","qid":"Q126080176"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-01-01T00:00:00Z"}],"english_label":"Wishbringer: The Magick Stone of Dreams","qid":"Q132199922"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1987-01-01T00:00:00Z"}],"english_label":"Nord and Bert Couldn't Make Heads or Tails of It","qid":"Q132199987"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2005-01-01T00:00:00Z"}],"english_label":"Super Atari Poetry","qid":"Q132200270"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":null,"qid":"Q133226198"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1984-01-01T00:00:00Z"}],"english_label":"Birthday Mania","qid":"Q133883927"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-01-01T00:00:00Z"}],"english_label":"The Earth Dies Screaming","qid":"Q134204792"}
+{"dates":[],"english_label":"Survival Island","qid":"Q138528005"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-01-01T00:00:00Z"}],"english_label":"Turmoil","qid":"Q138652383"}
+{"dates":[],"english_label":"Mission 3000 A.D.","qid":"Q138672824"}
+{"dates":[],"english_label":"Sea Monster","qid":"Q138676015"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1982-06-01T00:00:00Z"}],"english_label":"Lochjaw","qid":"Q138678422"}
+{"dates":[],"english_label":"Snail Against Squirrel","qid":"Q138678542"}
+{"dates":[],"english_label":"Cathouse Blues","qid":"Q138683661"}
+{"dates":[],"english_label":"Cosmic Corridor","qid":"Q138685023"}
+{"dates":[],"english_label":"Knight on the Town","qid":"Q138710264"}
+{"dates":[],"english_label":"Commando Raid","qid":"Q138748576"}
+{"dates":[],"english_label":"China Syndrome","qid":"Q138751887"}
+{"dates":[],"english_label":"Exocet","qid":"Q138763138"}
+{"dates":[],"english_label":"Nightmare","qid":"Q138771986"}
+{"dates":[],"english_label":"IQ 180","qid":"Q138773485"}
+{"dates":[],"english_label":"Ski Hunt","qid":"Q138781539"}
+{"dates":[],"english_label":"Astrowar","qid":"Q138785979"}
+{"dates":[],"english_label":"Pac-Kong","qid":"Q138786980"}
+{"dates":[],"english_label":"Space Robot","qid":"Q138789184"}
+{"dates":[],"english_label":"Save Our Ship","qid":"Q138794555"}
+{"dates":[],"english_label":"Surfer's Paradise but Danger Below!","qid":"Q138795405"}
+{"dates":[],"english_label":"Pharaoh's Curse","qid":"Q138796616"}
+{"dates":[],"english_label":"Missile Control","qid":"Q138802291"}
+{"dates":[],"english_label":"Nuts","qid":"Q138808594"}
+{"dates":[],"english_label":"World End","qid":"Q138845391"}
+{"dates":[],"english_label":"Flash Gordon","qid":"Q138858205"}
+{"dates":[],"english_label":"Master Builder","qid":"Q138863994"}
+{"dates":[],"english_label":"Cosmic Creeps","qid":"Q138867114"}
+{"dates":[],"english_label":"Cosmic Swarm","qid":"Q138874527"}
+{"dates":[],"english_label":"Mega Force","qid":"Q138880606"}
+{"dates":[],"english_label":"Planet Patrol","qid":"Q138886499"}
+{"dates":[],"english_label":"Aquaventure","qid":"Q141429379"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-01-01T00:00:00Z"}],"english_label":"MotoRodeo","qid":"Q141448697"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1989-01-01T00:00:00Z"}],"english_label":"Sprintmaster","qid":"Q141450798"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1983-06-01T00:00:00Z"}],"english_label":null,"qid":"Q141644889"}

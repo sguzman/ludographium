@@ -1,0 +1,416 @@
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-03T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-07T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-10T00:00:00Z"}],"english_label":"Star Wars: Rogue Squadron","qid":"Q54297"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-12-18T00:00:00Z"}],"english_label":"Star Wars Episode I: Battle for Naboo","qid":"Q54840"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-05-19T00:00:00Z"}],"english_label":"Star Wars Episode I: Racer","qid":"Q55217"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-12-03T00:00:00Z"}],"english_label":"Star Wars: Shadows of the Empire","qid":"Q55263"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-06-29T00:00:00Z"}],"english_label":"Banjo-Kazooie","qid":"Q129000"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-08-11T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-02-05T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-10-05T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-07-10T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-07-13T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-07-16T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2015-04-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2015-05-21T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2015-05-22T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2015-07-15T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2021-12-10T00:00:00Z"}],"english_label":"Paper Mario","qid":"Q149998"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":null,"qid":"Q165929"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-02-28T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-09T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2008-01-15T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2008-01-18T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2008-01-28T00:00:00Z"}],"english_label":"1080° Snowboarding","qid":"Q168615"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-21T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-23T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-11T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-18T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2002-11-28T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2003-02-18T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2003-05-03T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2003-11-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-02-23T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-02-26T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-02-27T00:00:00Z"}],"english_label":"The Legend of Zelda: Ocarina of Time","qid":"Q213911"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-06-23T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-09-29T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-01T00:00:00Z"}],"english_label":"Super Mario 64","qid":"Q216995"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-06-22T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-07-05T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-08-25T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-08-28T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-27T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-02T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-24T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-05-24T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-05-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2021-08-19T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2021-10-12T00:00:00Z"}],"english_label":"Quake","qid":"Q217423"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1978-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-04-17T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-03-02T00:00:00Z"}],"english_label":"Space Invaders","qid":"Q220665"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-08-30T00:00:00Z"}],"english_label":"Spider-Man","qid":"Q288296"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-21T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-24T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-09-05T00:00:00Z"}],"english_label":"Blast Corps","qid":"Q339222"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-08-23T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-08-25T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-07T00:00:00Z"}],"english_label":null,"qid":"Q369086"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-29T00:00:00Z"}],"english_label":"Jeremy McGrath Supercross 2000","qid":"Q387425"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-12T00:00:00Z"}],"english_label":null,"qid":"Q475782"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-06T00:00:00Z"}],"english_label":"Rally Challenge 2000","qid":"Q518629"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"}],"english_label":"South Park Rally","qid":"Q530973"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-09-30T00:00:00Z"}],"english_label":"Nightmare Creatures","qid":"Q536833"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-21T00:00:00Z"}],"english_label":"Diddy Kong Racing","qid":"Q545072"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-10T00:00:00Z"}],"english_label":"Twisted Edge Extreme Snowboarding","qid":"Q545348"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-03-01T00:00:00Z"}],"english_label":"Battlezone: Rise of the Black Dogs","qid":"Q591956"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-04-14T00:00:00Z"}],"english_label":"Daikatana","qid":"Q596596"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-04-05T00:00:00Z"}],"english_label":"NBA Showtime: NBA on NBC","qid":"Q598160"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-01T00:00:00Z"}],"english_label":"Gex 3: Deep Cover Gecko","qid":"Q615211"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-30T00:00:00Z"}],"english_label":"Dance Dance Revolution Disney Dancing Museum","qid":"Q617065"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-19T00:00:00Z"}],"english_label":null,"qid":"Q645418"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-30T00:00:00Z"}],"english_label":"Carmageddon II: Carpocalypse Now","qid":"Q660034"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-19T00:00:00Z"}],"english_label":"AeroGauge","qid":"Q668397"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-23T00:00:00Z"}],"english_label":"Kira tto Kaiketsu! 64 Tanteidan","qid":"Q690386"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-04-30T00:00:00Z"}],"english_label":"Bomberman Hero","qid":"Q690394"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-01-29T00:00:00Z"}],"english_label":"Duke Nukem 3D","qid":"Q728061"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-04-27T00:00:00Z"}],"english_label":"The Legend of Zelda: Majora's Mask","qid":"Q732943"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-21T00:00:00Z"}],"english_label":"Resident Evil 2","qid":"Q733992"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-09T00:00:00Z"}],"english_label":"Quake II","qid":"Q737103"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-12-07T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2023-10-27T00:00:00Z"}],"english_label":"Mario Party 3","qid":"Q743187"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-30T00:00:00Z"}],"english_label":"F-1 World Grand Prix II","qid":"Q743841"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-22T00:00:00Z"}],"english_label":"Donkey Kong 64","qid":"Q774773"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"Tonic Trouble","qid":"Q776134"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Premier Manager: Ninety Nine","qid":"Q776211"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-28T00:00:00Z"}],"english_label":"Puzzle Bobble 3","qid":"Q784447"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-25T00:00:00Z"}],"english_label":"Neon Genesis Evangelion","qid":"Q796132"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-20T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-04-12T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2009-04-29T00:00:00Z"}],"english_label":"Banjo-Tooie","qid":"Q806598"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-02-28T00:00:00Z"}],"english_label":"Beetle Adventure Racing!","qid":"Q814145"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-03-05T00:00:00Z"}],"english_label":"Conker's Bad Fur Day","qid":"Q841712"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-31T00:00:00Z"}],"english_label":"World Cup 98","qid":"Q864026"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1995-08-31T00:00:00Z"}],"english_label":"Command & Conquer","qid":"Q868523"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-21T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-04-27T00:00:00Z"}],"english_label":"Super Smash Bros.","qid":"Q870981"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-20T00:00:00Z"}],"english_label":"Body Harvest","qid":"Q890065"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-06-17T00:00:00Z"}],"english_label":"FIFA: Road to World Cup 98","qid":"Q913223"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-02T00:00:00Z"}],"english_label":"Mario no Photopi","qid":"Q919688"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-09T00:00:00Z"}],"english_label":"Transformers: Beast Wars Transmetals","qid":"Q920886"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-15T00:00:00Z"}],"english_label":"Mortal Kombat 4","qid":"Q925269"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-06-23T00:00:00Z"}],"english_label":"Pilotwings 64","qid":"Q933524"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-05-02T00:00:00Z"}],"english_label":"Japan Pro Golf Tour 64","qid":"Q944401"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-05-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-19T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-03-30T00:00:00Z"}],"english_label":null,"qid":"Q953922"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1994-10-28T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1995-08-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1995-09-21T00:00:00Z"}],"english_label":"Killer Instinct","qid":"Q973459"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-12-14T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-02-10T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-06-24T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-01-25T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-01-26T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-01-29T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-01-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2016-01-21T00:00:00Z"}],"english_label":"Mario Kart 64","qid":"Q1046604"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-07-31T00:00:00Z"}],"english_label":"Re-Volt","qid":"Q1065861"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-08-21T00:00:00Z"}],"english_label":"Tom Clancy's Rainbow Six","qid":"Q1068778"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-31T00:00:00Z"}],"english_label":"Doom 64","qid":"Q1071278"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-05T00:00:00Z"}],"english_label":"64 Hanafuda: Tenshi no Yakusoku","qid":"Q1107793"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-25T00:00:00Z"}],"english_label":"Pokémon Puzzle League","qid":"Q1109914"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-01T00:00:00Z"}],"english_label":"AI Shogi 3","qid":"Q1117921"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-03-14T00:00:00Z"}],"english_label":"Aidyn Chronicles: The First Mage","qid":"Q1118490"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"Lego Racers","qid":"Q1128672"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-12T00:00:00Z"}],"english_label":"South Park: Chef's Luv Shack","qid":"Q1130193"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-04-27T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-06-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-20T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2003-11-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-04-02T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-04-17T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2007-04-20T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2008-06-25T00:00:00Z"}],"english_label":"Star Fox 64","qid":"Q1141963"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-31T00:00:00Z"}],"english_label":"Gex: Enter the Gecko","qid":"Q1143139"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-18T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"A Bug's Life","qid":"Q1171293"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-17T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-24T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-13T00:00:00Z"}],"english_label":"Mario Party 2","qid":"Q1205676"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-01T00:00:00Z"}],"english_label":"The World Is Not Enough","qid":"Q1217501"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-09T00:00:00Z"}],"english_label":"Shadow Man","qid":"Q1274056"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-09-01T00:00:00Z"}],"english_label":"Mortal Kombat Trilogy","qid":"Q1300499"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-01T00:00:00Z"}],"english_label":"Mortal Kombat Mythologies: Sub-Zero","qid":"Q1300673"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-07-28T00:00:00Z"}],"english_label":"Doraemon 3: Nobita no Machi SOS!","qid":"Q1309215"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-11T00:00:00Z"}],"english_label":"Doraemon 2: Nobita to Hikari no Shinden","qid":"Q1309496"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-21T00:00:00Z"}],"english_label":"Doraemon: Nobita to Mittsu no Seireiseki","qid":"Q1309618"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1985-04-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1990-10-26T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1991-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1991-01-30T00:00:00Z"}],"english_label":"Paperboy","qid":"Q1330205"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-03-24T00:00:00Z"}],"english_label":"Kirby 64: The Crystal Shards","qid":"Q1366980"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-09-30T00:00:00Z"}],"english_label":"Extreme-G","qid":"Q1385473"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-05-22T00:00:00Z"}],"english_label":"Perfect Dark","qid":"Q1408723"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-31T00:00:00Z"}],"english_label":"Fighting Force","qid":"Q1411913"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1995-10-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-04-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-05-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-06-30T00:00:00Z"}],"english_label":"Hexen: Beyond Heretic","qid":"Q1423930"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-10-28T00:00:00Z"}],"english_label":"Tony Hawk's Pro Skater 3","qid":"Q1463730"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-06-01T00:00:00Z"}],"english_label":"Quest 64","qid":"Q1478513"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-18T00:00:00Z"}],"english_label":"Nagano Winter Olympics '98","qid":"Q1523264"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-23T00:00:00Z"}],"english_label":"Indiana Jones and the Infernal Machine","qid":"Q1527683"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-20T00:00:00Z"}],"english_label":"Tony Hawk's Pro Skater 2","qid":"Q1538485"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"International Track & Field 2000","qid":"Q1571727"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-06T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-30T00:00:00Z"}],"english_label":"San Francisco Rush 2049","qid":"Q1632811"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-08T00:00:00Z"}],"english_label":"San Francisco Rush: Extreme Racing","qid":"Q1632918"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-04-30T00:00:00Z"}],"english_label":"Forsaken","qid":"Q1633977"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-10T00:00:00Z"}],"english_label":"Rush 2: Extreme Racing USA","qid":"Q1634362"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-11T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-29T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-01T00:00:00Z"}],"english_label":"Jet Force Gemini","qid":"Q1688483"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-21T00:00:00Z"}],"english_label":"Pokémon Snap","qid":"Q1705294"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-11T00:00:00Z"}],"english_label":"Mario Golf","qid":"Q1758447"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1993-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1994-02-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-11-01T00:00:00Z"}],"english_label":"SimCity 2000","qid":"Q1767176"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-21T00:00:00Z"}],"english_label":"Space Station Silicon Valley","qid":"Q1810472"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-05-31T00:00:00Z"}],"english_label":"Shadowgate 64: Trials of the Four Towers","qid":"Q1822207"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-31T00:00:00Z"}],"english_label":"ECW Hardcore Revolution","qid":"Q1845090"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-03-01T00:00:00Z"}],"english_label":"Scooby-Doo! Classic Creep Capers","qid":"Q1860996"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-07-29T00:00:00Z"}],"english_label":"International Superstar Soccer 2000","qid":"Q1865940"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-05-21T00:00:00Z"}],"english_label":"War Gods","qid":"Q1873945"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-04-08T00:00:00Z"}],"english_label":"Dr. Mario 64","qid":"Q1957354"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-09-11T00:00:00Z"}],"english_label":"NASCAR 99","qid":"Q1980794"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-29T00:00:00Z"}],"english_label":"Super Robot Wars 64","qid":"Q1988494"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-31T00:00:00Z"}],"english_label":"NBA Live 99","qid":"Q1989219"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-30T00:00:00Z"}],"english_label":"Monaco Grand Prix: Racing Simulation 2","qid":"Q1998794"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"Gauntlet Legends","qid":"Q2007458"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-07-31T00:00:00Z"}],"english_label":"WWF Attitude","qid":"Q2015773"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"WWF WrestleMania 2000","qid":"Q2016181"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-12-01T00:00:00Z"}],"english_label":"WCW Backstage Assault","qid":"Q2020334"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-31T00:00:00Z"}],"english_label":"F-1 World Grand Prix","qid":"Q2028799"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-04-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-02-29T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-03-23T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-04-07T00:00:00Z"}],"english_label":"Pokémon Stadium","qid":"Q2034425"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-10T00:00:00Z"}],"english_label":"Star Soldier: Vanishing Earth","qid":"Q2039398"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"Tony Hawk's Pro Skater","qid":"Q2264782"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-19T00:00:00Z"}],"english_label":"Tamagotchi 64: Minna de Tamagotchi World","qid":"Q2266230"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-27T00:00:00Z"}],"english_label":"Air Boarder 64","qid":"Q2271204"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-12-14T00:00:00Z"}],"english_label":"Pokémon Stadium 2","qid":"Q2290930"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-29T00:00:00Z"}],"english_label":"Rayman 2: The Great Escape","qid":"Q2292393"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-07-14T00:00:00Z"}],"english_label":"Ogre Battle 64: Person of Lordly Caliber","qid":"Q2295559"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-31T00:00:00Z"}],"english_label":"Fighters Destiny","qid":"Q2297514"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-31T00:00:00Z"}],"english_label":"Iggy's Reckin' Balls","qid":"Q2312312"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-21T00:00:00Z"}],"english_label":null,"qid":"Q2337280"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-04-06T00:00:00Z"}],"english_label":"Hamster Monogatari 64","qid":"Q2374144"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-06-01T00:00:00Z"}],"english_label":"International Superstar Soccer 64","qid":"Q2387749"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"NBA Courtside 2: Featuring Kobe Bryant","qid":"Q2389716"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-07-21T00:00:00Z"}],"english_label":"Mario Tennis","qid":"Q2397985"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-06-04T00:00:00Z"}],"english_label":"International Superstar Soccer 98","qid":"Q2398156"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-31T00:00:00Z"}],"english_label":"Madden Football 64","qid":"Q2413620"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-01T00:00:00Z"}],"english_label":"FIFA 99","qid":"Q2420155"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-02-28T00:00:00Z"}],"english_label":"Turok: Dinosaur Hunter","qid":"Q2431467"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-31T00:00:00Z"}],"english_label":null,"qid":"Q2453573"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"Vigilante 8: 2nd Offense","qid":"Q2483445"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-17T00:00:00Z"}],"english_label":"WWF No Mercy","qid":"Q2484974"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2013-02-25T00:00:00Z"}],"english_label":"WWF War Zone","qid":"Q2484999"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":"Michelin Rally Masters: Race of Champions","qid":"Q2496449"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-12T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-06T00:00:00Z"}],"english_label":"Hey You, Pikachu!","qid":"Q2525984"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-05-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-07-23T00:00:00Z"}],"english_label":"Superman","qid":"Q2530979"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-28T00:00:00Z"}],"english_label":"F1 Pole Position 64","qid":"Q2539560"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-02-28T00:00:00Z"}],"english_label":"SimCity 64","qid":"Q2545123"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"}],"english_label":"Castlevania: Legacy of Darkness","qid":"Q2553121"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-08-07T00:00:00Z"}],"english_label":"Mystical Ninja Starring Goemon","qid":"Q2562893"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-30T00:00:00Z"}],"english_label":"Duke Nukem: Zero Hour","qid":"Q2602179"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-14T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-27T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-06T00:00:00Z"}],"english_label":null,"qid":"Q2609497"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"Earthworm Jim 3D","qid":"Q2614473"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"}],"english_label":"Xena: Warrior Princess: The Talisman of Fate","qid":"Q2616525"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-12T00:00:00Z"}],"english_label":"South Park","qid":"Q2636173"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2004-12-25T00:00:00Z"}],"english_label":"Chrono Resurrection","qid":"Q2668608"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-14T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2019-04-15T00:00:00Z"}],"english_label":"40 Winks","qid":"Q2699066"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-02-05T00:00:00Z"}],"english_label":"Harvest Moon 64","qid":"Q2702506"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-03T00:00:00Z"}],"english_label":"Bomberman 64: The Second Attack","qid":"Q2705639"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"}],"english_label":"Toy Story 2: Buzz Lightyear to the Rescue","qid":"Q2709135"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-28T00:00:00Z"}],"english_label":"64 Ōzumō","qid":"Q2712783"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-09-30T00:00:00Z"}],"english_label":"Buck Bumble","qid":"Q2719351"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"}],"english_label":"Duke Nukem 64","qid":"Q2737649"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-23T00:00:00Z"}],"english_label":"ClayFighter 63⅓","qid":"Q2745706"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-05-17T00:00:00Z"}],"english_label":"Doshin the Giant","qid":"Q2748216"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-08-07T00:00:00Z"}],"english_label":"64 Trump Collection: Alice no Waku Waku Trump World","qid":"Q2779691"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-19T00:00:00Z"}],"english_label":"64 Ōzumō 2","qid":"Q2817981"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"}],"english_label":"Armorines: Project S.W.A.R.M.","qid":"Q2862795"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-26T00:00:00Z"}],"english_label":"Army Men: Sarge's Heroes 2","qid":"Q2862833"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-13T00:00:00Z"}],"english_label":"Army Men: Air Attack","qid":"Q2862835"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-28T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-30T00:00:00Z"}],"english_label":"Army Men: Sarge's Heroes","qid":"Q2862836"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-30T00:00:00Z"}],"english_label":"Automobili Lamborghini","qid":"Q2872664"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-24T00:00:00Z"}],"english_label":"Bakushō Jinsei 64: Mezase! Resort Ō","qid":"Q2880360"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-03T00:00:00Z"}],"english_label":"Bangai-O","qid":"Q2882468"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-31T00:00:00Z"}],"english_label":"Bass Masters 2000","qid":"Q2887274"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-04-28T00:00:00Z"}],"english_label":"Bass Rush: ECOGEAR PowerWorm Championship","qid":"Q2887309"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-20T00:00:00Z"}],"english_label":"Batman Beyond: Return of the Joker","qid":"Q2891582"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"BattleTanx: Global Assault","qid":"Q2891772"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-31T00:00:00Z"}],"english_label":"BattleTanx","qid":"Q2891778"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-26T00:00:00Z"}],"english_label":"Big Mountain 2000","qid":"Q2902310"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-04-30T00:00:00Z"}],"english_label":"Bio F.R.E.A.K.S.","qid":"Q2904020"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-16T00:00:00Z"}],"english_label":"Blues Brothers 2000","qid":"Q2907306"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-12-20T00:00:00Z"}],"english_label":"Bomberman 64","qid":"Q2909712"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-09-26T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-30T00:00:00Z"}],"english_label":"Bomberman 64","qid":"Q2909714"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-04-04T00:00:00Z"}],"english_label":"Bottom of the 9th","qid":"Q2911866"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-09-28T00:00:00Z"}],"english_label":"Brunswick Circuit Pro Bowling","qid":"Q2927045"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-02-28T00:00:00Z"}],"english_label":"California Speed","qid":"Q2933987"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-25T00:00:00Z"}],"english_label":"Chameleon Twist 2","qid":"Q2948512"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-09T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-12T00:00:00Z"}],"english_label":"Chameleon Twist","qid":"Q2948513"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Charlie's Blast Territory","qid":"Q2960825"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-28T00:00:00Z"}],"english_label":"Chopper Attack","qid":"Q2964476"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-24T00:00:00Z"}],"english_label":"Choro Q 64 2: Hachamecha Grand Prix Race","qid":"Q2964517"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-12-20T00:00:00Z"}],"english_label":"Chōkūkan Night: Pro Yakyū King","qid":"Q2972138"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-19T00:00:00Z"}],"english_label":"Chōkūkan Night: Pro Yakyū King 2","qid":"Q2972141"}
+{"dates":[],"english_label":"Vigilante 8","qid":"Q2988273"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-16T00:00:00Z"}],"english_label":"Cruis'n Exotica","qid":"Q3005559"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-12-03T00:00:00Z"}],"english_label":"Cruis'n USA","qid":"Q3005563"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-06-25T00:00:00Z"}],"english_label":"Cruis'n World","qid":"Q3005567"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-08T00:00:00Z"}],"english_label":"Custom Robo","qid":"Q3007910"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-10T00:00:00Z"}],"english_label":"Custom Robo V2","qid":"Q3007916"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-30T00:00:00Z"}],"english_label":"CyberTiger","qid":"Q3008121"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-16T00:00:00Z"}],"english_label":"Duck Dodgers Starring Daffy Duck","qid":"Q3011830"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-03T00:00:00Z"}],"english_label":"Wipeout 64","qid":"Q3015143"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-07-10T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2023-06-08T00:00:00Z"}],"english_label":"Dark Rift","qid":"Q3016256"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-01T00:00:00Z"}],"english_label":"Densha de Go! 2 Kōsoku-hen","qid":"Q3023258"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1994-02-18T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-08-10T00:00:00Z"}],"english_label":"Derby Stallion 64","qid":"Q3023601"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Destruction Derby 64","qid":"Q3024754"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-06-26T00:00:00Z"}],"english_label":"Dezaemon 3D","qid":"Q3025655"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-05T00:00:00Z"}],"english_label":"Dual Heroes","qid":"Q3040450"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-20T00:00:00Z"}],"english_label":"Magical Tetris Challenge","qid":"Q3043129"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-04-30T00:00:00Z"}],"english_label":"Excitebike 64","qid":"Q3046150"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-13T00:00:00Z"}],"english_label":"Mickey's Speedway USA","qid":"Q3048043"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-11-29T00:00:00Z"}],"english_label":"Eikō no Saint Andrews","qid":"Q3049396"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Elmo's Letter Adventure","qid":"Q3051600"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-17T00:00:00Z"}],"english_label":"Extreme-G 2","qid":"Q3062635"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"}],"english_label":"FIFA Soccer 64","qid":"Q3063231"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-28T00:00:00Z"}],"english_label":"Famista 64","qid":"Q3066275"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Fighter Destiny 2","qid":"Q3071637"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-31T00:00:00Z"}],"english_label":"Fox Sports College Hoops '99","qid":"Q3080185"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-06-27T00:00:00Z"}],"english_label":"Mischief Makers","qid":"Q3089600"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-12-27T00:00:00Z"}],"english_label":"Shiren the Wanderer 2","qid":"Q3093008"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-26T00:00:00Z"}],"english_label":"G.A.S.P!! Fighters' NEXTream","qid":"Q3093039"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-08-31T00:00:00Z"}],"english_label":"GT 64: Championship Edition","qid":"Q3093445"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-24T00:00:00Z"}],"english_label":"NASCAR 2000","qid":"Q3096283"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-21T00:00:00Z"}],"english_label":"Turok 2: Seeds of Evil","qid":"Q3098037"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-21T00:00:00Z"}],"english_label":"Sin and Punishment","qid":"Q3099600"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-16T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-24T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-04T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2022-04-20T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2025-02-27T00:00:00Z"}],"english_label":null,"qid":"Q3099937"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-04T00:00:00Z"}],"english_label":"Getter Love!!","qid":"Q3104670"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-05-28T00:00:00Z"}],"english_label":"Last Legion UX","qid":"Q3109329"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-25T00:00:00Z"}],"english_label":"Goemon Mononoke Sugoroku","qid":"Q3109832"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-02-14T00:00:00Z"}],"english_label":null,"qid":"Q3109941"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-01T00:00:00Z"}],"english_label":"Golden Nugget 64","qid":"Q3110091"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-28T00:00:00Z"}],"english_label":"Heiwa Pachinko World 64","qid":"Q3129566"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-13T00:00:00Z"}],"english_label":"Hercules: The Legendary Journeys","qid":"Q3133955"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"Hot Wheels Turbo Racing","qid":"Q3141103"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-09-27T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-11-05T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-04-29T00:00:00Z"}],"english_label":"Wave Race 64","qid":"Q3142278"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-05T00:00:00Z"}],"english_label":"Hybrid Heaven","qid":"Q3143650"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-09T00:00:00Z"}],"english_label":"Hydro Thunder","qid":"Q3143715"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":"Ide Yōsuke no Mahjong Juku","qid":"Q3147788"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-30T00:00:00Z"}],"english_label":"Bass Hunter 64","qid":"Q3149583"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-06-09T00:00:00Z"}],"english_label":"Indy Racing 2000","qid":"Q3150637"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-02-21T00:00:00Z"}],"english_label":"Itoi Shigesato no Bass Tsuri No. 1","qid":"Q3155973"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-24T00:00:00Z"}],"english_label":"J-League Eleven Beat 1997","qid":"Q3156715"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-09-05T00:00:00Z"}],"english_label":"J-League Dynamite Soccer 64","qid":"Q3156716"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-15T00:00:00Z"}],"english_label":"J-League Tactics Soccer","qid":"Q3156718"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-28T00:00:00Z"}],"english_label":"J. League Live 64","qid":"Q3156816"}
+{"dates":[],"english_label":"Jangō Simulation Mahjong-dō 64","qid":"Q3161953"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-03-29T00:00:00Z"}],"english_label":"Puzzle Bobble 2","qid":"Q3176640"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-04-28T00:00:00Z"}],"english_label":"Jikkyō GI Stable","qid":"Q3178659"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-04-29T00:00:00Z"}],"english_label":"Jikkyō Powerful Pro Yakyū 2000","qid":"Q3178664"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-03-14T00:00:00Z"}],"english_label":"Jikkyō Powerful Pro Yakyū 4","qid":"Q3178665"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-26T00:00:00Z"}],"english_label":"Jikkyō Powerful Pro Yakyū 5","qid":"Q3178667"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-25T00:00:00Z"}],"english_label":"Jikkyō Powerful Pro Yakyū 6","qid":"Q3178672"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-03-29T00:00:00Z"}],"english_label":"Jikkyō Powerful Pro Yakyū Basic-ban 2001","qid":"Q3178674"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-19T00:00:00Z"}],"english_label":"Jinsei Game 64","qid":"Q3179240"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-18T00:00:00Z"}],"english_label":"Mega Man Legends","qid":"Q3179262"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-05-10T00:00:00Z"}],"english_label":"Ken Griffey, Jr.'s Slugfest","qid":"Q3195037"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-27T00:00:00Z"}],"english_label":"Knife Edge: Nose Gunner","qid":"Q3197991"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Knockout Kings 2000","qid":"Q3198035"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-01T00:00:00Z"}],"english_label":"Knockout Kings","qid":"Q3198037"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-04-01T00:00:00Z"}],"english_label":"Kobe Bryant in NBA Courtside","qid":"Q3198120"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-01-01T00:00:00Z"}],"english_label":"Kuiki Uhabi Suigō","qid":"Q3200237"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-29T00:00:00Z"}],"english_label":"Rugrats: Scavenger Hunt","qid":"Q3235097"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-29T00:00:00Z"}],"english_label":"Rugrats in Paris: The Movie","qid":"Q3235100"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-07-30T00:00:00Z"}],"english_label":"Lode Runner 3-D","qid":"Q3257786"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-01T00:00:00Z"}],"english_label":"Mace: The Dark Age","qid":"Q3274185"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"Madden NFL 2000","qid":"Q3275495"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-08-22T00:00:00Z"}],"english_label":"Madden NFL 2001","qid":"Q3275498"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-09-12T00:00:00Z"}],"english_label":"Madden NFL 2002","qid":"Q3275499"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-09-30T00:00:00Z"}],"english_label":"Madden NFL 99","qid":"Q3275508"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-13T00:00:00Z"}],"english_label":"Tetris 64","qid":"Q3276747"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"}],"english_label":"Mahjong 64","qid":"Q3277746"}
+{"dates":[],"english_label":"Mahjong Master","qid":"Q3277757"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"Top Gear Rally 2","qid":"Q3279568"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-07-27T00:00:00Z"}],"english_label":"Turok 3: Shadow of Oblivion","qid":"Q3279577"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"}],"english_label":"Off Road Challenge","qid":"Q3280267"}
+{"dates":[],"english_label":"Major League Baseball Featuring Ken Griffey, Jr.","qid":"Q3280559"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-02-19T00:00:00Z"}],"english_label":"Snowboard Kids 2","qid":"Q3281178"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-02T00:00:00Z"}],"english_label":"NBA Live 2000","qid":"Q3281193"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-08T00:00:00Z"}],"english_label":"Ms. Pac-Man Maze Madness","qid":"Q3282014"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"Turok: Rage Wars","qid":"Q3282847"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-05T00:00:00Z"}],"english_label":"Top Gear Rally","qid":"Q3283260"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"Rat Attack!","qid":"Q3284336"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-06-01T00:00:00Z"}],"english_label":"Power Rangers Lightspeed Rescue","qid":"Q3284345"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-05-31T00:00:00Z"}],"english_label":"World Driver Championship","qid":"Q3291346"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-26T00:00:00Z"}],"english_label":"Masters '98: Harukanaru Augusta","qid":"Q3297880"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-01T00:00:00Z"}],"english_label":"Micro Machines V3","qid":"Q3312024"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-06-16T00:00:00Z"}],"english_label":"Mike Piazza's Strike Zone","qid":"Q3313495"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-24T00:00:00Z"}],"english_label":"Milo's Astro Lanes","qid":"Q3314408"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-16T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-01T00:00:00Z"}],"english_label":"Mission: Impossible","qid":"Q3316822"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-04-03T00:00:00Z"}],"english_label":"Morita Shogi 64","qid":"Q3324129"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-07-18T00:00:00Z"}],"english_label":"MRC: Multi-Racing Championship","qid":"Q3327645"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-23T00:00:00Z"}],"english_label":"Goemon's Great Adventure","qid":"Q3331753"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-04-16T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-11-01T00:00:00Z"}],"english_label":"NBA Hangtime","qid":"Q3334241"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-09-30T00:00:00Z"}],"english_label":"NHL 99","qid":"Q3334428"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-04-05T00:00:00Z"}],"english_label":"NHL Blades of Steel '99","qid":"Q3334430"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-26T00:00:00Z"}],"english_label":"New Japan Pro Wrestling: Tōhkon Road Brave Spirits 2, The Next Generation","qid":"Q3338965"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-04T00:00:00Z"}],"english_label":"New Japan Pro Wrestling: Tōhkon Road Brave Spirits","qid":"Q3338966"}
+{"dates":[],"english_label":"Nintama Rantarō 64 Game Gallery","qid":"Q3342043"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-08-31T00:00:00Z"}],"english_label":"Nuclear Strike","qid":"Q3346033"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-27T00:00:00Z"}],"english_label":"Nushi Tsuri 64","qid":"Q3346498"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-05-26T00:00:00Z"}],"english_label":"Nushi Tsuri 64: Shiokaze Ninotte","qid":"Q3346501"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-02-23T00:00:00Z"}],"english_label":"Olympic Hockey '98","qid":"Q3351655"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-04-09T00:00:00Z"}],"english_label":"Onegai Monster","qid":"Q3352698"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-23T00:00:00Z"}],"english_label":"Operation WinBack","qid":"Q3354082"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-07-16T00:00:00Z"}],"english_label":"PD Ultraman Battle Collection 64","qid":"Q3359641"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":"PGA European Tour","qid":"Q3359657"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-01T00:00:00Z"}],"english_label":"Pachinko 365 Hi","qid":"Q3360050"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-29T00:00:00Z"}],"english_label":"Parlor! Pro 64: Pachinko Jikki Simulation","qid":"Q3365593"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-17T00:00:00Z"}],"english_label":"Penny Racers","qid":"Q3374797"}
+{"dates":[],"english_label":"Pocket Monsters Stadium","qid":"Q3393978"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-12-27T00:00:00Z"}],"english_label":"Polaris SnoCross","qid":"Q3394052"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-08-08T00:00:00Z"}],"english_label":"Power League 64","qid":"Q3400907"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-21T00:00:00Z"}],"english_label":"Pro Mahjong Kiwame 64","qid":"Q3406168"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-05T00:00:00Z"}],"english_label":"Pro Shinan Mahjong Tsuwamono 64: Jansō Battle ni Chōsen","qid":"Q3406180"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-04T00:00:00Z"}],"english_label":"Puyo Puyo~n","qid":"Q3411120"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-23T00:00:00Z"}],"english_label":"Rakugakids","qid":"Q3418096"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-06T00:00:00Z"}],"english_label":"Rally '99","qid":"Q3418138"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-09-30T00:00:00Z"}],"english_label":"Rampage World Tour","qid":"Q3418569"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-31T00:00:00Z"}],"english_label":"Rampage 2: Universal Tour","qid":"Q3418570"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-12-11T00:00:00Z"}],"english_label":"Razor Freestyle Scooter","qid":"Q3421384"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-09T00:00:00Z"}],"english_label":null,"qid":"Q3421556"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-23T00:00:00Z"}],"english_label":null,"qid":"Q3421557"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-09-22T00:00:00Z"}],"english_label":null,"qid":"Q3434074"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-30T00:00:00Z"}],"english_label":"Roadsters","qid":"Q3434110"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"Rocket: Robot on Wheels","qid":"Q3437940"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-08-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-04T00:00:00Z"}],"english_label":"S.C.A.R.S.","qid":"Q3459046"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-06-23T00:00:00Z"}],"english_label":"Saikyō Habu Shōgi","qid":"Q3461616"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-04T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-02T00:00:00Z"}],"english_label":"Starshot: Space Circus Fever","qid":"Q3497241"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-10-01T00:00:00Z"}],"english_label":"Stunt Racer 64","qid":"Q3501136"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-24T00:00:00Z"}],"english_label":"Super B-Daman: Battle Phoenix 64","qid":"Q3504104"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-03-26T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-15T00:00:00Z"}],"english_label":"Super Bowling","qid":"Q3504117"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-17T00:00:00Z"}],"english_label":"Super Robot Spirits","qid":"Q3504270"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"Supercross 2000","qid":"Q3504618"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-03-26T00:00:00Z"}],"english_label":"Susume! Taisen Puzzle Dama: Tōkon! Marutama Chō","qid":"Q3505760"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-16T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":null,"qid":"Q3515891"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-08-01T00:00:00Z"}],"english_label":"Taz Express","qid":"Q3516512"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-11-09T00:00:00Z"}],"english_label":"Michael Owen's WLS 2000","qid":"Q3517288"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-08-11T00:00:00Z"}],"english_label":"Tetrisphere","qid":"Q3519194"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-07-31T00:00:00Z"}],"english_label":"The New Tetris","qid":"Q3522012"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":"Tom and Jerry in Fists of Furry","qid":"Q3530639"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-03-17T00:00:00Z"}],"english_label":"Top Gear Hyper Bike","qid":"Q3532028"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-23T00:00:00Z"}],"english_label":"Top Gear Overdrive","qid":"Q3532029"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-02-28T00:00:00Z"}],"english_label":"Triple Play 2000","qid":"Q3539501"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-19T00:00:00Z"}],"english_label":"Ucchannanchan no Honō no Challenger: Denryū Iraira Bō","qid":"Q3547692"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-06-10T00:00:00Z"}],"english_label":"Virtual Chess 64","qid":"Q3560842"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-28T00:00:00Z"}],"english_label":"Virtual Pro Wrestling 2: Ōdō Keishō","qid":"Q3560851"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-17T00:00:00Z"}],"english_label":"Virtual Pool 64","qid":"Q3560852"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-19T00:00:00Z"}],"english_label":"Virtual Pro Wrestling 64","qid":"Q3560853"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-30T00:00:00Z"}],"english_label":null,"qid":"Q3564638"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"WCW Mayhem","qid":"Q3564645"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-02-01T00:00:00Z"}],"english_label":"WCW Nitro","qid":"Q3564647"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-30T00:00:00Z"}],"english_label":"WCW vs. nWo: World Tour","qid":"Q3564656"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-29T00:00:00Z"}],"english_label":"Waialae Country Club: True Golf Classics","qid":"Q3565145"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-11-11T00:00:00Z"}],"english_label":"Wayne Gretzky's 3D Hockey","qid":"Q3566832"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-27T00:00:00Z"}],"english_label":"Wetrix","qid":"Q3567573"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-09-29T00:00:00Z"}],"english_label":"Tigger's Honey Hunt","qid":"Q3569363"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-11-22T00:00:00Z"}],"english_label":"Wonder Project J2","qid":"Q3569792"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-22T00:00:00Z"}],"english_label":"Yakōchū II: Satsujin Kōro","qid":"Q3571378"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-01T00:00:00Z"}],"english_label":"All Star Tennis '99","qid":"Q3571784"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-06-11T00:00:00Z"}],"english_label":"Zoor: Majū Tsukai Densetsu","qid":"Q3576039"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-08-03T00:00:00Z"}],"english_label":"International Superstar Soccer","qid":"Q3799707"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-11-29T00:00:00Z"}],"english_label":"Namco Museum 64","qid":"Q4339204"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-15T00:00:00Z"}],"english_label":"Asteroids Hyper 64","qid":"Q4894560"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-10-09T00:00:00Z"}],"english_label":"Centre Court Tennis","qid":"Q4896761"}
+{"dates":[],"english_label":"Echo Delta","qid":"Q5332693"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-04-30T00:00:00Z"}],"english_label":"F1 Racing Championship","qid":"Q5424176"}
+{"dates":[],"english_label":"Twelve Tales: Conker 64","qid":"Q6154130"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-18T00:00:00Z"}],"english_label":"Mario Party","qid":"Q6507722"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-06-27T00:00:00Z"}],"english_label":"Midway's Greatest Arcade Hits","qid":"Q6843142"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-10-31T00:00:00Z"}],"english_label":"NBA Jam 2000","qid":"Q6952680"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-08-31T00:00:00Z"}],"english_label":"NFL Quarterback Club 2000","qid":"Q6953741"}
+{"dates":[],"english_label":"NFL QB Club 2001","qid":"Q6953742"}
+{"dates":[],"english_label":"NFL Quarterback Club 99","qid":"Q6953744"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-04-14T00:00:00Z"}],"english_label":"Doubutsu no Mori","qid":"Q7049508"}
+{"dates":[],"english_label":"Robotech: Crystal Dreams","qid":"Q7353397"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-07-18T00:00:00Z"}],"english_label":"The Bombing Islands","qid":"Q7719077"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-05T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-06T00:00:00Z"}],"english_label":"Robotron 64","qid":"Q7886388"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-12-03T00:00:00Z"}],"english_label":"Wayne Gretzky's 3D Hockey '98","qid":"Q7976281"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-24T00:00:00Z"}],"english_label":"NFL Quarterback Club 98","qid":"Q9048327"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2001-10-01T00:00:00Z"}],"english_label":"The Powerpuff Girls: Chemical X-Traction","qid":"Q10381711"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Transformer: Beast Wars Metals 64","qid":"Q11321881"}
+{"dates":[],"english_label":"Jikkyo J-League: Perfect Striker","qid":"Q11927552"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1996-01-01T00:00:00Z"}],"english_label":"Killer Instinct Gold","qid":"Q13743368"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-10-30T00:00:00Z"}],"english_label":"Aero Fighters Assault","qid":"Q14761493"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-12-04T00:00:00Z"}],"english_label":"NBA Jam 99","qid":"Q16266958"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-09-30T00:00:00Z"}],"english_label":"NHL Breakaway 98","qid":"Q16266959"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-11-27T00:00:00Z"}],"english_label":"NHL Breakaway 99","qid":"Q16266960"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-07-31T00:00:00Z"}],"english_label":"Flying Dragon","qid":"Q16838717"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-24T00:00:00Z"}],"english_label":"Robot Ponkottsu 64: Nanatsu no Umi no Caramel","qid":"Q16968646"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Elmo's Number Journey","qid":"Q17190308"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Monopoly","qid":"Q28452238"}
+{"dates":[],"english_label":"All-Star Baseball 2001","qid":"Q55375355"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"NFL Blitz 2000","qid":"Q56757283"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":"NFL Blitz 2001","qid":"Q56757295"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"}],"english_label":"NFL Blitz","qid":"Q56757321"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-06-01T00:00:00Z"}],"english_label":null,"qid":"Q60029557"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"All-Star Baseball 2000","qid":"Q65038106"}
+{"dates":[],"english_label":"All-Star Baseball 99","qid":"Q65038242"}
+{"dates":[],"english_label":"NBA In The Zone '98","qid":"Q65038689"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"NBA In The Zone '99","qid":"Q65038690"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"}],"english_label":"NBA in the Zone 2000","qid":"Q65038734"}
+{"dates":[],"english_label":"Mario Artist: Communication Kit","qid":"Q65231700"}
+{"dates":[],"english_label":"Mario Artist: Polygon Studio","qid":"Q65231707"}
+{"dates":[],"english_label":"Mario Artist: Talent Studio","qid":"Q65231713"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-12-01T00:00:00Z"}],"english_label":"Mario Artist: Paint Studio","qid":"Q85971953"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-01-01T00:00:00Z"}],"english_label":"Ronaldinho Soccer 64","qid":"Q93437473"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2019-10-28T00:00:00Z"}],"english_label":"Xeno Crisis","qid":"Q104586761"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-01T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-01-31T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-02-11T00:00:00Z"},{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"2000-03-01T00:00:00Z"}],"english_label":"Brunswick Circuit Pro Bowling 2","qid":"Q105654625"}
+{"dates":[],"english_label":"Survivor: Day One","qid":"Q106327727"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Space Invaders","qid":"Q106472398"}
+{"dates":[],"english_label":"Pachinko 365 Nichi","qid":"Q108269987"}
+{"dates":[],"english_label":"F-Zero X Expansion Kit","qid":"Q108721646"}
+{"dates":[],"english_label":"ClayFighter: The Sculptor's Cut","qid":"Q109909293"}
+{"dates":[],"english_label":"SD Hiryu no Ken Densetsu","qid":"Q109909333"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-11-28T00:00:00Z"}],"english_label":"Wheel of Fortune","qid":"Q110039980"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1998-02-25T00:00:00Z"}],"english_label":"Jeopardy!","qid":"Q110041222"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1999-01-01T00:00:00Z"}],"english_label":"Monster Truck Madness 64","qid":"Q110079388"}
+{"dates":[{"datatype":"http://www.w3.org/2001/XMLSchema#dateTime","type":"literal","value":"1997-01-01T00:00:00Z"}],"english_label":"Mahjong Hōrōki Classic","qid":"Q110243342"}
+{"dates":[],"english_label":"Portal64","qid":"Q122586023"}
+{"dates":[],"english_label":"V-Rally: Edition 99","qid":"Q138458355"}
