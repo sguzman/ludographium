@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: ludographium-data-release-${{ github.ref }}
@@ -103,6 +104,26 @@ jobs:
           assert db.execute("SELECT COUNT(*) FROM claims WHERE crc32 IS NULL AND resolution_status='missing_crc'").fetchone()[0] > 0
           print("PASS: expanded accession exactly matches validated 75-system coverage")
           PY
+      - name: Retrieve immutable independent Wikidata snapshot and indexed corpus
+        uses: actions/download-artifact@v4
+        with:
+          name: ludographium-wikidata-independent-source
+          run-id: 37968964983
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/wikidata-pinned
+      - name: Audit the exact pinned independent-provider snapshot
+        run: |
+          set -euo pipefail
+          printf '%s  %s\n' \
+            db9d4c66041de776438b4316b34e1c648671889aea944efc6268446252f68734 \
+            "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json" | sha256sum --check -
+          printf '%s  %s\n' \
+            cecf94a6604a78a7794cd6ed9c66a32fbb18cae244397ada58af1ae0e33afd45 \
+            "$RUNNER_TEMP/wikidata-pinned/ludographium-wikidata.sqlite" | sha256sum --check -
+          python tools/wikidata_source.py --verify --snapshot "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json"
+          python tools/reconcile_wikidata.py --verify \
+            --db "$RUNNER_TEMP/wikidata-pinned/ludographium-wikidata.sqlite" \
+            --snapshot "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json"
       - name: Stage and verify portable release
         shell: bash
         env:
@@ -112,12 +133,18 @@ jobs:
           python tools/prepare_release.py --tag "$RELEASE_TAG" --output "$RUNNER_TEMP/release"
           cp "$RUNNER_TEMP/validated-corpus.sqlite" "$RUNNER_TEMP/release/ludographium-corpus-${RELEASE_TAG}.sqlite"
           cp "$RUNNER_TEMP/expanded-complete.sqlite" "$RUNNER_TEMP/release/ludographium-expanded-${RELEASE_TAG}.sqlite"
+          cp "$RUNNER_TEMP/wikidata-pinned/ludographium-wikidata.sqlite" "$RUNNER_TEMP/release/ludographium-wikidata-${RELEASE_TAG}.sqlite"
+          cp "$RUNNER_TEMP/wikidata-pinned/wikidata-snapshot.json" "$RUNNER_TEMP/release/ludographium-wikidata-source-${RELEASE_TAG}.json"
           python tools/build_corpus.py --verify --db "$RUNNER_TEMP/release/ludographium-corpus-${RELEASE_TAG}.sqlite"
           cd "$RUNNER_TEMP/release"
           sha256sum "ludographium-corpus-${RELEASE_TAG}.sqlite" > "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256"
           sha256sum --check "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256"
           sha256sum "ludographium-expanded-${RELEASE_TAG}.sqlite" > "ludographium-expanded-${RELEASE_TAG}.sqlite.sha256"
           sha256sum --check "ludographium-expanded-${RELEASE_TAG}.sqlite.sha256"
+          sha256sum "ludographium-wikidata-${RELEASE_TAG}.sqlite" > "ludographium-wikidata-${RELEASE_TAG}.sqlite.sha256"
+          sha256sum --check "ludographium-wikidata-${RELEASE_TAG}.sqlite.sha256"
+          sha256sum "ludographium-wikidata-source-${RELEASE_TAG}.json" > "ludographium-wikidata-source-${RELEASE_TAG}.json.sha256"
+          sha256sum --check "ludographium-wikidata-source-${RELEASE_TAG}.json.sha256"
           sha256sum --check "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256"
           python "$GITHUB_WORKSPACE/tools/package_runtime.py" --root "$GITHUB_WORKSPACE" \
             --verify "$RUNNER_TEMP/release/ludographium-runtime-${RELEASE_TAG}.tar.gz"
@@ -134,6 +161,21 @@ jobs:
           are stored in the expanded SQLite file. Ambiguous and checksum-free source claims remain
           unresolved rather than being silently attached to game identities. No ROMs or executables
           are included. All source-specific reuse and attribution notices continue to apply.
+          EOF
+          cat >> "$RUNNER_TEMP/release/RELEASE_NOTES.md" <<'EOF'
+
+          ### Independently sourced Wikidata CC0 observations
+
+          This release also includes an immutable, checksummed snapshot of all 16 platform-wide
+          Wikidata SPARQL query responses and a complete offline 75-platform corpus enriched with
+          their separately attributed Wikidata observations: **15,868 item/platform records**,
+          **29,333 literal publication-date claims**, and **8,971 title-based candidate links**
+          to **8,908 console source observations**. **126 candidate links are ambiguous**.
+
+          All source queries, HTTP response hashes, retrieval times and original response bodies
+          are retained. The original Libretro observation and field-claim tables are unchanged.
+          A title candidate is never an accepted game, build or publication identity. Wikimedia
+          structured data are CC0; third-party and Libretro source rights remain separate.
           EOF
       - name: Transfer verified release assets
         uses: actions/upload-artifact@v4
@@ -166,6 +208,8 @@ jobs:
           sha256sum --check "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256"
           sha256sum --check "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256"
           sha256sum --check "ludographium-expanded-${RELEASE_TAG}.sqlite.sha256"
+          sha256sum --check "ludographium-wikidata-${RELEASE_TAG}.sqlite.sha256"
+          sha256sum --check "ludographium-wikidata-source-${RELEASE_TAG}.json.sha256"
           if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
             echo "Release $RELEASE_TAG exists; refusing to overwrite assets"
             exit 1
@@ -184,6 +228,10 @@ jobs:
               "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256" \
               "ludographium-expanded-${RELEASE_TAG}.sqlite" \
               "ludographium-expanded-${RELEASE_TAG}.sqlite.sha256" \
+              "ludographium-wikidata-${RELEASE_TAG}.sqlite" \
+              "ludographium-wikidata-${RELEASE_TAG}.sqlite.sha256" \
+              "ludographium-wikidata-source-${RELEASE_TAG}.json" \
+              "ludographium-wikidata-source-${RELEASE_TAG}.json.sha256" \
               --target "$GITHUB_SHA" --latest=false \
               --title "Ludographium metadata ${RELEASE_TAG}" \
               --notes-file RELEASE_NOTES.md
@@ -195,6 +243,10 @@ jobs:
               "ludographium-corpus-${RELEASE_TAG}.sqlite.sha256" \
               "ludographium-expanded-${RELEASE_TAG}.sqlite" \
               "ludographium-expanded-${RELEASE_TAG}.sqlite.sha256" \
+              "ludographium-wikidata-${RELEASE_TAG}.sqlite" \
+              "ludographium-wikidata-${RELEASE_TAG}.sqlite.sha256" \
+              "ludographium-wikidata-source-${RELEASE_TAG}.json" \
+              "ludographium-wikidata-source-${RELEASE_TAG}.json.sha256" \
               --verify-tag --latest=false \
               --title "Ludographium metadata ${RELEASE_TAG}" \
               --notes-file RELEASE_NOTES.md
