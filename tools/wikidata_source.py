@@ -85,7 +85,7 @@ def extract_bindings(raw):
                 row["label"].get("xml:lang") != "en"
                 or row["label"].get("type") != "literal"):
             raise ValueError("Wikidata English label binding malformed")
-        if "date" in row and row["date"].get("type") != "literal":
+        if "date" in row and row["date"].get("type") not in ("literal", "typed-literal"):
             raise ValueError("Wikidata publication date value malformed")
     return bindings
 
