@@ -6,6 +6,8 @@ Ludographium collects structured metadata about console games and their releases
 
 It catalogs titles, versions, regions, publication facts, product identifiers, and media fingerprints. It is not a ROM archive, cheat collection, or gameplay ontology.
 
+**Source data are plain text, not binary databases.** The [Wikidata accession is checked into Git as small per-platform JSONL files](data/wikidata/v1/); SQLite is only an optional derived offline index. See the [source-format policy](docs/DATA-FORMATS.md). The earlier SQLite Release assets remain available for backward compatibility, but new releases will not publish those large binary databases.
+
 ## Collection
 
 The original v1 JSON baseline covers ten console and handheld platforms (retained for compatibility). **The expanded bulk SQLite collection now covers 75 platform collections and 117,145 original source observations**, with [complete provenance and coverage details](docs/BULK-EXPANSION.md).
@@ -37,6 +39,7 @@ The original 88 pinned Libretro DATs supply **129,008 bibliographic claims** acr
 | [`archive/`](archive/) | Unmodified original DATs |
 | [`sources/`](sources/) | Pinned source revisions, attribution, and reuse information |
 | [`generated/`](generated/) | Reproducible identification and bibliographic claim indexes |
+| [`data/wikidata/v1/`](data/wikidata/v1/) | Small, attributed, human-readable Wikidata JSONL source files |
 | [`curated/`](curated/v1/identities.json) | Evidence-backed work, release and build identities (15 works, 17 releases, 28 exact builds) |
 | [`platforms/`](platforms/platforms.json) | Platform identifiers |
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
