@@ -18,7 +18,7 @@ python3 tools/triage_identities.py --export /tmp/ludographium-identity-review-v1
 
 ## What the tool considers
 
-Only two or more source observations **on the same platform**, where one has a title ending with `(Rev X)` and another has the *exact title without that trailing revision qualifier*, are presented. Exact means every other character and region or edition qualifier remains unchanged. All members must cite a single identifiable media file with a SHA-1 and positive byte length, and the recorded SHA-1 values must differ.
+Only two or more source observations **on the same platform**, where one has a title ending with `(Rev X)` and another has the *exact title without that trailing revision qualifier*, are presented. Exact means every other character and region or edition qualifier remains unchanged. All members must cite a single identifiable media file with a SHA-1 and positive byte length, **exactly one observation per revision qualifier** (including the unmarked base), and the **same byte length** across all candidates. The recorded SHA-1 values must differ. These conservative guards explicitly exclude headered/headerless duplicate representations often present in NES source catalogs; format-specific normalization and identity review are separate questions.
 
 For example, `Super Mario Land (World)` and `Super Mario Land (World) (Rev 1)` can appear together. `Super Mario Land (World)` and `Super Mario Land (Japan) (Rev 1)` **cannot** appear in the same review group, because the territory strings are not identical. Beta, prototype, hack, pirate, aftermarket, Virtual Console, and other explicitly excluded classifications are not processed in this narrow queue.
 
