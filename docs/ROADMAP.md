@@ -26,6 +26,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Reject conflicting work/release ownership of a source occurrence during curation validation.
 - [x] Verify the same parent-evidence and ownership invariants in the Rust offline reader.
 - [x] Audit curated media against separately attributed field-DAT claims and prioritize revision leads by field-claim availability without auto-curation.
+- [x] Curate additional exact revision groups on GBA, SNES, Nintendo 64 and Sega Genesis using original observation locators and separately attributed claim coverage.
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
