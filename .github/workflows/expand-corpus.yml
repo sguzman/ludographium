@@ -75,12 +75,3 @@ jobs:
           cd "$RUNNER_TEMP"
           sha256sum ludographium-expanded.sqlite > ludographium-expanded.sqlite.sha256
           sha256sum -c ludographium-expanded.sqlite.sha256
-      - name: Publish full expanded corpus artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ludographium-expanded-corpus-75-platforms
-          path: |
-            ${{ runner.temp }}/ludographium-expanded.sqlite
-            ${{ runner.temp }}/ludographium-expanded.sqlite.sha256
-          if-no-files-found: error
-          retention-days: 14
