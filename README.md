@@ -85,7 +85,7 @@ Python lookup tools offer equivalent access. A match associates a fingerprint wi
 ## Documentation
 
 - [Scope](docs/SCOPE.md), [data model](docs/MODEL.md), and [media byte domains](docs/BYTE-DOMAINS.md)
-- [Curated identity framework](docs/IDENTITIES.md) and [dataset release history](docs/DATA-RELEASES.md)
+- [Curated identity framework](docs/IDENTITIES.md), [revision candidate review](docs/IDENTITY-REVIEW.md), and [dataset release history](docs/DATA-RELEASES.md)
 - [Licensing and third-party attribution](docs/LICENSING.md)
 - [Provenance and licensing](docs/PROVENANCE.md)
 - [Offline consumer interface](docs/CONSUMERS.md) and [version compatibility](docs/COMPATIBILITY.md)
