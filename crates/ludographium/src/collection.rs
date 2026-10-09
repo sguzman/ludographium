@@ -164,6 +164,28 @@ pub fn fingerprint_zip_normalized<R: Read + Seek>(
     reader: R,
     format: MediaFormat,
 ) -> Result<Vec<NormalizedZipMemberFingerprint>, CatalogError> {
+    fingerprint_zip_normalized_filtered(reader, format, None)
+}
+
+/// Inspect exactly one ZIP member by its full, case-sensitive archive name.
+/// This permits mixed-content archives without ever extracting their files.
+/// Missing or duplicated entry names are rejected, never silently resolved.
+pub fn fingerprint_zip_normalized_selected<R: Read + Seek>(
+    reader: R,
+    format: MediaFormat,
+    entry_name: &str,
+) -> Result<Vec<NormalizedZipMemberFingerprint>, CatalogError> {
+    if entry_name.is_empty() {
+        return Err(CatalogError::Invalid("empty ZIP member selector".into()));
+    }
+    fingerprint_zip_normalized_filtered(reader, format, Some(entry_name))
+}
+
+fn fingerprint_zip_normalized_filtered<R: Read + Seek>(
+    reader: R,
+    format: MediaFormat,
+    selected: Option<&str>,
+) -> Result<Vec<NormalizedZipMemberFingerprint>, CatalogError> {
     let mut archive = zip::ZipArchive::new(reader).map_err(read_error)?;
     if archive.len() > MAX_ZIP_ENTRIES {
         return Err(CatalogError::Invalid(
@@ -171,6 +193,7 @@ pub fn fingerprint_zip_normalized<R: Read + Seek>(
         ));
     }
     let mut total = 0u64;
+    let mut selections = 0usize;
     let mut entries = Vec::new();
     for i in 0..archive.len() {
         let mut file = archive.by_index(i).map_err(read_error)?;
@@ -178,25 +201,35 @@ pub fn fingerprint_zip_normalized<R: Read + Seek>(
             continue;
         }
         let original_size = file.size();
-        if original_size > MAX_ZIP_MEMBER_BYTES
-            || total
-                .checked_add(original_size)
-                .is_none_or(|n| n > MAX_ZIP_TOTAL_BYTES)
-        {
+        total = total
+            .checked_add(original_size)
+            .ok_or_else(|| CatalogError::Invalid("ZIP uncompressed size overflow".into()))?;
+        if original_size > MAX_ZIP_MEMBER_BYTES || total > MAX_ZIP_TOTAL_BYTES {
             return Err(CatalogError::Invalid(
                 "ZIP member exceeds allowed decoded size".into(),
             ));
         }
         let entry_name = file.name().to_owned();
+        if let Some(wanted) = selected {
+            if entry_name != wanted {
+                continue;
+            }
+            selections += 1;
+            if selections > 1 {
+                return Err(CatalogError::Invalid(
+                    "selected ZIP member name is ambiguous".into(),
+                ));
+            }
+        }
         let normalized = fingerprint_normalized_stream(&mut file, original_size, format)?;
-        total = total
-            .checked_add(original_size)
-            .ok_or_else(|| CatalogError::Invalid("ZIP uncompressed size overflow".into()))?;
         entries.push(NormalizedZipMemberFingerprint {
             entry_name,
             original_size,
             normalized,
         });
+    }
+    if selected.is_some() && selections == 0 {
+        return Err(CatalogError::Invalid("selected ZIP member not found".into()));
     }
     Ok(entries)
 }
