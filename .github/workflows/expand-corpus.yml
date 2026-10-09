@@ -9,6 +9,8 @@ on:
       - sources/bulk-fields-v1.json
       - tools/build_expanded_corpus.py
       - tools/enrich_expanded_corpus.py
+      - tools/import_enrichment.py
+      - tests/test_import_enrichment.py
       - tests/test_build_expanded_corpus.py
       - tests/test_enrich_expanded_corpus.py
       - .github/workflows/expand-corpus.yml
