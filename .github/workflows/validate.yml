@@ -10,6 +10,251 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - name: Enforce text-source and no tracked database policy
+        run: |
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)        run: python -m unittest discover -s tests -v
+      - name: Validate pinned sources and generated indexes
+        run: python tools/verify_catalog.py
+      - name: Rebuild-check identification catalog
+        run: python tools/rebuild_catalog.py --check
+      - name: Verify curated identity export
+        run: python tools/build_curated.py --check
+      - name: Verify SHA-256 distribution manifest
+        run: python tools/build_distribution.py --check
+      - name: Validate Markdown and advertised catalog counts
+        run: python tools/check_docs.py
+      - name: Build and verify portable runtime package
+        run: |
+          python tools/package_runtime.py --build /tmp/ludographium-runtime-v1.tar.gz
+          python tools/package_runtime.py --verify /tmp/ludographium-runtime-v1.tar.gz
+      - name: Publish portable runtime package
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-runtime-v1
+          path: /tmp/ludographium-runtime-v1.tar.gz
+          if-no-files-found: error
+          retention-days: 14
+      - name: Verify source field coverage report
+        run: python tools/audit_catalog.py --check
+      - name: Validate pinned bibliographic claims
+        run: python tools/import_enrichment.py --check
+      - name: Verify enrichment coverage report
+        run: python tools/audit_enrichment.py --check
+      - name: Build and validate entire offline SQLite metadata corpus
+        run: |
+          python tools/build_corpus.py --build --db "$RUNNER_TEMP/ludographium-corpus.sqlite"
+          python tools/build_corpus.py --verify --db "$RUNNER_TEMP/ludographium-corpus.sqlite"
+          python tools/build_corpus.py --title "Mario" --limit 5 --db "$RUNNER_TEMP/ludographium-corpus.sqlite" > "$RUNNER_TEMP/corpus-mario.json"
+          python -c 'import json,sys; v=json.load(open(sys.argv[1])); assert v["match_count"] == 5; assert all("mario" in x["title"].lower() for x in v["matches"])' "$RUNNER_TEMP/corpus-mario.json"
+          cd "$RUNNER_TEMP"
+          sha256sum ludographium-corpus.sqlite > ludographium-corpus.sqlite.sha256
+          sha256sum --check ludographium-corpus.sqlite.sha256
+      - name: Verify provenance-linked reconciliation queue
+        run: python tools/triage_enrichment.py --check
+      - name: Verify conservative identity-revision candidate review
+        run: python tools/triage_identities.py --verify
+      - name: Audit curated exact-media bibliographic evidence
+        run: python tools/audit_curated_claims.py --verify
+      - name: Review field-DAT coverage of uncurated revisions
+        run: python tools/prioritize_identity_review.py --verify
+      - name: Export prioritized revision review
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: python tools/prioritize_identity_review.py --export /tmp/ludographium-prioritized-revisions-v1.json
+      - name: Upload prioritized revision review
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-prioritized-revisions-v1
+          path: /tmp/ludographium-prioritized-revisions-v1.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Export curated field-claim evidence for review
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: python tools/audit_curated_claims.py --export /tmp/ludographium-curated-claims-v1.json
+      - name: Upload curated field-claim audit
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-curated-claims-v1
+          path: /tmp/ludographium-curated-claims-v1.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Validate curated identity ledger
+        run: python tools/validate_curated.py
+      - name: Generate full evidence-only identity review artifact
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: python tools/triage_identities.py --export /tmp/ludographium-identity-review-v1.json
+      - name: Upload identity review candidates
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-identity-review-v1
+          path: /tmp/ludographium-identity-review-v1.json
+          if-no-files-found: error
+          retention-days: 14
+      - name: Verify Python title search and enriched claims
+        run: |
+          python tools/lookup.py --platform nes --title Mario --limit 5 > /tmp/ludographium-python-title.json
+          python tools/lookup_enrichment.py --platform nes --title Mario --limit 5 > /tmp/ludographium-python-enriched-title.json
+          python - <<'PY'
+          import json
+          for name in ("/tmp/ludographium-python-title.json", "/tmp/ludographium-python-enriched-title.json"):
+              value = json.load(open(name))
+              assert value["query_kind"] == "source-title-substring"
+              assert value["total_source_records"] >= len(value["matches"]) > 0
+              assert all("mario" in hit["title"].lower() for hit in value["matches"])
+          PY
+      - name: Verify enriched fingerprint lookup
+        run: |
+          python tools/lookup_enrichment.py --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-enriched.json
+          python -c 'import json; d=json.load(open("/tmp/ludographium-enriched.json")); assert d["match_count"] == 1; assert "developer" in {c["field"] for c in d["matches"][0]["metadata_claims"]}'
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust formatting
+        run: cargo fmt --all -- --check
+      - name: Build and test Rust client
+        run: cargo test --workspace --all-targets --locked
+      - name: Verify Rust CLI offline lookup
+        run: |
+          cargo run --locked --quiet -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037 > /tmp/ludographium.json
+          python -c 'import json; d=json.load(open("/tmp/ludographium.json")); assert d["match_count"] == 1; assert d["matches"][0]["title"] == "10-Pin Bowling (USA) (Proto)"'
+          cargo run --locked --quiet -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4 > /tmp/ludographium-rust-enriched.json
+          python -c 'import json; d=json.load(open("/tmp/ludographium-rust-enriched.json")); assert d["match_count"] == 1; assert "developer" in {c["field"] for c in d["matches"][0]["metadata_claims"]}'
+      - name: Verify curated identity lookup from exact media source
+        run: |
+          cargo run --locked --quiet -p ludographium -- --platform snes --curated --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 > /tmp/ldg-curated.json
+          cargo run --locked --quiet -p ludographium -- --platform snes --curated --enriched --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 > /tmp/ldg-curated-enriched.json
+          python - <<'PY'
+          import json
+          for path in ("/tmp/ldg-curated.json", "/tmp/ldg-curated-enriched.json"):
+              result = json.load(open(path))
+              assert result["match_count"] == 1
+              entry = result["matches"][0]["curated_identities"]
+              assert len(entry) == 1
+              assert entry[0]["work"]["preferred_title"] == "Super Mario World"
+              assert entry[0]["release"]["platform"] == "snes"
+              assert entry[0]["build"]["media"]["sha1"] == "6B47BB75D16514B6A476AA0C73A683A2A4C18765"
+          PY
+      - name: Verify raw-file SHA-1 streaming without retaining media
+        run: |
+          printf 'synthetic fixture, not a game ROM' > /tmp/ludographium-synthetic.bin
+          cargo run --locked --quiet -p ludographium -- --platform gg --file /tmp/ludographium-synthetic.bin > /tmp/ldg-file.json
+          cargo run --locked --quiet -p ludographium -- --enriched --platform gg --file /tmp/ludographium-synthetic.bin > /tmp/ldg-enriched-file.json
+          python - <<'PY'
+          import json
+          for filename in ("/tmp/ldg-file.json", "/tmp/ldg-enriched-file.json"):
+              data = json.load(open(filename))
+              assert data["input_kind"] == "exact-local-file-bytes"
+              assert data["match_count"] == 0
+              assert data["matches"] == []
+          PY
+      - name: Verify bounded title discovery with and without enrichment
+        run: |
+          cargo run --locked --quiet -p ludographium -- --platform nes --title Mario --limit 5 > /tmp/ldg-title.json
+          cargo run --locked --quiet -p ludographium -- --platform nes --title Mario --limit 5 --enriched > /tmp/ldg-enriched-title.json
+          python - <<'PY'
+          import json
+          for filename in ("/tmp/ldg-title.json", "/tmp/ldg-enriched-title.json"):
+              d = json.load(open(filename))
+              assert d["query_kind"] == "source-title-substring"
+              assert d["total_source_records"] >= len(d["matches"]) > 0
+              assert all("mario" in match["title"].lower() for match in d["matches"])
+          PY
+      - name: Verify cross-platform discovery and exact-media attribution
+        run: |
+          cargo run --locked --quiet -p ludographium -- --platform all --sha1 6B47BB75D16514B6A476AA0C73A683A2A4C18765 --curated > /tmp/ldg-all-curated.json
+          cargo run --locked --quiet -p ludographium -- --platform all --title "Mario" --limit 3 --enriched > /tmp/ldg-all-title.json
+          printf 'synthetic test fixture, not game content' > /tmp/ldg-all-synthetic.bin
+          cargo run --locked --quiet -p ludographium -- --platform all --file /tmp/ldg-all-synthetic.bin > /tmp/ldg-all-file.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path("generated/v1/catalog.json").read_text())
+          p = [x["platform"] for x in manifest["platforms"]]
+          work = json.loads(Path("/tmp/ldg-all-curated.json").read_text())
+          assert work["platforms_searched"] == p
+          assert work["match_count"] >= 1
+          assert any(m["platform"] == "snes" and m["curated_identities"][0]["work"]["preferred_title"] == "Super Mario World" for m in work["matches"])
+          titles = json.loads(Path("/tmp/ldg-all-title.json").read_text())
+          assert titles["platforms_searched"] == p
+          assert titles["query_kind"] == "source-title-substring"
+          assert titles["total_source_records"] >= 3
+          assert len(titles["matches"]) <= 3
+          assert all("mario" in m["title"].lower() for m in titles["matches"])
+          assert len(titles["enrichment_sources"]) == len(p)
+          file = json.loads(Path("/tmp/ldg-all-file.json").read_text())
+          assert file["match_count"] == 0
+          assert file["input_kind"] == "exact-local-file-bytes"
+          PY
+      - name: Verify read-only ZIP member lookup without game data
+        run: |
+          python - <<'PY'
+          import zipfile
+          with zipfile.ZipFile("/tmp/ludographium-synthetic.zip", "w") as z:
+              z.writestr("nested/", "")
+              z.writestr("nested/one.gb", "synthetic test data, not a game file",
+                         compress_type=zipfile.ZIP_DEFLATED)
+              z.writestr("two.txt", "text fixture", compress_type=zipfile.ZIP_STORED)
+          PY
+          cargo run --locked --quiet -p ludographium -- --platform all --zip /tmp/ludographium-synthetic.zip --enriched > /tmp/ldg-zip-all.json
+          cargo run --locked --quiet -p ludographium -- --platform gb --zip /tmp/ludographium-synthetic.zip > /tmp/ldg-zip-gb.json
+          python - <<'PY'
+          import zipfile
+          with zipfile.ZipFile("/tmp/ludographium-excessive.zip", "w") as archive:
+              for number in range(257):
+                  archive.writestr(f"synthetic-{number}.txt", "")
+          PY
+          if cargo run --locked --quiet -p ludographium -- --platform all --zip /tmp/ludographium-excessive.zip > /tmp/ldg-excessive.out 2>/tmp/ldg-excessive.err; then
+            echo "Unsafe excessive-entry archive was accepted"
+            exit 1
+          fi
+          grep -q "too many entries" /tmp/ldg-excessive.err
+          python - <<'PY'
+          import json
+          for file in ("/tmp/ldg-zip-all.json", "/tmp/ldg-zip-gb.json"):
+              data = json.load(open(file))
+              assert data["input_kind"] == "read-only-zip-members"
+              assert data["member_count"] == 2
+              assert data["match_count"] == 0
+              assert [x["entry_name"] for x in data["members"]] == ["nested/one.gb", "two.txt"]
+              assert all(len(x["sha1"]) == 40 and x["size"] > 0 for x in data["members"])
+          PY
+      - name: Verify explicit media conversion through CLI using synthetic fixtures
+        run: python tools/smoke_media_formats.py
+      - name: Verify multi-variant curated source identities through Rust CLI
+        run: python tools/smoke_curated_revisions.py
+      - name: Verify extracted runtime integrity using synthetic tampering
+        run: python tools/smoke_runtime.py
+      - name: Smoke-test all accessioned platform fingerprints
+        run: |
+          python - <<'PY'
+          import json
+          import subprocess
+          from pathlib import Path
+          manifest = json.loads(Path("generated/v1/catalog.json").read_text())
+          for item in manifest["platforms"]:
+              platform = item["platform"]
+              bundle = json.loads(Path(item["artifact_path"]).read_text())
+              hash_value = bundle["records"][0]["roms"][0]["sha1"]
+              for enriched in (False, True):
+                  cmd = ["cargo", "run", "--locked", "--quiet", "-p", "ludographium",
+                         "--", "--platform", platform, "--sha1", hash_value]
+                  if enriched:
+                      cmd.append("--enriched")
+                  result = json.loads(subprocess.check_output(cmd, text=True))
+                  assert result["match_count"] >= 1
+                  assert result["matches"][0]["platform"] == platform
+                  if enriched:
+                      assert "metadata_claims" in result["matches"][0]
+          PY
+; then
+            echo 'ERROR: binary database tracked in Git; only source text is permitted.'
+            exit 1
+          fi
+          python -m unittest discover -s tests -p test_wikidata_text.py -v
       - name: Parser and lookup tests
         run: python -m unittest discover -s tests -v
       - name: Validate pinned sources and generated indexes
