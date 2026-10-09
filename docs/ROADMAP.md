@@ -20,8 +20,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 ## Identity and curation
 
 - [x] Establish evidence-validated UUID identifiers for work, release, and build records.
-- [x] Curate initial source-grounded work/release/build identity examples with exact media evidence.
-- [ ] Expand curated identities and evidence-backed correspondences across editions and providers.
+- [x] Curate source-grounded work/release/build identities, including independently hashed regional and revision records across four additional platforms.
+- [ ] Continue extending curated identities and independent cross-provider correspondence evidence; initial same-platform edition/revision curation is complete.
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
