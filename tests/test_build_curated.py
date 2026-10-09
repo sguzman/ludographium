@@ -12,9 +12,9 @@ class CuratedExportTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         data = json.loads(canonical_bytes(root))
         self.assertEqual(data["kind"], "curated-identity-ledger")
-        self.assertEqual(len(data["works"]), 11)
-        self.assertEqual(len(data["releases"]), 13)
-        self.assertEqual(len(data["builds"]), 19)
+        self.assertEqual(len(data["works"]), 15)
+        self.assertEqual(len(data["releases"]), 17)
+        self.assertEqual(len(data["builds"]), 28)
         self.assertTrue(all("sha1" in entry["media"] for entry in data["builds"]))
 
     def test_multi_revision_evidence_relations_are_explicit(self):
