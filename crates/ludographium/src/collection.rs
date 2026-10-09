@@ -229,7 +229,9 @@ fn fingerprint_zip_normalized_filtered<R: Read + Seek>(
         });
     }
     if selected.is_some() && selections == 0 {
-        return Err(CatalogError::Invalid("selected ZIP member not found".into()));
+        return Err(CatalogError::Invalid(
+            "selected ZIP member not found".into(),
+        ));
     }
     Ok(entries)
 }
