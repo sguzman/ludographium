@@ -111,6 +111,15 @@ class WikidataTests(unittest.TestCase):
             build(self.root, self.extended, self.snapshot_path, self.output)
         self.assertEqual(hashlib.sha256(self.output.read_bytes()).hexdigest(), before)
 
+    def test_typed_literal_dates_preserve_original_datatype(self):
+        rows = bindings()
+        rows[0]["date"]["type"] = "typed-literal"
+        snap = self.acquire(rows)
+        self.assertEqual(validate_snapshot(register(self.root), snap)["dated_rows"], 1)
+        build(self.root, self.extended, self.snapshot_path, self.output)
+        with open_readonly(self.output) as db:
+            self.assertEqual(db.execute("SELECT date_datatype FROM wikidata_dates").fetchone()[0], DT)
+
     def test_no_guessy_title_normalization(self):
         self.assertEqual(title_key("Brand New Console Game (USA) (Rev 1)"),
                          "brand new console game")
