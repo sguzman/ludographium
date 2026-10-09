@@ -44,6 +44,14 @@ These are original source observations, **not a count of distinct games**. Every
 
 The [distribution manifest](generated/v1/distribution.json) publishes byte lengths and SHA-256 digests for 25 consumer artifacts, including curated identities, both source registers, and a standalone metadata-attribution notice. A deterministic, metadata-only runtime archive can be built from the manifest; successful main-branch GitHub Actions runs also attach this portable bundle for downstream use. The [latest pinned dataset, **data-v1.3.0**](https://github.com/sguzman/ludographium/releases/tag/data-v1.3.0), contains the expanded reviewed identity graph. Earlier releases remain intact and individually addressable; consult the [release history](docs/DATA-RELEASES.md) for version-specific coverage. Consumers can consult the [dataset release history](docs/DATA-RELEASES.md) and [versioned publication policy](docs/RELEASING.md).
 
+## Complete metadata corpus
+
+**All 41,491 source observations and all 129,008 bibliographic claims can now be queried from one offline SQLite database.** The [full-corpus export](docs/CORPUS.md) automatically combines source records, exact media checksums, and individually attributed field claims across all ten platforms. It retains all unresolved statements, so only the 98,856 safely matched claims are attached to their corresponding source observations. In the current snapshot, **16,937** source records have one or more matched bibliographic claims.
+
+The SQLite export is a complete source-level collection, **not** a hand-selected list of curated game identities. Original source records are kept separate, and no source-title similarity is used to fabricate canonical game identities. Each main-branch validation run generates a downloadable, SHA-256-checked `ludographium-complete-corpus-sqlite` artifact. A versioned SQLite companion will accompany the next published data release, independently of the existing JSON runtime archive.
+
+**Corpus coverage, source acquisition and batch transformation are the priorities.** The 15 optional manually reviewed identity examples are not the ingestion method and do not limit the searchable catalog.
+
 ## Use the data
 
 The Rust reader validates the source indexes before returning matches. Consumers may supply a known fingerprint or stream exact local media bytes without storing the file in Ludographium. Explicit NES, SNES, and N64 [byte-domain conversions](docs/BYTE-DOMAINS.md) are available for headered or byte-swapped local files and compatible ZIP members without changing the default exact-byte lookup:
@@ -88,7 +96,7 @@ Python lookup tools offer equivalent access. A match associates a fingerprint wi
 - [Curated identity framework](docs/IDENTITIES.md), [revision candidate review](docs/IDENTITY-REVIEW.md), [cross-source field review](docs/CROSS-SOURCE-REVIEW.md), and [dataset release history](docs/DATA-RELEASES.md)
 - [Licensing and third-party attribution](docs/LICENSING.md)
 - [Provenance and licensing](docs/PROVENANCE.md)
-- [Offline consumer interface](docs/CONSUMERS.md) and [version compatibility](docs/COMPATIBILITY.md)
+- [Full-corpus SQLite export](docs/CORPUS.md), [offline consumer interface](docs/CONSUMERS.md), and [version compatibility](docs/COMPATIBILITY.md)
 - [Importing and validating](docs/IMPORTING.md)
 - [Source acquisition strategy](docs/SOURCE-STRATEGY.md)
 - [Quality reports](reports/README.md) and [roadmap](docs/ROADMAP.md)
