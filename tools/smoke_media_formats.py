@@ -130,6 +130,38 @@ def main():
         invoke("--platform", "nes", "--zip", str(malformed_archive),
                "--media-format", "nes-ines", expect_ok=False)
 
+        # Select one member by its exact name in a mixed ZIP. Do not
+        # silently normalize or discard unrelated members.
+        mixed = root / "mixed.zip"
+        with zipfile.ZipFile(mixed, "w") as z:
+            z.writestr("README.txt", "not media")
+            z.writestr("folder/game.nes", nes.read_bytes(),
+                       compress_type=zipfile.ZIP_DEFLATED)
+        invoke("--platform", "nes", "--zip", str(mixed),
+               "--media-format", "nes-ines", expect_ok=False)
+        selected = invoke("--platform", "nes", "--zip", str(mixed),
+                          "--media-format", "nes-ines",
+                          "--zip-entry", "folder/game.nes")
+        assert selected["member_count"] == 1, selected
+        assert selected["members"][0]["entry_name"] == "folder/game.nes", selected
+        assert selected["members"][0]["normalized_sha1"] == hashlib.sha1(nes_rom).hexdigest().upper()
+        invoke("--platform", "nes", "--zip", str(mixed),
+               "--media-format", "nes-ines", "--zip-entry", "game.nes",
+               expect_ok=False)
+        invoke("--platform", "nes", "--zip", str(mixed),
+               "--media-format", "nes-ines", "--zip-entry", "",
+               expect_ok=False)
+        invoke("--platform", "nes", "--zip", str(mixed),
+               "--zip-entry", "folder/game.nes", expect_ok=False)
+
+        duplicates = root / "duplicate-names.zip"
+        with zipfile.ZipFile(duplicates, "w") as z:
+            z.writestr("game.nes", nes.read_bytes())
+            z.writestr("game.nes", nes.read_bytes())
+        invoke("--platform", "nes", "--zip", str(duplicates),
+               "--media-format", "nes-ines", "--zip-entry", "game.nes",
+               expect_ok=False)
+
         flood = root / "entry-flood.zip"
         with zipfile.ZipFile(flood, "w") as z:
             for i in range(257):
