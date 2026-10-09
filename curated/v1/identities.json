@@ -141,6 +141,76 @@
           "source_ordinal": 159
         }
       ]
+    },
+    {
+      "id": "ldg:w:f14fbf74-e20a-4a01-9c54-b9885b3e03de",
+      "preferred_title": "The Legend of Zelda: Link's Awakening",
+      "rationale": "The pinned GB identification source lists Legend of Zelda, The - Link's Awakening (USA, Europe) and 2 distinct revision-labelled observations. Their exact game title, platform, territory qualifier and explicit revision suffix support a narrowly scoped editorial correspondence at the work level. Other editions, ports and remakes are not implicitly included.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 990
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 991
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 992
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:e1323631-4990-4aab-9cbc-7e95d8a3d680",
+      "preferred_title": "Advance Wars",
+      "rationale": "The pinned GBA identification source lists Advance Wars (USA) and 1 distinct revision-labelled observation. Their exact game title, platform, territory qualifier and explicit revision suffix support a narrowly scoped editorial correspondence at the work level. Other editions, ports and remakes are not implicitly included.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 153
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 154
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:1aa30bde-5bd2-421d-a167-d78d39d83ddd",
+      "preferred_title": "Animal Crossing: Wild World",
+      "rationale": "The pinned NDS identification source lists Animal Crossing - Wild World (USA) and 1 distinct revision-labelled observation. Their exact game title, platform, territory qualifier and explicit revision suffix support a narrowly scoped editorial correspondence at the work level. Other editions, ports and remakes are not implicitly included.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
+          "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
+          "source_ordinal": 285
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
+          "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
+          "source_ordinal": 286
+        }
+      ]
     }
   ],
   "releases": [
@@ -315,6 +385,82 @@
           "source_path": "metadat/no-intro/Sega - Game Gear.dat",
           "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
           "source_ordinal": 159
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:e2d17620-413c-4b3a-a5e3-20239b9982e0",
+      "work_id": "ldg:w:f14fbf74-e20a-4a01-9c54-b9885b3e03de",
+      "platform": "gb",
+      "release_label": "Legend of Zelda, The - Link's Awakening (USA, Europe)",
+      "rationale": "The source asserts the identical Legend of Zelda, The - Link's Awakening (USA, Europe) edition label for a base observation and its explicitly marked revisions. This curated release groups only those cited observations; each SHA-1 and byte length stays a distinct build. The territory label is a source assertion and does not authenticate publication history.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 990
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 991
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 992
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:bbfda4dd-a9bd-4080-93dc-fe05a6527bbe",
+      "work_id": "ldg:w:e1323631-4990-4aab-9cbc-7e95d8a3d680",
+      "platform": "gba",
+      "release_label": "Advance Wars (USA)",
+      "rationale": "The source asserts the identical Advance Wars (USA) edition label for a base observation and its explicitly marked revision. This curated release groups only those cited observations; each SHA-1 and byte length stays a distinct build. The territory label is a source assertion and does not authenticate publication history.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 153
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 154
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:41d6733e-19e3-4b0e-bec9-51d088ff8b36",
+      "work_id": "ldg:w:1aa30bde-5bd2-421d-a167-d78d39d83ddd",
+      "platform": "nds",
+      "release_label": "Animal Crossing - Wild World (USA)",
+      "rationale": "The source asserts the identical Animal Crossing - Wild World (USA) edition label for a base observation and its explicitly marked revision. This curated release groups only those cited observations; each SHA-1 and byte length stays a distinct build. The territory label is a source assertion and does not authenticate publication history.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
+          "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
+          "source_ordinal": 285
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
+          "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
+          "source_ordinal": 286
         }
       ]
     }
@@ -545,6 +691,139 @@
           "source_path": "metadat/no-intro/Sega - Game Gear.dat",
           "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
           "source_ordinal": 159
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:18f89a46-fa4d-497c-b1e0-785476b60659",
+      "release_id": "ldg:r:e2d17620-413c-4b3a-a5e3-20239b9982e0",
+      "build_label": "Legend of Zelda, The - Link's Awakening (USA, Europe) - recorded media image",
+      "rationale": "The pinned source occurrence at ordinal 990 explicitly records Legend of Zelda, The - Link's Awakening (USA, Europe): exact 524288-byte media and SHA-1 602167F897B4F56FE8CEE837933DA3BED5882BBD. The record supports only this byte representation; different revision hashes are not interchangeable or inferred identical.",
+      "media": {
+        "sha1": "602167F897B4F56FE8CEE837933DA3BED5882BBD",
+        "size": 524288
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 990
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:0fd0748b-5f4d-4d22-9ced-df1669b038ec",
+      "release_id": "ldg:r:e2d17620-413c-4b3a-a5e3-20239b9982e0",
+      "build_label": "Legend of Zelda, The - Link's Awakening (USA, Europe) (Rev 1) - recorded media image",
+      "rationale": "The pinned source occurrence at ordinal 991 explicitly records Legend of Zelda, The - Link's Awakening (USA, Europe) (Rev 1): exact 524288-byte media and SHA-1 5259E68522225A7A830E29EA17DFDDC33263CED5. The record supports only this byte representation; different revision hashes are not interchangeable or inferred identical.",
+      "media": {
+        "sha1": "5259E68522225A7A830E29EA17DFDDC33263CED5",
+        "size": 524288
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 991
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:6322ebc2-9aef-4db0-a0f2-f49dde298383",
+      "release_id": "ldg:r:e2d17620-413c-4b3a-a5e3-20239b9982e0",
+      "build_label": "Legend of Zelda, The - Link's Awakening (USA, Europe) (Rev 2) - recorded media image",
+      "rationale": "The pinned source occurrence at ordinal 992 explicitly records Legend of Zelda, The - Link's Awakening (USA, Europe) (Rev 2): exact 524288-byte media and SHA-1 5AB63DEF958728933571C3B4F6AF54DB14F3F8B2. The record supports only this byte representation; different revision hashes are not interchangeable or inferred identical.",
+      "media": {
+        "sha1": "5AB63DEF958728933571C3B4F6AF54DB14F3F8B2",
+        "size": 524288
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 992
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:21a82c67-c840-4702-8b21-fa81cf7b97ac",
+      "release_id": "ldg:r:bbfda4dd-a9bd-4080-93dc-fe05a6527bbe",
+      "build_label": "Advance Wars (USA) - recorded media image",
+      "rationale": "The pinned source occurrence at ordinal 153 explicitly records Advance Wars (USA): exact 4194304-byte media and SHA-1 D0A0A4CFE9B95AC7118F7EF476F014CA0242EB65. The record supports only this byte representation; different revision hashes are not interchangeable or inferred identical.",
+      "media": {
+        "sha1": "D0A0A4CFE9B95AC7118F7EF476F014CA0242EB65",
+        "size": 4194304
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 153
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:23647275-482d-4c27-81a6-ee0a6ac40c7a",
+      "release_id": "ldg:r:bbfda4dd-a9bd-4080-93dc-fe05a6527bbe",
+      "build_label": "Advance Wars (USA) (Rev 1) - recorded media image",
+      "rationale": "The pinned source occurrence at ordinal 154 explicitly records Advance Wars (USA) (Rev 1): exact 4194304-byte media and SHA-1 15053499D5B3F49128A941D7F2D84876F5424D0C. The record supports only this byte representation; different revision hashes are not interchangeable or inferred identical.",
+      "media": {
+        "sha1": "15053499D5B3F49128A941D7F2D84876F5424D0C",
+        "size": 4194304
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Advance.dat",
+          "source_blob_sha": "7da3cb4ae60ebc0cc6537f3605990d4df9735563",
+          "source_ordinal": 154
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:02fe037b-bce8-4376-96e7-6f4d220d9d8b",
+      "release_id": "ldg:r:41d6733e-19e3-4b0e-bec9-51d088ff8b36",
+      "build_label": "Animal Crossing - Wild World (USA) - recorded media image",
+      "rationale": "The pinned source occurrence at ordinal 285 explicitly records Animal Crossing - Wild World (USA): exact 33554432-byte media and SHA-1 F1BEF752B30DC158D55B48518C80840A7C4586AF. The record supports only this byte representation; different revision hashes are not interchangeable or inferred identical.",
+      "media": {
+        "sha1": "F1BEF752B30DC158D55B48518C80840A7C4586AF",
+        "size": 33554432
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
+          "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
+          "source_ordinal": 285
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:9ea4e1d8-5a65-4802-b89d-6817a52f5fda",
+      "release_id": "ldg:r:41d6733e-19e3-4b0e-bec9-51d088ff8b36",
+      "build_label": "Animal Crossing - Wild World (USA) (Rev 1) - recorded media image",
+      "rationale": "The pinned source occurrence at ordinal 286 explicitly records Animal Crossing - Wild World (USA) (Rev 1): exact 33554432-byte media and SHA-1 77FDE3E30E1E6068395D1F96EA63BE569B61C351. The record supports only this byte representation; different revision hashes are not interchangeable or inferred identical.",
+      "media": {
+        "sha1": "77FDE3E30E1E6068395D1F96EA63BE569B61C351",
+        "size": 33554432
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Nintendo DS.dat",
+          "source_blob_sha": "5f2d9c780607181004d922ec3f74dee129405afb",
+          "source_ordinal": 286
         }
       ]
     }
