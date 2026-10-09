@@ -7,6 +7,7 @@ pub mod collection;
 pub mod curated;
 pub mod enrichment;
 pub mod media;
+pub mod original_dat;
 pub mod runtime;
 
 use serde::Deserialize;
