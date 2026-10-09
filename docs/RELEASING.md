@@ -12,7 +12,7 @@ A new release must use a new tag; do not move or reuse a published data tag. His
 
 The [versioned release workflow](../.github/workflows/release.yml) supports two explicit publication routes:
 
-1. **Release request on main.** Change [`.github/data-release.json`](../.github/data-release.json) to contain a new dataset tag (for example `{"schema_version":1,"tag":"data-v1.0.0"}`). Only a change to that exact file on `main` starts the request-based publisher. The requested tag is validated, all metadata and software checks rerun, and the workflow publishes a GitHub Release while creating an unmoved tag at the exact verified commit. A tag or release that already exists cannot be overwritten.
+1. **Release request on main.** Change `.github/data-release.json` to contain a new dataset tag (for example `{"schema_version":1,"tag":"data-v1.0.0"}`). Only a change to that exact file on `main` starts the request-based publisher. The requested tag is validated, all metadata and software checks rerun, and the workflow publishes a GitHub Release while creating an unmoved tag at the exact verified commit. A tag or release that already exists cannot be overwritten.
 2. **Existing tag.** Push a new `data-vMAJOR.MINOR.PATCH` tag pointing to a commit on `main` history. The same validation and packaging checks run; publication requires that the tag exists rather than creating one.
 
 Both routes validate Python, Rust, source provenance, manifests, curated identities, and documentation before uploading a versioned runtime archive, SHA-256 checksum file, and source-revision/rights notes. Only the publish job gets `contents: write` permission. The workflow is **not** invoked on ordinary `main` commits: a release request file change or a new data tag is required.
