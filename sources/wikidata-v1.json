@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "provider": "wikidata",
+  "provider_license": "CC0-1.0",
+  "license_url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "query_limit": 10000,
+  "platforms": [
+    {
+      "platform": "snes",
+      "wikidata_platform": "Q183259"
+    },
+    {
+      "platform": "gb",
+      "wikidata_platform": "Q186437"
+    },
+    {
+      "platform": "gbc",
+      "wikidata_platform": "Q203992"
+    },
+    {
+      "platform": "gba",
+      "wikidata_platform": "Q188642"
+    },
+    {
+      "platform": "nes",
+      "wikidata_platform": "Q172742"
+    },
+    {
+      "platform": "nds",
+      "wikidata_platform": "Q170323"
+    },
+    {
+      "platform": "n64",
+      "wikidata_platform": "Q184839"
+    },
+    {
+      "platform": "genesis",
+      "wikidata_platform": "Q10676"
+    },
+    {
+      "platform": "sms",
+      "wikidata_platform": "Q209868"
+    },
+    {
+      "platform": "nintendonintendo3ds",
+      "wikidata_platform": "Q203597"
+    },
+    {
+      "platform": "atari2600",
+      "wikidata_platform": "Q206261"
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "wikidata_platform": "Q164651"
+    },
+    {
+      "platform": "microsoftxbox360",
+      "wikidata_platform": "Q48263"
+    },
+    {
+      "platform": "nintendowiidigital",
+      "wikidata_platform": "Q8079"
+    },
+    {
+      "platform": "nintendowiiudigital",
+      "wikidata_platform": "Q56942"
+    },
+    {
+      "platform": "sonyplaystation3psn",
+      "wikidata_platform": "Q10683"
+    }
+  ],
+  "interpretation": "Wikidata source items are independently authored observations, not independently authenticated facts. English labels, platform P400 and publication dates P577 are attributed claims. A title match is a review candidate, never an accepted work identity."
+}
