@@ -7,6 +7,18 @@ Ludographium data tags identify immutable metadata snapshots independently of th
 | [`data-v1.0.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.0.0) | 2026-10-09 | 4 | 4 | 4 | First durable offline dataset, ten platforms, source claims and provenance, original single-observation identity examples |
 | [`data-v1.1.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.1.0) | 2026-10-09 | 8 | 10 | 12 | Four additional reviewed works with distinct same-platform revisions and regional releases |
 | [`data-v1.2.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.2.0) | 2026-10-09 | 11 | 13 | 19 | Three additional revision families, including the first curated Nintendo DS title, and conservative review tooling |
+| [`data-v1.3.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.3.0) | 2026-10-09 | 15 | 17 | 28 | Four additional exact revision families and source-linked field-claim audit infrastructure |
+
+## Changes in data-v1.3.0
+
+- Curated **Super Mario Advance 4** for Game Boy Advance: source-labelled Japan original, Rev 1, and Rev 2 are separately fingerprinted media builds.
+- Curated **Donkey Kong Country 2: Diddy's Kong Quest** for SNES: USA English/French original and Rev 1 have distinct exact SHA-1 media builds.
+- Curated **Banjo-Kazooie** for Nintendo 64: USA original and Rev 1 are preserved as separate 16 MiB media builds under a narrowly scoped edition.
+- Curated **Golden Axe** for Genesis: World original and Rev A are preserved as separate exact 512 KiB media builds.
+- Added a [cross-source evidence audit](CROSS-SOURCE-REVIEW.md) for curated builds and a **prioritized revision review** with field-DAT coverage. These tools are read-only and never promote bibliographic claims or revision leads into verified game identities.
+- Brought the Rust offline curated reader's parent-evidence and unique source-occurrence rules into parity with the Python ledger validator. New tests reject competing source ownership, missing parent evidence, title/CRC mismatches, and unsupported implicit joins.
+
+The pinned Libretro source revision and all 41,491 base source observations are unchanged. The release updates the curated identity projection and its manifest digest, not the source DAT archives or underlying bibliographic claim dataset.
 
 ## Changes in data-v1.2.0
 
