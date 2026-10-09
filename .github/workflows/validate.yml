@@ -46,6 +46,17 @@ jobs:
         run: python tools/triage_identities.py --verify
       - name: Validate curated identity ledger
         run: python tools/validate_curated.py
+      - name: Generate full evidence-only identity review artifact
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: python tools/triage_identities.py --export /tmp/ludographium-identity-review-v1.json
+      - name: Upload identity review candidates
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-identity-review-v1
+          path: /tmp/ludographium-identity-review-v1.json
+          if-no-files-found: error
+          retention-days: 14
       - name: Verify Python title search and enriched claims
         run: |
           python tools/lookup.py --platform nes --title Mario --limit 5 > /tmp/ludographium-python-title.json
