@@ -13,7 +13,7 @@ For selected, well-defined representations, the Rust `media::fingerprint_normali
 | `n64` | `n64-v64` | Require initial bytes `37 80 40 12`, length divisible by 4; swap each adjacent byte pair to big-endian N64 ROM order |
 | `n64` | `n64-n64` | Require initial bytes `40 12 37 80`, length divisible by 4; reverse every four-byte word to big-endian N64 ROM order |
 
-Conversions are **opt-in and tied to a single platform**. The CLI rejects `--media-format` without `--file`, on `--platform all`, or for the wrong platform. Neither `--zip` nor generic fingerprint searches implicitly normalize bytes. Compressed ZIP members retain exact-byte identification. The conversion helper works on a `Read + Seek` stream with fixed-size hashing buffers; the caller's file is not mutated or preserved.
+Conversions are **opt-in and tied to a single platform**. The CLI accepts `--media-format` only with `--file` or `--zip`, an exact matching platform, and a supported format; `--platform all` is rejected. Without the option, ZIP and file lookups remain exact-byte operations. `fingerprint_normalized` works on `Read + Seek`; `fingerprint_normalized_stream` accepts non-seekable decoded streams and an explicit input length. Both use fixed-size hashing buffers and never persist game bytes.
 
 Examples, from a local checkout with an existing file (substitute your own path):
 
@@ -23,7 +23,16 @@ cargo run --locked -p ludographium -- --platform snes --file /path/to/title.smc 
 cargo run --locked -p ludographium -- --platform n64 --file /path/to/title.v64 --media-format n64-v64 --curated
 ```
 
-The response marks `input_kind: "explicit-normalized-local-file-bytes"` and includes `media_format`, `normalized_sha1`, `normalized_size`, `matches`, and `match_count`.
+The file response marks `input_kind: "explicit-normalized-local-file-bytes"` and includes `media_format`, `normalized_sha1`, `normalized_size`, `matches`, and `match_count`.
+
+For ZIP members, the same explicit conversion is available without extracting content to disk:
+
+```sh
+cargo run --locked -p ludographium -- --platform nes --zip /path/to/nes-game.zip --media-format nes-ines
+cargo run --locked -p ludographium -- --platform n64 --zip /path/to/n64-game.zip --media-format n64-v64 --enriched
+```
+
+The response marks `input_kind: "explicit-normalized-zip-members"`. Each regular member retains its own `entry_name`, `original_size`, `normalized_sha1`, `normalized_size`, `match_count`, and `matches`. Archive directories are excluded. **Every regular member must satisfy the chosen format**; a mixed-content archive containing other file types fails rather than silently accepting a partial conversion. Original entry names, decoded-size limits (256 entries, 1 GiB/member, 2 GiB total), and separate matches are preserved. A ZIP member's `normalized_sha1` is never labeled as the SHA-1 of its original bytes.
 
 ## What this does **not** claim
 
