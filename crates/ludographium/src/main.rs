@@ -1,5 +1,7 @@
 //! Offline fingerprint and raw-file lookup CLI. Local input is streamed, not retained.
-use ludographium::collection::{fingerprint_zip, CatalogCollection, EnrichedCatalogCollection};
+use ludographium::collection::{
+    fingerprint_zip, fingerprint_zip_normalized, CatalogCollection, EnrichedCatalogCollection,
+};
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::media::{fingerprint_normalized, MediaFormat};
@@ -12,7 +14,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] | --zip <archive.zip>)"
+    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>  | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -199,6 +201,83 @@ fn zip_entry(name: &str, hash: &str, bytes: u64, matches: Vec<Value>) -> Value {
     })
 }
 
+/// All members must satisfy the explicitly selected transformation.
+/// Their original decoded lengths remain visible; reported SHA-1 digests and
+/// match sizes are for the converted bytes, not the ZIP entry's raw bytes.
+fn lookup_zip_normalized_mode(
+    root: &Path,
+    platform: &str,
+    path: &str,
+    format: MediaFormat,
+    enriched: bool,
+    curated: Option<&CuratedCatalog>,
+) -> Result<Value, Box<dyn Error>> {
+    let fingerprints = fingerprint_zip_normalized(
+        BufReader::new(File::open(path)?),
+        format,
+    )?;
+    let mut members = Vec::new();
+    let mut source = None;
+    if enriched {
+        let catalog = EnrichedPlatformCatalog::open(root, platform)?;
+        source = Some(json!({
+            "id": catalog.source_id(),
+            "revision": catalog.source_revision(),
+        }));
+        for member in fingerprints {
+            let matches: Vec<Value> = catalog
+                .lookup_sha1(&member.normalized.sha1)?
+                .into_iter()
+                .filter(|hit| hit.base.media.size == member.normalized.size)
+                .map(|hit| with_curated(format_enriched_match(&hit), &hit.base, curated))
+                .collect();
+            members.push(json!({
+                "entry_name": member.entry_name,
+                "original_size": member.original_size,
+                "normalized_sha1": member.normalized.sha1,
+                "normalized_size": member.normalized.size,
+                "match_count": matches.len(),
+                "matches": matches,
+            }));
+        }
+    } else {
+        let catalog = PlatformCatalog::open(root, platform)?;
+        for member in fingerprints {
+            let matches: Vec<Value> = catalog
+                .lookup_sha1(&member.normalized.sha1)?
+                .into_iter()
+                .filter(|hit| hit.media.size == member.normalized.size)
+                .map(|hit| with_curated(format_match(&hit), &hit, curated))
+                .collect();
+            members.push(json!({
+                "entry_name": member.entry_name,
+                "original_size": member.original_size,
+                "normalized_sha1": member.normalized.sha1,
+                "normalized_size": member.normalized.size,
+                "match_count": matches.len(),
+                "matches": matches,
+            }));
+        }
+    }
+    let match_count: usize = members
+        .iter()
+        .map(|member: &Value| member["match_count"].as_u64().unwrap_or(0) as usize)
+        .sum();
+    let mut result = json!({
+        "input_kind": "explicit-normalized-zip-members",
+        "media_format": format.name(),
+        "platform_scope": "selected",
+        "platforms_searched": [platform],
+        "member_count": members.len(),
+        "match_count": match_count,
+        "members": members,
+    });
+    if let Some(source) = source {
+        result["enrichment_source"] = source;
+    }
+    Ok(result)
+}
+
 /// Fingerprint ZIP members in memory-bounded streams; never extract to disk.
 /// Each member remains a separate candidate with its own original archive name.
 fn lookup_zip_mode(
@@ -382,9 +461,9 @@ fn run() -> Result<(), Box<dyn Error>> {
         return Err(CatalogError::Invalid(usage().into()).into());
     }
     if let Some(format) = media_format {
-        if file.is_none() || platform != format.platform() {
+        if (file.is_none() && zip.is_none()) || platform != format.platform() {
             return Err(CatalogError::Invalid(format!(
-                "--media-format {} requires --platform {} and --file",
+                "--media-format {} requires --platform {} and --file or --zip",
                 format.name(),
                 format.platform()
             ))
@@ -397,6 +476,13 @@ fn run() -> Result<(), Box<dyn Error>> {
         None
     };
     if let Some(format) = media_format {
+        if let Some(ref archive_path) = zip {
+            let output = lookup_zip_normalized_mode(
+                &root, &platform, archive_path, format, enriched, curated.as_ref(),
+            )?;
+            println!("{}", serde_json::to_string_pretty(&output)?);
+            return Ok(());
+        }
         let input_path = file.as_ref().unwrap();
         let fingerprint = fingerprint_normalized(BufReader::new(File::open(input_path)?), format)?;
         let output = if enriched {
