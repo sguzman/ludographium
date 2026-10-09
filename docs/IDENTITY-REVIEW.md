@@ -2,7 +2,7 @@
 
 Ludographium's immutable source observations provide the evidence from which a deliberately small curated work/release/build ledger can be built. A **review candidate** is not an accepted game identity or a claim that two byte representations are interchangeable.
 
-The command `tools/triage_identities.py` makes a conservative, deterministic revision review queue over the registered source catalogs. It does not write to `curated/`, invent UUIDs, alter `generated/`, or match titles from unrelated sources. A later review may accept, split, or reject any suggestion.
+The command `tools/triage_identities.py` makes a conservative, deterministic revision review queue over the registered source catalogs. It does not write to `curated/`, invent UUIDs, alter `generated/`, or match titles from unrelated sources. A later review may accept, split, or reject any suggestion. [Bibliographic field-claim review](CROSS-SOURCE-REVIEW.md) can surface missing or divergent claims for these exact candidate media images, without automatically promoting them.
 
 ## CLI
 
