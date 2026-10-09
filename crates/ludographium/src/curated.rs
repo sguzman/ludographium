@@ -9,7 +9,7 @@ use std::collections::{HashMap, HashSet};
 use std::fs;
 use std::path::Path;
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, Deserialize, Serialize, PartialEq, Eq, Hash)]
 pub struct EvidenceLocator {
     pub source_id: String,
     pub source_revision: String,
@@ -132,6 +132,70 @@ fn integrity_checked_bytes(root: &Path) -> Result<Vec<u8>, CatalogError> {
     Ok(bytes)
 }
 
+/// Reject competing curated interpretations of a single source occurrence,
+/// and require every child to cite evidence owned by its actual parent.
+/// These checks mirror the authoring-side Python validator for offline users.
+fn validate_evidence_relationships(export: &Export) -> Result<(), CatalogError> {
+    let works: HashMap<_, _> = export
+        .works
+        .iter()
+        .map(|work| (work.id.as_str(), work))
+        .collect();
+    let releases: HashMap<_, _> = export
+        .releases
+        .iter()
+        .map(|release| (release.id.as_str(), release))
+        .collect();
+
+    let mut work_owners = HashMap::new();
+    for work in &export.works {
+        let mut local = HashSet::new();
+        for reference in &work.evidence {
+            if !local.insert(reference) {
+                return Err(CatalogError::Invalid("duplicate curated work evidence".into()));
+            }
+            if work_owners.insert(reference, &work.id).is_some() {
+                return Err(CatalogError::Invalid("conflicting curated work evidence".into()));
+            }
+        }
+    }
+
+    let mut release_owners = HashMap::new();
+    for release in &export.releases {
+        let parent = works
+            .get(release.work_id.as_str())
+            .ok_or_else(|| CatalogError::Invalid("orphan curated release".into()))?;
+        let mut local = HashSet::new();
+        for reference in &release.evidence {
+            if !local.insert(reference) {
+                return Err(CatalogError::Invalid("duplicate curated release evidence".into()));
+            }
+            if !parent.evidence.contains(reference) {
+                return Err(CatalogError::Invalid("release cites evidence outside its work".into()));
+            }
+            if release_owners.insert(reference, &release.id).is_some() {
+                return Err(CatalogError::Invalid("conflicting curated release evidence".into()));
+            }
+        }
+    }
+
+    for build in &export.builds {
+        let parent = releases
+            .get(build.release_id.as_str())
+            .ok_or_else(|| CatalogError::Invalid("orphan curated build".into()))?;
+        let mut local = HashSet::new();
+        for reference in &build.evidence {
+            if !local.insert(reference) {
+                return Err(CatalogError::Invalid("duplicate curated build evidence".into()));
+            }
+            if !parent.evidence.contains(reference) {
+                return Err(CatalogError::Invalid("build cites evidence outside its release".into()));
+            }
+        }
+    }
+    Ok(())
+}
+
 impl CuratedCatalog {
     pub fn open(root: impl AsRef<Path>) -> Result<Self, CatalogError> {
         let root = root.as_ref();
@@ -142,6 +206,7 @@ impl CuratedCatalog {
                 "unsupported curated identity export".into(),
             ));
         }
+        validate_evidence_relationships(&export)?;
         let mut seen = HashSet::new();
         let mut works = HashMap::new();
         for (index, item) in export.works.iter().enumerate() {
@@ -316,6 +381,26 @@ mod tests {
         assert_eq!(y.len(), 1);
         assert_eq!(x[0].work.id, y[0].work.id);
         assert_ne!(x[0].release.id, y[0].release.id);
+    }
+
+    #[test]
+    fn rejects_competing_or_out_of_parent_evidence_even_with_valid_hashes() {
+        let original = fs::read(root().join("generated/curated-v1/identities.json")).unwrap();
+
+        let mut contested: Export = serde_json::from_slice(&original).unwrap();
+        contested.works[1].evidence = contested.works[0].evidence.clone();
+        assert!(validate_evidence_relationships(&contested).is_err());
+
+        let mut wrong_release: Export = serde_json::from_slice(&original).unwrap();
+        wrong_release.releases[0].evidence[0].source_ordinal += 1;
+        assert!(validate_evidence_relationships(&wrong_release).is_err());
+
+        let mut wrong_build: Export = serde_json::from_slice(&original).unwrap();
+        wrong_build.builds[0].evidence[0].source_ordinal += 1;
+        assert!(validate_evidence_relationships(&wrong_build).is_err());
+
+        let valid: Export = serde_json::from_slice(&original).unwrap();
+        assert!(validate_evidence_relationships(&valid).is_ok());
     }
 
     #[test]
