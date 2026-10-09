@@ -74,6 +74,7 @@ jobs:
           python tools/audit_enrichment.py --check
           python tools/triage_enrichment.py --check
           python tools/validate_curated.py
+          python tools/triage_identities.py --verify
       - name: Validate Rust offline reader
         run: |
           cargo fmt --all -- --check
