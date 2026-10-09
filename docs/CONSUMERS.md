@@ -8,6 +8,10 @@ The original [ten-platform offline SQLite corpus](CORPUS.md) materializes every 
 
 The separately curated work/release/build dataset is optional editorial interpretation, not the catalog's completeness limit. The full expanded SQLite can be opened by ordinary SQLite tools without any manual curation, Rust, or network access.
 
+## Independent Wikidata companion
+
+[`data-v1.6.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.6.0) adds a third, separately verified [Wikidata-enriched offline SQLite](https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-data-v1.6.0.sqlite), backed by the exact [independent-source SPARQL snapshot](https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-source-data-v1.6.0.json). Its `wikidata_items`, `wikidata_dates`, `wikidata_queries`, and `wikidata_link_candidates` tables retain 15,868 item/platform observations, 29,333 date claims and 8,971 **noncanonical title correspondence candidates**, alongside the unchanged 117,145 source records and original 167,640 Libretro field claims. See [provenance and uncertainty rules](WIKIDATA.md).
+
 ## Available artifacts
 
 The [v1 catalog manifest](../generated/v1/catalog.json) lists the available platform bundles and their input and output Git blob SHAs:
