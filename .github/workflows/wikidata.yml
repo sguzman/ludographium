@@ -1,0 +1,70 @@
+name: Wikidata independent source accession
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - sources/wikidata-v1.json
+      - tools/wikidata_source.py
+      - tools/reconcile_wikidata.py
+      - tests/test_wikidata_pipeline.py
+      - .github/workflows/wikidata.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wikidata-source-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Validate independent-provider parser and uncertainty boundaries
+        run: python -m unittest discover -s tests -p test_wikidata_pipeline.py -v
+      - name: Acquire platform-wide Wikidata query responses as one source snapshot
+        run: |
+          set -euo pipefail
+          python tools/wikidata_source.py --fetch --snapshot "$RUNNER_TEMP/wikidata-snapshot.json"
+          python tools/wikidata_source.py --verify --snapshot "$RUNNER_TEMP/wikidata-snapshot.json"
+          sha256sum "$RUNNER_TEMP/wikidata-snapshot.json" > "$RUNNER_TEMP/wikidata-snapshot.sha256"
+      - name: Retrieve immutable validated 75-platform base corpus
+        shell: bash
+        run: |
+          set -euo pipefail
+          url="https://github.com/sguzman/ludographium/releases/download/data-v1.5.0/ludographium-expanded-data-v1.5.0.sqlite"
+          curl -fL --retry 4 --retry-delay 4 -o "$RUNNER_TEMP/expanded-base.sqlite" "$url"
+          printf '%s  %s\n' '76dd7c44a9c790e3645bc1cf18fd9fb19d3337d20653819c99462068fbfbe8e7' "$RUNNER_TEMP/expanded-base.sqlite" | sha256sum -c -
+      - name: Match every source record with attributable independent Wikidata evidence
+        run: |
+          set -euo pipefail
+          python tools/reconcile_wikidata.py --build \
+            --from-db "$RUNNER_TEMP/expanded-base.sqlite" \
+            --db "$RUNNER_TEMP/ludographium-wikidata.sqlite" \
+            --snapshot "$RUNNER_TEMP/wikidata-snapshot.json"
+          python tools/reconcile_wikidata.py --verify \
+            --db "$RUNNER_TEMP/ludographium-wikidata.sqlite" \
+            --snapshot "$RUNNER_TEMP/wikidata-snapshot.json"
+          python tools/reconcile_wikidata.py --summary \
+            --db "$RUNNER_TEMP/ludographium-wikidata.sqlite"
+          cd "$RUNNER_TEMP"
+          sha256sum ludographium-wikidata.sqlite > ludographium-wikidata.sqlite.sha256
+          sha256sum --check ludographium-wikidata.sqlite.sha256
+      - name: Preserve entire independent snapshot and reconciled offline database
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-wikidata-independent-source
+          path: |
+            ${{ runner.temp }}/wikidata-snapshot.json
+            ${{ runner.temp }}/wikidata-snapshot.sha256
+            ${{ runner.temp }}/ludographium-wikidata.sqlite
+            ${{ runner.temp }}/ludographium-wikidata.sqlite.sha256
+          if-no-files-found: error
+          retention-days: 14
