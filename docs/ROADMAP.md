@@ -25,7 +25,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Deliver the complete SQLite corpus as a CI artifact, independently of optional manually curated identity examples.
 - [ ] Extend the source universe with other console and handheld systems by pinned bulk imports, with separate licensing/provenance review per provider.
 - [ ] Add separately sourced metadata providers and bulk, auditable cross-provider reconciliation; quantify coverage and ambiguous joins.
-- [ ] Publish a durable, versioned SQLite companion for downstream offline consumers.
+- [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 
 ## Identity and curation
 
