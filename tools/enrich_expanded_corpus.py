@@ -33,6 +33,51 @@ CREATE TABLE field_archives (
 );
 """
 
+# Some disc and download metadata DATs describe serials without a CRC32.
+# Upgrade ONLY the copied expanded SQLite so the original v1 schema and
+# immutable published ten-platform artifacts are untouched.
+NULLABLE_CLAIMS = """
+DROP VIEW matched_metadata;
+CREATE TABLE claims_replacement (
+    platform TEXT NOT NULL,
+    claim_ordinal INTEGER NOT NULL CHECK(claim_ordinal > 0),
+    source_id TEXT NOT NULL,
+    source_revision TEXT NOT NULL,
+    source_path TEXT NOT NULL,
+    source_blob_sha TEXT NOT NULL,
+    source_ordinal INTEGER NOT NULL,
+    field TEXT NOT NULL,
+    value TEXT,
+    crc32 TEXT,
+    source_comment TEXT,
+    source_fields_json TEXT NOT NULL,
+    resolution_status TEXT NOT NULL,
+    base_source_ordinal INTEGER,
+    PRIMARY KEY (platform, claim_ordinal),
+    FOREIGN KEY (platform) REFERENCES platforms(platform),
+    FOREIGN KEY (platform, base_source_ordinal) REFERENCES games(platform, source_ordinal),
+    CHECK (
+        (resolution_status = 'matched' AND crc32 IS NOT NULL
+         AND base_source_ordinal IS NOT NULL)
+        OR
+        (resolution_status != 'matched' AND base_source_ordinal IS NULL)
+    )
+);
+INSERT INTO claims_replacement SELECT * FROM claims;
+DROP TABLE claims;
+ALTER TABLE claims_replacement RENAME TO claims;
+CREATE INDEX idx_claim_base ON claims(platform, base_source_ordinal, field);
+CREATE INDEX idx_claim_field ON claims(field, resolution_status);
+CREATE VIEW matched_metadata AS
+    SELECT g.platform, g.source_ordinal, g.title,
+           c.field, c.value, c.source_id, c.source_revision,
+           c.source_path, c.source_blob_sha, c.source_ordinal AS claim_source_ordinal,
+           c.crc32, c.source_comment
+    FROM games AS g JOIN claims AS c
+      ON c.platform = g.platform AND c.base_source_ordinal = g.source_ordinal
+    WHERE c.resolution_status = 'matched';
+"""
+
 
 def field_manifest(root):
     manifest = json.loads((root / MANIFEST).read_bytes())
@@ -94,6 +139,7 @@ def ingest(root, expanded_db, target, manifest, *, cache_dir=None, workers=12):
         base = counts(conn)
         source_manifest = pinned_manifest(root)
         validate_expanded(conn, source_manifest)
+        conn.executescript(NULLABLE_CLAIMS)
         conn.executescript(FIELD_ARCHIVES)
         conn.execute("INSERT INTO provenance VALUES (?,?)",
                      ("bulk_fields", json.dumps(manifest, ensure_ascii=False, separators=(",", ":"))))
@@ -120,11 +166,13 @@ def ingest(root, expanded_db, target, manifest, *, cache_dir=None, workers=12):
                     grouped[crc].append((ordinal, title))
                 source_index[platform] = grouped
             crc_index = source_index[platform]
-            parsed = parse_field_dat(raw, field=field)
+            parsed = parse_field_dat(raw, field=field, allow_missing_crc=True)
             status_counts = Counter()
             for record in parsed:
                 candidates = crc_index.get(record["crc32"], [])
-                if record["value"] is None:
+                if record["crc32"] is None:
+                    status, target_ordinal = "missing_crc", None
+                elif record["value"] is None:
                     status, target_ordinal = "missing_value", None
                 elif not candidates:
                     status, target_ordinal = "unmatched_crc", None
@@ -182,6 +230,11 @@ def validate_fields(conn, manifest, expected=None):
                 or row[1] != f["git_blob_sha"]
                 or len(row[2]) != f["bytes"] or git_blob(row[2]) != f["git_blob_sha"]):
             raise ValueError(f"field archive source corruption: {f['platform']}/{f['field']}")
+    if conn.execute(
+        "SELECT count(*) FROM claims WHERE crc32 IS NULL "
+        "AND resolution_status != 'missing_crc'"
+    ).fetchone()[0]:
+        raise ValueError("claim without CRC32 was assigned a non-missing status")
     observed = counts(conn)
     if expected is not None and observed != expected:
         raise ValueError(f"field corpus coverage differs: {observed} != {expected}")
