@@ -111,19 +111,30 @@ def validate_ledger(ledger, platform_ids, available):
                 raise ValueError(f"{identity} references an unknown source occurrence")
         counts[section] = len(rows)
     for item in ledger["releases"]:
-        if item["work_id"] not in indexed["works"]:
+        work = indexed["works"].get(item["work_id"])
+        if work is None:
             raise ValueError(f"{item['id']} references an unknown work")
         if item["platform"] not in platform_ids:
             raise ValueError(f"{item['id']} uses an unknown platform")
-        if not any(available[evidence_key(ref)]["platform"] == item["platform"]
-                   for ref in item["evidence"]):
-            raise ValueError(f"{item['id']} has no evidence from its stated platform")
+        # A release is a *subset* of its parent work's explicitly cited
+        # source observations. Never infer this bridge from a title alone.
+        work_evidence = {evidence_key(ref) for ref in work["evidence"]}
+        if not {evidence_key(ref) for ref in item["evidence"]}.issubset(work_evidence):
+            raise ValueError(f"{item['id']} has evidence not cited by its work")
+        if any(available[evidence_key(ref)]["platform"] != item["platform"]
+               for ref in item["evidence"]):
+            raise ValueError(f"{item['id']} cites another platform's media as a release")
 
     used_media = set()
     for item in ledger["builds"]:
         release = indexed["releases"].get(item["release_id"])
         if release is None:
             raise ValueError(f"{item['id']} references an unknown release")
+        # Builds must be supported by specific observations of their
+        # parent release; matching the platform or title alone is not enough.
+        release_evidence = {evidence_key(ref) for ref in release["evidence"]}
+        if not {evidence_key(ref) for ref in item["evidence"]}.issubset(release_evidence):
+            raise ValueError(f"{item['id']} has evidence not cited by its release")
         media = item["media"]
         if (not isinstance(media, dict) or set(media) != {"sha1", "size"}
                 or not isinstance(media["sha1"], str)
