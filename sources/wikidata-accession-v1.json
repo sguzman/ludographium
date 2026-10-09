@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-snapshot-lock",
+  "source": "wikidata",
+  "license": "CC0-1.0",
+  "platform_mapping_register": "sources/wikidata-v1.json",
+  "source_snapshot_sha256": "db9d4c66041de776438b4316b34e1c648671889aea944efc6268446252f68734",
+  "reconciled_sqlite_sha256": "cecf94a6604a78a7794cd6ed9c66a32fbb18cae244397ada58af1ae0e33afd45",
+  "base_source_tag": "data-v1.5.0",
+  "base_sqlite_sha256": "76dd7c44a9c790e3645bc1cf18fd9fb19d3337d20653819c99462068fbfbe8e7",
+  "source_workflow_run": "https://github.com/sguzman/ludographium/actions/runs/37968964983",
+  "source_query_partitions": 16,
+  "platform_item_observations": 15868,
+  "publication_date_literal_claims": 29333,
+  "source_title_candidate_links": 8971,
+  "console_source_observations_with_candidate": 8908,
+  "ambiguous_links": 126,
+  "rights_note": "The snapshot preserves Wikidata CC0 structured statements, their original query results and retrieval timestamps; claimed publication dates and label matches are evidence leads, not independently verified work or release identities.",
+  "publication_target": "data-v1.6.0"
+}
