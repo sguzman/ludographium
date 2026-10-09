@@ -15,10 +15,10 @@ New data may be published against the same JSON schema without changing the Rust
 
 ## Getting an exact dataset
 
-On Linux, download both assets from a specific [GitHub Release](https://github.com/sguzman/ludographium/releases), then check the archive's SHA-256 before extraction. Here is the latest tagged release (`data-v1.2.0`):
+On Linux, download both assets from a specific [GitHub Release](https://github.com/sguzman/ludographium/releases), then check the archive's SHA-256 before extraction. Here is the latest tagged release (`data-v1.3.0`):
 
 ```sh
-tag=data-v1.2.0
+tag=data-v1.3.0
 base="https://github.com/sguzman/ludographium/releases/download/$tag"
 curl -fL --retry 3 -o "ludographium-runtime-$tag.tar.gz" "$base/ludographium-runtime-$tag.tar.gz"
 curl -fL --retry 3 -o "ludographium-runtime-$tag.tar.gz.sha256" "$base/ludographium-runtime-$tag.tar.gz.sha256"
