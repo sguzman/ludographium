@@ -46,7 +46,7 @@ The [distribution manifest](generated/v1/distribution.json) publishes byte lengt
 
 ## Use the data
 
-The Rust reader validates the source indexes before returning matches. Consumers may supply a known fingerprint or stream exact local media bytes without storing the file in Ludographium:
+The Rust reader validates the source indexes before returning matches. Consumers may supply a known fingerprint or stream exact local media bytes without storing the file in Ludographium. Explicit NES, SNES, and N64 [byte-domain conversions](docs/BYTE-DOMAINS.md) are available for headered or byte-swapped local files without changing the default exact-byte lookup:
 
 ```sh
 cargo run --locked -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
@@ -82,7 +82,7 @@ Python lookup tools offer equivalent access. A match associates a fingerprint wi
 
 ## Documentation
 
-- [Scope](docs/SCOPE.md) and [data model](docs/MODEL.md)
+- [Scope](docs/SCOPE.md), [data model](docs/MODEL.md), and [media byte domains](docs/BYTE-DOMAINS.md)
 - [Curated identity framework](docs/IDENTITIES.md)
 - [Licensing and third-party attribution](docs/LICENSING.md)
 - [Provenance and licensing](docs/PROVENANCE.md)
