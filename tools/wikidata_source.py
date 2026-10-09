@@ -85,8 +85,14 @@ def extract_bindings(raw):
                 row["label"].get("xml:lang") != "en"
                 or row["label"].get("type") != "literal"):
             raise ValueError("Wikidata English label binding malformed")
-        if "date" in row and row["date"].get("type") not in ("literal", "typed-literal"):
-            raise ValueError("Wikidata publication date value malformed")
+        if "date" in row:
+            date = row["date"]
+            if (date.get("type") not in ("literal", "typed-literal", "bnode", "uri")
+                    or not isinstance(date.get("value"), str)):
+                raise ValueError("Wikidata publication date binding malformed")
+            # A Wikidata unknown/unspecified date can be a blank node (or
+            # another nonliteral RDF binding). Preserve the raw source row,
+            # but never reinterpret it as a concrete calendar date.
     return bindings
 
 
@@ -187,7 +193,8 @@ def validate_snapshot(cfg, snapshot):
             raise ValueError("Wikidata unique item count differs")
         item_count += len(unique)
         row_count += len(records)
-        dated += sum("date" in b for b in records)
+        dated += sum("date" in b and b["date"]["type"] in ("literal", "typed-literal")
+                     for b in records)
     return {"platform_partitions": len(cfg["platforms"]),
             "platform_item_observations": item_count,
             "rows": row_count, "dated_rows": dated}
