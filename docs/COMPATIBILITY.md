@@ -1,6 +1,6 @@
 # Data compatibility and migration
 
-Ludographium publishes offline-readable, source-attributed video game metadata. The [first public dataset release](https://github.com/sguzman/ludographium/releases/tag/data-v1.0.0) freezes a particular collection of records independently of its Rust reader and of future changes to this repository. Consumers should **pin a dataset tag and verify the downloaded bytes** rather than assume that the current default branch is a stable dataset revision.
+Ludographium publishes offline-readable, source-attributed video game metadata. The [published data releases](DATA-RELEASES.md) freeze particular collections of records independently of the Rust reader and of future changes to this repository. Consumers should **pin a dataset tag and verify the downloaded bytes** rather than assume that the current default branch is a stable dataset revision.
 
 ## Four independent identities
 
@@ -15,10 +15,10 @@ New data may be published against the same JSON schema without changing the Rust
 
 ## Getting an exact dataset
 
-On Linux, download both assets from a specific [GitHub Release](https://github.com/sguzman/ludographium/releases), then check the archive's SHA-256 before extraction. Here is the first release:
+On Linux, download both assets from a specific [GitHub Release](https://github.com/sguzman/ludographium/releases), then check the archive's SHA-256 before extraction. Here is the latest tagged release (`data-v1.1.0`):
 
 ```sh
-tag=data-v1.0.0
+tag=data-v1.1.0
 base="https://github.com/sguzman/ludographium/releases/download/$tag"
 curl -fL --retry 3 -o "ludographium-runtime-$tag.tar.gz" "$base/ludographium-runtime-$tag.tar.gz"
 curl -fL --retry 3 -o "ludographium-runtime-$tag.tar.gz.sha256" "$base/ludographium-runtime-$tag.tar.gz.sha256"
