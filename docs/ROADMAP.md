@@ -25,7 +25,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Deliver the complete SQLite corpus as a CI artifact, independently of optional manually curated identity examples.
 - [x] Expand the source universe from ten to 75 console/handheld collections by pinned file-level bulk import, preserving every original DAT inside offline SQLite.
 - [x] Accession 279 additional pinned Libretro bibliographic DAT sources in one batch, explicitly retaining checksums, source values and unresolved claims.
-- [x] Integrate a separate CC0 Wikidata source through 16 whole-platform queries and retain 15,868 item/platform observations with 29,333 literal date claims.
+- [x] Integrate and permanently publish a SHA-256-locked CC0 Wikidata source snapshot in `data-v1.6.0`, across 16 whole-platform queries, with 15,868 item/platform observations and 29,333 literal date claims.
 - [x] Bulk-generate 8,971 noncanonical title correspondence candidates and identify 126 ambiguous links without merging game identities.
 - [ ] Add more external metadata properties/providers and evidence-backed cross-provider reconciliation beyond label correspondences; quantify false-positive risk.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
