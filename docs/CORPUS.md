@@ -13,7 +13,7 @@ Those 41,491 observations are **not asserted to be 41,491 distinct games**. The 
 
 ## Consumer interface
 
-GitHub Actions builds `ludographium-corpus.sqlite` for every main-branch validation run, alongside a SHA-256 checksum. The latest dataset publication workflow also packages a versioned **SQLite companion** with a checksum, independent of the existing portable JSON runtime archive. The GitHub Actions artifact is short-lived; versioned Release assets persist.
+GitHub Actions builds `ludographium-corpus.sqlite` for every main-branch validation run, alongside a SHA-256 checksum. The [`data-v1.4.0` release](https://github.com/sguzman/ludographium/releases/tag/data-v1.4.0) publishes the versioned **SQLite companion** with its own checksum, independent of the portable JSON runtime archive. The GitHub Actions artifact is short-lived; [versioned SQLite Release assets](https://github.com/sguzman/ludographium/releases/download/data-v1.4.0/ludographium-corpus-data-v1.4.0.sqlite) persist.
 
 The SQLite file needs no server, local media files or Rust installation. Any SQLite reader can query it offline. Its main relations:
 
