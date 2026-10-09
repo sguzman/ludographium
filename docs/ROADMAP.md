@@ -37,7 +37,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Implement a tag-gated, fully validated release workflow with checksum-verified, versioned runtime assets.
 - [ ] Publish the first permanent versioned data release, independent of short-lived CI artifacts.
 - [x] Specify and test opt-in NES iNES, SNES copier-header, and N64 byte-order conversions without mutating source data.
-- [ ] Expand byte-domain contracts to additional vetted format variants, trainers, and archive members where justified.
+- [x] Support explicit normalized ZIP member lookup with decoded-size limits and source-aware Rust APIs.
+- [ ] Expand byte-domain contracts to additional vetted format variants and trainer handling where justified.
 - [ ] Publish compatibility and migration guidance for future consumer contracts.
 
 ## Bibliographic enrichment
