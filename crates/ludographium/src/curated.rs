@@ -266,7 +266,7 @@ mod tests {
     #[test]
     fn resolves_only_cited_exact_media_images() {
         let curated = CuratedCatalog::open(root()).unwrap();
-        assert_eq!(curated.counts(), (4, 4, 4));
+        assert_eq!(curated.counts(), (8, 10, 12));
         let platform = PlatformCatalog::open(root(), "snes").unwrap();
         let hits = platform
             .lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765")
@@ -279,6 +279,43 @@ mod tests {
         assert_eq!(linked[0].build.media.size, 524288);
         let unrelated = platform.lookup_sha1("0".repeat(40).as_str()).unwrap();
         assert!(unrelated.is_empty());
+    }
+
+    #[test]
+    fn curated_revisions_have_distinct_sha1_and_exact_source_evidence() {
+        let curated = CuratedCatalog::open(root()).unwrap();
+        let gb = PlatformCatalog::open(root(), "gb").unwrap();
+        let base = gb
+            .lookup_sha1("3A4DDB39B234A67FFB361EE7ABC3D23E0A8B1C89")
+            .unwrap();
+        let rev1 = gb
+            .lookup_sha1("418203621B887CAA090215D97E3F509B79AFFD3E")
+            .unwrap();
+        assert_eq!(base.len(), 1);
+        assert_eq!(rev1.len(), 1);
+        let a = curated.for_media(&base[0]);
+        let b = curated.for_media(&rev1[0]);
+        assert_eq!(a.len(), 1);
+        assert_eq!(b.len(), 1);
+        assert_eq!(a[0].work.id, b[0].work.id);
+        assert_eq!(a[0].release.id, b[0].release.id);
+        assert_ne!(a[0].build.id, b[0].build.id);
+        assert_ne!(a[0].build.media.sha1, b[0].build.media.sha1);
+        assert_eq!(a[0].work.preferred_title, "Super Mario Land");
+
+        let gbc = PlatformCatalog::open(root(), "gbc").unwrap();
+        let first = gbc
+            .lookup_sha1("F4CD194BDEE0D04CA4EAC29E09B8E4E9D818C133")
+            .unwrap();
+        let revised = gbc
+            .lookup_sha1("F2F52230B536214EF7C9924F483392993E226CFB")
+            .unwrap();
+        let x = curated.for_media(&first[0]);
+        let y = curated.for_media(&revised[0]);
+        assert_eq!(x.len(), 1);
+        assert_eq!(y.len(), 1);
+        assert_eq!(x[0].work.id, y[0].work.id);
+        assert_ne!(x[0].release.id, y[0].release.id);
     }
 
     #[test]
