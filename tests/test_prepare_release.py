@@ -52,7 +52,15 @@ class ReleasePreparationTests(unittest.TestCase):
                 project_root, "data-v1.1.0", Path(output)
             )
             content = notes.read_text(encoding="utf-8")
-            self.assertIn("11 works, 13 releases, 19 exact media builds\n", content)
+            ledger = json.loads(
+                (project_root / "curated/v1/identities.json").read_text(encoding="utf-8")
+            )
+            summary = (
+                f"{len(ledger['works'])} works, "
+                f"{len(ledger['releases'])} releases, "
+                f"{len(ledger['builds'])} exact media builds\n"
+            )
+            self.assertIn(summary, content)
             self.assertTrue(archive.exists())
             self.assertTrue(checksums.exists())
 
