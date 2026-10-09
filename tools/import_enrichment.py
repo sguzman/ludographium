@@ -7,11 +7,14 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+from import_dat import fields as parse_rom_fields
+
 ROOT = Path(__file__).resolve().parents[1]
 BLOCK = re.compile(r"^game \(\r?\n(.*?)^\)\s*$", re.M | re.S)
 SCALAR = re.compile(r'^\s*([a-z0-9_]+)\s+"((?:\\.|[^"\\])*)"\s*$', re.I)
 SCALAR_ATOM = re.compile(r'^\s*([a-z0-9_]+)\s+([^\s"()]+)\s*$', re.I)
 ROM = re.compile(r"^\s*rom\s*\(\s*crc\s+([0-9a-f]{8})\s*\)\s*$", re.I)
+ROM_ANY = re.compile(r"^\s*rom\s*\(\s*(.*?)\s*\)\s*$", re.I)
 ROM_BEGIN = re.compile(r"^\s*rom\s*\(\s*$", re.I)
 ROM_CRC = re.compile(r"^\s*crc\s+([0-9a-f]{8})\s*$", re.I)
 ROM_END = re.compile(r"^\s*\)\s*$")
@@ -63,6 +66,20 @@ def parse_field_dat(raw, *, field, allow_missing_crc=False):
                 if crc is not None:
                     raise ValueError(f"duplicate crc in source occurrence {ordinal}")
                 crc = rm[1].upper()
+                continue
+            any_rom = ROM_ANY.fullmatch(line)
+            if any_rom:
+                parsed_rom = parse_rom_fields(any_rom[1])
+                found_crc = parsed_rom.pop("crc32", None)
+                if found_crc is not None:
+                    if crc is not None:
+                        raise ValueError(f"duplicate crc at source occurrence {ordinal}")
+                    crc = found_crc
+                for name, value in parsed_rom.items():
+                    key = "rom_" + name
+                    if key in values:
+                        raise ValueError(f"duplicate {key} at source occurrence {ordinal}")
+                    values[key] = value
                 continue
             if ROM_BEGIN.fullmatch(line):
                 if crc is not None:
