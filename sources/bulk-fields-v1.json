@@ -1,0 +1,1965 @@
+{
+  "schema_version": 1,
+  "kind": "pinned-bulk-bibliographic-expansion",
+  "source_id": "libretro-metadata",
+  "base_source_id": "libretro-no-intro",
+  "repository": "https://github.com/libretro/libretro-database",
+  "repository_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+  "declared_repository_license": "CC-BY-SA-4.0",
+  "selection": "Exact filename matches for expanded console/handheld DAT collections across developer, genre, publisher, release date, franchise, serial, player count, ESRB rating and rumble provider directories; only fields actually present are imported.",
+  "files": [
+    {
+      "platform": "atari2600",
+      "field": "developer",
+      "source_path": "metadat/developer/Atari - 2600.dat",
+      "git_blob_sha": "1389a7c0144a748903b3b5f05fa1e1f9b1b65970",
+      "bytes": 59943
+    },
+    {
+      "platform": "atari2600",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Atari - 2600.dat",
+      "git_blob_sha": "d2ce408fa6bff6764e1c6a89047d154a95f970c8",
+      "bytes": 9687
+    },
+    {
+      "platform": "atari2600",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Atari - 2600.dat",
+      "git_blob_sha": "89fa38b135b1d332b1c8165045333789cbcd11a6",
+      "bytes": 3983
+    },
+    {
+      "platform": "atari2600",
+      "field": "genre",
+      "source_path": "metadat/genre/Atari - 2600.dat",
+      "git_blob_sha": "a01c71e47b4d6cc8d76b49703e50b15d5781d4ba",
+      "bytes": 58990
+    },
+    {
+      "platform": "atari2600",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Atari - 2600.dat",
+      "git_blob_sha": "8cd3fb237f9844dd3c4c39728fe86f077e74db6f",
+      "bytes": 65495
+    },
+    {
+      "platform": "atari2600",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Atari - 2600.dat",
+      "git_blob_sha": "6174416435db0c49516800868c745ef154e8a8ce",
+      "bytes": 359
+    },
+    {
+      "platform": "atari2600",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Atari - 2600.dat",
+      "git_blob_sha": "b34da483a868718e0deebf69cf238370f5a1a277",
+      "bytes": 7562
+    },
+    {
+      "platform": "atari2600",
+      "field": "users",
+      "source_path": "metadat/maxusers/Atari - 2600.dat",
+      "git_blob_sha": "dbb920e99c7a13631a739da68d673a7d43ec20a0",
+      "bytes": 49697
+    },
+    {
+      "platform": "atari5200",
+      "field": "developer",
+      "source_path": "metadat/developer/Atari - 5200.dat",
+      "git_blob_sha": "91c17acb1b892a4b036512438d5cae769baf0bb8",
+      "bytes": 8211
+    },
+    {
+      "platform": "atari5200",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Atari - 5200.dat",
+      "git_blob_sha": "6f815b17cab5539d9d97d155965ac7ecbcd58c2c",
+      "bytes": 873
+    },
+    {
+      "platform": "atari5200",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Atari - 5200.dat",
+      "git_blob_sha": "6045a71a799b64f581d91fe29da21913793b6aa0",
+      "bytes": 1818
+    },
+    {
+      "platform": "atari5200",
+      "field": "genre",
+      "source_path": "metadat/genre/Atari - 5200.dat",
+      "git_blob_sha": "05033079d25c0d93de30448e039398c0a00b531f",
+      "bytes": 8083
+    },
+    {
+      "platform": "atari5200",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Atari - 5200.dat",
+      "git_blob_sha": "f5c6fff4e633a7d6356740c8aa24ba8549bff8a9",
+      "bytes": 9290
+    },
+    {
+      "platform": "atari5200",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Atari - 5200.dat",
+      "git_blob_sha": "9c4076ab332393136470edff1680f18dffb1c478",
+      "bytes": 65
+    },
+    {
+      "platform": "atari5200",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Atari - 5200.dat",
+      "git_blob_sha": "62cf5ed6d0dad78398e70eb924c3d3ce1229e48f",
+      "bytes": 147
+    },
+    {
+      "platform": "atari5200",
+      "field": "serial",
+      "source_path": "metadat/serial/Atari - 5200.dat",
+      "git_blob_sha": "c9f31603ba4aad30513dee9b963244e68c78bf74",
+      "bytes": 5806
+    },
+    {
+      "platform": "atari5200",
+      "field": "users",
+      "source_path": "metadat/maxusers/Atari - 5200.dat",
+      "git_blob_sha": "eb6e293216796fb1cc9a63293550ce4e4c981c7d",
+      "bytes": 7008
+    },
+    {
+      "platform": "atari7800",
+      "field": "developer",
+      "source_path": "metadat/developer/Atari - 7800.dat",
+      "git_blob_sha": "edac62b934b6bf66c1b62cf8c9966fa47c231df0",
+      "bytes": 10697
+    },
+    {
+      "platform": "atari7800",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Atari - 7800.dat",
+      "git_blob_sha": "b9a9d7563749959c9c57288f08d2a793fbd91971",
+      "bytes": 373
+    },
+    {
+      "platform": "atari7800",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Atari - 7800.dat",
+      "git_blob_sha": "3f4479321436fe830c6526399761bdd88f34ed1f",
+      "bytes": 1981
+    },
+    {
+      "platform": "atari7800",
+      "field": "genre",
+      "source_path": "metadat/genre/Atari - 7800.dat",
+      "git_blob_sha": "f6caadf1ec37b799d81d1272b039b232be116736",
+      "bytes": 9647
+    },
+    {
+      "platform": "atari7800",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Atari - 7800.dat",
+      "git_blob_sha": "a7efe55a8d3a1963174a632f1d7ac14b343224b2",
+      "bytes": 10256
+    },
+    {
+      "platform": "atari7800",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Atari - 7800.dat",
+      "git_blob_sha": "6f0d12dec640c58b4865a34d65e95e33d2a38efe",
+      "bytes": 850
+    },
+    {
+      "platform": "atari7800",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Atari - 7800.dat",
+      "git_blob_sha": "fbaa35363b248a7c1d679569e153206adc4771a4",
+      "bytes": 1212
+    },
+    {
+      "platform": "atari7800",
+      "field": "serial",
+      "source_path": "metadat/serial/Atari - 7800.dat",
+      "git_blob_sha": "a707efada32609eab0afaced595e6b87a24ad9af",
+      "bytes": 4864
+    },
+    {
+      "platform": "atari7800",
+      "field": "users",
+      "source_path": "metadat/maxusers/Atari - 7800.dat",
+      "git_blob_sha": "c979076fba93a5ed839a8114dbd6ddf84f388965",
+      "bytes": 8638
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "developer",
+      "source_path": "metadat/developer/Atari - Jaguar.dat",
+      "git_blob_sha": "088accd0925f56800c97ef3c0716399f52a72b33",
+      "bytes": 20789
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Atari - Jaguar.dat",
+      "git_blob_sha": "b8c07cacb8bdc0bd4496efd52b05928939f53438",
+      "bytes": 8924
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Atari - Jaguar.dat",
+      "git_blob_sha": "2ce231a879097edc862b206789e3f571c7c880d5",
+      "bytes": 6877
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "genre",
+      "source_path": "metadat/genre/Atari - Jaguar.dat",
+      "git_blob_sha": "d2ff36892ce6c4e69dd035eb46ae325247c9c0e4",
+      "bytes": 18543
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Atari - Jaguar.dat",
+      "git_blob_sha": "f63c95a01a74bc8a64752e7681ada38b94c4654a",
+      "bytes": 18142
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Atari - Jaguar.dat",
+      "git_blob_sha": "bf3f196af817e3d75945db7ac4a05fe11ec92fe3",
+      "bytes": 8647
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Atari - Jaguar.dat",
+      "git_blob_sha": "540d1c07d5858deaa414d9c0d0f710a92107ca17",
+      "bytes": 8961
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "serial",
+      "source_path": "metadat/serial/Atari - Jaguar.dat",
+      "git_blob_sha": "27c54951265c04c6fda6f1aa15fae31e9bc02a5c",
+      "bytes": 4960
+    },
+    {
+      "platform": "atarijaguar",
+      "field": "users",
+      "source_path": "metadat/maxusers/Atari - Jaguar.dat",
+      "git_blob_sha": "a5864a0f1f2dcff94210ea3cdb72d2cdd74f50ed",
+      "bytes": 16992
+    },
+    {
+      "platform": "atarilynx",
+      "field": "developer",
+      "source_path": "metadat/developer/Atari - Lynx.dat",
+      "git_blob_sha": "b35dc682c6a443cc159b56f14d99333d9a58eefb",
+      "bytes": 9214
+    },
+    {
+      "platform": "atarilynx",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Atari - Lynx.dat",
+      "git_blob_sha": "cc719074c412e7514a073909e2cfe711e1bb9ae3",
+      "bytes": 1076
+    },
+    {
+      "platform": "atarilynx",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Atari - Lynx.dat",
+      "git_blob_sha": "1a4f0a18ea64e221d92adbe1de78ca4e0144a5f4",
+      "bytes": 1573
+    },
+    {
+      "platform": "atarilynx",
+      "field": "genre",
+      "source_path": "metadat/genre/Atari - Lynx.dat",
+      "git_blob_sha": "689048de9c3a8c885eacdbec18784c8c2b5816c3",
+      "bytes": 8628
+    },
+    {
+      "platform": "atarilynx",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Atari - Lynx.dat",
+      "git_blob_sha": "e0950653b4e474e335fd98252ca72d1c9bd2b925",
+      "bytes": 8934
+    },
+    {
+      "platform": "atarilynx",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Atari - Lynx.dat",
+      "git_blob_sha": "e930cd6a422eef9ffe216fdab53ce4fb08214725",
+      "bytes": 159
+    },
+    {
+      "platform": "atarilynx",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Atari - Lynx.dat",
+      "git_blob_sha": "e1e6abae4eab2b8d93f133ba8b9397e54add1c39",
+      "bytes": 2132
+    },
+    {
+      "platform": "atarilynx",
+      "field": "serial",
+      "source_path": "metadat/serial/Atari - Lynx.dat",
+      "git_blob_sha": "06febc7257c602c12254e0413608f73f8e0457d6",
+      "bytes": 148
+    },
+    {
+      "platform": "atarilynx",
+      "field": "users",
+      "source_path": "metadat/maxusers/Atari - Lynx.dat",
+      "git_blob_sha": "ca9d9733b8ebe40e123c379a7494e8189c92a246",
+      "bytes": 7864
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "developer",
+      "source_path": "metadat/developer/Bandai - WonderSwan.dat",
+      "git_blob_sha": "c3959a29e7c2e5c620fa3eca93f070733b0f1a2c",
+      "bytes": 13020
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Bandai - WonderSwan.dat",
+      "git_blob_sha": "46269fe7753e77cba2ae3205e93d2eb3c2464e2a",
+      "bytes": 162
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Bandai - WonderSwan.dat",
+      "git_blob_sha": "e3b8afe3e23789ec97a224fdbe93ef29ae287497",
+      "bytes": 2965
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "genre",
+      "source_path": "metadat/genre/Bandai - WonderSwan.dat",
+      "git_blob_sha": "29de020fce8839894aa2f47154dbffdb6a8f7a3f",
+      "bytes": 13229
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Bandai - WonderSwan.dat",
+      "git_blob_sha": "3d5e98a6326da49968367ec1d12785707fd7afd9",
+      "bytes": 13425
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Bandai - WonderSwan.dat",
+      "git_blob_sha": "6944490d6e5a6a13307c0759d146df6f03937008",
+      "bytes": 275
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Bandai - WonderSwan.dat",
+      "git_blob_sha": "f084e7695547b39b329e6e5d37f8b0ea59bc096f",
+      "bytes": 653
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "serial",
+      "source_path": "metadat/serial/Bandai - WonderSwan.dat",
+      "git_blob_sha": "39bc7766f1cb7de7fdec4e4d5a92e3b589100e94",
+      "bytes": 11225
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "field": "users",
+      "source_path": "metadat/maxusers/Bandai - WonderSwan.dat",
+      "git_blob_sha": "4d60fa5cb2c35378bd8f23dd929557d355603d20",
+      "bytes": 11336
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "developer",
+      "source_path": "metadat/developer/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "3440ac4d7522253255cc6cbdd85945611ce9a7a8",
+      "bytes": 11091
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "37c9a6570cf446c617bb1072cf36d5eb80159112",
+      "bytes": 91
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "910f4c137be8e56f83deb0cb3ebb8f90c5d02ed7",
+      "bytes": 7499
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "genre",
+      "source_path": "metadat/genre/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "c83038418ea5cdd528bba20bf4cda8cba0b10de1",
+      "bytes": 10534
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "ca5211c7b9d916ca4536e95ef6ee905fb68783ad",
+      "bytes": 10698
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "37c9a6570cf446c617bb1072cf36d5eb80159112",
+      "bytes": 91
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "43a97ad76b4eda8e99ad97683a096a7578ec3e16",
+      "bytes": 642
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "serial",
+      "source_path": "metadat/serial/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "7cbc2ccdfb8cf1365b16d59ef6e4e2e68b6745b6",
+      "bytes": 9580
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "field": "users",
+      "source_path": "metadat/maxusers/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "522d6224dbce86254b11e1d8c41481256210cd91",
+      "bytes": 9541
+    },
+    {
+      "platform": "casioloopy",
+      "field": "developer",
+      "source_path": "metadat/developer/Casio - Loopy.dat",
+      "git_blob_sha": "477115a33f696b73224f0d6fb6dcebf3338b8e5b",
+      "bytes": 925
+    },
+    {
+      "platform": "casioloopy",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Casio - Loopy.dat",
+      "git_blob_sha": "f083eec184d4c35c642d61760b8465b21bc81a34",
+      "bytes": 67
+    },
+    {
+      "platform": "casioloopy",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Casio - Loopy.dat",
+      "git_blob_sha": "f083eec184d4c35c642d61760b8465b21bc81a34",
+      "bytes": 67
+    },
+    {
+      "platform": "casioloopy",
+      "field": "genre",
+      "source_path": "metadat/genre/Casio - Loopy.dat",
+      "git_blob_sha": "868730c6b8c0e2c33b095fec0c8469324c3aefe4",
+      "bytes": 915
+    },
+    {
+      "platform": "casioloopy",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Casio - Loopy.dat",
+      "git_blob_sha": "410d171b390260ae12cdfd8d3c32a713c6842ed1",
+      "bytes": 904
+    },
+    {
+      "platform": "casioloopy",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Casio - Loopy.dat",
+      "git_blob_sha": "f083eec184d4c35c642d61760b8465b21bc81a34",
+      "bytes": 67
+    },
+    {
+      "platform": "casioloopy",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Casio - Loopy.dat",
+      "git_blob_sha": "f8c90cb35f9c4c99f5a99abd1ed0eb4eba59891c",
+      "bytes": 913
+    },
+    {
+      "platform": "casioloopy",
+      "field": "serial",
+      "source_path": "metadat/serial/Casio - Loopy.dat",
+      "git_blob_sha": "ebca06af0955f2000fe3e391a598af5e3dbacb4c",
+      "bytes": 628
+    },
+    {
+      "platform": "casioloopy",
+      "field": "users",
+      "source_path": "metadat/maxusers/Casio - Loopy.dat",
+      "git_blob_sha": "604d506dfdd8c03177ae0d864c1e821a2d6932fa",
+      "bytes": 814
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "developer",
+      "source_path": "metadat/developer/Coleco - ColecoVision.dat",
+      "git_blob_sha": "bcc238c19fb7f8ff3df630ad3542d1eb9fca033d",
+      "bytes": 17785
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Coleco - ColecoVision.dat",
+      "git_blob_sha": "669b8ea1032a24b0620612e2089b867bf5df9c95",
+      "bytes": 1791
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Coleco - ColecoVision.dat",
+      "git_blob_sha": "470c2778899e0c3ec5ffeb180ce368748aa66320",
+      "bytes": 2238
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "genre",
+      "source_path": "metadat/genre/Coleco - ColecoVision.dat",
+      "git_blob_sha": "23ef3f80639271913f20a7254bf084f41057400e",
+      "bytes": 15406
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Coleco - ColecoVision.dat",
+      "git_blob_sha": "81cb95070a4b61ce85c5617f8dad00e8d0ded0fe",
+      "bytes": 18149
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Coleco - ColecoVision.dat",
+      "git_blob_sha": "59b441566e3df0413aabf7306d9ef32f1ee045eb",
+      "bytes": 83
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Coleco - ColecoVision.dat",
+      "git_blob_sha": "c8b2241e7df3754f9b41e92e3c8bacb0fc710489",
+      "bytes": 173
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "serial",
+      "source_path": "metadat/serial/Coleco - ColecoVision.dat",
+      "git_blob_sha": "810cef7f98d72e41db1720367c1c24f62c18594d",
+      "bytes": 6842
+    },
+    {
+      "platform": "colecocolecovision",
+      "field": "users",
+      "source_path": "metadat/maxusers/Coleco - ColecoVision.dat",
+      "git_blob_sha": "8da4a5a2a4655a11ebb7e4baa4c05a98ab4b0c5b",
+      "bytes": 14093
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "developer",
+      "source_path": "metadat/developer/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "a5be05bd67962cc46f4a0041791b69b55bc095d2",
+      "bytes": 292
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "852d734a679bb958e1a318648799c88624809c0f",
+      "bytes": 85
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "852d734a679bb958e1a318648799c88624809c0f",
+      "bytes": 85
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "genre",
+      "source_path": "metadat/genre/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "bd3209525b97ad5061be4f11302e2fe4b287682b",
+      "bytes": 4000
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "2bf163709b84e9ea20a6ea3d4391073a424bc7f4",
+      "bytes": 4761
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "852d734a679bb958e1a318648799c88624809c0f",
+      "bytes": 85
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "852d734a679bb958e1a318648799c88624809c0f",
+      "bytes": 85
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "field": "users",
+      "source_path": "metadat/maxusers/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "28ea78e59c81cda36f578b966b28315cab4cc76e",
+      "bytes": 3657
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "developer",
+      "source_path": "metadat/developer/Entex - Adventure Vision.dat",
+      "git_blob_sha": "96f5164fbace21f4651d880972ba1e3a1a824ba2",
+      "bytes": 483
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Entex - Adventure Vision.dat",
+      "git_blob_sha": "b4c1ce930214a7f541c9bca40c2ca4ef839d3630",
+      "bytes": 258
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Entex - Adventure Vision.dat",
+      "git_blob_sha": "fc0ebbb4ed3acf0286ed946c1401302ab964c6ea",
+      "bytes": 89
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "genre",
+      "source_path": "metadat/genre/Entex - Adventure Vision.dat",
+      "git_blob_sha": "aaee46f33f8d337965cc52aadfebf368095ae178",
+      "bytes": 437
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Entex - Adventure Vision.dat",
+      "git_blob_sha": "a31b63e9277a74ec46f390124cb27979ac5a66ef",
+      "bytes": 498
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Entex - Adventure Vision.dat",
+      "git_blob_sha": "fc0ebbb4ed3acf0286ed946c1401302ab964c6ea",
+      "bytes": 89
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Entex - Adventure Vision.dat",
+      "git_blob_sha": "fc0ebbb4ed3acf0286ed946c1401302ab964c6ea",
+      "bytes": 89
+    },
+    {
+      "platform": "entexadventurevision",
+      "field": "users",
+      "source_path": "metadat/maxusers/Entex - Adventure Vision.dat",
+      "git_blob_sha": "6b7ef48ed2aa5912b0e86ba60ee1ad40ec6d6ed6",
+      "bytes": 394
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "developer",
+      "source_path": "metadat/developer/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "b512ba4a460916151d1158956f4a0c58dc72d4f9",
+      "bytes": 3082
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "dd9dce0f006b96473ccf9912bcdf50fb49f84b93",
+      "bytes": 751
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "330ba341b67b51299e1ab313ee5ba0d6d8d54ae9",
+      "bytes": 992
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "genre",
+      "source_path": "metadat/genre/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "dced4b100b9fac44ec21b7edb1e94f4f1eccd073",
+      "bytes": 2844
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "ef905c197a92651dcb42ad5887815764fd1ed16e",
+      "bytes": 3062
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "fc2c98d2d052d06f97500a28fa30741f362b36cb",
+      "bytes": 99
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "fc2c98d2d052d06f97500a28fa30741f362b36cb",
+      "bytes": 99
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "serial",
+      "source_path": "metadat/serial/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "ebbabda506574aabfd4a5e6c14d7261061da7309",
+      "bytes": 2093
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "field": "users",
+      "source_path": "metadat/maxusers/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "fc18afae3a5fce420e79c1c1a3ea48fe97d7d994",
+      "bytes": 2653
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "developer",
+      "source_path": "metadat/developer/Fairchild - Channel F.dat",
+      "git_blob_sha": "9a2894fee6287e3593382106e6c4ecf1d319acc0",
+      "bytes": 3289
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Fairchild - Channel F.dat",
+      "git_blob_sha": "570db9f9220714ba2cf231cc11052405e3198e1f",
+      "bytes": 3092
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Fairchild - Channel F.dat",
+      "git_blob_sha": "6f2e5bdcf69e1704aafaa033c16766300ad5e56b",
+      "bytes": 83
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "genre",
+      "source_path": "metadat/genre/Fairchild - Channel F.dat",
+      "git_blob_sha": "3b6e4ebe033be79a6ea87fb0b75a7865e6aa6be8",
+      "bytes": 3094
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Fairchild - Channel F.dat",
+      "git_blob_sha": "4f0512d5d88052a3ab500637d5c92dd3feba1348",
+      "bytes": 3325
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Fairchild - Channel F.dat",
+      "git_blob_sha": "6f2e5bdcf69e1704aafaa033c16766300ad5e56b",
+      "bytes": 83
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Fairchild - Channel F.dat",
+      "git_blob_sha": "993b6f979ff96c9412f829d2337debe0e1995947",
+      "bytes": 3192
+    },
+    {
+      "platform": "fairchildchannelf",
+      "field": "users",
+      "source_path": "metadat/maxusers/Fairchild - Channel F.dat",
+      "git_blob_sha": "0b2335d141f78c3e17314489a3cc4ba8c2d98a69",
+      "bytes": 2818
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "developer",
+      "source_path": "metadat/developer/GamePark - GP32.dat",
+      "git_blob_sha": "2688dd3dda8464f8392e498e20afa390a2b0e002",
+      "bytes": 2111
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/GamePark - GP32.dat",
+      "git_blob_sha": "3adc63f6e6f9928aa915e686cccda131c1aff4d1",
+      "bytes": 71
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "franchise",
+      "source_path": "metadat/franchise/GamePark - GP32.dat",
+      "git_blob_sha": "3db101aeacb42840b9d0a31e59be4b27ef4beb9f",
+      "bytes": 267
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "genre",
+      "source_path": "metadat/genre/GamePark - GP32.dat",
+      "git_blob_sha": "9cdfb693305eb99609ac31bc007a0fa6f9eb92a0",
+      "bytes": 1995
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "publisher",
+      "source_path": "metadat/publisher/GamePark - GP32.dat",
+      "git_blob_sha": "da40872811af90a204f5fd749ab39370e3f2d9da",
+      "bytes": 2094
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/GamePark - GP32.dat",
+      "git_blob_sha": "b1f6d068ab80571e965e63aa4d700ade3ece5607",
+      "bytes": 1145
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/GamePark - GP32.dat",
+      "git_blob_sha": "580de0d0968b017893465e67100e85ffcabc9c81",
+      "bytes": 1164
+    },
+    {
+      "platform": "gameparkgp32",
+      "field": "users",
+      "source_path": "metadat/maxusers/GamePark - GP32.dat",
+      "git_blob_sha": "b8832d3821a3e1ba11f8211d35feff2658416244",
+      "bytes": 395
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "developer",
+      "source_path": "metadat/developer/GCE - Vectrex.dat",
+      "git_blob_sha": "cae63482cd95eab6d0f3638712afeb426ea395f5",
+      "bytes": 3875
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/GCE - Vectrex.dat",
+      "git_blob_sha": "d4114688967a15f33e9e1544ef59490774f307c1",
+      "bytes": 941
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "franchise",
+      "source_path": "metadat/franchise/GCE - Vectrex.dat",
+      "git_blob_sha": "6f8f57ee2f57d7cd0cc61686c8bb4a3b5cc7ac38",
+      "bytes": 457
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "genre",
+      "source_path": "metadat/genre/GCE - Vectrex.dat",
+      "git_blob_sha": "2a31e625e39ea4b1100b86f27d511d7f88dfbcd9",
+      "bytes": 3735
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "publisher",
+      "source_path": "metadat/publisher/GCE - Vectrex.dat",
+      "git_blob_sha": "6679fec938853e90213a50f88d04d081bdc5688f",
+      "bytes": 3864
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/GCE - Vectrex.dat",
+      "git_blob_sha": "94df98a2083c4e2b6aadce08c905ebe9199fb9ec",
+      "bytes": 67
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/GCE - Vectrex.dat",
+      "git_blob_sha": "2947f13ffd38753231e7919ee597cff1d28a5d28",
+      "bytes": 1118
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "serial",
+      "source_path": "metadat/serial/GCE - Vectrex.dat",
+      "git_blob_sha": "c2ff87bc85cd2d2fcf5b9163c751f19799349f43",
+      "bytes": 2606
+    },
+    {
+      "platform": "gcevectrex",
+      "field": "users",
+      "source_path": "metadat/maxusers/GCE - Vectrex.dat",
+      "git_blob_sha": "a744310531621f8a0b50f35489fde7bfa1a305a2",
+      "bytes": 3454
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "field": "developer",
+      "source_path": "metadat/developer/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "abf3f89078acf51c2fc147c9eb95c267619398e1",
+      "bytes": 8124
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "74b213a07035a66c16745c0465d18bac9f90c281",
+      "bytes": 609
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "field": "genre",
+      "source_path": "metadat/genre/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "2f5bbbccad155719d54e9d5dd1995142acb7557e",
+      "bytes": 7719
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "8d8342b299dd90f74ca94bdde9890d042afadd24",
+      "bytes": 2655
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "d145fa32ac5083fe3e58c2135e561237be85bb32",
+      "bytes": 2555
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "5f389ce5fc84d095ee207e94c5ece3c590f329bc",
+      "bytes": 2611
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "field": "serial",
+      "source_path": "metadat/serial/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "5c480347fb21ad728c4433d5a18692d642004d95",
+      "bytes": 1776
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "developer",
+      "source_path": "metadat/developer/Mattel - Intellivision.dat",
+      "git_blob_sha": "97db9b41004bec180e9ef3f7d51a37bee4361c75",
+      "bytes": 17718
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Mattel - Intellivision.dat",
+      "git_blob_sha": "96076c111886e71397cb3c845733f20aefb02cae",
+      "bytes": 2029
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Mattel - Intellivision.dat",
+      "git_blob_sha": "665e9898ed6e78900d72da940af26d5e4a45bcb6",
+      "bytes": 1397
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "genre",
+      "source_path": "metadat/genre/Mattel - Intellivision.dat",
+      "git_blob_sha": "46183ee08eab5646b4d3453493a239c3d9501d1d",
+      "bytes": 14512
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Mattel - Intellivision.dat",
+      "git_blob_sha": "2557b40d8e7326100cad387b4401a62ca0e2d9d7",
+      "bytes": 17830
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Mattel - Intellivision.dat",
+      "git_blob_sha": "67e45e5c50c2d62b32f75b132aff89932cbcda75",
+      "bytes": 85
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Mattel - Intellivision.dat",
+      "git_blob_sha": "18caebfe9ffcfac62fb10604b13839d69a480225",
+      "bytes": 5168
+    },
+    {
+      "platform": "mattelintellivision",
+      "field": "users",
+      "source_path": "metadat/maxusers/Mattel - Intellivision.dat",
+      "git_blob_sha": "d3f62b92654ac499bbfad2e81a252cdb520f8b7d",
+      "bytes": 14440
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "developer",
+      "source_path": "metadat/developer/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "61cccb5e59078db644d5cd5f01223989234b4e24",
+      "bytes": 577
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "e97ac9219bca38f045da6d04e7411fe8564472a6",
+      "bytes": 93
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "franchise",
+      "source_path": "metadat/franchise/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "72cccf3252d792e62407836b77c3e8003ac19c63",
+      "bytes": 277
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "genre",
+      "source_path": "metadat/genre/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "ec422fc2198691cb592a7c8ea64e8e6c7e82a15c",
+      "bytes": 553
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "publisher",
+      "source_path": "metadat/publisher/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "a0d988ccb6c0e162962a529ffc7367640b10dbe1",
+      "bytes": 553
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "3d29ec848c6654fe7ffb86f8239734811064d1d1",
+      "bytes": 547
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "9bc66b93de7abba50e98950a7f72bf2dfbbd613d",
+      "bytes": 556
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "field": "users",
+      "source_path": "metadat/maxusers/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "16b2ef97b58b89b8f60def8c4fba0773d3fdb05b",
+      "bytes": 501
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "developer",
+      "source_path": "metadat/developer/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "6846ff671c4ba70bea954e734f6581497ac4a23b",
+      "bytes": 41690
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "a788cd6fe99499a30eea8b60bf971ef10e0550a7",
+      "bytes": 7450
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "franchise",
+      "source_path": "metadat/franchise/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "99fff300ab9b5412ad0dad7f0737c229b999ae45",
+      "bytes": 8514
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "genre",
+      "source_path": "metadat/genre/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "03da0ae6f1fb4c298c2b17452509db0c6c169d7b",
+      "bytes": 40173
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "publisher",
+      "source_path": "metadat/publisher/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "a5e8a9d3565bbcbf24787806904dca368536e200",
+      "bytes": 41317
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "4bc7e2c88ceb5bb8516f063363ca592a30d9ad43",
+      "bytes": 29446
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "195e16d3724eeaee2f0aec216718d4c1743b34b6",
+      "bytes": 39210
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "serial",
+      "source_path": "metadat/serial/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "4dfe5c29e92cc3448474653548a051123ba4858f",
+      "bytes": 35163
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "field": "users",
+      "source_path": "metadat/maxusers/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "1ae9f334e90e521caf8b5690c85114fb2e70734d",
+      "bytes": 35329
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "8834802aee3c9001713de98cae1c50cb165b6d76",
+      "bytes": 39415
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "8ee3f82ba12dc486b885c2f324846ebb3116e6a6",
+      "bytes": 3205
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "7eb7545e0954c5ceab2591ea089bb749f079304a",
+      "bytes": 19283
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "0bf824b1e19128a3a24b2ae2925ee8abef436a6b",
+      "bytes": 36479
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "8e0baa1bb6c551175c17e80bf9e3eea3538754d0",
+      "bytes": 40329
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "d9e0cf5a5014baad606857d0daa6872650905ce0",
+      "bytes": 34525
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "cfd6adb2d6fd7362d2580aa6f85623e971163071",
+      "bytes": 37401
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "serial",
+      "source_path": "metadat/serial/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "b7dee25efda84bf60f2fa9fde091673ef60dde0d",
+      "bytes": 19805
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "field": "users",
+      "source_path": "metadat/maxusers/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "202a9e87594e55288d802fb40802dd24b034476e",
+      "bytes": 34263
+    },
+    {
+      "platform": "nintendonintendo3ds",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Nintendo 3DS.dat",
+      "git_blob_sha": "27bab625abe6ff66bb07687021517aad9c064b86",
+      "bytes": 2287
+    },
+    {
+      "platform": "nintendonintendo3ds",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Nintendo 3DS.dat",
+      "git_blob_sha": "176e82b5baf4f0229eb77be741157a70429f9fed",
+      "bytes": 2207
+    },
+    {
+      "platform": "nintendonintendo3ds",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Nintendo 3DS.dat",
+      "git_blob_sha": "ee97109a962366d29c2a76a4f280ffcb249f90cb",
+      "bytes": 2447
+    },
+    {
+      "platform": "nintendonintendo3ds",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Nintendo 3DS.dat",
+      "git_blob_sha": "6e4c30964d068445dbb7b5040946aeefc6bfe539",
+      "bytes": 2207
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "cfd18a3867fb881f5b871cb97e8446932eccb09f",
+      "bytes": 89
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "2cbb1c99c954c0045b760ef374ecf83767b9d201",
+      "bytes": 221
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "921e335abf9b240d6163b3a8a9c030511ad34007",
+      "bytes": 293
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "c598c07fd55209ef75a297410cbe4c653f74f389",
+      "bytes": 1411
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "a49d635ac0068fcd73bb8c17f9e857fb8e73bfb4",
+      "bytes": 1650
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "2b8433fc82895d3b7a12470481155a627fded8ae",
+      "bytes": 1289
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "d5fda7fadfc0a962dc14d8f1af6beee972c1c586",
+      "bytes": 1309
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "serial",
+      "source_path": "metadat/serial/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "1fefaada309bc528d183ed196c5dfffe9d92cb8f",
+      "bytes": 185
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "field": "users",
+      "source_path": "metadat/maxusers/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "3ac085ebbe27b3612b40df7781e7c16ec4ea8d10",
+      "bytes": 1275
+    },
+    {
+      "platform": "nintendopokemonmini",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Pokemon Mini.dat",
+      "git_blob_sha": "aea26436e1d44887191480584da1f3c7f9b0a60f",
+      "bytes": 3779
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Satellaview.dat",
+      "git_blob_sha": "2ecd6bcd34445e6a8953dfea0f68a2e5897e86f9",
+      "bytes": 18326
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Nintendo - Satellaview.dat",
+      "git_blob_sha": "1fb4d12d35e4a0f1879f87ba14c092bc4914460a",
+      "bytes": 484
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Satellaview.dat",
+      "git_blob_sha": "1f6dc459ba37bc6609444d31f798f1bc25b694e4",
+      "bytes": 7113
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Satellaview.dat",
+      "git_blob_sha": "b8fb1276684fe0cdd6c763ff16f0b237aff11378",
+      "bytes": 19458
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Satellaview.dat",
+      "git_blob_sha": "a3e8ac58486268a1593f25c60460c26fb4daaf78",
+      "bytes": 20372
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Satellaview.dat",
+      "git_blob_sha": "30486c79d1c4f130da1423eb93c26272e4c2605e",
+      "bytes": 11956
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Satellaview.dat",
+      "git_blob_sha": "a0dc18eae0330bc8953e443559e3884d6fa64312",
+      "bytes": 13797
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "serial",
+      "source_path": "metadat/serial/Nintendo - Satellaview.dat",
+      "git_blob_sha": "ce44d25ad41099b2227fcab6aa3b1aa390336282",
+      "bytes": 6091
+    },
+    {
+      "platform": "nintendosatellaview",
+      "field": "users",
+      "source_path": "metadat/maxusers/Nintendo - Satellaview.dat",
+      "git_blob_sha": "58c75a199c4e14f449553f9a53dd24ab65b17313",
+      "bytes": 11916
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "80d855b9ba8445d3b3a1fdc0b81c0b79b22290aa",
+      "bytes": 1578
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "02023084e35448d90271a0a46e43c5f59884a845",
+      "bytes": 87
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "d73e2796d3cde6b860e758d25ec53f46f1c4d872",
+      "bytes": 569
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "1a4af23ef210b0d85d5b7dc63a04baaa2a841e3a",
+      "bytes": 1476
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "65c280a2660941b5a48856968094372556c311c7",
+      "bytes": 1591
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "50d6af481081a6c6d4571b10628388c5b2992305",
+      "bytes": 1487
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "8755e96379026b076781bdd2f38adf245b102153",
+      "bytes": 1513
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "serial",
+      "source_path": "metadat/serial/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "eca7ef565d0835831c4cdf6f5f8cfa70cea1bcc8",
+      "bytes": 1337
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "field": "users",
+      "source_path": "metadat/maxusers/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "ebcb890f20ff41f88d495deb3e30784edbf252a3",
+      "bytes": 1370
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "developer",
+      "source_path": "metadat/developer/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "d6e53f7691d4b601db43a4eb255c634d0cd65df2",
+      "bytes": 5509
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "9b982e3b149abbce703e882fdb9e3b44186c1691",
+      "bytes": 2483
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "46d0f6ac93b9515fcca9f7591bd99986680d30b9",
+      "bytes": 637
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "genre",
+      "source_path": "metadat/genre/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "89dbd6eb6d802746cee005700b2b1d032e2c3833",
+      "bytes": 4649
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "39c18a1220678ef5fc7fa92f45661fec173ba39b",
+      "bytes": 3896
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "06817238330e4b8ec36593b379bb3eb1d31a1353",
+      "bytes": 2737
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "090d7e64c5da97dee20069ebb58e69965e7ecc8a",
+      "bytes": 2935
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "serial",
+      "source_path": "metadat/serial/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "6f72ba11ad713d16b2645718099d8e3213cd960e",
+      "bytes": 2223
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "field": "users",
+      "source_path": "metadat/maxusers/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "a94f1fa11cf19d34eaf1f6131675d0f2e06b79fa",
+      "bytes": 4806
+    },
+    {
+      "platform": "rcastudioii",
+      "field": "developer",
+      "source_path": "metadat/developer/RCA - Studio II.dat",
+      "git_blob_sha": "d453b2485034ed8e4123ae2a338014bf8ef0ebb9",
+      "bytes": 349
+    },
+    {
+      "platform": "rcastudioii",
+      "field": "genre",
+      "source_path": "metadat/genre/RCA - Studio II.dat",
+      "git_blob_sha": "7bc79ee0d006096ff0867e2b3436999174d82b09",
+      "bytes": 353
+    },
+    {
+      "platform": "rcastudioii",
+      "field": "publisher",
+      "source_path": "metadat/publisher/RCA - Studio II.dat",
+      "git_blob_sha": "67c7feaa83af326f07894e52f2061801871f5b52",
+      "bytes": 349
+    },
+    {
+      "platform": "rcastudioii",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/RCA - Studio II.dat",
+      "git_blob_sha": "c72e89e4e1d72b17676ace776ed6efb6122a854e",
+      "bytes": 352
+    },
+    {
+      "platform": "rcastudioii",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/RCA - Studio II.dat",
+      "git_blob_sha": "eb6ffd5fe8e2eabcc656c49151bfcfc9ffbb5831",
+      "bytes": 358
+    },
+    {
+      "platform": "rcastudioii",
+      "field": "serial",
+      "source_path": "metadat/serial/RCA - Studio II.dat",
+      "git_blob_sha": "a2694f9c20d2d1bf609d9d6444cab1af2acd01b7",
+      "bytes": 350
+    },
+    {
+      "platform": "sega32x",
+      "field": "developer",
+      "source_path": "metadat/developer/Sega - 32X.dat",
+      "git_blob_sha": "5d1a55d2787c7c0877b5fd399c39803e214676b6",
+      "bytes": 24938
+    },
+    {
+      "platform": "sega32x",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Sega - 32X.dat",
+      "git_blob_sha": "2f852500769968f19e35c1211845489c7c6a1f0b",
+      "bytes": 22923
+    },
+    {
+      "platform": "sega32x",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Sega - 32X.dat",
+      "git_blob_sha": "101e38bf9624ee86accf3c4388cf66348187e83d",
+      "bytes": 8554
+    },
+    {
+      "platform": "sega32x",
+      "field": "genre",
+      "source_path": "metadat/genre/Sega - 32X.dat",
+      "git_blob_sha": "973f0c041fa92f79f2c259846e25dcbc655aa7ef",
+      "bytes": 23042
+    },
+    {
+      "platform": "sega32x",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Sega - 32X.dat",
+      "git_blob_sha": "a2e6bb9e356d32c9835001c61fd4112a3b0bf492",
+      "bytes": 23348
+    },
+    {
+      "platform": "sega32x",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Sega - 32X.dat",
+      "git_blob_sha": "0aa9bff81e7a74da5080f279d47ce43d0b3b0409",
+      "bytes": 4519
+    },
+    {
+      "platform": "sega32x",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Sega - 32X.dat",
+      "git_blob_sha": "51288534f067f7dc3148faca505f18ef833c4284",
+      "bytes": 5573
+    },
+    {
+      "platform": "sega32x",
+      "field": "serial",
+      "source_path": "metadat/serial/Sega - 32X.dat",
+      "git_blob_sha": "8e7593a2fae68b65b6107d44fbe8dd07a52cd2ca",
+      "bytes": 3193
+    },
+    {
+      "platform": "sega32x",
+      "field": "users",
+      "source_path": "metadat/maxusers/Sega - 32X.dat",
+      "git_blob_sha": "54fd3aa841cbacbfc572fba51a163466dc975633",
+      "bytes": 21355
+    },
+    {
+      "platform": "segapico",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Sega - PICO.dat",
+      "git_blob_sha": "fa1a304babd57896b9eb15a010034bcb90f1b4fd",
+      "bytes": 663
+    },
+    {
+      "platform": "segasg1000",
+      "field": "developer",
+      "source_path": "metadat/developer/Sega - SG-1000.dat",
+      "git_blob_sha": "5127380888af3ff9158245f605ed64f64816ab27",
+      "bytes": 20066
+    },
+    {
+      "platform": "segasg1000",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Sega - SG-1000.dat",
+      "git_blob_sha": "8e7615d4a07465a7a04f976816075ec71561e404",
+      "bytes": 15934
+    },
+    {
+      "platform": "segasg1000",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Sega - SG-1000.dat",
+      "git_blob_sha": "0246612822fb3e54623e9e28ee1cf42e7c3f9722",
+      "bytes": 5197
+    },
+    {
+      "platform": "segasg1000",
+      "field": "genre",
+      "source_path": "metadat/genre/Sega - SG-1000.dat",
+      "git_blob_sha": "2dcdebbb6c3ea5a2ab6a550d64b093be93226a91",
+      "bytes": 19297
+    },
+    {
+      "platform": "segasg1000",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Sega - SG-1000.dat",
+      "git_blob_sha": "8caa91958baa93a14f495a7697792b5d256435de",
+      "bytes": 19710
+    },
+    {
+      "platform": "segasg1000",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Sega - SG-1000.dat",
+      "git_blob_sha": "1b93730fcc5f835834327923a55f012b1565e947",
+      "bytes": 925
+    },
+    {
+      "platform": "segasg1000",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Sega - SG-1000.dat",
+      "git_blob_sha": "b2569288b57ae9e1ca3e12c93e9bbabcc649ecc6",
+      "bytes": 12791
+    },
+    {
+      "platform": "segasg1000",
+      "field": "serial",
+      "source_path": "metadat/serial/Sega - SG-1000.dat",
+      "git_blob_sha": "5253c4465e777b549c1d25f6377f3c7ac837a4bb",
+      "bytes": 8006
+    },
+    {
+      "platform": "segasg1000",
+      "field": "users",
+      "source_path": "metadat/maxusers/Sega - SG-1000.dat",
+      "git_blob_sha": "f8facb3f219f14d834ce7519ba68265c9363281e",
+      "bytes": 17660
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "developer",
+      "source_path": "metadat/developer/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "ef00e856eb4fc7a74bea7397a914fe916109b7f0",
+      "bytes": 1131
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "9860654345155aa6149c163a4211a00b4a18a7a0",
+      "bytes": 81
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "franchise",
+      "source_path": "metadat/franchise/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "27ca43c6048864b7129113ae717f75d4145e860d",
+      "bytes": 533
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "genre",
+      "source_path": "metadat/genre/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "7f0c7b9d92901ca3d408cd9486e6d11d6063d3f1",
+      "bytes": 1107
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "publisher",
+      "source_path": "metadat/publisher/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "29321c945c28e8accccfd2388f2d52abcfb554a1",
+      "bytes": 1105
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "b7537c427f7c6116b5a495aacdc21b32912cc4ed",
+      "bytes": 521
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "ddde434f665aea8447b6482e9965d6b56e6958ad",
+      "bytes": 525
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "serial",
+      "source_path": "metadat/serial/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "f8a1e3c7ef807a7f52e64e56f0eab39c62afb6c0",
+      "bytes": 381
+    },
+    {
+      "platform": "snkneogeopocket",
+      "field": "users",
+      "source_path": "metadat/maxusers/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "a7252cfd9b523726bb522e3543799c9698339eb4",
+      "bytes": 1033
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "developer",
+      "source_path": "metadat/developer/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "672d6fab5bcbcd4c5dd9c496fc76cdfb9b809102",
+      "bytes": 11763
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "6eceb25ebc39e4d730317dc049e9b89b24f721fe",
+      "bytes": 5733
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "franchise",
+      "source_path": "metadat/franchise/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "14cba855e00a7ca9223da8c75c97aca48936f499",
+      "bytes": 1926
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "genre",
+      "source_path": "metadat/genre/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "523da5884a44a68e14dc4a0993b8fa700d1cc0de",
+      "bytes": 11677
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "publisher",
+      "source_path": "metadat/publisher/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "5e5673991adc6867e8b20dd975bfe4b1c744ca12",
+      "bytes": 11769
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "820a54aff7017b85308549fe81c0c64774a76729",
+      "bytes": 6999
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "43da12e5111be2bf0e72e482c5478a14d4f118ca",
+      "bytes": 10128
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "serial",
+      "source_path": "metadat/serial/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "f561d4387a2bd45fc70fb9a3061471bc469a09fa",
+      "bytes": 8278
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "field": "users",
+      "source_path": "metadat/maxusers/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "24e54446ec160a927282fb7beca81579eec466eb",
+      "bytes": 10574
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "field": "developer",
+      "source_path": "metadat/developer/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "34c92b0bf8783717fe3d672232ad13faa381c0bf",
+      "bytes": 1147521
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "b4388e086fc16ceab228a2f3810d998303263162",
+      "bytes": 226502
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "field": "genre",
+      "source_path": "metadat/genre/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "fe5e72928129caeb66dad642e892e1aee403de88",
+      "bytes": 286896
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "836c007191b77ea782b7bff7c19809979c1d5db9",
+      "bytes": 9487
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "50d8f771f3ee822d448e90594523eb8a72db3153",
+      "bytes": 326508
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "c4810a5bd5769ccfafeb96cb501853795ee5ec87",
+      "bytes": 334271
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "field": "serial",
+      "source_path": "metadat/serial/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "b77239b3ae15b39f72e50a2e1024395de47df883",
+      "bytes": 257103
+    },
+    {
+      "platform": "tigergamecom",
+      "field": "developer",
+      "source_path": "metadat/developer/Tiger - Game.com.dat",
+      "git_blob_sha": "09b47eef12c429012e7f9aea5f4999d75efbd0b9",
+      "bytes": 1821
+    },
+    {
+      "platform": "tigergamecom",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Tiger - Game.com.dat",
+      "git_blob_sha": "fc6f00032d1a354e2c259d71bb4d423fe07a1bbb",
+      "bytes": 1255
+    },
+    {
+      "platform": "tigergamecom",
+      "field": "genre",
+      "source_path": "metadat/genre/Tiger - Game.com.dat",
+      "git_blob_sha": "266335346a9a2660591bb600f158954d175a8bc1",
+      "bytes": 1785
+    },
+    {
+      "platform": "tigergamecom",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Tiger - Game.com.dat",
+      "git_blob_sha": "da04c4cc7588f2964933c704327559237ffb87d0",
+      "bytes": 1776
+    },
+    {
+      "platform": "tigergamecom",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Tiger - Game.com.dat",
+      "git_blob_sha": "37c69562bb4f1b8e0f6ca44669906e18d921cf3f",
+      "bytes": 1746
+    },
+    {
+      "platform": "tigergamecom",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Tiger - Game.com.dat",
+      "git_blob_sha": "a03b4188d862a8abbe027f46b3db37c64ddfb88a",
+      "bytes": 1786
+    },
+    {
+      "platform": "tigergamecom",
+      "field": "serial",
+      "source_path": "metadat/serial/Tiger - Game.com.dat",
+      "git_blob_sha": "03a89afb73b3254d8066721c952d1c089405224e",
+      "bytes": 1648
+    },
+    {
+      "platform": "vtechcreativision",
+      "field": "developer",
+      "source_path": "metadat/developer/VTech - CreatiVision.dat",
+      "git_blob_sha": "acb286b69cb2dd45c67c2cd4e82bf8eb36c2eff1",
+      "bytes": 1778
+    },
+    {
+      "platform": "vtechcreativision",
+      "field": "genre",
+      "source_path": "metadat/genre/VTech - CreatiVision.dat",
+      "git_blob_sha": "b74ddfef37b9c35d964caa690c42eb92f157ca23",
+      "bytes": 1794
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "developer",
+      "source_path": "metadat/developer/Watara - Supervision.dat",
+      "git_blob_sha": "6da6183511e10fe3dde321d69fff07072f86f9a9",
+      "bytes": 5735
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "esrb_rating",
+      "source_path": "metadat/esrb/Watara - Supervision.dat",
+      "git_blob_sha": "e048a6ae74c4245b7c31f5c18d523f4dad007e66",
+      "bytes": 81
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "franchise",
+      "source_path": "metadat/franchise/Watara - Supervision.dat",
+      "git_blob_sha": "2a228ad6271286fc8b93350de1f02fd0d450c0b6",
+      "bytes": 163
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "genre",
+      "source_path": "metadat/genre/Watara - Supervision.dat",
+      "git_blob_sha": "9d5ea5f91d8e308e177fe25aeb8a28a1fc488d47",
+      "bytes": 1828
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "publisher",
+      "source_path": "metadat/publisher/Watara - Supervision.dat",
+      "git_blob_sha": "461b00e21407f4c605adf9f6fd2cfe1f5d103c1f",
+      "bytes": 5740
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "releasemonth",
+      "source_path": "metadat/releasemonth/Watara - Supervision.dat",
+      "git_blob_sha": "e048a6ae74c4245b7c31f5c18d523f4dad007e66",
+      "bytes": 81
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "releaseyear",
+      "source_path": "metadat/releaseyear/Watara - Supervision.dat",
+      "git_blob_sha": "e048a6ae74c4245b7c31f5c18d523f4dad007e66",
+      "bytes": 81
+    },
+    {
+      "platform": "watarasupervision",
+      "field": "users",
+      "source_path": "metadat/maxusers/Watara - Supervision.dat",
+      "git_blob_sha": "ad9ac1136a4c8864d80e1159aab1b248aaecefec",
+      "bytes": 484
+    }
+  ]
+}
