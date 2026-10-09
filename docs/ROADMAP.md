@@ -40,6 +40,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Support explicit normalized ZIP member lookup with decoded-size limits and source-aware Rust APIs.
 - [ ] Expand byte-domain contracts to additional vetted format variants and trainer handling where justified.
 - [x] Publish data-version compatibility and migration guidance for consumers.
+- [x] Provide an offline, whole-runtime integrity audit that detects missing, modified, or symlinked artifacts.
 
 ## Bibliographic enrichment
 
