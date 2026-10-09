@@ -43,6 +43,23 @@ ADDITIONAL = {
         "F1BEF752B30DC158D55B48518C80840A7C4586AF",
         "77FDE3E30E1E6068395D1F96EA63BE569B61C351",
     ),
+    ("gba", "Super Mario Advance 4"): (
+        "19F7928BC4FFD733D71884DAE9AD9B7F4007D38D",
+        "FB38A1284013AB4E2480A1AADCEC9400D3A63A1D",
+        "B3349AD79D20F1AE77D3E120F60D60EDDDBBC2D2",
+    ),
+    ("snes", "Donkey Kong Country 2: Diddy's Kong Quest"): (
+        "3EC2035962918B5523D8B4745406F46F2A739B8D",
+        "69D0F91BFD05837B44023E33A6699AA28FCA19CB",
+    ),
+    ("n64", "Banjo-Kazooie"): (
+        "1FE1632098865F639E22C11B9A81EE8F29C75D7A",
+        "DED6EE166E740AD1BC810FD678A84B48E245AB80",
+    ),
+    ("genesis", "Golden Axe"): (
+        "564E51F6B7FE5281F281D5FCB66767AB83ECF7B9",
+        "2CE17105CA916FBBE3AC9AE3A2086E66B07996DD",
+    ),
 }
 
 
@@ -94,7 +111,9 @@ def main():
         assert enriched["release"]["id"] == nodes[-1]["release"]["id"]
         assert enriched["build"]["id"] == nodes[-1]["build"]["id"]
 
-    print("PASS: 15 reviewed revision media images across seven works, including Nintendo DS")
+    images = sum(len(shas) for shas in ADDITIONAL.values()) + 2 * len(SAMPLES)
+    print(f"PASS: {images} revised exact-media images across "
+          f"{len(ADDITIONAL) + len(SAMPLES)} curated work groups")
 
 
 if __name__ == "__main__":
