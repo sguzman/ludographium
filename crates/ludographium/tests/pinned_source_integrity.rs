@@ -31,19 +31,24 @@ fn assert_pinned_text_blob(root: &Path, entry: &Value, seen: &mut HashSet<String
                 .all(|component| matches!(component, Component::Normal(_))),
         "untrusted source path: {relative}"
     );
-    assert!(seen.insert(relative.to_owned()), "duplicate source: {relative}");
+    assert!(
+        seen.insert(relative.to_owned()),
+        "duplicate source: {relative}"
+    );
     let local = root.join("archive/libretro-bulk").join(relative);
-    let raw = fs::read(&local).unwrap_or_else(|err| {
-        panic!("missing offline-clone source {}: {err}", local.display())
-    });
+    let raw = fs::read(&local)
+        .unwrap_or_else(|err| panic!("missing offline-clone source {}: {err}", local.display()));
     let expected_size = entry["bytes"].as_u64().expect("source byte count");
     assert_eq!(raw.len() as u64, expected_size, "size drift: {relative}");
     let expected_sha = entry["git_blob_sha"].as_str().expect("Git blob SHA");
-    assert_eq!(blob_hash(&raw), expected_sha, "source bytes drift: {relative}");
+    assert_eq!(
+        blob_hash(&raw),
+        expected_sha,
+        "source bytes drift: {relative}"
+    );
     assert!(!raw.contains(&0), "NUL byte in source text: {relative}");
-    std::str::from_utf8(&raw).unwrap_or_else(|err| {
-        panic!("source is not UTF-8 text, {relative}: {err}")
-    });
+    std::str::from_utf8(&raw)
+        .unwrap_or_else(|err| panic!("source is not UTF-8 text, {relative}: {err}"));
     expected_size
 }
 
@@ -72,7 +77,11 @@ fn every_expanded_console_and_bibliographic_dat_is_in_git_as_original_text() {
     let ids = platforms["platforms"].as_array().expect("platform list");
     let claims = fields["files"].as_array().expect("field list");
     assert_eq!(ids.len(), 65, "source coverage unexpectedly changed");
-    assert_eq!(claims.len(), 279, "bibliographic coverage unexpectedly changed");
+    assert_eq!(
+        claims.len(),
+        279,
+        "bibliographic coverage unexpectedly changed"
+    );
 
     let mut seen = HashSet::new();
     let mut total_size = 0u64;
@@ -92,7 +101,10 @@ fn every_expanded_console_and_bibliographic_dat_is_in_git_as_original_text() {
                 scan(&path, root, listed, visited);
             } else {
                 let relative = path.strip_prefix(root).expect("source path");
-                let key = relative.to_str().expect("UTF-8 relative path").replace('\\', "/");
+                let key = relative
+                    .to_str()
+                    .expect("UTF-8 relative path")
+                    .replace('\\', "/");
                 assert!(listed.contains(&key), "unregistered metadata source {key}");
                 *visited += 1;
             }
