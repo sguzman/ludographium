@@ -1,0 +1,110 @@
+name: Preserve pinned console DAT sources in Git
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - sources/bulk-expansion-v1.json
+      - sources/bulk-fields-v1.json
+      - .github/workflows/preserve-bulk-sources.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ludographium-text-source-acquisition
+  cancel-in-progress: false
+
+jobs:
+  preserve-original-dat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Verify pinned manifest scope before retrieving any data
+        shell: bash
+        run: |
+          set -euo pipefail
+          jq -e '.schema_version == 1 and .kind == "pinned-bulk-platform-expansion"
+            and .repository_revision == "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90"
+            and .declared_repository_license == "CC-BY-SA-4.0"
+            and (.platforms | length == 65)' sources/bulk-expansion-v1.json
+          jq -e '.schema_version == 1 and .kind == "pinned-bulk-bibliographic-expansion"
+            and .repository_revision == "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90"
+            and .declared_repository_license == "CC-BY-SA-4.0"
+            and (.files | length == 279)' sources/bulk-fields-v1.json
+          jq -r '.platforms[] | [.source_path,.git_blob_sha,(.bytes|tostring)] | @tsv' \
+            sources/bulk-expansion-v1.json > "$RUNNER_TEMP/dat-source-list.tsv"
+          jq -r '.files[] | [.source_path,.git_blob_sha,(.bytes|tostring)] | @tsv' \
+            sources/bulk-fields-v1.json >> "$RUNNER_TEMP/dat-source-list.tsv"
+          test "$(wc -l < "$RUNNER_TEMP/dat-source-list.tsv")" -eq 344
+          test "$(cut -f1 "$RUNNER_TEMP/dat-source-list.tsv" | sort -u | wc -l)" -eq 344
+          test "$(awk -F '\t' '{sum+=$3} END {printf "%.0f", sum}' "$RUNNER_TEMP/dat-source-list.tsv")" -eq 24212591
+          if grep -Pv '^metadat/[[:alnum:]_-]+/[^/[:cntrl:]]+\.dat\t[a-f0-9]{40}\t[0-9]+$' \
+              "$RUNNER_TEMP/dat-source-list.tsv"; then
+            echo "Invalid upstream path or Git blob SHA in manifest"
+            exit 1
+          fi
+      - name: Retrieve all 344 original upstream source blobs and check exact bytes
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          fetch_one() {
+            set -euo pipefail
+            local line="$1" path sha expected target temp actual_size actual_blob
+            IFS=$'\t' read -r path sha expected <<< "$line"
+            target="archive/libretro-bulk/$path"
+            temp="$target.part"
+            mkdir -p "$(dirname "$target")"
+            if [[ -f "$target" ]]; then
+              actual_size="$(wc -c < "$target")"
+              actual_blob="$(git hash-object "$target")"
+              if [[ "$actual_size" == "$expected" && "$actual_blob" == "$sha" ]]; then
+                return 0
+              fi
+              echo "Existing source file does not match pinned bytes: $path" >&2
+              return 1
+            fi
+            # Git blob endpoint is addressed by the exact immutable source SHA.
+            # It does not depend on path escaping or a mutable upstream branch.
+            gh api "repos/libretro/libretro-database/git/blobs/$sha" \
+              --jq '.content' | base64 --decode > "$temp"
+            actual_size="$(wc -c < "$temp")"
+            actual_blob="$(git hash-object "$temp")"
+            if [[ "$actual_size" != "$expected" || "$actual_blob" != "$sha" ]]; then
+              rm -f "$temp"
+              echo "Pinned Git blob validation failed: $path" >&2
+              return 1
+            fi
+            mv "$temp" "$target"
+          }
+          export -f fetch_one
+          cat "$RUNNER_TEMP/dat-source-list.tsv" | xargs -d '\n' -P 8 -I '{}' bash -c 'fetch_one "$1"' _ '{}'
+          echo "PASS: all 344 exact DAT originals retrieved or already preserved"
+      - name: Verify full manifest inventory and commit only original DAT text
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS=$'\t' read -r path sha expected; do
+            target="archive/libretro-bulk/$path"
+            test -f "$target"
+            test "$(wc -c < "$target")" -eq "$expected"
+            test "$(git hash-object "$target")" = "$sha"
+          done < "$RUNNER_TEMP/dat-source-list.tsv"
+          test "$(find archive/libretro-bulk/metadat -type f -name '*.dat' | wc -l)" -eq 344
+          test "$(find archive/libretro-bulk/metadat -type f | wc -l)" -eq 344
+          git add -- archive/libretro-bulk/metadat
+          test "$(git diff --cached --name-only | grep -Ec '^archive/libretro-bulk/metadat/.+\.dat$')" -le 344
+          if git diff --cached --quiet; then
+            echo "Complete exact source corpus is already committed"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "data: preserve 344 pinned original console metadata DATs as Git text"
+          git push origin HEAD:main
