@@ -37,7 +37,7 @@ These are original source observations, **not a count of distinct games**. Every
 | [`archive/`](archive/) | Unmodified original DATs |
 | [`sources/`](sources/) | Pinned source revisions, attribution, and reuse information |
 | [`generated/`](generated/) | Reproducible identification and bibliographic claim indexes |
-| [`curated/`](curated/v1/identities.json) | Evidence-backed work, release and build identities (four initial curated entries) |
+| [`curated/`](curated/v1/identities.json) | Evidence-backed work, release and build identities (8 works, 10 releases, 12 exact builds) |
 | [`platforms/`](platforms/platforms.json) | Platform identifiers |
 | [`tools/`](tools/) | Import, lookup, auditing, and verification scripts |
 | [`crates/ludographium/`](crates/ludographium/) | Rust metadata reader and CLI |
@@ -80,7 +80,7 @@ Add `--enriched` to fingerprint, file, or title queries to include matched and u
 cargo run --locked -p ludographium -- --enriched --platform gba --sha1 FC6163F99B71B05C10686A0D29010B31274E1DC4
 ```
 
-Python lookup tools offer equivalent access. A match associates a fingerprint with an upstream record; it does not automatically establish a unique game, release, or build identity. Four evidence-backed curated seed identities now demonstrate how those links are represented; other source records remain uncurated.
+Python lookup tools offer equivalent access. A match associates a fingerprint with an upstream record; it does not automatically establish a unique game, release, or build identity. Eight curated work identities now demonstrate both separate editions and exact revision builds (10 releases, 12 builds). Most source records remain uncurated.
 
 ## Documentation
 
