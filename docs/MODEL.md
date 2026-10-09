@@ -1,6 +1,6 @@
 # Data model
 
-Ludographium separates **what a source says** from **how the catalog interprets it**. Identification and bibliographic source indexes are implemented; curated work, release, and build identities have a validated but empty ledger.
+Ludographium separates **what a source says** from **how the catalog interprets it**. Identification and bibliographic source indexes are implemented; curated work, release, and build identities have a validated ledger with four initial source-grounded examples.
 
 ## Source observations: v1
 
@@ -40,7 +40,7 @@ The per-platform [catalog manifest](../generated/v1/catalog.json) records the so
 
 The `generated/enrichment-v1/<platform>.json` files preserve developer, publisher, release-year, release-month, genre, franchise, serial, ESRB rating, player count, and rumble-support claims from the pinned Libretro bibliographic DATs. Each claim carries its field name and value, original CRC32, source-title comment, file path, blob SHA, ordinal, all original parsed `source_fields`, and resolution status. The enclosing enrichment bundle records the source ID and revision, both exposed by read-only consumers.
 
-Quoted and unquoted single-token source values remain source strings; counts and hardware flags are not silently interpreted as verified game properties. The Rust consumer can compute raw SHA-1 from an in-memory byte slice or streamed local file. This performs exact media-image identification without platform-specific normalization or source-record editing.
+Quoted and unquoted single-token source values remain source strings; counts and hardware flags are not silently interpreted as verified game properties. The Rust consumer can compute raw SHA-1 from an in-memory byte slice or streamed local file. Exact-byte matching remains the default; a separate, explicitly requested [byte-domain conversion](BYTE-DOMAINS.md) supports limited NES, SNES, and N64 representations without source-record editing.
 
 A claim is attached to a base observation only when a CRC32 has exactly one candidate and the metadata comment exactly matches that source record's title. Other observations remain unresolved with an explicit reason: `comment_mismatch`, `unmatched_crc`, `missing_comment`, `missing_value`, or `ambiguous_crc`. This is a match between source records, not verification of bibliographic facts.
 
@@ -56,7 +56,7 @@ See the [enrichment coverage report](../reports/enrichment-coverage-v1.json) and
 
 Curated records will retain source assertions and their disagreements. A reconciliation decision will include supporting evidence and its confidence or verification status; it will not rewrite the imported snapshot.
 
-The [identity ledger](../curated/v1/identities.json) currently contains no manually resolved canonical games. Its [identity rules](IDENTITIES.md) validate opaque UUIDv4 IDs, supporting source occurrences, and release/build parent relationships.
+The [identity ledger](../curated/v1/identities.json) currently contains four carefully reviewed source-grounded identities; most source observations remain uncurated. Its [identity rules](IDENTITIES.md) validate opaque UUIDv4 IDs, supporting source occurrences, and release/build parent relationships.
 
 ## Versioning
 
