@@ -25,7 +25,7 @@ def unquote(value):
     return re.sub(r'\\([\\"])', r"\1", value)
 
 
-def parse_field_dat(raw, *, field):
+def parse_field_dat(raw, *, field, allow_missing_crc=False):
     """Reject unsupported records; keep every observed field and original ordinal."""
     text = raw.decode("utf-8")
     blocks = list(BLOCK.finditer(text))
@@ -79,7 +79,7 @@ def parse_field_dat(raw, *, field):
             values[key] = unquote(sm[2]) if sm is not None else atom[2]
         if in_rom:
             raise ValueError(f"unterminated ROM block at source occurrence {ordinal}")
-        if crc is None:
+        if crc is None and not allow_missing_crc:
             raise ValueError(f"missing crc at source occurrence {ordinal}")
         observations.append({
             "source_ordinal": ordinal,
