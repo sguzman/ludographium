@@ -6,6 +6,7 @@ use ludographium::collection::{
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::media::{fingerprint_normalized, MediaFormat};
+use ludographium::original_dat::OriginalDatCatalog;
 use ludographium::runtime::verify_runtime_root;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
@@ -16,7 +17,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>  | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -407,8 +408,13 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut enriched = false;
     let mut show_curated = false;
     let mut verify_runtime = false;
+    let mut source_dat = false;
 
     while let Some(arg) = args.next() {
+        if arg == "--source-dat" {
+            source_dat = true;
+            continue;
+        }
         if arg == "--verify-runtime" {
             verify_runtime = true;
             continue;
@@ -468,6 +474,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || limit_explicit
             || enriched
             || show_curated
+            || source_dat
         {
             return Err(CatalogError::Invalid(
                 "--verify-runtime accepts only the optional --root directory".into(),
@@ -516,6 +523,40 @@ fn run() -> Result<(), Box<dyn Error>> {
             ))
             .into());
         }
+    }
+    if source_dat {
+        if enriched || show_curated || zip.is_some() || media_format.is_some() || zip_entry.is_some() {
+            return Err(CatalogError::Invalid(
+                "--source-dat reads original identification DATs only; --enriched, --curated, --zip and --media-format are unsupported".into(),
+            ).into());
+        }
+        let catalog = OriginalDatCatalog::open(&root, &platform)?;
+        let all = catalog.platform_ids().collect::<Vec<_>>();
+        let (count, matches) = if let Some(ref name) = title {
+            let (total, values) = catalog.search_titles(name, limit)?;
+            (Some(total), values)
+        } else if let Some(ref hash) = sha1 {
+            (None, catalog.lookup_sha1(hash, size)?)
+        } else if let Some(ref path) = file {
+            (None, catalog.lookup_reader(BufReader::new(File::open(path)?))?)
+        } else {
+            (None, catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?)
+        };
+        let mut output = json!({
+            "source_mode": "original-dat-text",
+            "platforms_searched": all,
+            "match_count": matches.len(),
+            "matches": matches,
+            "interpretation": "original-source-observations-not-canonical-identities"
+        });
+        if let Some(total) = count {
+            output["query_kind"] = json!("source-title-substring");
+            output["total_source_records"] = json!(total);
+        } else {
+            output["input_kind"] = json!(if file.is_some() { "exact-local-file-bytes" } else { "fingerprint" });
+        }
+        println!("{}", serde_json::to_string_pretty(&output)?);
+        return Ok(());
     }
     let curated = if show_curated {
         Some(CuratedCatalog::open(&root)?)
