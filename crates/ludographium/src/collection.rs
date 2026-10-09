@@ -10,7 +10,7 @@ use serde::Deserialize;
 use sha1::{Digest, Sha1};
 use std::collections::HashSet;
 use std::fs;
-use std::io::{Read, Seek};
+use std::io::{Read, Seek, SeekFrom};
 use std::path::Path;
 
 #[derive(Deserialize)]
@@ -181,17 +181,60 @@ pub fn fingerprint_zip_normalized_selected<R: Read + Seek>(
     fingerprint_zip_normalized_filtered(reader, format, Some(entry_name))
 }
 
+/// The zip 8.x reader collapses duplicate raw names when constructing its
+/// index. Independently count central-directory headers before allowing an
+/// exact-name selector, so a hidden duplicate can never choose one silently.
+fn count_central_directory_entries<R: Read + Seek>(
+    reader: &mut R,
+    start: u64,
+) -> Result<usize, CatalogError> {
+    reader.seek(SeekFrom::Start(start))?;
+    let mut entries = 0usize;
+    loop {
+        let mut signature = [0u8; 4];
+        reader.read_exact(&mut signature)?;
+        if &signature != b"PK\x01\x02" {
+            break;
+        }
+        entries += 1;
+        if entries > MAX_ZIP_ENTRIES {
+            return Err(CatalogError::Invalid(
+                "ZIP archive has too many central-directory entries".into(),
+            ));
+        }
+        // ZIP central-directory record is 46 bytes including signature.
+        // The remaining 42 fixed bytes contain three 16-bit variable lengths.
+        let mut fixed = [0u8; 42];
+        reader.read_exact(&mut fixed)?;
+        let name = u16::from_le_bytes([fixed[24], fixed[25]]) as i64;
+        let extra = u16::from_le_bytes([fixed[26], fixed[27]]) as i64;
+        let comment = u16::from_le_bytes([fixed[28], fixed[29]]) as i64;
+        reader.seek(SeekFrom::Current(name + extra + comment))?;
+    }
+    Ok(entries)
+}
+
 fn fingerprint_zip_normalized_filtered<R: Read + Seek>(
     reader: R,
     format: MediaFormat,
     selected: Option<&str>,
 ) -> Result<Vec<NormalizedZipMemberFingerprint>, CatalogError> {
-    let mut archive = zip::ZipArchive::new(reader).map_err(read_error)?;
-    if archive.len() > MAX_ZIP_ENTRIES {
+    let archive = zip::ZipArchive::new(reader).map_err(read_error)?;
+    let unique_count = archive.len();
+    if unique_count > MAX_ZIP_ENTRIES {
         return Err(CatalogError::Invalid(
             "ZIP archive has too many entries".into(),
         ));
     }
+    let central_start = archive.central_directory_start();
+    let mut reader = archive.into_inner();
+    let raw_count = count_central_directory_entries(&mut reader, central_start)?;
+    if raw_count != unique_count {
+        return Err(CatalogError::Invalid(
+            "ZIP contains duplicate or ambiguous member names".into(),
+        ));
+    }
+    let mut archive = zip::ZipArchive::new(reader).map_err(read_error)?;
     let mut total = 0u64;
     let mut selections = 0usize;
     let mut entries = Vec::new();
