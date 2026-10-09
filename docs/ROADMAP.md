@@ -23,8 +23,9 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Materialize a complete, queryable SQLite export of every source record, media entry and bibliographic field claim, including all unresolved associations.
 - [x] Validate aggregate coverage, full input-source integrity, exact claim attachments and deterministic source-to-SQLite transformation.
 - [x] Deliver the complete SQLite corpus as a CI artifact, independently of optional manually curated identity examples.
-- [ ] Extend the source universe with other console and handheld systems by pinned bulk imports, with separate licensing/provenance review per provider.
-- [ ] Add separately sourced metadata providers and bulk, auditable cross-provider reconciliation; quantify coverage and ambiguous joins.
+- [x] Expand the source universe from ten to 75 console/handheld collections by pinned file-level bulk import, preserving every original DAT inside offline SQLite.
+- [x] Accession 279 additional pinned Libretro bibliographic DAT sources in one batch, explicitly retaining checksums, source values and unresolved claims.
+- [ ] Add truly independent bibliographic metadata providers and cross-provider reconciliation; quantify coverage and ambiguous joins.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 
 ## Identity and curation
@@ -41,7 +42,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
 - [x] Expand the catalog to ten systems, including NES, DS, N64, Genesis, Master System, and Game Gear.
-- [ ] Expand to additional consoles and handhelds with audited source snapshots.
+- [x] Bulk expand to 75 source collections from the same pinned upstream revision, with verifiable source snapshot hashes.
+- [ ] Accession additional independently sourced systems after rights/source review.
 
 ## Distribution and consumers
 
