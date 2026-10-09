@@ -2,6 +2,7 @@
 use ludographium::collection::{fingerprint_zip, CatalogCollection, EnrichedCatalogCollection};
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
+use ludographium::media::{fingerprint_normalized, MediaFormat};
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
@@ -11,7 +12,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>)"
+    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] | --zip <archive.zip>)"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -316,6 +317,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut title = None;
     let mut file = None;
     let mut zip = None;
+    let mut media_format = None;
     let mut limit: usize = 50;
     let mut limit_explicit = false;
     let mut enriched = false;
@@ -336,7 +338,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 return Ok(());
             }
             "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit"
-            | "--file" | "--zip" => args
+            | "--file" | "--zip" | "--media-format" => args
                 .next()
                 .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
             _ => {
@@ -354,6 +356,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "--title" => title = Some(value),
             "--file" => file = Some(value),
             "--zip" => zip = Some(value),
+            "--media-format" => media_format = Some(MediaFormat::parse(&value)?),
             "--limit" => {
                 limit = value.parse::<usize>()?;
                 limit_explicit = true;
@@ -378,11 +381,61 @@ fn run() -> Result<(), Box<dyn Error>> {
     {
         return Err(CatalogError::Invalid(usage().into()).into());
     }
+    if let Some(format) = media_format {
+        if file.is_none() || platform != format.platform() {
+            return Err(CatalogError::Invalid(format!(
+                "--media-format {} requires --platform {} and --file",
+                format.name(),
+                format.platform()
+            )).into());
+        }
+    }
     let curated = if show_curated {
         Some(CuratedCatalog::open(&root)?)
     } else {
         None
     };
+    if let Some(format) = media_format {
+        let input_path = file.as_ref().unwrap();
+        let fingerprint = fingerprint_normalized(BufReader::new(File::open(input_path)?), format)?;
+        let output = if enriched {
+            let catalog = EnrichedPlatformCatalog::open(&root, &platform)?;
+            let matches: Vec<Value> = catalog.lookup_sha1(&fingerprint.sha1)?
+                .into_iter()
+                .filter(|hit| hit.base.media.size == fingerprint.size)
+                .map(|hit| with_curated(format_enriched_match(&hit), &hit.base, curated.as_ref()))
+                .collect();
+            json!({
+                "input_kind": "explicit-normalized-local-file-bytes",
+                "media_format": fingerprint.media_format,
+                "normalized_sha1": fingerprint.sha1,
+                "normalized_size": fingerprint.size,
+                "enrichment_source": {
+                    "id": catalog.source_id(),
+                    "revision": catalog.source_revision(),
+                },
+                "match_count": matches.len(),
+                "matches": matches,
+            })
+        } else {
+            let catalog = PlatformCatalog::open(&root, &platform)?;
+            let matches: Vec<Value> = catalog.lookup_sha1(&fingerprint.sha1)?
+                .into_iter()
+                .filter(|hit| hit.media.size == fingerprint.size)
+                .map(|hit| with_curated(format_match(&hit), &hit, curated.as_ref()))
+                .collect();
+            json!({
+                "input_kind": "explicit-normalized-local-file-bytes",
+                "media_format": fingerprint.media_format,
+                "normalized_sha1": fingerprint.sha1,
+                "normalized_size": fingerprint.size,
+                "match_count": matches.len(),
+                "matches": matches,
+            })
+        };
+        println!("{}", serde_json::to_string_pretty(&output)?);
+        return Ok(());
+    }
     if let Some(ref archive_path) = zip {
         let output = lookup_zip_mode(&root, &platform, archive_path, enriched, curated.as_ref())?;
         println!("{}", serde_json::to_string_pretty(&output)?);
