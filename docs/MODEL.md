@@ -1,6 +1,6 @@
 # Data model
 
-Ludographium separates **what a source says** from **how the catalog interprets it**. Identification and bibliographic source indexes are implemented; curated work, release, and build identities have a validated ledger with eight source-grounded works, ten releases, and twelve exact media builds.
+Ludographium separates **what a source says** from **how the catalog interprets it**. Identification and bibliographic source indexes are implemented; curated work, release, and build identities have a validated ledger with eleven source-grounded works, thirteen releases, and nineteen exact media builds.
 
 ## Source observations: v1
 
@@ -56,7 +56,7 @@ See the [enrichment coverage report](../reports/enrichment-coverage-v1.json) and
 
 Curated records will retain source assertions and their disagreements. A reconciliation decision will include supporting evidence and its confidence or verification status; it will not rewrite the imported snapshot.
 
-The [identity ledger](../curated/v1/identities.json) currently contains eight reviewed works, ten release labels, and twelve exact media builds. The expansion documents same-platform revision relationships while preserving distinct regional releases when the source territory labels differ. Most source observations remain uncurated. Its [identity rules](IDENTITIES.md) validate opaque UUIDv4 IDs, supporting source occurrences, and release/build parent relationships.
+The [identity ledger](../curated/v1/identities.json) currently contains eleven reviewed works, thirteen release labels, and nineteen exact media builds. The expansion documents same-platform revision relationships while preserving distinct regional releases when the source territory labels differ. Most source observations remain uncurated. Its [identity rules](IDENTITIES.md) validate opaque UUIDv4 IDs, supporting source occurrences, and release/build parent relationships.
 
 ## Versioning
 
