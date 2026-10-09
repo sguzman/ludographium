@@ -43,7 +43,7 @@ def prepare_release(root: Path, tag: str, output: Path) -> tuple[Path, Path, Pat
         curated_summary = (
             f"- Curated identities: {len(curated['works'])} works, "
             f"{len(curated['releases'])} releases, "
-            f"{len(curated['builds'])} exact media builds\\n"
+            f"{len(curated['builds'])} exact media builds\n"
         )
 
     archive = build_archive(root)
