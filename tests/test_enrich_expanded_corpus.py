@@ -102,6 +102,32 @@ class ExpandedFieldTests(unittest.TestCase):
             ).fetchone()[0], 1)
             self.assertEqual(query(conn, title="Brand New Console")["matches"][0]["metadata_claims"], [])
 
+    def test_serial_only_claim_remains_unresolved_without_fabricated_crc(self):
+        self.field = (
+            'game (\n comment "Brand New Console Game (World)"\n'
+            ' rom (\n  serial "ULUS-10080"\n )\n)\n'
+        ).encode()
+        (self.cache / "exampleconsole--serial.dat").write_bytes(self.field)
+        self.register["files"][0]["field"] = "serial"
+        self.register["files"][0]["source_path"] = "metadat/serial/Example Console.dat"
+        self.register["files"][0]["bytes"] = len(self.field)
+        self.register["files"][0]["git_blob_sha"] = git_blob(self.field)
+        self.update_register()
+        result = build(self.root, self.db_base, self.db, cache_dir=self.cache)
+        self.assertEqual(result["claims"], 5)
+        self.assertEqual(result["matched"], 2)
+        with open_readonly(self.db) as conn:
+            value, crc, status, target, fields = conn.execute(
+                "SELECT value,crc32,resolution_status,base_source_ordinal,source_fields_json "
+                "FROM claims WHERE platform='exampleconsole'"
+            ).fetchone()
+            self.assertEqual(value, "ULUS-10080")
+            self.assertIsNone(crc)
+            self.assertEqual(status, "missing_crc")
+            self.assertIsNone(target)
+            self.assertEqual(json.loads(fields)["rom_serial"], "ULUS-10080")
+            self.assertEqual(query(conn, title="Brand New Console")["matches"][0]["metadata_claims"], [])
+
     def test_repeatable_export_and_tamper_rejection(self):
         build(self.root, self.db_base, self.db, cache_dir=self.cache)
         before = hashlib.sha256(self.db.read_bytes()).hexdigest()
