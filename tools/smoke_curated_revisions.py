@@ -27,6 +27,24 @@ SAMPLES = {
     ),
 }
 
+# Additional source-backed, same-region variants curated from the revision queue.
+# A triple keeps base, Rev 1, and Rev 2 separately identifiable by exact bytes.
+ADDITIONAL = {
+    ("gb", "The Legend of Zelda: Link's Awakening"): (
+        "602167F897B4F56FE8CEE837933DA3BED5882BBD",
+        "5259E68522225A7A830E29EA17DFDDC33263CED5",
+        "5AB63DEF958728933571C3B4F6AF54DB14F3F8B2",
+    ),
+    ("gba", "Advance Wars"): (
+        "D0A0A4CFE9B95AC7118F7EF476F014CA0242EB65",
+        "15053499D5B3F49128A941D7F2D84876F5424D0C",
+    ),
+    ("nds", "Animal Crossing: Wild World"): (
+        "F1BEF752B30DC158D55B48518C80840A7C4586AF",
+        "77FDE3E30E1E6068395D1F96EA63BE569B61C351",
+    ),
+}
+
 
 def query(platform: str, sha1: str, *, enriched: bool):
     command = [
@@ -64,7 +82,19 @@ def main():
         for layer in ("work", "release", "build"):
             assert enriched[layer]["id"] == revised[layer]["id"], (platform, layer)
 
-    print("PASS: eight curated exact-media variants, four works, release distinctions, enrichment")
+    for (platform, title), sha1s in ADDITIONAL.items():
+        nodes = [query(platform, sha, enriched=False) for sha in sha1s]
+        assert {node["work"]["preferred_title"] for node in nodes} == {title}
+        assert len({node["work"]["id"] for node in nodes}) == 1
+        assert len({node["release"]["id"] for node in nodes}) == 1
+        assert len({node["build"]["id"] for node in nodes}) == len(sha1s)
+        assert [node["build"]["media"]["sha1"] for node in nodes] == list(sha1s)
+        enriched = query(platform, sha1s[-1], enriched=True)
+        assert enriched["work"]["id"] == nodes[-1]["work"]["id"]
+        assert enriched["release"]["id"] == nodes[-1]["release"]["id"]
+        assert enriched["build"]["id"] == nodes[-1]["build"]["id"]
+
+    print("PASS: 15 reviewed revision media images across seven works, including Nintendo DS")
 
 
 if __name__ == "__main__":
