@@ -36,7 +36,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Include validated curated identities in the portable integrity manifest and runtime archive.
 - [x] Implement a tag-gated, fully validated release workflow with checksum-verified, versioned runtime assets.
 - [ ] Publish the first permanent versioned data release, independent of short-lived CI artifacts.
-- [ ] Specify and test platform-specific byte-domain and header normalization rules.
+- [x] Specify and test opt-in NES iNES, SNES copier-header, and N64 byte-order conversions without mutating source data.
+- [ ] Expand byte-domain contracts to additional vetted format variants, trainers, and archive members where justified.
 - [ ] Publish compatibility and migration guidance for future consumer contracts.
 
 ## Bibliographic enrichment
