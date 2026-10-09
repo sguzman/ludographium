@@ -116,11 +116,12 @@ def main():
     mode.add_argument("--review", action="store_true", help="show matching review groups")
     mode.add_argument("--summary", action="store_true", help="show per-platform counts")
     mode.add_argument("--verify", action="store_true", help="validate all input and known fixtures")
+    mode.add_argument("--export", type=Path, help="write full review-only JSON to an output path")
     p.add_argument("--platform", help="optional platform ID filter for --review")
     p.add_argument("--title", help="case-insensitive edition substring filter for --review")
     p.add_argument("--limit", type=int, default=25, help="review group limit, 1..100")
     args = p.parse_args()
-    if args.verify or args.summary:
+    if args.verify or args.summary or args.export:
         if args.platform or args.title or args.limit != 25:
             p.error("--platform, --title and --limit require --review")
     if args.review and not 1 <= args.limit <= 100:
@@ -128,7 +129,12 @@ def main():
     report = build_report(args.root)
     if args.platform and args.platform not in {x["platform"] for x in report["platforms"]}:
         p.error("unknown platform ID")
-    if args.verify:
+    if args.export:
+        args.export.parent.mkdir(parents=True, exist_ok=True)
+        args.export.write_text(json.dumps(report, ensure_ascii=False, separators=(",", ":")) + "\n",
+                               encoding="utf-8")
+        print(f"WROTE {args.export}")
+    elif args.verify:
         # These reviewed candidate pairs exist in the pinned source snapshot.
         # They are regression controls, not canonical identity claims.
         expected = {
