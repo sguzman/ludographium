@@ -42,6 +42,8 @@ jobs:
         run: python tools/audit_enrichment.py --check
       - name: Verify provenance-linked reconciliation queue
         run: python tools/triage_enrichment.py --check
+      - name: Verify conservative identity-revision candidate review
+        run: python tools/triage_identities.py --verify
       - name: Validate curated identity ledger
         run: python tools/validate_curated.py
       - name: Verify Python title search and enriched claims
