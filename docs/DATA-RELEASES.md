@@ -1,6 +1,6 @@
 # Dataset release history
 
-Ludographium data tags identify immutable metadata snapshots independently of the Rust client, JSON schema versions, and upstream source revisions. Each published release carries a deterministic metadata-only runtime archive, a SHA-256 checksum, the original source registers, and attribution notices. Since `data-v1.4.0`, releases also contain a complete, SHA-256-verified SQLite corpus asset for offline SQL access to every source observation. Since `data-v1.5.0`, a separately versioned expanded SQLite companion includes 75 collections and all additional pinned original source bytes.
+Ludographium data tags identify immutable metadata snapshots independently of the Rust client, JSON schema versions, and upstream source revisions. Each published release carries a deterministic metadata-only runtime archive, a SHA-256 checksum, the original source registers, and attribution notices. Since `data-v1.4.0`, releases also contain a complete, SHA-256-verified SQLite corpus asset for offline SQL access to every source observation. Since `data-v1.5.0`, a separately versioned expanded SQLite companion includes 75 collections and all additional pinned original source bytes. Since `data-v1.6.0`, a further CC0 Wikidata companion preserves the raw independent query snapshot and noncanonical cross-provider correspondence candidates.
 
 | Dataset | Published | Curated works | Curated releases | Exact builds | Summary |
 | --- | --- | ---: | ---: | ---: | --- |
@@ -10,6 +10,17 @@ Ludographium data tags identify immutable metadata snapshots independently of th
 | [`data-v1.3.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.3.0) | 2026-10-09 | 15 | 17 | 28 | Four additional exact revision families and source-linked field-claim audit infrastructure |
 | [`data-v1.4.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.4.0) | 2026-10-09 | 15 | 17 | 28 | Full, queryable SQLite corpus across ten platforms; 41,491 source records, 129,008 preserved metadata claims |
 | [`data-v1.5.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.5.0) | 2026-10-09 | 15 | 17 | 28 | Bulk accession of 75 platform collections, 117,145 source records, and 167,640 metadata claims; expanded SQLite with original DAT bytes |
+| [`data-v1.6.0`](https://github.com/sguzman/ludographium/releases/tag/data-v1.6.0) | 2026-10-09 | 15 | 17 | 28 | CC0 Wikidata source snapshot across 16 platforms, 15,868 item observations, 29,333 date claims and 8,971 title review candidates |
+
+## Changes in data-v1.6.0
+
+- **First independent provider accession:** Wikidata CC0 structured statements were fetched through 16 platform-wide SPARQL queries, yielding **15,868 item/platform observations** and **29,333 literal publication-date statements**, preserving unknown/nonliteral date RDF bindings in the original raw source response.
+- **Conservative cross-provider leads:** **8,971** source-title correspondence candidates reference **8,908** original console source observations; **126** candidate links are explicitly marked ambiguous. No QID was promoted to an accepted canonical work, release or media identity.
+- **Permanent exact evidence:** The [original 13.4 MB source snapshot](https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-source-data-v1.6.0.json), its SHA-256 checksum and the [189.8 MB reconciled offline SQLite](https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-data-v1.6.0.sqlite), with its own SHA-256, were verified before publication. Each platform's original SPARQL request, retrieval timestamp, HTTP response bytes and SHA-256 are preserved.
+- **No source-corpus replacement:** The previous 75-platform SQLite (117,145 original source observations, 167,640 Libretro field claims) and ten-system runtime remain unchanged, with their full attribution and original Git blob SHA evidence. The new source layer is additional, separately attributed evidence.
+- **Independent-source coverage is explicitly bounded:** only the sixteen [mapped console categories](../sources/wikidata-v1.json) were queried; other platforms and divergent titles remain unresolved. Source QID associations are not proof of game identity or factual accuracy.
+
+See [Wikidata acquisition, matching and source-rights guide](WIKIDATA.md) and the [pinned source lock](../sources/wikidata-accession-v1.json).
 
 ## Changes in data-v1.5.0
 
