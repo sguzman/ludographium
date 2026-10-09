@@ -2,14 +2,16 @@
 
 The bulk corpus export provides **one queryable SQLite database for the entire pinned collection**, rather than an individually curated game list. It is derived automatically from the existing immutable identification and bibliographic source indexes.
 
-The source snapshot currently contains:
+The **original ten-platform v1 baseline** contains:
 
 - **41,491 identification source observations** across ten Nintendo and Sega systems;
 - **129,008 separately attributed bibliographic field claims**, of which **98,856** resolve conservatively to original source observations;
 - all source-record media entries, exact hashes, titles, regions, serials and other upstream record fields;
 - all unresolved and conflicting claim observations with their original status, value and source citations.
 
-Those 41,491 observations are **not asserted to be 41,491 distinct games**. The database preserves separate original source occurrences and does not manufacture work or release identities by normalizing titles or inventing relationships.
+The separately [bulk-expanded collection](BULK-EXPANSION.md) now includes **75 platform collections, 117,145 identification observations and 167,640 bibliographic claims** (112,948 conservatively matched). The v1 ten-platform SQLite and JSON packages remain available for consumers pinned to that original contract.
+
+Those 41,491 baseline observations are **not asserted to be 41,491 distinct games**. The database preserves separate original source occurrences and does not manufacture work or release identities by normalizing titles or inventing relationships.
 
 ## Consumer interface
 
