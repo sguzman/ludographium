@@ -6,8 +6,11 @@ on:
     branches: [main]
     paths:
       - sources/bulk-expansion-v1.json
+      - sources/bulk-fields-v1.json
       - tools/build_expanded_corpus.py
+      - tools/enrich_expanded_corpus.py
       - tests/test_build_expanded_corpus.py
+      - tests/test_enrich_expanded_corpus.py
       - .github/workflows/expand-corpus.yml
 
 permissions:
@@ -33,6 +36,13 @@ jobs:
           python tools/build_expanded_corpus.py --build --db "$RUNNER_TEMP/ludographium-expanded.sqlite"
           python tools/build_expanded_corpus.py --verify --db "$RUNNER_TEMP/ludographium-expanded.sqlite"
           python tools/build_expanded_corpus.py --summary --db "$RUNNER_TEMP/ludographium-expanded.sqlite"
+      - name: Test pinned bibliographic source ingestion
+        run: python -m unittest discover -s tests -p test_enrich_expanded_corpus.py -v
+      - name: Attribute all additional bibliographic DATs in one batch
+        run: |
+          python tools/enrich_expanded_corpus.py --build --from-db "$RUNNER_TEMP/ludographium-expanded.sqlite" --db "$RUNNER_TEMP/ludographium-expanded-enriched.sqlite"
+          python tools/enrich_expanded_corpus.py --verify --db "$RUNNER_TEMP/ludographium-expanded-enriched.sqlite"
+          mv "$RUNNER_TEMP/ludographium-expanded-enriched.sqlite" "$RUNNER_TEMP/ludographium-expanded.sqlite"
       - name: Confirm no regression in previous entire-corpus coverage
         run: |
           python - "$RUNNER_TEMP/ludographium-expanded.sqlite" <<'PY'
@@ -46,12 +56,17 @@ jobs:
           assert db.execute("SELECT COUNT(*) FROM platforms").fetchone()[0] == 75
           assert db.execute("SELECT COUNT(*) FROM games").fetchone()[0] > 41491
           assert db.execute("SELECT COUNT(*) FROM source_archives").fetchone()[0] == 65
-          assert db.execute("SELECT COUNT(*) FROM claims").fetchone()[0] == coverage["total_claims"]
-          assert db.execute("SELECT COUNT(*) FROM claims WHERE resolution_status='matched'").fetchone()[0] == coverage["resolution_counts"]["matched"]
+          assert db.execute("SELECT COUNT(*) FROM field_archives").fetchone()[0] == 279
+          assert db.execute("SELECT COUNT(*) FROM claims").fetchone()[0] > coverage["total_claims"]
+          assert db.execute("SELECT COUNT(*) FROM claims WHERE resolution_status='matched'").fetchone()[0] > coverage["resolution_counts"]["matched"]
+          for p in catalog["platforms"]:
+              n = db.execute("SELECT COUNT(*) FROM claims WHERE platform=?", (p["platform"],)).fetchone()[0]
+              previous = db.execute("SELECT COUNT(*) FROM claims WHERE platform=? AND source_id='libretro-metadata'", (p["platform"],)).fetchone()[0]
+              assert n == previous, (p["platform"], n)
           for p in catalog["platforms"]:
               count = db.execute("SELECT COUNT(*) FROM games WHERE platform=?", (p["platform"],)).fetchone()[0]
               assert count == p["source_records"], (p["platform"], count)
-          print("PASS: all 75 console source collections preserved; base metadata matches intact")
+          print("PASS: all 75 console collections and 279 new bibliographic field DATs accessioned")
           PY
       - name: Hash complete extended corpus
         run: |
