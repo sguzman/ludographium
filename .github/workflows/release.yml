@@ -1,9 +1,14 @@
 name: Publish versioned metadata
-
 on:
   push:
+    branches:
+      - main
     tags:
       - 'data-v*'
+    # Path filters are not evaluated for tag pushes. On main, a publication
+    # requires a deliberate change to this exact request file.
+    paths:
+      - '.github/data-release.json'
 
 permissions:
   contents: read
@@ -15,27 +20,46 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.release.outputs.tag }}
+      mode: ${{ steps.release.outputs.mode }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Require a version tag on main history
-        shell: bash
-        run: |
-          set -euo pipefail
-          [[ "$GITHUB_REF_TYPE" == 'tag' ]]
-          [[ "$GITHUB_REF_NAME" =~ ^data-v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || {
-            echo 'Expected data-vMAJOR.MINOR.PATCH, without prerelease suffixes or leading zeroes'
-            exit 1
-          }
-          git merge-base --is-ancestor "$GITHUB_SHA" origin/main || {
-            echo 'Release tag must point to a commit on main history'
-            exit 1
-          }
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+      - name: Resolve and validate versioned release identity
+        id: release
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$GITHUB_REF_TYPE" == 'tag' ]]; then
+            RELEASE_TAG="$GITHUB_REF_NAME"
+            RELEASE_MODE='tag'
+            [[ "$RELEASE_TAG" =~ ^data-v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || {
+              echo 'Expected data-vMAJOR.MINOR.PATCH without leading zeroes or suffixes'
+              exit 1
+            }
+            git merge-base --is-ancestor "$GITHUB_SHA" origin/main || {
+              echo 'Release tag must point to a commit on main history'
+              exit 1
+            }
+          elif [[ "$GITHUB_REF" == 'refs/heads/main' ]]; then
+            RELEASE_TAG="$(python tools/release_request.py --file .github/data-release.json)"
+            RELEASE_MODE='request'
+            [[ "$(git rev-parse HEAD)" == "$GITHUB_SHA" ]] || {
+              echo 'Refusing a release from a mismatched checkout'
+              exit 1
+            }
+          else
+            echo 'Only main release requests or data tags may publish'
+            exit 1
+          fi
+          printf 'tag=%s\n' "$RELEASE_TAG" >> "$GITHUB_OUTPUT"
+          printf 'mode=%s\n' "$RELEASE_MODE" >> "$GITHUB_OUTPUT"
       - name: Test and verify metadata, attribution, and documentation
         run: |
           set -euo pipefail
@@ -57,13 +81,15 @@ jobs:
           python tools/smoke_media_formats.py
       - name: Stage and verify portable release
         shell: bash
+        env:
+          RELEASE_TAG: ${{ steps.release.outputs.tag }}
         run: |
           set -euo pipefail
-          python tools/prepare_release.py --tag "$GITHUB_REF_NAME" --output "$RUNNER_TEMP/release"
+          python tools/prepare_release.py --tag "$RELEASE_TAG" --output "$RUNNER_TEMP/release"
           cd "$RUNNER_TEMP/release"
-          sha256sum --check "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz.sha256"
+          sha256sum --check "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256"
           python "$GITHUB_WORKSPACE/tools/package_runtime.py" --root "$GITHUB_WORKSPACE" \
-            --verify "$RUNNER_TEMP/release/ludographium-runtime-${GITHUB_REF_NAME}.tar.gz"
+            --verify "$RUNNER_TEMP/release/ludographium-runtime-${RELEASE_TAG}.tar.gz"
       - name: Transfer verified release assets
         uses: actions/upload-artifact@v4
         with:
@@ -87,13 +113,37 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ needs.validate.outputs.tag }}
+          RELEASE_MODE: ${{ needs.validate.outputs.mode }}
         run: |
           set -euo pipefail
           cd "$RUNNER_TEMP/release"
-          sha256sum --check "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz.sha256"
-          gh release create "$GITHUB_REF_NAME" \
-            "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz" \
-            "ludographium-runtime-${GITHUB_REF_NAME}.tar.gz.sha256" \
-            --verify-tag --latest=false \
-            --title "Ludographium metadata ${GITHUB_REF_NAME}" \
-            --notes-file RELEASE_NOTES.md
+          sha256sum --check "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256"
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo "Release $RELEASE_TAG exists; refusing to overwrite assets"
+            exit 1
+          fi
+          if [[ "$RELEASE_MODE" == 'request' ]]; then
+            # A request creates a new tag at the fully validated main commit.
+            # Never move or reuse a tag from a previous release.
+            if gh api "repos/${GH_REPO}/git/ref/tags/${RELEASE_TAG}" >/dev/null 2>&1; then
+              echo "Tag $RELEASE_TAG exists; refusing to reuse it"
+              exit 1
+            fi
+            gh release create "$RELEASE_TAG" \
+              "ludographium-runtime-${RELEASE_TAG}.tar.gz" \
+              "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256" \
+              --target "$GITHUB_SHA" --latest=false \
+              --title "Ludographium metadata ${RELEASE_TAG}" \
+              --notes-file RELEASE_NOTES.md
+          elif [[ "$RELEASE_MODE" == 'tag' ]]; then
+            gh release create "$RELEASE_TAG" \
+              "ludographium-runtime-${RELEASE_TAG}.tar.gz" \
+              "ludographium-runtime-${RELEASE_TAG}.tar.gz.sha256" \
+              --verify-tag --latest=false \
+              --title "Ludographium metadata ${RELEASE_TAG}" \
+              --notes-file RELEASE_NOTES.md
+          else
+            echo 'Invalid release mode'
+            exit 1
+          fi
