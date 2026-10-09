@@ -266,7 +266,7 @@ mod tests {
     #[test]
     fn resolves_only_cited_exact_media_images() {
         let curated = CuratedCatalog::open(root()).unwrap();
-        assert_eq!(curated.counts(), (8, 10, 12));
+        assert_eq!(curated.counts(), (11, 13, 19));
         let platform = PlatformCatalog::open(root(), "snes").unwrap();
         let hits = platform
             .lookup_sha1("6B47BB75D16514B6A476AA0C73A683A2A4C18765")
