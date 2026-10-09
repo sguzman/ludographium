@@ -1,0 +1,69 @@
+name: Bulk console corpus expansion
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - sources/bulk-expansion-v1.json
+      - tools/build_expanded_corpus.py
+      - tests/test_build_expanded_corpus.py
+      - .github/workflows/expand-corpus.yml
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bulk-expansion-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Test pinned bulk parser and original metadata retention
+        run: python -m unittest discover -s tests -p test_build_expanded_corpus.py -v
+      - name: Import all additional pinned console sources in one batch
+        run: |
+          python tools/build_expanded_corpus.py --build --db "$RUNNER_TEMP/ludographium-expanded.sqlite"
+          python tools/build_expanded_corpus.py --verify --db "$RUNNER_TEMP/ludographium-expanded.sqlite"
+          python tools/build_expanded_corpus.py --summary --db "$RUNNER_TEMP/ludographium-expanded.sqlite"
+      - name: Confirm no regression in previous entire-corpus coverage
+        run: |
+          python - "$RUNNER_TEMP/ludographium-expanded.sqlite" <<'PY'
+          import json
+          from pathlib import Path
+          import sqlite3
+          import sys
+          db = sqlite3.connect(sys.argv[1])
+          coverage = json.loads(Path("reports/enrichment-coverage-v1.json").read_text())
+          catalog = json.loads(Path("generated/v1/catalog.json").read_text())
+          assert db.execute("SELECT COUNT(*) FROM platforms").fetchone()[0] == 75
+          assert db.execute("SELECT COUNT(*) FROM games").fetchone()[0] > 41491
+          assert db.execute("SELECT COUNT(*) FROM source_archives").fetchone()[0] == 65
+          assert db.execute("SELECT COUNT(*) FROM claims").fetchone()[0] == coverage["total_claims"]
+          assert db.execute("SELECT COUNT(*) FROM claims WHERE resolution_status='matched'").fetchone()[0] == coverage["resolution_counts"]["matched"]
+          for p in catalog["platforms"]:
+              count = db.execute("SELECT COUNT(*) FROM games WHERE platform=?", (p["platform"],)).fetchone()[0]
+              assert count == p["source_records"], (p["platform"], count)
+          print("PASS: all 75 console source collections preserved; base metadata matches intact")
+          PY
+      - name: Hash complete extended corpus
+        run: |
+          cd "$RUNNER_TEMP"
+          sha256sum ludographium-expanded.sqlite > ludographium-expanded.sqlite.sha256
+          sha256sum -c ludographium-expanded.sqlite.sha256
+      - name: Publish full expanded corpus artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-expanded-corpus-75-platforms
+          path: |
+            ${{ runner.temp }}/ludographium-expanded.sqlite
+            ${{ runner.temp }}/ludographium-expanded.sqlite.sha256
+          if-no-files-found: error
+          retention-days: 14
