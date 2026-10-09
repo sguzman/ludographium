@@ -1,0 +1,72 @@
+name: Preserve Wikidata as repository text data
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - tools/export_wikidata_text.py
+      - .github/workflows/wikidata-text.yml
+      - sources/wikidata-accession-v1.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-text-projection-main
+  cancel-in-progress: false
+
+jobs:
+  publish-text:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Fetch exact pinned CC0 structured source snapshot
+        run: |
+          set -euo pipefail
+          curl -fL --retry 4 --retry-delay 4 \
+            -o "$RUNNER_TEMP/wikidata-snapshot.json" \
+            "https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-source-data-v1.6.0.json"
+      - name: Build and verify compact human-reviewable JSONL platform files
+        run: |
+          set -euo pipefail
+          python tools/export_wikidata_text.py --build --snapshot "$RUNNER_TEMP/wikidata-snapshot.json"
+          python tools/export_wikidata_text.py --verify --snapshot "$RUNNER_TEMP/wikidata-snapshot.json"
+          test "$(find data/wikidata/v1 -maxdepth 1 -name '*.jsonl' | wc -l)" -eq 16
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          folder=Path("data/wikidata/v1")
+          register=json.loads((folder/"manifest.json").read_text())
+          assert register["item_platform_observations"] == 15868
+          assert register["literal_date_claims"] == 29333
+          assert sum(x["text_bytes"] for x in register["files"]) < 5_000_000
+          for p in folder.iterdir():
+              assert p.suffix in (".jsonl",".json"), p
+          print("PASS: text source <5 MB across 16 platform files; no binaries")
+          PY
+      - name: Commit only normalized source text, without generated databases
+        env:
+          GH_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = "refs/heads/main"
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Refusing to publish: a binary database is tracked by Git"
+            exit 1
+          fi
+          git add data/wikidata/v1
+          if git diff --cached --quiet; then
+            echo "Existing text source projection already matches pinned snapshot"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "data: preserve 15,868 pinned Wikidata observations as small JSONL text files"
+          git push origin HEAD:main
