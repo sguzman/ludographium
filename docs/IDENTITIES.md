@@ -32,7 +32,7 @@ A cited observation supports the fact that a source made a claim. Evidence alone
 
 ## Reviewing disputed source claims
 
-The [reconciliation queue](../reports/reconciliation-queue-v1.json) groups unresolved bibliographic source claims, with upstream source-occurrence locators and possible base-record candidates. The [review tool](../tools/triage_enrichment.py) supports platform, resolution-status, and CRC32 filters.
+The [reconciliation queue](../reports/reconciliation-queue-v1.json) groups unresolved bibliographic source claims, with upstream source-occurrence locators and possible base-record candidates. The [review tool](../tools/triage_enrichment.py) supports platform, resolution-status, and CRC32 filters. A separate [exact-edition revision review](IDENTITY-REVIEW.md) examines source records whose title differs only by a final revision qualifier; it creates **candidate evidence**, not curated identities.
 
 A shared CRC32 or similar title is only **a lead for investigation**. It is not enough by itself to create an accepted release/build link. The original seed used one documented media representation per work. The subsequent curation batch links records with the same named game and explicit source revision qualifiers on the same platform. For Super Mario Land and Columns, the revision labels share a bounded release while the build identities remain distinct. Pokémon Crystal Version and Alex Kidd in Miracle World retain separate release identities for differing territory claims. Future correspondences require explicit evidence review, especially across platforms, publishers, or unrelated providers.
 
@@ -45,6 +45,6 @@ python3 tools/validate_curated.py --mint-id release
 python3 tools/validate_curated.py --mint-id build
 ```
 
-The validator checks UUID formatting, uniqueness, release-to-work and build-to-release references, registered platforms, required rationales, work-to-release-to-build evidence subset relationships, exact source citations, and build SHA-1/byte-size equality against the cited source records. It does **not** automate identity reconciliation or test an emulator. A source conflict may remain unmerged indefinitely.
+The validator checks UUID formatting, uniqueness, release-to-work and build-to-release references, registered platforms, required rationales, work-to-release-to-build evidence subset relationships, unique work/release ownership of source occurrences, exact source citations, and build SHA-1/byte-size equality against the cited source records. It does **not** automate identity reconciliation or test an emulator. A source conflict may remain unmerged indefinitely.
 
 The editable ledger is [`curated/v1/identities.json`](../curated/v1/identities.json). Its validated, deterministic consumer projection lives in [`generated/curated-v1/identities.json`](../generated/curated-v1/identities.json), is included in the SHA-256 distribution manifest and portable runtime, and can be regenerated with `python3 tools/build_curated.py --write`. The source ledger remains the editorial authority.
