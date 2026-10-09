@@ -57,6 +57,90 @@
           "source_ordinal": 1150
         }
       ]
+    },
+    {
+      "id": "ldg:w:5e36cc80-55c3-41f8-9914-c0d6be1e53fd",
+      "preferred_title": "Super Mario Land",
+      "rationale": "The pinned Game Boy source explicitly records Super Mario Land (World) and Super Mario Land (World) (Rev 1). Their identical base title, platform and territory label plus an explicit revision marker support this narrowly scoped editorial work correspondence. Super Mario Land 2 and unrelated games remain outside this identity.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 1908
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 1909
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:da667e15-3bf6-4176-8c82-c583195020d5",
+      "preferred_title": "Pokemon - Crystal Version",
+      "rationale": "The source records Pokemon - Crystal Version (USA) and Pokemon - Crystal Version (USA, Europe) (Rev 1) under the same Game Boy Color title with an explicit revised entry. They are grouped at the work level as a documented editorial interpretation; differing territory labels and exact media bytes remain separate releases.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Color.dat",
+          "source_blob_sha": "9ad9d3e8cdac9ec8d00ab43f510d8e90a18bb149",
+          "source_ordinal": 1590
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Color.dat",
+          "source_blob_sha": "9ad9d3e8cdac9ec8d00ab43f510d8e90a18bb149",
+          "source_ordinal": 1591
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:139600d4-3f15-4966-9345-e64c0c04d116",
+      "preferred_title": "Alex Kidd in Miracle World",
+      "rationale": "The pinned Master System source lists Alex Kidd in Miracle World (USA, Europe) and an explicitly revised Alex Kidd in Miracle World (USA, Europe, Brazil) entry. Their shared base title and platform support a bounded work association, while the extra claimed territory and revision stay separate release identities.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Master System - Mark III.dat",
+          "source_blob_sha": "d147adac8430db3d474c694b97900eb8c46bb1a9",
+          "source_ordinal": 56
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Master System - Mark III.dat",
+          "source_blob_sha": "d147adac8430db3d474c694b97900eb8c46bb1a9",
+          "source_ordinal": 57
+        }
+      ]
+    },
+    {
+      "id": "ldg:w:64be4813-1796-4e44-997a-975fd5e82258",
+      "preferred_title": "Columns",
+      "rationale": "Two Game Gear source observations name Columns (Japan) (En) and Columns (Japan) (En) (Rev A). Their base title, platform and same stated territory, plus the explicit revision marker, support one narrowly scoped work with one Japan-labelled release and two distinct media builds.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Game Gear.dat",
+          "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
+          "source_ordinal": 158
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Game Gear.dat",
+          "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
+          "source_ordinal": 159
+        }
+      ]
     }
   ],
   "releases": [
@@ -121,6 +205,116 @@
           "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
           "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
           "source_ordinal": 1150
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:38413616-3cb4-4979-9c06-608805f50e83",
+      "work_id": "ldg:w:5e36cc80-55c3-41f8-9914-c0d6be1e53fd",
+      "platform": "gb",
+      "release_label": "Super Mario Land (World)",
+      "rationale": "The pinned source explicitly identifies Super Mario Land (World) and a Rev 1 of the same World-labelled platform edition. Their stated territory and base title are identical; media images remain separate build identities, not interchangeable bytes.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 1908
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 1909
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:9fb9fe25-b805-47c3-9eae-8054c85231f7",
+      "work_id": "ldg:w:da667e15-3bf6-4176-8c82-c583195020d5",
+      "platform": "gbc",
+      "release_label": "Pokemon - Crystal Version (USA)",
+      "rationale": "The source identifies this particular Game Boy Color publication label. It is kept separate from the other territory/revision entry and does not imply an independently verified launch date or complete geographic coverage. Specifically, this observation is Pokemon - Crystal Version (USA).",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Color.dat",
+          "source_blob_sha": "9ad9d3e8cdac9ec8d00ab43f510d8e90a18bb149",
+          "source_ordinal": 1590
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:6ba98c09-c8e0-4dc0-b30a-4a291c06c918",
+      "work_id": "ldg:w:da667e15-3bf6-4176-8c82-c583195020d5",
+      "platform": "gbc",
+      "release_label": "Pokemon - Crystal Version (USA, Europe) (Rev 1)",
+      "rationale": "The source identifies this particular Game Boy Color publication label. It is kept separate from the other territory/revision entry and does not imply an independently verified launch date or complete geographic coverage. Specifically, this observation is Pokemon - Crystal Version (USA, Europe) (Rev 1).",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Color.dat",
+          "source_blob_sha": "9ad9d3e8cdac9ec8d00ab43f510d8e90a18bb149",
+          "source_ordinal": 1591
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:8ddbd4cd-d7b5-451d-9eae-5c336975ae67",
+      "work_id": "ldg:w:139600d4-3f15-4966-9345-e64c0c04d116",
+      "platform": "sms",
+      "release_label": "Alex Kidd in Miracle World (USA, Europe)",
+      "rationale": "The source identifies this particular Master System territory/revision label. It is kept distinct from the other cited release; the declared territories and revision are source claims rather than independently verified distribution history. Specifically, this observation is Alex Kidd in Miracle World (USA, Europe).",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Master System - Mark III.dat",
+          "source_blob_sha": "d147adac8430db3d474c694b97900eb8c46bb1a9",
+          "source_ordinal": 56
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:f1b4672b-6959-48b9-8590-7293b2c2b677",
+      "work_id": "ldg:w:139600d4-3f15-4966-9345-e64c0c04d116",
+      "platform": "sms",
+      "release_label": "Alex Kidd in Miracle World (USA, Europe, Brazil) (En) (Rev 1)",
+      "rationale": "The source identifies this particular Master System territory/revision label. It is kept distinct from the other cited release; the declared territories and revision are source claims rather than independently verified distribution history. Specifically, this observation is Alex Kidd in Miracle World (USA, Europe, Brazil) (En) (Rev 1).",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Master System - Mark III.dat",
+          "source_blob_sha": "d147adac8430db3d474c694b97900eb8c46bb1a9",
+          "source_ordinal": 57
+        }
+      ]
+    },
+    {
+      "id": "ldg:r:2b436ef8-3016-4a4c-a084-34374f7acf44",
+      "work_id": "ldg:w:64be4813-1796-4e44-997a-975fd5e82258",
+      "platform": "gg",
+      "release_label": "Columns (Japan) (En)",
+      "rationale": "Both source observations use the Japan (En) edition label, with one explicitly marked Rev A. The evidence supports one narrowly bounded label with separate recorded media builds.",
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Game Gear.dat",
+          "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
+          "source_ordinal": 158
+        },
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Game Gear.dat",
+          "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
+          "source_ordinal": 159
         }
       ]
     }
@@ -199,6 +393,158 @@
           "source_path": "metadat/no-intro/Nintendo - Nintendo 64.dat",
           "source_blob_sha": "717bd5296f3ab08d1d8114b8ca571228a7a21a17",
           "source_ordinal": 1150
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:b8ce0be5-34dd-49a7-9bf5-6d7399bc863c",
+      "release_id": "ldg:r:38413616-3cb4-4979-9c06-608805f50e83",
+      "build_label": "Super Mario Land (World) - recorded media image",
+      "rationale": "The pinned gb observation at source ordinal 1908 explicitly records Super Mario Land (World) with a 65536-byte media image and SHA-1 3A4DDB39B234A67FFB361EE7ABC3D23E0A8B1C89. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "3A4DDB39B234A67FFB361EE7ABC3D23E0A8B1C89",
+        "size": 65536
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 1908
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:5e17f20d-bd0a-47d7-a641-866fd0a71a7a",
+      "release_id": "ldg:r:38413616-3cb4-4979-9c06-608805f50e83",
+      "build_label": "Super Mario Land (World) (Rev 1) - recorded media image",
+      "rationale": "The pinned gb observation at source ordinal 1909 explicitly records Super Mario Land (World) (Rev 1) with a 65536-byte media image and SHA-1 418203621B887CAA090215D97E3F509B79AFFD3E. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "418203621B887CAA090215D97E3F509B79AFFD3E",
+        "size": 65536
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy.dat",
+          "source_blob_sha": "0ead6bff1f819075793605985a9ee2dcb3c0c3ab",
+          "source_ordinal": 1909
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:f9e577b3-ed56-4cbc-a146-041041ce796c",
+      "release_id": "ldg:r:9fb9fe25-b805-47c3-9eae-8054c85231f7",
+      "build_label": "Pokemon - Crystal Version (USA) - recorded media image",
+      "rationale": "The pinned gbc observation at source ordinal 1590 explicitly records Pokemon - Crystal Version (USA) with a 2097152-byte media image and SHA-1 F4CD194BDEE0D04CA4EAC29E09B8E4E9D818C133. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "F4CD194BDEE0D04CA4EAC29E09B8E4E9D818C133",
+        "size": 2097152
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Color.dat",
+          "source_blob_sha": "9ad9d3e8cdac9ec8d00ab43f510d8e90a18bb149",
+          "source_ordinal": 1590
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:7986a2a6-1883-44df-841c-cff260afbc4d",
+      "release_id": "ldg:r:6ba98c09-c8e0-4dc0-b30a-4a291c06c918",
+      "build_label": "Pokemon - Crystal Version (USA, Europe) (Rev 1) - recorded media image",
+      "rationale": "The pinned gbc observation at source ordinal 1591 explicitly records Pokemon - Crystal Version (USA, Europe) (Rev 1) with a 2097152-byte media image and SHA-1 F2F52230B536214EF7C9924F483392993E226CFB. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "F2F52230B536214EF7C9924F483392993E226CFB",
+        "size": 2097152
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Nintendo - Game Boy Color.dat",
+          "source_blob_sha": "9ad9d3e8cdac9ec8d00ab43f510d8e90a18bb149",
+          "source_ordinal": 1591
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:0ba5cf49-c83f-420f-996e-af1b0a939760",
+      "release_id": "ldg:r:8ddbd4cd-d7b5-451d-9eae-5c336975ae67",
+      "build_label": "Alex Kidd in Miracle World (USA, Europe) - recorded media image",
+      "rationale": "The pinned sms observation at source ordinal 56 explicitly records Alex Kidd in Miracle World (USA, Europe) with a 131072-byte media image and SHA-1 8CECF8ED0F765163B2657BE1B0A3CE2A9CB767F4. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "8CECF8ED0F765163B2657BE1B0A3CE2A9CB767F4",
+        "size": 131072
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Master System - Mark III.dat",
+          "source_blob_sha": "d147adac8430db3d474c694b97900eb8c46bb1a9",
+          "source_ordinal": 56
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:94141c07-40bc-42db-9747-699aaa267502",
+      "release_id": "ldg:r:f1b4672b-6959-48b9-8590-7293b2c2b677",
+      "build_label": "Alex Kidd in Miracle World (USA, Europe, Brazil) (En) (Rev 1) - recorded media image",
+      "rationale": "The pinned sms observation at source ordinal 57 explicitly records Alex Kidd in Miracle World (USA, Europe, Brazil) (En) (Rev 1) with a 131072-byte media image and SHA-1 6D052E0CCA3F2712434EFD856F733C03011BE41C. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "6D052E0CCA3F2712434EFD856F733C03011BE41C",
+        "size": 131072
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Master System - Mark III.dat",
+          "source_blob_sha": "d147adac8430db3d474c694b97900eb8c46bb1a9",
+          "source_ordinal": 57
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:9d556b30-4db2-46ed-87a6-087ae9cd6252",
+      "release_id": "ldg:r:2b436ef8-3016-4a4c-a084-34374f7acf44",
+      "build_label": "Columns (Japan) (En) - recorded media image",
+      "rationale": "The pinned gg observation at source ordinal 158 explicitly records Columns (Japan) (En) with a 32768-byte media image and SHA-1 8B39BA23132AF102B8DC313C5C1C211F4A4F27E1. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "8B39BA23132AF102B8DC313C5C1C211F4A4F27E1",
+        "size": 32768
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Game Gear.dat",
+          "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
+          "source_ordinal": 158
+        }
+      ]
+    },
+    {
+      "id": "ldg:b:39e59132-d60a-4b0f-9f7d-ad31b6b6564a",
+      "release_id": "ldg:r:2b436ef8-3016-4a4c-a084-34374f7acf44",
+      "build_label": "Columns (Japan) (En) (Rev A) - recorded media image",
+      "rationale": "The pinned gg observation at source ordinal 159 explicitly records Columns (Japan) (En) (Rev A) with a 32768-byte media image and SHA-1 D83FD16BD23C51750555A692535DAA171ED41AF0. This identifies exactly that byte representation; the alternate observed revision/territory is not inferred equivalent or substituted.",
+      "media": {
+        "sha1": "D83FD16BD23C51750555A692535DAA171ED41AF0",
+        "size": 32768
+      },
+      "evidence": [
+        {
+          "source_id": "libretro-no-intro",
+          "source_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+          "source_path": "metadat/no-intro/Sega - Game Gear.dat",
+          "source_blob_sha": "78209fb49d2f50b44ab2958a5ac5fcb405c1c8cc",
+          "source_ordinal": 159
         }
       ]
     }
