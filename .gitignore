@@ -4,3 +4,10 @@ __pycache__/
 .target/
 target/
 .venv/
+
+# Generated databases are local build products, never Git source data.
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
