@@ -152,10 +152,14 @@ fn validate_evidence_relationships(export: &Export) -> Result<(), CatalogError> 
         let mut local = HashSet::new();
         for reference in &work.evidence {
             if !local.insert(reference) {
-                return Err(CatalogError::Invalid("duplicate curated work evidence".into()));
+                return Err(CatalogError::Invalid(
+                    "duplicate curated work evidence".into(),
+                ));
             }
             if work_owners.insert(reference, &work.id).is_some() {
-                return Err(CatalogError::Invalid("conflicting curated work evidence".into()));
+                return Err(CatalogError::Invalid(
+                    "conflicting curated work evidence".into(),
+                ));
             }
         }
     }
@@ -168,13 +172,19 @@ fn validate_evidence_relationships(export: &Export) -> Result<(), CatalogError> 
         let mut local = HashSet::new();
         for reference in &release.evidence {
             if !local.insert(reference) {
-                return Err(CatalogError::Invalid("duplicate curated release evidence".into()));
+                return Err(CatalogError::Invalid(
+                    "duplicate curated release evidence".into(),
+                ));
             }
             if !parent.evidence.contains(reference) {
-                return Err(CatalogError::Invalid("release cites evidence outside its work".into()));
+                return Err(CatalogError::Invalid(
+                    "release cites evidence outside its work".into(),
+                ));
             }
             if release_owners.insert(reference, &release.id).is_some() {
-                return Err(CatalogError::Invalid("conflicting curated release evidence".into()));
+                return Err(CatalogError::Invalid(
+                    "conflicting curated release evidence".into(),
+                ));
             }
         }
     }
@@ -186,10 +196,14 @@ fn validate_evidence_relationships(export: &Export) -> Result<(), CatalogError> 
         let mut local = HashSet::new();
         for reference in &build.evidence {
             if !local.insert(reference) {
-                return Err(CatalogError::Invalid("duplicate curated build evidence".into()));
+                return Err(CatalogError::Invalid(
+                    "duplicate curated build evidence".into(),
+                ));
             }
             if !parent.evidence.contains(reference) {
-                return Err(CatalogError::Invalid("build cites evidence outside its release".into()));
+                return Err(CatalogError::Invalid(
+                    "build cites evidence outside its release".into(),
+                ));
             }
         }
     }
@@ -388,7 +402,8 @@ mod tests {
         let original = fs::read(root().join("generated/curated-v1/identities.json")).unwrap();
 
         let mut contested: Export = serde_json::from_slice(&original).unwrap();
-        contested.works[1].evidence = contested.works[0].evidence.clone();
+        let copied = contested.works[0].evidence.clone();
+        contested.works[1].evidence = copied;
         assert!(validate_evidence_relationships(&contested).is_err());
 
         let mut wrong_release: Export = serde_json::from_slice(&original).unwrap();
