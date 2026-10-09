@@ -1,6 +1,7 @@
 //! Offline fingerprint and raw-file lookup CLI. Local input is streamed, not retained.
 use ludographium::collection::{
-    fingerprint_zip, fingerprint_zip_normalized, CatalogCollection, EnrichedCatalogCollection,
+    fingerprint_zip, fingerprint_zip_normalized, fingerprint_zip_normalized_selected,
+    CatalogCollection, EnrichedCatalogCollection,
 };
 use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
@@ -14,7 +15,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>  | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>]"
+    "Usage: ludographium --platform <platform-id|all> [--root <catalog-directory>] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path>  | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -209,10 +210,15 @@ fn lookup_zip_normalized_mode(
     platform: &str,
     path: &str,
     format: MediaFormat,
+    selected_entry: Option<&str>,
     enriched: bool,
     curated: Option<&CuratedCatalog>,
 ) -> Result<Value, Box<dyn Error>> {
-    let fingerprints = fingerprint_zip_normalized(BufReader::new(File::open(path)?), format)?;
+    let fingerprints = if let Some(entry) = selected_entry {
+        fingerprint_zip_normalized_selected(BufReader::new(File::open(path)?), format, entry)?
+    } else {
+        fingerprint_zip_normalized(BufReader::new(File::open(path)?), format)?
+    };
     let mut members = Vec::new();
     let mut source = None;
     if enriched {
@@ -393,6 +399,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut title = None;
     let mut file = None;
     let mut zip = None;
+    let mut zip_entry = None;
     let mut media_format = None;
     let mut limit: usize = 50;
     let mut limit_explicit = false;
@@ -414,7 +421,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 return Ok(());
             }
             "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit"
-            | "--file" | "--zip" | "--media-format" => args
+            | "--file" | "--zip" | "--media-format" | "--zip-entry" => args
                 .next()
                 .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
             _ => {
@@ -432,6 +439,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "--title" => title = Some(value),
             "--file" => file = Some(value),
             "--zip" => zip = Some(value),
+            "--zip-entry" => zip_entry = Some(value),
             "--media-format" => media_format = Some(MediaFormat::parse(&value)?),
             "--limit" => {
                 limit = value.parse::<usize>()?;
@@ -454,6 +462,8 @@ fn run() -> Result<(), Box<dyn Error>> {
         || (zip.is_some() && (size.is_some() || limit_explicit))
         || (title.is_none() && limit_explicit)
         || (title.is_some() && (limit == 0 || limit > 200))
+        || (zip_entry.is_some()
+            && (zip.is_none() || media_format.is_none() || zip_entry.as_deref() == Some("")))
     {
         return Err(CatalogError::Invalid(usage().into()).into());
     }
@@ -479,6 +489,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 &platform,
                 archive_path,
                 format,
+                zip_entry.as_deref(),
                 enriched,
                 curated.as_ref(),
             )?;
