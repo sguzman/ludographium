@@ -316,6 +316,33 @@ impl CatalogCollection {
             .collect()
     }
 
+    /// Explicitly normalize every ZIP member for the selected media platform.
+    /// Unlike exact lookup_zip, this conversion is opt-in and platform-scoped.
+    pub fn lookup_zip_normalized<R: Read + Seek>(
+        &self,
+        archive: R,
+        format: MediaFormat,
+    ) -> Result<Vec<NormalizedZipMemberMatch<'_>>, CatalogError> {
+        fingerprint_zip_normalized(archive, format)?
+            .into_iter()
+            .map(|member| {
+                let mut matches = Vec::new();
+                for index in &self.indexes {
+                    if index.platform() != format.platform() {
+                        continue;
+                    }
+                    matches.extend(
+                        index
+                            .lookup_sha1(&member.normalized.sha1)?
+                            .into_iter()
+                            .filter(|hit| hit.media.size == member.normalized.size),
+                    );
+                }
+                Ok(NormalizedZipMemberMatch { member, matches })
+            })
+            .collect()
+    }
+
     pub fn search_titles(
         &self,
         query: &str,
@@ -433,6 +460,33 @@ impl EnrichedCatalogCollection {
                     .filter(|match_| match_.base.media.size == member.size)
                     .collect();
                 Ok(EnrichedZipMemberMatch { member, matches })
+            })
+            .collect()
+    }
+
+    /// Explicitly normalize every ZIP member and preserve matched
+    /// bibliographic claim provenance for the selected platform.
+    pub fn lookup_zip_normalized<R: Read + Seek>(
+        &self,
+        archive: R,
+        format: MediaFormat,
+    ) -> Result<Vec<EnrichedNormalizedZipMemberMatch<'_>>, CatalogError> {
+        fingerprint_zip_normalized(archive, format)?
+            .into_iter()
+            .map(|member| {
+                let mut matches = Vec::new();
+                for index in &self.indexes {
+                    if index.base().platform() != format.platform() {
+                        continue;
+                    }
+                    matches.extend(
+                        index
+                            .lookup_sha1(&member.normalized.sha1)?
+                            .into_iter()
+                            .filter(|hit| hit.base.media.size == member.normalized.size),
+                    );
+                }
+                Ok(EnrichedNormalizedZipMemberMatch { member, matches })
             })
             .collect()
     }
