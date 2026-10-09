@@ -46,6 +46,19 @@ jobs:
         run: python tools/triage_identities.py --verify
       - name: Audit curated exact-media bibliographic evidence
         run: python tools/audit_curated_claims.py --verify
+      - name: Review field-DAT coverage of uncurated revisions
+        run: python tools/prioritize_identity_review.py --verify
+      - name: Export prioritized revision review
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: python tools/prioritize_identity_review.py --export /tmp/ludographium-prioritized-revisions-v1.json
+      - name: Upload prioritized revision review
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ludographium-prioritized-revisions-v1
+          path: /tmp/ludographium-prioritized-revisions-v1.json
+          if-no-files-found: error
+          retention-days: 14
       - name: Export curated field-claim evidence for review
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: python tools/audit_curated_claims.py --export /tmp/ludographium-curated-claims-v1.json
