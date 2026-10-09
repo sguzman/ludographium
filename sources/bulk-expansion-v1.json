@@ -1,0 +1,467 @@
+{
+  "schema_version": 1,
+  "kind": "pinned-bulk-platform-expansion",
+  "source_id": "libretro-no-intro",
+  "repository": "https://github.com/libretro/libretro-database",
+  "repository_revision": "fbeefcb46c2e1b20a7e2945f34a694a41b2d6f90",
+  "declared_repository_license": "CC-BY-SA-4.0",
+  "base_platform_count": 10,
+  "selection": "Console and dedicated handheld identification DAT collections not previously accessioned; excludes general-purpose home computers, mobile OS, software title updates, and music/video-only datasets. Each entry pinned by original Git blob SHA.",
+  "platforms": [
+    {
+      "platform": "arduboyincarduboy",
+      "label": "Arduboy Inc - Arduboy",
+      "source_path": "metadat/no-intro/Arduboy Inc - Arduboy.dat",
+      "git_blob_sha": "77a022f44094c1afed8647f16a1a74a6b106942e",
+      "bytes": 99317
+    },
+    {
+      "platform": "atari2600",
+      "label": "Atari - 2600",
+      "source_path": "metadat/no-intro/Atari - 2600.dat",
+      "git_blob_sha": "7b30b382a372d1b776fb5f01ea6abb8f8eaf78bc",
+      "bytes": 188849
+    },
+    {
+      "platform": "atari5200",
+      "label": "Atari - 5200",
+      "source_path": "metadat/no-intro/Atari - 5200.dat",
+      "git_blob_sha": "c43d1c51927b5c3747e020264083d0819ff9e07e",
+      "bytes": 48496
+    },
+    {
+      "platform": "atari7800",
+      "label": "Atari - 7800",
+      "source_path": "metadat/no-intro/Atari - 7800.dat",
+      "git_blob_sha": "afecf516b43f1caf1387cc89b6676f8f899ddd3b",
+      "bytes": 78179
+    },
+    {
+      "platform": "atarijaguar",
+      "label": "Atari - Jaguar",
+      "source_path": "metadat/no-intro/Atari - Jaguar.dat",
+      "git_blob_sha": "dcb0f072dac870b47015d98e9335f922ddb317c8",
+      "bytes": 112388
+    },
+    {
+      "platform": "atarilynx",
+      "label": "Atari - Lynx",
+      "source_path": "metadat/no-intro/Atari - Lynx.dat",
+      "git_blob_sha": "66c5cc8baf4bb63e00f7b86cea2b961d0b0df6d5",
+      "bytes": 155219
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "label": "Bandai - WonderSwan Color",
+      "source_path": "metadat/no-intro/Bandai - WonderSwan Color.dat",
+      "git_blob_sha": "5051d32bfcc0b692ec72e9b2b568cb52efb02e1b",
+      "bytes": 55258
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "label": "Bandai - WonderSwan",
+      "source_path": "metadat/no-intro/Bandai - WonderSwan.dat",
+      "git_blob_sha": "dee435895546fcfda4afeb214d62b0009cbc6988",
+      "bytes": 52070
+    },
+    {
+      "platform": "benessepocketchallengev2",
+      "label": "Benesse - Pocket Challenge V2",
+      "source_path": "metadat/no-intro/Benesse - Pocket Challenge V2.dat",
+      "git_blob_sha": "cc2dfb3c6a3d22cdceeef96eca53144975a2f2bc",
+      "bytes": 19818
+    },
+    {
+      "platform": "casioloopy",
+      "label": "Casio - Loopy",
+      "source_path": "metadat/no-intro/Casio - Loopy.dat",
+      "git_blob_sha": "58b6ad5044e59887a51055cc87439ee7494d6363",
+      "bytes": 4413
+    },
+    {
+      "platform": "casiopv1000",
+      "label": "Casio - PV-1000",
+      "source_path": "metadat/no-intro/Casio - PV-1000.dat",
+      "git_blob_sha": "bb90037eba62027d3eb452c7bc59599f852a4d56",
+      "bytes": 2711
+    },
+    {
+      "platform": "colecocolecovision",
+      "label": "Coleco - ColecoVision",
+      "source_path": "metadat/no-intro/Coleco - ColecoVision.dat",
+      "git_blob_sha": "3554dc56adbcc363efc343603d4e1481e8090b35",
+      "bytes": 41152
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "label": "Emerson - Arcadia 2001",
+      "source_path": "metadat/no-intro/Emerson - Arcadia 2001.dat",
+      "git_blob_sha": "20a671421a640078add6d6d4fdb2e8edbcc2d8a9",
+      "bytes": 9925
+    },
+    {
+      "platform": "entexadventurevision",
+      "label": "Entex - Adventure Vision",
+      "source_path": "metadat/no-intro/Entex - Adventure Vision.dat",
+      "git_blob_sha": "164a8c085f1e9b521f43bdbacaf89efa0056a0e5",
+      "bytes": 985
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "label": "Epoch - Super Cassette Vision",
+      "source_path": "metadat/no-intro/Epoch - Super Cassette Vision.dat",
+      "git_blob_sha": "b7582a39f2949dac4366f2d8cc5535780181467c",
+      "bytes": 7323
+    },
+    {
+      "platform": "fairchildchannelf",
+      "label": "Fairchild - Channel F",
+      "source_path": "metadat/no-intro/Fairchild - Channel F.dat",
+      "git_blob_sha": "a0a869221b41b19ceac516203dcf8c9750629cac",
+      "bytes": 7444
+    },
+    {
+      "platform": "funtechsuperacan",
+      "label": "Funtech - Super Acan",
+      "source_path": "metadat/no-intro/Funtech - Super Acan.dat",
+      "git_blob_sha": "ec1fe9857b4edbc8197c5249dc03311f2901fa4c",
+      "bytes": 2737
+    },
+    {
+      "platform": "gcevectrex",
+      "label": "GCE - Vectrex",
+      "source_path": "metadat/no-intro/GCE - Vectrex.dat",
+      "git_blob_sha": "180e3de683f39105a7a7224354c7631847c6f717",
+      "bytes": 9520
+    },
+    {
+      "platform": "gameparkgp32",
+      "label": "GamePark - GP32",
+      "source_path": "metadat/no-intro/GamePark - GP32.dat",
+      "git_blob_sha": "beed7643ad2d46ebef3075605c7a8b0d5a36dcc0",
+      "bytes": 6559
+    },
+    {
+      "platform": "hartunggamemaster",
+      "label": "Hartung - Game Master",
+      "source_path": "metadat/no-intro/Hartung - Game Master.dat",
+      "git_blob_sha": "c59b6a169fbfb2bb43d23d610a9cfe7963be2084",
+      "bytes": 3850
+    },
+    {
+      "platform": "intertonvc4000",
+      "label": "Interton - VC 4000",
+      "source_path": "metadat/no-intro/Interton - VC 4000.dat",
+      "git_blob_sha": "219801d9d6b21949fb0c6ac5457328bc19cf1a4d",
+      "bytes": 11704
+    },
+    {
+      "platform": "konamipicno",
+      "label": "Konami - Picno",
+      "source_path": "metadat/no-intro/Konami - Picno.dat",
+      "git_blob_sha": "1116aa21af186453558bf83eda888b784e9657f0",
+      "bytes": 5150
+    },
+    {
+      "platform": "leapfrogleappad",
+      "label": "LeapFrog - LeapPad",
+      "source_path": "metadat/no-intro/LeapFrog - LeapPad.dat",
+      "git_blob_sha": "3423a1ed25d82802579412c1da6788b86017c95a",
+      "bytes": 397
+    },
+    {
+      "platform": "leapfrogleapsterlearninggamesystem",
+      "label": "LeapFrog - Leapster Learning Game System",
+      "source_path": "metadat/no-intro/LeapFrog - Leapster Learning Game System.dat",
+      "git_blob_sha": "4dc3495cd35f671ec8545323ebce3c57baf454c1",
+      "bytes": 29367
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "label": "Magnavox - Odyssey2",
+      "source_path": "metadat/no-intro/Magnavox - Odyssey2.dat",
+      "git_blob_sha": "8f85916444c1462e3b2a685fa9395820e4fdf9df",
+      "bytes": 28221
+    },
+    {
+      "platform": "mattelintellivision",
+      "label": "Mattel - Intellivision",
+      "source_path": "metadat/no-intro/Mattel - Intellivision.dat",
+      "git_blob_sha": "8ec06a94afee834cb930fc5928293d6015dac3d5",
+      "bytes": 54774
+    },
+    {
+      "platform": "microsoftxbox360gamesondemand",
+      "label": "Microsoft - XBOX 360 (Games on Demand)",
+      "source_path": "metadat/no-intro/Microsoft - XBOX 360 (Games on Demand).dat",
+      "git_blob_sha": "72067ed8db1b5bc318b38e01402e376e718336dd",
+      "bytes": 189
+    },
+    {
+      "platform": "microsoftxbox360digital",
+      "label": "Microsoft - Xbox 360 (Digital)",
+      "source_path": "metadat/no-intro/Microsoft - Xbox 360 (Digital).dat",
+      "git_blob_sha": "4bb0081870861f7706293992c611cd8164f264df",
+      "bytes": 1863517
+    },
+    {
+      "platform": "microsoftxbox360",
+      "label": "Microsoft - Xbox 360",
+      "source_path": "metadat/no-intro/Microsoft - Xbox 360.dat",
+      "git_blob_sha": "a1034613c0f3d7ceb17e72b239e40c0833b20154",
+      "bytes": 4682322
+    },
+    {
+      "platform": "mobilezeebo",
+      "label": "Mobile - Zeebo",
+      "source_path": "metadat/no-intro/Mobile - Zeebo.dat",
+      "git_blob_sha": "1fe1e7b86d34ec27c59d20c805b19c47454c833e",
+      "bytes": 12372
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "label": "NEC - PC Engine - TurboGrafx 16",
+      "source_path": "metadat/no-intro/NEC - PC Engine - TurboGrafx 16.dat",
+      "git_blob_sha": "5cac826bc97c654b01e7fca700f80acc18ce4220",
+      "bytes": 109881
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "label": "NEC - PC Engine SuperGrafx",
+      "source_path": "metadat/no-intro/NEC - PC Engine SuperGrafx.dat",
+      "git_blob_sha": "a35626898486cca99dc154fc70e5685e500fb72e",
+      "bytes": 1311
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "label": "Nintendo - Family Computer Disk System",
+      "source_path": "metadat/no-intro/Nintendo - Family Computer Disk System.dat",
+      "git_blob_sha": "f1a9fc9f5da54daeaef06efdae1c0493ade71640",
+      "bytes": 110423
+    },
+    {
+      "platform": "nintendonewnintendo3dsdigital",
+      "label": "Nintendo - New Nintendo 3DS (Digital)",
+      "source_path": "metadat/no-intro/Nintendo - New Nintendo 3DS (Digital).dat",
+      "git_blob_sha": "d30d75f450b3e7d23f6f55f0b904b49fff269f2e",
+      "bytes": 35356
+    },
+    {
+      "platform": "nintendonewnintendo3ds",
+      "label": "Nintendo - New Nintendo 3DS",
+      "source_path": "metadat/no-intro/Nintendo - New Nintendo 3DS.dat",
+      "git_blob_sha": "7c21d13adc54ee6ccca912b07617c55a1d9c4c52",
+      "bytes": 3383
+    },
+    {
+      "platform": "nintendonintendo3dsdigital",
+      "label": "Nintendo - Nintendo 3DS (Digital)",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo 3DS (Digital).dat",
+      "git_blob_sha": "416ac31b09c31828fd5ab6b1dd42bf553f132d16",
+      "bytes": 339483
+    },
+    {
+      "platform": "nintendonintendo3ds",
+      "label": "Nintendo - Nintendo 3DS",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo 3DS.dat",
+      "git_blob_sha": "b32fbed3c790997326469ddc4174274ab19d10c1",
+      "bytes": 624129
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "label": "Nintendo - Nintendo 64DD",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo 64DD.dat",
+      "git_blob_sha": "27d5600be36e003d1a9f25c255d9af8c05ecbec3",
+      "bytes": 4837
+    },
+    {
+      "platform": "nintendonintendodsdownloadplay",
+      "label": "Nintendo - Nintendo DS (Download Play)",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo DS (Download Play).dat",
+      "git_blob_sha": "16a5be22bb2e2437d3f4d73b4dbcdd14784424a3",
+      "bytes": 228541
+    },
+    {
+      "platform": "nintendonintendodsi",
+      "label": "Nintendo - Nintendo DSi",
+      "source_path": "metadat/no-intro/Nintendo - Nintendo DSi.dat",
+      "git_blob_sha": "af7ffe54b0e352f4d871cae327b54bdc93627eec",
+      "bytes": 249474
+    },
+    {
+      "platform": "nintendopokemonmini",
+      "label": "Nintendo - Pokemon Mini",
+      "source_path": "metadat/no-intro/Nintendo - Pokemon Mini.dat",
+      "git_blob_sha": "13d37fe4701c3de1211330943b602b44e5f720ed",
+      "bytes": 11547
+    },
+    {
+      "platform": "nintendosatellaview",
+      "label": "Nintendo - Satellaview",
+      "source_path": "metadat/no-intro/Nintendo - Satellaview.dat",
+      "git_blob_sha": "373bfc648329ca8bc27062e5691d2a049597a9b6",
+      "bytes": 159090
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "label": "Nintendo - Sufami Turbo",
+      "source_path": "metadat/no-intro/Nintendo - Sufami Turbo.dat",
+      "git_blob_sha": "d0d1383f45b8e3c5eb29d6a03399dcc05d9be227",
+      "bytes": 3456
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "label": "Nintendo - Virtual Boy",
+      "source_path": "metadat/no-intro/Nintendo - Virtual Boy.dat",
+      "git_blob_sha": "a357ee42f7d6f620cdae0d28671d51a7090f22d2",
+      "bytes": 15471
+    },
+    {
+      "platform": "nintendowiidigital",
+      "label": "Nintendo - Wii (Digital)",
+      "source_path": "metadat/no-intro/Nintendo - Wii (Digital).dat",
+      "git_blob_sha": "dfb153a8217583ad158ddefc7054d0ea9e6dfdb1",
+      "bytes": 567073
+    },
+    {
+      "platform": "nintendowiiudigital",
+      "label": "Nintendo - Wii U (Digital)",
+      "source_path": "metadat/no-intro/Nintendo - Wii U (Digital).dat",
+      "git_blob_sha": "dee033ecfc84b1c171cf45ee3b4dd34f6006eec1",
+      "bytes": 695550
+    },
+    {
+      "platform": "nintendoereader",
+      "label": "Nintendo - e-Reader",
+      "source_path": "metadat/no-intro/Nintendo - e-Reader.dat",
+      "git_blob_sha": "8095ce8d3d4e7011cfa8be7ed762324d71b15f9d",
+      "bytes": 876633
+    },
+    {
+      "platform": "philipsvideopac",
+      "label": "Philips - Videopac+",
+      "source_path": "metadat/no-intro/Philips - Videopac+.dat",
+      "git_blob_sha": "89726634f2fceebb4f7a5c66b286496bfd5ce005",
+      "bytes": 7009
+    },
+    {
+      "platform": "rcastudioii",
+      "label": "RCA - Studio II",
+      "source_path": "metadat/no-intro/RCA - Studio II.dat",
+      "git_blob_sha": "d0aa0c79d2e9dc48377941680572b90462eee071",
+      "bytes": 4165
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "label": "SNK - Neo Geo Pocket Color",
+      "source_path": "metadat/no-intro/SNK - Neo Geo Pocket Color.dat",
+      "git_blob_sha": "542f78c0f1c9856dc6ffb1d1df6e9c416e636d22",
+      "bytes": 31495
+    },
+    {
+      "platform": "snkneogeopocket",
+      "label": "SNK - Neo Geo Pocket",
+      "source_path": "metadat/no-intro/SNK - Neo Geo Pocket.dat",
+      "git_blob_sha": "d4c6302289ddd5782b72980094638fb0ed77cbfe",
+      "bytes": 2781
+    },
+    {
+      "platform": "sega32x",
+      "label": "Sega - 32X",
+      "source_path": "metadat/no-intro/Sega - 32X.dat",
+      "git_blob_sha": "7d1a8472f2c15cd49dc9877fb0d27ecd28462994",
+      "bytes": 61168
+    },
+    {
+      "platform": "segabeena",
+      "label": "Sega - Beena",
+      "source_path": "metadat/no-intro/Sega - Beena.dat",
+      "git_blob_sha": "6977c00cbf10adc4006cf7d859c7b96c5741bae1",
+      "bytes": 16678
+    },
+    {
+      "platform": "segapico",
+      "label": "Sega - PICO",
+      "source_path": "metadat/no-intro/Sega - PICO.dat",
+      "git_blob_sha": "ebbfd31c8a5dad41fcc2ed51276b68857ab23d83",
+      "bytes": 137699
+    },
+    {
+      "platform": "segasg1000",
+      "label": "Sega - SG-1000",
+      "source_path": "metadat/no-intro/Sega - SG-1000.dat",
+      "git_blob_sha": "a12b051f7cc003c9d66b14b17dd8a0c4b8aa68c0",
+      "bytes": 47741
+    },
+    {
+      "platform": "sonyplaystation3psn",
+      "label": "Sony - PlayStation 3 (PSN)",
+      "source_path": "metadat/no-intro/Sony - PlayStation 3 (PSN).dat",
+      "git_blob_sha": "5849cd1926825d03a8a5da3cbc89ccd3ba1166ab",
+      "bytes": 1417860
+    },
+    {
+      "platform": "sonyplaystationportablepsn",
+      "label": "Sony - PlayStation Portable (PSN)",
+      "source_path": "metadat/no-intro/Sony - PlayStation Portable (PSN).dat",
+      "git_blob_sha": "4b1727bd11df86fe24873933be4dfe9d338dd226",
+      "bytes": 851532
+    },
+    {
+      "platform": "sonyplaystationportablepsx2psp",
+      "label": "Sony - PlayStation Portable (PSX2PSP)",
+      "source_path": "metadat/no-intro/Sony - PlayStation Portable (PSX2PSP).dat",
+      "git_blob_sha": "4c330a944f8f48c987c92f137c5451e1f3cb29ad",
+      "bytes": 16346
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "label": "Sony - PlayStation Portable",
+      "source_path": "metadat/no-intro/Sony - PlayStation Portable.dat",
+      "git_blob_sha": "15988a09fdacf376f750122b6a40660f2107fc85",
+      "bytes": 1226873
+    },
+    {
+      "platform": "sonyplaystationvitapsn",
+      "label": "Sony - PlayStation Vita (PSN)",
+      "source_path": "metadat/no-intro/Sony - PlayStation Vita (PSN).dat",
+      "git_blob_sha": "9977f7533ebabf4280f0bb7f5dd5f76130ea7921",
+      "bytes": 3941027
+    },
+    {
+      "platform": "sonyplaystationvita",
+      "label": "Sony - PlayStation Vita",
+      "source_path": "metadat/no-intro/Sony - PlayStation Vita.dat",
+      "git_blob_sha": "538f61fb9c9e80e0a821ef0e025d60fd7f7bafdd",
+      "bytes": 83313
+    },
+    {
+      "platform": "tigergamecom",
+      "label": "Tiger - Game.com",
+      "source_path": "metadat/no-intro/Tiger - Game.com.dat",
+      "git_blob_sha": "9050dfecf9892b60a805f5218a825950300cd6ff",
+      "bytes": 4816
+    },
+    {
+      "platform": "vtechcreativision",
+      "label": "VTech - CreatiVision",
+      "source_path": "metadat/no-intro/VTech - CreatiVision.dat",
+      "git_blob_sha": "6c240b7cff9bbc36f1d9b7dd9016b379b5668ff0",
+      "bytes": 7454
+    },
+    {
+      "platform": "vtechvsmile",
+      "label": "VTech - V.Smile",
+      "source_path": "metadat/no-intro/VTech - V.Smile.dat",
+      "git_blob_sha": "57ed8b54b5298499c01f4d2d25e3c8e3143eca9a",
+      "bytes": 143460
+    },
+    {
+      "platform": "watarasupervision",
+      "label": "Watara - Supervision",
+      "source_path": "metadat/no-intro/Watara - Supervision.dat",
+      "git_blob_sha": "9d0d581f871753e1b3059e7f742ab73e1c390f8c",
+      "bytes": 16032
+    }
+  ]
+}
