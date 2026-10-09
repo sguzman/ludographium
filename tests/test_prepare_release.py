@@ -52,7 +52,7 @@ class ReleasePreparationTests(unittest.TestCase):
                 project_root, "data-v1.1.0", Path(output)
             )
             content = notes.read_text(encoding="utf-8")
-            self.assertIn("8 works, 10 releases, 12 exact media builds\\n", content)
+            self.assertIn("8 works, 10 releases, 12 exact media builds\n", content)
             self.assertTrue(archive.exists())
             self.assertTrue(checksums.exists())
 
