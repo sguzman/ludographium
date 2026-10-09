@@ -85,10 +85,14 @@ pub fn fingerprint_normalized<R: Read + Seek>(
                 return Err(invalid("expected iNES NES\\x1A magic"));
             }
             if (header[7] & 0x0c) != 0 || (header[7] & 0x03) != 0 {
-                return Err(invalid("NES 2.0, VS/PlayChoice or reserved header flags are unsupported"));
+                return Err(invalid(
+                    "NES 2.0, VS/PlayChoice or reserved header flags are unsupported",
+                ));
             }
             if (header[6] & 0x04) != 0 {
-                return Err(invalid("iNES trainer requires a separate byte-domain contract"));
+                return Err(invalid(
+                    "iNES trainer requires a separate byte-domain contract",
+                ));
             }
             if header[4] == 0 {
                 return Err(invalid("iNES header has no PRG ROM"));
@@ -105,7 +109,9 @@ pub fn fingerprint_normalized<R: Read + Seek>(
         }
         MediaFormat::SnesCopier512 => {
             if file_len <= 512 || (file_len - 512) % 32_768 != 0 {
-                return Err(invalid("expected a 512-byte copier prefix and whole 32-KiB ROM banks"));
+                return Err(invalid(
+                    "expected a 512-byte copier prefix and whole 32-KiB ROM banks",
+                ));
             }
             (512, file_len - 512)
         }
@@ -121,7 +127,9 @@ pub fn fingerprint_normalized<R: Read + Seek>(
                 _ => unreachable!(),
             };
             if magic != expected {
-                return Err(invalid("Nintendo 64 byte-order signature does not match selected format"));
+                return Err(invalid(
+                    "Nintendo 64 byte-order signature does not match selected format",
+                ));
             }
             (0, file_len)
         }
@@ -170,7 +178,10 @@ mod tests {
     #[test]
     fn explicit_platform_and_format_contracts() {
         assert_eq!(MediaFormat::parse("nes-ines").unwrap().platform(), "nes");
-        assert_eq!(MediaFormat::parse("snes-copier512").unwrap().platform(), "snes");
+        assert_eq!(
+            MediaFormat::parse("snes-copier512").unwrap().platform(),
+            "snes"
+        );
         assert_eq!(MediaFormat::parse("n64-v64").unwrap().platform(), "n64");
         assert_eq!(MediaFormat::parse("n64-n64").unwrap().platform(), "n64");
         assert!(MediaFormat::parse("raw").is_err());
@@ -210,8 +221,9 @@ mod tests {
             fingerprint_normalized(Cursor::new(&data), MediaFormat::SnesCopier512).unwrap();
         assert_eq!(result.sha1, hash(&data[512..]));
         assert_eq!(result.size, 32_768);
-        assert!(fingerprint_normalized(Cursor::new(&data[512..]), MediaFormat::SnesCopier512)
-            .is_err());
+        assert!(
+            fingerprint_normalized(Cursor::new(&data[512..]), MediaFormat::SnesCopier512).is_err()
+        );
         data.push(0);
         assert!(fingerprint_normalized(Cursor::new(&data), MediaFormat::SnesCopier512).is_err());
     }
@@ -244,8 +256,7 @@ mod tests {
         for word in little.chunks_exact_mut(4) {
             word.reverse();
         }
-        let result =
-            fingerprint_normalized(Cursor::new(&little), MediaFormat::N64N64).unwrap();
+        let result = fingerprint_normalized(Cursor::new(&little), MediaFormat::N64N64).unwrap();
         assert_eq!(result.sha1, hash(&canonical));
     }
 }
