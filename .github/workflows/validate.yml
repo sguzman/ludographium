@@ -12,7 +12,13 @@ jobs:
           python-version: '3.13'
       - name: Enforce text-source and no tracked database policy
         run: |
-          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)        run: python -m unittest discover -s tests -v
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo 'ERROR: binary database tracked in Git; only source text is permitted.'
+            exit 1
+          fi
+          python -m unittest discover -s tests -p test_wikidata_text.py -v
+      - name: Parser and lookup tests
+        run: python -m unittest discover -s tests -v
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
       - name: Rebuild-check identification catalog
