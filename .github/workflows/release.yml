@@ -54,6 +54,7 @@ jobs:
         run: |
           cargo fmt --all -- --check
           cargo test --workspace --all-targets --locked
+          python tools/smoke_media_formats.py
       - name: Stage and verify portable release
         shell: bash
         run: |
