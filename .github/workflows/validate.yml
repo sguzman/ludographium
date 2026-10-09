@@ -49,16 +49,6 @@ jobs:
           cd "$RUNNER_TEMP"
           sha256sum ludographium-corpus.sqlite > ludographium-corpus.sqlite.sha256
           sha256sum --check ludographium-corpus.sqlite.sha256
-      - name: Upload complete offline metadata corpus
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        uses: actions/upload-artifact@v4
-        with:
-          name: ludographium-complete-corpus-sqlite
-          path: |
-            ${{ runner.temp }}/ludographium-corpus.sqlite
-            ${{ runner.temp }}/ludographium-corpus.sqlite.sha256
-          if-no-files-found: error
-          retention-days: 14
       - name: Verify provenance-linked reconciliation queue
         run: python tools/triage_enrichment.py --check
       - name: Verify conservative identity-revision candidate review
