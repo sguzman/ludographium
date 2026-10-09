@@ -52,6 +52,8 @@ The Rust reader validates the source indexes before returning matches. Consumers
 cargo run --locked -p ludographium -- --platform gb --sha1 952D154DD2C6189EF4B786AE37BD7887C8CA9037
 ```
 
+A downloaded dataset may be checked end-to-end using the Rust command `--verify-runtime --root /path/to/extracted/runtime`, which validates all declared files and source catalog references against the included manifest. Verify the archive checksum from the release first; see the [consumer guide](docs/CONSUMERS.md).
+
 Source-title discovery is also available when no fingerprint is known. Results remain original source records, not merged game identities:
 
 ```sh
