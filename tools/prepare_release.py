@@ -86,10 +86,9 @@ def prepare_release(root: Path, tag: str, output: Path) -> tuple[Path, Path, Pat
         "Verify the downloaded archive and its `.sha256` file together using "
         f"`sha256sum -c {name}.sha256`. The extracted archive contains "
         "`generated/v1/distribution.json` for per-file SHA-256 verification.\n\n"
-        "The release workflow also publishes a separately SHA-256-verified "
-        f"ludographium-corpus-{tag}.sqlite companion with all source records, "
-        "media fingerprints and resolved/unresolved metadata claims for offline SQL queries. "
-        "The database does not automatically assert work/release identities.\n\n"
+        "Collected metadata are maintained as attributed, human-readable source data. "
+        "Wikidata source observations are stored in the repository as per-platform JSONL. "
+        "SQLite indexes are optional derived local build products, not release assets.\n\n"
         "Original Ludographium code is MIT-licensed; upstream metadata retains "
         "its own source-specific rights and attribution. Consult `METADATA-NOTICE.md` "
         "inside the archive. The archive checksum verifies bytes but is not a digital signature.\n",
