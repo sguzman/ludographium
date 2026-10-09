@@ -579,6 +579,56 @@ mod tests {
     }
 
     #[test]
+    fn normalized_zip_scans_non_seekable_members_and_keeps_original_size() {
+        use std::io::{Cursor, Write};
+        let mut writer = zip::ZipWriter::new(Cursor::new(Vec::new()));
+        writer.add_directory(
+            "nested/",
+            zip::write::SimpleFileOptions::default(),
+        ).unwrap();
+        writer.start_file(
+            "nested/synthetic.nes",
+            zip::write::SimpleFileOptions::default()
+                .compression_method(zip::CompressionMethod::Deflated),
+        ).unwrap();
+        let mut bytes = vec![0u8; 16 + 16_384];
+        bytes[..4].copy_from_slice(b"NES\x1a");
+        bytes[4] = 1;
+        bytes[16..].fill(0x5a);
+        writer.write_all(&bytes).unwrap();
+        let zip = writer.finish().unwrap().into_inner();
+
+        let fingerprints =
+            fingerprint_zip_normalized(Cursor::new(&zip), MediaFormat::NesInes).unwrap();
+        assert_eq!(fingerprints.len(), 1);
+        assert_eq!(fingerprints[0].entry_name, "nested/synthetic.nes");
+        assert_eq!(fingerprints[0].original_size, (16 + 16_384) as u64);
+        assert_eq!(fingerprints[0].normalized.size, 16_384);
+        assert_eq!(
+            fingerprints[0].normalized.sha1,
+            format!("{:X}", Sha1::digest(&bytes[16..]))
+        );
+
+        let base = CatalogCollection::open(root()).unwrap();
+        let actual = base
+            .lookup_zip_normalized(Cursor::new(&zip), MediaFormat::NesInes)
+            .unwrap();
+        assert_eq!(actual[0].member.original_size, 16_400);
+        assert!(actual[0].matches.is_empty());
+
+        let enriched = EnrichedCatalogCollection::open(root()).unwrap();
+        let actual = enriched
+            .lookup_zip_normalized(Cursor::new(&zip), MediaFormat::NesInes)
+            .unwrap();
+        assert_eq!(actual[0].member.normalized.size, 16_384);
+        assert!(actual[0].matches.is_empty());
+        assert!(fingerprint_zip_normalized(
+            Cursor::new(&zip),
+            MediaFormat::N64V64
+        ).is_err());
+    }
+
+    #[test]
     fn accession_registry_is_dynamic_and_integrity_checked() {
         let all = CatalogCollection::open(root()).unwrap();
         let ids = all.platform_ids().collect::<Vec<_>>();
