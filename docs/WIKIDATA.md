@@ -12,6 +12,10 @@ The first completed source capture on **2026-10-09** includes **16 platform mapp
 
 The [published Wikidata-enriched SQLite database](https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-data-v1.6.0.sqlite) retained all **117,145** Libretro source observations and **167,640** attributed field claims unchanged. It adds independent Wikidata entities, dates, exact query-response evidence and noncanonical title candidates.
 
+## Committed text corpus
+
+The primary imported Wikidata data now lives in [16 per-platform JSONL files](../data/wikidata/v1/) and a [plain-text provenance manifest](../data/wikidata/v1/manifest.json), approximately **4.2 MB total in Git**. Each item retains its Wikidata QID, English label and captured date statements. `tools/export_wikidata_text.py` deterministically rebuilds and verifies these files from the pinned original JSON source snapshot. SQLite is an optional locally generated search index, not the committed data format. See the [data-format policy](DATA-FORMATS.md).
+
 ## Bulk accession
 
 The [source register](../sources/wikidata-v1.json) declares 16 Wikidata platform IDs across the existing 75-platform console corpus. It includes original ten-system families and selected additional Atari, Nintendo, Xbox and PlayStation collections.
