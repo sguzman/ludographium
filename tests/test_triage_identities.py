@@ -73,6 +73,16 @@ class RevisionReviewTests(unittest.TestCase):
         data["records"][1]["roms"][0]["sha1"] = data["records"][0]["roms"][0]["sha1"]
         self.assertEqual(revisions_for_platform(data), [])
 
+    def test_excludes_mixed_byte_domains_and_duplicate_revision_labels(self):
+        # This is common in NES catalogs with paired headered and headerless
+        # observations of the same nominal edition.
+        data = bundle(["Game (USA)", "Game (USA)",
+                       "Game (USA) (Rev 1)", "Game (USA) (Rev 1)"])
+        self.assertEqual(revisions_for_platform(data), [])
+        data = bundle(["Game (USA)", "Game (USA) (Rev 1)"])
+        data["records"][1]["roms"][0]["size"] = 32784
+        self.assertEqual(revisions_for_platform(data), [])
+
     def test_excludes_multifile_or_missing_checksums(self):
         data = bundle(["Game (USA)", "Game (USA) (Rev A)"])
         data["records"][0]["roms"].append(dict(data["records"][0]["roms"][0]))
