@@ -6,6 +6,7 @@
 pub mod collection;
 pub mod curated;
 pub mod enrichment;
+pub mod media;
 
 use serde::Deserialize;
 use sha1::{Digest, Sha1};
