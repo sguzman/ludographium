@@ -609,6 +609,34 @@ mod tests {
             .ends_with("Atari - 2600.dat"));
     }
     #[test]
+    fn direct_field_dat_joins_match_verified_bulk_corpus_counts() {
+        use super::OriginalDatCatalog;
+        use std::path::Path;
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = OriginalDatCatalog::open(&root, "all")
+            .unwrap()
+            .with_enrichment(&root)
+            .unwrap();
+        let counts = catalog.claim_resolution_counts();
+        assert_eq!(counts.values().sum::<usize>(), 167_640);
+        assert_eq!(counts["matched"], 112_948);
+        assert!(counts["missing_crc"] > 0);
+        assert_eq!(catalog.field_claims().unwrap().len(), 167_640);
+
+        let atari = OriginalDatCatalog::open(&root, "atari2600")
+            .unwrap()
+            .with_enrichment(&root)
+            .unwrap();
+        let (total, matches) = atari.search_titles("3-D Tic-Tac-Toe", 20).unwrap();
+        assert!(total > 0);
+        assert!(matches.iter().any(|item| {
+            item["metadata_claims"]
+                .as_array()
+                .is_some_and(|claims| claims.iter().any(|claim| claim["field"] == "releaseyear"))
+        }));
+    }
+
+    #[test]
     fn permits_empty_valid_header_only_dat_but_rejects_truncation() {
         assert!(parse_dat(b"clrmamepro (\n name \"Empty\"\n)\n")
             .unwrap()
