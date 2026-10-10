@@ -32,6 +32,17 @@ The original 88 pinned Libretro DATs supply **129,008 bibliographic claims** acr
 
 [75-platform bulk expansion](docs/BULK-EXPANSION.md) · [Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Source registers](sources/README.md)
 
+## Rust offline source search
+
+The existing Rust CLI can search all **75 cloned identification DAT collections** directly. No Python, SQLite build or network connection is necessary:
+
+```sh
+cargo run --locked -- --source-dat --platform all --title "Adventure" --limit 5
+cargo run --locked -- --source-dat --platform atari2600 --title "Asteroids"
+```
+
+The opt-in `--source-dat` mode reads the original, hash-verified DAT text. It retains original record ordinals, source paths and Git blob hashes. Title results are source observations, not canonical game identities; fingerprint matches are based on literal source SHA-1 or CRC32 plus size. The preexisting generated-JSON/ten-system Rust consumer path remains available unchanged. [Details](docs/BULK-EXPANSION.md).
+
 ## Repository structure
 
 | Location | Description |
