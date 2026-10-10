@@ -34,13 +34,13 @@ struct FieldFile {
 }
 
 #[derive(Debug, Serialize)]
-pub(crate) struct FieldResolution {
+pub struct FieldResolution {
     pub status: String,
     pub base_source_ordinal: Option<usize>,
 }
 
 #[derive(Debug, Serialize)]
-pub(crate) struct FieldClaim {
+pub struct FieldClaim {
     pub platform: String,
     pub field: String,
     pub value: Option<String>,
