@@ -236,9 +236,8 @@ fn parse_dat(bytes: &[u8]) -> Result<Vec<Game>, CatalogError> {
     if in_game {
         return Err(invalid("unclosed DAT game block"));
     }
-    if records.is_empty() {
-        return Err(invalid("DAT contains no source records"));
-    }
+    // A registered DAT can legitimately be header-only (zero observations).
+    // The caller independently checks the entire file's pinned Git blob SHA.
     Ok(records)
 }
 
@@ -456,6 +455,31 @@ mod tests {
             "Pokémon \"Blue\""
         );
     }
+    #[test]
+    fn reads_every_registered_original_dat_and_preserves_all_observations() {
+        use super::OriginalDatCatalog;
+        use std::path::Path;
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = OriginalDatCatalog::open(&root, "all").unwrap();
+        assert_eq!(catalog.platform_ids().count(), 75);
+        assert_eq!(catalog.source_record_count(), 117_145);
+        assert!(catalog.platform_ids().any(|id| id == "microsoftxbox360gamesondemand"));
+        let xbox_empty = OriginalDatCatalog::open(&root, "microsoftxbox360gamesondemand").unwrap();
+        assert_eq!(xbox_empty.source_record_count(), 0);
+        let atari = OriginalDatCatalog::open(&root, "atari2600").unwrap();
+        assert!(atari.source_record_count() > 100);
+        let (total, found) = atari.search_titles("Adventure", 10).unwrap();
+        assert!(total > 0);
+        assert!(!found.is_empty());
+        assert_eq!(found[0]["platform"], "atari2600");
+        assert!(found[0]["source"]["path"].as_str().unwrap().ends_with("Atari - 2600.dat"));
+    }
+    #[test]
+    fn permits_empty_valid_header_only_dat_but_rejects_truncation() {
+        assert!(parse_dat(b"clrmamepro (\n name \"Empty\"\n)\n").unwrap().is_empty());
+        assert!(parse_dat(b"game (\n name \"Missing media\"\n)\n").is_err());
+    }
+
     #[test]
     fn malformed_input_is_rejected() {
         assert!(parse_dat(b"game (\n name \"X\"\n)").is_err());
