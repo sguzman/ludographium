@@ -39,9 +39,10 @@ The existing Rust CLI can search all **75 cloned identification DAT collections*
 ```sh
 cargo run --locked -- --source-dat --platform all --title "Adventure" --limit 5
 cargo run --locked -- --source-dat --platform atari2600 --title "Asteroids"
+cargo run --locked -- --source-dat --enriched --platform atari2600 --title "Asteroids"
 ```
 
-The opt-in `--source-dat` mode reads the original, hash-verified DAT text. It retains original record ordinals, source paths and Git blob hashes. Title results are source observations, not canonical game identities; fingerprint matches are based on literal source SHA-1 or CRC32 plus size. The preexisting generated-JSON/ten-system Rust consumer path remains available unchanged. [Details](docs/BULK-EXPANSION.md).
+The opt-in `--source-dat` mode reads the original, hash-verified DAT text. It retains original record ordinals, source paths and Git blob hashes. Title results are source observations, not canonical game identities; fingerprint matches are based on literal source SHA-1 or CRC32 plus size. The preexisting generated-JSON/ten-system Rust consumer path remains available unchanged. Add `--enriched` in source-DAT mode to read all **367 pinned bibliographic DATs** (88 original and 279 additional) directly from Git text, hash-verify them, and conservatively attach source claims by unique CRC32 and exact original title. The full corpus retains **167,640 original field observations**, including **112,948 conservatively attached claims**; unresolved claims retain their reasons and provenance instead of being treated as game identities. This needs no Python or SQLite. [Details](docs/BULK-EXPANSION.md).
 
 ## Repository structure
 
