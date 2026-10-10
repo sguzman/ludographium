@@ -144,7 +144,8 @@ fn parse_field_dat(bytes: &[u8]) -> Result<Vec<FieldRecord>, CatalogError> {
     for (index, raw) in text.lines().enumerate() {
         let line = raw.trim();
         if !in_game {
-            if line == "game (" {
+            // Match the source importer's column-zero record boundary exactly.
+            if raw == "game (" {
                 in_game = true;
                 values.clear();
                 crc = None;
