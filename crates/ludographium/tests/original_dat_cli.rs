@@ -69,3 +69,46 @@ fn all_original_platforms_are_searchable_offline_including_empty_sources() {
     assert_eq!(empty["match_count"], 0);
     assert_eq!(empty["total_source_records"], 0);
 }
+
+#[test]
+fn optional_bibliographic_dat_enrichment_uses_original_attributed_claims() {
+    let plain = query(&[
+        "--source-dat",
+        "--platform",
+        "atari2600",
+        "--title",
+        "3-D Tic-Tac-Toe",
+    ]);
+    assert!(plain["matches"][0].get("metadata_claims").is_none());
+
+    let enriched = query(&[
+        "--source-dat",
+        "--enriched",
+        "--platform",
+        "atari2600",
+        "--title",
+        "3-D Tic-Tac-Toe",
+    ]);
+    assert_eq!(
+        enriched["bibliographic_mode"],
+        "verified-original-field-dat-text"
+    );
+    assert!(enriched["field_claim_resolution_counts"]["matched"]
+        .as_u64()
+        .unwrap()
+        > 0);
+    assert!(enriched["matches"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .any(|record| {
+            record["metadata_claims"]
+                .as_array()
+                .is_some_and(|claims| claims.iter().any(|claim| {
+                    claim["field"] == "releaseyear"
+                        && claim["resolution"]["status"] == "matched"
+                        && claim["source"]["path"].is_null()
+                        && claim["source_blob_sha"].as_str().is_some()
+                }))
+        }));
+}
