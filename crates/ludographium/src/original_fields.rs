@@ -106,7 +106,10 @@ fn safe_file(entry: &FieldFile) -> bool {
         && name != "."
         && name != ".."
         && !entry.platform.is_empty()
-        && entry.platform.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+        && entry
+            .platform
+            .bytes()
+            .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
         && entry.git_blob_sha.len() == 40
         && entry.git_blob_sha.bytes().all(|b| b.is_ascii_hexdigit())
 }
@@ -162,7 +165,10 @@ fn parse_field_dat(bytes: &[u8]) -> Result<Vec<FieldRecord>, CatalogError> {
             });
             in_game = false;
         } else if line == "game (" {
-            return Err(invalid(format!("nested field DAT game at line {}", index + 1)));
+            return Err(invalid(format!(
+                "nested field DAT game at line {}",
+                index + 1
+            )));
         } else if line == "rom (" {
             in_rom = true;
         } else if let Some(attrs) = line.strip_prefix("rom (").and_then(|s| s.strip_suffix(')')) {
@@ -170,11 +176,17 @@ fn parse_field_dat(bytes: &[u8]) -> Result<Vec<FieldRecord>, CatalogError> {
         } else if !line.is_empty() {
             let mut attrs = pairs(line)?;
             if attrs.len() != 1 {
-                return Err(invalid(format!("invalid field DAT scalar at line {}", index + 1)));
+                return Err(invalid(format!(
+                    "invalid field DAT scalar at line {}",
+                    index + 1
+                )));
             }
             let (key, value) = attrs.pop_first().expect("one attribute");
             if values.insert(key, value).is_some() {
-                return Err(invalid(format!("duplicate field DAT scalar at line {}", index + 1)));
+                return Err(invalid(format!(
+                    "duplicate field DAT scalar at line {}",
+                    index + 1
+                )));
             }
         }
     }
@@ -185,27 +197,34 @@ fn parse_field_dat(bytes: &[u8]) -> Result<Vec<FieldRecord>, CatalogError> {
 }
 
 fn register(root: &Path, filename: &str, count: usize) -> Result<FieldRegister, CatalogError> {
-    let manifest: FieldRegister = serde_json::from_slice(
-        &fs::read(root.join("sources").join(filename))?,
-    )?;
+    let manifest: FieldRegister =
+        serde_json::from_slice(&fs::read(root.join("sources").join(filename))?)?;
     let bulk = filename == "bulk-fields-v1.json";
     if manifest.schema_version != 1
         || manifest.source_id != "libretro-metadata"
         || manifest.repository_revision != REVISION
         || manifest.declared_repository_license != "CC-BY-SA-4.0"
         || manifest.files.len() != count
-        || (bulk && (manifest.kind.as_deref() != Some("pinned-bulk-bibliographic-expansion")
-            || manifest.base_source_id.as_deref() != Some("libretro-no-intro")))
+        || (bulk
+            && (manifest.kind.as_deref() != Some("pinned-bulk-bibliographic-expansion")
+                || manifest.base_source_id.as_deref() != Some("libretro-no-intro")))
     {
-        return Err(invalid(format!("invalid bibliographic source register: {filename}")));
+        return Err(invalid(format!(
+            "invalid bibliographic source register: {filename}"
+        )));
     }
     let mut seen = HashSet::new();
     for file in &manifest.files {
         if !safe_file(file)
             || !seen.insert((file.platform.as_str(), file.field.as_str()))
-            || (bulk && file.bytes.is_none_or(|size| size == 0 || size >= 50_000_000))
+            || (bulk
+                && file
+                    .bytes
+                    .is_none_or(|size| size == 0 || size >= 50_000_000))
         {
-            return Err(invalid(format!("invalid bibliographic source entry: {filename}")));
+            return Err(invalid(format!(
+                "invalid bibliographic source entry: {filename}"
+            )));
         }
     }
     Ok(manifest)
@@ -224,7 +243,9 @@ pub(crate) fn load_claims(
     for (manifest, expanded) in [(&original, false), (&bulk, true)] {
         for entry in &manifest.files {
             if !seen.insert((entry.platform.as_str(), entry.field.as_str())) {
-                return Err(invalid("duplicate bibliographic platform/field across registers"));
+                return Err(invalid(
+                    "duplicate bibliographic platform/field across registers",
+                ));
             }
             if !selected_platforms.contains(&entry.platform) {
                 continue;
@@ -249,8 +270,11 @@ pub(crate) fn load_claims(
                 claims.push(FieldClaim {
                     platform: entry.platform.clone(),
                     field: entry.field.clone(),
-                    value: record.values.get(&entry.field)
-                        .or_else(|| record.values.get(&format!("rom_{}", entry.field))).cloned(),
+                    value: record
+                        .values
+                        .get(&entry.field)
+                        .or_else(|| record.values.get(&format!("rom_{}", entry.field)))
+                        .cloned(),
                     crc32: record.crc32,
                     source_ordinal: record.ordinal,
                     source_comment: record.values.get("comment").cloned(),
@@ -272,7 +296,7 @@ pub(crate) fn load_claims(
 
 #[cfg(test)]
 mod tests {
-    use super::{parse_field_dat, load_claims};
+    use super::{load_claims, parse_field_dat};
     use std::collections::HashSet;
     use std::path::Path;
 
@@ -303,11 +327,13 @@ game (
     fn reads_all_367_pinned_field_sources() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let base = serde_json::from_slice::<serde_json::Value>(
-            &std::fs::read(root.join("sources/libretro-no-intro.json")).unwrap()
-        ).unwrap();
+            &std::fs::read(root.join("sources/libretro-no-intro.json")).unwrap(),
+        )
+        .unwrap();
         let extended = serde_json::from_slice::<serde_json::Value>(
-            &std::fs::read(root.join("sources/bulk-expansion-v1.json")).unwrap()
-        ).unwrap();
+            &std::fs::read(root.join("sources/bulk-expansion-v1.json")).unwrap(),
+        )
+        .unwrap();
         let mut platforms = HashSet::new();
         for source in base["files"].as_array().unwrap() {
             platforms.insert(source["platform"].as_str().unwrap().to_owned());
