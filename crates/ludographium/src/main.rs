@@ -525,14 +525,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
     }
     if source_dat {
-        if show_curated
-            || zip.is_some()
-            || media_format.is_some()
-            || zip_entry.is_some()
-        {
+        if show_curated || zip.is_some() || media_format.is_some() || zip_entry.is_some() {
             return Err(CatalogError::Invalid(
                 "--source-dat does not support --curated, --zip or --media-format".into(),
-            ).into());
+            )
+            .into());
         }
         let catalog = if enriched {
             OriginalDatCatalog::open(&root, &platform)?.with_enrichment(&root)?
