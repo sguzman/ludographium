@@ -525,7 +525,12 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
     }
     if source_dat {
-        if enriched || show_curated || zip.is_some() || media_format.is_some() || zip_entry.is_some() {
+        if enriched
+            || show_curated
+            || zip.is_some()
+            || media_format.is_some()
+            || zip_entry.is_some()
+        {
             return Err(CatalogError::Invalid(
                 "--source-dat reads original identification DATs only; --enriched, --curated, --zip and --media-format are unsupported".into(),
             ).into());
@@ -538,9 +543,15 @@ fn run() -> Result<(), Box<dyn Error>> {
         } else if let Some(ref hash) = sha1 {
             (None, catalog.lookup_sha1(hash, size)?)
         } else if let Some(ref path) = file {
-            (None, catalog.lookup_reader(BufReader::new(File::open(path)?))?)
+            (
+                None,
+                catalog.lookup_reader(BufReader::new(File::open(path)?))?,
+            )
         } else {
-            (None, catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?)
+            (
+                None,
+                catalog.lookup_crc32(crc32.as_deref().unwrap(), size.unwrap())?,
+            )
         };
         let mut output = json!({
             "source_mode": "original-dat-text",
@@ -553,7 +564,11 @@ fn run() -> Result<(), Box<dyn Error>> {
             output["query_kind"] = json!("source-title-substring");
             output["total_source_records"] = json!(total);
         } else {
-            output["input_kind"] = json!(if file.is_some() { "exact-local-file-bytes" } else { "fingerprint" });
+            output["input_kind"] = json!(if file.is_some() {
+                "exact-local-file-bytes"
+            } else {
+                "fingerprint"
+            });
         }
         println!("{}", serde_json::to_string_pretty(&output)?);
         return Ok(());
