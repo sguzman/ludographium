@@ -50,6 +50,20 @@ Matching field claims are *source associations*, not independent factual verific
 
 The paths follow the original upstream tree, for example `archive/libretro-bulk/metadat/no-intro/Atari - 2600.dat` and `archive/libretro-bulk/metadat/developer/Atari - 2600.dat`. Browse or process them directly after cloning, without an internet request or database. `cargo test --workspace --all-targets --locked` validates exact source lengths, SHA-1 Git blob identities, UTF-8 text encoding and the complete file inventory, without Python or SQLite.
 
+## Rust access to all 75 cloned identification sources
+
+The Rust CLI has an opt-in direct-text lookup mode, requiring only a local clone:
+
+```sh
+cargo run --locked -- --source-dat --platform all --title "Adventure" --limit 5
+cargo run --locked -- --source-dat --platform atari2600 --title "Asteroids"
+cargo run --locked -- --source-dat --platform atari2600 --crc32 DEADBEEF --size 4096
+```
+
+The last command illustrates exact-match syntax, not a claimed match for those example bytes. `--source-dat` also supports `--sha1` and `--file` while preserving original source information. No network service, Python scripts, SQLite database or generated index is required. Registered DAT files are checked against their original Git blob SHA before use. The parser preserves unknown source fields and keeps distinct observations distinct.
+
+This mode directly queries all 75 *identification* source collections, totaling 117,145 observations. Bibliographic field DATs remain independently accessible as original text in `archive/libretro-bulk/metadat/`; this mode does **not** pretend that unmatched developer, publisher or release-date claims are automatically verified associations. Existing `--enriched` mode retains its original ten-platform JSON contract.
+
 ## Legacy optional database build and verify
 
 The [dedicated bulk CI workflow](../.github/workflows/expand-corpus.yml) performs the entire process without a manual game-by-game queue:
