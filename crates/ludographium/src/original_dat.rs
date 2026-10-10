@@ -351,7 +351,6 @@ impl OriginalDatCatalog {
         })
     }
 
-
     /// Load the original 88 plus expanded 279 bibliographic DATs from Git.
     /// Attach only a unique CRC32 whose source comment exactly matches the
     /// identification record's original title; preserve every other claim.
@@ -363,8 +362,10 @@ impl OriginalDatCatalog {
             for game in &platform.games {
                 for media in &game.media {
                     if let Some(crc) = media.get("crc") {
-                        by_crc.entry((platform.id.clone(), crc.to_ascii_uppercase()))
-                            .or_default().push((game.ordinal, game.fields["name"].clone()));
+                        by_crc
+                            .entry((platform.id.clone(), crc.to_ascii_uppercase()))
+                            .or_default()
+                            .push((game.ordinal, game.fields["name"].clone()));
                     }
                 }
             }
@@ -394,11 +395,15 @@ impl OriginalDatCatalog {
             claim.resolution.status = status.to_owned();
             claim.resolution.base_source_ordinal = target;
             if let (Some(crc), Some(ordinal)) = (claim.crc32.as_deref(), target) {
-                self.attached.entry((claim.platform.clone(), ordinal, crc.to_owned()))
-                    .or_default().push(i);
+                self.attached
+                    .entry((claim.platform.clone(), ordinal, crc.to_owned()))
+                    .or_default()
+                    .push(i);
             } else if let Some(crc) = claim.crc32.as_deref() {
-                self.unresolved_by_crc.entry((claim.platform.clone(), crc.to_owned()))
-                    .or_default().push(i);
+                self.unresolved_by_crc
+                    .entry((claim.platform.clone(), crc.to_owned()))
+                    .or_default()
+                    .push(i);
             }
         }
         self.claims = Some(claims);
@@ -442,7 +447,10 @@ impl OriginalDatCatalog {
         for item in media_values {
             if let Some(crc) = item.get("crc") {
                 let crc = crc.to_ascii_uppercase();
-                if let Some(indices) = self.attached.get(&(platform.id.clone(), game.ordinal, crc.clone())) {
+                if let Some(indices) =
+                    self.attached
+                        .get(&(platform.id.clone(), game.ordinal, crc.clone()))
+                {
                     for i in indices {
                         if seen_attached.insert(*i) {
                             attached.push(&claims[*i]);
