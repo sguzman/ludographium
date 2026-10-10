@@ -2,11 +2,12 @@
 //!
 //! Each result is a source observation, not a validated game/work identity.
 //! Raw original fields (including unknown fields) are retained unchanged.
+use crate::original_fields::{load_claims, FieldClaim};
 use crate::CatalogError;
 use serde::Deserialize;
 use serde_json::{json, Value};
 use sha1::{Digest, Sha1};
-use std::collections::{BTreeMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs;
 use std::io::Read;
 use std::path::Path;
@@ -59,6 +60,9 @@ struct Platform {
 /// Full source-text collection. Parsing and hash-checking are read-only, local operations.
 pub struct OriginalDatCatalog {
     platforms: Vec<Platform>,
+    claims: Option<Vec<FieldClaim>>,
+    attached: HashMap<(String, usize, String), Vec<usize>>,
+    unresolved_by_crc: HashMap<(String, String), Vec<usize>>,
 }
 
 fn invalid(msg: impl Into<String>) -> CatalogError {
@@ -92,7 +96,7 @@ fn load_register(root: &Path, name: &str, expected: usize) -> Result<Register, C
 
 /// Parse clrmamepro DAT key/value attributes. Every original value survives.
 /// Quotes may contain literal UTF-8 and escaped quote/backslash characters.
-fn pairs(line: &str) -> Result<BTreeMap<String, String>, CatalogError> {
+pub(crate) fn pairs(line: &str) -> Result<BTreeMap<String, String>, CatalogError> {
     let bytes = line.as_bytes();
     let mut pos = 0;
     let mut fields = BTreeMap::new();
@@ -339,7 +343,124 @@ impl OriginalDatCatalog {
                 "unknown original DAT source platform: {selection}"
             )));
         }
-        Ok(Self { platforms })
+        Ok(Self {
+            platforms,
+            claims: None,
+            attached: HashMap::new(),
+            unresolved_by_crc: HashMap::new(),
+        })
+    }
+
+
+    /// Load the original 88 plus expanded 279 bibliographic DATs from Git.
+    /// Attach only a unique CRC32 whose source comment exactly matches the
+    /// identification record's original title; preserve every other claim.
+    pub fn with_enrichment(mut self, root: impl AsRef<Path>) -> Result<Self, CatalogError> {
+        let selected: HashSet<String> = self.platforms.iter().map(|p| p.id.clone()).collect();
+        let mut claims = load_claims(root.as_ref(), &selected)?;
+        let mut by_crc: HashMap<(String, String), Vec<(usize, String)>> = HashMap::new();
+        for platform in &self.platforms {
+            for game in &platform.games {
+                for media in &game.media {
+                    if let Some(crc) = media.get("crc") {
+                        by_crc.entry((platform.id.clone(), crc.to_ascii_uppercase()))
+                            .or_default().push((game.ordinal, game.fields["name"].clone()));
+                    }
+                }
+            }
+        }
+        for (i, claim) in claims.iter_mut().enumerate() {
+            let (status, target) = if let Some(crc) = claim.crc32.as_deref() {
+                let candidates = by_crc.get(&(claim.platform.clone(), crc.to_owned()));
+                if claim.value.is_none() {
+                    ("missing_value", None)
+                } else if candidates.is_none_or(Vec::is_empty) {
+                    ("unmatched_crc", None)
+                } else if candidates.is_some_and(|matches| matches.len() > 1) {
+                    ("ambiguous_crc", None)
+                } else if claim.source_comment.is_none() {
+                    ("missing_comment", None)
+                } else {
+                    let (ordinal, title) = &candidates.expect("unique CRC exists")[0];
+                    if claim.source_comment.as_deref() != Some(title.as_str()) {
+                        ("comment_mismatch", None)
+                    } else {
+                        ("matched", Some(*ordinal))
+                    }
+                }
+            } else {
+                ("missing_crc", None)
+            };
+            claim.resolution.status = status.to_owned();
+            claim.resolution.base_source_ordinal = target;
+            if let (Some(crc), Some(ordinal)) = (claim.crc32.as_deref(), target) {
+                self.attached.entry((claim.platform.clone(), ordinal, crc.to_owned()))
+                    .or_default().push(i);
+            } else if let Some(crc) = claim.crc32.as_deref() {
+                self.unresolved_by_crc.entry((claim.platform.clone(), crc.to_owned()))
+                    .or_default().push(i);
+            }
+        }
+        self.claims = Some(claims);
+        Ok(self)
+    }
+
+    pub fn claim_resolution_counts(&self) -> BTreeMap<String, usize> {
+        let mut result = BTreeMap::new();
+        if let Some(claims) = &self.claims {
+            for claim in claims {
+                *result.entry(claim.resolution.status.clone()).or_insert(0) += 1;
+            }
+        }
+        result
+    }
+
+    /// All original source claims remain available even when they cannot be
+    /// joined. The caller can inspect the full unresolved record and reason.
+    pub fn field_claims(&self) -> Option<&[FieldClaim]> {
+        self.claims.as_deref()
+    }
+
+    fn format_result(
+        &self,
+        platform: &Platform,
+        game: &Game,
+        media: Option<&BTreeMap<String, String>>,
+    ) -> Value {
+        let mut result = format_match(platform, game, media);
+        let Some(claims) = &self.claims else {
+            return result;
+        };
+        let media_values: Vec<&BTreeMap<String, String>> = match media {
+            Some(item) => vec![item],
+            None => game.media.iter().collect(),
+        };
+        let mut seen_attached = HashSet::new();
+        let mut seen_unresolved = HashSet::new();
+        let mut attached = Vec::new();
+        let mut unresolved = Vec::new();
+        for item in media_values {
+            if let Some(crc) = item.get("crc") {
+                let crc = crc.to_ascii_uppercase();
+                if let Some(indices) = self.attached.get(&(platform.id.clone(), game.ordinal, crc.clone())) {
+                    for i in indices {
+                        if seen_attached.insert(*i) {
+                            attached.push(&claims[*i]);
+                        }
+                    }
+                }
+                if let Some(indices) = self.unresolved_by_crc.get(&(platform.id.clone(), crc)) {
+                    for i in indices {
+                        if seen_unresolved.insert(*i) {
+                            unresolved.push(&claims[*i]);
+                        }
+                    }
+                }
+            }
+        }
+        result["metadata_claims"] = json!(attached);
+        result["unresolved_source_claims"] = json!(unresolved);
+        result
     }
 
     pub fn platform_ids(&self) -> impl Iterator<Item = &str> {
@@ -372,7 +493,7 @@ impl OriginalDatCatalog {
                 if record.fields["name"].to_lowercase().contains(&needle) {
                     total += 1;
                     if matches.len() < limit {
-                        matches.push(format_match(platform, record, None));
+                        matches.push(self.format_result(platform, record, None));
                     }
                 }
             }
@@ -413,7 +534,7 @@ impl OriginalDatCatalog {
                             continue;
                         }
                     }
-                    matches.push(format_match(platform, record, Some(media)));
+                    matches.push(self.format_result(platform, record, Some(media)));
                 }
             }
         }
