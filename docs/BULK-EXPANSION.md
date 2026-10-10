@@ -58,11 +58,12 @@ The Rust CLI has an opt-in direct-text lookup mode, requiring only a local clone
 cargo run --locked -- --source-dat --platform all --title "Adventure" --limit 5
 cargo run --locked -- --source-dat --platform atari2600 --title "Asteroids"
 cargo run --locked -- --source-dat --platform atari2600 --crc32 DEADBEEF --size 4096
+cargo run --locked -- --source-dat --enriched --platform atari2600 --title "Asteroids"
 ```
 
 The last command illustrates exact-match syntax, not a claimed match for those example bytes. `--source-dat` also supports `--sha1` and `--file` while preserving original source information. No network service, Python scripts, SQLite database or generated index is required. Registered DAT files are checked against their original Git blob SHA before use. The parser preserves unknown source fields and keeps distinct observations distinct.
 
-This mode directly queries all 75 *identification* source collections, totaling 117,145 observations. Bibliographic field DATs remain independently accessible as original text in `archive/libretro-bulk/metadat/`; this mode does **not** pretend that unmatched developer, publisher or release-date claims are automatically verified associations. Existing `--enriched` mode retains its original ten-platform JSON contract.
+This mode directly queries all 75 *identification* source collections, totaling 117,145 observations. Add `--enriched` to the `--source-dat` lookup to load and hash-check the original 88 plus 279 additional bibliographic DATs directly as text. Rust retains all 167,640 original claims, conservatively associates 112,948 by unique platform CRC32 and exact source-title comment, and leaves missing CRC, missing values, ambiguous CRCs, absent comments, mismatched comments and unmatched CRCs unresolved. The library exposes the full claims (including claims without any matching identification record) with original paths, blob hashes, ordinals, raw field values and resolution reasons. This mode does **not** pretend the claims establish canonical game identities. Existing `--enriched` mode without `--source-dat` retains its original ten-platform JSON contract.
 
 ## Legacy optional database build and verify
 
