@@ -463,7 +463,9 @@ mod tests {
         let catalog = OriginalDatCatalog::open(&root, "all").unwrap();
         assert_eq!(catalog.platform_ids().count(), 75);
         assert_eq!(catalog.source_record_count(), 117_145);
-        assert!(catalog.platform_ids().any(|id| id == "microsoftxbox360gamesondemand"));
+        assert!(catalog
+            .platform_ids()
+            .any(|id| id == "microsoftxbox360gamesondemand"));
         let xbox_empty = OriginalDatCatalog::open(&root, "microsoftxbox360gamesondemand").unwrap();
         assert_eq!(xbox_empty.source_record_count(), 0);
         let atari = OriginalDatCatalog::open(&root, "atari2600").unwrap();
@@ -472,11 +474,16 @@ mod tests {
         assert!(total > 0);
         assert!(!found.is_empty());
         assert_eq!(found[0]["platform"], "atari2600");
-        assert!(found[0]["source"]["path"].as_str().unwrap().ends_with("Atari - 2600.dat"));
+        assert!(found[0]["source"]["path"]
+            .as_str()
+            .unwrap()
+            .ends_with("Atari - 2600.dat"));
     }
     #[test]
     fn permits_empty_valid_header_only_dat_but_rejects_truncation() {
-        assert!(parse_dat(b"clrmamepro (\n name \"Empty\"\n)\n").unwrap().is_empty());
+        assert!(parse_dat(b"clrmamepro (\n name \"Empty\"\n)\n")
+            .unwrap()
+            .is_empty());
         assert!(parse_dat(b"game (\n name \"Missing media\"\n)\n").is_err());
     }
 
