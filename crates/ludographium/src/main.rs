@@ -525,17 +525,20 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
     }
     if source_dat {
-        if enriched
-            || show_curated
+        if show_curated
             || zip.is_some()
             || media_format.is_some()
             || zip_entry.is_some()
         {
             return Err(CatalogError::Invalid(
-                "--source-dat reads original identification DATs only; --enriched, --curated, --zip and --media-format are unsupported".into(),
+                "--source-dat does not support --curated, --zip or --media-format".into(),
             ).into());
         }
-        let catalog = OriginalDatCatalog::open(&root, &platform)?;
+        let catalog = if enriched {
+            OriginalDatCatalog::open(&root, &platform)?.with_enrichment(&root)?
+        } else {
+            OriginalDatCatalog::open(&root, &platform)?
+        };
         let all = catalog.platform_ids().collect::<Vec<_>>();
         let (count, matches) = if let Some(ref name) = title {
             let (total, values) = catalog.search_titles(name, limit)?;
@@ -560,6 +563,10 @@ fn run() -> Result<(), Box<dyn Error>> {
             "matches": matches,
             "interpretation": "original-source-observations-not-canonical-identities"
         });
+        if enriched {
+            output["field_claim_resolution_counts"] = json!(catalog.claim_resolution_counts());
+            output["bibliographic_mode"] = json!("verified-original-field-dat-text");
+        }
         if let Some(total) = count {
             output["query_kind"] = json!("source-title-substring");
             output["total_source_records"] = json!(total);
