@@ -107,7 +107,9 @@ fn optional_bibliographic_dat_enrichment_uses_original_attributed_claims() {
                 .is_some_and(|claims| claims.iter().any(|claim| {
                     claim["field"] == "releaseyear"
                         && claim["resolution"]["status"] == "matched"
-                        && claim["source"]["path"].is_null()
+                        && claim["source_path"]
+                            .as_str()
+                            .is_some_and(|path| path.ends_with("Atari - 2600.dat"))
                         && claim["source_blob_sha"].as_str().is_some()
                 }))
         }));
