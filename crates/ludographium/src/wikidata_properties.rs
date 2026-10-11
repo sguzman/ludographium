@@ -49,7 +49,6 @@ struct Manifest {
     non_entity_value_bindings: usize,
 }
 
-
 #[derive(Debug, Deserialize)]
 struct ExpandedRegister {
     schema_version: u32,
@@ -347,10 +346,7 @@ impl WikidataPropertyCatalog {
 
     /// Read the separate 19-platform CC0 credit corpus with original response checks.
     /// This does not join source claims to canonical game or company identities.
-    pub fn open_expanded(
-        root: impl AsRef<Path>,
-        selection: &str,
-    ) -> Result<Self, CatalogError> {
+    pub fn open_expanded(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
         let root = root.as_ref();
         let mut seen_platforms = HashSet::new();
         let mut platforms = Vec::new();
@@ -612,11 +608,7 @@ mod tests {
                 && claim.source_sha256.len() == 64
                 && claim.interpretation.contains("not-verified")
         }));
-        let psp = WikidataPropertyCatalog::open_expanded(
-            &root,
-            "sonyplaystationportable",
-        )
-        .unwrap();
+        let psp = WikidataPropertyCatalog::open_expanded(&root, "sonyplaystationportable").unwrap();
         assert_eq!(psp.total_claims(), 3_811);
         assert!(WikidataPropertyCatalog::open_expanded(&root, "unknown").is_err());
         assert!(catalog.search(Some("Q0"), None, 2).is_err());
