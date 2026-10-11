@@ -1208,7 +1208,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         return Ok(());
     }
     if wikidata_relations {
-        let catalog = WikidataRelationCatalog::open(&root, &platform)?;
+        let catalog = match cohort {
+            "expanded-v1" => WikidataRelationCatalog::open_expanded(&root, &platform)?,
+            "expanded-v2" => WikidataRelationCatalog::open_expanded_v2(&root, &platform)?,
+            _ => WikidataRelationCatalog::open(&root, &platform)?,
+        };
         let (total, distinct_qids, distinct_platforms, results) = if let Some(ref identifier) =
             external_id
         {
@@ -1244,6 +1248,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "{}",
             serde_json::to_string_pretty(&json!({
                 "source_mode": "verified-wikidata-game-relations-and-external-ids",
+                "metadata_cohort": cohort,
                 "query_kind": if external_id.is_some() {
                     "exact-provider-identifier-source-claim"
                 } else if qid.is_some() {
@@ -1335,8 +1340,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         return Ok(());
     }
     if wikidata_properties {
-        let catalog = if expanded_credits {
+        let catalog = if expanded_credits || cohort == "expanded-v1" {
             WikidataPropertyCatalog::open_expanded(&root, &platform)?
+        } else if cohort == "expanded-v2" {
+            WikidataPropertyCatalog::open_expanded_v2(&root, &platform)?
         } else {
             WikidataPropertyCatalog::open(&root, &platform)?
         };
@@ -1365,11 +1372,12 @@ fn run() -> Result<(), Box<dyn Error>> {
         println!(
             "{}",
             serde_json::to_string_pretty(&json!({
-                "source_mode": if expanded_credits {
+                "source_mode": if expanded_credits || cohort != "baseline" {
                     "verified-wikidata-expanded-property-bindings"
                 } else {
                     "verified-wikidata-property-bindings"
                 },
+                "metadata_cohort": if expanded_credits { "expanded-v1" } else { cohort },
                 "query_kind": if qid.is_some() {"exact-game-item-qid"} else {"source-statement-list"},
                 "platforms_searched": catalog.platforms(),
                 "source_statements": catalog.total_claims(),
