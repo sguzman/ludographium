@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "baseline_register": "sources/wikidata-v1.json",
+  "query": "Same P31 video game and P400 platform semantics as original accession; optional English rdfs:label and P577 publication-date claim",
+  "query_limit": 20000,
+  "platforms": [
+    {
+      "platform": "atari7800",
+      "wikidata_platform": "Q753600",
+      "platform_label": "Atari 7800",
+      "evidence_url": "https://www.wikidata.org/wiki/Q753600"
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "wikidata_platform": "Q170325",
+      "platform_label": "PlayStation Portable",
+      "evidence_url": "https://www.wikidata.org/wiki/Q170325"
+    },
+    {
+      "platform": "sonyplaystationvita",
+      "wikidata_platform": "Q188808",
+      "platform_label": "PlayStation Vita",
+      "evidence_url": "https://www.wikidata.org/wiki/Q188808"
+    }
+  ],
+  "source_policy": "Immutable original query and response, JSONL serialization, SHA-256 hashes and source-specific capture timestamp; never attach inferred game or media identities; does not change existing 16-platform v1 sources."
+}
