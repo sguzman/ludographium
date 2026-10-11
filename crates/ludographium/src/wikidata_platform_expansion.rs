@@ -11,6 +11,7 @@ use std::path::Path;
 const BASE_V1: &str = "data/wikidata/platform-expansion-v1";
 const BASE_V2: &str = "data/wikidata/platform-expansion-v2";
 const BASE_V3: &str = "data/wikidata/platform-expansion-v3";
+const BASE_V4: &str = "data/wikidata/platform-expansion-v4";
 const MAP_V1: &[(&str, &str)] = &[
     ("atari7800", "Q753600"),
     ("sonyplaystationportable", "Q170325"),
@@ -30,6 +31,15 @@ const MAP_V3: &[(&str, &str)] = &[
     ("segasg1000", "Q1136956"),
     ("sega32x", "Q1063978"),
     ("necpcengineturbografx16", "Q1057377"),
+];
+
+const MAP_V4: &[(&str, &str)] = &[
+    ("atari5200", "Q743222"),
+    ("colecocolecovision", "Q1046862"),
+    ("gcevectrex", "Q767631"),
+    ("mattelintellivision", "Q1061441"),
+    ("magnavoxodyssey2", "Q576932"),
+    ("nintendopokemonmini", "Q1759168"),
 ];
 
 #[derive(Deserialize)]
@@ -162,6 +172,16 @@ impl ExpandedWikidataCatalog {
             BASE_V3,
             "sources/wikidata-platform-expansion-v3.json",
             MAP_V3,
+        )
+    }
+
+    pub fn open_v4(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V4,
+            "sources/wikidata-platform-expansion-v4.json",
+            MAP_V4,
         )
     }
 
@@ -503,5 +523,26 @@ mod tests {
         assert_eq!(count, 1_148);
         assert_eq!(result.len(), 1);
         assert!(result[0].source_path.contains("platform-expansion-v3"));
+    }
+
+    #[test]
+    fn legacy_home_console_and_pokemon_mini_source_evidence_is_preserved() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = ExpandedWikidataCatalog::open_v4(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 6);
+        assert_eq!(catalog.total_rows(), 482);
+        assert_eq!(catalog.distinct_item_observations(), 356);
+        assert_eq!(catalog.literal_date_claims(), 425);
+        assert_eq!(catalog.nonliteral_publication_bindings(), 0);
+        assert_eq!(catalog.platform_row_counts()["atari5200"], 109);
+        assert_eq!(catalog.platform_row_counts()["colecocolecovision"], 191);
+        assert_eq!(catalog.platform_row_counts()["gcevectrex"], 19);
+        assert_eq!(catalog.platform_row_counts()["mattelintellivision"], 123);
+        assert_eq!(catalog.platform_row_counts()["magnavoxodyssey2"], 30);
+        assert_eq!(catalog.platform_row_counts()["nintendopokemonmini"], 10);
+        let (total, samples) = catalog.search(None, None, 1).unwrap();
+        assert_eq!(total, 482);
+        assert!(samples[0].source_path.contains("platform-expansion-v4"));
+        assert!(ExpandedWikidataCatalog::open_v4(&root, "invalid").is_err());
     }
 }

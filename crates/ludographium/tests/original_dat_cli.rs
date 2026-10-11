@@ -1293,7 +1293,7 @@ fn second_wikidata_console_expansion_is_searchable_and_noncanonical() {
         vec![
             "--wikidata-expanded",
             "--expansion-source",
-            "v4",
+            "v5",
             "--platform",
             "all",
         ],
@@ -1378,4 +1378,43 @@ fn third_wikidata_console_expansion_retains_all_original_game_observations() {
         candidates["returned_candidate_links"].as_u64().unwrap(),
         n.min(3),
     );
+}
+
+#[test]
+fn fourth_wikidata_console_expansion_preserves_original_source_text_and_candidates() {
+    let all = query(&[
+        "--wikidata-expanded",
+        "--expansion-source",
+        "v4",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(all["expansion_source"], "v4");
+    assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 6);
+    assert_eq!(all["source_rows"], 482);
+    assert_eq!(all["source_item_platform_observations"], 356);
+    assert_eq!(all["literal_publication_date_bindings"], 425);
+    assert_eq!(all["nonliteral_publication_bindings"], 0);
+    assert_eq!(all["returned_source_rows"], 2);
+    let rows = all["source_rows_evidence"].as_array().unwrap();
+    assert!(rows.iter().all(|row| {
+        row["source_path"].as_str().unwrap().contains("platform-expansion-v4")
+            && row["source_sha256"].as_str().unwrap().len() == 64
+    }));
+    let review = query(&[
+        "--wikidata-expanded-candidates",
+        "--expansion-source",
+        "v4",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(review["expansion_source"], "v4");
+    assert_eq!(review["platforms_searched"].as_array().unwrap().len(), 6);
+    assert!(review["total_candidate_links"].as_u64().is_some());
+    let n = review["total_candidate_links"].as_u64().unwrap();
+    assert_eq!(review["returned_candidate_links"].as_u64().unwrap(), n.min(2));
 }

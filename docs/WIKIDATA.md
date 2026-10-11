@@ -52,6 +52,31 @@ distinct date claims are grouped under the same QID/title candidate without
 discarding their original row ordinals. There is no automatic game identity,
 edition, port, or regional-release assignment.
 
+## Fourth additive platform expansion: six legacy systems
+
+A separate [v4 console-source register](../sources/wikidata-platform-expansion-v4.json)
+records original Wikidata platform mappings for Atari 5200, ColecoVision,
+GCE Vectrex, Mattel Intellivision, Magnavox Odyssey 2, and Nintendo Pokémon
+Mini. These were previously uncovered within the pinned Libretro collections.
+
+The [six immutable P400 source partitions](../data/wikidata/platform-expansion-v4/)
+contain **482 original response rows**, **356 item/platform QID observations**
+and **425 literal publication-date assertions**, with no nonliteral P577
+bindings. Each has the original SPARQL request, full response, exact JSONL
+source text, SHA-256 manifests and collection timestamp. Earlier platform
+expansions remain unchanged.
+
+The Rust reader verifies source bytes and can list the original evidence or
+review same-platform source-title candidates without assigning identities:
+
+```sh
+cargo run --locked -- --wikidata-expanded --expansion-source v4 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v4 --platform all --limit 5
+```
+
+A title correspondence is **review evidence only**, not a source-confirmed
+work, region, edition, port, release or media identity.
+
 ## Third additive platform expansion: six more consoles
 
 The separately pinned [v3 platform register](../sources/wikidata-platform-expansion-v3.json)
