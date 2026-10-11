@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "kind": "pinned-wikidata-gamefaqs-statement-platform-qualifier-audit",
+  "source_commit_sha": "98602613d13d26b2a92364bbe2c59395549a729f",
+  "captured_platforms": 16,
+  "original_statement_observation_rows": 23623,
+  "distinct_wikidata_statement_uris": 13719,
+  "original_qualifier_relation_counts": {
+    "no_explicit_platform_qualifier": 497,
+    "qualifier_equals_selected_item_platform": 9042,
+    "qualifier_names_other_platform": 14084
+  },
+  "per_platform": {
+    "atari2600": {
+      "source_rows": 313,
+      "with_explicit_qualifier": 139,
+      "qualifier_names_query_platform": 5,
+      "qualifier_names_other_platform": 134
+    },
+    "gb": {
+      "source_rows": 742,
+      "with_explicit_qualifier": 728,
+      "qualifier_names_query_platform": 348,
+      "qualifier_names_other_platform": 380
+    },
+    "gba": {
+      "source_rows": 1510,
+      "with_explicit_qualifier": 1495,
+      "qualifier_names_query_platform": 554,
+      "qualifier_names_other_platform": 941
+    },
+    "gbc": {
+      "source_rows": 465,
+      "with_explicit_qualifier": 449,
+      "qualifier_names_query_platform": 61,
+      "qualifier_names_other_platform": 388
+    },
+    "genesis": {
+      "source_rows": 1839,
+      "with_explicit_qualifier": 1822,
+      "qualifier_names_query_platform": 826,
+      "qualifier_names_other_platform": 996
+    },
+    "microsoftxbox360": {
+      "source_rows": 3635,
+      "with_explicit_qualifier": 3625,
+      "qualifier_names_query_platform": 1235,
+      "qualifier_names_other_platform": 2390
+    },
+    "n64": {
+      "source_rows": 554,
+      "with_explicit_qualifier": 549,
+      "qualifier_names_query_platform": 299,
+      "qualifier_names_other_platform": 250
+    },
+    "nds": {
+      "source_rows": 2084,
+      "with_explicit_qualifier": 2035,
+      "qualifier_names_query_platform": 876,
+      "qualifier_names_other_platform": 1159
+    },
+    "nes": {
+      "source_rows": 1497,
+      "with_explicit_qualifier": 1457,
+      "qualifier_names_query_platform": 941,
+      "qualifier_names_other_platform": 516
+    },
+    "nintendonintendo3ds": {
+      "source_rows": 848,
+      "with_explicit_qualifier": 817,
+      "qualifier_names_query_platform": 357,
+      "qualifier_names_other_platform": 460
+    },
+    "nintendovirtualboy": {
+      "source_rows": 21,
+      "with_explicit_qualifier": 21,
+      "qualifier_names_query_platform": 19,
+      "qualifier_names_other_platform": 2
+    },
+    "nintendowiidigital": {
+      "source_rows": 2478,
+      "with_explicit_qualifier": 2454,
+      "qualifier_names_query_platform": 908,
+      "qualifier_names_other_platform": 1546
+    },
+    "nintendowiiudigital": {
+      "source_rows": 1292,
+      "with_explicit_qualifier": 1269,
+      "qualifier_names_query_platform": 332,
+      "qualifier_names_other_platform": 937
+    },
+    "sms": {
+      "source_rows": 559,
+      "with_explicit_qualifier": 556,
+      "qualifier_names_query_platform": 223,
+      "qualifier_names_other_platform": 333
+    },
+    "snes": {
+      "source_rows": 1807,
+      "with_explicit_qualifier": 1754,
+      "qualifier_names_query_platform": 830,
+      "qualifier_names_other_platform": 924
+    },
+    "sonyplaystation3psn": {
+      "source_rows": 3979,
+      "with_explicit_qualifier": 3956,
+      "qualifier_names_query_platform": 1228,
+      "qualifier_names_other_platform": 2728
+    }
+  },
+  "interpretation": "Wikidata statement-level GameFAQs P4769 values and optional P400 qualifiers. The query platform is an item-level P400 selection; a different statement qualifier is not an error. Missing qualifiers remain unknown. No external GameFAQs verification or canonical edition assignment."
+}
