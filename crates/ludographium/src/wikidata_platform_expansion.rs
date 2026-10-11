@@ -619,7 +619,10 @@ mod tests {
         assert_eq!(catalog.literal_date_claims(), 20);
         assert_eq!(catalog.nonliteral_publication_bindings(), 0);
         assert_eq!(catalog.platform_row_counts()["emersonarcadia2001"], 3);
-        assert_eq!(catalog.platform_row_counts()["epochsupercassettevision"], 14);
+        assert_eq!(
+            catalog.platform_row_counts()["epochsupercassettevision"],
+            14
+        );
         assert_eq!(catalog.platform_row_counts()["gameparkgp32"], 0);
         assert_eq!(catalog.platform_row_counts()["intertonvc4000"], 0);
         assert_eq!(catalog.platform_row_counts()["rcastudioii"], 1);
