@@ -613,16 +613,34 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
 
     if wikidata_expanded_candidates {
-        if wikidata_expanded || (qid.is_some() && title.is_some())
-            || source_dat || claims_only || enriched || show_curated
-            || wikidata_text || wikidata_candidates || wikidata_localized_candidates
-            || wikidata_properties || wikidata_relations || wikidata_authority_ids
-            || wikidata_gamefaqs_qualifiers || wikidata_items || wikidata_localized_titles
-            || with_entity_labels || compare_years || compare_credits
-            || sha1.is_some() || crc32.is_some() || size.is_some()
-            || file.is_some() || zip.is_some() || zip_entry.is_some()
-            || media_format.is_some() || property.is_some()
-            || external_id.is_some() || language.is_some()
+        if wikidata_expanded
+            || (qid.is_some() && title.is_some())
+            || source_dat
+            || claims_only
+            || enriched
+            || show_curated
+            || wikidata_text
+            || wikidata_candidates
+            || wikidata_localized_candidates
+            || wikidata_properties
+            || wikidata_relations
+            || wikidata_authority_ids
+            || wikidata_gamefaqs_qualifiers
+            || wikidata_items
+            || wikidata_localized_titles
+            || with_entity_labels
+            || compare_years
+            || compare_credits
+            || sha1.is_some()
+            || crc32.is_some()
+            || size.is_some()
+            || file.is_some()
+            || zip.is_some()
+            || zip_entry.is_some()
+            || media_format.is_some()
+            || property.is_some()
+            || external_id.is_some()
+            || language.is_some()
         {
             return Err(CatalogError::Invalid(
                 "--wikidata-expanded-candidates only accepts a platform, optional QID or title, and limit".into()
@@ -635,17 +653,20 @@ fn run() -> Result<(), Box<dyn Error>> {
         let original = OriginalDatCatalog::open(&root, scope)?;
         let catalog = ExpandedTitleCandidateCatalog::reconcile(&original, &wikidata);
         let (total, results) = catalog.search(qid.as_deref(), title.as_deref(), limit)?;
-        println!("{}", serde_json::to_string_pretty(&json!({
-            "source_mode": "noncanonical-expanded-platform-title-candidates",
-            "platforms_searched": catalog.platforms(),
-            "total_candidate_links": catalog.total_links(),
-            "source_records_with_candidate": catalog.source_records_with_candidate(),
-            "ambiguous_title_candidate_links": catalog.ambiguous_links(),
-            "total_filtered_candidate_links": total,
-            "returned_candidate_links": results.len(),
-            "candidates": results,
-            "interpretation": "same-platform-exact-conservative-title-candidates-not-verified-work-or-release-identities"
-        }))?);
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json!({
+                "source_mode": "noncanonical-expanded-platform-title-candidates",
+                "platforms_searched": catalog.platforms(),
+                "total_candidate_links": catalog.total_links(),
+                "source_records_with_candidate": catalog.source_records_with_candidate(),
+                "ambiguous_title_candidate_links": catalog.ambiguous_links(),
+                "total_filtered_candidate_links": total,
+                "returned_candidate_links": results.len(),
+                "candidates": results,
+                "interpretation": "same-platform-exact-conservative-title-candidates-not-verified-work-or-release-identities"
+            }))?
+        );
         return Ok(());
     }
 
