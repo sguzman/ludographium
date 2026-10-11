@@ -318,6 +318,9 @@ impl ExpandedWikidataCatalog {
             platform_row_counts,
         })
     }
+    pub fn observations(&self) -> &[ExpandedWikidataObservation] {
+        &self.observations
+    }
     pub fn platforms(&self) -> &[String] {
         &self.platforms
     }

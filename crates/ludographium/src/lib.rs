@@ -640,6 +640,7 @@ pub mod wikidata_gamefaqs_qualifiers;
 pub mod wikidata_items;
 pub mod wikidata_localized_candidates;
 pub mod wikidata_localized_titles;
+pub mod wikidata_expanded_candidates;
 pub mod wikidata_platform_expansion;
 pub mod wikidata_properties;
 pub mod wikidata_relations;
