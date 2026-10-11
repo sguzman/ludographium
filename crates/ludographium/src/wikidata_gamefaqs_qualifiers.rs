@@ -85,7 +85,8 @@ fn digest(bytes: &[u8]) -> String {
 }
 fn qid(value: &str) -> bool {
     value.strip_prefix('Q').is_some_and(|digits| {
-        !digits.is_empty() && !digits.starts_with('0')
+        !digits.is_empty()
+            && !digits.starts_with('0')
             && digits.bytes().all(|byte| byte.is_ascii_digit())
     })
 }
@@ -95,7 +96,12 @@ fn item_qid(uri: &str) -> Option<&str> {
         .or_else(|| uri.strip_prefix("https://www.wikidata.org/entity/"))?;
     qid(id).then_some(id)
 }
-fn original(directory: &Path, name: &str, bytes: usize, sha: &str) -> Result<Vec<u8>, CatalogError> {
+fn original(
+    directory: &Path,
+    name: &str,
+    bytes: usize,
+    sha: &str,
+) -> Result<Vec<u8>, CatalogError> {
     let path = directory.join(name);
     if fs::symlink_metadata(&path)?.file_type().is_symlink() {
         return Err(invalid("Original GameFAQs source file is a symbolic link"));
@@ -127,7 +133,10 @@ impl GameFaqsQualifierCatalog {
         for platform in register.platforms {
             if !registered.insert(platform.platform.clone())
                 || platform.platform.is_empty()
-                || !platform.platform.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+                || !platform
+                    .platform
+                    .bytes()
+                    .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
                 || !qid(&platform.wikidata_platform)
             {
                 return Err(invalid("Invalid registered source platform"));
@@ -158,9 +167,17 @@ impl GameFaqsQualifierCatalog {
                 || m.distinct_source_statements == 0
                 || m.rows_with_explicit_platform_qualifier > m.source_rows
             {
-                return Err(invalid(format!("GameFAQs source manifest mismatch: {}", platform.platform)));
+                return Err(invalid(format!(
+                    "GameFAQs source manifest mismatch: {}",
+                    platform.platform
+                )));
             }
-            let query = original(&folder, "query.rq", m.source_query_bytes, &m.source_query_sha256)?;
+            let query = original(
+                &folder,
+                "query.rq",
+                m.source_query_bytes,
+                &m.source_query_sha256,
+            )?;
             let query_text = std::str::from_utf8(&query)
                 .map_err(|_| invalid("Non-UTF-8 GameFAQs original SPARQL query"))?;
             if !query_text.contains(&format!("wd:{}", platform.wikidata_platform))
@@ -171,21 +188,30 @@ impl GameFaqsQualifierCatalog {
             {
                 return Err(invalid("GameFAQs query platform/property scope differs"));
             }
-            let response = original(&folder, "response.json", m.source_response_bytes,
-                &m.source_response_sha256)?;
+            let response = original(
+                &folder,
+                "response.json",
+                m.source_response_bytes,
+                &m.source_response_sha256,
+            )?;
             let response_json: Value = serde_json::from_slice(&response)?;
             if response_json["head"]["vars"]
                 != json!(["item", "statement", "identifier", "qualifiedPlatform"])
             {
                 return Err(invalid("GameFAQs response bindings schema changed"));
             }
-            let rows = response_json["results"]["bindings"].as_array()
+            let rows = response_json["results"]["bindings"]
+                .as_array()
                 .ok_or_else(|| invalid("Missing original statement response rows"))?;
             if rows.len() != m.source_rows {
                 return Err(invalid("Original GameFAQs response row count differs"));
             }
-            let raw = original(&folder, "bindings.jsonl", m.source_bindings_bytes,
-                &m.source_bindings_sha256)?;
+            let raw = original(
+                &folder,
+                "bindings.jsonl",
+                m.source_bindings_bytes,
+                &m.source_bindings_sha256,
+            )?;
             let source = std::str::from_utf8(&raw)
                 .map_err(|_| invalid("Non-UTF-8 original GameFAQs JSONL"))?;
             let lines: Vec<_> = source.lines().collect();
@@ -196,25 +222,34 @@ impl GameFaqsQualifierCatalog {
             let mut qualified = 0;
             for (ordinal, line) in lines.iter().enumerate() {
                 let row: Value = serde_json::from_str(line)?;
-                if row != rows[ordinal] || row["item"]["type"] != "uri"
+                if row != rows[ordinal]
+                    || row["item"]["type"] != "uri"
                     || row["statement"]["type"] != "uri"
                 {
                     return Err(invalid("GameFAQs original response/JSONL row mismatch"));
                 }
-                let game = row["item"]["value"].as_str().and_then(item_qid)
+                let game = row["item"]["value"]
+                    .as_str()
+                    .and_then(item_qid)
                     .ok_or_else(|| invalid("Invalid GameFAQs game QID"))?;
-                let statement = row["statement"]["value"].as_str()
+                let statement = row["statement"]["value"]
+                    .as_str()
                     .ok_or_else(|| invalid("Missing GameFAQs original statement URI"))?;
-                let actual_statement_prefix = format!("http://www.wikidata.org/entity/statement/{game}-");
-                let alternate_statement_prefix = format!("https://www.wikidata.org/entity/statement/{game}-");
+                let actual_statement_prefix =
+                    format!("http://www.wikidata.org/entity/statement/{game}-");
+                let alternate_statement_prefix =
+                    format!("https://www.wikidata.org/entity/statement/{game}-");
                 if !(statement.starts_with(&actual_statement_prefix)
                     || statement.starts_with(&alternate_statement_prefix))
                     || (row["identifier"]["type"] != "literal"
                         && row["identifier"]["type"] != "typed-literal")
                 {
-                    return Err(invalid("GameFAQs subject, statement or identifier RDF type differs"));
+                    return Err(invalid(
+                        "GameFAQs subject, statement or identifier RDF type differs",
+                    ));
                 }
-                let identifier = row["identifier"]["value"].as_str()
+                let identifier = row["identifier"]["value"]
+                    .as_str()
                     .filter(|value| !value.is_empty())
                     .ok_or_else(|| invalid("Missing GameFAQs source identifier"))?;
                 let qualifier = match row.get("qualifiedPlatform") {
@@ -224,9 +259,13 @@ impl GameFaqsQualifierCatalog {
                             return Err(invalid("GameFAQs platform qualifier is not an RDF URI"));
                         }
                         qualified += 1;
-                        Some(record["value"].as_str().and_then(item_qid)
-                            .ok_or_else(|| invalid("Invalid Wikidata P400 qualifier QID"))?
-                            .to_owned())
+                        Some(
+                            record["value"]
+                                .as_str()
+                                .and_then(item_qid)
+                                .ok_or_else(|| invalid("Invalid Wikidata P400 qualifier QID"))?
+                                .to_owned(),
+                        )
                     }
                 };
                 let scope = match qualifier.as_deref() {
@@ -259,15 +298,24 @@ impl GameFaqsQualifierCatalog {
             if qualified != m.rows_with_explicit_platform_qualifier
                 || statement_uris.len() != m.distinct_source_statements
             {
-                return Err(invalid("Original GameFAQs source qualifier/statement counts differ"));
+                return Err(invalid(
+                    "Original GameFAQs source qualifier/statement counts differ",
+                ));
             }
             distinct_statements_per_partition += statement_uris.len();
             platforms.push(platform.platform);
         }
         if platforms.is_empty() || (selection == "all" && platforms.len() != 16) {
-            return Err(invalid(format!("Unknown or incomplete GameFAQs platform: {selection}")));
+            return Err(invalid(format!(
+                "Unknown or incomplete GameFAQs platform: {selection}"
+            )));
         }
-        Ok(Self { claims, platforms, counts, distinct_statements_per_partition })
+        Ok(Self {
+            claims,
+            platforms,
+            counts,
+            distinct_statements_per_partition,
+        })
     }
 
     pub fn total_rows(&self) -> usize {
@@ -292,7 +340,9 @@ impl GameFaqsQualifierCatalog {
             || game_qid.is_some_and(|name| !qid(name))
             || identifier.is_some_and(str::is_empty)
         {
-            return Err(invalid("Invalid GameFAQs search: valid QID and/or raw ID, limit 1..=200"));
+            return Err(invalid(
+                "Invalid GameFAQs search: valid QID and/or raw ID, limit 1..=200",
+            ));
         }
         let mut count = 0;
         let mut results = Vec::new();
@@ -323,9 +373,18 @@ mod tests {
         assert_eq!(catalog.source_partitions().len(), 16);
         assert_eq!(catalog.total_rows(), 23_623);
         assert_eq!(catalog.distinct_source_statements_per_partition(), 23_623);
-        assert_eq!(catalog.qualifier_counts()["no_explicit_platform_qualifier"], 497);
-        assert_eq!(catalog.qualifier_counts()["qualifier_equals_selected_item_platform"], 9_042);
-        assert_eq!(catalog.qualifier_counts()["qualifier_names_other_platform"], 14_084);
+        assert_eq!(
+            catalog.qualifier_counts()["no_explicit_platform_qualifier"],
+            497
+        );
+        assert_eq!(
+            catalog.qualifier_counts()["qualifier_equals_selected_item_platform"],
+            9_042
+        );
+        assert_eq!(
+            catalog.qualifier_counts()["qualifier_names_other_platform"],
+            14_084
+        );
         let atari = GameFaqsQualifierCatalog::open(&root, "atari2600").unwrap();
         let (count, sample) = atari.search(None, None, 3).unwrap();
         assert_eq!(count, 313);
