@@ -906,6 +906,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "relation_labels_in_english": relation_labels.english_label_count(),
                 "relation_source_only_items": index.relation_only(),
                 "combined_distinct_platform_qids": index.total_items(),
+                "source_membership_counts": index.source_membership_counts(),
                 "title_date_source_only_items": index.title_date_only(),
                 "property_source_only_items": index.property_only(),
                 "total_filtered_source_items": total,

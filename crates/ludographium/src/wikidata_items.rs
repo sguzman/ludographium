@@ -16,6 +16,7 @@ pub struct WikidataSourceItem {
     pub qid: String,
     pub english_label: Option<String>,
     pub source_presence: &'static str,
+    pub source_membership: Vec<&'static str>,
     pub original_title_date_observation: Option<Value>,
     pub property_claims: BTreeMap<String, Vec<Value>>,
     pub relation_claims: BTreeMap<String, Vec<Value>>,
@@ -36,6 +37,7 @@ pub struct WikidataItemProjection {
     relation_and_localized_only: usize,
     only_title_date: usize,
     only_properties: usize,
+    source_membership_counts: BTreeMap<String, usize>,
 }
 
 fn valid_qid(value: &str) -> bool {
@@ -77,6 +79,7 @@ impl WikidataItemProjection {
                     qid,
                     english_label: None,
                     source_presence: "title_date_source_only",
+                    source_membership: Vec::new(),
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
                     relation_claims: BTreeMap::new(),
@@ -106,6 +109,7 @@ impl WikidataItemProjection {
                     qid: claim.item_qid.clone(),
                     english_label: None,
                     source_presence: "property_source_only",
+                    source_membership: Vec::new(),
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
                     relation_claims: BTreeMap::new(),
@@ -135,6 +139,7 @@ impl WikidataItemProjection {
                     qid: claim.item_qid.clone(),
                     english_label: None,
                     source_presence: "relation_source_only",
+                    source_membership: Vec::new(),
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
                     relation_claims: BTreeMap::new(),
@@ -163,6 +168,7 @@ impl WikidataItemProjection {
                     qid: claim.item_qid.clone(),
                     english_label: None,
                     source_presence: "localized_source_only",
+                    source_membership: Vec::new(),
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
                     relation_claims: BTreeMap::new(),
@@ -187,6 +193,7 @@ impl WikidataItemProjection {
         let mut only_title_date = 0;
         let mut only_properties = 0;
         let mut property_items = 0;
+        let mut source_membership_counts = BTreeMap::new();
         for entry in index.values_mut() {
             let old = entry.original_title_date_observation.is_some();
             let new = !entry.property_claims.is_empty();
@@ -196,36 +203,49 @@ impl WikidataItemProjection {
             if entry.localized_source_present {
                 localized_items += 1;
             }
-            match (old, new) {
-                (true, true) => entry.source_presence = "both_independent_snapshots",
-                (true, false) => {
-                    entry.source_presence = "title_date_source_only";
+            entry.source_membership = Vec::new();
+            if old {
+                entry.source_membership.push("title_date");
+            }
+            if new {
+                entry.source_membership.push("company_genre");
+            }
+            if entry.relation_source_present {
+                entry.source_membership.push("relations");
+            }
+            if entry.localized_source_present {
+                entry.source_membership.push("localized_titles");
+            }
+            entry.source_presence = match entry.source_membership.as_slice() {
+                ["title_date"] => {
                     only_title_date += 1;
+                    "title_date_source_only"
                 }
-                (false, true) => {
-                    entry.source_presence = "property_source_only";
+                ["company_genre"] => {
                     only_properties += 1;
+                    "property_source_only"
                 }
-                (false, false)
-                    if entry.relation_source_present && entry.localized_source_present =>
-                {
-                    entry.source_presence = "relation_and_localized_sources_only";
-                    relation_and_localized_only += 1;
-                }
-                (false, false) if entry.relation_source_present => {
-                    entry.source_presence = "relation_source_only";
+                ["relations"] => {
                     relation_only += 1;
+                    "relation_source_only"
                 }
-                (false, false) if entry.localized_source_present => {
-                    entry.source_presence = "localized_source_only";
+                ["localized_titles"] => {
                     localized_only += 1;
+                    "localized_source_only"
                 }
-                (false, false) => {
+                ["relations", "localized_titles"] => {
+                    relation_and_localized_only += 1;
+                    "relation_and_localized_sources_only"
+                }
+                [] => {
                     return Err(CatalogError::Invalid(
                         "Wikidata item has no source evidence".into(),
-                    ))
+                    ));
                 }
-            }
+                _ => "multiple_independent_snapshots",
+            };
+            let membership_key = entry.source_membership.join("+");
+            *source_membership_counts.entry(membership_key).or_insert(0) += 1;
             if new {
                 property_items += 1;
             }
@@ -250,6 +270,7 @@ impl WikidataItemProjection {
             relation_and_localized_only,
             only_title_date,
             only_properties,
+            source_membership_counts,
         })
     }
 
@@ -276,6 +297,9 @@ impl WikidataItemProjection {
     }
     pub fn relation_only(&self) -> usize {
         self.relation_only
+    }
+    pub fn source_membership_counts(&self) -> &BTreeMap<String, usize> {
+        &self.source_membership_counts
     }
     pub fn title_date_only(&self) -> usize {
         self.only_title_date
@@ -361,14 +385,21 @@ mod tests {
         assert_eq!(projection.relation_source_items(), 14_772);
         assert_eq!(projection.localized_source_items(), 15_731);
         assert!(projection.total_items() >= 15_868);
-        assert!(projection.total_items() >= 15_868);
+        assert_eq!(
+            projection.source_membership_counts().values().sum::<usize>(),
+            projection.total_items()
+        );
         assert_eq!(
             projection.title_date_only()
                 + projection.property_only()
-                + (projection.total_items()
-                    - projection.title_date_only()
-                    - projection.property_only()),
-            projection.total_items(),
+                + projection.relation_only()
+                + projection.localized_only()
+                + projection.relation_and_localized_only()
+                + projection.source_membership_counts().iter()
+                    .filter(|(key, _)| key.contains("title_date+") || key.contains("company_genre+"))
+                    .map(|(_, count)| *count)
+                    .sum::<usize>(),
+            projection.total_items()
         );
         let (count, records) = projection.search(Some("Q379915"), None, 10).unwrap();
         assert!(count > 0);
@@ -378,6 +409,9 @@ mod tests {
                 && entry.property_claims.contains_key("P178")
                 && entry.relation_source_present
                 && entry.localized_source_present
+                && entry.source_membership
+                    == ["title_date", "company_genre", "relations", "localized_titles"]
+                && entry.source_presence == "multiple_independent_snapshots"
         }));
     }
 }

@@ -305,6 +305,13 @@ cargo run --locked -- --wikidata-items --platform atari2600 --qid Q379915
 cargo run --locked -- --wikidata-items --platform snes --title "Mario" --limit 10
 ```
 
+Per-item `source_membership` lists exactly which independently captured
+source families contain the same platform/QID. The
+`source_membership_counts` histogram distinguishes all observed combinations,
+rather than claiming a record is "source only" when it also appears in
+another accession. The summary's "source only" counters now denote
+**strictly exclusive** source membership.
+
 The union preserves and counts records found only in the original title/date
 capture, only in the company/genre property capture, or only in the relation
 capture, as well as records appearing in multiple snapshots. Every relation
