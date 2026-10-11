@@ -53,7 +53,6 @@ struct Manifest {
     rdf_value_type_counts: BTreeMap<String, usize>,
 }
 
-
 #[derive(Debug, Deserialize)]
 struct ExpandedRegister {
     schema_version: u32,
@@ -364,7 +363,6 @@ impl WikidataRelationCatalog {
         })
     }
 
-
     /// Source-grounded nine-property snapshots for console expansions v1-v4.
     pub fn open_expanded(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
         Self::open_expanded_cohorts(
@@ -501,8 +499,7 @@ impl WikidataRelationCatalog {
                 let raw = std::str::from_utf8(&text)
                     .map_err(|_| invalid("non-UTF-8 expanded relation JSONL"))?;
                 let lines: Vec<_> = raw.lines().collect();
-                if lines.len() != manifest.source_rows
-                    || (!raw.is_empty() && !raw.ends_with('\n'))
+                if lines.len() != manifest.source_rows || (!raw.is_empty() && !raw.ends_with('\n'))
                 {
                     return Err(invalid("expanded relation JSONL row count mismatch"));
                 }
@@ -516,7 +513,9 @@ impl WikidataRelationCatalog {
                     }
                     let (item, property, entity, kind) = validated(&record)?;
                     item_ids.insert(item.to_owned());
-                    *scope_properties.entry(property.to_owned()).or_insert(0usize) += 1;
+                    *scope_properties
+                        .entry(property.to_owned())
+                        .or_insert(0usize) += 1;
                     *kinds.entry(kind.to_owned()).or_insert(0usize) += 1;
                     *counts.entry(property.to_owned()).or_insert(0usize) += 1;
                     if entity.is_some() {
