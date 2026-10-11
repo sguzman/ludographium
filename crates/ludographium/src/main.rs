@@ -734,9 +734,8 @@ fn run() -> Result<(), Box<dyn Error>> {
             output["credit_evidence_counts"] = json!(audit.counts());
             output["total_filtered_credit_comparisons"] = json!(credit_total);
             output["credit_evidence"] = json!(credit_results);
-            output["credit_interpretation"] = json!(
-                "same-name-evidence-is-not-an-accepted-game-company-or-release-identity"
-            );
+            output["credit_interpretation"] =
+                json!("same-name-evidence-is-not-an-accepted-game-company-or-release-identity");
         }
         if compare_years {
             let audit = WikidataYearAudit::build(&base, &wikidata, &catalog);
