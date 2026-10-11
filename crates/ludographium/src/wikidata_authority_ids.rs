@@ -287,7 +287,10 @@ impl WikidataAuthorityIdCatalog {
                     item_qid: item.to_owned(),
                     property: property.to_owned(),
                     value_entity_qid: entity.map(str::to_owned),
-                    identifier: value["value"]["value"].as_str().unwrap_or_default().to_owned(),
+                    identifier: value["value"]["value"]
+                        .as_str()
+                        .unwrap_or_default()
+                        .to_owned(),
                     raw_binding: value,
                     source_ordinal: index + 1,
                     source_path: format!("{BASE}/{}/bindings.jsonl", scope.platform),
@@ -362,8 +365,18 @@ impl WikidataAuthorityIdCatalog {
         identifier: &str,
         limit: usize,
     ) -> Result<(usize, usize, usize, Vec<&AuthorityIdClaim>), CatalogError> {
-        if !matches!(property, "P11688" | "P1933" | "P4769" | "P2816" | "P1712" | "P2864" | "P2606" | "P2451" | "P4857")
-            || identifier.is_empty()
+        if !matches!(
+            property,
+            "P11688"
+                | "P1933"
+                | "P4769"
+                | "P2816"
+                | "P1712"
+                | "P2864"
+                | "P2606"
+                | "P2451"
+                | "P4857"
+        ) || identifier.is_empty()
             || !(1..=200).contains(&limit)
         {
             return Err(invalid(
