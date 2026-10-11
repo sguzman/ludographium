@@ -110,7 +110,7 @@ impl WikidataYearAudit {
                 .get(&(candidate.platform.clone(), candidate.source_ordinal))
                 .cloned()
                 .unwrap_or_default();
-            let wiki = dates
+            let wiki: Vec<WikidataDateEvidence> = dates
                 .get(&(candidate.platform.clone(), candidate.wikidata_qid.clone()))
                 .map(|values| {
                     values
