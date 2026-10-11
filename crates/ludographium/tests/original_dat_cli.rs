@@ -352,6 +352,18 @@ fn wikidata_property_sources_are_available_in_rust_with_qid_provenance() {
     assert!(all["claims"][0]["source_sha256"].as_str().unwrap().len() == 64);
     assert!(all["claims"][0]["source_ordinal"].as_u64().unwrap() > 0);
     assert!(all["claims"][0]["raw_binding"]["value"].is_object());
+    let labeled = query(&[
+        "--wikidata-relations", "--with-entity-labels",
+        "--platform", "atari2600", "--qid", "Q100701966", "--limit", "10",
+    ]);
+    assert_eq!(labeled["entity_label_source"]["entity_qids"], 1837);
+    assert_eq!(labeled["entity_label_source"]["english_labels"], 1639);
+    assert_eq!(labeled["entity_label_source"]["unlabeled_qids"], 198);
+    assert!(labeled["claims"].as_array().unwrap().iter().any(|entry| {
+        entry["value_entity_qid"] == "Q208850"
+            && entry["value_english_label_evidence"]["source_sha256"]
+                .as_str().is_some()
+    }));
 
     let adventure = query(&[
         "--wikidata-properties",
@@ -561,6 +573,7 @@ fn original_wikidata_relations_and_external_ids_are_offline_and_attributed() {
     assert_eq!(all["source_statements"], 92621);
     assert_eq!(all["source_item_platform_observations"], 14772);
     assert_eq!(all["source_entity_value_bindings"], 83806);
+    assert_eq!(all["source_property_counts"]["P1476"], 5532);
     assert_eq!(all["returned_claims"], 2);
     assert_eq!(all["source_property_counts"]["P1476"], 5532);
     assert_eq!(all["source_property_counts"]["P1733"], 2624);

@@ -200,6 +200,28 @@ language, game mode and distribution claims likewise do not establish a
 canonical work, release, edition or geographic availability. No external
 provider contents were scraped or redistributed.
 
+## Independent labels for new relation QIDs
+
+A fourth independent Wikidata CC0 source capture pins **1,837 referenced
+entity QIDs** with **1,639 English labels** in 19 original SPARQL query and
+response batches. The **198 unlabeled references** retain their original QID
+and source evidence without invented names.
+
+[Original source evidence](../data/wikidata/relation-labels-v1/) is captured
+and checksummed independently of the source relation statements.
+[Acquisition succeeded](https://github.com/sguzman/ludographium/actions/runs/38169376017).
+
+The Rust source reader validates every original query, response, JSONL
+binding, SHA-256 digest and exact inventory of relation-valued QIDs. Entity
+English labels are shown as **separate evidence**, not substituted for raw
+RDF values or treated as authenticated series, country, language, distributor,
+or format identities:
+
+```sh
+cargo run --locked -- --wikidata-relations --with-entity-labels --platform all --limit 5
+cargo run --locked -- --wikidata-items --platform atari2600 --qid Q100701966
+```
+
 ## Cross-platform Steam/GOG identifier ambiguity audit
 
 The [source-derived external-ID report](../reports/wikidata-external-identifier-review-v1.json)

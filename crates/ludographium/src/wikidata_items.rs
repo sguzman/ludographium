@@ -47,6 +47,7 @@ impl WikidataItemProjection {
         properties: &WikidataPropertyCatalog,
         labels: &WikidataEntityLabelCatalog,
         relations: &WikidataRelationCatalog,
+        relation_labels: &WikidataEntityLabelCatalog,
     ) -> Result<Self, CatalogError> {
         let mut index: BTreeMap<(String, String), WikidataSourceItem> = BTreeMap::new();
         let mut title_count = 0;
@@ -135,7 +136,11 @@ impl WikidataItemProjection {
                 .relation_claims
                 .entry(claim.property.clone())
                 .or_default()
-                .push(json!({"original_relation_claim": claim}));
+                .push(json!({
+                    "original_relation_claim": claim,
+                    "value_english_label_evidence": claim.value_entity_qid.as_deref()
+                        .and_then(|qid| relation_labels.lookup(qid))
+                }));
         }
         let mut relation_only = 0;
         let mut relation_items = 0;
@@ -265,9 +270,12 @@ mod tests {
         let properties = WikidataPropertyCatalog::open(&root, "all").unwrap();
         let labels = WikidataEntityLabelCatalog::open(&root).unwrap();
         let relations = WikidataRelationCatalog::open(&root, "all").unwrap();
+        let relation_labels = WikidataEntityLabelCatalog::open_relations(&root).unwrap();
+        relation_labels.verify_relation_qids(&relations).unwrap();
         labels.verify_referenced_qids(&properties).unwrap();
         let projection =
-            WikidataItemProjection::build(&text, &properties, &labels, &relations).unwrap();
+            WikidataItemProjection::build(&text, &properties, &labels, &relations, &relation_labels)
+                .unwrap();
         assert_eq!(projection.title_date_source_items(), 15_868);
         assert_eq!(projection.property_source_items(), 14_759);
         assert_eq!(projection.relation_source_items(), 14_772);
