@@ -503,13 +503,20 @@ fn cross_source_company_credit_audit_preserves_unresolved_names_and_provenance()
 #[test]
 fn independent_wikidata_game_observations_preserve_both_snapshot_sources() {
     let all = query(&["--wikidata-items", "--platform", "all", "--limit", "2"]);
-    assert_eq!(all["source_mode"], "multi-snapshot-wikidata-qid-source-observations");
+    assert_eq!(
+        all["source_mode"],
+        "multi-snapshot-wikidata-qid-source-observations"
+    );
     assert_eq!(all["title_date_source_items"], 15868);
     assert_eq!(all["property_source_items"], 14759);
     assert!(all["combined_distinct_platform_qids"].as_u64().unwrap() >= 15868);
     assert_eq!(all["returned_source_items"], 2);
     let atari = query(&[
-        "--wikidata-items", "--platform", "atari2600", "--qid", "Q379915",
+        "--wikidata-items",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q379915",
     ]);
     assert!(atari["total_filtered_source_items"].as_u64().unwrap() > 0);
     let item = &atari["source_items"][0];
@@ -517,13 +524,25 @@ fn independent_wikidata_game_observations_preserve_both_snapshot_sources() {
     assert_eq!(item["platform"], "atari2600");
     assert_eq!(item["english_label"], "Adventure");
     assert_eq!(item["source_presence"], "both_independent_snapshots");
-    assert!(item["original_title_date_observation"]["source"]["sha256"].as_str().is_some());
+    assert!(item["original_title_date_observation"]["source"]["sha256"]
+        .as_str()
+        .is_some());
     assert!(item["property_claims"]["P178"].is_array());
-    assert!(item["interpretation"].as_str().unwrap().contains("not-verified"));
+    assert!(item["interpretation"]
+        .as_str()
+        .unwrap()
+        .contains("not-verified"));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let invalid = Command::new(env!("CARGO_BIN_EXE_ludographium"))
         .current_dir(&root)
-        .args(["--wikidata-items", "--platform", "all", "--property", "P178"])
-        .output().unwrap();
+        .args([
+            "--wikidata-items",
+            "--platform",
+            "all",
+            "--property",
+            "P178",
+        ])
+        .output()
+        .unwrap();
     assert!(!invalid.status.success());
 }
