@@ -1950,6 +1950,38 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
     assert_eq!(empty["source_statements"], 0);
     assert_eq!(empty["returned_claims"], 0);
 
+    let third_credits = query(&[
+        "--wikidata-properties",
+        "--metadata-cohort",
+        "expanded-v3",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(third_credits["source_statements"], 85);
+    assert_eq!(third_credits["source_item_platform_observations"], 26);
+    assert_eq!(third_credits["platforms_searched"].as_array().unwrap().len(), 12);
+    assert!(third_credits["claims"].as_array().unwrap().iter().all(|row| {
+        row["source_path"].as_str().unwrap().contains("expanded-credits-v3")
+    }));
+
+    let third_relations = query(&[
+        "--wikidata-relations",
+        "--metadata-cohort",
+        "expanded-v3",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(third_relations["source_statements"], 123);
+    assert_eq!(third_relations["source_item_platform_observations"], 25);
+    assert_eq!(third_relations["platforms_searched"].as_array().unwrap().len(), 12);
+    assert!(third_relations["claims"].as_array().unwrap().iter().all(|row| {
+        row["source_path"].as_str().unwrap().contains("expanded-relations-v3")
+    }));
+
     let properties_with_labels = query(&[
         "--wikidata-properties",
         "--metadata-cohort",
@@ -1997,11 +2029,19 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
         vec![
             "--wikidata-properties",
             "--metadata-cohort",
-            "expanded-v3",
+            "expanded-v4",
             "--platform",
             "all",
         ],
         vec!["--metadata-cohort", "expanded-v2", "--platform", "all"],
+        vec![
+            "--wikidata-properties",
+            "--metadata-cohort",
+            "expanded-v3",
+            "--with-entity-labels",
+            "--platform",
+            "all",
+        ],
     ] {
         let result = Command::new(env!("CARGO_BIN_EXE_ludographium"))
             .current_dir(&root)

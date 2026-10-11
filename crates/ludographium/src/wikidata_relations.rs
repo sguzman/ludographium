@@ -385,6 +385,17 @@ impl WikidataRelationCatalog {
         )
     }
 
+    /// Independently captured v8 relations and identifier statements.
+    pub fn open_expanded_v3(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_expanded_cohorts(
+            root.as_ref(),
+            selection,
+            &[(8, 12)],
+            "data/wikidata/expanded-relations-v3",
+            12,
+        )
+    }
+
     fn open_expanded_cohorts(
         root: &Path,
         selection: &str,
@@ -712,6 +723,24 @@ mod tests {
             assert_eq!(scope.platforms(), &[empty.to_string()]);
         }
         assert!(WikidataRelationCatalog::open_expanded_v2(&root, "unknown").is_err());
+    }
+
+    #[test]
+    fn independently_pinned_v8_relation_claims_verify_offline() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = WikidataRelationCatalog::open_expanded_v3(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 12);
+        assert_eq!(catalog.total_claims(), 123);
+        assert_eq!(catalog.item_observations(), 25);
+        assert_eq!(catalog.property_counts().values().sum::<usize>(), 123);
+        let (_, source) = catalog.search(None, None, 1).unwrap();
+        assert!(source[0].source_path.contains("expanded-relations-v3"));
+        for zero in ["arduboyincarduboy", "vtechcreativision", "vtechvsmile"] {
+            let scope = WikidataRelationCatalog::open_expanded_v3(&root, zero).unwrap();
+            assert_eq!(scope.platforms(), &[zero.to_owned()]);
+            assert_eq!(scope.total_claims(), 0);
+        }
+        assert!(WikidataRelationCatalog::open_expanded_v3(&root, "unknown").is_err());
     }
 
     #[test]

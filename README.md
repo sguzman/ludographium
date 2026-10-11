@@ -122,11 +122,16 @@ cargo run --locked -- --wikidata-expanded-candidates --expansion-source v8 --pla
 
 
 
-The next bulk-acquisition wave independently captures **P178 developer,
-P123 publisher, P136 genre**, plus **nine relation and identifier predicates**
-for the twelve provisional v8 platform scopes. The original source rows,
-zero-result captures, query/response hashes and unmatched QIDs remain separate
-from verified game identities. See the
+The next bulk-acquisition wave preserves **85 original P178 developer,
+P123 publisher, P136 genre statements** and **123 nine-predicate relation
+and identifier statements** for the twelve provisional v8 scopes. Their
+original source rows, zero-result captures, query/response hashes and unmatched
+QIDs remain separate from verified game identities. Read both offline using
+`--wikidata-properties --metadata-cohort expanded-v3` and
+`--wikidata-relations --metadata-cohort expanded-v3`. Independent English
+entity labels for these newly captured references have not yet been accessioned,
+so `--with-entity-labels` rejects this cohort instead of silently using
+a different cohort's inventory. See the
 [credits accession](.github/workflows/wikidata-expanded-credits-v3.yml) and
 [relations accession](.github/workflows/wikidata-expanded-relations-v3.yml)
 for the reproducible source-query contracts.

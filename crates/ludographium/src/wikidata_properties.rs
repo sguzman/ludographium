@@ -367,6 +367,17 @@ impl WikidataPropertyCatalog {
         )
     }
 
+    /// Independently captured v8 P400 property assertions (not game identities).
+    pub fn open_expanded_v3(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_expanded_cohorts(
+            root.as_ref(),
+            selection,
+            &[(8, 12)],
+            "data/wikidata/expanded-credits-v3",
+            12,
+        )
+    }
+
     fn open_expanded_cohorts(
         root: &Path,
         selection: &str,
@@ -659,6 +670,24 @@ mod tests {
             assert_eq!(scope.platforms(), &[empty.to_string()]);
         }
         assert!(WikidataPropertyCatalog::open_expanded_v2(&root, "unknown").is_err());
+    }
+
+    #[test]
+    fn independently_pinned_v8_credit_claims_verify_offline() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = WikidataPropertyCatalog::open_expanded_v3(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 12);
+        assert_eq!(catalog.total_claims(), 85);
+        assert_eq!(catalog.source_item_observations(), 26);
+        assert_eq!(catalog.property_counts().values().sum::<usize>(), 85);
+        let (_, source) = catalog.search(None, None, 1).unwrap();
+        assert!(source[0].source_path.contains("expanded-credits-v3"));
+        for zero in ["arduboyincarduboy", "vtechcreativision", "vtechvsmile"] {
+            let scope = WikidataPropertyCatalog::open_expanded_v3(&root, zero).unwrap();
+            assert_eq!(scope.platforms(), &[zero.to_owned()]);
+            assert_eq!(scope.total_claims(), 0);
+        }
+        assert!(WikidataPropertyCatalog::open_expanded_v3(&root, "unknown").is_err());
     }
 
     #[test]
