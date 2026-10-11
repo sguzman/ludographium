@@ -7,6 +7,7 @@ use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::media::{fingerprint_normalized, MediaFormat};
 use ludographium::original_dat::OriginalDatCatalog;
+use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::runtime::verify_runtime_root;
 use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
@@ -18,7 +19,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-candidates --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -412,6 +413,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut source_dat = false;
     let mut claims_only = false;
     let mut wikidata_text = false;
+    let mut wikidata_candidates = false;
     let mut qid = None;
 
     while let Some(arg) = args.next() {
@@ -425,6 +427,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
         if arg == "--wikidata-text" {
             wikidata_text = true;
+            continue;
+        }
+        if arg == "--wikidata-candidates" {
+            wikidata_candidates = true;
             continue;
         }
         if arg == "--verify-runtime" {
@@ -490,6 +496,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || source_dat
             || claims_only
             || wikidata_text
+            || wikidata_candidates
             || qid.is_some()
         {
             return Err(CatalogError::Invalid(
@@ -518,7 +525,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         + usize::from(title.is_some())
         + usize::from(file.is_some())
         + usize::from(zip.is_some());
-    if (query_modes != 1 && !((claims_only || wikidata_text) && query_modes == 0))
+    if (query_modes != 1 && !((claims_only || wikidata_text || wikidata_candidates) && query_modes == 0))
         || (claims_only && (!source_dat || !enriched))
         || (wikidata_text
             && (source_dat
@@ -533,7 +540,12 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || media_format.is_some()
                 || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
-        || (qid.is_some() && !wikidata_text)
+        || (wikidata_candidates
+            && (wikidata_text || source_dat || claims_only || enriched || show_curated
+                || sha1.is_some() || crc32.is_some() || size.is_some() || file.is_some()
+                || zip.is_some() || media_format.is_some() || zip_entry.is_some()
+                || (qid.is_some() && title.is_some())))
+        || (qid.is_some() && !wikidata_text && !wikidata_candidates)
         || (claims_only
             && (sha1.is_some()
                 || crc32.is_some()
@@ -544,9 +556,9 @@ fn run() -> Result<(), Box<dyn Error>> {
         || (title.is_some() && size.is_some())
         || (file.is_some() && (size.is_some() || limit_explicit))
         || (zip.is_some() && (size.is_some() || limit_explicit))
-        || (title.is_none() && limit_explicit && !claims_only && !wikidata_text)
-        || (qid.is_some() && limit_explicit)
-        || ((title.is_some() || claims_only || wikidata_text) && (limit == 0 || limit > 200))
+        || (title.is_none() && limit_explicit && !claims_only && !wikidata_text && !wikidata_candidates)
+        || (qid.is_some() && limit_explicit && !wikidata_candidates)
+        || ((title.is_some() || claims_only || wikidata_text || wikidata_candidates) && (limit == 0 || limit > 200))
         || (zip_entry.is_some()
             && (zip.is_none() || media_format.is_none() || zip_entry.as_deref() == Some("")))
     {
@@ -561,6 +573,33 @@ fn run() -> Result<(), Box<dyn Error>> {
             ))
             .into());
         }
+    }
+    if wikidata_candidates {
+        let wikidata = WikidataTextCatalog::open(&root, &platform)?;
+        let base = OriginalDatCatalog::open(&root, &platform)?;
+        let catalog = WikidataCandidateCatalog::reconcile(&base, &wikidata);
+        let summary = catalog.summary();
+        let (total, matches) = catalog.search(title.as_deref(), qid.as_deref(), limit)?;
+        let output = json!({
+            "source_mode": "wikidata-libretro-title-candidates",
+            "query_kind": if qid.is_some() {
+                "candidate-wikidata-qid"
+            } else if title.is_some() {
+                "candidate-source-title-substring"
+            } else {
+                "candidate-list"
+            },
+            "platforms_searched": summary.platforms_searched,
+            "total_candidate_links": summary.total_candidate_links,
+            "source_records_with_candidate": summary.source_records_with_candidate,
+            "ambiguous_candidate_links": summary.ambiguous_candidate_links,
+            "total_filtered_candidates": total,
+            "returned_candidates": matches.len(),
+            "candidates": matches,
+            "interpretation": "review-candidates-only-no-verified-work-or-media-identities"
+        });
+        println!("{}", serde_json::to_string_pretty(&output)?);
+        return Ok(());
     }
     if wikidata_text {
         let catalog = WikidataTextCatalog::open(&root, &platform)?;

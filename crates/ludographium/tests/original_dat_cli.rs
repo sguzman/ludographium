@@ -234,3 +234,53 @@ fn wikidata_text_source_cli_preserves_item_ids_dates_and_provenance() {
     assert_eq!(list["query_kind"], "wikidata-source-list");
     assert_eq!(list["returned_matches"], 1);
 }
+
+#[test]
+fn conservative_cross_source_title_candidates_preserve_ambiguity() {
+    let all = query(&[
+        "--wikidata-candidates",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(all["source_mode"], "wikidata-libretro-title-candidates");
+    assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 16);
+    assert_eq!(all["total_candidate_links"], 8971);
+    assert_eq!(all["source_records_with_candidate"], 8908);
+    assert_eq!(all["ambiguous_candidate_links"], 126);
+    assert_eq!(all["returned_candidates"], 2);
+    assert!(all["candidates"][0]["source_blob_sha"].as_str().is_some());
+    assert!(all["candidates"][0]["wikidata_source_sha256"].as_str().is_some());
+
+    let atari = query(&[
+        "--wikidata-candidates",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q379915",
+        "--limit",
+        "5",
+    ]);
+    assert!(atari["total_filtered_candidates"].as_u64().unwrap() > 0);
+    assert!(atari["candidates"].as_array().unwrap().iter().any(|item| {
+        item["status"] == "title_candidate"
+            && item["source_title"].as_str().is_some_and(|name| name.contains("Adventure"))
+            && item["wikidata_qid"] == "Q379915"
+            && item["interpretation"] == "noncanonical-title-evidence-not-verified-game-identity"
+    }));
+
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    for args in [
+        vec!["--wikidata-candidates", "--platform", "all", "--source-dat"],
+        vec!["--wikidata-candidates", "--platform", "all", "--sha1", "0000000000000000000000000000000000000000"],
+        vec!["--wikidata-candidates", "--platform", "all", "--qid", "invalid"],
+    ] {
+        let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
+        assert!(!output.status.success());
+    }
+}

@@ -40,6 +40,31 @@ cargo run --locked -- --wikidata-text --platform gb --limit 10
 
 The returned original observations include the declared CC0 license, pinned source revision, exact JSONL path, source SHA-256, capture timestamp and original snapshot SHA-256. `--qid` is an exact Wikidata-item identifier lookup; `--title` searches the source's English labels without attempting a Libretro join. A queryless listing is bounded by `--limit`. Historical SQLite correspondence candidates remain separate and are not promoted to canonical identities by this reader. The full-corpus Rust test checks **15,868 item observations** and **29,333 date claims**.
 
+## Rust-native correspondence review
+
+The independent Wikidata and Libretro text sources can now be reconciled by a
+**read-only Rust comparison** without Python, SQLite, network access, or altering
+any source observation:
+
+```sh
+cargo run --locked -- --wikidata-candidates --platform all --limit 5
+cargo run --locked -- --wikidata-candidates --platform atari2600 --qid Q379915
+cargo run --locked -- --wikidata-candidates --platform snes --title "Mario" --limit 10
+```
+
+The comparison only accepts a shared declared platform and equal conservative
+title keys. It strips recognized *trailing* region, language and revision tags
+while retaining significant parentheses, accents, punctuation and original
+titles. Every candidate carries its source ordinal, original DAT source hash,
+Wikidata QID, label and pinned JSONL hash. If more than one QID shares the
+platform/title key, all resulting links are explicitly
+`ambiguous_wikidata_title`, not automatically merged.
+
+The full-corpus aggregation runs **before** applying the displayed result
+limit and reports all candidate links, distinct source observations with
+candidates, and ambiguous links. This is a deterministic **review index**,
+not a canonical game identity or a claim of independent factual confirmation.
+
 ## Conservative correspondence
 
 The [bulk reconciliation tool](../tools/reconcile_wikidata.py) adds independent source evidence to an existing offline expanded SQLite database. It adds:
