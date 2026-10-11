@@ -131,7 +131,10 @@ impl WikidataItemProjection {
                         "independent-source-evidence-not-verified-game-or-release-identity",
                 });
             entry.relation_source_present = true;
-            entry.relation_claims.entry(claim.property.clone()).or_default()
+            entry
+                .relation_claims
+                .entry(claim.property.clone())
+                .or_default()
                 .push(json!({"original_relation_claim": claim}));
         }
         let mut relation_only = 0;
