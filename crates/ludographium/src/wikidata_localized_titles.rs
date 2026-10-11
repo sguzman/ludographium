@@ -26,6 +26,15 @@ struct Platform {
     wikidata_platform: String,
 }
 #[derive(Debug, Deserialize)]
+struct ExpandedRegister {
+    schema_version: u32,
+    source: String,
+    license: String,
+    query_limit: usize,
+    platforms: Vec<Platform>,
+}
+
+#[derive(Debug, Deserialize)]
 struct Manifest {
     schema_version: u32,
     source: String,
@@ -33,6 +42,8 @@ struct Manifest {
     source_revision: String,
     platform: String,
     wikidata_platform: String,
+    #[serde(default)]
+    source_register: Option<String>,
     captured_at_utc: String,
     source_query_path: String,
     source_query_sha256: String,
