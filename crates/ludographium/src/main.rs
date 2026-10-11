@@ -675,10 +675,9 @@ fn run() -> Result<(), Box<dyn Error>> {
             "v1" | "v2" | "v3" | "v4" | "v5" | "v6" | "v7" | "v8"
         )
     {
-        return Err(CatalogError::Invalid(
-            "--expansion-source must be v1 through v8".into(),
-        )
-        .into());
+        return Err(
+            CatalogError::Invalid("--expansion-source must be v1 through v8".into()).into(),
+        );
     }
 
     if wikidata_expanded_candidates {

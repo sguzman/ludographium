@@ -1335,7 +1335,10 @@ fn eighth_platform_cohort_retains_provisional_scope_and_original_source_provenan
         "--limit",
         "2",
     ]);
-    assert_eq!(zero_or_some["platforms_searched"].as_array().unwrap().len(), 1);
+    assert_eq!(
+        zero_or_some["platforms_searched"].as_array().unwrap().len(),
+        1
+    );
     assert_eq!(zero_or_some["expansion_source"], "v8");
 }
 
