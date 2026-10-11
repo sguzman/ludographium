@@ -399,7 +399,7 @@ fn wikidata_property_sources_are_available_in_rust_with_qid_provenance() {
         ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(root)
+            .current_dir(&root)
             .args(&args)
             .output()
             .unwrap();
