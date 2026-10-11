@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "nintendovirtualboy",
+  "wikidata_platform": "Q164651",
+  "captured_at_utc": "2026-10-11T19:23:01Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "b7742a959dbd11b4b4bea033f19092890d90d84a3c7cf6f064634ca1b6843a88",
+  "source_query_bytes": 283,
+  "source_response_path": "response.json",
+  "source_response_sha256": "4f04bd570bf0c53ad92b3d030b48bfb3d0c659408a4f55e4274f5bdff22bea85",
+  "source_response_bytes": 20380,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "429591ae5ee7eaa56ab003c4b404956cf66c5c956ed2c854171f1a5be46aeac4",
+  "source_bindings_bytes": 13150,
+  "source_rows": 59,
+  "distinct_items": 22,
+  "entity_value_bindings": 55,
+  "query_limit": 10000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 4,
+    "P179": 4,
+    "P404": 24,
+    "P437": 8,
+    "P495": 18,
+    "P750": 1
+  },
+  "rdf_value_type_counts": {
+    "literal": 4,
+    "uri": 55
+  },
+  "identity_policy": "Original independent source claims only; do not infer a canonical game, edition, release, series, language or external-provider identity"
+}
