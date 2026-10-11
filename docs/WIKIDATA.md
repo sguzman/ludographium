@@ -37,6 +37,21 @@ This is a separate source accession, not a refresh or silent rewrite of
 the preceding 16-platform baseline, and no canonical work, release, port,
 edition or Libretro identity is inferred.
 
+The independent source records are additionally comparable with the original
+Atari 7800, PSP and Vita Libretro DAT observations using **same-platform
+conservative exact title keys**:
+
+```sh
+cargo run --locked -- --wikidata-expanded-candidates --platform all --limit 10
+```
+
+This emits noncanonical correspondence candidates only, with original DAT
+source ordinals and Git hashes, pinned Wikidata title row ordinals and SHA-256,
+and explicit multi-QID ambiguity. Repeated Wikidata rows representing
+distinct date claims are grouped under the same QID/title candidate without
+discarding their original row ordinals. There is no automatic game identity,
+edition, port, or regional-release assignment.
+
 ## Committed text corpus
 
 The primary imported Wikidata data now lives in [16 per-platform JSONL files](../data/wikidata/v1/) and a [plain-text provenance manifest](../data/wikidata/v1/manifest.json), approximately **4.2 MB total in Git**. Each item retains its Wikidata QID, English label and captured date statements. `tools/export_wikidata_text.py` deterministically rebuilds and verifies these files from the pinned original JSON source snapshot. SQLite is an optional locally generated search index, not the committed data format. See the [data-format policy](DATA-FORMATS.md).

@@ -1174,3 +1174,37 @@ fn independently_pinned_atari_psp_vita_source_responses_are_searchable_offline()
         );
     }
 }
+
+#[test]
+fn newly_expanded_platform_title_candidates_are_evidence_only() {
+    let all = query(&[
+        "--wikidata-expanded-candidates",
+        "--platform", "all", "--limit", "3",
+    ]);
+    assert_eq!(all["source_mode"], "noncanonical-expanded-platform-title-candidates");
+    assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 3);
+    assert!(all["total_candidate_links"].as_u64().unwrap() > 0);
+    assert!(all["source_records_with_candidate"].as_u64().unwrap() > 0);
+    assert_eq!(all["returned_candidate_links"], 3);
+    assert_eq!(
+        all["total_filtered_candidate_links"],
+        all["total_candidate_links"]
+    );
+    assert!(all["candidates"].as_array().unwrap().iter().all(|row| {
+        row["libretro_source_blob_sha"].as_str().unwrap().len() == 40
+            && row["wikidata_source_sha256"].as_str().unwrap().len() == 64
+            && !row["wikidata_title_row_ordinals"].as_array().unwrap().is_empty()
+            && row["interpretation"].as_str().unwrap().contains("not-verified")
+    }));
+
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    for args in [
+        vec!["--wikidata-expanded-candidates", "--platform", "all", "--wikidata-expanded"],
+        vec!["--wikidata-expanded-candidates", "--platform", "all", "--qid", "Q0"],
+        vec!["--wikidata-expanded-candidates", "--platform", "all", "--limit", "0"],
+    ] {
+        let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
+            .current_dir(&root).args(&args).output().unwrap();
+        assert!(!output.status.success());
+    }
+}

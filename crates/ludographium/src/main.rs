@@ -12,6 +12,7 @@ use ludographium::wikidata_authority_ids::WikidataAuthorityIdCatalog;
 use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::wikidata_credits::WikidataCreditAudit;
 use ludographium::wikidata_entity_labels::WikidataEntityLabelCatalog;
+use ludographium::wikidata_expanded_candidates::ExpandedTitleCandidateCatalog;
 use ludographium::wikidata_gamefaqs_qualifiers::GameFaqsQualifierCatalog;
 use ludographium::wikidata_items::WikidataItemProjection;
 use ludographium::wikidata_localized_candidates::WikidataLocalizedCandidateCatalog;
@@ -30,7 +31,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-expanded --platform <atari7800|sonyplaystationportable|sonyplaystationvita|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-candidates --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-titles --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--language <language-prefix-or-tag>] [--limit <1..200>] | ludographium --wikidata-gamefaqs-qualifiers --platform <wikidata-platform-id|all> [--qid <QID>] [--external-id <exact-gamefaqs-id>] [--limit <1..200>] | ludographium --wikidata-authority-ids --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P11688|P1933|P4769|P2816|P1712|P2864|P2606|P2451|P4857>] [--external-id <exact-provider-id> --property <one-of-above>] [--limit <1..200>] | ludographium --wikidata-relations [--with-entity-labels] --platform <wikidata-platform-id|all> [--external-id <exact-provider-id> --property <P1733|P2725>] [--qid <QID>] [--property <P179|P404|P407|P495|P437|P750|P1476|P1733|P2725>] [--limit <1..200>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-expanded-candidates --platform <atari7800|sonyplaystationportable|sonyplaystationvita|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-expanded --platform <atari7800|sonyplaystationportable|sonyplaystationvita|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-candidates --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-titles --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--language <language-prefix-or-tag>] [--limit <1..200>] | ludographium --wikidata-gamefaqs-qualifiers --platform <wikidata-platform-id|all> [--qid <QID>] [--external-id <exact-gamefaqs-id>] [--limit <1..200>] | ludographium --wikidata-authority-ids --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P11688|P1933|P4769|P2816|P1712|P2864|P2606|P2451|P4857>] [--external-id <exact-provider-id> --property <one-of-above>] [--limit <1..200>] | ludographium --wikidata-relations [--with-entity-labels] --platform <wikidata-platform-id|all> [--external-id <exact-provider-id> --property <P1733|P2725>] [--qid <QID>] [--property <P179|P404|P407|P495|P437|P750|P1476|P1733|P2725>] [--limit <1..200>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -425,6 +426,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut claims_only = false;
     let mut wikidata_text = false;
     let mut wikidata_expanded = false;
+    let mut wikidata_expanded_candidates = false;
     let mut wikidata_candidates = false;
     let mut wikidata_localized_candidates = false;
     let mut wikidata_properties = false;
@@ -456,6 +458,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
         if arg == "--wikidata-expanded" {
             wikidata_expanded = true;
+            continue;
+        }
+        if arg == "--wikidata-expanded-candidates" {
+            wikidata_expanded_candidates = true;
             continue;
         }
         if arg == "--wikidata-candidates" {
@@ -570,6 +576,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || claims_only
             || wikidata_text
             || wikidata_expanded
+            || wikidata_expanded_candidates
             || wikidata_candidates
             || wikidata_properties
             || wikidata_relations
@@ -602,6 +609,43 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "source_revision": checked.source_revision,
             }))?
         );
+        return Ok(());
+    }
+
+    if wikidata_expanded_candidates {
+        if wikidata_expanded || (qid.is_some() && title.is_some())
+            || source_dat || claims_only || enriched || show_curated
+            || wikidata_text || wikidata_candidates || wikidata_localized_candidates
+            || wikidata_properties || wikidata_relations || wikidata_authority_ids
+            || wikidata_gamefaqs_qualifiers || wikidata_items || wikidata_localized_titles
+            || with_entity_labels || compare_years || compare_credits
+            || sha1.is_some() || crc32.is_some() || size.is_some()
+            || file.is_some() || zip.is_some() || zip_entry.is_some()
+            || media_format.is_some() || property.is_some()
+            || external_id.is_some() || language.is_some()
+        {
+            return Err(CatalogError::Invalid(
+                "--wikidata-expanded-candidates only accepts a platform, optional QID or title, and limit".into()
+            ).into());
+        }
+        let scope = platform.as_deref().ok_or_else(|| CatalogError::Invalid(
+            "--wikidata-expanded-candidates requires --platform <atari7800|sonyplaystationportable|sonyplaystationvita|all>".into()
+        ))?;
+        let wikidata = ExpandedWikidataCatalog::open(&root, scope)?;
+        let original = OriginalDatCatalog::open(&root, scope)?;
+        let catalog = ExpandedTitleCandidateCatalog::reconcile(&original, &wikidata);
+        let (total, results) = catalog.search(qid.as_deref(), title.as_deref(), limit)?;
+        println!("{}", serde_json::to_string_pretty(&json!({
+            "source_mode": "noncanonical-expanded-platform-title-candidates",
+            "platforms_searched": catalog.platforms(),
+            "total_candidate_links": catalog.total_links(),
+            "source_records_with_candidate": catalog.source_records_with_candidate(),
+            "ambiguous_title_candidate_links": catalog.ambiguous_links(),
+            "total_filtered_candidate_links": total,
+            "returned_candidate_links": results.len(),
+            "candidates": results,
+            "interpretation": "same-platform-exact-conservative-title-candidates-not-verified-work-or-release-identities"
+        }))?);
         return Ok(());
     }
 
