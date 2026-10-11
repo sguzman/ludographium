@@ -31,7 +31,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-expanded-candidates --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-expanded --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5>] [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-candidates --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-titles --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--language <language-prefix-or-tag>] [--limit <1..200>] | ludographium --wikidata-gamefaqs-qualifiers --platform <wikidata-platform-id|all> [--qid <QID>] [--external-id <exact-gamefaqs-id>] [--limit <1..200>] | ludographium --wikidata-authority-ids --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P11688|P1933|P4769|P2816|P1712|P2864|P2606|P2451|P4857>] [--external-id <exact-provider-id> --property <one-of-above>] [--limit <1..200>] | ludographium --wikidata-relations [--with-entity-labels] --platform <wikidata-platform-id|all> [--external-id <exact-provider-id> --property <P1733|P2725>] [--qid <QID>] [--property <P179|P404|P407|P495|P437|P750|P1476|P1733|P2725>] [--limit <1..200>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-expanded-candidates --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5|v6>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-expanded --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5|v6>] [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-candidates --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-titles --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--language <language-prefix-or-tag>] [--limit <1..200>] | ludographium --wikidata-gamefaqs-qualifiers --platform <wikidata-platform-id|all> [--qid <QID>] [--external-id <exact-gamefaqs-id>] [--limit <1..200>] | ludographium --wikidata-authority-ids --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P11688|P1933|P4769|P2816|P1712|P2864|P2606|P2451|P4857>] [--external-id <exact-provider-id> --property <one-of-above>] [--limit <1..200>] | ludographium --wikidata-relations [--with-entity-labels] --platform <wikidata-platform-id|all> [--external-id <exact-provider-id> --property <P1733|P2725>] [--qid <QID>] [--property <P179|P404|P407|P495|P437|P750|P1476|P1733|P2725>] [--limit <1..200>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -623,10 +623,10 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
     let source_version = expansion_source.as_deref().unwrap_or("v1");
     if (wikidata_expanded || wikidata_expanded_candidates)
-        && !matches!(source_version, "v1" | "v2" | "v3" | "v4" | "v5")
+        && !matches!(source_version, "v1" | "v2" | "v3" | "v4" | "v5" | "v6")
     {
         return Err(CatalogError::Invalid(
-            "--expansion-source must be v1, v2, v3, v4 or v5".into(),
+            "--expansion-source must be v1, v2, v3, v4, v5 or v6".into(),
         )
         .into());
     }
@@ -673,6 +673,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "v3" => ExpandedWikidataCatalog::open_v3(&root, scope)?,
             "v4" => ExpandedWikidataCatalog::open_v4(&root, scope)?,
             "v5" => ExpandedWikidataCatalog::open_v5(&root, scope)?,
+            "v6" => ExpandedWikidataCatalog::open_v6(&root, scope)?,
             _ => ExpandedWikidataCatalog::open(&root, scope)?,
         };
         let original = OriginalDatCatalog::open(&root, scope)?;
@@ -737,6 +738,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "v3" => ExpandedWikidataCatalog::open_v3(&root, scope)?,
             "v4" => ExpandedWikidataCatalog::open_v4(&root, scope)?,
             "v5" => ExpandedWikidataCatalog::open_v5(&root, scope)?,
+            "v6" => ExpandedWikidataCatalog::open_v6(&root, scope)?,
             _ => ExpandedWikidataCatalog::open(&root, scope)?,
         };
         let (total, results) = catalog.search(qid.as_deref(), title.as_deref(), limit)?;
