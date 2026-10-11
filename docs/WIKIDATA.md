@@ -77,6 +77,12 @@ cargo run --locked -- --wikidata-expanded --expansion-source v5 --platform casio
 cargo run --locked -- --wikidata-expanded-candidates --expansion-source v5 --platform all --limit 5
 ```
 
+The [v5 title correspondence audit](../reports/wikidata-expanded-platform-v5-title-review-v1.json)
+recorded **10 noncanonical title candidate links** and **zero ambiguous
+links** across the six scopes. Casio Loopy and Satellaview had no exact
+title correspondences under this matching rule. These counts neither
+validate identities nor establish that their full game catalog is absent.
+
 The matched source-title pairs remain noncanonical evidence, with no
 inferred work, release or media identities.
 
@@ -102,6 +108,8 @@ cargo run --locked -- --wikidata-expanded --expansion-source v4 --platform all -
 cargo run --locked -- --wikidata-expanded-candidates --expansion-source v4 --platform all --limit 5
 ```
 
+The [v4 review report](../reports/wikidata-expanded-platform-v4-title-review-v1.json)
+records **238 links**, with no multiple-QID title ambiguity.
 A title correspondence is **review evidence only**, not a source-confirmed
 work, region, edition, port, release or media identity.
 
@@ -126,6 +134,8 @@ cargo run --locked -- --wikidata-expanded --expansion-source v3 --platform all -
 cargo run --locked -- --wikidata-expanded-candidates --expansion-source v3 --platform all --limit 5
 ```
 
+The [v3 review report](../reports/wikidata-expanded-platform-v3-title-review-v1.json)
+records **290 links** (288 Libretro records; four ambiguous links).
 As with v1 and v2, a candidate is title correspondence evidence, not
 a canonical work, region, edition, port, release or media relationship.
 

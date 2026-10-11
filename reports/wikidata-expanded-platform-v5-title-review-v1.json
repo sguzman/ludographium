@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "kind": "original-same-platform-v5-title-candidate-audit",
+  "source_commit_sha": "644c4eec9a196e3ad1805209bf429b7a9759038f",
+  "source_platform_partitions": 6,
+  "original_source_rows": 35,
+  "original_wikidata_item_platform_observations": 22,
+  "literal_publication_date_bindings": 34,
+  "nonliteral_publication_bindings": 0,
+  "total_candidate_links": 10,
+  "original_libretro_source_records_with_candidates": 10,
+  "ambiguous_candidate_links": 0,
+  "per_platform": [
+    {
+      "platform": "casioloopy",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "casiopv1000",
+      "candidate_links": 3,
+      "source_records_with_candidates": 3,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "watarasupervision",
+      "candidate_links": 2,
+      "source_records_with_candidates": 2,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "candidate_links": 1,
+      "source_records_with_candidates": 1,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "segapico",
+      "candidate_links": 4,
+      "source_records_with_candidates": 4,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "nintendosatellaview",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    }
+  ],
+  "matching_policy": "Same-platform conservative exact source-title key and original English Wikidata label; raw Libretro source hash and original Wikidata evidence preserved",
+  "interpretation": "Zero-row query partitions are preserved as valid scoped source noncoverage; all nonzero links are review candidates only, not canonical game work media edition or region identities. Candidate counts cannot establish a measured false-positive rate."
+}
