@@ -122,6 +122,15 @@ cargo run --locked -- --wikidata-expanded-candidates --expansion-source v8 --pla
 
 
 
+The next bulk-acquisition wave independently captures **P178 developer,
+P123 publisher, P136 genre**, plus **nine relation and identifier predicates**
+for the twelve provisional v8 platform scopes. The original source rows,
+zero-result captures, query/response hashes and unmatched QIDs remain separate
+from verified game identities. See the
+[credits accession](.github/workflows/wikidata-expanded-credits-v3.yml) and
+[relations accession](.github/workflows/wikidata-expanded-relations-v3.yml)
+for the reproducible source-query contracts.
+
 ## Expanded Wikidata developer, publisher and genre evidence
 
 The independently pinned [19-platform credit corpus](data/wikidata/expanded-credits-v1/)

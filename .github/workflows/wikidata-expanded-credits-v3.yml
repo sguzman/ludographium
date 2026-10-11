@@ -1,0 +1,174 @@
+name: Accession expanded Wikidata developer publisher genre evidence
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/wikidata-expanded-credits-v3.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-expanded-credits-v3-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Capture and verify original P178 P123 P136 claims for twelve provisional console and accessory scopes
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=data/wikidata/expanded-credits-v3
+          mkdir -p "$base"
+          jq -se '
+            length == 1 and
+            all(.[];
+              .schema_version == 1 and .source == "Wikidata"
+              and .license == "CC0-1.0" and .query_limit == 20000
+            ) and
+            ([.[].platforms[].platform] | length == 12) and
+            ([.[].platforms[].platform] | unique | length == 12) and
+            ([.[].platforms[].wikidata_platform] | unique | length == 12)
+          ' sources/wikidata-platform-expansion-v8.json > /dev/null
+          for version in 8; do
+            register="sources/wikidata-platform-expansion-v$version.json"
+            while IFS=$'\t' read -r platform qid; do
+              [[ "$platform" =~ ^[a-z0-9]+$ ]]
+              [[ "$qid" =~ ^Q[1-9][0-9]*$ ]]
+              out="$base/$platform"
+              if test -f "$out/manifest.json"; then
+                test "$(jq -r '.wikidata_platform' "$out/manifest.json")" = "$qid"
+                test "$(jq -r '.source_register' "$out/manifest.json")" = "$register"
+                for spec in 'query query.rq' 'response response.json' 'bindings bindings.jsonl'; do
+                  read -r key filename <<< "$spec"
+                  expected="$(jq -r --arg k "$key" '.["source_" + $k + "_sha256"]' "$out/manifest.json")"
+                  actual="$(sha256sum "$out/$filename" | cut -d' ' -f1)"
+                  test "$actual" = "$expected"
+                  echo "$platform: verified immutable $filename"
+                done
+                continue
+              fi
+              mkdir -p "$out"
+              cat > "$out/query.rq" <<EOF
+          SELECT DISTINCT ?item ?property ?value WHERE {
+            ?item wdt:P31 wd:Q7889; wdt:P400 wd:$qid.
+            VALUES ?property { wdt:P178 wdt:P123 wdt:P136 }
+            ?item ?property ?value.
+          }
+          ORDER BY ?item ?property ?value
+          LIMIT 30000
+          EOF
+              curl --fail --location --get --retry 5 --retry-all-errors \
+                --retry-delay 7 --max-time 150 --silent --show-error \
+                -H 'User-Agent: Ludographium/1.0 (https://github.com/sguzman/ludographium; CC0 source acquisition)' \
+                -H 'Accept: application/sparql-results+json' \
+                --data-urlencode 'format=json' \
+                --data-urlencode "query@$out/query.rq" \
+                'https://query.wikidata.org/sparql' \
+                -o "$out/response.json"
+              test "$(wc -c < "$out/response.json")" -lt 20000000
+              jq -e '
+                .head.vars == ["item","property","value"]
+                and (.results.bindings | type == "array" and length < 30000)
+                and all(.results.bindings[];
+                  (.item.type == "uri"
+                   and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
+                  and (.property.type == "uri"
+                   and (.property.value | test("^https?://www[.]wikidata[.]org/prop/direct/P(178|123|136)$")))
+                  and (.value.type | IN("uri","literal","typed-literal","bnode"))
+                  and (.value.value | type == "string" and length > 0))
+              ' "$out/response.json" > /dev/null
+              jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
+              jq -n \
+                --arg platform "$platform" --arg platform_qid "$qid" \
+                --arg register "$register" \
+                --arg captured_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+                --arg query_sha "$(sha256sum "$out/query.rq" | cut -d' ' -f1)" \
+                --arg response_sha "$(sha256sum "$out/response.json" | cut -d' ' -f1)" \
+                --arg bindings_sha "$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)" \
+                --argjson query_bytes "$(wc -c < "$out/query.rq")" \
+                --argjson response_bytes "$(wc -c < "$out/response.json")" \
+                --argjson bindings_bytes "$(wc -c < "$out/bindings.jsonl")" \
+                --slurpfile response "$out/response.json" \
+                '{
+                  schema_version: 1,
+                  source: "Wikidata",
+                  license: "CC0-1.0",
+                  source_revision: "live-query-capture",
+                  source_register: $register,
+                  platform: $platform,
+                  wikidata_platform: $platform_qid,
+                  captured_at_utc: $captured_at,
+                  source_query_path: "query.rq",
+                  source_query_sha256: $query_sha,
+                  source_query_bytes: $query_bytes,
+                  source_response_path: "response.json",
+                  source_response_sha256: $response_sha,
+                  source_response_bytes: $response_bytes,
+                  source_bindings_path: "bindings.jsonl",
+                  source_bindings_sha256: $bindings_sha,
+                  source_bindings_bytes: $bindings_bytes,
+                  source_rows: ($response[0].results.bindings | length),
+                  distinct_items: ([$response[0].results.bindings[].item.value] | unique | length),
+                  query_limit: 30000,
+                  properties: ["P178","P123","P136"],
+                  property_counts: (
+                    $response[0].results.bindings | group_by(.property.value)
+                    | map({key: (.[0].property.value | split("/")[-1]), value:length})
+                    | from_entries
+                  ),
+                  rdf_value_type_counts: (
+                    $response[0].results.bindings | group_by(.value.type)
+                    | map({key:.[0].value.type, value:length}) | from_entries
+                  ),
+                  identity_policy: "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+                }' > "$out/manifest.json"
+              jq -e '
+                .source_rows < .query_limit
+                and ((.source_rows == 0) == (.distinct_items == 0))
+                and .source == "Wikidata" and .license == "CC0-1.0"
+                and ([.property_counts[]] | add // 0) == .source_rows
+              ' "$out/manifest.json" > /dev/null
+              jq -r --arg name "$platform" '"\($name): \(.source_rows) claims; \(.distinct_items) item IDs"' "$out/manifest.json"
+              sleep 2
+            done < <(jq -r '.platforms[] | "\(.platform)\t\(.wikidata_platform)"' "$register")
+          done
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 12
+          jq -s '{
+            platforms: length,
+            statements: (map(.source_rows) | add),
+            item_platform_observations: (map(.distinct_items) | add),
+            zero_row_partitions: [ .[] | select(.source_rows == 0) | .platform ]
+          }' "$base"/*/manifest.json
+      - name: Commit verified independent source captures
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add data/wikidata/expanded-credits-v3
+          if git diff --cached --quiet; then
+            echo "All pinned source captures already committed"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(wikidata): pin expanded developer publisher and genre evidence'
+          # Concurrent source workflows may advance main between fetch and push.
+          # Retry normal fast-forward pushes; never force or drop original captures.
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Source capture could not be pushed after six rebases" >&2
+          exit 1
