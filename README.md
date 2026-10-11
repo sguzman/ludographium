@@ -90,6 +90,16 @@ cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v2 --platf
 All values remain attributed claims, not provider-verified external IDs,
 accepted game identities, editions, or release facts.
 
+A separate [expanded English-label source](data/wikidata/expanded-labels-v1/)
+adds **2,255 QID observations with 2,079 English labels**, independently
+captured in 23 source batches. The remaining 176 QIDs retain their original
+identifiers without invented names. Use source-attributed name evidence:
+
+```sh
+cargo run --locked -- --wikidata-properties --metadata-cohort expanded-v2 --with-entity-labels --platform all --limit 5
+cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v1 --with-entity-labels --platform all --limit 5
+```
+
 
 ## Collection
 

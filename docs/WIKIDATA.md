@@ -775,10 +775,19 @@ cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v1 --platf
 cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v2 --platform all --limit 5
 ```
 
-Expanded source partitions deliberately do not reuse the original
-sixteen-platform entity-label inventory. Label provenance requires a
-separate applicable acquisition; missing labels and ambiguous values are
-left unresolved.
+Expanded source partitions never borrow the original sixteen-platform
+English-label inventory. The independent
+[expanded label accession](../data/wikidata/expanded-labels-v1/) preserves
+**2,255 referenced entity QIDs** (2,079 English labels, 176 unlabeled)
+in **23 hash-pinned query batches**. Its Rust reader checks original
+responses, exact QID inventory, and a digest of all 74 manifest files
+across the four expanded metadata captures. It also verifies the label
+inventory against the exact union of QIDs referenced by those source
+records. A label is name evidence, not proof of game/company identity.
+
+To include separately sourced English labels, add
+`--with-entity-labels` to a `--metadata-cohort expanded-v1` or
+`--metadata-cohort expanded-v2` property or relation lookup.
 
 ## Accuracy and source-rights boundaries
 

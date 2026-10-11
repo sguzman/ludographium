@@ -52,6 +52,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Accession and integrate six additional seventh-cohort Wikidata console scopes (20 original source rows, 14 item/platform observations, two explicit zero-row partitions) with immutable query/response evidence and offline source/title-review lookup.
 - [x] Bulk-acquire, preserve and offline-verify 11,231 additional independent Wikidata P178/P123/P136 statements across all 37 added platform scopes (19 plus 18), without canonical work/company associations.
 - [x] Bulk-acquire, preserve and offline-verify 20,460 additional Wikidata series, language, distribution, title and external-ID statements across the same 37 added platform scopes, leaving ambiguous provider identifiers unresolved.
+- [x] Capture 2,255 independent English-label QID observations (2,079 labeled, 176 unresolved) in 23 batches and verify them against all 74 pinned expanded metadata source manifests and referenced entity QIDs.
 - [x] Quantify exact noncanonical title candidates for three independently captured console cohorts: v3 290 links (4 ambiguous), v4 238 links (0 ambiguous), v5 10 links (0 ambiguous), retaining empty source and no-match cases.
 - [ ] Expand independently *provider-verified* identifier evidence beyond Wikidata assertions; quantify false-positive risk using adjudicated ground truth.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
