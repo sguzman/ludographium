@@ -1319,7 +1319,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         return Ok(());
     }
     if wikidata_properties {
-        let catalog = WikidataPropertyCatalog::open(&root, &platform)?;
+        let catalog = if expanded_credits {
+            WikidataPropertyCatalog::open_expanded(&root, &platform)?
+        } else {
+            WikidataPropertyCatalog::open(&root, &platform)?
+        };
         let (total, records) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
         let labels = if with_entity_labels {
             let source = WikidataEntityLabelCatalog::open(&root)?;
