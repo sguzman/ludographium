@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "platform": "sonyplaystation3psn",
+  "wikidata_platform": "Q10683",
+  "source_revision": "live-query-capture",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "63fee1f2ab9dd7d999b408ad6ba4b37fbc6385abe6ae1384d079476f8d9d5fe6",
+  "source_response_path": "response.json",
+  "source_response_sha256": "5ab0c5c4e4bfbf6368b7dd9656108271f0fff1b1a98c136d57607e33061df76b",
+  "source_response_bytes": 2341916,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "7f9e32141bd1c5fcad5bf99caa421680a7e058343cdfd7367c6e6b0ae3c4475f",
+  "source_bindings_bytes": 1523890,
+  "captured_at_utc": "2026-10-11T17:42:35Z",
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "query_limit": 10000,
+  "source_rows": 6816,
+  "non_entity_value_bindings": 0,
+  "distinct_items": 1946,
+  "identity_policy": "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+}

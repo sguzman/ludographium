@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "platform": "nintendowiiudigital",
+  "wikidata_platform": "Q56942",
+  "source_revision": "live-query-capture",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "990c613ea78a3cbbcf9898f72560d465ba4dddadac96da07ace78008d127e78c",
+  "source_response_path": "response.json",
+  "source_response_sha256": "e10e058bbbb0916a84dab75b7a4261e2cb453c2320381db0932d0af8cecdbf5c",
+  "source_response_bytes": 883105,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "32015aad1e8fcdfc79f9aaed7458a1149aa7e45c60539b548412869ec5eb69ac",
+  "source_bindings_bytes": 575319,
+  "captured_at_utc": "2026-10-11T17:42:31Z",
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "query_limit": 10000,
+  "source_rows": 2564,
+  "non_entity_value_bindings": 0,
+  "distinct_items": 788,
+  "identity_policy": "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+}
