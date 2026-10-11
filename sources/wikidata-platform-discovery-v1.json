@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "kind": "unverified-wikidata-platform-entity-search-hints",
+  "provider": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://www.wikidata.org/w/api.php",
+  "search_language": "en",
+  "result_limit": 25,
+  "source_gap_report": "reports/wikidata-p400-platform-gaps-v1.json",
+  "targets": [
+    {
+      "platform": "arduboyincarduboy",
+      "search_hint": "Arduboy"
+    },
+    {
+      "platform": "benessepocketchallengev2",
+      "search_hint": "Pocket Challenge V2"
+    },
+    {
+      "platform": "entexadventurevision",
+      "search_hint": "Entex Adventure Vision"
+    },
+    {
+      "platform": "funtechsuperacan",
+      "search_hint": "Super A'Can"
+    },
+    {
+      "platform": "hartunggamemaster",
+      "search_hint": "Hartung Game Master"
+    },
+    {
+      "platform": "konamipicno",
+      "search_hint": "Konami Picno"
+    },
+    {
+      "platform": "leapfrogleappad",
+      "search_hint": "LeapFrog LeapPad"
+    },
+    {
+      "platform": "leapfrogleapsterlearninggamesystem",
+      "search_hint": "Leapster"
+    },
+    {
+      "platform": "mobilezeebo",
+      "search_hint": "Zeebo"
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "search_hint": "Sufami Turbo"
+    },
+    {
+      "platform": "nintendoereader",
+      "search_hint": "Nintendo e-Reader"
+    },
+    {
+      "platform": "philipsvideopac",
+      "search_hint": "Philips Videopac+ G7400"
+    },
+    {
+      "platform": "vtechcreativision",
+      "search_hint": "VTech CreatiVision"
+    },
+    {
+      "platform": "vtechvsmile",
+      "search_hint": "V.Smile"
+    }
+  ],
+  "policy": "Search results are unreviewed discovery leads only. A name match never establishes P400 platform identity, a canonical game, or a release correspondence."
+}

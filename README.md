@@ -88,6 +88,14 @@ These are **unregistered P400 scopes**, not evidence that those platforms have
 no games. Regenerate/check with `python tools/audit_wikidata_platform_gaps.py --write`
 or `--check`.
 
+The [14-scope platform-search discovery queue](sources/wikidata-platform-discovery-v1.json)
+can accession independent, hash-pinned Wikidata entity-search responses through
+[GitHub Actions](.github/workflows/wikidata-platform-discovery-v1.yml).
+Search-result QIDs remain **unreviewed leads**, never accepted platform mappings;
+the acquisition does not modify existing game data or retroactively conflate
+different distribution collections. Validate any committed captures offline with
+`python tools/discover_wikidata_platforms.py --check`.
+
 
 ## Expanded Wikidata developer, publisher and genre evidence
 
