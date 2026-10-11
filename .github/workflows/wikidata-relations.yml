@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           base=data/wikidata/relations-v1
-          # First source cohort; later cohorts reuse this same immutable accession.
+          # All 16 captures are pinned; reruns verify their hashes and never refresh implicitly.
           while read -r platform qid; do
             out="$base/$platform"
             if test -f "$out/manifest.json"; then
@@ -129,7 +129,7 @@ jobs:
             jq -e '. as $m | ($m.source_rows > 0) and ($m.distinct_items > 0) and ($m.query_limit > $m.source_rows) and (([.property_counts[]] | add) == $m.source_rows)' "$out/manifest.json" > /dev/null
             echo "$platform: $count original relations/IDs, $items items, $entity_values entity-valued bindings"
             sleep 2
-          done < <(jq -r '.platforms[] | select(.platform == "nds") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          done < <(jq -r '.platforms[] | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
           test "$(find "$base" -name manifest.json | wc -l)" -eq 16
       - name: Commit only original text source evidence
         shell: bash
