@@ -625,12 +625,24 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || media_format.is_some()
                 || zip_entry.is_some()))
         || (wikidata_relations
-            && (wikidata_text || wikidata_candidates || wikidata_properties
-                || wikidata_items || source_dat || claims_only || enriched
-                || show_curated || compare_years || compare_credits
-                || with_entity_labels || title.is_some()
-                || sha1.is_some() || crc32.is_some() || size.is_some()
-                || file.is_some() || zip.is_some() || media_format.is_some()
+            && (wikidata_text
+                || wikidata_candidates
+                || wikidata_properties
+                || wikidata_items
+                || source_dat
+                || claims_only
+                || enriched
+                || show_curated
+                || compare_years
+                || compare_credits
+                || with_entity_labels
+                || title.is_some()
+                || sha1.is_some()
+                || crc32.is_some()
+                || size.is_some()
+                || file.is_some()
+                || zip.is_some()
+                || media_format.is_some()
                 || zip_entry.is_some()))
         || (wikidata_items
             && (wikidata_text
