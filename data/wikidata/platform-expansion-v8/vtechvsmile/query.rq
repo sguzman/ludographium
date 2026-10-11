@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?itemLabel ?publication WHERE {
+  ?item wdt:P31 wd:Q7889;
+        wdt:P400 wd:Q1055215.
+  OPTIONAL { ?item rdfs:label ?itemLabel. FILTER(LANG(?itemLabel) = "en") }
+  OPTIONAL { ?item wdt:P577 ?publication. }
+}
+ORDER BY ?item ?itemLabel ?publication
+LIMIT 20000
