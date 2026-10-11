@@ -210,11 +210,11 @@ impl WikidataLocalizedTitleCatalog {
             for (kind, count) in source.name_kinds {
                 *combined.name_kinds.entry(kind).or_insert(0) += count;
             }
-            combined.platform_row_counts.extend(source.platform_row_counts);
+            combined
+                .platform_row_counts
+                .extend(source.platform_row_counts);
         }
-        if combined.platforms.is_empty()
-            || (selection == "all" && combined.platforms.len() != 53)
-        {
+        if combined.platforms.is_empty() || (selection == "all" && combined.platforms.len() != 53) {
             return Err(invalid(format!(
                 "unknown or incomplete combined localized source platform: {selection}"
             )));
@@ -558,8 +558,14 @@ mod tests {
         let combined = WikidataLocalizedTitleCatalog::open_combined(&root, "all").unwrap();
         assert_eq!(combined.platform_ids().len(), 53);
         assert_eq!(combined.total_claims(), 153_951);
-        assert_eq!(combined.total_claims(), combined.platform_row_counts().values().sum());
-        assert_eq!(combined.source_item_observations(), 15_731 + expanded.source_item_observations() + second.source_item_observations());
+        assert_eq!(
+            combined.total_claims(),
+            combined.platform_row_counts().values().sum()
+        );
+        assert_eq!(
+            combined.source_item_observations(),
+            15_731 + expanded.source_item_observations() + second.source_item_observations()
+        );
         assert_eq!(combined.platform_row_counts()["gameparkgp32"], 0);
         assert_eq!(combined.platform_row_counts()["atari2600"], 1_856);
         assert!(WikidataLocalizedTitleCatalog::open_combined(&root, "unknown").is_err());
