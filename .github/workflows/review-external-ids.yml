@@ -1,0 +1,105 @@
+name: Publish Wikidata external identifier review
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/review-external-ids.yml
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit every pinned Steam and GOG source identifier
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports
+          jq -c '
+            select(.property.value | test("/P(1733|2725)$"))
+            | {
+                property: (.property.value | split("/")[-1]),
+                identifier: .value.value,
+                rdf_kind: .value.type,
+                item_qid: (.item.value | split("/")[-1]),
+                platform: (input_filename | split("/")[-2]),
+                source_path: input_filename
+              }
+          ' data/wikidata/relations-v1/*/bindings.jsonl \
+            > "$RUNNER_TEMP/wikidata-external-claims.jsonl"
+          test "$(wc -l < "$RUNNER_TEMP/wikidata-external-claims.jsonl")" -eq 3282
+          jq -s --arg source_commit "$GITHUB_SHA" '
+            . as $claims
+            | ($claims | group_by([.property,.identifier])) as $ids
+            | ($ids | map(select((map(.item_qid) | unique | length) > 1))) as $conflicts
+            | ($ids | map(select((map(.platform) | unique | length) > 1))) as $cross_platform
+            | {
+                schema_version: 1,
+                kind: "original-wikidata-external-identifier-ambiguity-review",
+                source_commit_sha: $source_commit,
+                source: "Wikidata CC0 query bindings from 16 pinned platforms",
+                total_source_id_claims: ($claims | length),
+                distinct_provider_identifiers: ($ids | length),
+                provider_counts: (
+                  $claims | group_by(.property)
+                  | map({
+                      key: .[0].property,
+                      value: {
+                        source_claims: length,
+                        distinct_identifier_strings: (map(.identifier) | unique | length),
+                        distinct_game_qids: (map(.item_qid) | unique | length)
+                      }
+                    }) | from_entries
+                ),
+                identifiers_seen_on_multiple_platforms: ($cross_platform | length),
+                identifier_values_attached_to_multiple_qids: ($conflicts | length),
+                multi_qid_identifier_evidence: (
+                  $conflicts | map({
+                    property: .[0].property,
+                    identifier: .[0].identifier,
+                    distinct_qids: (map(.item_qid) | unique),
+                    source_observations: .
+                  })
+                ),
+                distinct_game_qids_with_both_providers: (
+                  $claims | group_by(.item_qid)
+                  | map(select((map(.property) | unique | length) == 2))
+                  | length
+                ),
+                interpretation: "Wikidata external-ID source-claim comparison; repeated cross-platform IDs and distinct QID claims do not establish canonical identities or factual identifier errors; no provider-side verification and no empirically measured false-positive rate"
+              }
+          ' "$RUNNER_TEMP/wikidata-external-claims.jsonl" \
+            > reports/wikidata-external-identifier-review-v1.json
+          jq -e '
+            .total_source_id_claims == 3282
+            and .provider_counts.P1733.source_claims == 2624
+            and .provider_counts.P2725.source_claims == 658
+            and .distinct_provider_identifiers > 0
+          ' reports/wikidata-external-identifier-review-v1.json > /dev/null
+          jq -c '{
+            total_source_id_claims,
+            distinct_provider_identifiers,
+            identifiers_seen_on_multiple_platforms,
+            identifier_values_attached_to_multiple_qids,
+            distinct_game_qids_with_both_providers
+          }' reports/wikidata-external-identifier-review-v1.json
+      - name: Preserve source-derived review text
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add reports/wikidata-external-identifier-review-v1.json
+          if git diff --cached --quiet; then
+            echo "Report already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: publish Wikidata Steam and GOG identifier collision evidence'
+          git push origin HEAD:main
