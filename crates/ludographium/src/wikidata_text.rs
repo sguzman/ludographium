@@ -108,7 +108,7 @@ fn parse_items(bytes: &[u8], platform: &str) -> Result<Vec<WikidataItem>, Catalo
                 .as_ref()
                 .is_some_and(|x| x.trim().is_empty())
             || record.dates.iter().any(|d| {
-                !matches!(d.kind.as_str(), "literal" | "typed-literal") || d.value.is_empty()
+                d.kind.is_empty() || d.value.is_empty()
             })
         {
             return Err(invalid(format!(
@@ -222,8 +222,9 @@ impl WikidataTextCatalog {
             let count: usize = platforms
                 .iter()
                 .flat_map(|p| &p.items)
-                .map(|i| i.dates.len())
-                .sum();
+                .flat_map(|i| &i.dates)
+                .filter(|d| matches!(d.kind.as_str(), "literal" | "typed-literal"))
+                .count();
             if count != manifest.literal_date_claims {
                 return Err(invalid("Wikidata publication-date count mismatch"));
             }
@@ -237,12 +238,14 @@ impl WikidataTextCatalog {
     pub fn item_count(&self) -> usize {
         self.platforms.iter().map(|p| p.items.len()).sum()
     }
+    /// Count literal publication-date claims; retain other RDF bindings raw.
     pub fn date_count(&self) -> usize {
         self.platforms
             .iter()
             .flat_map(|p| &p.items)
-            .map(|i| i.dates.len())
-            .sum()
+            .flat_map(|i| &i.dates)
+            .filter(|d| matches!(d.kind.as_str(), "literal" | "typed-literal"))
+            .count()
     }
     pub fn snapshot_sha256(&self) -> &str {
         SNAPSHOT_SHA
@@ -332,6 +335,9 @@ mod tests {
 {"qid":"Q42","english_label":"Answer","dates":[]}
 "#;
         assert!(parse_items(raw, "fixture").is_err());
+        let nonliteral = br#"{"qid":"Q77","english_label":null,"dates":[{"type":"uri","value":"http://www.wikidata.org/.well-known/genid/example"}]}
+"#;
+        assert_eq!(parse_items(nonliteral, "fixture").unwrap()[0].dates[0].kind, "uri");
     }
     #[test]
     fn verifies_all_original_wikidata_text_sources_and_qid_lookup() {
