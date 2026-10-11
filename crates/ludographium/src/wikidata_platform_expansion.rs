@@ -14,6 +14,7 @@ const BASE_V3: &str = "data/wikidata/platform-expansion-v3";
 const BASE_V4: &str = "data/wikidata/platform-expansion-v4";
 const BASE_V5: &str = "data/wikidata/platform-expansion-v5";
 const BASE_V6: &str = "data/wikidata/platform-expansion-v6";
+const BASE_V7: &str = "data/wikidata/platform-expansion-v7";
 const MAP_V1: &[(&str, &str)] = &[
     ("atari7800", "Q753600"),
     ("sonyplaystationportable", "Q170325"),
@@ -60,6 +61,15 @@ const MAP_V6: &[(&str, &str)] = &[
     ("nintendonintendo64dd", "Q253044"),
     ("tigergamecom", "Q2498396"),
     ("fairchildchannelf", "Q1053294"),
+];
+
+const MAP_V7: &[(&str, &str)] = &[
+    ("emersonarcadia2001", "Q1196518"),
+    ("epochsupercassettevision", "Q8018077"),
+    ("gameparkgp32", "Q426119"),
+    ("intertonvc4000", "Q302411"),
+    ("rcastudioii", "Q1143954"),
+    ("segabeena", "Q4686254"),
 ];
 
 #[derive(Deserialize)]
@@ -225,6 +235,16 @@ impl ExpandedWikidataCatalog {
         )
     }
 
+    pub fn open_v7(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V7,
+            "sources/wikidata-platform-expansion-v7.json",
+            MAP_V7,
+        )
+    }
+
     fn open_source(
         root: &Path,
         selection: &str,
@@ -275,9 +295,9 @@ impl ExpandedWikidataCatalog {
                 || manifest.wikidata_platform != scope.wikidata_platform
                 || manifest.query_limit != register.query_limit
                 || manifest.source_rows >= manifest.query_limit
-                || (!matches!(base, BASE_V5 | BASE_V6)
+                || (!matches!(base, BASE_V5 | BASE_V6 | BASE_V7)
                     && (manifest.source_rows == 0 || manifest.distinct_item_qids == 0))
-                || (matches!(base, BASE_V5 | BASE_V6)
+                || (matches!(base, BASE_V5 | BASE_V6 | BASE_V7)
                     && ((manifest.source_rows == 0) != (manifest.distinct_item_qids == 0)))
                 || manifest.source_query_path != "query.rq"
                 || manifest.source_response_path != "response.json"
@@ -586,6 +606,37 @@ mod tests {
         assert_eq!(total, 482);
         assert!(samples[0].source_path.contains("platform-expansion-v4"));
         assert!(ExpandedWikidataCatalog::open_v4(&root, "invalid").is_err());
+    }
+
+    #[test]
+    fn seventh_source_cohort_preserves_six_scopes_and_two_empty_responses() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = ExpandedWikidataCatalog::open_v7(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 6);
+        assert_eq!(catalog.total_rows(), 20);
+        assert_eq!(catalog.distinct_item_observations(), 14);
+        assert_eq!(catalog.english_label_rows(), 18);
+        assert_eq!(catalog.literal_date_claims(), 20);
+        assert_eq!(catalog.nonliteral_publication_bindings(), 0);
+        assert_eq!(catalog.platform_row_counts()["emersonarcadia2001"], 3);
+        assert_eq!(catalog.platform_row_counts()["epochsupercassettevision"], 14);
+        assert_eq!(catalog.platform_row_counts()["gameparkgp32"], 0);
+        assert_eq!(catalog.platform_row_counts()["intertonvc4000"], 0);
+        assert_eq!(catalog.platform_row_counts()["rcastudioii"], 1);
+        assert_eq!(catalog.platform_row_counts()["segabeena"], 2);
+        for platform in ["gameparkgp32", "intertonvc4000"] {
+            let empty = ExpandedWikidataCatalog::open_v7(&root, platform).unwrap();
+            let (count, rows) = empty.search(None, None, 2).unwrap();
+            assert_eq!(count, 0);
+            assert!(rows.is_empty());
+        }
+        assert!(ExpandedWikidataCatalog::open_v7(&root, "unknown").is_err());
+        assert!(catalog.search(Some("Q0"), None, 1).is_err());
+        assert!(catalog.observations().iter().all(|item| {
+            item.source_path.contains("platform-expansion-v7")
+                && item.source_sha256.len() == 64
+                && item.interpretation.contains("not-canonical")
+        }));
     }
 
     #[test]
