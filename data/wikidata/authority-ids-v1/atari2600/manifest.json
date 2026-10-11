@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "atari2600",
+  "wikidata_platform": "Q206261",
+  "captured_at_utc": "2026-10-11T20:31:13Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "b4d39d3816e6adb5f373e7c3217d73763e2ea7b7e7688e76720ff93222bbd00a",
+  "source_query_bytes": 290,
+  "source_response_path": "response.json",
+  "source_response_sha256": "83205cccf0c885e33fe5c282efc1a7d8ae9624246959797f33eda2fb1e0bc85c",
+  "source_response_bytes": 467954,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "7bb51375bf3dd2ccebe927fceff607d719d48cb89e4982eaaf464e805aee42a9",
+  "source_bindings_bytes": 290848,
+  "source_rows": 1475,
+  "distinct_items": 375,
+  "entity_value_bindings": 0,
+  "query_limit": 30000,
+  "properties": [
+    "P11688",
+    "P1933",
+    "P4769",
+    "P2816",
+    "P1712",
+    "P2864",
+    "P2606",
+    "P2451",
+    "P4857"
+  ],
+  "property_counts": {
+    "P11688": 398,
+    "P1933": 362,
+    "P2451": 73,
+    "P2816": 109,
+    "P2864": 2,
+    "P4769": 312,
+    "P4857": 219
+  },
+  "rdf_value_type_counts": {
+    "literal": 1475
+  },
+  "identity_policy": "Original Wikidata source assertions of third-party authority IDs, not provider-verified, not resolved canonical game/edition/release/media identities"
+}

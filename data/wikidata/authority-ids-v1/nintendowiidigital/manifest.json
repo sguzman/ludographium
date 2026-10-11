@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "nintendowiidigital",
+  "wikidata_platform": "Q8079",
+  "captured_at_utc": "2026-10-11T20:31:22Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "569ffad30b594ca6090c21de8e1cfbc45be6007a398b52b8eaf482849da7a768",
+  "source_query_bytes": 288,
+  "source_response_path": "response.json",
+  "source_response_sha256": "848721c79ef1292dcfdd8bf0854eb9ec8bad6bd67d554b3d2062db799b16003c",
+  "source_response_bytes": 2068285,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "ff477d207770f9d330c4cbdcb63e37e1c83e669295647857d55ca6be5ce77609",
+  "source_bindings_bytes": 1292139,
+  "source_rows": 6467,
+  "distinct_items": 1387,
+  "entity_value_bindings": 0,
+  "query_limit": 30000,
+  "properties": [
+    "P11688",
+    "P1933",
+    "P4769",
+    "P2816",
+    "P1712",
+    "P2864",
+    "P2606",
+    "P2451",
+    "P4857"
+  ],
+  "property_counts": {
+    "P11688": 1779,
+    "P1712": 7,
+    "P1933": 1559,
+    "P2451": 18,
+    "P2816": 581,
+    "P2864": 46,
+    "P4769": 2475,
+    "P4857": 2
+  },
+  "rdf_value_type_counts": {
+    "literal": 6467
+  },
+  "identity_policy": "Original Wikidata source assertions of third-party authority IDs, not provider-verified, not resolved canonical game/edition/release/media identities"
+}

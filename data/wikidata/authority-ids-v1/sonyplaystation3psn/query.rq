@@ -1,0 +1,10 @@
+SELECT DISTINCT ?item ?property ?value WHERE {
+  ?item wdt:P31 wd:Q7889; wdt:P400 wd:Q10683.
+  VALUES ?property {
+    wdt:P11688 wdt:P1933 wdt:P4769 wdt:P2816
+    wdt:P1712 wdt:P2864 wdt:P2606 wdt:P2451 wdt:P4857
+  }
+  ?item ?property ?value.
+}
+ORDER BY ?item ?property ?value
+LIMIT 30000
