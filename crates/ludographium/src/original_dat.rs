@@ -599,16 +599,17 @@ impl OriginalDatCatalog {
             for game in &platform.games {
                 for field in ["developer", "publisher"] {
                     if let Some(value) = game.fields.get(field) {
-                        credits.entry((
-                            platform.id.clone(), game.ordinal, field.to_owned()
-                        )).or_default().push(OriginalCreditEvidence {
-                            raw_value: value.clone(),
-                            field: field.to_owned(),
-                            source_kind: "identification_dat_scalar",
-                            source_path: platform.source.path.clone(),
-                            source_blob_sha: platform.source.blob.clone(),
-                            source_ordinal: game.ordinal,
-                        });
+                        credits
+                            .entry((platform.id.clone(), game.ordinal, field.to_owned()))
+                            .or_default()
+                            .push(OriginalCreditEvidence {
+                                raw_value: value.clone(),
+                                field: field.to_owned(),
+                                source_kind: "identification_dat_scalar",
+                                source_path: platform.source.path.clone(),
+                                source_blob_sha: platform.source.blob.clone(),
+                                source_ordinal: game.ordinal,
+                            });
                     }
                 }
             }
@@ -623,16 +624,17 @@ impl OriginalDatCatalog {
                 if let (Some(ordinal), Some(value)) =
                     (claim.resolution.base_source_ordinal, claim.value.as_ref())
                 {
-                    credits.entry((
-                        claim.platform.clone(), ordinal, claim.field.clone()
-                    )).or_default().push(OriginalCreditEvidence {
-                        raw_value: value.clone(),
-                        field: claim.field.clone(),
-                        source_kind: "matched_bibliographic_dat",
-                        source_path: claim.source_path.clone(),
-                        source_blob_sha: claim.source_blob_sha.clone(),
-                        source_ordinal: claim.source_ordinal,
-                    });
+                    credits
+                        .entry((claim.platform.clone(), ordinal, claim.field.clone()))
+                        .or_default()
+                        .push(OriginalCreditEvidence {
+                            raw_value: value.clone(),
+                            field: claim.field.clone(),
+                            source_kind: "matched_bibliographic_dat",
+                            source_path: claim.source_path.clone(),
+                            source_blob_sha: claim.source_blob_sha.clone(),
+                            source_ordinal: claim.source_ordinal,
+                        });
                 }
             }
         }
