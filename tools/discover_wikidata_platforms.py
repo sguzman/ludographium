@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REGISTER = "sources/wikidata-platform-discovery-v1.json"
 BASE = Path("data/wikidata/platform-discovery-v1")
-QID = re.compile(r"Q[1-9][0-9]*\\Z")
+QID = re.compile(r"Q[1-9][0-9]*\Z")
 USER_AGENT = (
     "Ludographium/1.0 (https://github.com/sguzman/ludographium; "
     "unverified Wikidata CC0 platform-source research)"

@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - .github/workflows/wikidata-platform-discovery-v1.yml
+      - tools/discover_wikidata_platforms.py
+      - sources/wikidata-platform-discovery-v1.json
 
 permissions:
   contents: write
