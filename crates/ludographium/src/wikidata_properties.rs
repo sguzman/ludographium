@@ -312,7 +312,10 @@ impl WikidataPropertyCatalog {
         &self.platforms
     }
     pub fn referenced_entity_qids(&self) -> std::collections::BTreeSet<String> {
-        self.claims.iter().filter_map(|claim| claim.value_qid.clone()).collect()
+        self.claims
+            .iter()
+            .filter_map(|claim| claim.value_qid.clone())
+            .collect()
     }
 
     pub fn total_claims(&self) -> usize {
