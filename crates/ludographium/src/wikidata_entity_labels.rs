@@ -531,7 +531,7 @@ mod tests {
                 &relations_v2,
             )
             .unwrap();
-        let sample = labels.lookup("Q107").unwrap();
+        let sample = labels.lookup("Q100350796").unwrap();
         assert_eq!(sample.source_sha256.len(), 64);
         assert!(sample.source_path.contains("expanded-labels-v1"));
         assert!(sample.interpretation.contains("not-canonical"));
