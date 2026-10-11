@@ -66,8 +66,8 @@ jobs:
                and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
               and (.property.type == "uri"
                and (.property.value | test("^https?://www[.]wikidata[.]org/prop/direct/P(178|123|136)$")))
-              and (.value.type == "uri"
-               and (.value.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$"))))
+              and (.value.type | IN("uri", "literal", "typed-literal", "bnode"))
+              and (.value.value | type == "string" and length > 0))
           ' "$out/response.json" > /dev/null
           jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
           rows="$(wc -l < "$out/bindings.jsonl")"
@@ -76,6 +76,8 @@ jobs:
           response_sha="$(sha256sum "$out/response.json" | cut -d' ' -f1)"
           text_sha="$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)"
           distinct_items="$(jq -r '.results.bindings[].item.value' "$out/response.json" | sort -u | wc -l)"
+          non_entity_values="$(jq '[.results.bindings[].value | select((.type != "uri") or (.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$") | not))] | length' "$out/response.json")"
+          echo "Retaining $non_entity_values non-entity property values as raw RDF bindings"
           fetch_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
           jq -n \
             --arg platform "$platform" \
@@ -84,6 +86,7 @@ jobs:
             --arg query_sha "$query_sha" \
             --arg response_sha "$response_sha" \
             --arg text_sha "$text_sha" \
+            --argjson non_entity_values "$non_entity_values" \
             --argjson rows "$rows" \
             --argjson distinct_items "$distinct_items" \
             --argjson text_bytes "$(wc -c < "$out/bindings.jsonl")" \
@@ -107,6 +110,7 @@ jobs:
               properties: ["P178","P123","P136"],
               query_limit: 10000,
               source_rows: $rows,
+              non_entity_value_bindings: $non_entity_values,
               distinct_items: $distinct_items,
               identity_policy: "Attributed property claims only; do not assign canonical game, work, company or genre identities"
             }' > "$out/manifest.json"
@@ -114,8 +118,8 @@ jobs:
             "$out/manifest.json" > /dev/null
           echo "Verified $platform accession: $rows statements, $distinct_items item IDs"
           sleep 2
-          done < <(jq -r '.platforms[] | select(.platform == "nintendowiidigital" or .platform == "nintendowiiudigital" or .platform == "sonyplaystation3psn") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
-          test "$(find data/wikidata/properties-v1 -name manifest.json | wc -l)" -eq 14
+          done < <(jq -r '.platforms[] | select(.platform == "nintendowiidigital") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          test "$(find data/wikidata/properties-v1 -name manifest.json | wc -l)" -eq 12
       - name: Commit only original source text and attributable metadata
         shell: bash
         run: |
@@ -132,5 +136,5 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'data(wikidata): accession Wii Wii U and PlayStation 3 source claims'
+          git commit -m 'data(wikidata): preserve Wii publisher developer and genre source claims'
           git push origin HEAD:main
