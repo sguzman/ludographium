@@ -249,6 +249,17 @@ impl WikidataTextCatalog {
         })
     }
 
+    /// Inspect literal and nonliteral original RDF date bindings without joins.
+    pub(crate) fn reconciliation_dates(
+        &self,
+    ) -> impl Iterator<Item = (&str, &str, &[WikidataDate])> {
+        self.platforms.iter().flat_map(|platform| {
+            platform.items.iter().map(move |item| {
+                (platform.id.as_str(), item.qid.as_str(), item.dates.as_slice())
+            })
+        })
+    }
+
     pub fn platform_ids(&self) -> impl Iterator<Item = &str> {
         self.platforms.iter().map(|p| p.id.as_str())
     }
