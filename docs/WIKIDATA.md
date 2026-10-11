@@ -222,6 +222,36 @@ cargo run --locked -- --wikidata-relations --with-entity-labels --platform all -
 cargo run --locked -- --wikidata-items --platform atari2600 --qid Q100701966
 ```
 
+## Original multilingual labels and alternate game titles
+
+A fourth independent CC0 Wikidata accession contains **124,690 language-tagged
+source name observations** over all **16 platform collections** and 15,731
+item/platform observations: `rdfs:label` (81,593 names) and
+`skos:altLabel` (43,097 alternate-name assertions).
+
+The pinned source scope includes `en`, `ja`, `es`, `zh`, `fr`,
+`de`, `it`, `ko`, `ar` and `pt`, including available subtags. Exactly
+**25 language-tag variants** appeared in the preserved originals, including
+`es-419`, `pt-br`, `zh-hans`, `zh-hant` and `en-gb`.
+The source contains 16,606 Chinese-, 12,991 Japanese- and 10,937
+Spanish-tagged observations.
+
+The [original SPARQL queries and complete source responses](../data/wikidata/localized-titles-v1/)
+are pinned per platform, with SHA-256 and size manifests. The Rust reader
+checks every source response against each JSONL row, all language-tag and
+name-kind totals, exact platform mapping and source file hashes.
+
+```sh
+cargo run --locked -- --wikidata-localized-titles --platform all --limit 5
+cargo run --locked -- --wikidata-localized-titles --platform snes --language es --limit 5
+cargo run --locked -- --wikidata-localized-titles --platform all --title "Mario" --limit 5
+```
+
+The language filter matches an exact language prefix and its subtags,
+without changing returned source tags. These are attributed names, **not
+confirmed canonical titles for a territory or a game edition**. Different
+aliases do not establish independent work or release identities.
+
 ## Exact reverse lookup for external ID source strings
 
 The Rust source query can now start from a literal Steam (P1733) or GOG

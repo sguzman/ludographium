@@ -37,6 +37,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Expose an exact-QID, per-platform Wikidata game observation projection across title/date and developer/publisher/genre captures, retaining separately captured claims, entity labels and source-only observations.
 - [x] Add all 92,621 original series, title, language, distribution and external-ID source bindings to the exact-QID game observation union without erasing independent source-only rows.
 - [x] Independently capture and hash-verify 1,837 game-relation QID label observations (1,639 English, 198 unlabeled), displaying them only as source-attributed evidence.
+- [x] Accession 124,690 original language-tagged Wikidata label and alternate-title statements spanning 25 observed language tags and 16 platforms, with full SHA-256 source retention and bounded offline Rust lookup.
 - [x] Preserve 92,621 additional original Wikidata statements across 16 console groups for series, play modes, languages, countries, distribution, published titles and 3,282 Steam/GOG external identifier claims, with exact query/response source hashes.
 - [x] Audit all 3,282 source Steam/GOG ID claims, 1,972 provider-qualified ID strings, cross-platform repetition and 10 multi-QID identifier conflicts as noncanonical source review leads.
 - [ ] Expand independent provider coverage and cross-source identifier evidence beyond title correspondences; quantify false-positive risk.
