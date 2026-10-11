@@ -620,6 +620,13 @@ fn run() -> Result<(), Box<dyn Error>> {
         return Ok(());
     }
 
+    if expanded_credits && (!wikidata_properties || with_entity_labels) {
+        return Err(CatalogError::Invalid(
+            "--expanded-credits requires --wikidata-properties without --with-entity-labels".into(),
+        )
+        .into());
+    }
+
     if expansion_source.is_some() && !wikidata_expanded && !wikidata_expanded_candidates {
         return Err(CatalogError::Invalid(
             "--expansion-source requires an expanded Wikidata source mode".into(),
