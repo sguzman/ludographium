@@ -1669,3 +1669,126 @@ fn expanded_property_claims_are_verified_offline() {
         assert!(!output.status.success(), "accepted invalid args: {args:?}");
     }
 }
+
+#[test]
+fn expanded_wikidata_metadata_cohorts_are_queryable() {
+    let first_credits = query(&[
+        "--wikidata-properties",
+        "--metadata-cohort",
+        "expanded-v1",
+        "--platform",
+        "all",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(first_credits["metadata_cohort"], "expanded-v1");
+    assert_eq!(first_credits["source_statements"], 10_269);
+    assert_eq!(first_credits["source_item_platform_observations"], 3_150);
+
+    let second_credits = query(&[
+        "--wikidata-properties",
+        "--metadata-cohort",
+        "expanded-v2",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(
+        second_credits["source_mode"],
+        "verified-wikidata-expanded-property-bindings"
+    );
+    assert_eq!(second_credits["metadata_cohort"], "expanded-v2");
+    assert_eq!(second_credits["platforms_searched"].as_array().unwrap().len(), 18);
+    assert_eq!(second_credits["source_statements"], 962);
+    assert_eq!(second_credits["source_item_platform_observations"], 312);
+    assert_eq!(second_credits["returned_claims"], 2);
+    assert!(second_credits["claims"].as_array().unwrap().iter().all(|row| {
+        row["source_path"]
+            .as_str()
+            .unwrap()
+            .contains("expanded-credits-v2")
+    }));
+
+    for (cohort, statements, observations, count) in [
+        ("expanded-v1", 18_999, 3_108, 19),
+        ("expanded-v2", 1_461, 303, 18),
+    ] {
+        let output = query(&[
+            "--wikidata-relations",
+            "--metadata-cohort",
+            cohort,
+            "--platform",
+            "all",
+            "--limit",
+            "2",
+        ]);
+        assert_eq!(output["metadata_cohort"], cohort);
+        assert_eq!(output["source_statements"], statements);
+        assert_eq!(output["source_item_platform_observations"], observations);
+        assert_eq!(
+            output["platforms_searched"].as_array().unwrap().len(),
+            count
+        );
+        assert_eq!(output["returned_claims"], 2);
+        let expected_path = if cohort == "expanded-v1" {
+            "expanded-relations-v1"
+        } else {
+            "expanded-relations-v2"
+        };
+        assert!(output["claims"].as_array().unwrap().iter().all(|claim| {
+            claim["source_path"].as_str().unwrap().contains(expected_path)
+                && claim["source_sha256"].as_str().unwrap().len() == 64
+        }));
+    }
+
+    let empty = query(&[
+        "--wikidata-relations",
+        "--metadata-cohort",
+        "expanded-v2",
+        "--platform",
+        "tigergamecom",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(empty["source_statements"], 0);
+    assert_eq!(empty["returned_claims"], 0);
+
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    for args in [
+        vec![
+            "--wikidata-properties",
+            "--metadata-cohort",
+            "expanded-v3",
+            "--platform",
+            "all",
+        ],
+        vec!["--metadata-cohort", "expanded-v2", "--platform", "all"],
+        vec![
+            "--wikidata-relations",
+            "--metadata-cohort",
+            "expanded-v2",
+            "--with-entity-labels",
+            "--platform",
+            "all",
+        ],
+        vec![
+            "--wikidata-properties",
+            "--metadata-cohort",
+            "expanded-v1",
+            "--with-entity-labels",
+            "--platform",
+            "all",
+        ],
+    ] {
+        let result = Command::new(env!("CARGO_BIN_EXE_ludographium"))
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
+        assert!(
+            !result.status.success(),
+            "invalid metadata cohort request accepted: {args:?}"
+        );
+    }
+}
