@@ -28,6 +28,18 @@ The [Wikidata Query Service documentation](https://www.wikidata.org/wiki/Wikidat
 
 A live Wikidata query endpoint is not an immutable upstream revision. Reproducibility begins when the **complete raw query results** have been captured, checksummed, and stored as a snapshot. The resulting SQLite database can be regenerated from exactly that snapshot and the immutable expanded `data-v1.5.0` source corpus. Re-running the live query later may yield different source content.
 
+## Rust-native, offline source observations
+
+The Rust CLI reads the **16 Git-committed CC0 JSONL collections** directly. It cross-checks the source register and the checked-in manifest, verifies each accessed file's byte length and SHA-256, preserves QIDs and every literal publication-date observation, and never generates a SQLite database or requires Python:
+
+```sh
+cargo run --locked -- --wikidata-text --platform atari2600 --qid Q379915
+cargo run --locked -- --wikidata-text --platform all --title "Adventure" --limit 5
+cargo run --locked -- --wikidata-text --platform gb --limit 10
+```
+
+The returned original observations include the declared CC0 license, pinned source revision, exact JSONL path, source SHA-256, capture timestamp and original snapshot SHA-256. `--qid` is an exact Wikidata-item identifier lookup; `--title` searches the source's English labels without attempting a Libretro join. A queryless listing is bounded by `--limit`. Historical SQLite correspondence candidates remain separate and are not promoted to canonical identities by this reader. The full-corpus Rust test checks **15,868 item observations** and **29,333 date claims**.
+
 ## Conservative correspondence
 
 The [bulk reconciliation tool](../tools/reconcile_wikidata.py) adds independent source evidence to an existing offline expanded SQLite database. It adds:

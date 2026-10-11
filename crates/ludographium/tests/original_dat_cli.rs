@@ -196,3 +196,44 @@ fn bibliographic_claim_mode_rejects_unsafe_argument_combinations() {
         );
     }
 }
+
+#[test]
+fn wikidata_text_source_cli_preserves_item_ids_dates_and_provenance() {
+    let qid = query(&[
+        "--wikidata-text",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q379915",
+    ]);
+    assert_eq!(qid["source_mode"], "verified-wikidata-jsonl");
+    assert_eq!(qid["returned_matches"], 1);
+    assert_eq!(qid["matches"][0]["english_label"], "Adventure");
+    assert_eq!(qid["matches"][0]["source"]["license"], "CC0-1.0");
+    assert_eq!(qid["matches"][0]["dates"][0]["value"], "1980-01-01T00:00:00Z");
+
+    let titles = query(&[
+        "--wikidata-text",
+        "--platform",
+        "all",
+        "--title",
+        "Adventure",
+        "--limit",
+        "5",
+    ]);
+    assert_eq!(titles["platforms_searched"].as_array().unwrap().len(), 16);
+    assert_eq!(titles["source_item_count"], 15868);
+    assert_eq!(titles["source_date_claim_count"], 29333);
+    assert!(titles["total_source_matches"].as_u64().unwrap() > 0);
+    assert_eq!(titles["returned_matches"], 5);
+
+    let list = query(&[
+        "--wikidata-text",
+        "--platform",
+        "atari2600",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(list["query_kind"], "wikidata-source-list");
+    assert_eq!(list["returned_matches"], 1);
+}
