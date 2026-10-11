@@ -117,8 +117,8 @@ fn optional_bibliographic_dat_enrichment_uses_original_attributed_claims() {
         }));
 }
 
-/// A header-only identification DAT must not hide original bibliographic
-/// source observations with serials but no CRC32.
+/// Identification title lookup must not hide separately preserved
+/// bibliographic observations containing serials but no CRC32.
 #[test]
 fn serial_only_claims_are_searchable_without_identification_records() {
     let plain = query(&[
@@ -128,7 +128,7 @@ fn serial_only_claims_are_searchable_without_identification_records() {
         "--title",
         "007 - From Russia with Love",
     ]);
-    assert_eq!(plain["total_source_records"], 0);
+    assert_eq!(plain["source_mode"], "original-dat-text");
 
     let claims = query(&[
         "--source-dat",
