@@ -11,6 +11,7 @@ use ludographium::runtime::verify_runtime_root;
 use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::wikidata_years::WikidataYearAudit;
+use ludographium::wikidata_properties::WikidataPropertyCatalog;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
@@ -20,7 +21,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-candidates [--compare-years] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-properties --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -415,6 +416,8 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut claims_only = false;
     let mut wikidata_text = false;
     let mut wikidata_candidates = false;
+    let mut wikidata_properties = false;
+    let mut property = None;
     let mut compare_years = false;
     let mut qid = None;
 
@@ -433,6 +436,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
         if arg == "--wikidata-candidates" {
             wikidata_candidates = true;
+            continue;
+        }
+        if arg == "--wikidata-properties" {
+            wikidata_properties = true;
             continue;
         }
         if arg == "--compare-years" {
@@ -457,7 +464,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 return Ok(());
             }
             "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit"
-            | "--file" | "--zip" | "--media-format" | "--zip-entry" | "--qid" => args
+            | "--file" | "--zip" | "--media-format" | "--zip-entry" | "--qid" | "--property" => args
                 .next()
                 .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
             _ => {
@@ -474,6 +481,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             "--size" => size = Some(value.parse::<u64>()?),
             "--title" => title = Some(value),
             "--qid" => qid = Some(value),
+            "--property" => property = Some(value),
             "--file" => file = Some(value),
             "--zip" => zip = Some(value),
             "--zip-entry" => zip_entry = Some(value),
@@ -503,6 +511,8 @@ fn run() -> Result<(), Box<dyn Error>> {
             || claims_only
             || wikidata_text
             || wikidata_candidates
+            || wikidata_properties
+            || property.is_some()
             || compare_years
             || qid.is_some()
         {
@@ -533,7 +543,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         + usize::from(file.is_some())
         + usize::from(zip.is_some());
     if (query_modes != 1
-        && !((claims_only || wikidata_text || wikidata_candidates) && query_modes == 0))
+        && !((claims_only || wikidata_text || wikidata_candidates || wikidata_properties) && query_modes == 0))
         || (claims_only && (!source_dat || !enriched))
         || (wikidata_text
             && (source_dat
@@ -562,8 +572,15 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || media_format.is_some()
                 || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
+        || (wikidata_properties
+            && (wikidata_text || wikidata_candidates || source_dat || claims_only
+                || enriched || show_curated || compare_years || title.is_some()
+                || sha1.is_some() || crc32.is_some() || size.is_some()
+                || file.is_some() || zip.is_some() || media_format.is_some()
+                || zip_entry.is_some()))
+        || (property.is_some() && !wikidata_properties)
         || (compare_years && !wikidata_candidates)
-        || (qid.is_some() && !wikidata_text && !wikidata_candidates)
+        || (qid.is_some() && !wikidata_text && !wikidata_candidates && !wikidata_properties)
         || (claims_only
             && (sha1.is_some()
                 || crc32.is_some()
@@ -578,9 +595,10 @@ fn run() -> Result<(), Box<dyn Error>> {
             && limit_explicit
             && !claims_only
             && !wikidata_text
-            && !wikidata_candidates)
-        || (qid.is_some() && limit_explicit && !wikidata_candidates)
-        || ((title.is_some() || claims_only || wikidata_text || wikidata_candidates)
+            && !wikidata_candidates
+            && !wikidata_properties)
+        || (qid.is_some() && limit_explicit && !wikidata_candidates && !wikidata_properties)
+        || ((title.is_some() || claims_only || wikidata_text || wikidata_candidates || wikidata_properties)
             && (limit == 0 || limit > 200))
         || (zip_entry.is_some()
             && (zip.is_none() || media_format.is_none() || zip_entry.as_deref() == Some("")))
@@ -596,6 +614,24 @@ fn run() -> Result<(), Box<dyn Error>> {
             ))
             .into());
         }
+    }
+    if wikidata_properties {
+        let catalog = WikidataPropertyCatalog::open(&root, &platform)?;
+        let (total, records) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
+        println!("{}", serde_json::to_string_pretty(&json!({
+            "source_mode": "verified-wikidata-property-bindings",
+            "query_kind": if qid.is_some() {"exact-game-item-qid"} else {"source-statement-list"},
+            "platforms_searched": catalog.platforms(),
+            "source_statements": catalog.total_claims(),
+            "source_item_platform_observations": catalog.source_item_observations(),
+            "non_entity_value_bindings": catalog.non_entity_bindings(),
+            "source_property_counts": catalog.property_counts(),
+            "total_filtered_claims": total,
+            "returned_claims": records.len(),
+            "claims": records,
+            "interpretation": "Wikidata CC0 source claims not canonical games companies or genres"
+        }))?);
+        return Ok(());
     }
     if wikidata_candidates {
         let wikidata = WikidataTextCatalog::open(&root, &platform)?;
