@@ -1767,6 +1767,34 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
     assert_eq!(empty["source_statements"], 0);
     assert_eq!(empty["returned_claims"], 0);
 
+    let properties_with_labels = query(&[
+        "--wikidata-properties",
+        "--metadata-cohort",
+        "expanded-v2",
+        "--with-entity-labels",
+        "--platform",
+        "all",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(properties_with_labels["entity_label_source"]["entity_qids"], 2_255);
+    assert_eq!(properties_with_labels["entity_label_source"]["english_labels"], 2_079);
+    assert!(properties_with_labels["claims"][0]["value_label_evidence"].is_object()
+        || properties_with_labels["claims"][0]["value_label_evidence"].is_null());
+
+    let relations_with_labels = query(&[
+        "--wikidata-relations",
+        "--metadata-cohort",
+        "expanded-v1",
+        "--with-entity-labels",
+        "--platform",
+        "all",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(relations_with_labels["entity_label_source"]["entity_qids"], 2_255);
+    assert_eq!(relations_with_labels["entity_label_source"]["english_labels"], 2_079);
+
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
         vec![
@@ -1777,22 +1805,6 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
             "all",
         ],
         vec!["--metadata-cohort", "expanded-v2", "--platform", "all"],
-        vec![
-            "--wikidata-relations",
-            "--metadata-cohort",
-            "expanded-v2",
-            "--with-entity-labels",
-            "--platform",
-            "all",
-        ],
-        vec![
-            "--wikidata-properties",
-            "--metadata-cohort",
-            "expanded-v1",
-            "--with-entity-labels",
-            "--platform",
-            "all",
-        ],
     ] {
         let result = Command::new(env!("CARGO_BIN_EXE_ludographium"))
             .current_dir(&root)
