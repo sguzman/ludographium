@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "funtechsuperacan",
+  "search_hint": "Super A'Can",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=Super+A%27Can&type=item",
+  "captured_at_utc": "2026-10-11T23:33:52Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "05917f15554d3204e9f2d584ab50f2fe697580a2bf9723104b13bd4740682daf",
+  "source_response_bytes": 486,
+  "source_candidate_rows": 1,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

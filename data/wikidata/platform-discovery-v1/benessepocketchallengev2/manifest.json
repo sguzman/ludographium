@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "benessepocketchallengev2",
+  "search_hint": "Pocket Challenge V2",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=Pocket+Challenge+V2&type=item",
+  "captured_at_utc": "2026-10-11T23:33:47Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "f53a8a7b54a24814e9dfa1f55d50e407c1e683ab3a7dadf063c18a6c5c529276",
+  "source_response_bytes": 71,
+  "source_candidate_rows": 0,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

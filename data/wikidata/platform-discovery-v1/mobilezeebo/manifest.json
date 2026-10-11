@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "mobilezeebo",
+  "search_hint": "Zeebo",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=Zeebo&type=item",
+  "captured_at_utc": "2026-10-11T23:34:02Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "00d62c15c69e8c3317b29e750febf75a384811e77a1ac42f3bb962ca6f749bdd",
+  "source_response_bytes": 11571,
+  "source_candidate_rows": 25,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

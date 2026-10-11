@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "nintendoereader",
+  "search_hint": "Nintendo e-Reader",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=Nintendo+e-Reader&type=item",
+  "captured_at_utc": "2026-10-11T23:34:07Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "4d2de724bb321856a0757d8d468ebc17fa4559133a8d74fca3615e563ff62a57",
+  "source_response_bytes": 526,
+  "source_candidate_rows": 1,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

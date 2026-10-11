@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "hartunggamemaster",
+  "search_hint": "Hartung Game Master",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=Hartung+Game+Master&type=item",
+  "captured_at_utc": "2026-10-11T23:33:54Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "5644d1b8ee3cfe7f37cde0a9aba6cbd33f360af7fd8568f03c0f282bc198bda6",
+  "source_response_bytes": 526,
+  "source_candidate_rows": 1,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

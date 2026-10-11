@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "leapfrogleappad",
+  "search_hint": "LeapFrog LeapPad",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=LeapFrog+LeapPad&type=item",
+  "captured_at_utc": "2026-10-11T23:33:58Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "41a1e877b1d1bff1d12dadc21e51fa9d85f05676848488e3045cf867c74ed817",
+  "source_response_bytes": 542,
+  "source_candidate_rows": 1,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

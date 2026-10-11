@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "konamipicno",
+  "search_hint": "Konami Picno",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=Konami+Picno&type=item",
+  "captured_at_utc": "2026-10-11T23:33:56Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "fd7dd4b4ef737626f736f068bee97e8b792a848f9f9593710fb579c0d58aa8f3",
+  "source_response_bytes": 519,
+  "source_candidate_rows": 1,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

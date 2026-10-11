@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "philipsvideopac",
+  "search_hint": "Philips Videopac+ G7400",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=Philips+Videopac%2B+G7400&type=item",
+  "captured_at_utc": "2026-10-11T23:34:09Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "e6ee7e8e298c4cd8ddfe6ddfc6b0d6a90b62f30d150c4b4e81b4e7056844bbdb",
+  "source_response_bytes": 608,
+  "source_candidate_rows": 1,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}

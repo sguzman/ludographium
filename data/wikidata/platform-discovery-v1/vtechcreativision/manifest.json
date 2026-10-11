@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_register": "sources/wikidata-platform-discovery-v1.json",
+  "platform": "vtechcreativision",
+  "search_hint": "VTech CreatiVision",
+  "request_url": "https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&formatversion=2&language=en&limit=25&search=VTech+CreatiVision&type=item",
+  "captured_at_utc": "2026-10-11T23:34:11Z",
+  "source_response_path": "response.json",
+  "source_response_sha256": "c4c9aec96b33e5c26bf244a38c979b558f2d619ccac79aec8473f6b24bf7e565",
+  "source_response_bytes": 858,
+  "source_candidate_rows": 2,
+  "review_status": "unverified-platform-entity-search-results",
+  "policy": "Unverified entity-search evidence only; no accepted P400 or game identity"
+}
