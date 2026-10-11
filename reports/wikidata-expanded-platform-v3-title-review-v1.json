@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "kind": "original-same-platform-v3-title-candidate-audit",
+  "source_commit_sha": "0aca3cef875e13988360141a4f9a8e249e9ed2f2",
+  "source_platform_partitions": 6,
+  "original_source_rows": 1148,
+  "original_wikidata_item_platform_observations": 655,
+  "literal_publication_date_bindings": 1114,
+  "nonliteral_publication_bindings": 0,
+  "total_candidate_links": 290,
+  "original_libretro_source_records_with_candidates": 288,
+  "ambiguous_candidate_links": 4,
+  "per_platform": [
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "candidate_links": 55,
+      "source_records_with_candidates": 55,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "snkneogeopocket",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "candidate_links": 10,
+      "source_records_with_candidates": 10,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "segasg1000",
+      "candidate_links": 45,
+      "source_records_with_candidates": 45,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "sega32x",
+      "candidate_links": 28,
+      "source_records_with_candidates": 28,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "candidate_links": 152,
+      "source_records_with_candidates": 150,
+      "ambiguous_candidate_links": 4
+    }
+  ],
+  "matching_policy": "Same-platform conservative exact source-title key and original English Wikidata label; raw Libretro source hash and original Wikidata evidence preserved",
+  "interpretation": "All links are review candidates only, not canonical game work media edition or region identities. Candidate counts cannot establish a measured false-positive rate."
+}
