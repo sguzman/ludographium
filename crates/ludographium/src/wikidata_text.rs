@@ -264,6 +264,13 @@ impl WikidataTextCatalog {
         })
     }
 
+    /// Original QID observations, including distinct platform provenance.
+    pub fn all_source_observations(&self) -> Vec<Value> {
+        self.platforms.iter().flat_map(|platform| {
+            platform.items.iter().map(|item| self.format_item(platform, item))
+        }).collect()
+    }
+
     pub fn platform_ids(&self) -> impl Iterator<Item = &str> {
         self.platforms.iter().map(|p| p.id.as_str())
     }
