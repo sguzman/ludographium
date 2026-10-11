@@ -168,6 +168,30 @@ mod tests {
     use std::path::Path;
 
     #[test]
+    fn v6_corpus_wide_title_review_retains_empty_source_noncoverage() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let original = OriginalDatCatalog::open(&root, "all").unwrap();
+        let wikidata = ExpandedWikidataCatalog::open_v6(&root, "all").unwrap();
+        let review = ExpandedTitleCandidateCatalog::reconcile(&original, &wikidata);
+        assert_eq!(review.platforms().len(), 6);
+        let (total, sample) = review.search(None, None, 1).unwrap();
+        assert_eq!(total, review.total_links());
+        assert_eq!(sample.len(), total.min(1));
+        if let Some(first) = sample.first() {
+            assert!(first.wikidata_source_path.contains("platform-expansion-v6"));
+            assert!(first.interpretation.contains("noncanonical"));
+            assert!(!first.wikidata_title_row_ordinals.is_empty());
+        }
+
+        let zero_source = ExpandedWikidataCatalog::open_v6(&root, "tigergamecom").unwrap();
+        let zero_review = ExpandedTitleCandidateCatalog::reconcile(&original, &zero_source);
+        assert_eq!(zero_review.platforms(), &["tigergamecom".to_string()]);
+        assert_eq!(zero_review.total_links(), 0);
+        assert_eq!(zero_review.source_records_with_candidate(), 0);
+        assert_eq!(zero_review.ambiguous_links(), 0);
+    }
+
+    #[test]
     fn new_source_title_candidates_do_not_merge_distinct_editions_or_dates() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let original = OriginalDatCatalog::open(&root, "all").unwrap();
