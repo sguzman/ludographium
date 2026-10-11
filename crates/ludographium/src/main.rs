@@ -13,6 +13,7 @@ use ludographium::wikidata_credits::WikidataCreditAudit;
 use ludographium::wikidata_entity_labels::WikidataEntityLabelCatalog;
 use ludographium::wikidata_items::WikidataItemProjection;
 use ludographium::wikidata_properties::WikidataPropertyCatalog;
+use ludographium::wikidata_relations::WikidataRelationCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::wikidata_years::WikidataYearAudit;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
@@ -24,7 +25,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-relations --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P179|P404|P407|P495|P437|P750|P1476|P1733|P2725>] [--limit <1..200>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -420,6 +421,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut wikidata_text = false;
     let mut wikidata_candidates = false;
     let mut wikidata_properties = false;
+    let mut wikidata_relations = false;
     let mut wikidata_items = false;
     let mut with_entity_labels = false;
     let mut property = None;
@@ -446,6 +448,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
         if arg == "--wikidata-properties" {
             wikidata_properties = true;
+            continue;
+        }
+        if arg == "--wikidata-relations" {
+            wikidata_relations = true;
             continue;
         }
         if arg == "--wikidata-items" {
@@ -531,6 +537,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || wikidata_text
             || wikidata_candidates
             || wikidata_properties
+            || wikidata_relations
             || wikidata_items
             || with_entity_labels
             || property.is_some()
@@ -569,6 +576,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || wikidata_text
             || wikidata_candidates
             || wikidata_properties
+            || wikidata_relations
             || wikidata_items)
             && query_modes == 0))
         || (claims_only && (!source_dat || !enriched))
@@ -616,6 +624,14 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || zip.is_some()
                 || media_format.is_some()
                 || zip_entry.is_some()))
+        || (wikidata_relations
+            && (wikidata_text || wikidata_candidates || wikidata_properties
+                || wikidata_items || source_dat || claims_only || enriched
+                || show_curated || compare_years || compare_credits
+                || with_entity_labels || title.is_some()
+                || sha1.is_some() || crc32.is_some() || size.is_some()
+                || file.is_some() || zip.is_some() || media_format.is_some()
+                || zip_entry.is_some()))
         || (wikidata_items
             && (wikidata_text
                 || wikidata_candidates
@@ -637,13 +653,14 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
         || (with_entity_labels && !wikidata_properties)
-        || (property.is_some() && !wikidata_properties)
+        || (property.is_some() && !wikidata_properties && !wikidata_relations)
         || ((compare_years || compare_credits) && !wikidata_candidates)
         || (qid.is_some()
             && !wikidata_text
             && !wikidata_candidates
             && !wikidata_properties
-            && !wikidata_items)
+            && !wikidata_items
+            && !wikidata_relations)
         || (claims_only
             && (sha1.is_some()
                 || crc32.is_some()
@@ -660,17 +677,20 @@ fn run() -> Result<(), Box<dyn Error>> {
             && !wikidata_text
             && !wikidata_candidates
             && !wikidata_properties
-            && !wikidata_items)
+            && !wikidata_items
+            && !wikidata_relations)
         || (qid.is_some()
             && limit_explicit
             && !wikidata_candidates
             && !wikidata_properties
-            && !wikidata_items)
+            && !wikidata_items
+            && !wikidata_relations)
         || ((title.is_some()
             || claims_only
             || wikidata_text
             || wikidata_candidates
             || wikidata_properties
+            || wikidata_relations
             || wikidata_items)
             && (limit == 0 || limit > 200))
         || (zip_entry.is_some()
@@ -687,6 +707,33 @@ fn run() -> Result<(), Box<dyn Error>> {
             ))
             .into());
         }
+    }
+    if wikidata_relations {
+        let catalog = WikidataRelationCatalog::open(&root, &platform)?;
+        let (total, results) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json!({
+                "source_mode": "verified-wikidata-game-relations-and-external-ids",
+                "query_kind": if qid.is_some() {
+                    "exact-game-item-qid"
+                } else if property.is_some() {
+                    "property-source-list"
+                } else {
+                    "source-statement-list"
+                },
+                "platforms_searched": catalog.platforms(),
+                "source_statements": catalog.total_claims(),
+                "source_item_platform_observations": catalog.item_observations(),
+                "source_entity_value_bindings": catalog.entity_values(),
+                "source_property_counts": catalog.property_counts(),
+                "total_filtered_claims": total,
+                "returned_claims": results.len(),
+                "claims": results,
+                "interpretation": "attributed-source-statements-not-verified-game-or-provider-identities"
+            }))?
+        );
+        return Ok(());
     }
     if wikidata_items {
         let text = WikidataTextCatalog::open(&root, &platform)?;

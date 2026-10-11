@@ -159,6 +159,47 @@ or incomplete Wikidata qualifiers, **not necessarily a source error**.
 Cross-provider title matches and matching years remain review evidence,
 not independently verified work or regional-release identities.
 
+## Third Wikidata property expansion: series, titles, game modes and external IDs
+
+A further **92,621 original source statements** across all **16 registered
+platforms** and **14,772 item/platform observations** are pinned in
+[original plain-text SPARQL captures](../data/wikidata/relations-v1/).
+
+| Wikidata property | Claim meaning | Captured source statements |
+| --- | --- | ---: |
+| P179 | Part of series | 6,232 |
+| P404 | Game mode | 18,199 |
+| P407 | Language of work or name | 14,551 |
+| P495 | Country of origin | 13,180 |
+| P437 | Distribution format | 16,493 |
+| P750 | Distributed by | 15,152 |
+| P1476 | Published title (including language tags) | 5,532 |
+| P1733 | Steam application ID | 2,624 |
+| P2725 | GOG application ID | 658 |
+
+Each original platform directory preserves the exact SPARQL query, full
+untruncated JSON response, one raw RDF binding per JSONL line and a
+SHA-256/source-byte manifest. All properties remain raw source statements,
+including language tags and string-valued third-party identifiers. Large
+query partitions used an increased, explicitly recorded 30,000-row ceiling;
+capturing exactly the limit is considered incomplete, never accessioned.
+
+The Rust CLI hash-checks every source file and compares the original
+response to JSONL line by line, verifies property and RDF-type totals and
+supports read-only bounded queries with no Python/SQLite/network dependency:
+
+```sh
+cargo run --locked -- --wikidata-relations --platform all --limit 5
+cargo run --locked -- --wikidata-relations --platform all --property P1733 --limit 5
+cargo run --locked -- --wikidata-relations --platform atari2600 --qid Q100701966
+```
+
+P1733/P2725 strings are externally assigned **identifier claims in
+Wikidata**, not independently verified Steam/GOG records. Series,
+language, game mode and distribution claims likewise do not establish a
+canonical work, release, edition or geographic availability. No external
+provider contents were scraped or redistributed.
+
 ## Unified read-only Wikidata game-item observations
 
 The Rust `--wikidata-items` mode constructs an exact-QID, per-platform,
