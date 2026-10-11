@@ -478,6 +478,10 @@ fn run() -> Result<(), Box<dyn Error>> {
             wikidata_properties = true;
             continue;
         }
+        if arg == "--expanded-credits" {
+            expanded_credits = true;
+            continue;
+        }
         if arg == "--wikidata-relations" {
             wikidata_relations = true;
             continue;
