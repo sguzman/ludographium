@@ -106,4 +106,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'reports: record noncanonical v4 console title correspondences'
+          git pull --rebase origin main
           git push origin HEAD:main
