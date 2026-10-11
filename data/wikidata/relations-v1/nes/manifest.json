@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "nes",
+  "wikidata_platform": "Q172742",
+  "captured_at_utc": "2026-10-11T19:20:50Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "5e8cd6f9eab5239ccb64b1ce8dfad517fd97cc4d31c111166dbd6cdb8d328f39",
+  "source_query_bytes": 283,
+  "source_response_path": "response.json",
+  "source_response_sha256": "2261f56be0f1e58a6dca27483665e848613af54e132598e4ff2ccb8b20d08890",
+  "source_response_bytes": 1558249,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "7f4e849cdc9fbcc77dd21cf9473e7d31aa91ec12edddcce7575d521344c4d80a",
+  "source_bindings_bytes": 1007541,
+  "source_rows": 4535,
+  "distinct_items": 1152,
+  "entity_value_bindings": 3891,
+  "query_limit": 10000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 582,
+    "P1733": 48,
+    "P179": 285,
+    "P2725": 14,
+    "P404": 1276,
+    "P407": 194,
+    "P437": 758,
+    "P495": 1074,
+    "P750": 304
+  },
+  "rdf_value_type_counts": {
+    "literal": 644,
+    "uri": 3891
+  },
+  "identity_policy": "Original independent source claims only; do not infer a canonical game, edition, release, series, language or external-provider identity"
+}
