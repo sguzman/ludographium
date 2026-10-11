@@ -4,7 +4,7 @@
 //! Raw original fields (including unknown fields) are retained unchanged.
 use crate::original_fields::{load_claims, FieldClaim};
 use crate::CatalogError;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use sha1::{Digest, Sha1};
 use std::collections::{BTreeMap, HashMap, HashSet};
@@ -55,6 +55,15 @@ struct Platform {
     id: String,
     source: Source,
     games: Vec<Game>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct OriginalYearEvidence {
+    pub raw_value: String,
+    pub source_kind: &'static str,
+    pub source_path: String,
+    pub source_blob_sha: String,
+    pub source_ordinal: usize,
 }
 
 /// Full source-text collection. Parsing and hash-checking are read-only, local operations.
@@ -523,6 +532,47 @@ impl OriginalDatCatalog {
                 )
             })
         })
+    }
+
+    /// Direct source year scalars and only conservatively attached field-DAT years.
+    pub(crate) fn reconciliation_years(
+        &self,
+    ) -> HashMap<(String, usize), Vec<OriginalYearEvidence>> {
+        let mut result: HashMap<(String, usize), Vec<OriginalYearEvidence>> = HashMap::new();
+        for platform in &self.platforms {
+            for game in &platform.games {
+                if let Some(value) = game.fields.get("releaseyear") {
+                    result.entry((platform.id.clone(), game.ordinal))
+                        .or_default().push(OriginalYearEvidence {
+                            raw_value: value.clone(),
+                            source_kind: "identification_dat_scalar",
+                            source_path: platform.source.path.clone(),
+                            source_blob_sha: platform.source.blob.clone(),
+                            source_ordinal: game.ordinal,
+                        });
+                }
+            }
+        }
+        if let Some(claims) = &self.claims {
+            for claim in claims {
+                if claim.field != "releaseyear" || claim.resolution.status != "matched" {
+                    continue;
+                }
+                if let (Some(ordinal), Some(value)) =
+                    (claim.resolution.base_source_ordinal, claim.value.as_ref())
+                {
+                    result.entry((claim.platform.clone(), ordinal))
+                        .or_default().push(OriginalYearEvidence {
+                            raw_value: value.clone(),
+                            source_kind: "matched_bibliographic_dat",
+                            source_path: claim.source_path.clone(),
+                            source_blob_sha: claim.source_blob_sha.clone(),
+                            source_ordinal: claim.source_ordinal,
+                        });
+                }
+            }
+        }
+        result
     }
 
     pub fn platform_ids(&self) -> impl Iterator<Item = &str> {
