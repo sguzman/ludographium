@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v6.json",
+  "platform": "nintendonintendo64dd",
+  "wikidata_platform": "Q253044",
+  "captured_at_utc": "2026-10-11T22:47:43Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "47e6df09eac2aa2cb884058351a10e7dc2771a253b42aa9179f4bf9a56c7e622",
+  "source_query_bytes": 273,
+  "source_response_path": "response.json",
+  "source_response_sha256": "cec34eef9a1339e1cfd70aaa1fc50bf5a2c8ddcd0ac87119c26f8c9ee7af6abb",
+  "source_response_bytes": 1475,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "c290b21500b1b3f534e4be0d24e4d6ecee00db05aad087da7ed3d5e400e725e1",
+  "source_bindings_bytes": 889,
+  "source_rows": 4,
+  "distinct_items": 1,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P404": 1,
+    "P437": 2,
+    "P495": 1
+  },
+  "rdf_value_type_counts": {
+    "uri": 4
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

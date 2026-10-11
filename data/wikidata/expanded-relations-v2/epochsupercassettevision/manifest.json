@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v7.json",
+  "platform": "epochsupercassettevision",
+  "wikidata_platform": "Q8018077",
+  "captured_at_utc": "2026-10-11T22:47:52Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "fdbc9b3870dd37dc6403c63b4f40caaf4c0ba9d05c908094d97f7efc6975249d",
+  "source_query_bytes": 274,
+  "source_response_path": "response.json",
+  "source_response_sha256": "c451686ccb0a0f32c08c163c8691e4264c42fc7467fb9830f426e111e93c69c9",
+  "source_response_bytes": 12424,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "3527793ae3169c6de9d2ee466f82061835d7f2ba4c341bddd7787d626e324134",
+  "source_bindings_bytes": 7965,
+  "source_rows": 36,
+  "distinct_items": 8,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 3,
+    "P179": 4,
+    "P404": 6,
+    "P407": 1,
+    "P437": 8,
+    "P495": 8,
+    "P750": 6
+  },
+  "rdf_value_type_counts": {
+    "literal": 3,
+    "uri": 33
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

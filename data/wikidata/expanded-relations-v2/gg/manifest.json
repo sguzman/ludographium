@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v6.json",
+  "platform": "gg",
+  "wikidata_platform": "Q751719",
+  "captured_at_utc": "2026-10-11T22:47:36Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "6fae18795ef4fe050b09fe7eb0b701bc8eb1f41b6b864f26547f21f9fca58967",
+  "source_query_bytes": 273,
+  "source_response_path": "response.json",
+  "source_response_sha256": "63453195848ebae36b3c79f525ce860fc4872b2e21b9e3a3daeb30a040431940",
+  "source_response_bytes": 243310,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "2ea4666953929ac00a0d78406aa7ad70ddb92d760e1bdd58cfc6876dfb5f2105",
+  "source_bindings_bytes": 157244,
+  "source_rows": 709,
+  "distinct_items": 166,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 80,
+    "P1733": 10,
+    "P179": 78,
+    "P2725": 3,
+    "P404": 163,
+    "P407": 36,
+    "P437": 126,
+    "P495": 152,
+    "P750": 61
+  },
+  "rdf_value_type_counts": {
+    "literal": 93,
+    "uri": 616
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v6.json",
+  "platform": "fairchildchannelf",
+  "wikidata_platform": "Q1053294",
+  "captured_at_utc": "2026-10-11T22:47:48Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "a4aeeaa43229c6df01abd6ee1e3c00f19a19cc5cb4ff55b646223a885203c8c9",
+  "source_query_bytes": 274,
+  "source_response_path": "response.json",
+  "source_response_sha256": "637de631a9e818f2c5beb2182974e69abdfcb0f7c1cfea7b99dfe82e7175eb61",
+  "source_response_bytes": 445,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "8762e9729184f738dda2fb5f1e528c2702415d712a6afcb5eaed745555e782a7",
+  "source_bindings_bytes": 219,
+  "source_rows": 1,
+  "distinct_items": 1,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P495": 1
+  },
+  "rdf_value_type_counts": {
+    "uri": 1
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

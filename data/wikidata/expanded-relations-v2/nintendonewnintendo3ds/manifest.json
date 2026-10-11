@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v6.json",
+  "platform": "nintendonewnintendo3ds",
+  "wikidata_platform": "Q17679679",
+  "captured_at_utc": "2026-10-11T22:47:39Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "09361bbbb6036c3065b832de9b53cd379c75ae733922bbaad5faaa09a8dd07e2",
+  "source_query_bytes": 275,
+  "source_response_path": "response.json",
+  "source_response_sha256": "0c8ca49c953df388e167517247f1420beb9350251396146e1df9c70dce2aaa7a",
+  "source_response_bytes": 98657,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "347e2c79fa6d1ebbcf1ef9dd8fb978b86151a92682c3dc8ffab1aac3819d0c6c",
+  "source_bindings_bytes": 63901,
+  "source_rows": 286,
+  "distinct_items": 29,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 30,
+    "P1733": 5,
+    "P179": 22,
+    "P2725": 3,
+    "P404": 41,
+    "P407": 57,
+    "P437": 49,
+    "P495": 26,
+    "P750": 53
+  },
+  "rdf_value_type_counts": {
+    "literal": 38,
+    "uri": 248
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}
