@@ -13,6 +13,7 @@ const BASE_V2: &str = "data/wikidata/platform-expansion-v2";
 const BASE_V3: &str = "data/wikidata/platform-expansion-v3";
 const BASE_V4: &str = "data/wikidata/platform-expansion-v4";
 const BASE_V5: &str = "data/wikidata/platform-expansion-v5";
+const BASE_V6: &str = "data/wikidata/platform-expansion-v6";
 const MAP_V1: &[(&str, &str)] = &[
     ("atari7800", "Q753600"),
     ("sonyplaystationportable", "Q170325"),
@@ -50,6 +51,15 @@ const MAP_V5: &[(&str, &str)] = &[
     ("necpcenginesupergrafx", "Q202375"),
     ("segapico", "Q1374482"),
     ("nintendosatellaview", "Q1193565"),
+];
+
+const MAP_V6: &[(&str, &str)] = &[
+    ("gg", "Q751719"),
+    ("nintendonewnintendo3ds", "Q17679679"),
+    ("nintendonintendodsi", "Q637178"),
+    ("nintendonintendo64dd", "Q253044"),
+    ("tigergamecom", "Q2498396"),
+    ("fairchildchannelf", "Q1053294"),
 ];
 
 #[derive(Deserialize)]
@@ -205,6 +215,16 @@ impl ExpandedWikidataCatalog {
         )
     }
 
+    pub fn open_v6(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V6,
+            "sources/wikidata-platform-expansion-v6.json",
+            MAP_V6,
+        )
+    }
+
     fn open_source(
         root: &Path,
         selection: &str,
@@ -255,9 +275,9 @@ impl ExpandedWikidataCatalog {
                 || manifest.wikidata_platform != scope.wikidata_platform
                 || manifest.query_limit != register.query_limit
                 || manifest.source_rows >= manifest.query_limit
-                || (base != BASE_V5
+                || (!matches!(base, BASE_V5 | BASE_V6)
                     && (manifest.source_rows == 0 || manifest.distinct_item_qids == 0))
-                || (base == BASE_V5
+                || (matches!(base, BASE_V5 | BASE_V6)
                     && ((manifest.source_rows == 0) != (manifest.distinct_item_qids == 0)))
                 || manifest.source_query_path != "query.rq"
                 || manifest.source_response_path != "response.json"
@@ -566,6 +586,35 @@ mod tests {
         assert_eq!(total, 482);
         assert!(samples[0].source_path.contains("platform-expansion-v4"));
         assert!(ExpandedWikidataCatalog::open_v4(&root, "invalid").is_err());
+    }
+
+    #[test]
+    fn sixth_source_cohort_preserves_zero_result_and_nonliteral_evidence() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = ExpandedWikidataCatalog::open_v6(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 6);
+        assert_eq!(catalog.total_rows(), 662);
+        assert_eq!(catalog.distinct_item_observations(), 309);
+        assert_eq!(catalog.english_label_rows(), 575);
+        assert_eq!(catalog.literal_date_claims(), 642);
+        assert_eq!(catalog.nonliteral_publication_bindings(), 2);
+        assert_eq!(catalog.platform_row_counts()["gg"], 321);
+        assert_eq!(catalog.platform_row_counts()["nintendonewnintendo3ds"], 127);
+        assert_eq!(catalog.platform_row_counts()["nintendonintendodsi"], 209);
+        assert_eq!(catalog.platform_row_counts()["nintendonintendo64dd"], 3);
+        assert_eq!(catalog.platform_row_counts()["tigergamecom"], 0);
+        assert_eq!(catalog.platform_row_counts()["fairchildchannelf"], 2);
+        let empty = ExpandedWikidataCatalog::open_v6(&root, "tigergamecom").unwrap();
+        let (zero_count, zero_rows) = empty.search(None, None, 5).unwrap();
+        assert_eq!(zero_count, 0);
+        assert!(zero_rows.is_empty());
+        let (count, rows) = catalog.search(None, None, 1).unwrap();
+        assert_eq!(count, 662);
+        assert_eq!(rows.len(), 1);
+        assert!(rows[0].source_path.contains("platform-expansion-v6"));
+        assert!(rows[0].interpretation.contains("not-canonical"));
+        assert!(ExpandedWikidataCatalog::open_v6(&root, "unknown").is_err());
+        assert!(catalog.search(Some("Q0"), None, 2).is_err());
     }
 
     #[test]
