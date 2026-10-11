@@ -1293,7 +1293,7 @@ fn second_wikidata_console_expansion_is_searchable_and_noncanonical() {
         vec![
             "--wikidata-expanded",
             "--expansion-source",
-            "v7",
+            "v8",
             "--platform",
             "all",
         ],
@@ -1546,4 +1546,62 @@ fn sixth_wikidata_console_source_is_accessible_through_both_cli_modes() {
     ]);
     assert_eq!(empty_links["total_candidate_links"], 0);
     assert_eq!(empty_links["returned_candidate_links"], 0);
+}
+
+#[test]
+fn seventh_expansion_retains_empty_console_query_scopes() {
+    let source = query(&[
+        "--wikidata-expanded",
+        "--expansion-source",
+        "v7",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(source["expansion_source"], "v7");
+    assert_eq!(source["platforms_searched"].as_array().unwrap().len(), 6);
+    assert_eq!(source["source_rows"], 20);
+    assert_eq!(source["source_item_platform_observations"], 14);
+    assert_eq!(source["literal_publication_date_bindings"], 20);
+    assert_eq!(source["nonliteral_publication_bindings"], 0);
+    assert_eq!(source["returned_source_rows"], 2);
+
+    let empty = query(&[
+        "--wikidata-expanded",
+        "--expansion-source",
+        "v7",
+        "--platform",
+        "intertonvc4000",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(empty["source_rows"], 0);
+    assert_eq!(empty["returned_source_rows"], 0);
+
+    let review = query(&[
+        "--wikidata-expanded-candidates",
+        "--expansion-source",
+        "v7",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(review["expansion_source"], "v7");
+    assert_eq!(review["platforms_searched"].as_array().unwrap().len(), 6);
+    let total = review["total_candidate_links"].as_u64().unwrap();
+    assert_eq!(review["returned_candidate_links"], total.min(2));
+
+    let no_review = query(&[
+        "--wikidata-expanded-candidates",
+        "--expansion-source",
+        "v7",
+        "--platform",
+        "gameparkgp32",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(no_review["total_candidate_links"], 0);
+    assert_eq!(no_review["returned_candidate_links"], 0);
 }
