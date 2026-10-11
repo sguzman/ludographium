@@ -13,10 +13,10 @@ use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::wikidata_credits::WikidataCreditAudit;
 use ludographium::wikidata_entity_labels::WikidataEntityLabelCatalog;
 use ludographium::wikidata_gamefaqs_qualifiers::GameFaqsQualifierCatalog;
-use ludographium::wikidata_platform_expansion::ExpandedWikidataCatalog;
 use ludographium::wikidata_items::WikidataItemProjection;
 use ludographium::wikidata_localized_candidates::WikidataLocalizedCandidateCatalog;
 use ludographium::wikidata_localized_titles::WikidataLocalizedTitleCatalog;
+use ludographium::wikidata_platform_expansion::ExpandedWikidataCatalog;
 use ludographium::wikidata_properties::WikidataPropertyCatalog;
 use ludographium::wikidata_relations::WikidataRelationCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
@@ -607,15 +607,32 @@ fn run() -> Result<(), Box<dyn Error>> {
 
     if wikidata_expanded {
         if (qid.is_some() && title.is_some())
-            || source_dat || claims_only || enriched || show_curated
-            || wikidata_text || wikidata_candidates || wikidata_localized_candidates
-            || wikidata_properties || wikidata_relations || wikidata_authority_ids
-            || wikidata_gamefaqs_qualifiers || wikidata_items || wikidata_localized_titles
-            || with_entity_labels || compare_years || compare_credits
-            || sha1.is_some() || crc32.is_some() || size.is_some()
-            || file.is_some() || zip.is_some() || zip_entry.is_some()
-            || media_format.is_some() || property.is_some()
-            || external_id.is_some() || language.is_some()
+            || source_dat
+            || claims_only
+            || enriched
+            || show_curated
+            || wikidata_text
+            || wikidata_candidates
+            || wikidata_localized_candidates
+            || wikidata_properties
+            || wikidata_relations
+            || wikidata_authority_ids
+            || wikidata_gamefaqs_qualifiers
+            || wikidata_items
+            || wikidata_localized_titles
+            || with_entity_labels
+            || compare_years
+            || compare_credits
+            || sha1.is_some()
+            || crc32.is_some()
+            || size.is_some()
+            || file.is_some()
+            || zip.is_some()
+            || zip_entry.is_some()
+            || media_format.is_some()
+            || property.is_some()
+            || external_id.is_some()
+            || language.is_some()
         {
             return Err(CatalogError::Invalid(
                 "--wikidata-expanded accepts only --platform, --root, --qid or --title, and --limit".into()
@@ -626,27 +643,30 @@ fn run() -> Result<(), Box<dyn Error>> {
         ))?;
         let catalog = ExpandedWikidataCatalog::open(&root, scope)?;
         let (total, results) = catalog.search(qid.as_deref(), title.as_deref(), limit)?;
-        println!("{}", serde_json::to_string_pretty(&json!({
-            "source_mode": "pinned-wikidata-expanded-platform-source-text",
-            "query_kind": if qid.is_some() {
-                "exact-source-item-qid"
-            } else if title.is_some() {
-                "english-source-label-substring"
-            } else {
-                "original-source-binding-list"
-            },
-            "platforms_searched": catalog.platforms(),
-            "source_rows": catalog.total_rows(),
-            "source_item_platform_observations": catalog.distinct_item_observations(),
-            "english_label_rows": catalog.english_label_rows(),
-            "literal_publication_date_bindings": catalog.literal_date_claims(),
-            "nonliteral_publication_bindings": catalog.nonliteral_publication_bindings(),
-            "source_platform_rows": catalog.platform_row_counts(),
-            "total_filtered_source_rows": total,
-            "returned_source_rows": results.len(),
-            "source_rows_evidence": results,
-            "interpretation": "original-independent-Wikidata-source-bindings-not-canonical-games-dates-or-Libretro-identities"
-        }))?);
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json!({
+                "source_mode": "pinned-wikidata-expanded-platform-source-text",
+                "query_kind": if qid.is_some() {
+                    "exact-source-item-qid"
+                } else if title.is_some() {
+                    "english-source-label-substring"
+                } else {
+                    "original-source-binding-list"
+                },
+                "platforms_searched": catalog.platforms(),
+                "source_rows": catalog.total_rows(),
+                "source_item_platform_observations": catalog.distinct_item_observations(),
+                "english_label_rows": catalog.english_label_rows(),
+                "literal_publication_date_bindings": catalog.literal_date_claims(),
+                "nonliteral_publication_bindings": catalog.nonliteral_publication_bindings(),
+                "source_platform_rows": catalog.platform_row_counts(),
+                "total_filtered_source_rows": total,
+                "returned_source_rows": results.len(),
+                "source_rows_evidence": results,
+                "interpretation": "original-independent-Wikidata-source-bindings-not-canonical-games-dates-or-Libretro-identities"
+            }))?
+        );
         return Ok(());
     }
 
