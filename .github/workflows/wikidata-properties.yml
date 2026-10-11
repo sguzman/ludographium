@@ -114,8 +114,8 @@ jobs:
             "$out/manifest.json" > /dev/null
           echo "Verified $platform accession: $rows statements, $distinct_items item IDs"
           sleep 2
-          done < <(jq -r '.platforms[] | select(.platform == "nintendovirtualboy" or .platform == "microsoftxbox360") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
-          test "$(find data/wikidata/properties-v1 -name manifest.json | wc -l)" -eq 11
+          done < <(jq -r '.platforms[] | select(.platform == "nintendowiidigital" or .platform == "nintendowiiudigital" or .platform == "sonyplaystation3psn") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          test "$(find data/wikidata/properties-v1 -name manifest.json | wc -l)" -eq 14
       - name: Commit only original source text and attributable metadata
         shell: bash
         run: |
@@ -132,5 +132,5 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'data(wikidata): accession Virtual Boy and Xbox 360 source claims'
+          git commit -m 'data(wikidata): accession Wii Wii U and PlayStation 3 source claims'
           git push origin HEAD:main
