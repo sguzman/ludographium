@@ -1,0 +1,104 @@
+name: Audit Atari and WonderSwan title correspondences
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/review-expanded-platform-v2.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-expanded-console-v2-title-review-main
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Measure noncanonical title correspondences across four pinned source partitions
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-expanded --expansion-source v2 --platform all --limit 1 \
+            > "$RUNNER_TEMP/source.json"
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-expanded-candidates --expansion-source v2 --platform all --limit 1 \
+            > "$RUNNER_TEMP/all.json"
+          for platform in atarijaguar atarilynx bandaiwonderswan bandaiwonderswancolor; do
+            cargo run --locked --quiet -p ludographium -- \
+              --wikidata-expanded-candidates --expansion-source v2 \
+              --platform "$platform" --limit 1 > "$RUNNER_TEMP/$platform.json"
+          done
+          jq -n \
+            --slurpfile source "$RUNNER_TEMP/source.json" \
+            --slurpfile all "$RUNNER_TEMP/all.json" \
+            --slurpfile jaguar "$RUNNER_TEMP/atarijaguar.json" \
+            --slurpfile lynx "$RUNNER_TEMP/atarilynx.json" \
+            --slurpfile wonderswan "$RUNNER_TEMP/bandaiwonderswan.json" \
+            --slurpfile color "$RUNNER_TEMP/bandaiwonderswancolor.json" \
+            --arg source_commit "$GITHUB_SHA" \
+            '{
+              schema_version: 1,
+              kind: "source-only-atari-wonderswan-title-candidate-audit",
+              source_commit_sha: $source_commit,
+              source_platform_partitions: ($source[0].platforms_searched | length),
+              original_source_rows: $source[0].source_rows,
+              distinct_wikidata_platform_item_observations: $source[0].source_item_platform_observations,
+              literal_publication_date_bindings: $source[0].literal_publication_date_bindings,
+              nonliteral_publication_bindings: $source[0].nonliteral_publication_bindings,
+              total_candidate_links: $all[0].total_candidate_links,
+              original_source_records_with_candidate: $all[0].source_records_with_candidate,
+              ambiguous_candidate_links: $all[0].ambiguous_title_candidate_links,
+              per_platform: [
+                {platform:"atarijaguar",links:$jaguar[0].total_candidate_links,
+                  original_source_records_with_candidate:$jaguar[0].source_records_with_candidate,
+                  ambiguous_links:$jaguar[0].ambiguous_title_candidate_links},
+                {platform:"atarilynx",links:$lynx[0].total_candidate_links,
+                  original_source_records_with_candidate:$lynx[0].source_records_with_candidate,
+                  ambiguous_links:$lynx[0].ambiguous_title_candidate_links},
+                {platform:"bandaiwonderswan",links:$wonderswan[0].total_candidate_links,
+                  original_source_records_with_candidate:$wonderswan[0].source_records_with_candidate,
+                  ambiguous_links:$wonderswan[0].ambiguous_title_candidate_links},
+                {platform:"bandaiwonderswancolor",links:$color[0].total_candidate_links,
+                  original_source_records_with_candidate:$color[0].source_records_with_candidate,
+                  ambiguous_links:$color[0].ambiguous_title_candidate_links}
+              ],
+              matching_policy: "Only same-platform conservative Libretro source-title and Wikidata English-label equality; distinct QIDs remain separate, preserving all original source row ordinals",
+              interpretation: "All title correspondences are noncanonical evidence leads, not verified games, editions or media identities. Candidate counts do not measure a false-positive rate."
+            }' > reports/wikidata-expanded-platform-v2-title-review-v1.json
+          jq -e '
+            .source_platform_partitions == 4
+            and .original_source_rows == 305
+            and .distinct_wikidata_platform_item_observations == 206
+            and .literal_publication_date_bindings == 282
+            and .nonliteral_publication_bindings == 0
+            and .total_candidate_links > 0
+            and ([.per_platform[].links] | add) == .total_candidate_links
+            and ([.per_platform[].ambiguous_links] | add) == .ambiguous_candidate_links
+            and ([.per_platform[].original_source_records_with_candidate] | add) == .original_source_records_with_candidate
+          ' reports/wikidata-expanded-platform-v2-title-review-v1.json > /dev/null
+          jq -c '{source_platform_partitions,total_candidate_links,original_source_records_with_candidate,ambiguous_candidate_links,per_platform}' \
+            reports/wikidata-expanded-platform-v2-title-review-v1.json
+      - name: Preserve only source-grounded review metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add reports/wikidata-expanded-platform-v2-title-review-v1.json
+          if git diff --cached --quiet; then
+            echo "Existing source report unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: quantify Jaguar Lynx and WonderSwan title-source correspondences'
+          git push origin HEAD:main
