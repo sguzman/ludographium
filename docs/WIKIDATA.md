@@ -319,6 +319,29 @@ claim retains its own original query response and binding hashes.
 No Libretro work/media identity or source correction is inferred.
 The reader requires no SQLite, Python, or network.
 
+## Independent exact-title review from localized names and aliases
+
+An opt-in Rust comparison separately indexes the **124,690 original
+language-tagged Wikidata labels and aliases** and matches them against
+original Libretro game title observations on the **same platform** by
+strict conservative title-key equality. It preserves every contributing
+original label/alias claim, language tag, predicate, source ordinal and
+SHA-256 digest. Multiple labels from one QID are grouped into one candidate
+pair; competing QIDs remain ambiguous instead of auto-resolved.
+
+```sh
+cargo run --locked -- --wikidata-localized-candidates --platform all --limit 10
+cargo run --locked -- --wikidata-localized-candidates --platform atari2600 --qid Q379915
+```
+
+Summary counts include distinct source-occurrence-to-QID pairs, ambiguous
+pairs and pairs **not already present in the original English-label
+candidate set**. Those additions are review leads, *not* a validated increase
+in correct game identities. No fuzzy matching or translation is performed;
+matching the same name across language tags cannot establish a region,
+locale-specific edition, media hash, or work identity. The historical
+8,971 English-label candidate baseline and its audits remain unchanged.
+
 ## Cross-source developer and publisher credit review
 
 The Rust candidate pipeline can now compare **original Libretro developer and

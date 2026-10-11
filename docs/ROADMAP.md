@@ -53,6 +53,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Verify the same parent-evidence and ownership invariants in the Rust offline reader.
 - [x] Audit curated media against separately attributed field-DAT claims and prioritize revision leads by field-claim availability without auto-curation.
 - [x] Preserve prior exact-revision curation as test fixtures without making manually reviewed entries a prerequisite to metadata ingestion.
+- [x] Independently index the 124,690 language-tagged title/alias assertions into exact same-platform Libretro title review candidates with grouped original provenance, ambiguity and comparisons against the original 8,971 English-label links.
 - [ ] Reconcile localized titles, regional editions, revisions, and independent provider identifiers.
 - [ ] Preserve conflicting assertions and editorial resolution evidence.
 - [ ] Establish evidence-based correspondences with external game metadata collections.
