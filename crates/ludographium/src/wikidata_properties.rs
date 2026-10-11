@@ -86,9 +86,7 @@ fn qid_uri(uri: &str) -> Option<&str> {
         .strip_prefix("http://www.wikidata.org/entity/")
         .or_else(|| uri.strip_prefix("https://www.wikidata.org/entity/"))?;
     if raw.strip_prefix('Q').is_some_and(|digits| {
-        !digits.is_empty()
-            && !digits.starts_with('0')
-            && digits.bytes().all(|b| b.is_ascii_digit())
+        !digits.is_empty() && !digits.starts_with('0') && digits.bytes().all(|b| b.is_ascii_digit())
     }) {
         Some(raw)
     } else {
@@ -107,14 +105,19 @@ fn read_pinned(
     expected_bytes: Option<usize>,
     expected_sha: &str,
 ) -> Result<Vec<u8>, CatalogError> {
-    if fs::symlink_metadata(directory.join(name))?.file_type().is_symlink() {
-        return Err(invalid(format!("Wikidata source file is a symlink: {name}")));
+    if fs::symlink_metadata(directory.join(name))?
+        .file_type()
+        .is_symlink()
+    {
+        return Err(invalid(format!(
+            "Wikidata source file is a symlink: {name}"
+        )));
     }
     let bytes = fs::read(directory.join(name))?;
-    if expected_bytes.is_some_and(|size| size != bytes.len())
-        || digest(&bytes) != expected_sha
-    {
-        return Err(invalid(format!("Wikidata source checksum mismatch: {name}")));
+    if expected_bytes.is_some_and(|size| size != bytes.len()) || digest(&bytes) != expected_sha {
+        return Err(invalid(format!(
+            "Wikidata source checksum mismatch: {name}"
+        )));
     }
     Ok(bytes)
 }
@@ -167,8 +170,15 @@ impl WikidataPropertyCatalog {
         for platform in &register.platforms {
             if !seen_platforms.insert(&platform.platform)
                 || platform.platform.is_empty()
-                || !platform.platform.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
-                || qid_uri(&format!("http://www.wikidata.org/entity/{}", platform.wikidata_platform)).is_none()
+                || !platform
+                    .platform
+                    .bytes()
+                    .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+                || qid_uri(&format!(
+                    "http://www.wikidata.org/entity/{}",
+                    platform.wikidata_platform
+                ))
+                .is_none()
             {
                 return Err(invalid("invalid registered Wikidata platform"));
             }
@@ -198,7 +208,8 @@ impl WikidataPropertyCatalog {
                 || manifest.captured_at_utc.is_empty()
             {
                 return Err(invalid(format!(
-                    "invalid Wikidata property manifest: {}", platform.platform
+                    "invalid Wikidata property manifest: {}",
+                    platform.platform
                 )));
             }
             let query = read_pinned(&folder, "query.rq", None, &manifest.source_query_sha256)?;
@@ -213,7 +224,8 @@ impl WikidataPropertyCatalog {
                 return Err(invalid("Wikidata source query scope mismatch"));
             }
             let response = read_pinned(
-                &folder, "response.json",
+                &folder,
+                "response.json",
                 Some(manifest.source_response_bytes),
                 &manifest.source_response_sha256,
             )?;
@@ -228,7 +240,8 @@ impl WikidataPropertyCatalog {
                 return Err(invalid("Wikidata original response row count mismatch"));
             }
             let text = read_pinned(
-                &folder, "bindings.jsonl",
+                &folder,
+                "bindings.jsonl",
                 Some(manifest.source_bindings_bytes),
                 &manifest.source_bindings_sha256,
             )?;
@@ -243,7 +256,9 @@ impl WikidataPropertyCatalog {
             for (index, line) in lines.iter().enumerate() {
                 let record: Value = serde_json::from_str(line)?;
                 if record != bindings[index] {
-                    return Err(invalid("Wikidata source response and JSONL evidence differ"));
+                    return Err(invalid(
+                        "Wikidata source response and JSONL evidence differ",
+                    ));
                 }
                 let (item, property, entity) = validate_record(&record)?;
                 unique_items.insert(item.to_owned());
@@ -263,14 +278,16 @@ impl WikidataPropertyCatalog {
                     source_query_sha256: manifest.source_query_sha256.clone(),
                     source_response_sha256: manifest.source_response_sha256.clone(),
                     captured_at_utc: manifest.captured_at_utc.clone(),
-                    interpretation: "original-attributed-wikidata-property-not-verified-game-identity",
+                    interpretation:
+                        "original-attributed-wikidata-property-not-verified-game-identity",
                 });
             }
             if unique_items.len() != manifest.distinct_items
                 || non_entity != manifest.non_entity_value_bindings
             {
                 return Err(invalid(format!(
-                    "Wikidata property source item/value counts differ: {}", platform.platform
+                    "Wikidata property source item/value counts differ: {}",
+                    platform.platform
                 )));
             }
             item_observations += manifest.distinct_items;
@@ -278,7 +295,9 @@ impl WikidataPropertyCatalog {
             platforms.push(platform.platform.clone());
         }
         if platforms.is_empty() || (selection == "all" && platforms.len() != 16) {
-            return Err(invalid(format!("unknown or incomplete Wikidata source platform: {selection}")));
+            return Err(invalid(format!(
+                "unknown or incomplete Wikidata source platform: {selection}"
+            )));
         }
         Ok(Self {
             claims,
@@ -305,15 +324,19 @@ impl WikidataPropertyCatalog {
         &self.properties
     }
     pub fn search(
-        &self, qid: Option<&str>, property: Option<&str>, limit: usize
+        &self,
+        qid: Option<&str>,
+        property: Option<&str>,
+        limit: usize,
     ) -> Result<(usize, Vec<&PropertyClaim>), CatalogError> {
         if !(1..=200).contains(&limit)
-            || qid.is_some_and(|x| {
-                qid_uri(&format!("http://www.wikidata.org/entity/{x}")).is_none()
-            })
+            || qid
+                .is_some_and(|x| qid_uri(&format!("http://www.wikidata.org/entity/{x}")).is_none())
             || property.is_some_and(|x| !PROPERTY_IDS.contains(&x))
         {
-            return Err(invalid("property query requires valid QID, P178/P123/P136, limit 1..=200"));
+            return Err(invalid(
+                "property query requires valid QID, P178/P123/P136, limit 1..=200",
+            ));
         }
         let mut total = 0;
         let mut matched = Vec::new();
@@ -334,14 +357,17 @@ impl WikidataPropertyCatalog {
 
 #[cfg(test)]
 mod tests {
-    use super::{qid_uri, property_uri, WikidataPropertyCatalog};
+    use super::{property_uri, qid_uri, WikidataPropertyCatalog};
     use std::path::Path;
     #[test]
     fn rejects_non_qid_links_without_discarding_raw_evidence() {
         assert_eq!(qid_uri("http://www.wikidata.org/entity/Q123"), Some("Q123"));
         assert!(qid_uri("http://www.wikidata.org/.well-known/genid/value").is_none());
         assert!(qid_uri("http://www.wikidata.org/entity/Q0").is_none());
-        assert_eq!(property_uri("http://www.wikidata.org/prop/direct/P178"), Some("P178"));
+        assert_eq!(
+            property_uri("http://www.wikidata.org/prop/direct/P178"),
+            Some("P178")
+        );
         assert!(property_uri("http://www.wikidata.org/prop/direct/P577").is_none());
     }
     #[test]
