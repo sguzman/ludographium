@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v3.json",
+  "platform": "snkneogeopocket",
+  "wikidata_platform": "Q939881",
+  "captured_at_utc": "2026-10-11T22:46:44Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "b3e9a328c13b69649196e571d88005de2d7fb7c1b4e2372e61b885c58d1a81c8",
+  "source_query_bytes": 273,
+  "source_response_path": "response.json",
+  "source_response_sha256": "dddb17240cf267c336a0b524f220fcb740c224af5efd28fb5870e38f75123900",
+  "source_response_bytes": 5581,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "9218f24da9ede61ad6c09a24e612853d696f677a93d47a99bf7fbf14bb5b86ae",
+  "source_bindings_bytes": 3555,
+  "source_rows": 16,
+  "distinct_items": 5,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P179": 2,
+    "P404": 6,
+    "P437": 4,
+    "P495": 4
+  },
+  "rdf_value_type_counts": {
+    "uri": 16
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

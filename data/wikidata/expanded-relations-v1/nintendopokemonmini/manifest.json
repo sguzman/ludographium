@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v4.json",
+  "platform": "nintendopokemonmini",
+  "wikidata_platform": "Q1759168",
+  "captured_at_utc": "2026-10-11T22:47:08Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "469c6c76d869479c3e8f90f4ba6d7c45ce6ceda4e9644c0eedfe7602d91df8b1",
+  "source_query_bytes": 274,
+  "source_response_path": "response.json",
+  "source_response_sha256": "337b7baebddaf0df95e4813beedcbc3263e4455e057310a6084634e160866a35",
+  "source_response_bytes": 1815,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "a8a51cf8e3a98338d0efd050554fd8f87777e9ad7ce8f602a536440f0c57a5ad",
+  "source_bindings_bytes": 1109,
+  "source_rows": 5,
+  "distinct_items": 3,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P179": 1,
+    "P404": 1,
+    "P495": 3
+  },
+  "rdf_value_type_counts": {
+    "uri": 5
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

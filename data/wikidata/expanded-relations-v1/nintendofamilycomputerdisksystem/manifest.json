@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v3.json",
+  "platform": "nintendofamilycomputerdisksystem",
+  "wikidata_platform": "Q135321",
+  "captured_at_utc": "2026-10-11T22:46:42Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "370fa0d20590d879caf3e2c7a888882074dac94c8eb3fceba004a1fed87a4be4",
+  "source_query_bytes": 273,
+  "source_response_path": "response.json",
+  "source_response_sha256": "9fe5149d1dd7b90801f8f8faf1c2c7acf8f431c561ddbf8ecaa9149c7a21e8ac",
+  "source_response_bytes": 198720,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "37bdb58cde83f5906d043abbe4df279e51daee6bee6b4812cb037d9e6ef7d579",
+  "source_bindings_bytes": 128384,
+  "source_rows": 577,
+  "distinct_items": 165,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 90,
+    "P1733": 2,
+    "P179": 51,
+    "P404": 110,
+    "P407": 25,
+    "P437": 97,
+    "P495": 145,
+    "P750": 57
+  },
+  "rdf_value_type_counts": {
+    "literal": 92,
+    "uri": 485
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

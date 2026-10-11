@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v4.json",
+  "platform": "magnavoxodyssey2",
+  "wikidata_platform": "Q576932",
+  "captured_at_utc": "2026-10-11T22:47:05Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "4411835b957451cc7d31f832984b68fbb9617836f06a307a4645c58e71a636a6",
+  "source_query_bytes": 273,
+  "source_response_path": "response.json",
+  "source_response_sha256": "73fad6a55b082af65dab5d6be36ff49536a26ea40ef51930dff35665d770f06e",
+  "source_response_bytes": 15184,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "3f9c988632bc187c501162682638edbf2be0e7836cdbd0d76d2148d8c71bcd01",
+  "source_bindings_bytes": 9743,
+  "source_rows": 44,
+  "distinct_items": 20,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 5,
+    "P404": 11,
+    "P407": 1,
+    "P437": 8,
+    "P495": 18,
+    "P750": 1
+  },
+  "rdf_value_type_counts": {
+    "literal": 5,
+    "uri": 39
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

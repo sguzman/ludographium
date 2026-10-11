@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v1.json",
+  "platform": "atari7800",
+  "wikidata_platform": "Q753600",
+  "captured_at_utc": "2026-10-11T22:46:23Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "47fed877c034d3d88947c0325b064e35284384edf7cf9189802d53ec18552165",
+  "source_query_bytes": 273,
+  "source_response_path": "response.json",
+  "source_response_sha256": "47df29649905e18b1f7419403bcbdb4c6157ba076dfa784150aec0811aa1ca06",
+  "source_response_bytes": 77509,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "a5473317c1e6d19526aea54b931a70b64bb2364933eef4c62b019fdaf527eb50",
+  "source_bindings_bytes": 49942,
+  "source_rows": 226,
+  "distinct_items": 49,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 31,
+    "P1733": 3,
+    "P179": 16,
+    "P404": 57,
+    "P407": 21,
+    "P437": 26,
+    "P495": 48,
+    "P750": 24
+  },
+  "rdf_value_type_counts": {
+    "literal": 34,
+    "uri": 192
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v2.json",
+  "platform": "bandaiwonderswan",
+  "wikidata_platform": "Q1065792",
+  "captured_at_utc": "2026-10-11T22:46:37Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "ac0c7297ac62cc413d49c15fd139e76aa8b57280eac33db85a97f9b8a737a918",
+  "source_query_bytes": 274,
+  "source_response_path": "response.json",
+  "source_response_sha256": "4872fc6148ad80715188b15dacd09b3bcf53cf8405f7147ac5def2040c20bf2b",
+  "source_response_bytes": 35594,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "476a66f85e374ae409e2eb3260d2d8a798c28f251a926051934bc3fd69a87989",
+  "source_bindings_bytes": 23040,
+  "source_rows": 103,
+  "distinct_items": 33,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 8,
+    "P179": 14,
+    "P404": 26,
+    "P407": 5,
+    "P437": 15,
+    "P495": 30,
+    "P750": 5
+  },
+  "rdf_value_type_counts": {
+    "literal": 8,
+    "uri": 95
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}
