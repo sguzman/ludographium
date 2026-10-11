@@ -107,9 +107,10 @@ fn parse_items(bytes: &[u8], platform: &str) -> Result<Vec<WikidataItem>, Catalo
                 .english_label
                 .as_ref()
                 .is_some_and(|x| x.trim().is_empty())
-            || record.dates.iter().any(|d| {
-                d.kind.is_empty() || d.value.is_empty()
-            })
+            || record
+                .dates
+                .iter()
+                .any(|d| d.kind.is_empty() || d.value.is_empty())
         {
             return Err(invalid(format!(
                 "malformed Wikidata record at {platform}:{}",
@@ -337,7 +338,10 @@ mod tests {
         assert!(parse_items(raw, "fixture").is_err());
         let nonliteral = br#"{"qid":"Q77","english_label":null,"dates":[{"type":"uri","value":"http://www.wikidata.org/.well-known/genid/example"}]}
 "#;
-        assert_eq!(parse_items(nonliteral, "fixture").unwrap()[0].dates[0].kind, "uri");
+        assert_eq!(
+            parse_items(nonliteral, "fixture").unwrap()[0].dates[0].kind,
+            "uri"
+        );
     }
     #[test]
     fn verifies_all_original_wikidata_text_sources_and_qid_lookup() {
