@@ -234,7 +234,7 @@ impl WikidataEntityLabelCatalog {
                     .ok_or_else(|| invalid("invalid Wikidata label subject QID"))?;
                 if !query_qids.contains(entity)
                     || !expected.contains(entity)
-                    || !seen.insert(entity)
+                    || !seen.insert(entity.to_owned())
                 {
                     return Err(invalid("unexpected or duplicated Wikidata label QID"));
                 }
@@ -270,7 +270,7 @@ impl WikidataEntityLabelCatalog {
                     return Err(invalid("Wikidata QID appears in multiple label partitions"));
                 }
             }
-            if seen != query_qids {
+            if seen.iter().map(String::as_str).collect::<BTreeSet<_>>() != query_qids {
                 return Err(invalid("Wikidata label response omitted queried entities"));
             }
         }
