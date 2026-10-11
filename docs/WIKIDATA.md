@@ -716,6 +716,32 @@ cohorts. Source-label title review remains noncanonical; unknown dates,
 unverified identities and unmatched source occurrences are not silently
 resolved.
 
+## Expanded independent developer, publisher and genre credits
+
+The separate [19-platform credited-source accession](../data/wikidata/expanded-credits-v1/)
+records **10,269 P178/P123/P136 statements**, representing **3,150
+item/platform observations**. These are additional console scopes from
+platform expansions v1 through v4, not a modification to the previous
+sixteen-platform company/genre snapshot.
+
+The [bulk acquisition workflow](../.github/workflows/wikidata-expanded-credits-v1.yml)
+retains original query text, source response, complete per-binding JSONL
+and individual SHA-256 digests. The offline Rust reader verifies
+manifest values, platform scopes, statement RDF types and response-to-JSONL
+equality before returning a record. It does not resolve game-work identities
+or assign publisher/developer aliases.
+
+```sh
+cargo run --locked -- --wikidata-properties --expanded-credits --platform all --limit 5
+cargo run --locked -- --wikidata-properties --expanded-credits --platform sonyplaystationvita --property P123 --limit 5
+```
+
+Expanded-source claims deliberately cannot use the original baseline's
+`--with-entity-labels` option: the old English-label inventory was captured
+for different source scopes and does not verify this cohort's complete
+set of referenced company/genre entities. Unlabeled QIDs remain unlabeled
+until separately sourced label evidence is available.
+
 ## Accuracy and source-rights boundaries
 
 Wikidata's CC0 statements can support independently *attributed* comparisons. They are not automatically independent factual corroboration: Wikidata contributors may have consulted the same upstream references as Libretro contributors. Label correspondence alone has no power to authenticate media hashes, identify a regional edition, or establish that two products are the same canonical work.
