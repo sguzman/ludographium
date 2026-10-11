@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "captured_at_utc": "2026-10-11T23:52:57Z",
+  "source_relation_manifest_inventory_sha256": "9fd30862c870c8208e8160b71a57638c5cd7b01b70ccd28cea893e118d142171",
+  "entity_inventory_path": "entities.txt",
+  "entity_inventory_sha256": "fdb3ae6f7630073e1a4db06756b4ecb720aa567942e79883379adaaab91ce207",
+  "source_entity_qids": 83,
+  "english_label_observations": 73,
+  "query_batch_size": 100,
+  "query_partitions": 1,
+  "query_scope": "Exact referenced QID-valued developer, publisher, genre, series, mode, language, country, format and distribution claims from 12 provisional P400 game query scopes; optional English rdfs:label; no game identity attribution",
+  "canonical_identity_policy": "Unverified source-referenced QIDs and independent English labels; never canonical game, company, series, country, distributor or format identities",
+  "source_files": [
+    {
+      "path": "part-0000.jsonl",
+      "bytes": 11112,
+      "sha256": "8aa27540a69af15087d8b7fdec151debc1f523aefd23d493e4fd1ccd17cd9da5"
+    },
+    {
+      "path": "part-0000.response.json",
+      "bytes": 18437,
+      "sha256": "b39cc4045fe0e4cb5b5879c786575b51d47f620b296339271015b5f3c2963b16"
+    },
+    {
+      "path": "part-0000.rq",
+      "bytes": 1090,
+      "sha256": "473e27b5c02a0eb3672171056ff3f61eef2a83b8f76fc35abae1cac3215d9316"
+    }
+  ]
+}

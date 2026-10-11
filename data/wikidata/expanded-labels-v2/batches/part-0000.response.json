@@ -1,0 +1,788 @@
+{
+  "head" : {
+    "vars" : [ "entity", "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q150"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "French"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q155"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Brazil"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Japan"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "German"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "United States"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10379079"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zeebo Interactive Studios"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1044478"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "shoot 'em up"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1044563"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "SNK"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q104867509"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zuma"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1052025"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1054844"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Taito"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1064703"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1068734"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "HAL Laboratory"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1071532"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "MiniDVD"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1073880"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "SNK"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q109303478"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q116462362"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Monica's Gang"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1172213"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Data East"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1224999"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "educational video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13409231"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Atari, Inc."
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q135288"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1358743"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Technōs Japan"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1403157"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "WMS Industries"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1422746"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "action role-playing game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1478420"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "association football video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q15614041"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "PlayStation Now"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1758804"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "co-op mode"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1942227"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q208850"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "single-player video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2270470"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo optical disc"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2447732"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tradewest"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2633052"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Research & Development 1"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q269415"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "digital distribution"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q270948"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "action game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q282090"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ikegami Tsushinki"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2985314"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tectoy"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3070866"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3142082"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Double Dragon"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q333967"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "survival horror"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q337535"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Steam"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q343568"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "action-adventure game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3627878"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Atarisoft"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q368215"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q380266"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "third-person shooter"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q401831"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "beat 'em up"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q42328566"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Humble Store"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q453802"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Imagic"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4803535"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mario"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q495088"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gamevil"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5204120"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5380509"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Entex Industries"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54820071"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "digital download"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6121433"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jadestone Group"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q61749354"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zeebo Brasil"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633454"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ROM cartridge"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6499202"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65059083"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Donkey Kong"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q65088849"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6895044"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "multiplayer video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7130437"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Panda Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q72808061"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Magical Drop"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7499940"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Shockwave"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7802107"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "tile-matching video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7888616"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "party video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q79576"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Google Play"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8068420"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zeebo Extreme"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8068422"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zeebo Inc."
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q828322"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "platformer"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q845330"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zellers"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q846224"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "fighting game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q860750"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "racing video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q868217"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "sports video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q932688"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mac App Store"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1321"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Spanish"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14428"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Capcom"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1860"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "English"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Apple Inc."
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q47770"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Blu-ray Disc"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5294"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "DVD"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54767"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "puzzle video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q652"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Italian"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q8093"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q884"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "South Korea"
+      }
+    } ]
+  }
+}
