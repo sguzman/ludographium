@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "prior_expansion_register": "sources/wikidata-platform-expansion-v4.json",
+  "query_limit": 20000,
+  "platforms": [
+    {
+      "platform": "casioloopy",
+      "wikidata_platform": "Q661952",
+      "label": "Casio Loopy",
+      "evidence_url": "https://www.wikidata.org/wiki/Q661952"
+    },
+    {
+      "platform": "casiopv1000",
+      "wikidata_platform": "Q60407",
+      "label": "Casio PV-1000",
+      "evidence_url": "https://www.wikidata.org/wiki/Q60407"
+    },
+    {
+      "platform": "watarasupervision",
+      "wikidata_platform": "Q732683",
+      "label": "Watara Supervision",
+      "evidence_url": "https://www.wikidata.org/wiki/Q732683"
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "wikidata_platform": "Q202375",
+      "label": "NEC PC Engine SuperGrafx",
+      "evidence_url": "https://www.wikidata.org/wiki/Q202375"
+    },
+    {
+      "platform": "segapico",
+      "wikidata_platform": "Q1374482",
+      "label": "Sega Pico",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1374482"
+    },
+    {
+      "platform": "nintendosatellaview",
+      "wikidata_platform": "Q1193565",
+      "label": "Nintendo Satellaview",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1193565"
+    }
+  ],
+  "source_policy": "Additive original CC0 Wikidata P31 video game and P400 platform source evidence only. Preserve query, untruncated response, JSONL, SHA-256 and timestamp, without canonical identity assignments or replacing earlier captures."
+}
