@@ -813,28 +813,49 @@ fn localized_source_names_preserve_original_languages_and_alternate_titles() {
     }
 }
 
-
 #[test]
 fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncoverage() {
     let first = query(&[
-        "--wikidata-localized-titles", "--metadata-cohort", "expanded-v1",
-        "--platform", "all", "--limit", "2",
+        "--wikidata-localized-titles",
+        "--metadata-cohort",
+        "expanded-v1",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
     ]);
     assert_eq!(first["metadata_cohort"], "expanded-v1");
     assert_eq!(first["platforms_searched"].as_array().unwrap().len(), 19);
     assert!(first["total_original_localized_names"].as_u64().unwrap() > 0);
     assert!(first["names"][0]["source_path"]
-        .as_str().unwrap().starts_with("data/wikidata/expanded-localized-v1/"));
+        .as_str()
+        .unwrap()
+        .starts_with("data/wikidata/expanded-localized-v1/"));
     let japanese = query(&[
-        "--wikidata-localized-titles", "--metadata-cohort", "expanded-v1",
-        "--platform", "atari7800", "--language", "ja", "--limit", "2",
+        "--wikidata-localized-titles",
+        "--metadata-cohort",
+        "expanded-v1",
+        "--platform",
+        "atari7800",
+        "--language",
+        "ja",
+        "--limit",
+        "2",
     ]);
     assert!(japanese["total_filtered_source_names"].as_u64().unwrap() > 0);
-    assert!(japanese["names"].as_array().unwrap().iter()
+    assert!(japanese["names"]
+        .as_array()
+        .unwrap()
+        .iter()
         .all(|row| row["language_tag"].as_str().unwrap().starts_with("ja")));
     let second = query(&[
-        "--wikidata-localized-titles", "--metadata-cohort", "expanded-v2",
-        "--platform", "all", "--limit", "2",
+        "--wikidata-localized-titles",
+        "--metadata-cohort",
+        "expanded-v2",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
     ]);
     assert_eq!(second["metadata_cohort"], "expanded-v2");
     assert_eq!(second["platforms_searched"].as_array().unwrap().len(), 18);
@@ -842,18 +863,33 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
     assert_eq!(second["source_platform_row_counts"]["tigergamecom"], 0);
     assert_eq!(second["source_platform_row_counts"]["gg"], 1444);
     let zero = query(&[
-        "--wikidata-localized-titles", "--metadata-cohort", "expanded-v2",
-        "--platform", "gameparkgp32", "--limit", "2",
+        "--wikidata-localized-titles",
+        "--metadata-cohort",
+        "expanded-v2",
+        "--platform",
+        "gameparkgp32",
+        "--limit",
+        "2",
     ]);
     assert_eq!(zero["total_original_localized_names"], 0);
     assert_eq!(zero["returned_source_names"], 0);
     assert_eq!(zero["platforms_searched"].as_array().unwrap().len(), 1);
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
-        vec!["--wikidata-localized-titles", "--platform", "all",
-             "--metadata-cohort", "not-a-cohort"],
-        vec!["--wikidata-localized-candidates", "--platform", "all",
-             "--metadata-cohort", "expanded-v1"],
+        vec![
+            "--wikidata-localized-titles",
+            "--platform",
+            "all",
+            "--metadata-cohort",
+            "not-a-cohort",
+        ],
+        vec![
+            "--wikidata-localized-candidates",
+            "--platform",
+            "all",
+            "--metadata-cohort",
+            "expanded-v1",
+        ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
             .current_dir(&root)

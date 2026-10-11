@@ -218,7 +218,12 @@ impl WikidataLocalizedTitleCatalog {
                             "expanded localized platform source register mismatch: {path}"
                         )));
                     }
-                    scopes.extend(register.platforms.into_iter().map(|p| (p, Some(path.clone()))));
+                    scopes.extend(
+                        register
+                            .platforms
+                            .into_iter()
+                            .map(|p| (p, Some(path.clone()))),
+                    );
                 }
                 if scopes.len() != expected {
                     return Err(invalid("expanded localized source platform count mismatch"));
