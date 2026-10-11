@@ -29,9 +29,7 @@ pub struct WikidataItemProjection {
 
 fn valid_qid(value: &str) -> bool {
     value.strip_prefix('Q').is_some_and(|digits| {
-        !digits.is_empty()
-            && !digits.starts_with('0')
-            && digits.bytes().all(|b| b.is_ascii_digit())
+        !digits.is_empty() && !digits.starts_with('0') && digits.bytes().all(|b| b.is_ascii_digit())
     })
 }
 
@@ -47,24 +45,34 @@ impl WikidataItemProjection {
         let mut index: BTreeMap<(String, String), WikidataSourceItem> = BTreeMap::new();
         let mut title_count = 0;
         for original in text.all_source_observations() {
-            let platform = original["platform"].as_str()
-                .ok_or_else(|| CatalogError::Invalid(
-                    "missing Wikidata text observation platform".into()
-                ))?.to_owned();
-            let qid = original["qid"].as_str()
-                .ok_or_else(|| CatalogError::Invalid(
-                    "missing original Wikidata QID".into()
-                ))?.to_owned();
+            let platform = original["platform"]
+                .as_str()
+                .ok_or_else(|| {
+                    CatalogError::Invalid("missing Wikidata text observation platform".into())
+                })?
+                .to_owned();
+            let qid = original["qid"]
+                .as_str()
+                .ok_or_else(|| CatalogError::Invalid("missing original Wikidata QID".into()))?
+                .to_owned();
             let label = original["english_label"].as_str().map(str::to_owned);
-            let entry = index.entry((platform.clone(), qid.clone()))
+            let entry = index
+                .entry((platform.clone(), qid.clone()))
                 .or_insert_with(|| WikidataSourceItem {
-                    platform, qid, english_label: None,
+                    platform,
+                    qid,
+                    english_label: None,
                     source_presence: "title_date_source_only",
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
-                    interpretation: "independent-source-evidence-not-verified-game-or-release-identity",
+                    interpretation:
+                        "independent-source-evidence-not-verified-game-or-release-identity",
                 });
-            if entry.original_title_date_observation.replace(original).is_some() {
+            if entry
+                .original_title_date_observation
+                .replace(original)
+                .is_some()
+            {
                 return Err(CatalogError::Invalid(
                     "duplicate pinned Wikidata title/date source observation".into(),
                 ));
@@ -73,7 +81,8 @@ impl WikidataItemProjection {
             title_count += 1;
         }
         for claim in properties.claims() {
-            let entry = index.entry((claim.platform.clone(), claim.item_qid.clone()))
+            let entry = index
+                .entry((claim.platform.clone(), claim.item_qid.clone()))
                 .or_insert_with(|| WikidataSourceItem {
                     platform: claim.platform.clone(),
                     qid: claim.item_qid.clone(),
@@ -81,16 +90,20 @@ impl WikidataItemProjection {
                     source_presence: "property_source_only",
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
-                    interpretation: "independent-source-evidence-not-verified-game-or-release-identity",
+                    interpretation:
+                        "independent-source-evidence-not-verified-game-or-release-identity",
                 });
-            let english_label_evidence = claim.value_qid.as_deref()
-                .and_then(|id| labels.lookup(id));
+            let english_label_evidence =
+                claim.value_qid.as_deref().and_then(|id| labels.lookup(id));
             let projected = json!({
                 "original_property_claim": claim,
                 "value_english_label_evidence": english_label_evidence
             });
-            entry.property_claims.entry(claim.property.clone())
-                .or_default().push(projected);
+            entry
+                .property_claims
+                .entry(claim.property.clone())
+                .or_default()
+                .push(projected);
         }
         let mut only_title_date = 0;
         let mut only_properties = 0;
@@ -108,9 +121,11 @@ impl WikidataItemProjection {
                     entry.source_presence = "property_source_only";
                     only_properties += 1;
                 }
-                (false, false) => return Err(CatalogError::Invalid(
-                    "Wikidata item has no source evidence".into(),
-                )),
+                (false, false) => {
+                    return Err(CatalogError::Invalid(
+                        "Wikidata item has no source evidence".into(),
+                    ))
+                }
             }
             if new {
                 property_items += 1;
@@ -148,14 +163,17 @@ impl WikidataItemProjection {
         self.only_properties
     }
     pub fn search(
-        &self, qid: Option<&str>, title: Option<&str>, limit: usize,
+        &self,
+        qid: Option<&str>,
+        title: Option<&str>,
+        limit: usize,
     ) -> Result<(usize, Vec<&WikidataSourceItem>), CatalogError> {
         if !(1..=200).contains(&limit)
             || qid.is_some_and(|value| !valid_qid(value))
             || title.is_some_and(|value| value.trim().is_empty())
         {
             return Err(CatalogError::Invalid(
-                "Wikidata item review requires valid QID, nonblank title and limit 1..=200".into()
+                "Wikidata item review requires valid QID, nonblank title and limit 1..=200".into(),
             ));
         }
         let needle = title.map(str::to_lowercase);
@@ -164,9 +182,10 @@ impl WikidataItemProjection {
         for entry in &self.entries {
             if qid.is_some_and(|key| entry.qid != key)
                 || needle.as_ref().is_some_and(|key| {
-                    !entry.english_label.as_ref().is_some_and(|value| {
-                        value.to_lowercase().contains(key)
-                    })
+                    !entry
+                        .english_label
+                        .as_ref()
+                        .is_some_and(|value| value.to_lowercase().contains(key))
                 })
             {
                 continue;
@@ -200,8 +219,11 @@ mod tests {
         assert_eq!(projection.property_source_items(), 14_759);
         assert!(projection.total_items() >= 15_868);
         assert_eq!(
-            projection.title_date_only() + projection.property_only()
-                + (projection.total_items() - projection.title_date_only() - projection.property_only()),
+            projection.title_date_only()
+                + projection.property_only()
+                + (projection.total_items()
+                    - projection.title_date_only()
+                    - projection.property_only()),
             projection.total_items(),
         );
         let (count, records) = projection.search(Some("Q379915"), None, 10).unwrap();
