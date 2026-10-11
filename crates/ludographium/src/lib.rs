@@ -633,6 +633,6 @@ mod tests {
     }
 }
 pub mod wikidata_candidates;
+pub mod wikidata_entity_labels;
 pub mod wikidata_properties;
 pub mod wikidata_years;
-pub mod wikidata_entity_labels;
