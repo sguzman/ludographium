@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "kind": "original-same-platform-v7-title-candidate-audit",
+  "source_commit_sha": "bcf0d5a67d08c1dee0efb5cb1d5f8ac07b58083c",
+  "source_platform_partitions": 6,
+  "original_source_rows": 20,
+  "original_wikidata_item_platform_observations": 14,
+  "literal_publication_date_bindings": 20,
+  "nonliteral_publication_bindings": 0,
+  "total_candidate_links": 7,
+  "original_libretro_source_records_with_candidates": 7,
+  "ambiguous_candidate_links": 0,
+  "per_platform": [
+    {
+      "platform": "emersonarcadia2001",
+      "candidate_links": 1,
+      "source_records_with_candidates": 1,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "candidate_links": 6,
+      "source_records_with_candidates": 6,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "gameparkgp32",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "intertonvc4000",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "rcastudioii",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "segabeena",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    }
+  ],
+  "matching_policy": "Same-platform conservative exact source-title key and original English Wikidata label; raw Libretro source hash and original Wikidata evidence preserved",
+  "interpretation": "Zero-row query partitions are preserved as valid scoped source noncoverage; all nonzero links are review candidates only, not canonical game work media edition or region identities. Candidate counts cannot establish a measured false-positive rate."
+}
