@@ -67,14 +67,20 @@ cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v2 
 cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v2 --platform gameparkgp32 --limit 5
 ```
 
-Across the original 16 platform scopes and these two added cohorts, a
-**combined 53-scope offline query** now exposes **153,951 original localized
+A third, independent [v8 localized source cohort](data/wikidata/expanded-localized-v3/)
+adds **247 original language-tagged label and alias observations** across 12
+new provisional query scopes, including six preserved zero-row source queries.
+No title or alias is promoted to a canonical or verified regional release identity.
+
+Across the original 16 platform scopes and the three added cohorts, a
+**combined 65-scope offline query** now exposes **154,198 original localized
 name/alias observations** while preserving every record's source partition,
 ordinal, language, original binding and verified source hashes:
 
 ```sh
 cargo run --locked -- --wikidata-localized-titles --metadata-cohort combined --platform all --language es --limit 5
 cargo run --locked -- --wikidata-localized-titles --metadata-cohort combined --platform gg --language ja --limit 5
+cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v3 --platform mobilezeebo --language pt --limit 5
 ```
 
 The original 16-platform mode remains the default. Zero-row queries indicate

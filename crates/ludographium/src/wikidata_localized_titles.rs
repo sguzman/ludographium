@@ -179,6 +179,10 @@ impl WikidataLocalizedTitleCatalog {
         Self::open_source(root.as_ref(), selection, "expanded-v2", false)
     }
 
+    pub fn open_expanded_v3(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(root.as_ref(), selection, "expanded-v3", false)
+    }
+
     /// Query every independent source cohort without conflating names or game identities.
     /// A platform-specific query loads only the matching source partition.
     pub fn open_combined(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
@@ -192,7 +196,7 @@ impl WikidataLocalizedTitleCatalog {
             platform_row_counts: BTreeMap::new(),
         };
         let mut seen = HashSet::new();
-        for cohort in ["baseline", "expanded-v1", "expanded-v2"] {
+        for cohort in ["baseline", "expanded-v1", "expanded-v2", "expanded-v3"] {
             let mut source = Self::open_source(root, selection, cohort, true)?;
             for platform in &source.platforms {
                 if !seen.insert(platform.clone()) {
@@ -214,7 +218,7 @@ impl WikidataLocalizedTitleCatalog {
                 .platform_row_counts
                 .extend(source.platform_row_counts);
         }
-        if combined.platforms.is_empty() || (selection == "all" && combined.platforms.len() != 53) {
+        if combined.platforms.is_empty() || (selection == "all" && combined.platforms.len() != 65) {
             return Err(invalid(format!(
                 "unknown or incomplete combined localized source platform: {selection}"
             )));
@@ -244,11 +248,12 @@ impl WikidataLocalizedTitleCatalog {
                 let scopes: Vec<_> = register.platforms.into_iter().map(|p| (p, None)).collect();
                 (BASE, scopes, 16)
             }
-            "expanded-v1" | "expanded-v2" => {
-                let (base, first, last, expected) = if cohort == "expanded-v1" {
-                    ("data/wikidata/expanded-localized-v1", 1, 4, 19)
-                } else {
-                    ("data/wikidata/expanded-localized-v2", 5, 7, 18)
+            "expanded-v1" | "expanded-v2" | "expanded-v3" => {
+                let (base, first, last, expected) = match cohort {
+                    "expanded-v1" => ("data/wikidata/expanded-localized-v1", 1, 4, 19),
+                    "expanded-v2" => ("data/wikidata/expanded-localized-v2", 5, 7, 18),
+                    "expanded-v3" => ("data/wikidata/expanded-localized-v3", 8, 8, 12),
+                    _ => unreachable!(),
                 };
                 let mut scopes = Vec::new();
                 for version in first..=last {
@@ -555,16 +560,26 @@ mod tests {
         assert_eq!(second.platform_row_counts()["tigergamecom"], 0);
         assert_eq!(second.platform_row_counts()["gg"], 1444);
         assert!(WikidataLocalizedTitleCatalog::open_expanded_v2(&root, "invalid").is_err());
+        let third = WikidataLocalizedTitleCatalog::open_expanded_v3(&root, "all").unwrap();
+        assert_eq!(third.platform_ids().len(), 12);
+        assert_eq!(third.total_claims(), 247);
+        assert_eq!(third.name_kinds()["label"], 155);
+        assert_eq!(third.name_kinds()["altLabel"], 92);
+        assert_eq!(third.platform_row_counts()["mobilezeebo"], 184);
+        assert_eq!(third.platform_row_counts()["vtechcreativision"], 0);
         let combined = WikidataLocalizedTitleCatalog::open_combined(&root, "all").unwrap();
-        assert_eq!(combined.platform_ids().len(), 53);
-        assert_eq!(combined.total_claims(), 153_951);
+        assert_eq!(combined.platform_ids().len(), 65);
+        assert_eq!(combined.total_claims(), 154_198);
         assert_eq!(
             combined.total_claims(),
             combined.platform_row_counts().values().sum::<usize>()
         );
         assert_eq!(
             combined.source_item_observations(),
-            15_731 + expanded.source_item_observations() + second.source_item_observations()
+            15_731
+                + expanded.source_item_observations()
+                + second.source_item_observations()
+                + third.source_item_observations()
         );
         assert_eq!(combined.platform_row_counts()["gameparkgp32"], 0);
         assert_eq!(combined.platform_row_counts()["atari2600"], 1_856);

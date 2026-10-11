@@ -883,8 +883,8 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
         "--limit",
         "2",
     ]);
-    assert_eq!(combined["platforms_searched"].as_array().unwrap().len(), 53);
-    assert_eq!(combined["total_original_localized_names"], 153951);
+    assert_eq!(combined["platforms_searched"].as_array().unwrap().len(), 65);
+    assert_eq!(combined["total_original_localized_names"], 154198);
     assert_eq!(combined["metadata_cohort"], "combined");
     assert_eq!(combined["source_platform_row_counts"]["gameparkgp32"], 0);
     let selected = query(&[
@@ -901,6 +901,19 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
     assert_eq!(selected["platforms_searched"].as_array().unwrap().len(), 1);
     assert_eq!(selected["total_original_localized_names"], 1444);
     assert!(selected["total_filtered_source_names"].as_u64().unwrap() > 0);
+    let third = query(&[
+        "--wikidata-localized-titles",
+        "--metadata-cohort",
+        "expanded-v3",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(third["total_original_localized_names"], 247);
+    assert_eq!(third["platforms_searched"].as_array().unwrap().len(), 12);
+    assert_eq!(third["source_platform_row_counts"]["mobilezeebo"], 184);
+    assert_eq!(third["source_platform_row_counts"]["nintendosufamiturbo"], 0);
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
         vec![
