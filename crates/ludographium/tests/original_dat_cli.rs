@@ -552,7 +552,8 @@ fn independent_wikidata_game_observations_preserve_both_snapshot_sources() {
             "title_date",
             "company_genre",
             "relations",
-            "localized_titles"
+            "localized_titles",
+            "authority_ids"
         ])
     );
     assert!(item["original_title_date_observation"]["source"]["sha256"]
