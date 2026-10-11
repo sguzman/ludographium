@@ -31,7 +31,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-expanded-candidates --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5|v6|v7>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-expanded --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5|v6|v7>] [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-candidates --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-titles --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--language <language-prefix-or-tag>] [--limit <1..200>] | ludographium --wikidata-gamefaqs-qualifiers --platform <wikidata-platform-id|all> [--qid <QID>] [--external-id <exact-gamefaqs-id>] [--limit <1..200>] | ludographium --wikidata-authority-ids --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P11688|P1933|P4769|P2816|P1712|P2864|P2606|P2451|P4857>] [--external-id <exact-provider-id> --property <one-of-above>] [--limit <1..200>] | ludographium --wikidata-relations [--with-entity-labels] [--metadata-cohort <baseline|expanded-v1|expanded-v2>] --platform <wikidata-platform-id|all> [--external-id <exact-provider-id> --property <P1733|P2725>] [--qid <QID>] [--property <P179|P404|P407|P495|P437|P750|P1476|P1733|P2725>] [--limit <1..200>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--expanded-credits | --with-entity-labels] [--metadata-cohort <baseline|expanded-v1|expanded-v2>] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-expanded-candidates --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5|v6|v7>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-expanded --platform <expansion-platform-id|all> [--expansion-source <v1|v2|v3|v4|v5|v6|v7>] [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-candidates --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-localized-titles --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--language <language-prefix-or-tag>] [--metadata-cohort <baseline|expanded-v1|expanded-v2>] [--limit <1..200>] | ludographium --wikidata-gamefaqs-qualifiers --platform <wikidata-platform-id|all> [--qid <QID>] [--external-id <exact-gamefaqs-id>] [--limit <1..200>] | ludographium --wikidata-authority-ids --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P11688|P1933|P4769|P2816|P1712|P2864|P2606|P2451|P4857>] [--external-id <exact-provider-id> --property <one-of-above>] [--limit <1..200>] | ludographium --wikidata-relations [--with-entity-labels] [--metadata-cohort <baseline|expanded-v1|expanded-v2>] --platform <wikidata-platform-id|all> [--external-id <exact-provider-id> --property <P1733|P2725>] [--qid <QID>] [--property <P179|P404|P407|P495|P437|P750|P1476|P1733|P2725>] [--limit <1..200>] | ludographium --wikidata-items --platform <wikidata-platform-id|all> [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-properties [--expanded-credits | --with-entity-labels] [--metadata-cohort <baseline|expanded-v1|expanded-v2>] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -648,12 +648,15 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
 
     let cohort = metadata_cohort.as_deref().unwrap_or("baseline");
-    if (metadata_cohort.is_some() && !wikidata_properties && !wikidata_relations)
+    if (metadata_cohort.is_some()
+        && !wikidata_properties
+        && !wikidata_relations
+        && !wikidata_localized_titles)
         || !matches!(cohort, "baseline" | "expanded-v1" | "expanded-v2")
         || (expanded_credits && metadata_cohort.is_some())
     {
         return Err(CatalogError::Invalid(
-            "--metadata-cohort requires Wikidata properties or relations, an allowed source (baseline, expanded-v1 or expanded-v2), and no unsupported entity labels".into(),
+            "--metadata-cohort requires Wikidata properties, relations or localized titles and an allowed cohort (baseline, expanded-v1 or expanded-v2)".into(),
         )
         .into());
     }
@@ -1134,13 +1137,18 @@ fn run() -> Result<(), Box<dyn Error>> {
         return Ok(());
     }
     if wikidata_localized_titles {
-        let catalog = WikidataLocalizedTitleCatalog::open(&root, &platform)?;
+        let catalog = match cohort {
+            "expanded-v1" => WikidataLocalizedTitleCatalog::open_expanded(&root, &platform)?,
+            "expanded-v2" => WikidataLocalizedTitleCatalog::open_expanded_v2(&root, &platform)?,
+            _ => WikidataLocalizedTitleCatalog::open(&root, &platform)?,
+        };
         let (total, results) =
             catalog.search(qid.as_deref(), title.as_deref(), language.as_deref(), limit)?;
         println!(
             "{}",
             serde_json::to_string_pretty(&json!({
                 "source_mode": "verified-wikidata-language-tagged-game-names",
+                "metadata_cohort": cohort,
                 "query_kind": if qid.is_some() {
                     "exact-game-QID"
                 } else if title.is_some() {
@@ -1153,6 +1161,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "source_item_platform_observations": catalog.source_item_observations(),
                 "original_language_tag_counts": catalog.languages(),
                 "original_name_kind_counts": catalog.name_kinds(),
+                "source_platform_row_counts": catalog.platform_row_counts(),
                 "total_filtered_source_names": total,
                 "returned_source_names": results.len(),
                 "names": results,

@@ -52,6 +52,25 @@ available via `--expansion-source v7`.
 The original source responses and hashes live under
 [data/wikidata/platform-expansion-v1/](data/wikidata/platform-expansion-v1/).
 
+## Expanded multilingual game-title source captures
+
+Two additional independently preserved Wikidata localized-name cohorts cover
+**37 more platform scopes** (19 in `expanded-v1` and 18 in `expanded-v2`).
+They retain original language-tagged labels and aliases, source queries,
+full response bytes, per-platform manifests and SHA-256 checksums. The Rust
+reader independently verifies both cohorts, including zero-row query scopes,
+without converting source names into canonical games or regional releases.
+
+```sh
+cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v1 --platform all --language es --limit 5
+cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v2 --platform gg --language ja --limit 5
+cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v2 --platform gameparkgp32 --limit 5
+```
+
+The original 16-platform mode remains the default. Zero-row queries indicate
+only source-specific Wikidata noncoverage, not absence of games.
+
+
 ## Expanded Wikidata developer, publisher and genre evidence
 
 The independently pinned [19-platform credit corpus](data/wikidata/expanded-credits-v1/)

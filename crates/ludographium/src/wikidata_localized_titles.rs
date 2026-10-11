@@ -28,6 +28,7 @@ struct Platform {
 #[derive(Debug, Deserialize)]
 struct ExpandedRegister {
     schema_version: u32,
+    kind: String,
     source: String,
     license: String,
     query_limit: usize,
@@ -85,6 +86,7 @@ pub struct WikidataLocalizedTitleCatalog {
     observed_items: usize,
     languages: BTreeMap<String, usize>,
     name_kinds: BTreeMap<String, usize>,
+    platform_row_counts: BTreeMap<String, usize>,
 }
 
 fn invalid(message: impl Into<String>) -> CatalogError {
@@ -166,25 +168,73 @@ fn parse_original(row: &Value) -> Result<(&str, &'static str, &str, &str), Catal
 
 impl WikidataLocalizedTitleCatalog {
     pub fn open(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        let root = root.as_ref();
-        let register: Register =
-            serde_json::from_slice(&fs::read(root.join("sources/wikidata-v1.json"))?)?;
-        if register.schema_version != 1
-            || register.provider != "wikidata"
-            || register.provider_license != "CC0-1.0"
-            || register.platforms.len() != 16
-        {
-            return Err(invalid(
-                "independent Wikidata platform source register mismatch",
-            ));
-        }
+        Self::open_source(root.as_ref(), selection, "baseline")
+    }
+
+    pub fn open_expanded(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(root.as_ref(), selection, "expanded-v1")
+    }
+
+    pub fn open_expanded_v2(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(root.as_ref(), selection, "expanded-v2")
+    }
+
+    fn open_source(root: &Path, selection: &str, cohort: &str) -> Result<Self, CatalogError> {
+        let (base, registered, expected_platforms) = match cohort {
+            "baseline" => {
+                let register: Register =
+                    serde_json::from_slice(&fs::read(root.join("sources/wikidata-v1.json"))?)?;
+                if register.schema_version != 1
+                    || register.provider != "wikidata"
+                    || register.provider_license != "CC0-1.0"
+                    || register.platforms.len() != 16
+                {
+                    return Err(invalid(
+                        "independent Wikidata platform source register mismatch",
+                    ));
+                }
+                let scopes: Vec<_> = register.platforms.into_iter().map(|p| (p, None)).collect();
+                (BASE, scopes, 16)
+            }
+            "expanded-v1" | "expanded-v2" => {
+                let (base, first, last, expected) = if cohort == "expanded-v1" {
+                    ("data/wikidata/expanded-localized-v1", 1, 4, 19)
+                } else {
+                    ("data/wikidata/expanded-localized-v2", 5, 7, 18)
+                };
+                let mut scopes = Vec::new();
+                for version in first..=last {
+                    let path = format!("sources/wikidata-platform-expansion-v{version}.json");
+                    let register: ExpandedRegister =
+                        serde_json::from_slice(&fs::read(root.join(&path))?)?;
+                    if register.schema_version != 1
+                        || register.kind != "independent-wikidata-platform-expansion"
+                        || register.source != "Wikidata"
+                        || register.license != "CC0-1.0"
+                        || register.query_limit != 20_000
+                        || register.platforms.is_empty()
+                    {
+                        return Err(invalid(format!(
+                            "expanded localized platform source register mismatch: {path}"
+                        )));
+                    }
+                    scopes.extend(register.platforms.into_iter().map(|p| (p, Some(path.clone()))));
+                }
+                if scopes.len() != expected {
+                    return Err(invalid("expanded localized source platform count mismatch"));
+                }
+                (base, scopes, expected)
+            }
+            _ => return Err(invalid("unknown localized source cohort")),
+        };
         let mut seen = HashSet::new();
         let mut claims = Vec::new();
         let mut platforms = Vec::new();
         let mut observed_items = 0;
         let mut languages = BTreeMap::new();
         let mut name_kinds = BTreeMap::new();
-        for platform in &register.platforms {
+        let mut platform_row_counts = BTreeMap::new();
+        for (platform, register_path) in &registered {
             if !seen.insert(&platform.platform)
                 || platform.platform.is_empty()
                 || !platform
@@ -204,7 +254,7 @@ impl WikidataLocalizedTitleCatalog {
             if selection != "all" && selection != platform.platform {
                 continue;
             }
-            let dir = root.join(BASE).join(&platform.platform);
+            let dir = root.join(base).join(&platform.platform);
             if fs::symlink_metadata(&dir)?.file_type().is_symlink() {
                 return Err(invalid("Wikidata localized source directory is a symlink"));
             }
@@ -213,6 +263,7 @@ impl WikidataLocalizedTitleCatalog {
                 || manifest.source != "Wikidata"
                 || manifest.license != "CC0-1.0"
                 || manifest.source_revision != "live-query-capture"
+                || manifest.source_register.as_deref() != register_path.as_deref()
                 || manifest.platform != platform.platform
                 || manifest.wikidata_platform != platform.wikidata_platform
                 || manifest.captured_at_utc.is_empty()
@@ -220,9 +271,9 @@ impl WikidataLocalizedTitleCatalog {
                 || manifest.source_response_path != "response.json"
                 || manifest.source_bindings_path != "bindings.jsonl"
                 || manifest.query_limit != 50_000
-                || manifest.source_rows == 0
+                || (cohort == "baseline" && manifest.source_rows == 0)
                 || manifest.source_rows >= manifest.query_limit
-                || manifest.distinct_items == 0
+                || (manifest.source_rows == 0) != (manifest.distinct_items == 0)
                 || manifest.language_prefix_scope != PREFIXES.map(str::to_owned)
             {
                 return Err(invalid(format!(
@@ -272,7 +323,9 @@ impl WikidataLocalizedTitleCatalog {
             let raw = std::str::from_utf8(&text)
                 .map_err(|_| invalid("non-UTF-8 original localized JSONL"))?;
             let lines: Vec<_> = raw.lines().collect();
-            if !raw.ends_with('\n') || lines.len() != manifest.source_rows {
+            if (manifest.source_rows > 0 && !raw.ends_with('\n'))
+                || lines.len() != manifest.source_rows
+            {
                 return Err(invalid("localized source JSONL row count mismatch"));
             }
             let mut item_ids = HashSet::new();
@@ -297,7 +350,7 @@ impl WikidataLocalizedTitleCatalog {
                     name_kind: kind,
                     original_binding: original_row,
                     source_ordinal: index + 1,
-                    source_path: format!("{BASE}/{}/bindings.jsonl", platform.platform),
+                    source_path: format!("{base}/{}/bindings.jsonl", platform.platform),
                     source_sha256: manifest.source_bindings_sha256.clone(),
                     source_response_sha256: manifest.source_response_sha256.clone(),
                     source_query_sha256: manifest.source_query_sha256.clone(),
@@ -320,10 +373,11 @@ impl WikidataLocalizedTitleCatalog {
             for (tag, n) in locale_counts {
                 *languages.entry(tag).or_insert(0) += n;
             }
+            platform_row_counts.insert(platform.platform.clone(), manifest.source_rows);
             platforms.push(platform.platform.clone());
             observed_items += manifest.distinct_items;
         }
-        if platforms.is_empty() || (selection == "all" && platforms.len() != 16) {
+        if platforms.is_empty() || (selection == "all" && platforms.len() != expected_platforms) {
             return Err(invalid(format!(
                 "unknown or incomplete localized source platform: {selection}"
             )));
@@ -334,6 +388,7 @@ impl WikidataLocalizedTitleCatalog {
             observed_items,
             languages,
             name_kinds,
+            platform_row_counts,
         })
     }
 
@@ -354,6 +409,9 @@ impl WikidataLocalizedTitleCatalog {
     }
     pub fn name_kinds(&self) -> &BTreeMap<String, usize> {
         &self.name_kinds
+    }
+    pub fn platform_row_counts(&self) -> &BTreeMap<String, usize> {
+        &self.platform_row_counts
     }
     pub fn search(
         &self,
@@ -428,5 +486,19 @@ mod tests {
         assert!(count > 0);
         assert!(sample.iter().all(|row| row.source_sha256.len() == 64));
         assert!(WikidataLocalizedTitleCatalog::open(&root, "unknown").is_err());
+        let expanded = WikidataLocalizedTitleCatalog::open_expanded(&root, "all").unwrap();
+        assert_eq!(expanded.platform_ids().len(), 19);
+        assert!(expanded.total_claims() > 0);
+        assert_eq!(
+            expanded.platform_row_counts().values().sum::<usize>(),
+            expanded.total_claims()
+        );
+        let second = WikidataLocalizedTitleCatalog::open_expanded_v2(&root, "all").unwrap();
+        assert_eq!(second.platform_ids().len(), 18);
+        assert!(second.total_claims() > 0);
+        assert_eq!(second.platform_row_counts()["gameparkgp32"], 0);
+        assert_eq!(second.platform_row_counts()["tigergamecom"], 0);
+        assert_eq!(second.platform_row_counts()["gg"], 1444);
+        assert!(WikidataLocalizedTitleCatalog::open_expanded_v2(&root, "invalid").is_err());
     }
 }
