@@ -352,6 +352,46 @@ impl WikidataRelationCatalog {
     pub fn property_counts(&self) -> &BTreeMap<String, usize> {
         &self.counts
     }
+    /// Exact source-identifier reverse lookup; never normalize case, parse as
+    /// a number, or infer that equal strings prove identical game editions.
+    pub fn search_external_id(
+        &self,
+        property: &str,
+        identifier: &str,
+        limit: usize,
+    ) -> Result<(usize, usize, usize, Vec<&RelationClaim>), CatalogError> {
+        if !matches!(property, "P1733" | "P2725")
+            || identifier.is_empty()
+            || !(1..=200).contains(&limit)
+        {
+            return Err(invalid(
+                "exact provider ID search requires P1733 or P2725, nonempty raw ID, and limit 1..=200",
+            ));
+        }
+        let mut total = 0;
+        let mut qids = std::collections::BTreeSet::new();
+        let mut platforms = std::collections::BTreeSet::new();
+        let mut matches = Vec::new();
+        for claim in &self.claims {
+            if claim.property != property
+                || claim.raw_binding["value"]["value"] != identifier
+                || !matches!(
+                    claim.raw_binding["value"]["type"].as_str(),
+                    Some("literal" | "typed-literal")
+                )
+            {
+                continue;
+            }
+            total += 1;
+            qids.insert(claim.item_qid.as_str());
+            platforms.insert(claim.platform.as_str());
+            if matches.len() < limit {
+                matches.push(claim);
+            }
+        }
+        Ok((total, qids.len(), platforms.len(), matches))
+    }
+
     pub fn search(
         &self,
         qid: Option<&str>,
@@ -423,5 +463,12 @@ mod tests {
         let (found, entries) = atari.search(Some("Q100701966"), None, 10).unwrap();
         assert!(found > 0);
         assert!(entries.iter().any(|record| record.property == "P404"));
+        let (claims, qids, platforms, examples) =
+            catalog.search_external_id("P1733", "15750", 10).unwrap();
+        assert!(claims >= 2);
+        assert_eq!(qids, 2);
+        assert!(platforms >= 1);
+        assert!(!examples.is_empty());
+        assert!(catalog.search_external_id("P1476", "15750", 10).is_err());
     }
 }

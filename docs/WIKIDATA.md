@@ -222,6 +222,22 @@ cargo run --locked -- --wikidata-relations --with-entity-labels --platform all -
 cargo run --locked -- --wikidata-items --platform atari2600 --qid Q100701966
 ```
 
+## Exact reverse lookup for external ID source strings
+
+The Rust source query can now start from a literal Steam (P1733) or GOG
+(P2725) ID and find every original QID/platform attribution without
+interpreting the identifier as a number or claiming game/release identity.
+The result reports the **full number of distinct QIDs and platforms before
+limiting displayed source rows**, to prevent hidden multi-QID ambiguity.
+
+```sh
+cargo run --locked -- --wikidata-relations --platform all --external-id 15750 --property P1733
+```
+
+This identifier appears under **two distinct source game QIDs** in the
+captured Wikidata evidence. Such assignments remain explicit review leads,
+not automatically adjudicated errors or a basis to merge game identities.
+
 ## Cross-platform Steam/GOG identifier ambiguity audit
 
 The [source-derived external-ID report](../reports/wikidata-external-identifier-review-v1.json)
