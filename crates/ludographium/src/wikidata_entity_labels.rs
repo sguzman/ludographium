@@ -79,6 +79,47 @@ fn entity_qid(uri: &str) -> Option<&str> {
     qid(name).then_some(name)
 }
 
+/// Recompute the exact GNU sha256sum manifest-inventory digest recorded at
+/// capture time, preventing a label snapshot from being silently rebound to
+/// another set of independent source manifests.
+fn source_manifest_inventory_sha(root: &Path, accession: &str) -> Result<String, CatalogError> {
+    let register: Value =
+        serde_json::from_slice(&fs::read(root.join("sources/wikidata-v1.json"))?)?;
+    let platforms = register["platforms"]
+        .as_array()
+        .ok_or_else(|| invalid("missing Wikidata source platform register"))?;
+    if platforms.len() != 16 {
+        return Err(invalid("incomplete Wikidata source platform register"));
+    }
+    let mut paths = Vec::new();
+    for platform in platforms {
+        let id = platform["platform"]
+            .as_str()
+            .ok_or_else(|| invalid("invalid Wikidata source platform"))?;
+        if id.is_empty()
+            || !id.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+        {
+            return Err(invalid("unsafe Wikidata source platform path"));
+        }
+        paths.push(format!("{accession}/{id}/manifest.json"));
+    }
+    paths.sort();
+    paths.dedup();
+    if paths.len() != 16 {
+        return Err(invalid("duplicate Wikidata source platform manifest"));
+    }
+    let mut inventory = String::new();
+    for relative in paths {
+        let path = root.join(&relative);
+        if fs::symlink_metadata(&path)?.file_type().is_symlink() {
+            return Err(invalid("linked Wikidata source manifest is a symlink"));
+        }
+        let raw = fs::read(&path)?;
+        inventory.push_str(&format!("{}  {relative}\n", sha256(&raw)));
+    }
+    Ok(sha256(inventory.as_bytes()))
+}
+
 fn checked_file(folder: &Path, entry: &SourceFile) -> Result<Vec<u8>, CatalogError> {
     if entry.bytes == 0
         || entry.sha256.len() != 64
@@ -134,6 +175,17 @@ impl WikidataEntityLabelCatalog {
                 .source_property_manifest_inventory_sha256
                 .as_deref()
         };
+        let source_accession = if relation {
+            "data/wikidata/relations-v1"
+        } else {
+            "data/wikidata/properties-v1"
+        };
+        let actual_source_manifest_sha = source_manifest_inventory_sha(root, source_accession)?;
+        if source_manifest_sha != Some(actual_source_manifest_sha.as_str()) {
+            return Err(invalid(
+                "original Wikidata label accession source-manifest inventory SHA-256 mismatch",
+            ));
+        }
         if manifest.schema_version != 1
             || manifest.source != "Wikidata"
             || manifest.license != "CC0-1.0"
