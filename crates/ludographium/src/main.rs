@@ -806,7 +806,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             && ((!wikidata_relations
                     && !wikidata_authority_ids
                     && !wikidata_gamefaqs_qualifiers)
-                || qid.is_some()
+                || (qid.is_some() && !wikidata_gamefaqs_qualifiers)
                 || external_id.as_deref() == Some("")
                 || (wikidata_relations && !matches!(property.as_deref(), Some("P1733" | "P2725")))))
         || (with_entity_labels && !wikidata_properties && !wikidata_relations)
