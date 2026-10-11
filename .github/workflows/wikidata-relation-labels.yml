@@ -1,0 +1,151 @@
+name: Accession Wikidata game-relation English labels
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/wikidata-relation-labels.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-relation-label-source-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Capture independent English labels for every QID-valued game relation
+        shell: bash
+        run: |
+          set -euo pipefail
+          out=data/wikidata/relation-labels-v1
+          if test -f "$out/manifest.json"; then
+            echo "Existing entity-label accession is immutable; refusing implicit refresh"
+            test -f "$out/entities.txt"
+            exit 0
+          fi
+          mkdir -p "$out/batches"
+          tmp="$RUNNER_TEMP/ludographium-relation-labels"
+          mkdir -p "$tmp"
+          jq -r 'select(.value.type == "uri") | .value.value' \
+            data/wikidata/relations-v1/*/bindings.jsonl |
+            sed -nE 's#^https?://www[.]wikidata[.]org/entity/(Q[1-9][0-9]*)$#\1#p' |
+            LC_ALL=C sort -u > "$out/entities.txt"
+          count="$(wc -l < "$out/entities.txt")"
+          test "$count" -gt 500
+          test "$count" -lt 30000
+          split --numeric-suffixes=0 --suffix-length=4 -l 100 \
+            "$out/entities.txt" "$tmp/part-"
+          total_rows=0
+          total_labels=0
+          batches=0
+          for chunk in "$tmp"/part-*; do
+            base="$(basename "$chunk")"
+            values="$(awk '{ printf "wd:%s ", $1 }' "$chunk")"
+            cat > "$out/batches/$base.rq" <<EOF
+          SELECT ?entity ?label WHERE {
+            VALUES ?entity { $values }
+            OPTIONAL { ?entity rdfs:label ?label . FILTER(LANG(?label) = "en") }
+          }
+          ORDER BY ?entity
+          LIMIT 1000
+          EOF
+            curl --fail --location --get --retry 5 --retry-all-errors \
+              --retry-delay 6 --max-time 100 --silent --show-error \
+              -H 'User-Agent: Ludographium/1.0 (https://github.com/sguzman/ludographium; CC0 structured evidence)' \
+              -H 'Accept: application/sparql-results+json' \
+              --data-urlencode 'format=json' \
+              --data-urlencode "query@$out/batches/$base.rq" \
+              'https://query.wikidata.org/sparql' \
+              -o "$out/batches/$base.response.json"
+            jq -e '
+              .head.vars == ["entity","label"]
+              and (.results.bindings | type == "array" and length > 0 and length <= 100)
+              and all(.results.bindings[];
+                .entity.type == "uri"
+                and (.entity.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$"))
+                and ((has("label") | not)
+                  or (.label.type == "literal" and .label["xml:lang"] == "en"
+                      and (.label.value | type == "string"))))
+            ' "$out/batches/$base.response.json" > /dev/null
+            jq -r '.results.bindings[].entity.value' "$out/batches/$base.response.json" |
+              sed -nE 's#^https?://www[.]wikidata[.]org/entity/(Q[1-9][0-9]*)$#\1#p' |
+              LC_ALL=C sort -u > "$tmp/seen"
+            diff -u "$chunk" "$tmp/seen"
+            jq -cS '.results.bindings[]' "$out/batches/$base.response.json" \
+              > "$out/batches/$base.jsonl"
+            rows="$(wc -l < "$out/batches/$base.jsonl")"
+            labels="$(jq -r 'select(has("label")) | .entity.value' \
+              "$out/batches/$base.jsonl" | wc -l)"
+            total_rows=$((total_rows+rows))
+            total_labels=$((total_labels+labels))
+            batches=$((batches+1))
+            echo "$base: $rows entity observations, $labels English labels"
+            sleep 2
+          done
+          test "$total_rows" -eq "$count"
+          source_manifest_sha="$(sha256sum data/wikidata/relations-v1/*/manifest.json | sha256sum | cut -d' ' -f1)"
+          inventory_sha="$(sha256sum "$out/entities.txt" | cut -d' ' -f1)"
+          captured="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          jq -n \
+            --arg license CC0-1.0 --arg timestamp "$captured" \
+            --arg inventory_sha "$inventory_sha" \
+            --arg source_manifest_sha "$source_manifest_sha" \
+            --argjson item_count "$count" \
+            --argjson english_labels "$total_labels" \
+            --argjson batches "$batches" \
+            '{
+              schema_version: 1,
+              source: "Wikidata",
+              license: $license,
+              captured_at_utc: $timestamp,
+              source_relation_manifest_inventory_sha256: $source_manifest_sha,
+              entity_inventory_path: "entities.txt",
+              entity_inventory_sha256: $inventory_sha,
+              source_entity_qids: $item_count,
+              english_label_observations: $english_labels,
+              query_batch_size: 100,
+              query_partitions: $batches,
+              query_scope: "Exact QID-valued relations for series, modes, languages, formats, distribution and country; optional English rdfs:label; no game identity attribution",
+              canonical_identity_policy: "Unverified source-relation QIDs and independently captured English labels; never canonical game, series, country, distributor or format identities"
+            }' > "$out/manifest.json"
+          : > "$tmp/files.jsonl"
+          while IFS= read -r file; do
+            bytes="$(wc -c < "$file")"
+            sha="$(sha256sum "$file" | cut -d' ' -f1)"
+            jq -nc --arg path "$(basename "$file")" \
+              --arg sha "$sha" --argjson bytes "$bytes" \
+              '{path: $path, bytes: $bytes, sha256: $sha}' \
+              >> "$tmp/files.jsonl"
+          done < <(find "$out/batches" -maxdepth 1 -type f | LC_ALL=C sort)
+          jq --slurpfile files "$tmp/files.jsonl" \
+            '. + {source_files: $files}' "$out/manifest.json" \
+            > "$tmp/manifest.json"
+          mv "$tmp/manifest.json" "$out/manifest.json"
+          echo "Accession completed: $count distinct referenced QIDs, $total_labels labels in $batches source batches"
+      - name: Preserve only text source evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Refusing generated binary database changes"
+            exit 1
+          fi
+          git add data/wikidata/relation-labels-v1
+          if git diff --cached --quiet; then
+            echo "Already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(wikidata): preserve original English labels for game relation entity QIDs'
+          git push origin HEAD:main
