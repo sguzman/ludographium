@@ -1,0 +1,161 @@
+name: Accession six uncovered vintage and educational console sources
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - sources/wikidata-platform-expansion-v7.json
+      - .github/workflows/wikidata-platform-expansion-v7.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-platform-expansion-v7-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Capture source-faithful game labels and P577 evidence for six additional consoles
+        shell: bash
+        run: |
+          set -euo pipefail
+          register=sources/wikidata-platform-expansion-v7.json
+          jq -e '
+            .schema_version == 1 and .source == "Wikidata"
+            and .license == "CC0-1.0" and .query_limit == 20000
+            and (.platforms | length == 6)
+            and ([.platforms[].platform] | unique | length == 6)
+            and ([.platforms[].wikidata_platform] | unique | length == 6)
+          ' "$register" > /dev/null
+          while IFS=$'\t' read -r platform qid; do
+            case "$platform:$qid" in
+              emersonarcadia2001:Q1196518|epochsupercassettevision:Q8018077|gameparkgp32:Q426119|intertonvc4000:Q302411|rcastudioii:Q1143954|segabeena:Q4686254) ;;
+              *) echo "Unapproved source/platform mapping: $platform $qid"; exit 1 ;;
+            esac
+            out="data/wikidata/platform-expansion-v7/$platform"
+            if test -f "$out/manifest.json"; then
+              test "$(jq -r '.wikidata_platform' "$out/manifest.json")" = "$qid"
+              for pair in 'query query.rq' 'response response.json' 'bindings bindings.jsonl'; do
+                read -r key name <<< "$pair"
+                sha="$(sha256sum "$out/$name" | cut -d' ' -f1)"
+                expected="$(jq -r --arg key "$key" '.["source_" + $key + "_sha256"]' "$out/manifest.json")"
+                test "$sha" = "$expected"
+              done
+              echo "$platform: existing accession preserved and hash-verified"
+              continue
+            fi
+            mkdir -p "$out"
+            cat > "$out/query.rq" <<EOF
+          SELECT DISTINCT ?item ?itemLabel ?publication WHERE {
+            ?item wdt:P31 wd:Q7889;
+                  wdt:P400 wd:$qid.
+            OPTIONAL { ?item rdfs:label ?itemLabel. FILTER(LANG(?itemLabel) = "en") }
+            OPTIONAL { ?item wdt:P577 ?publication. }
+          }
+          ORDER BY ?item ?itemLabel ?publication
+          LIMIT 20000
+          EOF
+            curl --fail --location --get --retry 5 --retry-all-errors \
+              --retry-delay 6 --max-time 110 --silent --show-error \
+              -H 'User-Agent: Ludographium/1.0 (https://github.com/sguzman/ludographium; CC0 console source accession)' \
+              -H 'Accept: application/sparql-results+json' \
+              --data-urlencode 'format=json' \
+              --data-urlencode "query@$out/query.rq" \
+              'https://query.wikidata.org/sparql' \
+              -o "$out/response.json"
+            jq -r --arg platform "$platform" '"\($platform): \(.results.bindings | length) original source rows"' "$out/response.json"
+            jq -c '{
+              response_variables: .head.vars,
+              item_types: ([.results.bindings[].item.type] | group_by(.) | map({kind:.[0],count:length})),
+              label_types: ([.results.bindings[] | .itemLabel.type // "missing"] | group_by(.) | map({kind:.[0],count:length})),
+              label_languages: ([.results.bindings[] | .itemLabel["xml:lang"] // "missing"] | group_by(.) | map({language:.[0],count:length})),
+              date_types: ([.results.bindings[] | .publication.type // "missing"] | group_by(.) | map({kind:.[0],count:length}))
+            }' "$out/response.json"
+            test "$(wc -c < "$out/response.json")" -lt 35000000
+            jq -e '
+              .head.vars == ["item","itemLabel","publication"]
+              and (.results.bindings | type == "array" and length < 20000)
+              and all(.results.bindings[];
+                (.item.type == "uri"
+                 and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
+                and ((has("itemLabel") | not)
+                  or (.itemLabel.type == "literal" and .itemLabel["xml:lang"] == "en"
+                      and (.itemLabel.value | type == "string")))
+                and ((has("publication") | not)
+                  or (.publication.type | IN("literal","typed-literal","uri","bnode"))
+                     and (.publication.value | type == "string")))
+            ' "$out/response.json" > /dev/null
+            jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
+            rows="$(wc -l < "$out/bindings.jsonl")"
+            items="$(jq -r '.results.bindings[].item.value' "$out/response.json" | LC_ALL=C sort -u | wc -l)"
+            labels="$(jq '[.results.bindings[] | select(has("itemLabel"))] | length' "$out/response.json")"
+            dates="$(jq '[.results.bindings[] | select(has("publication") and (.publication.type | IN("literal","typed-literal")))] | length' "$out/response.json")"
+            nonliteral="$(jq '[.results.bindings[] | select(has("publication") and (.publication.type | IN("uri","bnode")))] | length' "$out/response.json")"
+            jq -n --arg platform "$platform" --arg qid "$qid" \
+              --arg captured_at_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              --arg query_sha "$(sha256sum "$out/query.rq" | cut -d' ' -f1)" \
+              --arg response_sha "$(sha256sum "$out/response.json" | cut -d' ' -f1)" \
+              --arg bindings_sha "$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)" \
+              --argjson query_bytes "$(wc -c < "$out/query.rq")" \
+              --argjson response_bytes "$(wc -c < "$out/response.json")" \
+              --argjson bindings_bytes "$(wc -c < "$out/bindings.jsonl")" \
+              --argjson rows "$rows" --argjson items "$items" \
+              --argjson labels "$labels" --argjson dates "$dates" \
+              --argjson nonliteral "$nonliteral" \
+              '{
+                schema_version: 1,
+                source: "Wikidata",
+                license: "CC0-1.0",
+                source_revision: "live-query-capture",
+                platform: $platform,
+                wikidata_platform: $qid,
+                captured_at_utc: $captured_at_utc,
+                source_query_path: "query.rq",
+                source_query_sha256: $query_sha,
+                source_query_bytes: $query_bytes,
+                source_response_path: "response.json",
+                source_response_sha256: $response_sha,
+                source_response_bytes: $response_bytes,
+                source_bindings_path: "bindings.jsonl",
+                source_bindings_sha256: $bindings_sha,
+                source_bindings_bytes: $bindings_bytes,
+                source_rows: $rows,
+                distinct_item_qids: $items,
+                rows_with_english_label: $labels,
+                rows_with_publication_date: $dates,
+                rows_with_nonliteral_publication: $nonliteral,
+                query_limit: 20000,
+                source_selection: "direct P31 video game and P400 selected console; independent optional English labels and P577 publication date bindings; an empty query response is preserved as explicit scoped noncoverage, not evidence the platform has no games",
+                identity_policy: "Source observations only. No canonical games, dates, editions, release territories or Libretro matches inferred."
+              }' > "$out/manifest.json"
+            jq -e '. as $m | (.source_rows < .query_limit) and ((.source_rows == 0 and .distinct_item_qids == 0) or (.source_rows > 0 and .distinct_item_qids > 0))' "$out/manifest.json" >/dev/null
+            echo "$platform: $rows source observations, $items item QIDs, $dates literal date claims, $nonliteral nonliteral P577 bindings retained"
+            sleep 2
+          done < <(jq -r '.platforms[] | [.platform, .wikidata_platform] | @tsv' "$register")
+          test "$(find data/wikidata/platform-expansion-v7 -name manifest.json | wc -l)" -eq 6
+      - name: Preserve only hash-verified text source responses
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Refusing binary database files in source revision"
+            exit 1
+          fi
+          git add data/wikidata/platform-expansion-v7
+          if git diff --cached --quiet; then
+            echo "Source accession already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(wikidata): pin six additional classic console source observations'
+          git push origin HEAD:main
