@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "prior_expansion_register": "sources/wikidata-platform-expansion-v6.json",
+  "query_limit": 20000,
+  "platforms": [
+    {
+      "platform": "emersonarcadia2001",
+      "wikidata_platform": "Q1196518",
+      "label": "Emerson Arcadia 2001",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1196518"
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "wikidata_platform": "Q8018077",
+      "label": "Epoch Super Cassette Vision",
+      "evidence_url": "https://www.wikidata.org/wiki/Q8018077"
+    },
+    {
+      "platform": "gameparkgp32",
+      "wikidata_platform": "Q426119",
+      "label": "GamePark GP32",
+      "evidence_url": "https://www.wikidata.org/wiki/Q426119"
+    },
+    {
+      "platform": "intertonvc4000",
+      "wikidata_platform": "Q302411",
+      "label": "Interton Video Computer 4000",
+      "evidence_url": "https://www.wikidata.org/wiki/Q302411"
+    },
+    {
+      "platform": "rcastudioii",
+      "wikidata_platform": "Q1143954",
+      "label": "RCA Studio II",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1143954"
+    },
+    {
+      "platform": "segabeena",
+      "wikidata_platform": "Q4686254",
+      "label": "Sega Advanced Pico Beena",
+      "evidence_url": "https://www.wikidata.org/wiki/Q4686254"
+    }
+  ],
+  "source_policy": "Six additional Wikidata CC0 direct-P31-video-game and P400-platform source query scopes. Preserve independent query/response/JSONL bytes, SHA-256 and zero-result evidence. Source claims are not canonical game or release identities; they do not replace prior captures."
+}
