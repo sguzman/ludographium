@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "platform": "microsoftxbox360",
+  "wikidata_platform": "Q48263",
+  "source_revision": "live-query-capture",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "cdee00d6d3f06cab343258fbc001b87c8cc28ff57daec6a845b7bbd38cf01e2c",
+  "source_response_path": "response.json",
+  "source_response_sha256": "377e52cd48feb3e86d8ad234ae29b9a3f6289fca5720cc90bbc9044a1389ac7e",
+  "source_response_bytes": 2170263,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "5acc09f70984d3214b929c02977ea269e20b0609d2808b8fa86fafc92f18287f",
+  "source_bindings_bytes": 1411997,
+  "captured_at_utc": "2026-10-11T17:40:24Z",
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "query_limit": 10000,
+  "source_rows": 6318,
+  "distinct_items": 1778,
+  "identity_policy": "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+}

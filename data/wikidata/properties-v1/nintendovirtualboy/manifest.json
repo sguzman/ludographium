@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "platform": "nintendovirtualboy",
+  "wikidata_platform": "Q164651",
+  "source_revision": "live-query-capture",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "e0a3b3ceab551a717c2dac7c4a1880aad8a4805e9da903a788cf46e45665cda1",
+  "source_response_path": "response.json",
+  "source_response_sha256": "ca2999cb84488a75a94258e4dc288fc4ab6266defaa5cd936992e7a9bfcfd8ee",
+  "source_response_bytes": 23442,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "9a15a2c98d08ada69bca3e69b5533d4dc4d9b1382c4e832e35c2ee0d66743115",
+  "source_bindings_bytes": 15176,
+  "captured_at_utc": "2026-10-11T17:40:21Z",
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "query_limit": 10000,
+  "source_rows": 68,
+  "distinct_items": 24,
+  "identity_policy": "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+}
