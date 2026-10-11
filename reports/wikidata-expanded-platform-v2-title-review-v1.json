@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "kind": "source-only-atari-wonderswan-title-candidate-audit",
+  "source_commit_sha": "6d515fe1829bb44ee626421f22b8baa18495b88b",
+  "source_platform_partitions": 4,
+  "original_source_rows": 305,
+  "distinct_wikidata_platform_item_observations": 206,
+  "literal_publication_date_bindings": 282,
+  "nonliteral_publication_bindings": 0,
+  "total_candidate_links": 138,
+  "original_source_records_with_candidate": 138,
+  "ambiguous_candidate_links": 0,
+  "per_platform": [
+    {
+      "platform": "atarijaguar",
+      "links": 89,
+      "original_source_records_with_candidate": 89,
+      "ambiguous_links": 0
+    },
+    {
+      "platform": "atarilynx",
+      "links": 37,
+      "original_source_records_with_candidate": 37,
+      "ambiguous_links": 0
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "links": 10,
+      "original_source_records_with_candidate": 10,
+      "ambiguous_links": 0
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "links": 2,
+      "original_source_records_with_candidate": 2,
+      "ambiguous_links": 0
+    }
+  ],
+  "matching_policy": "Only same-platform conservative Libretro source-title and Wikidata English-label equality; distinct QIDs remain separate, preserving all original source row ordinals",
+  "interpretation": "All title correspondences are noncanonical evidence leads, not verified games, editions or media identities. Candidate counts do not measure a false-positive rate."
+}
