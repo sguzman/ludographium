@@ -52,6 +52,30 @@ distinct date claims are grouped under the same QID/title candidate without
 discarding their original row ordinals. There is no automatic game identity,
 edition, port, or regional-release assignment.
 
+## Third additive platform expansion: six more consoles
+
+The separately pinned [v3 platform register](../sources/wikidata-platform-expansion-v3.json)
+extends original CC0 source coverage to Famicom Disk System, Neo Geo Pocket,
+Neo Geo Pocket Color, SG-1000, Sega 32X, and PC Engine/TurboGrafx-16.
+
+The [six original source partitions](../data/wikidata/platform-expansion-v3/)
+retain **1,148 raw query response rows**, **655 distinct per-platform QIDs**,
+and **1,114 literal P577 publication-date statements**, with no nonliteral
+publication bindings in this batch. Every capture preserves the actual
+query, JSON response, original JSONL rows, SHA-256 hashes, and timestamp.
+No existing source observations were rewritten.
+
+Both the Rust original evidence lookup and conservative same-platform
+Libretro title-candidate review support the new source version:
+
+```sh
+cargo run --locked -- --wikidata-expanded --expansion-source v3 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v3 --platform all --limit 5
+```
+
+As with v1 and v2, a candidate is title correspondence evidence, not
+a canonical work, region, edition, port, release or media relationship.
+
 ## Second additive platform expansion: Atari and WonderSwan
 
 The separate [v2 source register](../sources/wikidata-platform-expansion-v2.json)

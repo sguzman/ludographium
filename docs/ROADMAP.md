@@ -45,6 +45,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Accession and verify all 23,623 original P4769 statement-level observations with explicit/missing P400 qualifiers, distinguishing 9,042 same-partition qualifiers from 14,084 other-platform qualifiers and 497 unqualified rows.
 - [x] Add three previously uncovered Wikidata P400 platform partitions (Atari 7800, PSP, Vita), preserving 3,888 original response rows, 2,254 game item/platform observations, and five nonliteral Vita P577 bindings without interpreting them as dates.
 - [x] Add independently pinned Atari Jaguar, Atari Lynx, WonderSwan and WonderSwan Color source partitions (305 observations, 206 QIDs), with separate Rust v2 source lookup and conservative title-review candidates.
+- [x] Add six more independently hash-pinned Wikidata P400 console partitions (1,148 original rows, 655 item/platform QIDs), with Rust v3 lookup and conservative title review.
 - [ ] Expand independently *provider-verified* identifier evidence beyond Wikidata assertions; quantify false-positive risk using adjudicated ground truth.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 

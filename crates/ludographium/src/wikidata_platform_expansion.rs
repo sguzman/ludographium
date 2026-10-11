@@ -10,6 +10,7 @@ use std::path::Path;
 
 const BASE_V1: &str = "data/wikidata/platform-expansion-v1";
 const BASE_V2: &str = "data/wikidata/platform-expansion-v2";
+const BASE_V3: &str = "data/wikidata/platform-expansion-v3";
 const MAP_V1: &[(&str, &str)] = &[
     ("atari7800", "Q753600"),
     ("sonyplaystationportable", "Q170325"),
@@ -20,6 +21,15 @@ const MAP_V2: &[(&str, &str)] = &[
     ("atarilynx", "Q753657"),
     ("bandaiwonderswan", "Q1065792"),
     ("bandaiwonderswancolor", "Q1048035"),
+];
+
+const MAP_V3: &[(&str, &str)] = &[
+    ("nintendofamilycomputerdisksystem", "Q135321"),
+    ("snkneogeopocket", "Q939881"),
+    ("snkneogeopocketcolor", "Q1977455"),
+    ("segasg1000", "Q1136956"),
+    ("sega32x", "Q1063978"),
+    ("necpcengineturbografx16", "Q1057377"),
 ];
 
 #[derive(Deserialize)]
@@ -142,6 +152,16 @@ impl ExpandedWikidataCatalog {
             BASE_V2,
             "sources/wikidata-platform-expansion-v2.json",
             MAP_V2,
+        )
+    }
+
+    pub fn open_v3(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V3,
+            "sources/wikidata-platform-expansion-v3.json",
+            MAP_V3,
         )
     }
 
@@ -455,5 +475,27 @@ mod tests {
         assert_eq!(catalog.platform_row_counts()["bandaiwonderswan"], 75);
         assert_eq!(catalog.platform_row_counts()["bandaiwonderswancolor"], 40);
         assert!(ExpandedWikidataCatalog::open_v2(&root, "invalid").is_err());
+    }
+
+    #[test]
+    fn six_more_source_platforms_are_hash_verified_and_independent() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = ExpandedWikidataCatalog::open_v3(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 6);
+        assert_eq!(catalog.total_rows(), 1_148);
+        assert_eq!(catalog.distinct_item_observations(), 655);
+        assert_eq!(catalog.literal_date_claims(), 1_114);
+        assert_eq!(catalog.nonliteral_publication_bindings(), 0);
+        assert_eq!(catalog.platform_row_counts()["nintendofamilycomputerdisksystem"], 319);
+        assert_eq!(catalog.platform_row_counts()["snkneogeopocket"], 5);
+        assert_eq!(catalog.platform_row_counts()["snkneogeopocketcolor"], 45);
+        assert_eq!(catalog.platform_row_counts()["segasg1000"], 88);
+        assert_eq!(catalog.platform_row_counts()["sega32x"], 98);
+        assert_eq!(catalog.platform_row_counts()["necpcengineturbografx16"], 593);
+        assert!(ExpandedWikidataCatalog::open_v3(&root, "invalid").is_err());
+        let (count, result) = catalog.search(None, None, 1).unwrap();
+        assert_eq!(count, 1_148);
+        assert_eq!(result.len(), 1);
+        assert!(result[0].source_path.contains("platform-expansion-v3"));
     }
 }
