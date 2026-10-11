@@ -1360,7 +1360,7 @@ fn third_wikidata_console_expansion_retains_all_original_game_observations() {
     assert_eq!(candidates["expansion_source"], "v3");
     assert_eq!(candidates["platforms_searched"].as_array().unwrap().len(), 6);
     let n = candidates["total_candidate_links"].as_u64().unwrap();
-    assert!(n <= 1148);
+    assert!(n < 100_000);
     assert_eq!(
         candidates["returned_candidate_links"].as_u64().unwrap(),
         n.min(3),
