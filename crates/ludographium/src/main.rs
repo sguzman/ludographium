@@ -7,8 +7,8 @@ use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::media::{fingerprint_normalized, MediaFormat};
 use ludographium::original_dat::OriginalDatCatalog;
-use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::runtime::verify_runtime_root;
+use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
@@ -525,7 +525,8 @@ fn run() -> Result<(), Box<dyn Error>> {
         + usize::from(title.is_some())
         + usize::from(file.is_some())
         + usize::from(zip.is_some());
-    if (query_modes != 1 && !((claims_only || wikidata_text || wikidata_candidates) && query_modes == 0))
+    if (query_modes != 1
+        && !((claims_only || wikidata_text || wikidata_candidates) && query_modes == 0))
         || (claims_only && (!source_dat || !enriched))
         || (wikidata_text
             && (source_dat
@@ -541,9 +542,18 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
         || (wikidata_candidates
-            && (wikidata_text || source_dat || claims_only || enriched || show_curated
-                || sha1.is_some() || crc32.is_some() || size.is_some() || file.is_some()
-                || zip.is_some() || media_format.is_some() || zip_entry.is_some()
+            && (wikidata_text
+                || source_dat
+                || claims_only
+                || enriched
+                || show_curated
+                || sha1.is_some()
+                || crc32.is_some()
+                || size.is_some()
+                || file.is_some()
+                || zip.is_some()
+                || media_format.is_some()
+                || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
         || (qid.is_some() && !wikidata_text && !wikidata_candidates)
         || (claims_only
@@ -556,9 +566,14 @@ fn run() -> Result<(), Box<dyn Error>> {
         || (title.is_some() && size.is_some())
         || (file.is_some() && (size.is_some() || limit_explicit))
         || (zip.is_some() && (size.is_some() || limit_explicit))
-        || (title.is_none() && limit_explicit && !claims_only && !wikidata_text && !wikidata_candidates)
+        || (title.is_none()
+            && limit_explicit
+            && !claims_only
+            && !wikidata_text
+            && !wikidata_candidates)
         || (qid.is_some() && limit_explicit && !wikidata_candidates)
-        || ((title.is_some() || claims_only || wikidata_text || wikidata_candidates) && (limit == 0 || limit > 200))
+        || ((title.is_some() || claims_only || wikidata_text || wikidata_candidates)
+            && (limit == 0 || limit > 200))
         || (zip_entry.is_some()
             && (zip.is_none() || media_format.is_none() || zip_entry.as_deref() == Some("")))
     {
