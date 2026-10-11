@@ -34,7 +34,7 @@ jobs:
               test "$(jq -r '.wikidata_platform' "$out/manifest.json")" = "$qid"
               for name in query.rq response.json bindings.jsonl; do
                 key="$(case "$name" in query.rq) echo query ;; response.json) echo response ;; *) echo bindings ;; esac)"
-                test "$(sha256sum "$out/$name" | cut -d' ' -f1)" = "$(jq -r ".source_$key_sha256" "$out/manifest.json")"
+                test "$(sha256sum "$out/$name" | cut -d' ' -f1)" = "$(jq -r --arg key "$key" '.["source_" + $key + "_sha256"]' "$out/manifest.json")"
               done
               echo "Preserved $platform pinned source unchanged"
               continue
@@ -126,8 +126,8 @@ jobs:
             jq -e '. as $m | ($m.source_rows > 0) and ($m.distinct_items > 0) and ($m.query_limit > $m.source_rows) and (([.property_counts[]] | add) == $m.source_rows)' "$out/manifest.json" > /dev/null
             echo "$platform: $count original relations/IDs, $items items, $entity_values entity-valued bindings"
             sleep 2
-          done < <(jq -r '.platforms[:5][] | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
-          test "$(find "$base" -name manifest.json | wc -l)" -eq 5
+          done < <(jq -r '.platforms[:9][] | select(.platform != "nds") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 8
       - name: Commit only original text source evidence
         shell: bash
         run: |
