@@ -1003,19 +1003,50 @@ fn source_pinned_game_authority_ids_are_exactly_searchable_without_provider_join
 
 #[test]
 fn original_gamefaqs_statement_qualifiers_remain_distinct_from_selected_item_platform() {
-    let all = query(&["--wikidata-gamefaqs-qualifiers", "--platform", "all", "--limit", "2"]);
-    assert_eq!(all["source_mode"], "wikidata-gamefaqs-statement-level-p400-qualifier-evidence");
+    let all = query(&[
+        "--wikidata-gamefaqs-qualifiers",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(
+        all["source_mode"],
+        "wikidata-gamefaqs-statement-level-p400-qualifier-evidence"
+    );
     assert_eq!(all["source_statement_rows"], 23623);
     assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 16);
-    assert_eq!(all["qualifier_scope_counts"]["no_explicit_platform_qualifier"], 497);
-    assert_eq!(all["qualifier_scope_counts"]["qualifier_equals_selected_item_platform"], 9042);
-    assert_eq!(all["qualifier_scope_counts"]["qualifier_names_other_platform"], 14084);
+    assert_eq!(
+        all["qualifier_scope_counts"]["no_explicit_platform_qualifier"],
+        497
+    );
+    assert_eq!(
+        all["qualifier_scope_counts"]["qualifier_equals_selected_item_platform"],
+        9042
+    );
+    assert_eq!(
+        all["qualifier_scope_counts"]["qualifier_names_other_platform"],
+        14084
+    );
     assert_eq!(all["returned_statement_rows"], 2);
-    assert!(all["statements"][0]["source_sha256"].as_str().unwrap().len() == 64);
+    assert!(
+        all["statements"][0]["source_sha256"]
+            .as_str()
+            .unwrap()
+            .len()
+            == 64
+    );
 
     let atari = query(&[
-        "--wikidata-gamefaqs-qualifiers", "--platform", "atari2600",
-        "--qid", "Q1014915", "--external-id", "579332", "--limit", "5",
+        "--wikidata-gamefaqs-qualifiers",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q1014915",
+        "--external-id",
+        "579332",
+        "--limit",
+        "5",
     ]);
     assert!(atari["total_filtered_statement_rows"].as_u64().unwrap() >= 1);
     assert!(atari["statements"].as_array().unwrap().iter().all(|entry| {
@@ -1026,13 +1057,39 @@ fn original_gamefaqs_statement_qualifiers_remain_distinct_from_selected_item_pla
     }));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
-        vec!["--wikidata-gamefaqs-qualifiers", "--platform", "all", "--property", "P4769"],
-        vec!["--wikidata-gamefaqs-qualifiers", "--platform", "all", "--title", "Mario"],
-        vec!["--wikidata-gamefaqs-qualifiers", "--platform", "all", "--qid", "Q0"],
-        vec!["--wikidata-gamefaqs-qualifiers", "--platform", "all", "--wikidata-authority-ids"],
+        vec![
+            "--wikidata-gamefaqs-qualifiers",
+            "--platform",
+            "all",
+            "--property",
+            "P4769",
+        ],
+        vec![
+            "--wikidata-gamefaqs-qualifiers",
+            "--platform",
+            "all",
+            "--title",
+            "Mario",
+        ],
+        vec![
+            "--wikidata-gamefaqs-qualifiers",
+            "--platform",
+            "all",
+            "--qid",
+            "Q0",
+        ],
+        vec![
+            "--wikidata-gamefaqs-qualifiers",
+            "--platform",
+            "all",
+            "--wikidata-authority-ids",
+        ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(&root).args(&args).output().unwrap();
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
         assert!(!output.status.success());
     }
 }
