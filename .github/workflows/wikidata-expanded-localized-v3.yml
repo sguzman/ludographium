@@ -1,0 +1,168 @@
+name: Accession expanded localized title evidence v3
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/wikidata-expanded-localized-v3.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-expanded-localized-v3-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Acquire language-tagged game labels and alternate titles
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=data/wikidata/expanded-localized-v3
+          for version in 8; do
+            register="sources/wikidata-platform-expansion-v$version.json"
+            while IFS=$'\t' read -r platform qid; do
+            out="$base/$platform"
+            if test -f "$out/manifest.json"; then
+              test "$(jq -r '.wikidata_platform' "$out/manifest.json")" = "$qid"
+              for key in query response bindings; do
+                case "$key" in
+                  query) filename=query.rq ;;
+                  response) filename=response.json ;;
+                  bindings) filename=bindings.jsonl ;;
+                esac
+                actual="$(sha256sum "$out/$filename" | cut -d' ' -f1)"
+                expected="$(jq -r --arg key "$key" '.["source_" + $key + "_sha256"]' "$out/manifest.json")"
+                test "$actual" = "$expected"
+              done
+              echo "$platform existing language-tagged source files verified and preserved"
+              continue
+            fi
+            mkdir -p "$out"
+            cat > "$out/query.rq" <<EOF
+          SELECT DISTINCT ?item ?predicate ?label WHERE {
+            ?item wdt:P31 wd:Q7889; wdt:P400 wd:$qid.
+            VALUES ?predicate { rdfs:label skos:altLabel }
+            ?item ?predicate ?label.
+            FILTER(REGEX(LANG(?label), "^(en|ja|es|zh|fr|de|it|ko|ar|pt)(-|$)", "i"))
+          }
+          ORDER BY ?item ?predicate ?label
+          LIMIT 50000
+          EOF
+            curl --fail --location --get --retry 5 --retry-all-errors \
+              --retry-delay 6 --max-time 110 --silent --show-error \
+              -H 'User-Agent: Ludographium/1.0 (https://github.com/sguzman/ludographium; CC0 localized source metadata)' \
+              -H 'Accept: application/sparql-results+json' \
+              --data-urlencode 'format=json' \
+              --data-urlencode "query@$out/query.rq" \
+              'https://query.wikidata.org/sparql' \
+              -o "$out/response.json"
+            jq -r --arg scope "$platform" '"\($scope): \(.results.bindings|length) original language-tagged source labels"' "$out/response.json"
+            test "$(wc -c < "$out/response.json")" -lt 70000000
+            jq -e '
+              .head.vars == ["item", "predicate", "label"]
+              and (.results.bindings | type == "array" and length < 50000)
+              and all(.results.bindings[];
+                (.item.type == "uri" and
+                  (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
+                and (.predicate.type == "uri" and
+                  (.predicate.value == "http://www.w3.org/2000/01/rdf-schema#label"
+                   or .predicate.value == "http://www.w3.org/2004/02/skos/core#altLabel"))
+                and (.label.type == "literal")
+                and (.label["xml:lang"] | type == "string" and
+                  test("^(en|ja|es|zh|fr|de|it|ko|ar|pt)(-|$)"; "i"))
+                and (.label.value | type == "string" and length > 0))
+            ' "$out/response.json" > /dev/null
+            jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
+            count="$(wc -l < "$out/bindings.jsonl")"
+            items="$(jq -r '.results.bindings[].item.value' "$out/response.json" | LC_ALL=C sort -u | wc -l)"
+            jq -n \
+              --arg platform "$platform" \
+              --arg register "$register" \
+              --arg platform_qid "$qid" \
+              --arg captured "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              --arg query_sha "$(sha256sum "$out/query.rq" | cut -d' ' -f1)" \
+              --arg response_sha "$(sha256sum "$out/response.json" | cut -d' ' -f1)" \
+              --arg bindings_sha "$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)" \
+              --argjson query_bytes "$(wc -c < "$out/query.rq")" \
+              --argjson response_bytes "$(wc -c < "$out/response.json")" \
+              --argjson bindings_bytes "$(wc -c < "$out/bindings.jsonl")" \
+              --argjson source_rows "$count" \
+              --argjson source_items "$items" \
+              --slurpfile original "$out/response.json" \
+              '{
+                schema_version: 1,
+                source: "Wikidata",
+                license: "CC0-1.0",
+                source_revision: "live-query-capture",
+                platform: $platform,
+                source_register: $register,
+                wikidata_platform: $platform_qid,
+                captured_at_utc: $captured,
+                source_query_path: "query.rq",
+                source_query_sha256: $query_sha,
+                source_query_bytes: $query_bytes,
+                source_response_path: "response.json",
+                source_response_sha256: $response_sha,
+                source_response_bytes: $response_bytes,
+                source_bindings_path: "bindings.jsonl",
+                source_bindings_sha256: $bindings_sha,
+                source_bindings_bytes: $bindings_bytes,
+                source_rows: $source_rows,
+                distinct_items: $source_items,
+                query_limit: 50000,
+                language_prefix_scope: ["en", "ja", "es", "zh", "fr", "de", "it", "ko", "ar", "pt"],
+                predicate_counts: (
+                  $original[0].results.bindings
+                  | group_by(.predicate.value)
+                  | map({key: (.[0].predicate.value | split("/")[-1] | split("#")[-1]), value:length})
+                  | from_entries
+                ),
+                language_tag_counts: (
+                  $original[0].results.bindings
+                  | group_by(.label["xml:lang"])
+                  | map({key:.[0].label["xml:lang"],value:length})
+                  | from_entries
+                ),
+                policy: "Original language-tagged source labels and aliases, never canonical game or regional release titles"
+              }' > "$out/manifest.json"
+            jq -e '. as $m | ((.source_rows == 0) == (.distinct_items == 0)) and .query_limit > .source_rows and ([.predicate_counts[]] | add // 0) == $m.source_rows and ([.language_tag_counts[]] | add // 0) == $m.source_rows' "$out/manifest.json" > /dev/null
+            echo "$platform: verified $count localized title and alias observations across $items source game items"
+            sleep 2
+          done < <(jq -r '.platforms[] | "\(.platform)\t\(.wikidata_platform)"' "$register")
+          done
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 12
+      - name: Preserve only language-tagged original source text
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Refusing any generated binary database files"
+            exit 1
+          fi
+          git add data/wikidata/expanded-localized-v3
+          if git diff --cached --quiet; then
+            echo "Localized source captures already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(wikidata): pin 12 provisional-scope multilingual source labels'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Failed to publish original localized sources" >&2
+          exit 1
