@@ -34,6 +34,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Acquire all 16 Wikidata platform partitions of original CC0 P178 developer, P123 publisher and P136 genre claims (47,144 new source bindings, 14,759 game-item/platform observations), with immutable source text and SHA-256 provenance.
 - [x] Accession 2,768 independently referenced Wikidata company/genre entity QIDs and 2,614 English labels in 28 source-pinned batches, preserving 154 unlabeled references without invented names.
 - [x] Compare independent Wikidata developer and publisher QID/English-label claims with attributed Libretro company fields across all 8,971 noncanonical title candidates, preserving agreement, missing evidence and disagreement statuses.
+- [x] Expose an exact-QID, per-platform Wikidata game observation projection across title/date and developer/publisher/genre captures, retaining separately captured claims, entity labels and source-only observations.
 - [ ] Expand independent provider coverage and cross-source identifier evidence beyond title correspondences; quantify false-positive risk.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 
