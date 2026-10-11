@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "rcastudioii",
+  "source_register": "sources/wikidata-platform-expansion-v7.json",
+  "wikidata_platform": "Q1143954",
+  "captured_at_utc": "2026-10-11T23:02:36Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "e97d8665fea2e1516fd3e98070b80a385047fb716a68be417e80146bdbc0bbf8",
+  "source_query_bytes": 295,
+  "source_response_path": "response.json",
+  "source_response_sha256": "c6388fbcd26028996f4868e51591a3fa1b50eda601f049af244d1b9c7c878468",
+  "source_response_bytes": 808,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "206a4e0ddc9d522bec3c7854cb06146742e8d094107edfd054e68803b60cca36",
+  "source_bindings_bytes": 439,
+  "source_rows": 2,
+  "distinct_items": 1,
+  "query_limit": 50000,
+  "language_prefix_scope": [
+    "en",
+    "ja",
+    "es",
+    "zh",
+    "fr",
+    "de",
+    "it",
+    "ko",
+    "ar",
+    "pt"
+  ],
+  "predicate_counts": {
+    "label": 1,
+    "altLabel": 1
+  },
+  "language_tag_counts": {
+    "en": 2
+  },
+  "policy": "Original language-tagged source labels and aliases, never canonical game or regional release titles"
+}

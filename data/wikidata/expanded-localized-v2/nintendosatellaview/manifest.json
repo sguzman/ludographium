@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "nintendosatellaview",
+  "source_register": "sources/wikidata-platform-expansion-v5.json",
+  "wikidata_platform": "Q1193565",
+  "captured_at_utc": "2026-10-11T23:02:10Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "01243a405c53cb3560c1ceaf41d9e2126645137d2c0ca3afb797513419871626",
+  "source_query_bytes": 295,
+  "source_response_path": "response.json",
+  "source_response_sha256": "6782f773163b1ec0c27100b967cc5cc784ee5d6c48c5b198c49b0b9a39aa2055",
+  "source_response_bytes": 15315,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "582f987f6bb3a42bcd6e35552d9409aa8636644972d5eb31ede865e227209f81",
+  "source_bindings_bytes": 9706,
+  "source_rows": 42,
+  "distinct_items": 6,
+  "query_limit": 50000,
+  "language_prefix_scope": [
+    "en",
+    "ja",
+    "es",
+    "zh",
+    "fr",
+    "de",
+    "it",
+    "ko",
+    "ar",
+    "pt"
+  ],
+  "predicate_counts": {
+    "label": 23,
+    "altLabel": 19
+  },
+  "language_tag_counts": {
+    "ar": 2,
+    "de": 2,
+    "en": 17,
+    "es": 1,
+    "fr": 6,
+    "it": 1,
+    "ja": 7,
+    "pt": 3,
+    "zh": 2,
+    "zh-hant": 1
+  },
+  "policy": "Original language-tagged source labels and aliases, never canonical game or regional release titles"
+}
