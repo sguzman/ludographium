@@ -427,16 +427,30 @@ fn wikidata_entity_labels_are_optional_verified_evidence_in_property_queries() {
     for original in all["claims"].as_array().unwrap() {
         if let Some(qid) = original["value_qid"].as_str() {
             assert_eq!(original["value_label_evidence"]["qid"], qid);
-            assert_eq!(original["value_label_evidence"]["source_query_sha256"].as_str().unwrap().len(), 64);
+            assert_eq!(
+                original["value_label_evidence"]["source_query_sha256"]
+                    .as_str()
+                    .unwrap()
+                    .len(),
+                64
+            );
             assert!(original["value_label_evidence"]["source_path"]
-                .as_str().unwrap().contains("property-labels-v1"));
+                .as_str()
+                .unwrap()
+                .contains("property-labels-v1"));
         }
     }
 
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let invalid = Command::new(env!("CARGO_BIN_EXE_ludographium"))
         .current_dir(&root)
-        .args(["--with-entity-labels", "--platform", "atari2600", "--title", "Adventure"])
+        .args([
+            "--with-entity-labels",
+            "--platform",
+            "atari2600",
+            "--title",
+            "Adventure",
+        ])
         .output()
         .unwrap();
     assert!(!invalid.status.success());
