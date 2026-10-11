@@ -625,9 +625,10 @@ fn run() -> Result<(), Box<dyn Error>> {
     if (wikidata_expanded || wikidata_expanded_candidates)
         && !matches!(source_version, "v1" | "v2" | "v3" | "v4" | "v5")
     {
-        return Err(
-            CatalogError::Invalid("--expansion-source must be v1, v2, v3, v4 or v5".into()).into(),
-        );
+        return Err(CatalogError::Invalid(
+            "--expansion-source must be v1, v2, v3, v4 or v5".into(),
+        )
+        .into());
     }
 
     if wikidata_expanded_candidates {
