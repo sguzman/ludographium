@@ -701,7 +701,12 @@ mod tests {
         let (_, records) = second.search(None, Some("P404"), 2).unwrap();
         assert_eq!(records.len(), 2);
         assert!(records[0].source_path.contains("expanded-relations-v2"));
-        for empty in ["casioloopy", "tigergamecom", "gameparkgp32", "intertonvc4000"] {
+        for empty in [
+            "casioloopy",
+            "tigergamecom",
+            "gameparkgp32",
+            "intertonvc4000",
+        ] {
             let scope = WikidataRelationCatalog::open_expanded_v2(&root, empty).unwrap();
             assert_eq!(scope.total_claims(), 0);
             assert_eq!(scope.platforms(), &[empty.to_string()]);
