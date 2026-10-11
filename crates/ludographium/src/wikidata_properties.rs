@@ -372,7 +372,7 @@ impl WikidataPropertyCatalog {
                 return Err(invalid("invalid expanded source register"));
             }
             for scope in &register.platforms {
-                if !seen_platforms.insert(&scope.platform)
+                if !seen_platforms.insert(scope.platform.clone())
                     || scope.platform.is_empty()
                     || !scope
                         .platform
