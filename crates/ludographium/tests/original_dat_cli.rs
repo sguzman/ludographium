@@ -1961,10 +1961,23 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
     ]);
     assert_eq!(third_credits["source_statements"], 85);
     assert_eq!(third_credits["source_item_platform_observations"], 26);
-    assert_eq!(third_credits["platforms_searched"].as_array().unwrap().len(), 12);
-    assert!(third_credits["claims"].as_array().unwrap().iter().all(|row| {
-        row["source_path"].as_str().unwrap().contains("expanded-credits-v3")
-    }));
+    assert_eq!(
+        third_credits["platforms_searched"]
+            .as_array()
+            .unwrap()
+            .len(),
+        12
+    );
+    assert!(third_credits["claims"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|row| {
+            row["source_path"]
+                .as_str()
+                .unwrap()
+                .contains("expanded-credits-v3")
+        }));
 
     let third_relations = query(&[
         "--wikidata-relations",
@@ -1977,10 +1990,23 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
     ]);
     assert_eq!(third_relations["source_statements"], 123);
     assert_eq!(third_relations["source_item_platform_observations"], 25);
-    assert_eq!(third_relations["platforms_searched"].as_array().unwrap().len(), 12);
-    assert!(third_relations["claims"].as_array().unwrap().iter().all(|row| {
-        row["source_path"].as_str().unwrap().contains("expanded-relations-v3")
-    }));
+    assert_eq!(
+        third_relations["platforms_searched"]
+            .as_array()
+            .unwrap()
+            .len(),
+        12
+    );
+    assert!(third_relations["claims"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|row| {
+            row["source_path"]
+                .as_str()
+                .unwrap()
+                .contains("expanded-relations-v3")
+        }));
 
     let properties_with_labels = query(&[
         "--wikidata-properties",

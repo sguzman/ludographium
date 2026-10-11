@@ -652,8 +652,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         && !wikidata_properties
         && !wikidata_relations
         && !wikidata_localized_titles)
-        || !(matches!(cohort, "baseline" | "expanded-v1" | "expanded-v2" | "expanded-v3")
-            || (wikidata_localized_titles && cohort == "combined"))
+        || !(matches!(
+            cohort,
+            "baseline" | "expanded-v1" | "expanded-v2" | "expanded-v3"
+        ) || (wikidata_localized_titles && cohort == "combined"))
         || (expanded_credits && metadata_cohort.is_some())
         || (cohort == "expanded-v3"
             && with_entity_labels
