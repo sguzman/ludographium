@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v2.json",
+  "platform": "bandaiwonderswan",
+  "wikidata_platform": "Q1065792",
+  "captured_at_utc": "2026-10-11T22:32:28Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "8977ebde8e30d138ad785c9336c8ec1831365cc099984b459283339d827de39b",
+  "source_query_bytes": 217,
+  "source_response_path": "response.json",
+  "source_response_sha256": "3409dd099835cc435609e31fe954150a3372fbe13697f25c8df5d75270cd85bc",
+  "source_response_bytes": 36194,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "4f4a87a906ad7466e28de0856d49a45371580e6c145bae73184223c281da3b99",
+  "source_bindings_bytes": 23488,
+  "source_rows": 105,
+  "distinct_items": 38,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 33,
+    "P136": 40,
+    "P178": 32
+  },
+  "rdf_value_type_counts": {
+    "uri": 105
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

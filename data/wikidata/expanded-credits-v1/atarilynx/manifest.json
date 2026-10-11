@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v2.json",
+  "platform": "atarilynx",
+  "wikidata_platform": "Q753657",
+  "captured_at_utc": "2026-10-11T22:32:25Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "469f08f3ae7b62f5dd8717603195f0b0c6e92d73fef335adfb36ea8f80ee702a",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "510736695a51562dc3784255af6bea73a77219729f56c3168939ca3b63430fa6",
+  "source_response_bytes": 51329,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "4ed393a46675e5324926fd1bda03febb991885b66155b1bfe3e2c9ff22b962e6",
+  "source_bindings_bytes": 33343,
+  "source_rows": 149,
+  "distinct_items": 53,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 45,
+    "P136": 61,
+    "P178": 43
+  },
+  "rdf_value_type_counts": {
+    "uri": 149
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

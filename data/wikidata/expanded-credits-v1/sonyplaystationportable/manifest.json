@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v1.json",
+  "platform": "sonyplaystationportable",
+  "wikidata_platform": "Q170325",
+  "captured_at_utc": "2026-10-11T22:32:18Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "e5ada80e35054e3b11c6bf9d41d8810bfa7352fa1079bf026a2dde493da1f648",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "e9aba32f4321825c5bb113a8be724eb5b0b59997a2d1f2f4dd75e3a95da19d52",
+  "source_response_bytes": 1309730,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "2badd22a1c41054dc79fec5542f3b9a1dc7df17e8a2135609abfa042a22fa76f",
+  "source_bindings_bytes": 852304,
+  "source_rows": 3811,
+  "distinct_items": 1170,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 1125,
+    "P136": 1623,
+    "P178": 1063
+  },
+  "rdf_value_type_counts": {
+    "uri": 3811
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

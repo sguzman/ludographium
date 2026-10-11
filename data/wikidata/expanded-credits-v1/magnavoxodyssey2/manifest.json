@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v4.json",
+  "platform": "magnavoxodyssey2",
+  "wikidata_platform": "Q576932",
+  "captured_at_utc": "2026-10-11T22:32:56Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "620f7f8647e8d22f886b303e2e92ec01fb9eda63d4d2f25bd6be2870ace1211d",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "19c953ced227d534080ee6d200d0f30cb1046943b6847d17dbfe56ea8fde0968",
+  "source_response_bytes": 17287,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "cc66a8de1b47076191aeadd2ceabcc96227e44eeb5de80e5d775f445aae49a1c",
+  "source_bindings_bytes": 11181,
+  "source_rows": 50,
+  "distinct_items": 23,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 17,
+    "P136": 22,
+    "P178": 11
+  },
+  "rdf_value_type_counts": {
+    "uri": 50
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

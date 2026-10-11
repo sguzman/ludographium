@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v2.json",
+  "platform": "atarijaguar",
+  "wikidata_platform": "Q650601",
+  "captured_at_utc": "2026-10-11T22:32:23Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "ea43371dbe4be6de392c71282479a2f6516ef2871dba552cd2b407ebb4d77a32",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "3c4986c5a04c0b52b81936be891cb61a3862481df7eb4424cfd6772f00e1915d",
+  "source_response_bytes": 63618,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "18b626b22e9cc4b16c5fd295d0d215808d4db44ece5687d6ce268e1dcedb6ec7",
+  "source_bindings_bytes": 41312,
+  "source_rows": 185,
+  "distinct_items": 53,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 60,
+    "P136": 86,
+    "P178": 39
+  },
+  "rdf_value_type_counts": {
+    "uri": 185
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

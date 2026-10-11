@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v2.json",
+  "platform": "bandaiwonderswancolor",
+  "wikidata_platform": "Q1048035",
+  "captured_at_utc": "2026-10-11T22:32:30Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "2382cb61288ede5bbc98377b3b56b04e0a8efbe91307e18fa3330a8a2870a3ae",
+  "source_query_bytes": 217,
+  "source_response_path": "response.json",
+  "source_response_sha256": "913cbfd31a06ffbbf80d156bef436a13f4640b549aac4704a9222386b998eae9",
+  "source_response_bytes": 22757,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "e18a6b6b6b6c61b4c42b51802dce615cb7b58388b1dc4960aff2b7a22d7656b1",
+  "source_bindings_bytes": 14731,
+  "source_rows": 66,
+  "distinct_items": 24,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 21,
+    "P136": 22,
+    "P178": 23
+  },
+  "rdf_value_type_counts": {
+    "uri": 66
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

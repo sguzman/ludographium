@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v3.json",
+  "platform": "nintendofamilycomputerdisksystem",
+  "wikidata_platform": "Q135321",
+  "captured_at_utc": "2026-10-11T22:32:32Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "c1951c9a4d8ea3bc0a1535f566db6cecf4ad17a43fdc337d4e57ccd50754b9c2",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "de6059227a78dc8aede9372dadc3dd2b21f2e80eead1de5eb172302b14fa5365",
+  "source_response_bytes": 136428,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "a4ba0f402fee51dd29663aa647630a741a492fafde56dca242194625cabeeb06",
+  "source_bindings_bytes": 88682,
+  "source_rows": 397,
+  "distinct_items": 139,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 131,
+    "P136": 148,
+    "P178": 118
+  },
+  "rdf_value_type_counts": {
+    "uri": 397
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

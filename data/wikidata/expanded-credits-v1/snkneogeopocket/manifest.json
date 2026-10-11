@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v3.json",
+  "platform": "snkneogeopocket",
+  "wikidata_platform": "Q939881",
+  "captured_at_utc": "2026-10-11T22:32:35Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "b801d21446b8831725dd2cb435f8e6b283a42ac06e70365747a39e8fd70954ec",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "1717d2bf9c5e7b374843de3362f85a47e419da15cf8efe5597609edbd8501122",
+  "source_response_bytes": 3887,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "8e863de937835209585ea07a74e13fc820ea215740956903cbeaa47bf46181a1",
+  "source_bindings_bytes": 2461,
+  "source_rows": 11,
+  "distinct_items": 5,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 3,
+    "P136": 5,
+    "P178": 3
+  },
+  "rdf_value_type_counts": {
+    "uri": 11
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

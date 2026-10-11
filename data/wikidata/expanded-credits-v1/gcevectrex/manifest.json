@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v4.json",
+  "platform": "gcevectrex",
+  "wikidata_platform": "Q767631",
+  "captured_at_utc": "2026-10-11T22:32:51Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "f1bb42004b5a0b54be879aec7280fcbc6682f33979dda16cb77f26abee8d93bf",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "950de1ad3ba8408ef078b6968bce116319ff9906a99289ef47d775a2c34fb864",
+  "source_response_bytes": 13509,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "253549c47481058d8cdc7437ba824c6055843cc561a3b97df313eb98e2744f07",
+  "source_bindings_bytes": 8723,
+  "source_rows": 39,
+  "distinct_items": 17,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 10,
+    "P136": 19,
+    "P178": 10
+  },
+  "rdf_value_type_counts": {
+    "uri": 39
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

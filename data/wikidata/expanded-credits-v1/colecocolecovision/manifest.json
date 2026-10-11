@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v4.json",
+  "platform": "colecocolecovision",
+  "wikidata_platform": "Q1046862",
+  "captured_at_utc": "2026-10-11T22:32:49Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "4b2a0f07482e6cd219a25dc832fe9cfded190bbc21c0a9f266f5743ddc937a95",
+  "source_query_bytes": 217,
+  "source_response_path": "response.json",
+  "source_response_sha256": "f962fab71b409d46c0157b23bd29c5369cc4910cdb7922d83e11a17582ff02e3",
+  "source_response_bytes": 96599,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "72c658ed332d6612727b185c14ee81f88b5789cbc0b9452c898a5107d7b2b787",
+  "source_bindings_bytes": 62773,
+  "source_rows": 281,
+  "distinct_items": 93,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 96,
+    "P136": 107,
+    "P178": 78
+  },
+  "rdf_value_type_counts": {
+    "uri": 281
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}
