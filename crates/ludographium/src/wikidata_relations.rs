@@ -678,6 +678,39 @@ mod tests {
     }
 
     #[test]
+    fn verify_all_37_expanded_relation_scopes_with_unmodified_evidence() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let first = WikidataRelationCatalog::open_expanded(&root, "all").unwrap();
+        assert_eq!(first.platforms().len(), 19);
+        assert_eq!(first.total_claims(), 18_999);
+        assert_eq!(first.item_observations(), 3_108);
+        assert_eq!(first.property_counts()["P1733"], 633);
+        assert_eq!(first.property_counts()["P2725"], 186);
+        let (_, claims) = first.search(None, Some("P179"), 2).unwrap();
+        assert_eq!(claims.len(), 2);
+        assert!(claims.iter().all(|claim| {
+            claim.source_path.contains("expanded-relations-v1")
+                && claim.source_sha256.len() == 64
+                && claim.interpretation.contains("not-verified")
+        }));
+        let second = WikidataRelationCatalog::open_expanded_v2(&root, "all").unwrap();
+        assert_eq!(second.platforms().len(), 18);
+        assert_eq!(second.total_claims(), 1_461);
+        assert_eq!(second.item_observations(), 303);
+        assert_eq!(second.property_counts()["P1733"], 20);
+        assert_eq!(second.property_counts()["P2725"], 7);
+        let (_, records) = second.search(None, Some("P404"), 2).unwrap();
+        assert_eq!(records.len(), 2);
+        assert!(records[0].source_path.contains("expanded-relations-v2"));
+        for empty in ["casioloopy", "tigergamecom", "gameparkgp32", "intertonvc4000"] {
+            let scope = WikidataRelationCatalog::open_expanded_v2(&root, empty).unwrap();
+            assert_eq!(scope.total_claims(), 0);
+            assert_eq!(scope.platforms(), &[empty.to_string()]);
+        }
+        assert!(WikidataRelationCatalog::open_expanded_v2(&root, "unknown").is_err());
+    }
+
+    #[test]
     fn verify_all_committed_relation_responses_and_external_identifiers() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let catalog = WikidataRelationCatalog::open(&root, "all").unwrap();
