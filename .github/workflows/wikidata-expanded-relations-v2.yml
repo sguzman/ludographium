@@ -161,5 +161,14 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git commit -m 'data(wikidata): pin additional relations and external identifiers'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          # Concurrent source workflows may advance main between fetch and push.
+          # Retry normal fast-forward pushes; never force or drop original captures.
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Source capture could not be pushed after six rebases" >&2
+          exit 1
