@@ -49,6 +49,43 @@ struct Manifest {
     non_entity_value_bindings: usize,
 }
 
+
+#[derive(Debug, Deserialize)]
+struct ExpandedRegister {
+    schema_version: u32,
+    source: String,
+    license: String,
+    query_limit: usize,
+    platforms: Vec<RegisteredPlatform>,
+}
+
+#[derive(Debug, Deserialize)]
+struct ExpandedManifest {
+    schema_version: u32,
+    source: String,
+    license: String,
+    source_revision: String,
+    source_register: String,
+    platform: String,
+    wikidata_platform: String,
+    captured_at_utc: String,
+    source_query_path: String,
+    source_query_sha256: String,
+    source_query_bytes: usize,
+    source_response_path: String,
+    source_response_sha256: String,
+    source_response_bytes: usize,
+    source_bindings_path: String,
+    source_bindings_sha256: String,
+    source_bindings_bytes: usize,
+    source_rows: usize,
+    distinct_items: usize,
+    query_limit: usize,
+    properties: Vec<String>,
+    property_counts: BTreeMap<String, usize>,
+    rdf_value_type_counts: BTreeMap<String, usize>,
+}
+
 #[derive(Debug, Serialize)]
 pub struct PropertyClaim {
     pub platform: String,
@@ -308,6 +345,184 @@ impl WikidataPropertyCatalog {
         })
     }
 
+    /// Read the separate 19-platform CC0 credit corpus with original response checks.
+    /// This does not join source claims to canonical game or company identities.
+    pub fn open_expanded(
+        root: impl AsRef<Path>,
+        selection: &str,
+    ) -> Result<Self, CatalogError> {
+        let root = root.as_ref();
+        let mut seen_platforms = HashSet::new();
+        let mut platforms = Vec::new();
+        let mut claims = Vec::new();
+        let mut source_item_observations = 0;
+        let mut non_entity_bindings = 0;
+        let mut properties = BTreeMap::new();
+
+        for (version, expected_platforms) in [(1, 3), (2, 4), (3, 6), (4, 6)] {
+            let register_path = format!("sources/wikidata-platform-expansion-v{version}.json");
+            let register: ExpandedRegister =
+                serde_json::from_slice(&fs::read(root.join(&register_path))?)?;
+            if register.schema_version != 1
+                || register.source != "Wikidata"
+                || register.license != "CC0-1.0"
+                || register.query_limit != 20_000
+                || register.platforms.len() != expected_platforms
+            {
+                return Err(invalid("invalid expanded source register"));
+            }
+            for scope in &register.platforms {
+                if !seen_platforms.insert(&scope.platform)
+                    || scope.platform.is_empty()
+                    || !scope
+                        .platform
+                        .bytes()
+                        .all(|byte| byte.is_ascii_lowercase() || byte.is_ascii_digit())
+                    || qid_uri(&format!(
+                        "http://www.wikidata.org/entity/{}",
+                        scope.wikidata_platform
+                    ))
+                    .is_none()
+                {
+                    return Err(invalid("invalid expanded console mapping"));
+                }
+                if selection != "all" && selection != scope.platform {
+                    continue;
+                }
+                let folder = root
+                    .join("data/wikidata/expanded-credits-v1")
+                    .join(&scope.platform);
+                if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
+                    return Err(invalid("expanded Wikidata source folder is a symlink"));
+                }
+                let manifest: ExpandedManifest =
+                    serde_json::from_slice(&fs::read(folder.join("manifest.json"))?)?;
+                if manifest.schema_version != 1
+                    || manifest.source != "Wikidata"
+                    || manifest.license != "CC0-1.0"
+                    || manifest.source_revision != "live-query-capture"
+                    || manifest.source_register != register_path
+                    || manifest.platform != scope.platform
+                    || manifest.wikidata_platform != scope.wikidata_platform
+                    || manifest.query_limit != 30_000
+                    || manifest.source_rows >= manifest.query_limit
+                    || (manifest.source_rows == 0) != (manifest.distinct_items == 0)
+                    || manifest.source_query_path != "query.rq"
+                    || manifest.source_response_path != "response.json"
+                    || manifest.source_bindings_path != "bindings.jsonl"
+                    || manifest.properties != PROPERTY_IDS
+                    || manifest.captured_at_utc.is_empty()
+                {
+                    return Err(invalid("invalid expanded property source manifest"));
+                }
+                let query = read_pinned(
+                    &folder,
+                    "query.rq",
+                    Some(manifest.source_query_bytes),
+                    &manifest.source_query_sha256,
+                )?;
+                let query_text = std::str::from_utf8(&query)
+                    .map_err(|_| invalid("non-UTF-8 expanded property query"))?;
+                if !query_text.contains(&format!("wd:{}", scope.wikidata_platform))
+                    || !query_text.contains("wdt:P31 wd:Q7889")
+                    || !query_text.contains("wdt:P400")
+                    || !query_text.contains("wdt:P178")
+                    || !query_text.contains("wdt:P123")
+                    || !query_text.contains("wdt:P136")
+                    || !query_text.contains("LIMIT 30000")
+                {
+                    return Err(invalid("expanded Wikidata query scope mismatch"));
+                }
+                let response = read_pinned(
+                    &folder,
+                    "response.json",
+                    Some(manifest.source_response_bytes),
+                    &manifest.source_response_sha256,
+                )?;
+                let response_json: Value = serde_json::from_slice(&response)?;
+                if response_json["head"]["vars"] != json!(["item", "property", "value"]) {
+                    return Err(invalid("unexpected expanded source response columns"));
+                }
+                let bindings = response_json["results"]["bindings"]
+                    .as_array()
+                    .ok_or_else(|| invalid("missing expanded Wikidata bindings"))?;
+                if bindings.len() != manifest.source_rows {
+                    return Err(invalid("expanded response/manifest row mismatch"));
+                }
+                let original = read_pinned(
+                    &folder,
+                    "bindings.jsonl",
+                    Some(manifest.source_bindings_bytes),
+                    &manifest.source_bindings_sha256,
+                )?;
+                let text = std::str::from_utf8(&original)
+                    .map_err(|_| invalid("non-UTF-8 expanded property bindings"))?;
+                let lines: Vec<_> = text.lines().collect();
+                if lines.len() != manifest.source_rows
+                    || (!text.is_empty() && !text.ends_with('\n'))
+                {
+                    return Err(invalid("expanded original JSONL row count mismatch"));
+                }
+                let mut unique_items = HashSet::new();
+                let mut per_property = BTreeMap::new();
+                let mut value_types = BTreeMap::new();
+                for (index, line) in lines.iter().enumerate() {
+                    let record: Value = serde_json::from_str(line)?;
+                    if record != bindings[index] {
+                        return Err(invalid("expanded response and JSONL claims disagree"));
+                    }
+                    let (item, property, entity) = validate_record(&record)?;
+                    let rdf_kind = record["value"]["type"]
+                        .as_str()
+                        .ok_or_else(|| invalid("missing expanded RDF value kind"))?;
+                    *value_types.entry(rdf_kind.to_owned()).or_insert(0) += 1;
+                    *per_property.entry(property.to_owned()).or_insert(0) += 1;
+                    *properties.entry(property.to_owned()).or_insert(0) += 1;
+                    unique_items.insert(item.to_owned());
+                    if entity.is_none() {
+                        non_entity_bindings += 1;
+                    }
+                    claims.push(PropertyClaim {
+                        platform: scope.platform.clone(),
+                        item_qid: item.to_owned(),
+                        property: property.to_owned(),
+                        value_qid: entity.map(str::to_owned),
+                        raw_binding: record,
+                        source_ordinal: index + 1,
+                        source_path: format!(
+                            "data/wikidata/expanded-credits-v1/{}/bindings.jsonl",
+                            scope.platform
+                        ),
+                        source_sha256: manifest.source_bindings_sha256.clone(),
+                        source_query_sha256: manifest.source_query_sha256.clone(),
+                        source_response_sha256: manifest.source_response_sha256.clone(),
+                        captured_at_utc: manifest.captured_at_utc.clone(),
+                        interpretation:
+                            "original-attributed-expanded-property-not-verified-game-identity",
+                    });
+                }
+                if unique_items.len() != manifest.distinct_items
+                    || per_property != manifest.property_counts
+                    || value_types != manifest.rdf_value_type_counts
+                {
+                    return Err(invalid("expanded source property/item count mismatch"));
+                }
+                source_item_observations += unique_items.len();
+                platforms.push(scope.platform.clone());
+            }
+        }
+        if platforms.is_empty() || (selection == "all" && platforms.len() != 19) {
+            return Err(invalid("unknown or incomplete expanded credit platform"));
+        }
+        Ok(Self {
+            claims,
+            platforms,
+            source_item_observations,
+            non_entity_bindings,
+            properties,
+        })
+    }
+
     pub fn claims(&self) -> &[PropertyClaim] {
         &self.claims
     }
@@ -381,6 +596,32 @@ mod tests {
         );
         assert!(property_uri("http://www.wikidata.org/prop/direct/P577").is_none());
     }
+    #[test]
+    fn expanded_credit_sources_are_verified_without_identity_merges() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = WikidataPropertyCatalog::open_expanded(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 19);
+        assert_eq!(catalog.total_claims(), 10_269);
+        assert_eq!(catalog.source_item_observations(), 3_150);
+        assert_eq!(catalog.property_counts().values().sum::<usize>(), 10_269);
+        let (count, limited) = catalog.search(None, None, 2).unwrap();
+        assert_eq!(count, 10_269);
+        assert_eq!(limited.len(), 2);
+        assert!(limited.iter().all(|claim| {
+            claim.source_path.contains("expanded-credits-v1")
+                && claim.source_sha256.len() == 64
+                && claim.interpretation.contains("not-verified")
+        }));
+        let psp = WikidataPropertyCatalog::open_expanded(
+            &root,
+            "sonyplaystationportable",
+        )
+        .unwrap();
+        assert_eq!(psp.total_claims(), 3_811);
+        assert!(WikidataPropertyCatalog::open_expanded(&root, "unknown").is_err());
+        assert!(catalog.search(Some("Q0"), None, 2).is_err());
+    }
+
     #[test]
     fn verifies_all_sixteen_source_partitions_and_raw_bindings() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
