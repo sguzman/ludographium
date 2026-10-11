@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "prior_expansion_register": "sources/wikidata-platform-expansion-v7.json",
+  "platform_discovery_register": "sources/wikidata-platform-discovery-v1.json",
+  "query_limit": 20000,
+  "platforms": [
+    {
+      "platform": "arduboyincarduboy",
+      "wikidata_platform": "Q25389541",
+      "label": "Arduboy",
+      "evidence_url": "https://www.wikidata.org/wiki/Q25389541",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/arduboyincarduboy/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "entexadventurevision",
+      "wikidata_platform": "Q379965",
+      "label": "Entex Adventure Vision",
+      "evidence_url": "https://www.wikidata.org/wiki/Q379965",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/entexadventurevision/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "funtechsuperacan",
+      "wikidata_platform": "Q2475188",
+      "label": "Super A'Can",
+      "evidence_url": "https://www.wikidata.org/wiki/Q2475188",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/funtechsuperacan/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "hartunggamemaster",
+      "wikidata_platform": "Q5675347",
+      "label": "Hartung Game Master",
+      "evidence_url": "https://www.wikidata.org/wiki/Q5675347",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/hartunggamemaster/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "konamipicno",
+      "wikidata_platform": "Q22124372",
+      "label": "Konami Picno",
+      "evidence_url": "https://www.wikidata.org/wiki/Q22124372",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/konamipicno/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "leapfrogleapsterlearninggamesystem",
+      "wikidata_platform": "Q6509976",
+      "label": "Leapster",
+      "evidence_url": "https://www.wikidata.org/wiki/Q6509976",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/leapfrogleapsterlearninggamesystem/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "mobilezeebo",
+      "wikidata_platform": "Q184372",
+      "label": "Zeebo",
+      "evidence_url": "https://www.wikidata.org/wiki/Q184372",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/mobilezeebo/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "wikidata_platform": "Q7200192",
+      "label": "SuFami Turbo",
+      "evidence_url": "https://www.wikidata.org/wiki/Q7200192",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/nintendosufamiturbo/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "nintendoereader",
+      "wikidata_platform": "Q1993197",
+      "label": "Nintendo e-Reader",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1993197",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/nintendoereader/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "philipsvideopac",
+      "wikidata_platform": "Q7185533",
+      "label": "Philips Videopac+ G7400",
+      "evidence_url": "https://www.wikidata.org/wiki/Q7185533",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/philipsvideopac/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "vtechcreativision",
+      "wikidata_platform": "Q2502670",
+      "label": "VTech CreatiVision",
+      "evidence_url": "https://www.wikidata.org/wiki/Q2502670",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/vtechcreativision/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    },
+    {
+      "platform": "vtechvsmile",
+      "wikidata_platform": "Q1055215",
+      "label": "V.Smile",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1055215",
+      "discovery_manifest": "data/wikidata/platform-discovery-v1/vtechvsmile/manifest.json",
+      "review_status": "provisional-p400-query-target-not-externally-verified-platform-identity"
+    }
+  ],
+  "source_policy": "Twelve independently captured Wikidata entity-search candidates become provisional direct-P400 query targets, never canonical hardware, game, media or release identities. Preserve original query, full SPARQL response, ordered JSONL, checksums and zero-row evidence."
+}

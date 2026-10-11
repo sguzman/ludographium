@@ -5,7 +5,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT = ROOT / "reports" / "wikidata-p400-platform-gaps-v1.json"
+REPORT = ROOT / "reports" / "wikidata-p400-platform-gaps-v2.json"
 
 
 class WikidataScopeCoverageTest(unittest.TestCase):
@@ -19,11 +19,11 @@ class WikidataScopeCoverageTest(unittest.TestCase):
         )
         report = json.loads(REPORT.read_text(encoding="utf-8"))
         self.assertEqual(report["libretro_source_collections"], 75)
-        self.assertEqual(report["registered_wikidata_p400_platform_scopes"], 53)
-        self.assertEqual(report["unregistered_libretro_source_collections"], 22)
+        self.assertEqual(report["registered_wikidata_p400_platform_scopes"], 65)
+        self.assertEqual(report["unregistered_libretro_source_collections"], 10)
         self.assertEqual(report["distribution_partition_research"], 8)
-        self.assertEqual(report["platform_or_accessory_research"], 14)
-        self.assertEqual(len({row["platform"] for row in report["gaps"]}), 22)
+        self.assertEqual(report["platform_or_accessory_research"], 2)
+        self.assertEqual(len({row["platform"] for row in report["gaps"]}), 10)
         self.assertIn("no game records", report["policy"])
 
 

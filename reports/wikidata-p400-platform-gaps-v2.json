@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-p400-coverage-gaps",
+  "source_registers": [
+    "platforms/platforms.json",
+    "sources/bulk-expansion-v1.json",
+    "sources/wikidata-v1.json",
+    "sources/wikidata-platform-expansion-v1.json",
+    "sources/wikidata-platform-expansion-v2.json",
+    "sources/wikidata-platform-expansion-v3.json",
+    "sources/wikidata-platform-expansion-v4.json",
+    "sources/wikidata-platform-expansion-v5.json",
+    "sources/wikidata-platform-expansion-v6.json",
+    "sources/wikidata-platform-expansion-v7.json",
+    "sources/wikidata-platform-expansion-v8.json"
+  ],
+  "libretro_source_collections": 75,
+  "registered_wikidata_p400_platform_scopes": 65,
+  "unregistered_libretro_source_collections": 10,
+  "distribution_partition_research": 8,
+  "platform_or_accessory_research": 2,
+  "gaps": [
+    {
+      "platform": "benessepocketchallengev2",
+      "source_label": "Benesse - Pocket Challenge V2",
+      "review_class": "unregistered-platform-or-accessory",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "leapfrogleappad",
+      "source_label": "LeapFrog - LeapPad",
+      "review_class": "unregistered-platform-or-accessory",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "microsoftxbox360digital",
+      "source_label": "Microsoft - Xbox 360 (Digital)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "microsoftxbox360gamesondemand",
+      "source_label": "Microsoft - XBOX 360 (Games on Demand)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "nintendonewnintendo3dsdigital",
+      "source_label": "Nintendo - New Nintendo 3DS (Digital)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "nintendonintendo3dsdigital",
+      "source_label": "Nintendo - Nintendo 3DS (Digital)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "nintendonintendodsdownloadplay",
+      "source_label": "Nintendo - Nintendo DS (Download Play)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "sonyplaystationportablepsn",
+      "source_label": "Sony - PlayStation Portable (PSN)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "sonyplaystationportablepsx2psp",
+      "source_label": "Sony - PlayStation Portable (PSX2PSP)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    },
+    {
+      "platform": "sonyplaystationvitapsn",
+      "source_label": "Sony - PlayStation Vita (PSN)",
+      "review_class": "distribution-partition",
+      "interpretation": "No independently registered Wikidata P400 scope for this original Libretro source collection"
+    }
+  ],
+  "policy": "Unregistered source collections are evidence-acquisition backlog, not proof that Wikidata contains no game records. Distribution partitions must not be silently equated with hardware-level P400 identifiers or used to merge game/release identities."
+}

@@ -80,20 +80,26 @@ cargo run --locked -- --wikidata-localized-titles --metadata-cohort combined --p
 The original 16-platform mode remains the default. Zero-row queries indicate
 only source-specific Wikidata noncoverage, not absence of games.
 
-A [deterministic 75-collection scope coverage audit](reports/wikidata-p400-platform-gaps-v1.json)
-checks all current source registers offline and identifies 22 unregistered
-Libretro source partitions: eight distribution-specific collections requiring
-separate identity treatment, and fourteen platform/accessory research leads.
+A [deterministic 75-collection scope coverage audit](reports/wikidata-p400-platform-gaps-v2.json)
+checks all current source registers offline and identifies ten remaining
+unregistered Libretro source partitions: eight distribution-specific collections
+requiring separate identity treatment, and two unresolved platform/accessory
+research leads. The [earlier 22-gap report](reports/wikidata-p400-platform-gaps-v1.json)
+remains retained as the source state that led to this accession.
 These are **unregistered P400 scopes**, not evidence that those platforms have
 no games. Regenerate/check with `python tools/audit_wikidata_platform_gaps.py --write`
 or `--check`.
 
-The [14-scope platform-search discovery queue](sources/wikidata-platform-discovery-v1.json)
-can accession independent, hash-pinned Wikidata entity-search responses through
+The [historical 14-scope platform-search discovery queue](sources/wikidata-platform-discovery-v1.json)
+accessions independent, hash-pinned Wikidata entity-search responses through
 [GitHub Actions](.github/workflows/wikidata-platform-discovery-v1.yml).
-Search-result QIDs remain **unreviewed leads**, never accepted platform mappings;
-the acquisition does not modify existing game data or retroactively conflate
-different distribution collections. Validate any committed captures offline with
+Search-result QIDs remain independently sourced discovery evidence, never
+accepted canonical platform mappings. A separate [provisional v8 P400
+source register](sources/wikidata-platform-expansion-v8.json) schedules original
+game-claim queries for twelve plausible scope identifiers; the remaining
+Pocket Challenge V2 and LeapPad mappings are unresolved. No source-title match
+or query result is automatically an accepted game identity. Validate the
+original discovery captures offline with
 `python tools/discover_wikidata_platforms.py --check`.
 
 

@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-REPORT = Path("reports/wikidata-p400-platform-gaps-v1.json")
+REPORT = Path("reports/wikidata-p400-platform-gaps-v2.json")
 DISTRIBUTION_PARTITIONS = {
     "microsoftxbox360gamesondemand",
     "microsoftxbox360digital",
