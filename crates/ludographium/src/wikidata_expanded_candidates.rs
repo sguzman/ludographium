@@ -34,8 +34,7 @@ pub struct ExpandedTitleCandidateCatalog {
 
 fn qid(value: &str) -> bool {
     value.strip_prefix('Q').is_some_and(|digits| {
-        !digits.is_empty() && !digits.starts_with('0')
-            && digits.bytes().all(|b| b.is_ascii_digit())
+        !digits.is_empty() && !digits.starts_with('0') && digits.bytes().all(|b| b.is_ascii_digit())
     })
 }
 
@@ -52,14 +51,18 @@ impl ExpandedTitleCandidateCatalog {
             if key.is_empty() {
                 continue;
             }
-            let entry = labels.entry((item.platform.clone(), key)).or_default()
+            let entry = labels
+                .entry((item.platform.clone(), key))
+                .or_default()
                 .entry(item.item_qid.clone())
-                .or_insert_with(|| (
-                    label.to_owned(),
-                    item.source_path.clone(),
-                    item.source_sha256.clone(),
-                    Vec::new(),
-                ));
+                .or_insert_with(|| {
+                    (
+                        label.to_owned(),
+                        item.source_path.clone(),
+                        item.source_sha256.clone(),
+                        Vec::new(),
+                    )
+                });
             entry.3.push(item.source_ordinal);
         }
         let mut links = Vec::new();
@@ -98,7 +101,8 @@ impl ExpandedTitleCandidateCatalog {
                     } else {
                         "same_platform_title_candidate"
                     },
-                    interpretation: "noncanonical-title-review-evidence-not-verified-game-or-release-identity",
+                    interpretation:
+                        "noncanonical-title-review-evidence-not-verified-game-or-release-identity",
                 });
             }
         }
@@ -123,14 +127,17 @@ impl ExpandedTitleCandidateCatalog {
         self.ambiguous_candidate_links
     }
     pub fn search(
-        &self, qid_filter: Option<&str>, title: Option<&str>, limit: usize,
+        &self,
+        qid_filter: Option<&str>,
+        title: Option<&str>,
+        limit: usize,
     ) -> Result<(usize, Vec<&ExpandedTitleCandidate>), CatalogError> {
         if !(1..=200).contains(&limit)
             || qid_filter.is_some_and(|name| !qid(name))
             || title.is_some_and(|text| text.trim().is_empty())
         {
             return Err(CatalogError::Invalid(
-                "Require valid QID, nonblank source title and limit 1..=200".into()
+                "Require valid QID, nonblank source title and limit 1..=200".into(),
             ));
         }
         let needle = title.map(str::to_lowercase);
@@ -138,9 +145,9 @@ impl ExpandedTitleCandidateCatalog {
         let mut results = Vec::new();
         for link in &self.links {
             if qid_filter.is_some_and(|name| link.wikidata_item_qid != name)
-                || needle.as_ref().is_some_and(|text| {
-                    !link.libretro_source_title.to_lowercase().contains(text)
-                })
+                || needle
+                    .as_ref()
+                    .is_some_and(|text| !link.libretro_source_title.to_lowercase().contains(text))
             {
                 continue;
             }
