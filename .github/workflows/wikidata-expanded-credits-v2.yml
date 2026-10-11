@@ -141,7 +141,7 @@ jobs:
               sleep 2
             done < <(jq -r '.platforms[] | "\(.platform)\t\(.wikidata_platform)"' "$register")
           done
-          test "$(find "$base" -name manifest.json | wc -l)" -eq 19
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 18
           jq -s '{
             platforms: length,
             statements: (map(.source_rows) | add),
