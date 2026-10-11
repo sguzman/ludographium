@@ -814,35 +814,73 @@ fn localized_source_names_preserve_original_languages_and_alternate_titles() {
 #[test]
 fn localized_exact_title_correspondence_is_separate_from_english_baseline() {
     let result = query(&[
-        "--wikidata-localized-candidates", "--platform", "all", "--limit", "3",
+        "--wikidata-localized-candidates",
+        "--platform",
+        "all",
+        "--limit",
+        "3",
     ]);
     assert_eq!(
         result["source_mode"],
         "multilingual-wikidata-exact-title-review-candidates"
     );
-    assert_eq!(result["summary"]["platforms_searched"].as_array().unwrap().len(), 16);
+    assert_eq!(
+        result["summary"]["platforms_searched"]
+            .as_array()
+            .unwrap()
+            .len(),
+        16
+    );
     assert!(result["summary"]["total_candidate_pairs"].as_u64().unwrap() > 0);
-    assert!(result["summary"]["candidate_pairs_absent_from_english_title_match"]
-        .as_u64().unwrap() > 0);
+    assert!(
+        result["summary"]["candidate_pairs_absent_from_english_title_match"]
+            .as_u64()
+            .unwrap()
+            > 0
+    );
     assert_eq!(result["returned_candidate_pairs"], 3);
-    assert!(result["candidate_pairs"].as_array().unwrap().iter().all(|row| {
-        row["original_source_blob_sha"].as_str().unwrap().len() == 40
-            && row["localized_name_evidence"][0]["source_sha256"]
-                .as_str().unwrap().len() == 64
-            && row["interpretation"].as_str().unwrap().contains("review-only")
-    }));
+    assert!(result["candidate_pairs"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|row| {
+            row["original_source_blob_sha"].as_str().unwrap().len() == 40
+                && row["localized_name_evidence"][0]["source_sha256"]
+                    .as_str()
+                    .unwrap()
+                    .len()
+                    == 64
+                && row["interpretation"]
+                    .as_str()
+                    .unwrap()
+                    .contains("review-only")
+        }));
     let selected = query(&[
-        "--wikidata-localized-candidates", "--platform", "atari2600",
-        "--qid", "Q379915", "--limit", "5",
+        "--wikidata-localized-candidates",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q379915",
+        "--limit",
+        "5",
     ]);
     assert!(selected["total_filtered_candidate_pairs"].as_u64().unwrap() > 0);
-    assert!(selected["candidate_pairs"].as_array().unwrap().iter().all(|row| {
-        row["platform"] == "atari2600" && row["wikidata_item_qid"] == "Q379915"
-    }));
+    assert!(selected["candidate_pairs"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|row| { row["platform"] == "atari2600" && row["wikidata_item_qid"] == "Q379915" }));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let bad = Command::new(env!("CARGO_BIN_EXE_ludographium"))
         .current_dir(&root)
-        .args(["--wikidata-localized-candidates", "--platform", "all", "--language", "ja"])
-        .output().unwrap();
+        .args([
+            "--wikidata-localized-candidates",
+            "--platform",
+            "all",
+            "--language",
+            "ja",
+        ])
+        .output()
+        .unwrap();
     assert!(!bad.status.success());
 }
