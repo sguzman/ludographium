@@ -431,6 +431,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut wikidata_candidates = false;
     let mut wikidata_localized_candidates = false;
     let mut wikidata_properties = false;
+    let mut expanded_credits = false;
     let mut wikidata_relations = false;
     let mut wikidata_authority_ids = false;
     let mut wikidata_gamefaqs_qualifiers = false;
