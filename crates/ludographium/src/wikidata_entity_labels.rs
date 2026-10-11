@@ -63,9 +63,7 @@ fn sha256(bytes: &[u8]) -> String {
 
 fn qid(value: &str) -> bool {
     value.strip_prefix('Q').is_some_and(|digits| {
-        !digits.is_empty()
-            && !digits.starts_with('0')
-            && digits.bytes().all(|c| c.is_ascii_digit())
+        !digits.is_empty() && !digits.starts_with('0') && digits.bytes().all(|c| c.is_ascii_digit())
     })
 }
 
@@ -94,7 +92,8 @@ fn checked_file(folder: &Path, entry: &SourceFile) -> Result<Vec<u8>, CatalogErr
     let bytes = fs::read(path)?;
     if bytes.len() != entry.bytes || sha256(&bytes) != entry.sha256 {
         return Err(invalid(format!(
-            "Wikidata entity label source checksum mismatch: {}", entry.path
+            "Wikidata entity label source checksum mismatch: {}",
+            entry.path
         )));
     }
     Ok(bytes)
@@ -107,11 +106,11 @@ impl WikidataEntityLabelCatalog {
         let root = root.as_ref();
         let folder = root.join(BASE);
         if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
-            return Err(invalid("Wikidata label source directory is a symbolic link"));
+            return Err(invalid(
+                "Wikidata label source directory is a symbolic link",
+            ));
         }
-        let manifest: Manifest = serde_json::from_slice(
-            &fs::read(folder.join("manifest.json"))?,
-        )?;
+        let manifest: Manifest = serde_json::from_slice(&fs::read(folder.join("manifest.json"))?)?;
         if manifest.schema_version != 1
             || manifest.source != "Wikidata"
             || manifest.license != "CC0-1.0"
@@ -125,7 +124,10 @@ impl WikidataEntityLabelCatalog {
             return Err(invalid("invalid Wikidata label accession manifest"));
         }
         let inventory_path = folder.join("entities.txt");
-        if fs::symlink_metadata(&inventory_path)?.file_type().is_symlink() {
+        if fs::symlink_metadata(&inventory_path)?
+            .file_type()
+            .is_symlink()
+        {
             return Err(invalid("Wikidata entity inventory is a symbolic link"));
         }
         let inventory_bytes = fs::read(&inventory_path)?;
@@ -144,7 +146,10 @@ impl WikidataEntityLabelCatalog {
         }
         let expected: BTreeSet<&str> = names.iter().copied().collect();
         let batch_folder = folder.join("batches");
-        if fs::symlink_metadata(&batch_folder)?.file_type().is_symlink() {
+        if fs::symlink_metadata(&batch_folder)?
+            .file_type()
+            .is_symlink()
+        {
             return Err(invalid("Wikidata label batch directory is a symbolic link"));
         }
         let mut source_files = BTreeMap::new();
@@ -161,7 +166,8 @@ impl WikidataEntityLabelCatalog {
             let response_file = format!("{basename}.response.json");
             let lines_file = format!("{basename}.jsonl");
             let get = |name: &str| -> Result<&SourceFile, CatalogError> {
-                source_files.get(name)
+                source_files
+                    .get(name)
                     .ok_or_else(|| invalid(format!("missing Wikidata label source: {name}")))
             };
             let query_entry = get(&query_file)?;
@@ -175,14 +181,21 @@ impl WikidataEntityLabelCatalog {
             {
                 return Err(invalid("unexpected Wikidata label query scope"));
             }
-            let values = query_text.split_once("VALUES ?entity {")
+            let values = query_text
+                .split_once("VALUES ?entity {")
                 .and_then(|(_, remaining)| remaining.split_once('}'))
-                .ok_or_else(|| invalid("missing Wikidata source query values"))?.0;
-            let query_qids: BTreeSet<&str> = values.split_whitespace()
-                .map(|token| token.strip_prefix("wd:")
-                    .ok_or_else(|| invalid("invalid Wikidata VALUES term")))
+                .ok_or_else(|| invalid("missing Wikidata source query values"))?
+                .0;
+            let query_qids: BTreeSet<&str> = values
+                .split_whitespace()
+                .map(|token| {
+                    token
+                        .strip_prefix("wd:")
+                        .ok_or_else(|| invalid("invalid Wikidata VALUES term"))
+                })
                 .collect::<Result<Vec<_>, _>>()?
-                .into_iter().collect();
+                .into_iter()
+                .collect();
             if query_qids.is_empty()
                 || query_qids.len() > manifest.query_batch_size
                 || query_qids.iter().any(|name| !qid(name))
@@ -195,7 +208,8 @@ impl WikidataEntityLabelCatalog {
             if parsed["head"]["vars"] != json!(["entity", "label"]) {
                 return Err(invalid("unexpected Wikidata entity label response columns"));
             }
-            let records = parsed["results"]["bindings"].as_array()
+            let records = parsed["results"]["bindings"]
+                .as_array()
                 .ok_or_else(|| invalid("missing Wikidata label response rows"))?;
             let text_entry = get(&lines_file)?;
             let line_bytes = checked_file(&batch_folder, text_entry)?;
@@ -214,7 +228,8 @@ impl WikidataEntityLabelCatalog {
                 if entry != records[ordinal] || entry["entity"]["type"] != "uri" {
                     return Err(invalid("Wikidata label response and JSONL differ"));
                 }
-                let entity = entry["entity"]["value"].as_str()
+                let entity = entry["entity"]["value"]
+                    .as_str()
                     .and_then(entity_qid)
                     .ok_or_else(|| invalid("invalid Wikidata label subject QID"))?;
                 if !query_qids.contains(entity)
@@ -229,9 +244,12 @@ impl WikidataEntityLabelCatalog {
                         if value["type"] != "literal" || value["xml:lang"] != "en" {
                             return Err(invalid("unapproved English label binding"));
                         }
-                        Some(value["value"].as_str()
-                            .ok_or_else(|| invalid("non-string entity label"))?
-                            .to_owned())
+                        Some(
+                            value["value"]
+                                .as_str()
+                                .ok_or_else(|| invalid("non-string entity label"))?
+                                .to_owned(),
+                        )
                     }
                 };
                 if label.is_some() {
@@ -245,7 +263,8 @@ impl WikidataEntityLabelCatalog {
                     source_query_sha256: query_entry.sha256.clone(),
                     source_response_sha256: response_entry.sha256.clone(),
                     captured_at_utc: manifest.captured_at_utc.clone(),
-                    interpretation: "independent-wikidata-english-label-not-canonical-company-or-genre",
+                    interpretation:
+                        "independent-wikidata-english-label-not-canonical-company-or-genre",
                 };
                 if entries.insert(entity.to_owned(), evidence).is_some() {
                     return Err(invalid("Wikidata QID appears in multiple label partitions"));
@@ -259,9 +278,14 @@ impl WikidataEntityLabelCatalog {
             || labels != manifest.english_label_observations
             || entries.keys().map(String::as_str).collect::<BTreeSet<_>>() != expected
         {
-            return Err(invalid("Wikidata English-label inventory/coverage mismatch"));
+            return Err(invalid(
+                "Wikidata English-label inventory/coverage mismatch",
+            ));
         }
-        Ok(Self { entries, label_count: labels })
+        Ok(Self {
+            entries,
+            label_count: labels,
+        })
     }
 
     /// Verify that labels were collected for exactly the QID-valued entity
@@ -272,7 +296,9 @@ impl WikidataEntityLabelCatalog {
     ) -> Result<(), CatalogError> {
         let declared = properties.referenced_entity_qids();
         if declared != self.entries.keys().cloned().collect() {
-            return Err(invalid("Wikidata entity labels do not cover the original property QIDs"));
+            return Err(invalid(
+                "Wikidata entity labels do not cover the original property QIDs",
+            ));
         }
         Ok(())
     }
@@ -300,7 +326,10 @@ mod tests {
         let labels = WikidataEntityLabelCatalog::open(&root).unwrap();
         assert_eq!(labels.total_qids(), 2_768);
         assert_eq!(labels.english_label_count(), 2_614);
-        assert_eq!(labels.lookup("Q107").unwrap().english_label.as_deref(), Some("space"));
+        assert_eq!(
+            labels.lookup("Q107").unwrap().english_label.as_deref(),
+            Some("space")
+        );
         let source = WikidataPropertyCatalog::open(&root, "all").unwrap();
         labels.verify_referenced_qids(&source).unwrap();
         assert!(labels.lookup("Q0").is_none());
