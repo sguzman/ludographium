@@ -82,7 +82,7 @@ jobs:
             test "$(wc -c < "$out/response.json")" -lt 35000000
             jq -e '
               .head.vars == ["item","itemLabel","publication"]
-              and (.results.bindings | type == "array" and length > 0 and length < 20000)
+              and (.results.bindings | type == "array" and length < 20000)
               and all(.results.bindings[];
                 (.item.type == "uri"
                  and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
@@ -133,10 +133,10 @@ jobs:
                 rows_with_publication_date: $dates,
                 rows_with_nonliteral_publication: $nonliteral,
                 query_limit: 20000,
-                source_selection: "direct P31 video game and P400 selected console; independent optional English labels and P577 publication date bindings",
+                source_selection: "direct P31 video game and P400 selected console; independent optional English labels and P577 publication date bindings; an empty query response is preserved as explicit scoped noncoverage, not evidence the platform has no games",
                 identity_policy: "Source observations only. No canonical games, dates, editions, release territories or Libretro matches inferred."
               }' > "$out/manifest.json"
-            jq -e '.source_rows > 0 and .source_rows < .query_limit and .distinct_item_qids > 0' "$out/manifest.json" >/dev/null
+            jq -e '. as $m | (.source_rows < .query_limit) and ((.source_rows == 0 and .distinct_item_qids == 0) or (.source_rows > 0 and .distinct_item_qids > 0))' "$out/manifest.json" >/dev/null
             echo "$platform: $rows source observations, $items item QIDs, $dates literal date claims, $nonliteral nonliteral P577 bindings retained"
             sleep 2
           done < <(jq -r '.platforms[] | [.platform, .wikidata_platform] | @tsv' "$register")
