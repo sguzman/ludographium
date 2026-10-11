@@ -2031,7 +2031,13 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
         "1",
     ]);
     assert_eq!(all_properties["source_statements"], 58460);
-    assert_eq!(all_properties["platforms_searched"].as_array().unwrap().len(), 65);
+    assert_eq!(
+        all_properties["platforms_searched"]
+            .as_array()
+            .unwrap()
+            .len(),
+        65
+    );
     let all_relations = query(&[
         "--wikidata-relations",
         "--metadata-cohort",
@@ -2042,7 +2048,13 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
         "1",
     ]);
     assert_eq!(all_relations["source_statements"], 113204);
-    assert_eq!(all_relations["platforms_searched"].as_array().unwrap().len(), 65);
+    assert_eq!(
+        all_relations["platforms_searched"]
+            .as_array()
+            .unwrap()
+            .len(),
+        65
+    );
 
     let properties_with_labels = query(&[
         "--wikidata-properties",

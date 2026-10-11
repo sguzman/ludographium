@@ -403,7 +403,9 @@ impl WikidataPropertyCatalog {
                         _ => unreachable!(),
                     };
                     if selected.replace(cohort).is_some() {
-                        return Err(invalid("duplicate platform across independent source cohorts"));
+                        return Err(invalid(
+                            "duplicate platform across independent source cohorts",
+                        ));
                     }
                 }
             }
@@ -443,11 +445,11 @@ impl WikidataPropertyCatalog {
             combined.platforms.append(&mut source.platforms);
             combined.source_item_observations += source.source_item_observations;
             combined.non_entity_bindings += source.non_entity_bindings;
-            for (kind, count) in source.properties { *combined.properties.entry(kind).or_insert(0) += count; }
+            for (kind, count) in source.properties {
+                *combined.properties.entry(kind).or_insert(0) += count;
+            }
         }
-        if combined.platforms.is_empty()
-            || (selection == "all" && combined.platforms.len() != 65)
-        {
+        if combined.platforms.is_empty() || (selection == "all" && combined.platforms.len() != 65) {
             return Err(invalid("incomplete 65-scope combined source collection"));
         }
         Ok(combined)

@@ -421,7 +421,9 @@ impl WikidataRelationCatalog {
                         _ => unreachable!(),
                     };
                     if selected.replace(cohort).is_some() {
-                        return Err(invalid("duplicate platform across independent source cohorts"));
+                        return Err(invalid(
+                            "duplicate platform across independent source cohorts",
+                        ));
                     }
                 }
             }
@@ -461,11 +463,11 @@ impl WikidataRelationCatalog {
             combined.platforms.append(&mut source.platforms);
             combined.item_observations += source.item_observations;
             combined.entity_values += source.entity_values;
-            for (kind, count) in source.counts { *combined.counts.entry(kind).or_insert(0) += count; }
+            for (kind, count) in source.counts {
+                *combined.counts.entry(kind).or_insert(0) += count;
+            }
         }
-        if combined.platforms.is_empty()
-            || (selection == "all" && combined.platforms.len() != 65)
-        {
+        if combined.platforms.is_empty() || (selection == "all" && combined.platforms.len() != 65) {
             return Err(invalid("incomplete 65-scope combined source collection"));
         }
         Ok(combined)
