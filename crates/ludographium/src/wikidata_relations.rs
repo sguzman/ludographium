@@ -364,6 +364,202 @@ impl WikidataRelationCatalog {
         })
     }
 
+
+    /// Source-grounded nine-property snapshots for console expansions v1-v4.
+    pub fn open_expanded(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_expanded_cohorts(
+            root.as_ref(),
+            selection,
+            &[(1, 3), (2, 4), (3, 6), (4, 6)],
+            "data/wikidata/expanded-relations-v1",
+            19,
+        )
+    }
+
+    /// Additional source-grounded relation claims for console expansions v5-v7.
+    pub fn open_expanded_v2(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_expanded_cohorts(
+            root.as_ref(),
+            selection,
+            &[(5, 6), (6, 6), (7, 6)],
+            "data/wikidata/expanded-relations-v2",
+            18,
+        )
+    }
+
+    fn open_expanded_cohorts(
+        root: &Path,
+        selection: &str,
+        cohorts: &[(usize, usize)],
+        source_base: &str,
+        expected_total: usize,
+    ) -> Result<Self, CatalogError> {
+        let mut seen_platforms = HashSet::new();
+        let mut seen_qids = HashSet::new();
+        let mut claims = Vec::new();
+        let mut platforms = Vec::new();
+        let mut item_observations = 0;
+        let mut entity_values = 0;
+        let mut counts = BTreeMap::new();
+
+        for &(version, expected_platforms) in cohorts {
+            let register_path = format!("sources/wikidata-platform-expansion-v{version}.json");
+            let register: ExpandedRegister =
+                serde_json::from_slice(&fs::read(root.join(&register_path))?)?;
+            if register.schema_version != 1
+                || register.source != "Wikidata"
+                || register.license != "CC0-1.0"
+                || register.query_limit != 20_000
+                || register.platforms.len() != expected_platforms
+            {
+                return Err(invalid("invalid expanded relation platform register"));
+            }
+            for scope in &register.platforms {
+                if scope.platform.is_empty()
+                    || !scope
+                        .platform
+                        .bytes()
+                        .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+                    || qid_uri(&format!(
+                        "http://www.wikidata.org/entity/{}",
+                        scope.wikidata_platform
+                    ))
+                    .is_none()
+                    || !seen_platforms.insert(scope.platform.clone())
+                    || !seen_qids.insert(scope.wikidata_platform.clone())
+                {
+                    return Err(invalid("duplicate or malformed expanded relation scope"));
+                }
+                if selection != "all" && selection != scope.platform {
+                    continue;
+                }
+                let folder = root.join(source_base).join(&scope.platform);
+                if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
+                    return Err(invalid("expanded relation folder is a symbolic link"));
+                }
+                let manifest: ExpandedManifest =
+                    serde_json::from_slice(&fs::read(folder.join("manifest.json"))?)?;
+                if manifest.schema_version != 1
+                    || manifest.source != "Wikidata"
+                    || manifest.license != "CC0-1.0"
+                    || manifest.source_revision != "live-query-capture"
+                    || manifest.source_register != register_path
+                    || manifest.platform != scope.platform
+                    || manifest.wikidata_platform != scope.wikidata_platform
+                    || manifest.captured_at_utc.is_empty()
+                    || manifest.source_query_path != "query.rq"
+                    || manifest.source_response_path != "response.json"
+                    || manifest.source_bindings_path != "bindings.jsonl"
+                    || manifest.properties != IDS
+                    || manifest.query_limit != 30_000
+                    || manifest.source_rows >= manifest.query_limit
+                    || (manifest.source_rows == 0) != (manifest.distinct_items == 0)
+                {
+                    return Err(invalid("invalid expanded relation manifest"));
+                }
+                let query = pinned(
+                    &folder,
+                    "query.rq",
+                    manifest.source_query_bytes,
+                    &manifest.source_query_sha256,
+                )?;
+                let query_text = std::str::from_utf8(&query)
+                    .map_err(|_| invalid("non-UTF-8 expanded relation query"))?;
+                if !query_text.contains(&format!("wd:{}", scope.wikidata_platform))
+                    || !query_text.contains("wdt:P31 wd:Q7889")
+                    || !query_text.contains("wdt:P400")
+                    || !query_text.contains("SELECT DISTINCT ?item ?property ?value")
+                    || !query_text.contains("LIMIT 30000")
+                    || IDS
+                        .iter()
+                        .any(|property| !query_text.contains(&format!("wdt:{property}")))
+                {
+                    return Err(invalid("expanded relation query scope mismatch"));
+                }
+                let response = pinned(
+                    &folder,
+                    "response.json",
+                    manifest.source_response_bytes,
+                    &manifest.source_response_sha256,
+                )?;
+                let source: Value = serde_json::from_slice(&response)?;
+                if source["head"]["vars"] != json!(["item", "property", "value"]) {
+                    return Err(invalid("unexpected expanded relation result columns"));
+                }
+                let bindings = source["results"]["bindings"]
+                    .as_array()
+                    .ok_or_else(|| invalid("missing expanded source bindings"))?;
+                if bindings.len() != manifest.source_rows {
+                    return Err(invalid("expanded response row count mismatch"));
+                }
+                let text = pinned(
+                    &folder,
+                    "bindings.jsonl",
+                    manifest.source_bindings_bytes,
+                    &manifest.source_bindings_sha256,
+                )?;
+                let raw = std::str::from_utf8(&text)
+                    .map_err(|_| invalid("non-UTF-8 expanded relation JSONL"))?;
+                let lines: Vec<_> = raw.lines().collect();
+                if lines.len() != manifest.source_rows
+                    || (!raw.is_empty() && !raw.ends_with('\n'))
+                {
+                    return Err(invalid("expanded relation JSONL row count mismatch"));
+                }
+                let mut item_ids = HashSet::new();
+                let mut scope_properties = BTreeMap::new();
+                let mut kinds = BTreeMap::new();
+                for (ordinal, line) in lines.iter().enumerate() {
+                    let record: Value = serde_json::from_str(line)?;
+                    if record != bindings[ordinal] {
+                        return Err(invalid("expanded relation response and JSONL differ"));
+                    }
+                    let (item, property, entity, kind) = validated(&record)?;
+                    item_ids.insert(item.to_owned());
+                    *scope_properties.entry(property.to_owned()).or_insert(0usize) += 1;
+                    *kinds.entry(kind.to_owned()).or_insert(0usize) += 1;
+                    *counts.entry(property.to_owned()).or_insert(0usize) += 1;
+                    if entity.is_some() {
+                        entity_values += 1;
+                    }
+                    claims.push(RelationClaim {
+                        platform: scope.platform.clone(),
+                        item_qid: item.to_owned(),
+                        property: property.to_owned(),
+                        value_entity_qid: entity.map(str::to_owned),
+                        raw_binding: record,
+                        source_ordinal: ordinal + 1,
+                        source_path: format!("{source_base}/{}/bindings.jsonl", scope.platform),
+                        source_sha256: manifest.source_bindings_sha256.clone(),
+                        source_response_sha256: manifest.source_response_sha256.clone(),
+                        source_query_sha256: manifest.source_query_sha256.clone(),
+                        captured_at_utc: manifest.captured_at_utc.clone(),
+                        interpretation:
+                            "independent-expanded-wikidata-source-claim-not-verified-game-identity",
+                    });
+                }
+                if item_ids.len() != manifest.distinct_items
+                    || scope_properties != manifest.property_counts
+                    || kinds != manifest.rdf_value_type_counts
+                {
+                    return Err(invalid("expanded relation RDF evidence count mismatch"));
+                }
+                item_observations += item_ids.len();
+                platforms.push(scope.platform.clone());
+            }
+        }
+        if platforms.is_empty() || (selection == "all" && platforms.len() != expected_total) {
+            return Err(invalid("unknown or incomplete expanded relation scope"));
+        }
+        Ok(Self {
+            claims,
+            platforms,
+            item_observations,
+            entity_values,
+            counts,
+        })
+    }
+
     pub fn claims(&self) -> &[RelationClaim] {
         &self.claims
     }
