@@ -126,9 +126,13 @@ impl WikidataEntityLabelCatalog {
         }
         let manifest: Manifest = serde_json::from_slice(&fs::read(folder.join("manifest.json"))?)?;
         let source_manifest_sha = if relation {
-            manifest.source_relation_manifest_inventory_sha256.as_deref()
+            manifest
+                .source_relation_manifest_inventory_sha256
+                .as_deref()
         } else {
-            manifest.source_property_manifest_inventory_sha256.as_deref()
+            manifest
+                .source_property_manifest_inventory_sha256
+                .as_deref()
         };
         if manifest.schema_version != 1
             || manifest.source != "Wikidata"

@@ -273,9 +273,14 @@ mod tests {
         let relation_labels = WikidataEntityLabelCatalog::open_relations(&root).unwrap();
         relation_labels.verify_relation_qids(&relations).unwrap();
         labels.verify_referenced_qids(&properties).unwrap();
-        let projection =
-            WikidataItemProjection::build(&text, &properties, &labels, &relations, &relation_labels)
-                .unwrap();
+        let projection = WikidataItemProjection::build(
+            &text,
+            &properties,
+            &labels,
+            &relations,
+            &relation_labels,
+        )
+        .unwrap();
         assert_eq!(projection.title_date_source_items(), 15_868);
         assert_eq!(projection.property_source_items(), 14_759);
         assert_eq!(projection.relation_source_items(), 14_772);

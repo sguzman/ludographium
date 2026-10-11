@@ -730,15 +730,19 @@ fn run() -> Result<(), Box<dyn Error>> {
         } else {
             None
         };
-        let claims: Vec<Value> = results.iter().map(|claim| {
-            let mut original = serde_json::to_value(claim)?;
-            if let Some(ref source) = labels {
-                original["value_english_label_evidence"] = json!(
-                    claim.value_entity_qid.as_deref().and_then(|qid| source.lookup(qid))
-                );
-            }
-            Ok::<Value, serde_json::Error>(original)
-        }).collect::<Result<_, _>>()?;
+        let claims: Vec<Value> = results
+            .iter()
+            .map(|claim| {
+                let mut original = serde_json::to_value(claim)?;
+                if let Some(ref source) = labels {
+                    original["value_english_label_evidence"] = json!(claim
+                        .value_entity_qid
+                        .as_deref()
+                        .and_then(|qid| source.lookup(qid)));
+                }
+                Ok::<Value, serde_json::Error>(original)
+            })
+            .collect::<Result<_, _>>()?;
         println!(
             "{}",
             serde_json::to_string_pretty(&json!({
@@ -788,7 +792,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         };
         labels.verify_referenced_qids(all_properties.as_ref().unwrap_or(&properties))?;
         let index = WikidataItemProjection::build(
-            &text, &properties, &labels, &relations, &relation_labels,
+            &text,
+            &properties,
+            &labels,
+            &relations,
+            &relation_labels,
         )?;
         let (total, observations) = index.search(qid.as_deref(), title.as_deref(), limit)?;
         println!(
