@@ -9,8 +9,8 @@ use ludographium::media::{fingerprint_normalized, MediaFormat};
 use ludographium::original_dat::OriginalDatCatalog;
 use ludographium::runtime::verify_runtime_root;
 use ludographium::wikidata_candidates::WikidataCandidateCatalog;
-use ludographium::wikidata_properties::WikidataPropertyCatalog;
 use ludographium::wikidata_entity_labels::WikidataEntityLabelCatalog;
+use ludographium::wikidata_properties::WikidataPropertyCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::wikidata_years::WikidataYearAudit;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
@@ -650,15 +650,19 @@ fn run() -> Result<(), Box<dyn Error>> {
         } else {
             None
         };
-        let claims: Vec<Value> = records.iter().map(|record| {
-            let mut original = serde_json::to_value(record)?;
-            if let Some(ref label_source) = labels {
-                original["value_label_evidence"] = json!(
-                    record.value_qid.as_deref().and_then(|id| label_source.lookup(id))
-                );
-            }
-            Ok::<Value, serde_json::Error>(original)
-        }).collect::<Result<_, _>>()?;
+        let claims: Vec<Value> = records
+            .iter()
+            .map(|record| {
+                let mut original = serde_json::to_value(record)?;
+                if let Some(ref label_source) = labels {
+                    original["value_label_evidence"] = json!(record
+                        .value_qid
+                        .as_deref()
+                        .and_then(|id| label_source.lookup(id)));
+                }
+                Ok::<Value, serde_json::Error>(original)
+            })
+            .collect::<Result<_, _>>()?;
         println!(
             "{}",
             serde_json::to_string_pretty(&json!({
