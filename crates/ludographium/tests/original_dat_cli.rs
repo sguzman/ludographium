@@ -549,10 +549,11 @@ fn independent_wikidata_game_observations_preserve_both_snapshot_sources() {
 
 #[test]
 fn original_wikidata_relations_and_external_ids_are_offline_and_attributed() {
-    let all = query(&[
-        "--wikidata-relations", "--platform", "all", "--limit", "2",
-    ]);
-    assert_eq!(all["source_mode"], "verified-wikidata-game-relations-and-external-ids");
+    let all = query(&["--wikidata-relations", "--platform", "all", "--limit", "2"]);
+    assert_eq!(
+        all["source_mode"],
+        "verified-wikidata-game-relations-and-external-ids"
+    );
     assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 16);
     assert_eq!(all["source_statements"], 92621);
     assert_eq!(all["source_item_platform_observations"], 14772);
@@ -561,12 +562,22 @@ fn original_wikidata_relations_and_external_ids_are_offline_and_attributed() {
     assert_eq!(all["source_property_counts"]["P1476"], 5532);
     assert_eq!(all["source_property_counts"]["P1733"], 2624);
     assert_eq!(all["source_property_counts"]["P2725"], 658);
-    assert_eq!(all["claims"][0]["source_sha256"].as_str().unwrap().len(), 64);
+    assert_eq!(
+        all["claims"][0]["source_sha256"].as_str().unwrap().len(),
+        64
+    );
     assert!(all["claims"][0]["raw_binding"]["value"].is_object());
 
     let atari = query(&[
-        "--wikidata-relations", "--platform", "atari2600",
-        "--qid", "Q100701966", "--property", "P404", "--limit", "5",
+        "--wikidata-relations",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q100701966",
+        "--property",
+        "P404",
+        "--limit",
+        "5",
     ]);
     assert!(atari["total_filtered_claims"].as_u64().unwrap() > 0);
     assert!(atari["claims"].as_array().unwrap().iter().all(|entry| {
@@ -577,13 +588,39 @@ fn original_wikidata_relations_and_external_ids_are_offline_and_attributed() {
 
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
-        vec!["--wikidata-relations", "--platform", "all", "--title", "Mario"],
-        vec!["--wikidata-relations", "--platform", "all", "--property", "P178"],
-        vec!["--wikidata-relations", "--platform", "all", "--qid", "invalid"],
-        vec!["--wikidata-relations", "--platform", "all", "--wikidata-properties"],
+        vec![
+            "--wikidata-relations",
+            "--platform",
+            "all",
+            "--title",
+            "Mario",
+        ],
+        vec![
+            "--wikidata-relations",
+            "--platform",
+            "all",
+            "--property",
+            "P178",
+        ],
+        vec![
+            "--wikidata-relations",
+            "--platform",
+            "all",
+            "--qid",
+            "invalid",
+        ],
+        vec![
+            "--wikidata-relations",
+            "--platform",
+            "all",
+            "--wikidata-properties",
+        ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(&root).args(&args).output().unwrap();
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
         assert!(!output.status.success());
     }
 }
