@@ -255,7 +255,11 @@ impl WikidataTextCatalog {
     ) -> impl Iterator<Item = (&str, &str, &[WikidataDate])> {
         self.platforms.iter().flat_map(|platform| {
             platform.items.iter().map(move |item| {
-                (platform.id.as_str(), item.qid.as_str(), item.dates.as_slice())
+                (
+                    platform.id.as_str(),
+                    item.qid.as_str(),
+                    item.dates.as_slice(),
+                )
             })
         })
     }
