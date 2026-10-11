@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "kind": "original-same-platform-v6-title-candidate-audit",
+  "source_commit_sha": "b5095f798509df8c3711ad51df3100fa5470ca16",
+  "source_platform_partitions": 6,
+  "original_source_rows": 662,
+  "original_wikidata_item_platform_observations": 309,
+  "literal_publication_date_bindings": 642,
+  "nonliteral_publication_bindings": 2,
+  "total_candidate_links": 223,
+  "original_libretro_source_records_with_candidates": 223,
+  "ambiguous_candidate_links": 0,
+  "per_platform": [
+    {
+      "platform": "gg",
+      "candidate_links": 121,
+      "source_records_with_candidates": 121,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "nintendonewnintendo3ds",
+      "candidate_links": 2,
+      "source_records_with_candidates": 2,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "nintendonintendodsi",
+      "candidate_links": 100,
+      "source_records_with_candidates": 100,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "tigergamecom",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "fairchildchannelf",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    }
+  ],
+  "matching_policy": "Same-platform conservative exact source-title key and original English Wikidata label; raw Libretro source hash and original Wikidata evidence preserved",
+  "interpretation": "Zero-row query partitions are preserved as valid scoped source noncoverage; all nonzero links are review candidates only, not canonical game work media edition or region identities. Candidate counts cannot establish a measured false-positive rate."
+}
