@@ -111,8 +111,8 @@ jobs:
             "$out/manifest.json" > /dev/null
           echo "Verified $platform accession: $rows statements, $distinct_items item IDs"
           sleep 2
-          done < <(jq -r '.platforms[:10][] | select(.platform != "nds") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
-          test "$(find data/wikidata/properties-v1 -name manifest.json | wc -l)" -eq 10
+          done < <(jq -r '.platforms[:9][] | select(.platform != "nds") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          test "$(find data/wikidata/properties-v1 -name manifest.json | wc -l)" -eq 9
       - name: Commit only original source text and attributable metadata
         shell: bash
         run: |
@@ -129,5 +129,5 @@ jobs:
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m 'data(wikidata): accession N64 Genesis Master System and 3DS sources'
+          git commit -m 'data(wikidata): accession N64 Genesis and Master System source claims'
           git push origin HEAD:main
