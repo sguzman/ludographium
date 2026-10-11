@@ -24,6 +24,8 @@ cargo run --locked -- --wikidata-expanded --expansion-source v4 --platform all -
 cargo run --locked -- --wikidata-expanded --expansion-source v5 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded --expansion-source v6 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded-candidates --expansion-source v6 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded --expansion-source v7 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v7 --platform all --limit 5
 # Per-console source-title review counts: reports/wikidata-expanded-platform-v{3,4,5}-title-review-v1.json
 cargo run --locked -- --wikidata-expanded-candidates --expansion-source v2 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded --platform atari7800 --qid Q1014915
@@ -38,6 +40,14 @@ nonliteral publication bindings**. Tiger Game.com's zero-row query is retained
 and verified as scoped noncoverage, not inferred evidence about its game library.
 The Rust reader and conservative title-candidate CLI accept
 `--expansion-source v6` while keeping prior snapshots immutable.
+
+The seventh independently pinned Wikidata cohort covers **Arcadia 2001,
+Super Cassette Vision, GamePark GP32, Interton VC 4000, RCA Studio II and
+Sega Beena**. These six P400 queries preserve **20 raw source rows and 14
+item/platform observations**. Two zero-row scopes (GP32 and Interton VC 4000)
+are explicitly retained as query-specific noncoverage, not claims that those
+consoles had no games. Read-only Rust source queries and candidate review are
+available via `--expansion-source v7`.
 
 The original source responses and hashes live under
 [data/wikidata/platform-expansion-v1/](data/wikidata/platform-expansion-v1/).
