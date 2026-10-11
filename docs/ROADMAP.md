@@ -28,6 +28,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Read all 367 pinned original bibliographic DATs in Rust from Git text with verified source hashes, conservative CRC/title associations and retained unmatched evidence.
 - [x] Read and search all 16 committed CC0 Wikidata JSONL source partitions in Rust, verifying source hashes and retaining QIDs and dates without inferred source identities.
 - [x] Reconcile Libretro and Wikidata original text sources in Rust using platform-scoped conservative title candidates, original provenance and explicit ambiguous-QID status.
+- [x] Compare source-grounded Libretro releaseyear and Wikidata publication-year evidence across title candidates, preserving regional ambiguity and raw contradictory/missing assertions.
 - [x] Integrate and permanently publish a SHA-256-locked CC0 Wikidata source snapshot in `data-v1.6.0`, across 16 whole-platform queries, with 15,868 item/platform observations and 29,333 literal date claims.
 - [x] Bulk-generate 8,971 noncanonical title correspondence candidates and identify 126 ambiguous links without merging game identities.
 - [ ] Add more external metadata properties/providers and evidence-backed cross-provider reconciliation beyond label correspondences; quantify false-positive risk.

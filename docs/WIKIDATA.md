@@ -65,6 +65,34 @@ limit and reports all candidate links, distinct source observations with
 candidates, and ambiguous links. This is a deterministic **review index**,
 not a canonical game identity or a claim of independent factual confirmation.
 
+## Attributed publication-year evidence comparison
+
+Use `--compare-years` with the Rust title-candidate search to compare the
+source's literal year assertions without fabricating agreement or declaring
+different years to be historical errors:
+
+```sh
+cargo run --locked -- --wikidata-candidates --compare-years --platform all --limit 5
+cargo run --locked -- --wikidata-candidates --compare-years --platform atari2600 --qid Q379915
+```
+
+The opt-in audit reads the pinned original identification DATs, all selected
+original bibliographic field DATs, and original CC0 Wikidata JSONL files. It
+includes identification-record `releaseyear` fields and **only conservatively
+attached** `releaseyear` bibliographic assertions. Every retained Libretro
+claim includes its source kind, original raw year, DAT path, Git blob SHA and
+source ordinal. Wikidata date records keep raw values, RDF kind and datatype;
+URI-valued or unparseable bindings are never silently interpreted as years.
+
+Status categories distinguish `overlapping_observed_years`,
+`different_observed_years`, `libretro_year_missing`,
+`wikidata_literal_year_missing` and `both_years_missing`.
+Whole-corpus counts are computed before the requested result limit.
+A difference can reflect a release territory, platform port, prototype, version
+or incomplete Wikidata qualifiers, **not necessarily a source error**.
+Cross-provider title matches and matching years remain review evidence,
+not independently verified work or regional-release identities.
+
 ## Conservative correspondence
 
 The [bulk reconciliation tool](../tools/reconcile_wikidata.py) adds independent source evidence to an existing offline expanded SQLite database. It adds:
