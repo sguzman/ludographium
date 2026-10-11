@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "sonyplaystation3psn",
+  "wikidata_platform": "Q10683",
+  "captured_at_utc": "2026-10-11T19:26:42Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "a8fffbcd3766eae1067b8c44f3c0df1db94bc36cf04ae74d78f039551cab304f",
+  "source_query_bytes": 282,
+  "source_response_path": "response.json",
+  "source_response_sha256": "68bad66144d6316dc7bd4257120f1d6b2c8eb85e94987e67bb5fc27d549f5c9e",
+  "source_response_bytes": 6189525,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "15ef5974d0163e96922b904d3d2d741ed0eda975f4baa296714de5df4ee87b6a",
+  "source_bindings_bytes": 4009647,
+  "source_rows": 18116,
+  "distinct_items": 1915,
+  "entity_value_bindings": 16622,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 532,
+    "P1733": 776,
+    "P179": 1084,
+    "P2725": 186,
+    "P404": 2791,
+    "P407": 4107,
+    "P437": 2921,
+    "P495": 1823,
+    "P750": 3896
+  },
+  "rdf_value_type_counts": {
+    "literal": 1494,
+    "uri": 16622
+  },
+  "identity_policy": "Original independent source claims only; do not infer a canonical game, edition, release, series, language or external-provider identity"
+}

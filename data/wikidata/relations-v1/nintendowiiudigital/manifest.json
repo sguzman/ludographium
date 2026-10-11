@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "nintendowiiudigital",
+  "wikidata_platform": "Q56942",
+  "captured_at_utc": "2026-10-11T19:26:38Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "78eb03cb8dc92313cb3ffd6e2a4324f28de6be3b10f63204c76f40cfe18f2ff2",
+  "source_query_bytes": 282,
+  "source_response_path": "response.json",
+  "source_response_sha256": "e2aafb487ab910ae62d7e1c4529aa297b4d273075a36230ef946e6ffece6bed0",
+  "source_response_bytes": 2755971,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "c85899c6d7ef2f0d1b1bc1b89c1c6cf5b9cac99c59e947a1ed58ba218727b8cc",
+  "source_bindings_bytes": 1787094,
+  "source_rows": 8029,
+  "distinct_items": 828,
+  "entity_value_bindings": 7187,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 481,
+    "P1733": 291,
+    "P179": 385,
+    "P2725": 70,
+    "P404": 1041,
+    "P407": 2071,
+    "P437": 1197,
+    "P495": 676,
+    "P750": 1817
+  },
+  "rdf_value_type_counts": {
+    "literal": 842,
+    "uri": 7187
+  },
+  "identity_policy": "Original independent source claims only; do not infer a canonical game, edition, release, series, language or external-provider identity"
+}
