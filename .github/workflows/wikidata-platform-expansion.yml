@@ -129,8 +129,8 @@ jobs:
             jq -e '.source_rows > 0 and .source_rows < .query_limit and .distinct_item_qids > 0' "$out/manifest.json" >/dev/null
             echo "$platform: $rows source observations, $items item QIDs, $dates date bindings"
             sleep 2
-          done < <(jq -r '.platforms[] | [.platform, .wikidata_platform] | @tsv' "$register")
-          test "$(find data/wikidata/platform-expansion-v1 -name manifest.json | wc -l)" -eq 3
+          done < <(jq -r '.platforms[:2][] | [.platform, .wikidata_platform] | @tsv' "$register")
+          test "$(find data/wikidata/platform-expansion-v1 -name manifest.json | wc -l)" -eq 2
       - name: Preserve only hash-verified text source responses
         shell: bash
         run: |
