@@ -342,9 +342,7 @@ fn cross_source_year_audit_retains_both_sets_of_source_evidence() {
 
 #[test]
 fn wikidata_property_sources_are_available_in_rust_with_qid_provenance() {
-    let all = query(&[
-        "--wikidata-properties", "--platform", "all", "--limit", "2",
-    ]);
+    let all = query(&["--wikidata-properties", "--platform", "all", "--limit", "2"]);
     assert_eq!(all["source_mode"], "verified-wikidata-property-bindings");
     assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 16);
     assert_eq!(all["source_statements"], 47144);
@@ -356,25 +354,58 @@ fn wikidata_property_sources_are_available_in_rust_with_qid_provenance() {
     assert!(all["claims"][0]["raw_binding"]["value"].is_object());
 
     let adventure = query(&[
-        "--wikidata-properties", "--platform", "atari2600",
-        "--qid", "Q379915", "--property", "P178", "--limit", "10",
+        "--wikidata-properties",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q379915",
+        "--property",
+        "P178",
+        "--limit",
+        "10",
     ]);
     assert!(adventure["total_filtered_claims"].as_u64().unwrap() > 0);
     assert!(adventure["claims"].as_array().unwrap().iter().all(|entry| {
         entry["platform"] == "atari2600"
             && entry["item_qid"] == "Q379915"
             && entry["property"] == "P178"
-            && entry["interpretation"] == "original-attributed-wikidata-property-not-verified-game-identity"
+            && entry["interpretation"]
+                == "original-attributed-wikidata-property-not-verified-game-identity"
     }));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
-        vec!["--wikidata-properties", "--platform", "all", "--title", "Mario"],
-        vec!["--wikidata-properties", "--platform", "all", "--property", "P577"],
+        vec![
+            "--wikidata-properties",
+            "--platform",
+            "all",
+            "--title",
+            "Mario",
+        ],
+        vec![
+            "--wikidata-properties",
+            "--platform",
+            "all",
+            "--property",
+            "P577",
+        ],
         vec!["--wikidata-properties", "--platform", "all", "--qid", "Q0"],
-        vec!["--property", "P178", "--platform", "atari2600", "--title", "Adventure"],
+        vec![
+            "--property",
+            "P178",
+            "--platform",
+            "atari2600",
+            "--title",
+            "Adventure",
+        ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(root).args(&args).output().unwrap();
-        assert!(!output.status.success(), "invalid arguments accepted: {args:?}");
+            .current_dir(root)
+            .args(&args)
+            .output()
+            .unwrap();
+        assert!(
+            !output.status.success(),
+            "invalid arguments accepted: {args:?}"
+        );
     }
 }
