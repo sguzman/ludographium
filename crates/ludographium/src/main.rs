@@ -405,6 +405,22 @@ fn lookup_zip_mode(
     Ok(result)
 }
 
+/// Verify expanded English label evidence against both complete source families.
+fn expanded_entity_labels(root: &Path) -> Result<WikidataEntityLabelCatalog, CatalogError> {
+    let labels = WikidataEntityLabelCatalog::open_expanded(root)?;
+    let credits_v1 = WikidataPropertyCatalog::open_expanded(root, "all")?;
+    let credits_v2 = WikidataPropertyCatalog::open_expanded_v2(root, "all")?;
+    let relations_v1 = WikidataRelationCatalog::open_expanded(root, "all")?;
+    let relations_v2 = WikidataRelationCatalog::open_expanded_v2(root, "all")?;
+    labels.verify_expanded_referenced_qids(
+        &credits_v1,
+        &credits_v2,
+        &relations_v1,
+        &relations_v2,
+    )?;
+    Ok(labels)
+}
+
 fn run() -> Result<(), Box<dyn Error>> {
     let mut args = env::args().skip(1);
     let mut platform = None;
@@ -635,7 +651,6 @@ fn run() -> Result<(), Box<dyn Error>> {
     if (metadata_cohort.is_some() && !wikidata_properties && !wikidata_relations)
         || !matches!(cohort, "baseline" | "expanded-v1" | "expanded-v2")
         || (expanded_credits && metadata_cohort.is_some())
-        || (cohort != "baseline" && with_entity_labels)
     {
         return Err(CatalogError::Invalid(
             "--metadata-cohort requires Wikidata properties or relations, an allowed source (baseline, expanded-v1 or expanded-v2), and no unsupported entity labels".into(),
