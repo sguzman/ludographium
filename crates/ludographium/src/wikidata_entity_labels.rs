@@ -97,7 +97,9 @@ fn source_manifest_inventory_sha(root: &Path, accession: &str) -> Result<String,
             .as_str()
             .ok_or_else(|| invalid("invalid Wikidata source platform"))?;
         if id.is_empty()
-            || !id.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+            || !id
+                .bytes()
+                .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
         {
             return Err(invalid("unsafe Wikidata source platform path"));
         }
