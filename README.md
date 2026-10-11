@@ -80,6 +80,14 @@ cargo run --locked -- --wikidata-localized-titles --metadata-cohort combined --p
 The original 16-platform mode remains the default. Zero-row queries indicate
 only source-specific Wikidata noncoverage, not absence of games.
 
+A [deterministic 75-collection scope coverage audit](reports/wikidata-p400-platform-gaps-v1.json)
+checks all current source registers offline and identifies 22 unregistered
+Libretro source partitions: eight distribution-specific collections requiring
+separate identity treatment, and fourteen platform/accessory research leads.
+These are **unregistered P400 scopes**, not evidence that those platforms have
+no games. Regenerate/check with `python tools/audit_wikidata_platform_gaps.py --write`
+or `--check`.
+
 
 ## Expanded Wikidata developer, publisher and genre evidence
 

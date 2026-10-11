@@ -19,6 +19,8 @@ jobs:
           python -m unittest discover -s tests -p test_wikidata_text.py -v
       - name: Parser and lookup tests
         run: python -m unittest discover -s tests -v
+      - name: Verify systematic Wikidata platform coverage backlog
+        run: python tools/audit_wikidata_platform_gaps.py --check
       - name: Validate pinned sources and generated indexes
         run: python tools/verify_catalog.py
       - name: Rebuild-check identification catalog
