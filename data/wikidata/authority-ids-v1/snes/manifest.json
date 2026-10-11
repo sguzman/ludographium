@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "snes",
+  "wikidata_platform": "Q183259",
+  "captured_at_utc": "2026-10-11T20:30:05Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "a813c6eae40358a8154172c8e8b24dc33b6cd38c6ac1ae981cd06572d4280309",
+  "source_query_bytes": 290,
+  "source_response_path": "response.json",
+  "source_response_sha256": "0006129e4e8f6d5e3bab17c80996cf5443dda1e83da1f6350830a509af3d902f",
+  "source_response_bytes": 1482539,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "d3afe20e58132f2fd76948de436ba40cf27175a8e1ff42b8ee1a9cb13e43393c",
+  "source_bindings_bytes": 924913,
+  "source_rows": 4646,
+  "distinct_items": 1114,
+  "entity_value_bindings": 0,
+  "query_limit": 30000,
+  "properties": [
+    "P11688",
+    "P1933",
+    "P4769",
+    "P2816",
+    "P1712",
+    "P2864",
+    "P2606",
+    "P2451",
+    "P4857"
+  ],
+  "property_counts": {
+    "P11688": 1163,
+    "P1933": 1120,
+    "P2451": 61,
+    "P2606": 20,
+    "P2816": 438,
+    "P2864": 22,
+    "P4769": 1805,
+    "P4857": 17
+  },
+  "rdf_value_type_counts": {
+    "literal": 4646
+  },
+  "identity_policy": "Original Wikidata source assertions of third-party authority IDs, not provider-verified, not resolved canonical game/edition/release/media identities"
+}

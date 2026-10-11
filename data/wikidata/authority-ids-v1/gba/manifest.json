@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "gba",
+  "wikidata_platform": "Q188642",
+  "captured_at_utc": "2026-10-11T20:30:13Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "95d13cb1b74562a292df1ece9f34642df7b4dfea699f6377c982962d7836ecb5",
+  "source_query_bytes": 290,
+  "source_response_path": "response.json",
+  "source_response_sha256": "6eea2c2c33dc52f41c54f9d4fd64dcd266b43a8b911f09d01d9553a59c510e85",
+  "source_response_bytes": 1334831,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "a0286bccf003c97764e423776f4e323e754da2f8f83d00f817cbc22734d50457",
+  "source_bindings_bytes": 834325,
+  "source_rows": 4170,
+  "distinct_items": 921,
+  "entity_value_bindings": 0,
+  "query_limit": 30000,
+  "properties": [
+    "P11688",
+    "P1933",
+    "P4769",
+    "P2816",
+    "P1712",
+    "P2864",
+    "P2606",
+    "P2451",
+    "P4857"
+  ],
+  "property_counts": {
+    "P11688": 1140,
+    "P1933": 1069,
+    "P2451": 28,
+    "P2606": 1,
+    "P2816": 387,
+    "P2864": 13,
+    "P4769": 1509,
+    "P4857": 23
+  },
+  "rdf_value_type_counts": {
+    "literal": 4170
+  },
+  "identity_policy": "Original Wikidata source assertions of third-party authority IDs, not provider-verified, not resolved canonical game/edition/release/media identities"
+}
