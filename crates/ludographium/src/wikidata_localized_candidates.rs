@@ -120,20 +120,18 @@ impl WikidataLocalizedCandidateCatalog {
             source_records_with_matches += 1;
             let ambiguous = items.len() > 1;
             for (qid, evidence) in items {
-                let originally_english = known_english.contains(&(
-                    platform.to_owned(),
-                    source_ordinal,
-                    qid.clone(),
-                ));
+                let originally_english =
+                    known_english.contains(&(platform.to_owned(), source_ordinal, qid.clone()));
                 if !originally_english {
                     new_pairs_outside_english += 1;
                 }
                 if ambiguous {
                     ambiguous_links += 1;
                 }
-                let distinct_names: BTreeSet<(String, usize)> = evidence.iter().map(|claim| {
-                    (claim.source_path.clone(), claim.source_ordinal)
-                }).collect();
+                let distinct_names: BTreeSet<(String, usize)> = evidence
+                    .iter()
+                    .map(|claim| (claim.source_path.clone(), claim.source_ordinal))
+                    .collect();
                 debug_assert_eq!(distinct_names.len(), evidence.len());
                 for original in evidence {
                     *evidence_by_language
@@ -178,7 +176,8 @@ impl WikidataLocalizedCandidateCatalog {
             ambiguous_candidate_pairs: self.ambiguous_links,
             candidate_pairs_absent_from_english_title_match: self.new_pairs_outside_english,
             contributing_original_name_claims_by_language: &self.evidence_by_language,
-            interpretation: "source-label-equivalence-is-not-canonical-work-edition-or-locale-evidence",
+            interpretation:
+                "source-label-equivalence-is-not-canonical-work-edition-or-locale-evidence",
         }
     }
 
@@ -209,7 +208,10 @@ impl WikidataLocalizedCandidateCatalog {
         for candidate in &self.pairs {
             if qid.is_some_and(|value| candidate.wikidata_item_qid != value)
                 || needle.as_ref().is_some_and(|value| {
-                    !candidate.original_source_title.to_lowercase().contains(value)
+                    !candidate
+                        .original_source_title
+                        .to_lowercase()
+                        .contains(value)
                 })
             {
                 continue;
@@ -251,9 +253,10 @@ mod tests {
         assert!(rows.iter().all(|record| {
             record.platform == "atari2600"
                 && record.original_source_blob_sha.len() == 40
-                && record.localized_name_evidence.iter().all(|name| {
-                    name.source_sha256.len() == 64 && !name.language_tag.is_empty()
-                })
+                && record
+                    .localized_name_evidence
+                    .iter()
+                    .all(|name| name.source_sha256.len() == 64 && !name.language_tag.is_empty())
                 && record.interpretation.contains("review-only")
         }));
         let (matches, limited) = audit.search(None, None, 1).unwrap();
