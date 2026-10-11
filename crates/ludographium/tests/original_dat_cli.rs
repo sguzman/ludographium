@@ -723,9 +723,16 @@ fn reverse_lookup_retains_shared_steam_id_and_multi_qid_ambiguity() {
 #[test]
 fn localized_source_names_preserve_original_languages_and_alternate_titles() {
     let all = query(&[
-        "--wikidata-localized-titles", "--platform", "all", "--limit", "2",
+        "--wikidata-localized-titles",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
     ]);
-    assert_eq!(all["source_mode"], "verified-wikidata-language-tagged-game-names");
+    assert_eq!(
+        all["source_mode"],
+        "verified-wikidata-language-tagged-game-names"
+    );
     assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 16);
     assert_eq!(all["total_original_localized_names"], 124690);
     assert_eq!(all["source_item_platform_observations"], 15731);
@@ -733,11 +740,17 @@ fn localized_source_names_preserve_original_languages_and_alternate_titles() {
     assert_eq!(all["original_name_kind_counts"]["altLabel"], 43097);
     assert_eq!(all["returned_source_names"], 2);
     assert!(all["names"][0]["original_binding"]["label"]["xml:lang"]
-        .as_str().is_some());
+        .as_str()
+        .is_some());
     assert_eq!(all["names"][0]["source_sha256"].as_str().unwrap().len(), 64);
     let spanish = query(&[
-        "--wikidata-localized-titles", "--platform", "all",
-        "--language", "es", "--limit", "3",
+        "--wikidata-localized-titles",
+        "--platform",
+        "all",
+        "--language",
+        "es",
+        "--limit",
+        "3",
     ]);
     assert!(spanish["total_filtered_source_names"].as_u64().unwrap() > 10000);
     assert!(spanish["names"].as_array().unwrap().iter().all(|entry| {
@@ -746,13 +759,42 @@ fn localized_source_names_preserve_original_languages_and_alternate_titles() {
     }));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
-        vec!["--wikidata-localized-titles", "--platform", "all", "--language", "xx"],
-        vec!["--wikidata-localized-titles", "--platform", "all", "--qid", "Q0"],
-        vec!["--wikidata-localized-titles", "--platform", "all", "--qid", "Q379915", "--title", "Adventure"],
-        vec!["--wikidata-properties", "--platform", "all", "--language", "es"],
+        vec![
+            "--wikidata-localized-titles",
+            "--platform",
+            "all",
+            "--language",
+            "xx",
+        ],
+        vec![
+            "--wikidata-localized-titles",
+            "--platform",
+            "all",
+            "--qid",
+            "Q0",
+        ],
+        vec![
+            "--wikidata-localized-titles",
+            "--platform",
+            "all",
+            "--qid",
+            "Q379915",
+            "--title",
+            "Adventure",
+        ],
+        vec![
+            "--wikidata-properties",
+            "--platform",
+            "all",
+            "--language",
+            "es",
+        ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(&root).args(&args).output().unwrap();
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
         assert!(!output.status.success());
     }
 }

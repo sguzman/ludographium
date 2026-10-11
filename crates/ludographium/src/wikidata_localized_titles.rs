@@ -85,23 +85,29 @@ fn sha256(bytes: &[u8]) -> String {
     format!("{:x}", hasher.finalize())
 }
 fn qid_uri(uri: &str) -> Option<&str> {
-    let id = uri.strip_prefix("http://www.wikidata.org/entity/")
+    let id = uri
+        .strip_prefix("http://www.wikidata.org/entity/")
         .or_else(|| uri.strip_prefix("https://www.wikidata.org/entity/"))?;
-    id.strip_prefix('Q').is_some_and(|x| {
-        !x.is_empty() && !x.starts_with('0') && x.bytes().all(|b| b.is_ascii_digit())
-    }).then_some(id)
+    id.strip_prefix('Q')
+        .is_some_and(|x| {
+            !x.is_empty() && !x.starts_with('0') && x.bytes().all(|b| b.is_ascii_digit())
+        })
+        .then_some(id)
 }
 fn accepted_language(lang: &str) -> bool {
     let lang = lang.to_ascii_lowercase();
     let segments: Vec<_> = lang.split('-').collect();
     !segments.is_empty()
         && PREFIXES.contains(&segments[0])
-        && segments.iter().all(|value| {
-            !value.is_empty() && value.bytes().all(|b| b.is_ascii_alphanumeric())
-        })
+        && segments
+            .iter()
+            .all(|value| !value.is_empty() && value.bytes().all(|b| b.is_ascii_alphanumeric()))
 }
 fn verified_file(
-    dir: &Path, name: &str, expected_size: usize, expected_sha: &str,
+    dir: &Path,
+    name: &str,
+    expected_size: usize,
+    expected_sha: &str,
 ) -> Result<Vec<u8>, CatalogError> {
     let path = dir.join(name);
     if fs::symlink_metadata(&path)?.file_type().is_symlink() {
@@ -110,30 +116,38 @@ fn verified_file(
     let bytes = fs::read(&path)?;
     if bytes.len() != expected_size || sha256(&bytes) != expected_sha {
         return Err(invalid(format!(
-            "Wikidata localized source digest/length mismatch: {}", path.display()
+            "Wikidata localized source digest/length mismatch: {}",
+            path.display()
         )));
     }
     Ok(bytes)
 }
 fn parse_original(row: &Value) -> Result<(&str, &'static str, &str, &str), CatalogError> {
-    if row["item"]["type"] != "uri" || row["predicate"]["type"] != "uri"
+    if row["item"]["type"] != "uri"
+        || row["predicate"]["type"] != "uri"
         || row["label"]["type"] != "literal"
     {
         return Err(invalid("unexpected original localized source RDF type"));
     }
-    let item = row["item"]["value"].as_str().and_then(qid_uri)
+    let item = row["item"]["value"]
+        .as_str()
+        .and_then(qid_uri)
         .ok_or_else(|| invalid("invalid localized source game QID"))?;
     let name_kind = match row["predicate"]["value"].as_str() {
         Some(RDFS) => "label",
         Some(SKOS) => "altLabel",
         _ => return Err(invalid("unapproved localized name predicate")),
     };
-    let lang = row["label"]["xml:lang"].as_str()
+    let lang = row["label"]["xml:lang"]
+        .as_str()
         .ok_or_else(|| invalid("missing original language tag"))?;
     if !accepted_language(lang) {
-        return Err(invalid("localized name language tag is outside declared source scope"));
+        return Err(invalid(
+            "localized name language tag is outside declared source scope",
+        ));
     }
-    let name = row["label"]["value"].as_str()
+    let name = row["label"]["value"]
+        .as_str()
         .filter(|value| !value.is_empty())
         .ok_or_else(|| invalid("empty localized source name"))?;
     Ok((item, name_kind, lang, name))
@@ -144,10 +158,14 @@ impl WikidataLocalizedTitleCatalog {
         let root = root.as_ref();
         let register: Register =
             serde_json::from_slice(&fs::read(root.join("sources/wikidata-v1.json"))?)?;
-        if register.schema_version != 1 || register.provider != "wikidata"
-            || register.provider_license != "CC0-1.0" || register.platforms.len() != 16
+        if register.schema_version != 1
+            || register.provider != "wikidata"
+            || register.provider_license != "CC0-1.0"
+            || register.platforms.len() != 16
         {
-            return Err(invalid("independent Wikidata platform source register mismatch"));
+            return Err(invalid(
+                "independent Wikidata platform source register mismatch",
+            ));
         }
         let mut seen = HashSet::new();
         let mut claims = Vec::new();
@@ -158,10 +176,19 @@ impl WikidataLocalizedTitleCatalog {
         for platform in &register.platforms {
             if !seen.insert(&platform.platform)
                 || platform.platform.is_empty()
-                || !platform.platform.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
-                || qid_uri(&format!("http://www.wikidata.org/entity/{}", platform.wikidata_platform)).is_none()
+                || !platform
+                    .platform
+                    .bytes()
+                    .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+                || qid_uri(&format!(
+                    "http://www.wikidata.org/entity/{}",
+                    platform.wikidata_platform
+                ))
+                .is_none()
             {
-                return Err(invalid("duplicate or invalid Wikidata platform registration"));
+                return Err(invalid(
+                    "duplicate or invalid Wikidata platform registration",
+                ));
             }
             if selection != "all" && selection != platform.platform {
                 continue;
@@ -170,9 +197,9 @@ impl WikidataLocalizedTitleCatalog {
             if fs::symlink_metadata(&dir)?.file_type().is_symlink() {
                 return Err(invalid("Wikidata localized source directory is a symlink"));
             }
-            let manifest: Manifest =
-                serde_json::from_slice(&fs::read(dir.join("manifest.json"))?)?;
-            if manifest.schema_version != 1 || manifest.source != "Wikidata"
+            let manifest: Manifest = serde_json::from_slice(&fs::read(dir.join("manifest.json"))?)?;
+            if manifest.schema_version != 1
+                || manifest.source != "Wikidata"
                 || manifest.license != "CC0-1.0"
                 || manifest.source_revision != "live-query-capture"
                 || manifest.platform != platform.platform
@@ -188,11 +215,15 @@ impl WikidataLocalizedTitleCatalog {
                 || manifest.language_prefix_scope != PREFIXES.map(str::to_owned)
             {
                 return Err(invalid(format!(
-                    "invalid source-localized title manifest: {}", platform.platform
+                    "invalid source-localized title manifest: {}",
+                    platform.platform
                 )));
             }
             let query = verified_file(
-                &dir, "query.rq", manifest.source_query_bytes, &manifest.source_query_sha256,
+                &dir,
+                "query.rq",
+                manifest.source_query_bytes,
+                &manifest.source_query_sha256,
             )?;
             let original_query = std::str::from_utf8(&query)
                 .map_err(|_| invalid("non-UTF-8 Wikidata localized query"))?;
@@ -204,20 +235,27 @@ impl WikidataLocalizedTitleCatalog {
                 return Err(invalid("localized SPARQL source scope mismatch"));
             }
             let response = verified_file(
-                &dir, "response.json", manifest.source_response_bytes,
+                &dir,
+                "response.json",
+                manifest.source_response_bytes,
                 &manifest.source_response_sha256,
             )?;
             let original: Value = serde_json::from_slice(&response)?;
             if original["head"]["vars"] != json!(["item", "predicate", "label"]) {
                 return Err(invalid("unexpected localized source response columns"));
             }
-            let bindings = original["results"]["bindings"].as_array()
+            let bindings = original["results"]["bindings"]
+                .as_array()
                 .ok_or_else(|| invalid("missing localized source response rows"))?;
             if bindings.len() != manifest.source_rows {
-                return Err(invalid("localized source manifest/response row count mismatch"));
+                return Err(invalid(
+                    "localized source manifest/response row count mismatch",
+                ));
             }
             let text = verified_file(
-                &dir, "bindings.jsonl", manifest.source_bindings_bytes,
+                &dir,
+                "bindings.jsonl",
+                manifest.source_bindings_bytes,
                 &manifest.source_bindings_sha256,
             )?;
             let raw = std::str::from_utf8(&text)
@@ -232,7 +270,9 @@ impl WikidataLocalizedTitleCatalog {
             for (index, line) in lines.iter().enumerate() {
                 let original_row: Value = serde_json::from_str(line)?;
                 if original_row != bindings[index] {
-                    return Err(invalid("original localized JSONL and SPARQL response differ"));
+                    return Err(invalid(
+                        "original localized JSONL and SPARQL response differ",
+                    ));
                 }
                 let (item, kind, lang, name) = parse_original(&original_row)?;
                 item_ids.insert(item.to_owned());
@@ -251,14 +291,17 @@ impl WikidataLocalizedTitleCatalog {
                     source_response_sha256: manifest.source_response_sha256.clone(),
                     source_query_sha256: manifest.source_query_sha256.clone(),
                     captured_at_utc: manifest.captured_at_utc.clone(),
-                    interpretation: "independent-language-tagged-name-not-a-verified-regional-game-title",
+                    interpretation:
+                        "independent-language-tagged-name-not-a-verified-regional-game-title",
                 });
             }
             if item_ids.len() != manifest.distinct_items
                 || kind_counts != manifest.predicate_counts
                 || locale_counts != manifest.language_tag_counts
             {
-                return Err(invalid("original localized item, language or name-kind counts mismatch"));
+                return Err(invalid(
+                    "original localized item, language or name-kind counts mismatch",
+                ));
             }
             for (kind, n) in kind_counts {
                 *name_kinds.entry(kind).or_insert(0) += n;
@@ -270,9 +313,17 @@ impl WikidataLocalizedTitleCatalog {
             observed_items += manifest.distinct_items;
         }
         if platforms.is_empty() || (selection == "all" && platforms.len() != 16) {
-            return Err(invalid(format!("unknown or incomplete localized source platform: {selection}")));
+            return Err(invalid(format!(
+                "unknown or incomplete localized source platform: {selection}"
+            )));
         }
-        Ok(Self { claims, platforms, observed_items, languages, name_kinds })
+        Ok(Self {
+            claims,
+            platforms,
+            observed_items,
+            languages,
+            name_kinds,
+        })
     }
 
     pub fn claims(&self) -> &[LocalizedTitleClaim] {
@@ -301,7 +352,9 @@ impl WikidataLocalizedTitleCatalog {
         limit: usize,
     ) -> Result<(usize, Vec<&LocalizedTitleClaim>), CatalogError> {
         if !(1..=200).contains(&limit)
-            || qid.is_some_and(|value| qid_uri(&format!("http://www.wikidata.org/entity/{value}")).is_none())
+            || qid.is_some_and(|value| {
+                qid_uri(&format!("http://www.wikidata.org/entity/{value}")).is_none()
+            })
             || title.is_some_and(|value| value.trim().is_empty())
             || language.is_some_and(|value| !accepted_language(value))
             || (qid.is_some() && title.is_some())
@@ -314,7 +367,9 @@ impl WikidataLocalizedTitleCatalog {
         let mut matches = Vec::new();
         for claim in &self.claims {
             if qid.is_some_and(|value| claim.item_qid != value)
-                || needle.as_ref().is_some_and(|value| !claim.name.to_lowercase().contains(value))
+                || needle
+                    .as_ref()
+                    .is_some_and(|value| !claim.name.to_lowercase().contains(value))
                 || lang.as_ref().is_some_and(|value| {
                     let tag = claim.language_tag.to_ascii_lowercase();
                     tag != *value && !tag.starts_with(&format!("{value}-"))

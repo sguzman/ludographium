@@ -658,13 +658,27 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || media_format.is_some()
                 || zip_entry.is_some()))
         || (wikidata_localized_titles
-            && (wikidata_text || wikidata_candidates || wikidata_properties
-                || wikidata_relations || wikidata_items || source_dat
-                || claims_only || enriched || show_curated || compare_years
-                || compare_credits || with_entity_labels || property.is_some()
-                || external_id.is_some() || sha1.is_some() || crc32.is_some()
-                || size.is_some() || file.is_some() || zip.is_some()
-                || media_format.is_some() || zip_entry.is_some()
+            && (wikidata_text
+                || wikidata_candidates
+                || wikidata_properties
+                || wikidata_relations
+                || wikidata_items
+                || source_dat
+                || claims_only
+                || enriched
+                || show_curated
+                || compare_years
+                || compare_credits
+                || with_entity_labels
+                || property.is_some()
+                || external_id.is_some()
+                || sha1.is_some()
+                || crc32.is_some()
+                || size.is_some()
+                || file.is_some()
+                || zip.is_some()
+                || media_format.is_some()
+                || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
         || (wikidata_items
             && (wikidata_text
@@ -754,28 +768,30 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
     if wikidata_localized_titles {
         let catalog = WikidataLocalizedTitleCatalog::open(&root, &platform)?;
-        let (total, results) = catalog.search(
-            qid.as_deref(), title.as_deref(), language.as_deref(), limit,
-        )?;
-        println!("{}", serde_json::to_string_pretty(&json!({
-            "source_mode": "verified-wikidata-language-tagged-game-names",
-            "query_kind": if qid.is_some() {
-                "exact-game-QID"
-            } else if title.is_some() {
-                "original-localized-game-name-substring"
-            } else {
-                "original-localized-game-name-list"
-            },
-            "platforms_searched": catalog.platform_ids(),
-            "total_original_localized_names": catalog.total_claims(),
-            "source_item_platform_observations": catalog.source_item_observations(),
-            "original_language_tag_counts": catalog.languages(),
-            "original_name_kind_counts": catalog.name_kinds(),
-            "total_filtered_source_names": total,
-            "returned_source_names": results.len(),
-            "names": results,
-            "interpretation": "original-language-tagged-wikidata-name-claims-not-verified-localized-release-identities"
-        }))?);
+        let (total, results) =
+            catalog.search(qid.as_deref(), title.as_deref(), language.as_deref(), limit)?;
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json!({
+                "source_mode": "verified-wikidata-language-tagged-game-names",
+                "query_kind": if qid.is_some() {
+                    "exact-game-QID"
+                } else if title.is_some() {
+                    "original-localized-game-name-substring"
+                } else {
+                    "original-localized-game-name-list"
+                },
+                "platforms_searched": catalog.platform_ids(),
+                "total_original_localized_names": catalog.total_claims(),
+                "source_item_platform_observations": catalog.source_item_observations(),
+                "original_language_tag_counts": catalog.languages(),
+                "original_name_kind_counts": catalog.name_kinds(),
+                "total_filtered_source_names": total,
+                "returned_source_names": results.len(),
+                "names": results,
+                "interpretation": "original-language-tagged-wikidata-name-claims-not-verified-localized-release-identities"
+            }))?
+        );
         return Ok(());
     }
     if wikidata_relations {
