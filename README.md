@@ -69,6 +69,28 @@ cargo run --locked -- --wikidata-properties --expanded-credits --platform sonypl
 
 These are source claims, not independently provider-confirmed credits.
 
+A second [18-platform credit batch](data/wikidata/expanded-credits-v2/)
+adds **962 more P178/P123/P136 statements** concerning **312
+item/platform observations**, including four preserved zero-result query
+scopes. Together, the 37 added console partitions contribute **11,231
+additional credited-source statements**.
+
+A separate [37-platform game-relationship accession](data/wikidata/expanded-relations-v1/)
+and its [second cohort](data/wikidata/expanded-relations-v2/) capture
+**20,460 additional relation, language, format, series, distributor, title,
+and Steam/GOG identifier statements**, retaining original RDF bindings and
+source hashes. Read these completely offline:
+
+```sh
+cargo run --locked -- --wikidata-properties --metadata-cohort expanded-v2 --platform all --limit 5
+cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v1 --platform all --limit 5
+cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v2 --platform all --property P1733 --limit 5
+```
+
+All values remain attributed claims, not provider-verified external IDs,
+accepted game identities, editions, or release facts.
+
+
 ## Collection
 
 The original v1 JSON baseline covers ten console and handheld platforms (retained for compatibility). **The Git clone now contains the original text DAT metadata for all 75 platform collections and 117,145 source observations**, with [complete provenance and coverage details](docs/BULK-EXPANSION.md). The 65 added identification DATs and 279 bibliographic DATs are [tracked under `archive/libretro-bulk/metadat/`](archive/libretro-bulk/metadat), not stored exclusively in a generated database or fetched on demand.
