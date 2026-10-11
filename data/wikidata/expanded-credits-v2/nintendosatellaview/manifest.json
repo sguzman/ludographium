@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v5.json",
+  "platform": "nintendosatellaview",
+  "wikidata_platform": "Q1193565",
+  "captured_at_utc": "2026-10-11T22:48:36Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "6355f71b9193554296a579a5c8de55a63510c296069f001c7467f42b377e0ac4",
+  "source_query_bytes": 217,
+  "source_response_path": "response.json",
+  "source_response_sha256": "f3314b280a3bc937d4167aa2bb28e26c96be34ab444454bff9b4cb8e3f751e2e",
+  "source_response_bytes": 4926,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "5bf860670adbd88f082f6fd053a2c46080d73c37601029e8ca07c2b737db5a88",
+  "source_bindings_bytes": 3140,
+  "source_rows": 14,
+  "distinct_items": 5,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 5,
+    "P136": 4,
+    "P178": 5
+  },
+  "rdf_value_type_counts": {
+    "uri": 14
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

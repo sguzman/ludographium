@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v6.json",
+  "platform": "gg",
+  "wikidata_platform": "Q751719",
+  "captured_at_utc": "2026-10-11T22:48:38Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "0ac100298596b242f669cd9abb43e652186354244983641022c2eea88209dab7",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "2d5a86f9adf8776d69602c84d66f14b32415e0a8898fe625d5897912d4d0dc6a",
+  "source_response_bytes": 176618,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "dd086a9ff3951519200bfe870d09b64edc2a31937ce1eb7df5267c95699a566d",
+  "source_bindings_bytes": 114832,
+  "source_rows": 514,
+  "distinct_items": 164,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 168,
+    "P136": 207,
+    "P178": 139
+  },
+  "rdf_value_type_counts": {
+    "uri": 514
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

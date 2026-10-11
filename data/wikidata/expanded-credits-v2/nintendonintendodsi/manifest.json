@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v6.json",
+  "platform": "nintendonintendodsi",
+  "wikidata_platform": "Q637178",
+  "captured_at_utc": "2026-10-11T22:48:43Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "7604b931de4bb01690640c1c4e6da0ecd743e8bc3f675eac45d0b522f66803bf",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "fb1bc1d4d106922158fad00f0ac714497b462baa5afb3a19638c053389d41794",
+  "source_response_bytes": 78913,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "febdbe7f478aed4812fdade74b49791e228926c99fec2c7512d4ad9482d5acd6",
+  "source_bindings_bytes": 51327,
+  "source_rows": 229,
+  "distinct_items": 83,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 65,
+    "P136": 86,
+    "P178": 78
+  },
+  "rdf_value_type_counts": {
+    "uri": 229
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

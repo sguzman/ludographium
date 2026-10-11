@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v6.json",
+  "platform": "fairchildchannelf",
+  "wikidata_platform": "Q1053294",
+  "captured_at_utc": "2026-10-11T22:48:49Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "0b4c69585d8d003641e8782c0196b30b60ed5e3ebb30ec425448be1beae6c5e0",
+  "source_query_bytes": 217,
+  "source_response_path": "response.json",
+  "source_response_sha256": "878cf8c69a24259b57e7b3dee922f3a886e7a82a421cab9ecc8c5506e122cd56",
+  "source_response_bytes": 450,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "b468ec183e9e65fcfd5444cc0eb2212f3ff5389126b9ef9d3bda2f1aff989921",
+  "source_bindings_bytes": 224,
+  "source_rows": 1,
+  "distinct_items": 1,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 1
+  },
+  "rdf_value_type_counts": {
+    "uri": 1
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}
