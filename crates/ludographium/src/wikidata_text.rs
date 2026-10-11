@@ -77,9 +77,7 @@ fn invalid(message: impl Into<String>) -> CatalogError {
 }
 fn valid_qid(qid: &str) -> bool {
     qid.strip_prefix('Q').is_some_and(|digits| {
-        !digits.is_empty()
-            && !digits.starts_with('0')
-            && digits.bytes().all(|b| b.is_ascii_digit())
+        !digits.is_empty() && !digits.starts_with('0') && digits.bytes().all(|b| b.is_ascii_digit())
     })
 }
 fn valid_sha256(value: &str) -> bool {
@@ -97,17 +95,26 @@ fn parse_items(bytes: &[u8], platform: &str) -> Result<Vec<WikidataItem>, Catalo
     let mut records = Vec::new();
     for (ordinal, line) in raw.lines().enumerate() {
         if line.trim().is_empty() {
-            return Err(invalid(format!("blank Wikidata JSONL line at {platform}:{}", ordinal + 1)));
+            return Err(invalid(format!(
+                "blank Wikidata JSONL line at {platform}:{}",
+                ordinal + 1
+            )));
         }
         let record: WikidataItem = serde_json::from_str(line)?;
         if !valid_qid(&record.qid)
             || !seen.insert(record.qid.clone())
-            || record.english_label.as_ref().is_some_and(|x| x.trim().is_empty())
+            || record
+                .english_label
+                .as_ref()
+                .is_some_and(|x| x.trim().is_empty())
             || record.dates.iter().any(|d| {
                 !matches!(d.kind.as_str(), "literal" | "typed-literal") || d.value.is_empty()
             })
         {
-            return Err(invalid(format!("malformed Wikidata record at {platform}:{}", ordinal + 1)));
+            return Err(invalid(format!(
+                "malformed Wikidata record at {platform}:{}",
+                ordinal + 1
+            )));
         }
         records.push(record);
     }
@@ -141,11 +148,16 @@ impl WikidataTextCatalog {
         let mut registered = HashSet::new();
         for entry in &register.platforms {
             if entry.platform.is_empty()
-                || !entry.platform.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+                || !entry
+                    .platform
+                    .bytes()
+                    .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
                 || !valid_qid(&entry.wikidata_platform)
                 || !registered.insert((entry.platform.clone(), entry.wikidata_platform.clone()))
             {
-                return Err(invalid("invalid or duplicate Wikidata platform registration"));
+                return Err(invalid(
+                    "invalid or duplicate Wikidata platform registration",
+                ));
             }
         }
         let mut declared = HashSet::new();
@@ -177,11 +189,17 @@ impl WikidataTextCatalog {
             }
             let bytes = fs::read(&path)?;
             if bytes.len() != entry.text_bytes || sha256(&bytes) != entry.text_sha256 {
-                return Err(invalid(format!("Wikidata source checksum mismatch: {}", entry.platform)));
+                return Err(invalid(format!(
+                    "Wikidata source checksum mismatch: {}",
+                    entry.platform
+                )));
             }
             let items = parse_items(&bytes, &entry.platform)?;
             if items.len() != entry.distinct_items {
-                return Err(invalid(format!("Wikidata source record-count mismatch: {}", entry.platform)));
+                return Err(invalid(format!(
+                    "Wikidata source record-count mismatch: {}",
+                    entry.platform
+                )));
             }
             platforms.push(Platform {
                 id: entry.platform.clone(),
@@ -196,10 +214,16 @@ impl WikidataTextCatalog {
             || declared_rows != manifest.original_query_rows
             || platforms.is_empty()
         {
-            return Err(invalid(format!("unsupported or incomplete Wikidata platform: {selection}")));
+            return Err(invalid(format!(
+                "unsupported or incomplete Wikidata platform: {selection}"
+            )));
         }
         if selection == "all" {
-            let count: usize = platforms.iter().flat_map(|p| &p.items).map(|i| i.dates.len()).sum();
+            let count: usize = platforms
+                .iter()
+                .flat_map(|p| &p.items)
+                .map(|i| i.dates.len())
+                .sum();
             if count != manifest.literal_date_claims {
                 return Err(invalid("Wikidata publication-date count mismatch"));
             }
@@ -214,7 +238,11 @@ impl WikidataTextCatalog {
         self.platforms.iter().map(|p| p.items.len()).sum()
     }
     pub fn date_count(&self) -> usize {
-        self.platforms.iter().flat_map(|p| &p.items).map(|i| i.dates.len()).sum()
+        self.platforms
+            .iter()
+            .flat_map(|p| &p.items)
+            .map(|i| i.dates.len())
+            .sum()
     }
     pub fn snapshot_sha256(&self) -> &str {
         SNAPSHOT_SHA
@@ -240,20 +268,32 @@ impl WikidataTextCatalog {
     }
     pub fn lookup_qid(&self, qid: &str) -> Result<Vec<Value>, CatalogError> {
         if !valid_qid(qid) {
-            return Err(invalid("Wikidata QID must be Q followed by a positive decimal integer"));
+            return Err(invalid(
+                "Wikidata QID must be Q followed by a positive decimal integer",
+            ));
         }
-        Ok(self.platforms.iter().flat_map(|platform| {
-            platform.items.iter()
-                .filter(move |item| item.qid == qid)
-                .map(|item| self.format_item(platform, item))
-        }).collect())
+        Ok(self
+            .platforms
+            .iter()
+            .flat_map(|platform| {
+                platform
+                    .items
+                    .iter()
+                    .filter(move |item| item.qid == qid)
+                    .map(|item| self.format_item(platform, item))
+            })
+            .collect())
     }
     /// Search source labels, or list original observations when no query is supplied.
-    pub fn search_titles(&self, query: Option<&str>, limit: usize)
-        -> Result<(usize, Vec<Value>), CatalogError>
-    {
+    pub fn search_titles(
+        &self,
+        query: Option<&str>,
+        limit: usize,
+    ) -> Result<(usize, Vec<Value>), CatalogError> {
         if !(1..=200).contains(&limit) || query.is_some_and(|q| q.trim().is_empty()) {
-            return Err(invalid("Wikidata title query must be nonblank, limit 1..=200"));
+            return Err(invalid(
+                "Wikidata title query must be nonblank, limit 1..=200",
+            ));
         }
         let needle = query.map(str::to_lowercase);
         let mut total = 0;
@@ -261,7 +301,10 @@ impl WikidataTextCatalog {
         for platform in &self.platforms {
             for item in &platform.items {
                 if needle.as_ref().is_some_and(|q| {
-                    !item.english_label.as_ref().is_some_and(|label| label.to_lowercase().contains(q))
+                    !item
+                        .english_label
+                        .as_ref()
+                        .is_some_and(|label| label.to_lowercase().contains(q))
                 }) {
                     continue;
                 }
