@@ -632,3 +632,4 @@ mod tests {
         );
     }
 }
+pub mod wikidata_candidates;

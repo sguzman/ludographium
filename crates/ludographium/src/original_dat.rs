@@ -508,6 +508,23 @@ impl OriginalDatCatalog {
         result
     }
 
+    /// Source occurrence identity and provenance for noncanonical reconciliation.
+    pub(crate) fn reconciliation_titles(
+        &self,
+    ) -> impl Iterator<Item = (&str, usize, &str, &str, &str)> {
+        self.platforms.iter().flat_map(|platform| {
+            platform.games.iter().map(move |game| {
+                (
+                    platform.id.as_str(),
+                    game.ordinal,
+                    game.fields["name"].as_str(),
+                    platform.source.path.as_str(),
+                    platform.source.blob.as_str(),
+                )
+            })
+        })
+    }
+
     pub fn platform_ids(&self) -> impl Iterator<Item = &str> {
         self.platforms.iter().map(|platform| platform.id.as_str())
     }

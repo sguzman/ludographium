@@ -233,6 +233,24 @@ impl WikidataTextCatalog {
         Ok(Self { platforms })
     }
 
+    /// Original platform-scoped labels and source digests, without identity joins.
+    pub(crate) fn reconciliation_labels(
+        &self,
+    ) -> impl Iterator<Item = (&str, &str, &str, &str)> {
+        self.platforms.iter().flat_map(|platform| {
+            platform.items.iter().filter_map(move |item| {
+                item.english_label.as_deref().map(|label| {
+                    (
+                        platform.id.as_str(),
+                        item.qid.as_str(),
+                        label,
+                        platform.source_sha256.as_str(),
+                    )
+                })
+            })
+        })
+    }
+
     pub fn platform_ids(&self) -> impl Iterator<Item = &str> {
         self.platforms.iter().map(|p| p.id.as_str())
     }
