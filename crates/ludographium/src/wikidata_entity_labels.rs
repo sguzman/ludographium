@@ -183,7 +183,9 @@ fn expanded_v3_source_manifest_inventory_sha(root: &Path) -> Result<String, Cata
         .as_array()
         .ok_or_else(|| invalid("missing expanded-v3 label source platform register"))?;
     if platforms.len() != 12 {
-        return Err(invalid("incomplete expanded-v3 label source platform register"));
+        return Err(invalid(
+            "incomplete expanded-v3 label source platform register",
+        ));
     }
     let mut names = BTreeSet::new();
     for row in platforms {
