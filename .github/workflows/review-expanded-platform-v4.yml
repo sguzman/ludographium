@@ -1,0 +1,109 @@
+name: Audit six legacy system title correspondences
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/review-expanded-platform-v4.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-expanded-console-v4-title-review-main
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Reconcile each new original source partition with Libretro DAT titles
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-expanded --expansion-source v4 --platform all --limit 1 \
+            > "$RUNNER_TEMP/source.json"
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-expanded-candidates --expansion-source v4 --platform all --limit 1 \
+            > "$RUNNER_TEMP/links.json"
+          : > "$RUNNER_TEMP/platforms.jsonl"
+          for platform in \
+            atari5200 \
+            colecocolecovision \
+            gcevectrex \
+            mattelintellivision \
+            magnavoxodyssey2 \
+            nintendopokemonmini; do
+            cargo run --locked --quiet -p ludographium -- \
+              --wikidata-expanded-candidates --expansion-source v4 \
+              --platform "$platform" --limit 1 > "$RUNNER_TEMP/platform.json"
+            jq -nc --arg platform "$platform" \
+              --slurpfile candidate "$RUNNER_TEMP/platform.json" \
+              '{
+                platform: $platform,
+                candidate_links: $candidate[0].total_candidate_links,
+                source_records_with_candidates: $candidate[0].source_records_with_candidate,
+                ambiguous_candidate_links: $candidate[0].ambiguous_title_candidate_links
+              }' >> "$RUNNER_TEMP/platforms.jsonl"
+          done
+          jq -n \
+            --slurpfile source "$RUNNER_TEMP/source.json" \
+            --slurpfile links "$RUNNER_TEMP/links.json" \
+            --slurpfile platforms "$RUNNER_TEMP/platforms.jsonl" \
+            --arg source_commit "$GITHUB_SHA" \
+            '{
+              schema_version: 1,
+              kind: "original-same-platform-v4-title-candidate-audit",
+              source_commit_sha: $source_commit,
+              source_platform_partitions: ($source[0].platforms_searched | length),
+              original_source_rows: $source[0].source_rows,
+              original_wikidata_item_platform_observations: $source[0].source_item_platform_observations,
+              literal_publication_date_bindings: $source[0].literal_publication_date_bindings,
+              nonliteral_publication_bindings: $source[0].nonliteral_publication_bindings,
+              total_candidate_links: $links[0].total_candidate_links,
+              original_libretro_source_records_with_candidates: $links[0].source_records_with_candidate,
+              ambiguous_candidate_links: $links[0].ambiguous_title_candidate_links,
+              per_platform: $platforms,
+              matching_policy: "Same-platform conservative exact source-title key and original English Wikidata label; raw Libretro source hash and original Wikidata evidence preserved",
+              interpretation: "All links are review candidates only, not canonical game work media edition or region identities. Candidate counts cannot establish a measured false-positive rate."
+            }' > reports/wikidata-expanded-platform-v4-title-review-v1.json
+          jq -e '
+            . as $r
+            | .source_platform_partitions == 6
+              and .original_source_rows == 482
+              and .original_wikidata_item_platform_observations == 356
+              and .literal_publication_date_bindings == 425
+              and .nonliteral_publication_bindings == 0
+              and (.per_platform | length == 6)
+              and ([.per_platform[].candidate_links] | add) == $r.total_candidate_links
+              and ([.per_platform[].source_records_with_candidates] | add) == $r.original_libretro_source_records_with_candidates
+              and ([.per_platform[].ambiguous_candidate_links] | add) == $r.ambiguous_candidate_links
+          ' reports/wikidata-expanded-platform-v4-title-review-v1.json > /dev/null
+          jq -c '{
+            source_platform_partitions,
+            total_candidate_links,
+            original_libretro_source_records_with_candidates,
+            ambiguous_candidate_links,
+            per_platform
+          }' reports/wikidata-expanded-platform-v4-title-review-v1.json
+      - name: Preserve source-only review counts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add reports/wikidata-expanded-platform-v4-title-review-v1.json
+          if git diff --cached --quiet; then
+            echo "Review report already present"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: record noncanonical v4 console title correspondences'
+          git push origin HEAD:main
