@@ -31,7 +31,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Compare source-grounded Libretro releaseyear and Wikidata publication-year evidence across title candidates, preserving regional ambiguity and raw contradictory/missing assertions.
 - [x] Integrate and permanently publish a SHA-256-locked CC0 Wikidata source snapshot in `data-v1.6.0`, across 16 whole-platform queries, with 15,868 item/platform observations and 29,333 literal date claims.
 - [x] Bulk-generate 8,971 noncanonical title correspondence candidates and identify 126 ambiguous links without merging game identities.
-- [ ] Add more external metadata properties/providers and evidence-backed cross-provider reconciliation beyond label correspondences; quantify false-positive risk.
+- [x] Acquire all 16 Wikidata platform partitions of original CC0 P178 developer, P123 publisher and P136 genre claims (47,144 new source bindings, 14,759 game-item/platform observations), with immutable source text and SHA-256 provenance.
+- [ ] Expand independent provider coverage and cross-source identifier evidence beyond title correspondences; quantify false-positive risk.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 
 ## Identity and curation

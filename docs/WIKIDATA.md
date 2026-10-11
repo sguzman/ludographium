@@ -16,6 +16,42 @@ The [published Wikidata-enriched SQLite database](https://github.com/sguzman/lud
 
 The primary imported Wikidata data now lives in [16 per-platform JSONL files](../data/wikidata/v1/) and a [plain-text provenance manifest](../data/wikidata/v1/manifest.json), approximately **4.2 MB total in Git**. Each item retains its Wikidata QID, English label and captured date statements. `tools/export_wikidata_text.py` deterministically rebuilds and verifies these files from the pinned original JSON source snapshot. SQLite is an optional locally generated search index, not the committed data format. See the [data-format policy](DATA-FORMATS.md).
 
+## Second independent CC0 property accession — 2026-10-11
+
+The repository now also preserves **47,144 original Wikidata structured property
+statements across all 16 existing platform scopes**, covering **14,759
+game-item/platform observations**. This is separate from and does not rewrite
+the prior immutable 15,868-item/29,333-date Wikidata snapshot.
+
+This new [plain-text source accession](../data/wikidata/properties-v1/) collects
+original statements for **P178 (developer), P123 (publisher), and P136 (genre)**.
+Each platform directory preserves the complete original SPARQL JSON response,
+exact query text, one original binding per JSONL line, and a checksum/capture
+manifest. **Three non-entity RDF values** are retained literally instead of
+being cast into QIDs or silently discarded.
+
+The source was acquired in verified platform-scoped batches through
+[GitHub Actions](../.github/workflows/wikidata-properties.yml). Existing pinned
+platform captures are checksum-verified and never implicitly overwritten on a
+rerun. A live Wikidata query is not a stable source revision; the independently
+captured bytes and their per-platform SHA-256 digests are the reproducibility
+boundary.
+
+Rust verifies the raw response, JSONL row-by-row equivalence, source hashes,
+platform registration, property scope, observation counts and source ordinals.
+It can list statements offline or select one Wikidata game QID and property:
+
+```sh
+cargo run --locked -- --wikidata-properties --platform all --limit 5
+cargo run --locked -- --wikidata-properties --platform atari2600 --qid Q379915 --property P178
+```
+
+A QID-valued developer/publisher/genre claim describes what Wikidata
+currently asserted at collection time. **It does not resolve the organization's
+identity, establish release-specific credits, authenticate Wikidata assertions,
+or prove the game's correspondence to any Libretro media record**.
+Exact same-platform title candidates remain separate review evidence.
+
 ## Bulk accession
 
 The [source register](../sources/wikidata-v1.json) declares 16 Wikidata platform IDs across the existing 75-platform console corpus. It includes original ten-system families and selected additional Atari, Nintendo, Xbox and PlayStation collections.
