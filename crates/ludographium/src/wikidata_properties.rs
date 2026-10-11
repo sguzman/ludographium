@@ -636,6 +636,27 @@ mod tests {
     }
 
     #[test]
+    fn second_expanded_credit_cohort_retains_four_zero_result_scopes() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = WikidataPropertyCatalog::open_expanded_v2(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 18);
+        assert_eq!(catalog.total_claims(), 962);
+        assert_eq!(catalog.source_item_observations(), 312);
+        assert_eq!(catalog.property_counts().values().sum::<usize>(), 962);
+        let (count, example) = catalog.search(None, Some("P178"), 1).unwrap();
+        assert!(count > 0);
+        assert_eq!(example.len(), 1);
+        assert!(example[0].source_path.contains("expanded-credits-v2"));
+        for empty in ["casioloopy", "tigergamecom", "gameparkgp32", "intertonvc4000"] {
+            let scope = WikidataPropertyCatalog::open_expanded_v2(&root, empty).unwrap();
+            assert_eq!(scope.total_claims(), 0);
+            assert_eq!(scope.source_item_observations(), 0);
+            assert_eq!(scope.platforms(), &[empty.to_string()]);
+        }
+        assert!(WikidataPropertyCatalog::open_expanded_v2(&root, "unknown").is_err());
+    }
+
+    #[test]
     fn verifies_all_sixteen_source_partitions_and_raw_bindings() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let catalog = WikidataPropertyCatalog::open(&root, "all").unwrap();
