@@ -43,7 +43,11 @@ pub struct WikidataCreditAudit {
 }
 
 fn name_key(input: &str) -> String {
-    input.split_whitespace().collect::<Vec<_>>().join(" ").to_lowercase()
+    input
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
+        .to_lowercase()
 }
 
 fn compare_claims(
@@ -59,11 +63,13 @@ fn compare_claims(
     if wikidata.is_empty() {
         return "wikidata_credit_missing";
     }
-    let originals: HashSet<String> = source.iter()
+    let originals: HashSet<String> = source
+        .iter()
         .map(|claim| name_key(&claim.raw_value))
         .filter(|value| !value.is_empty())
         .collect();
-    let names: HashSet<String> = wikidata.iter()
+    let names: HashSet<String> = wikidata
+        .iter()
         .filter_map(|claim| claim.english_label.as_deref())
         .map(name_key)
         .filter(|value| !value.is_empty())
@@ -94,37 +100,53 @@ impl WikidataCreditAudit {
                 continue;
             }
             let label = entry.value_qid.as_deref().and_then(|id| labels.lookup(id));
-            index.entry((
-                entry.platform.clone(),
-                entry.item_qid.clone(),
-                entry.property.clone(),
-            )).or_default().push(WikidataCreditEvidence {
-                source_ordinal: entry.source_ordinal,
-                value_qid: entry.value_qid.clone(),
-                english_label: label.and_then(|v| v.english_label.clone()),
-                raw_value: entry.raw_binding["value"]["value"]
-                    .as_str().unwrap_or_default().to_owned(),
-                source_path: entry.source_path.clone(),
-                source_sha256: entry.source_sha256.clone(),
-                source_label_path: label.map(|v| v.source_path.clone()),
-                source_label_sha256: label.map(|v| v.source_sha256.clone()),
-            });
+            index
+                .entry((
+                    entry.platform.clone(),
+                    entry.item_qid.clone(),
+                    entry.property.clone(),
+                ))
+                .or_default()
+                .push(WikidataCreditEvidence {
+                    source_ordinal: entry.source_ordinal,
+                    value_qid: entry.value_qid.clone(),
+                    english_label: label.and_then(|v| v.english_label.clone()),
+                    raw_value: entry.raw_binding["value"]["value"]
+                        .as_str()
+                        .unwrap_or_default()
+                        .to_owned(),
+                    source_path: entry.source_path.clone(),
+                    source_sha256: entry.source_sha256.clone(),
+                    source_label_path: label.map(|v| v.source_path.clone()),
+                    source_label_sha256: label.map(|v| v.source_sha256.clone()),
+                });
         }
         let mut counts: BTreeMap<String, BTreeMap<String, usize>> = BTreeMap::new();
         let mut comparisons = Vec::new();
         for candidate in candidates.candidates() {
             for (credit, property) in [("developer", "P178"), ("publisher", "P123")] {
                 let libretro_claims = source
-                    .get(&(candidate.platform.clone(), candidate.source_ordinal, credit.to_owned()))
+                    .get(&(
+                        candidate.platform.clone(),
+                        candidate.source_ordinal,
+                        credit.to_owned(),
+                    ))
                     .cloned()
                     .unwrap_or_default();
                 let wikidata_claims = index
-                    .get(&(candidate.platform.clone(), candidate.wikidata_qid.clone(), property.to_owned()))
+                    .get(&(
+                        candidate.platform.clone(),
+                        candidate.wikidata_qid.clone(),
+                        property.to_owned(),
+                    ))
                     .cloned()
                     .unwrap_or_default();
                 let status = compare_claims(&libretro_claims, &wikidata_claims);
-                *counts.entry(credit.to_owned()).or_default()
-                    .entry(status.to_owned()).or_insert(0) += 1;
+                *counts
+                    .entry(credit.to_owned())
+                    .or_default()
+                    .entry(status.to_owned())
+                    .or_insert(0) += 1;
                 comparisons.push(CreditComparison {
                     platform: candidate.platform.clone(),
                     source_ordinal: candidate.source_ordinal,
@@ -137,11 +159,15 @@ impl WikidataCreditAudit {
                     credit_evidence_status: status,
                     libretro_claims,
                     wikidata_claims,
-                    interpretation: "review-only-name-evidence-not-verified-game-or-company-identity",
+                    interpretation:
+                        "review-only-name-evidence-not-verified-game-or-company-identity",
                 });
             }
         }
-        Self { comparisons, counts }
+        Self {
+            comparisons,
+            counts,
+        }
     }
 
     pub fn counts(&self) -> &BTreeMap<String, BTreeMap<String, usize>> {
@@ -150,7 +176,10 @@ impl WikidataCreditAudit {
 
     /// Return a bounded review list without truncating whole-corpus counts.
     pub fn search(
-        &self, title: Option<&str>, qid: Option<&str>, limit: usize
+        &self,
+        title: Option<&str>,
+        qid: Option<&str>,
+        limit: usize,
     ) -> Result<(usize, Vec<&CreditComparison>), CatalogError> {
         if !(1..=200).contains(&limit) || title.is_some_and(|t| t.trim().is_empty()) {
             return Err(CatalogError::Invalid(
@@ -162,9 +191,9 @@ impl WikidataCreditAudit {
         let mut results = Vec::new();
         for comparison in &self.comparisons {
             if qid.is_some_and(|id| comparison.wikidata_item_qid != id)
-                || needle.as_ref().is_some_and(|q| {
-                    !comparison.source_title.to_lowercase().contains(q)
-                })
+                || needle
+                    .as_ref()
+                    .is_some_and(|q| !comparison.source_title.to_lowercase().contains(q))
             {
                 continue;
             }
@@ -218,7 +247,9 @@ mod tests {
     fn compares_all_review_candidates_without_assigning_credit_identities() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let original = OriginalDatCatalog::open(&root, "all")
-            .unwrap().with_enrichment(&root).unwrap();
+            .unwrap()
+            .with_enrichment(&root)
+            .unwrap();
         let wiki = WikidataTextCatalog::open(&root, "all").unwrap();
         let properties = WikidataPropertyCatalog::open(&root, "all").unwrap();
         let labels = WikidataEntityLabelCatalog::open(&root).unwrap();
@@ -233,8 +264,7 @@ mod tests {
         assert_eq!(total, 2 * 8971);
         assert_eq!(sample.len(), 2);
         assert!(sample.iter().all(|entry| {
-            entry.interpretation.contains("review-only")
-                && entry.title_candidate_status != ""
+            entry.interpretation.contains("review-only") && entry.title_candidate_status != ""
         }));
     }
 }
