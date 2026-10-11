@@ -9,9 +9,9 @@ use ludographium::media::{fingerprint_normalized, MediaFormat};
 use ludographium::original_dat::OriginalDatCatalog;
 use ludographium::runtime::verify_runtime_root;
 use ludographium::wikidata_candidates::WikidataCandidateCatalog;
+use ludographium::wikidata_properties::WikidataPropertyCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::wikidata_years::WikidataYearAudit;
-use ludographium::wikidata_properties::WikidataPropertyCatalog;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
@@ -464,9 +464,10 @@ fn run() -> Result<(), Box<dyn Error>> {
                 return Ok(());
             }
             "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit"
-            | "--file" | "--zip" | "--media-format" | "--zip-entry" | "--qid" | "--property" => args
-                .next()
-                .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
+            | "--file" | "--zip" | "--media-format" | "--zip-entry" | "--qid" | "--property" => {
+                args.next()
+                    .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?
+            }
             _ => {
                 return Err(
                     CatalogError::Invalid(format!("unknown option: {arg}\n{}", usage())).into(),
@@ -543,7 +544,8 @@ fn run() -> Result<(), Box<dyn Error>> {
         + usize::from(file.is_some())
         + usize::from(zip.is_some());
     if (query_modes != 1
-        && !((claims_only || wikidata_text || wikidata_candidates || wikidata_properties) && query_modes == 0))
+        && !((claims_only || wikidata_text || wikidata_candidates || wikidata_properties)
+            && query_modes == 0))
         || (claims_only && (!source_dat || !enriched))
         || (wikidata_text
             && (source_dat
@@ -573,10 +575,20 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
         || (wikidata_properties
-            && (wikidata_text || wikidata_candidates || source_dat || claims_only
-                || enriched || show_curated || compare_years || title.is_some()
-                || sha1.is_some() || crc32.is_some() || size.is_some()
-                || file.is_some() || zip.is_some() || media_format.is_some()
+            && (wikidata_text
+                || wikidata_candidates
+                || source_dat
+                || claims_only
+                || enriched
+                || show_curated
+                || compare_years
+                || title.is_some()
+                || sha1.is_some()
+                || crc32.is_some()
+                || size.is_some()
+                || file.is_some()
+                || zip.is_some()
+                || media_format.is_some()
                 || zip_entry.is_some()))
         || (property.is_some() && !wikidata_properties)
         || (compare_years && !wikidata_candidates)
@@ -598,7 +610,11 @@ fn run() -> Result<(), Box<dyn Error>> {
             && !wikidata_candidates
             && !wikidata_properties)
         || (qid.is_some() && limit_explicit && !wikidata_candidates && !wikidata_properties)
-        || ((title.is_some() || claims_only || wikidata_text || wikidata_candidates || wikidata_properties)
+        || ((title.is_some()
+            || claims_only
+            || wikidata_text
+            || wikidata_candidates
+            || wikidata_properties)
             && (limit == 0 || limit > 200))
         || (zip_entry.is_some()
             && (zip.is_none() || media_format.is_none() || zip_entry.as_deref() == Some("")))
@@ -618,19 +634,22 @@ fn run() -> Result<(), Box<dyn Error>> {
     if wikidata_properties {
         let catalog = WikidataPropertyCatalog::open(&root, &platform)?;
         let (total, records) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
-        println!("{}", serde_json::to_string_pretty(&json!({
-            "source_mode": "verified-wikidata-property-bindings",
-            "query_kind": if qid.is_some() {"exact-game-item-qid"} else {"source-statement-list"},
-            "platforms_searched": catalog.platforms(),
-            "source_statements": catalog.total_claims(),
-            "source_item_platform_observations": catalog.source_item_observations(),
-            "non_entity_value_bindings": catalog.non_entity_bindings(),
-            "source_property_counts": catalog.property_counts(),
-            "total_filtered_claims": total,
-            "returned_claims": records.len(),
-            "claims": records,
-            "interpretation": "Wikidata CC0 source claims not canonical games companies or genres"
-        }))?);
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json!({
+                "source_mode": "verified-wikidata-property-bindings",
+                "query_kind": if qid.is_some() {"exact-game-item-qid"} else {"source-statement-list"},
+                "platforms_searched": catalog.platforms(),
+                "source_statements": catalog.total_claims(),
+                "source_item_platform_observations": catalog.source_item_observations(),
+                "non_entity_value_bindings": catalog.non_entity_bindings(),
+                "source_property_counts": catalog.property_counts(),
+                "total_filtered_claims": total,
+                "returned_claims": records.len(),
+                "claims": records,
+                "interpretation": "Wikidata CC0 source claims not canonical games companies or genres"
+            }))?
+        );
         return Ok(());
     }
     if wikidata_candidates {
