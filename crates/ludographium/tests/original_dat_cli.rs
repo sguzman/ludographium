@@ -312,15 +312,29 @@ fn cross_source_year_audit_retains_both_sets_of_source_evidence() {
     assert!(counts["overlapping_observed_years"].as_u64().unwrap() > 0);
     assert_eq!(result["year_evidence"].as_array().unwrap().len(), 3);
     assert_eq!(result["total_filtered_year_comparisons"], 8971);
-    assert_eq!(result["candidates"][0]["source_ordinal"], result["year_evidence"][0]["source_ordinal"]);
-    assert_eq!(result["candidates"][0]["wikidata_qid"], result["year_evidence"][0]["wikidata_qid"]);
+    assert_eq!(
+        result["candidates"][0]["source_ordinal"],
+        result["year_evidence"][0]["source_ordinal"]
+    );
+    assert_eq!(
+        result["candidates"][0]["wikidata_qid"],
+        result["year_evidence"][0]["wikidata_qid"]
+    );
     assert!(result["year_evidence"][0]["interpretation"]
-        .as_str().unwrap().contains("review-only"));
+        .as_str()
+        .unwrap()
+        .contains("review-only"));
 
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let invalid = Command::new(env!("CARGO_BIN_EXE_ludographium"))
         .current_dir(root)
-        .args(["--compare-years", "--platform", "atari2600", "--title", "Adventure"])
+        .args([
+            "--compare-years",
+            "--platform",
+            "atari2600",
+            "--title",
+            "Adventure",
+        ])
         .output()
         .unwrap();
     assert!(!invalid.status.success());
