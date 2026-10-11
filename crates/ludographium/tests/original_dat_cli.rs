@@ -1400,7 +1400,10 @@ fn fourth_wikidata_console_expansion_preserves_original_source_text_and_candidat
     assert_eq!(all["returned_source_rows"], 2);
     let rows = all["source_rows_evidence"].as_array().unwrap();
     assert!(rows.iter().all(|row| {
-        row["source_path"].as_str().unwrap().contains("platform-expansion-v4")
+        row["source_path"]
+            .as_str()
+            .unwrap()
+            .contains("platform-expansion-v4")
             && row["source_sha256"].as_str().unwrap().len() == 64
     }));
     let review = query(&[
@@ -1416,5 +1419,8 @@ fn fourth_wikidata_console_expansion_preserves_original_source_text_and_candidat
     assert_eq!(review["platforms_searched"].as_array().unwrap().len(), 6);
     assert!(review["total_candidate_links"].as_u64().is_some());
     let n = review["total_candidate_links"].as_u64().unwrap();
-    assert_eq!(review["returned_candidate_links"].as_u64().unwrap(), n.min(2));
+    assert_eq!(
+        review["returned_candidate_links"].as_u64().unwrap(),
+        n.min(2)
+    );
 }
