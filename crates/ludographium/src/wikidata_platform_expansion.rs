@@ -12,6 +12,7 @@ const BASE_V1: &str = "data/wikidata/platform-expansion-v1";
 const BASE_V2: &str = "data/wikidata/platform-expansion-v2";
 const BASE_V3: &str = "data/wikidata/platform-expansion-v3";
 const BASE_V4: &str = "data/wikidata/platform-expansion-v4";
+const BASE_V5: &str = "data/wikidata/platform-expansion-v5";
 const MAP_V1: &[(&str, &str)] = &[
     ("atari7800", "Q753600"),
     ("sonyplaystationportable", "Q170325"),
@@ -40,6 +41,15 @@ const MAP_V4: &[(&str, &str)] = &[
     ("mattelintellivision", "Q1061441"),
     ("magnavoxodyssey2", "Q576932"),
     ("nintendopokemonmini", "Q1759168"),
+];
+
+const MAP_V5: &[(&str, &str)] = &[
+    ("casioloopy", "Q661952"),
+    ("casiopv1000", "Q60407"),
+    ("watarasupervision", "Q732683"),
+    ("necpcenginesupergrafx", "Q202375"),
+    ("segapico", "Q1374482"),
+    ("nintendosatellaview", "Q1193565"),
 ];
 
 #[derive(Deserialize)]
@@ -185,6 +195,16 @@ impl ExpandedWikidataCatalog {
         )
     }
 
+    pub fn open_v5(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V5,
+            "sources/wikidata-platform-expansion-v5.json",
+            MAP_V5,
+        )
+    }
+
     fn open_source(
         root: &Path,
         selection: &str,
@@ -234,9 +254,11 @@ impl ExpandedWikidataCatalog {
                 || manifest.platform != scope.platform
                 || manifest.wikidata_platform != scope.wikidata_platform
                 || manifest.query_limit != register.query_limit
-                || manifest.source_rows == 0
                 || manifest.source_rows >= manifest.query_limit
-                || manifest.distinct_item_qids == 0
+                || (base != BASE_V5
+                    && (manifest.source_rows == 0 || manifest.distinct_item_qids == 0))
+                || (base == BASE_V5
+                    && ((manifest.source_rows == 0) != (manifest.distinct_item_qids == 0)))
                 || manifest.source_query_path != "query.rq"
                 || manifest.source_response_path != "response.json"
                 || manifest.source_bindings_path != "bindings.jsonl"
@@ -290,7 +312,9 @@ impl ExpandedWikidataCatalog {
             let text = std::str::from_utf8(&raw_text)
                 .map_err(|_| invalid("Non-UTF-8 original JSONL bindings"))?;
             let lines: Vec<&str> = text.lines().collect();
-            if !text.ends_with('\n') || lines.len() != manifest.source_rows {
+            if (!text.is_empty() && !text.ends_with('\n'))
+                || lines.len() != manifest.source_rows
+            {
                 return Err(invalid("Original JSONL rows do not match manifest"));
             }
             let mut unique_items = HashSet::new();
@@ -544,5 +568,27 @@ mod tests {
         assert_eq!(total, 482);
         assert!(samples[0].source_path.contains("platform-expansion-v4"));
         assert!(ExpandedWikidataCatalog::open_v4(&root, "invalid").is_err());
+    }
+
+    #[test]
+    fn preserve_zero_result_queries_without_inventing_console_games() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = ExpandedWikidataCatalog::open_v5(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 6);
+        assert_eq!(catalog.total_rows(), 35);
+        assert_eq!(catalog.distinct_item_observations(), 22);
+        assert_eq!(catalog.literal_date_claims(), 34);
+        assert_eq!(catalog.nonliteral_publication_bindings(), 0);
+        assert_eq!(catalog.platform_row_counts()["casioloopy"], 0);
+        assert_eq!(catalog.platform_row_counts()["casiopv1000"], 11);
+        assert_eq!(catalog.platform_row_counts()["watarasupervision"], 1);
+        assert_eq!(catalog.platform_row_counts()["necpcenginesupergrafx"], 5);
+        assert_eq!(catalog.platform_row_counts()["segapico"], 6);
+        assert_eq!(catalog.platform_row_counts()["nintendosatellaview"], 12);
+        let empty = ExpandedWikidataCatalog::open_v5(&root, "casioloopy").unwrap();
+        let (count, returned) = empty.search(None, None, 3).unwrap();
+        assert_eq!(count, 0);
+        assert!(returned.is_empty());
+        assert!(ExpandedWikidataCatalog::open_v5(&root, "unknown").is_err());
     }
 }

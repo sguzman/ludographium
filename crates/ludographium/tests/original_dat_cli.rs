@@ -1293,7 +1293,7 @@ fn second_wikidata_console_expansion_is_searchable_and_noncanonical() {
         vec![
             "--wikidata-expanded",
             "--expansion-source",
-            "v5",
+            "v6",
             "--platform",
             "all",
         ],
@@ -1423,4 +1423,36 @@ fn fourth_wikidata_console_expansion_preserves_original_source_text_and_candidat
         review["returned_candidate_links"].as_u64().unwrap(),
         n.min(2)
     );
+}
+
+#[test]
+fn fifth_expansion_preserves_an_explicit_empty_wikidata_scope() {
+    let all = query(&[
+        "--wikidata-expanded", "--expansion-source", "v5",
+        "--platform", "all", "--limit", "2",
+    ]);
+    assert_eq!(all["expansion_source"], "v5");
+    assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 6);
+    assert_eq!(all["source_rows"], 35);
+    assert_eq!(all["source_item_platform_observations"], 22);
+    assert_eq!(all["literal_publication_date_bindings"], 34);
+    assert_eq!(all["returned_source_rows"], 2);
+
+    let absent = query(&[
+        "--wikidata-expanded", "--expansion-source", "v5",
+        "--platform", "casioloopy", "--limit", "5",
+    ]);
+    assert_eq!(absent["source_rows"], 0);
+    assert_eq!(absent["source_item_platform_observations"], 0);
+    assert_eq!(absent["returned_source_rows"], 0);
+    assert_eq!(absent["source_rows_evidence"].as_array().unwrap().len(), 0);
+
+    let candidates = query(&[
+        "--wikidata-expanded-candidates", "--expansion-source", "v5",
+        "--platform", "all", "--limit", "3",
+    ]);
+    assert_eq!(candidates["expansion_source"], "v5");
+    assert_eq!(candidates["platforms_searched"].as_array().unwrap().len(), 6);
+    let n = candidates["total_candidate_links"].as_u64().unwrap();
+    assert_eq!(candidates["returned_candidate_links"].as_u64().unwrap(), n.min(3));
 }

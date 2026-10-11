@@ -47,6 +47,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Add independently pinned Atari Jaguar, Atari Lynx, WonderSwan and WonderSwan Color source partitions (305 observations, 206 QIDs), with separate Rust v2 source lookup and conservative title-review candidates.
 - [x] Add six more independently hash-pinned Wikidata P400 console partitions (1,148 original rows, 655 item/platform QIDs), with Rust v3 lookup and conservative title review.
 - [x] Add six more verified Atari, Coleco, Vectrex, Intellivision, Odyssey and Pokémon Mini source partitions (482 original rows, 356 item/platform QIDs), with read-only Rust v4 lookup.
+- [x] Preserve six specialized console query scopes (35 source rows, 22 game QIDs) including an explicitly hash-verified zero-result Casio Loopy capture, with Rust v5 lookup and conservative title review.
 - [ ] Expand independently *provider-verified* identifier evidence beyond Wikidata assertions; quantify false-positive risk using adjudicated ground truth.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 

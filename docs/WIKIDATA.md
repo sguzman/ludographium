@@ -52,6 +52,34 @@ distinct date claims are grouped under the same QID/title candidate without
 discarding their original row ordinals. There is no automatic game identity,
 edition, port, or regional-release assignment.
 
+## Fifth additive platform expansion: six specialized systems
+
+The independent [v5 platform register](../sources/wikidata-platform-expansion-v5.json)
+records source queries for Casio Loopy, Casio PV-1000, Watara Supervision,
+NEC SuperGrafx, Sega Pico, and Nintendo Satellaview.
+
+The [six original source snapshots](../data/wikidata/platform-expansion-v5/)
+preserve **35 response rows**, **22 per-platform game QIDs**, and
+**34 literal publication-date bindings**. Importantly, Casio Loopy returned
+**zero** results under the explicitly selected direct P31 video game and
+P400 Casio Loopy query. Its original empty response, empty JSONL file,
+query, byte counts and SHA-256 are preserved rather than silently omitted.
+This establishes only *query-specific noncoverage at the capture time*,
+not that Wikidata or Casio Loopy lacks games.
+
+Rust's v5 source reader accepts exactly attributable zero-row partitions
+while independently validating the original response and manifest.
+All six platform source scopes remain visible and searchable offline:
+
+```sh
+cargo run --locked -- --wikidata-expanded --expansion-source v5 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded --expansion-source v5 --platform casioloopy
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v5 --platform all --limit 5
+```
+
+The matched source-title pairs remain noncanonical evidence, with no
+inferred work, release or media identities.
+
 ## Fourth additive platform expansion: six legacy systems
 
 A separate [v4 console-source register](../sources/wikidata-platform-expansion-v4.json)
