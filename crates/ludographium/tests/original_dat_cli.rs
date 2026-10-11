@@ -1343,11 +1343,21 @@ fn third_wikidata_console_expansion_retains_all_original_game_observations() {
     assert_eq!(all["literal_publication_date_bindings"], 1114);
     assert_eq!(all["nonliteral_publication_bindings"], 0);
     assert_eq!(all["returned_source_rows"], 2);
-    assert!(all["source_rows_evidence"].as_array().unwrap().iter().all(|row| {
-        row["source_path"].as_str().unwrap().contains("platform-expansion-v3")
-            && row["source_sha256"].as_str().unwrap().len() == 64
-            && row["interpretation"].as_str().unwrap().contains("not-canonical")
-    }));
+    assert!(all["source_rows_evidence"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|row| {
+            row["source_path"]
+                .as_str()
+                .unwrap()
+                .contains("platform-expansion-v3")
+                && row["source_sha256"].as_str().unwrap().len() == 64
+                && row["interpretation"]
+                    .as_str()
+                    .unwrap()
+                    .contains("not-canonical")
+        }));
     let candidates = query(&[
         "--wikidata-expanded-candidates",
         "--expansion-source",
@@ -1358,7 +1368,10 @@ fn third_wikidata_console_expansion_retains_all_original_game_observations() {
         "3",
     ]);
     assert_eq!(candidates["expansion_source"], "v3");
-    assert_eq!(candidates["platforms_searched"].as_array().unwrap().len(), 6);
+    assert_eq!(
+        candidates["platforms_searched"].as_array().unwrap().len(),
+        6
+    );
     let n = candidates["total_candidate_links"].as_u64().unwrap();
     assert!(n < 100_000);
     assert_eq!(
