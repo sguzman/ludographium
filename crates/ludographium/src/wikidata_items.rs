@@ -2,6 +2,7 @@
 //! Wikidata source accessions. This is not a Libretro or canonical work join.
 use crate::wikidata_entity_labels::WikidataEntityLabelCatalog;
 use crate::wikidata_properties::WikidataPropertyCatalog;
+use crate::wikidata_relations::WikidataRelationCatalog;
 use crate::wikidata_text::WikidataTextCatalog;
 use crate::CatalogError;
 use serde::Serialize;
@@ -16,6 +17,8 @@ pub struct WikidataSourceItem {
     pub source_presence: &'static str,
     pub original_title_date_observation: Option<Value>,
     pub property_claims: BTreeMap<String, Vec<Value>>,
+    pub relation_claims: BTreeMap<String, Vec<Value>>,
+    pub relation_source_present: bool,
     pub interpretation: &'static str,
 }
 
@@ -23,6 +26,8 @@ pub struct WikidataItemProjection {
     entries: Vec<WikidataSourceItem>,
     original_item_observations: usize,
     property_item_observations: usize,
+    relation_item_observations: usize,
+    relation_only: usize,
     only_title_date: usize,
     only_properties: usize,
 }
@@ -41,6 +46,7 @@ impl WikidataItemProjection {
         text: &WikidataTextCatalog,
         properties: &WikidataPropertyCatalog,
         labels: &WikidataEntityLabelCatalog,
+        relations: &WikidataRelationCatalog,
     ) -> Result<Self, CatalogError> {
         let mut index: BTreeMap<(String, String), WikidataSourceItem> = BTreeMap::new();
         let mut title_count = 0;
@@ -65,6 +71,8 @@ impl WikidataItemProjection {
                     source_presence: "title_date_source_only",
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
+                    relation_claims: BTreeMap::new(),
+                    relation_source_present: false,
                     interpretation:
                         "independent-source-evidence-not-verified-game-or-release-identity",
                 });
@@ -90,6 +98,8 @@ impl WikidataItemProjection {
                     source_presence: "property_source_only",
                     original_title_date_observation: None,
                     property_claims: BTreeMap::new(),
+                    relation_claims: BTreeMap::new(),
+                    relation_source_present: false,
                     interpretation:
                         "independent-source-evidence-not-verified-game-or-release-identity",
                 });
@@ -105,12 +115,36 @@ impl WikidataItemProjection {
                 .or_default()
                 .push(projected);
         }
+        for claim in relations.claims() {
+            let entry = index
+                .entry((claim.platform.clone(), claim.item_qid.clone()))
+                .or_insert_with(|| WikidataSourceItem {
+                    platform: claim.platform.clone(),
+                    qid: claim.item_qid.clone(),
+                    english_label: None,
+                    source_presence: "relation_source_only",
+                    original_title_date_observation: None,
+                    property_claims: BTreeMap::new(),
+                    relation_claims: BTreeMap::new(),
+                    relation_source_present: false,
+                    interpretation:
+                        "independent-source-evidence-not-verified-game-or-release-identity",
+                });
+            entry.relation_source_present = true;
+            entry.relation_claims.entry(claim.property.clone()).or_default()
+                .push(json!({"original_relation_claim": claim}));
+        }
+        let mut relation_only = 0;
+        let mut relation_items = 0;
         let mut only_title_date = 0;
         let mut only_properties = 0;
         let mut property_items = 0;
         for entry in index.values_mut() {
             let old = entry.original_title_date_observation.is_some();
             let new = !entry.property_claims.is_empty();
+            if entry.relation_source_present {
+                relation_items += 1;
+            }
             match (old, new) {
                 (true, true) => entry.source_presence = "both_independent_snapshots",
                 (true, false) => {
@@ -120,6 +154,10 @@ impl WikidataItemProjection {
                 (false, true) => {
                     entry.source_presence = "property_source_only";
                     only_properties += 1;
+                }
+                (false, false) if entry.relation_source_present => {
+                    entry.source_presence = "relation_source_only";
+                    relation_only += 1;
                 }
                 (false, false) => {
                     return Err(CatalogError::Invalid(
@@ -133,6 +171,7 @@ impl WikidataItemProjection {
         }
         if title_count != text.item_count()
             || property_items != properties.source_item_observations()
+            || relation_items != relations.item_observations()
         {
             return Err(CatalogError::Invalid(
                 "Wikidata independent snapshots have inconsistent item/QID counts".into(),
@@ -142,6 +181,8 @@ impl WikidataItemProjection {
             entries: index.into_values().collect(),
             original_item_observations: title_count,
             property_item_observations: property_items,
+            relation_item_observations: relation_items,
+            relation_only,
             only_title_date,
             only_properties,
         })
@@ -155,6 +196,12 @@ impl WikidataItemProjection {
     }
     pub fn property_source_items(&self) -> usize {
         self.property_item_observations
+    }
+    pub fn relation_source_items(&self) -> usize {
+        self.relation_item_observations
+    }
+    pub fn relation_only(&self) -> usize {
+        self.relation_only
     }
     pub fn title_date_only(&self) -> usize {
         self.only_title_date
@@ -204,6 +251,7 @@ mod tests {
     use super::WikidataItemProjection;
     use crate::wikidata_entity_labels::WikidataEntityLabelCatalog;
     use crate::wikidata_properties::WikidataPropertyCatalog;
+    use crate::wikidata_relations::WikidataRelationCatalog;
     use crate::wikidata_text::WikidataTextCatalog;
     use std::path::Path;
 
@@ -213,10 +261,14 @@ mod tests {
         let text = WikidataTextCatalog::open(&root, "all").unwrap();
         let properties = WikidataPropertyCatalog::open(&root, "all").unwrap();
         let labels = WikidataEntityLabelCatalog::open(&root).unwrap();
+        let relations = WikidataRelationCatalog::open(&root, "all").unwrap();
         labels.verify_referenced_qids(&properties).unwrap();
-        let projection = WikidataItemProjection::build(&text, &properties, &labels).unwrap();
+        let projection =
+            WikidataItemProjection::build(&text, &properties, &labels, &relations).unwrap();
         assert_eq!(projection.title_date_source_items(), 15_868);
         assert_eq!(projection.property_source_items(), 14_759);
+        assert_eq!(projection.relation_source_items(), 14_772);
+        assert!(projection.total_items() >= 15_868);
         assert!(projection.total_items() >= 15_868);
         assert_eq!(
             projection.title_date_only()
@@ -232,6 +284,7 @@ mod tests {
             entry.platform == "atari2600"
                 && entry.original_title_date_observation.is_some()
                 && entry.property_claims.contains_key("P178")
+                && entry.relation_source_present
         }));
     }
 }

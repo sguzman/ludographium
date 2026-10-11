@@ -750,6 +750,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     if wikidata_items {
         let text = WikidataTextCatalog::open(&root, &platform)?;
         let properties = WikidataPropertyCatalog::open(&root, &platform)?;
+        let relations = WikidataRelationCatalog::open(&root, &platform)?;
         let labels = WikidataEntityLabelCatalog::open(&root)?;
         let all_properties = if platform == "all" {
             None
@@ -757,7 +758,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             Some(WikidataPropertyCatalog::open(&root, "all")?)
         };
         labels.verify_referenced_qids(all_properties.as_ref().unwrap_or(&properties))?;
-        let index = WikidataItemProjection::build(&text, &properties, &labels)?;
+        let index = WikidataItemProjection::build(&text, &properties, &labels, &relations)?;
         let (total, observations) = index.search(qid.as_deref(), title.as_deref(), limit)?;
         println!(
             "{}",
@@ -766,6 +767,8 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "platform_scope": platform,
                 "title_date_source_items": index.title_date_source_items(),
                 "property_source_items": index.property_source_items(),
+                "relation_source_items": index.relation_source_items(),
+                "relation_source_only_items": index.relation_only(),
                 "combined_distinct_platform_qids": index.total_items(),
                 "title_date_source_only_items": index.title_date_only(),
                 "property_source_only_items": index.property_only(),

@@ -225,10 +225,11 @@ and these distributions cannot independently establish a false-positive rate.
 ## Unified read-only Wikidata game-item observations
 
 The Rust `--wikidata-items` mode constructs an exact-QID, per-platform,
-**noncanonical source projection** from all three independent captures:
+**noncanonical source projection** from all four independent captures:
 original English game labels and date statements; original developer,
-publisher and genre claims; and separately captured company/genre entity
-English labels. Source provenance and capture boundaries remain visible.
+publisher and genre claims; separately captured company/genre entity
+English labels; and original series/language/distribution/title/external-ID
+source claims. Source provenance and capture boundaries remain visible.
 
 ```sh
 cargo run --locked -- --wikidata-items --platform all --limit 10
@@ -237,9 +238,11 @@ cargo run --locked -- --wikidata-items --platform snes --title "Mario" --limit 1
 ```
 
 The union preserves and counts records found only in the original title/date
-capture, only in the later property capture, or in both independently
-captured source snapshots. No Libretro work/media identity or source
-correction is inferred. The reader requires no SQLite, Python, or network.
+capture, only in the company/genre property capture, or only in the relation
+capture, as well as records appearing in multiple snapshots. Every relation
+claim retains its own original query response and binding hashes.
+No Libretro work/media identity or source correction is inferred.
+The reader requires no SQLite, Python, or network.
 
 ## Cross-source developer and publisher credit review
 
