@@ -1293,7 +1293,7 @@ fn second_wikidata_console_expansion_is_searchable_and_noncanonical() {
         vec![
             "--wikidata-expanded",
             "--expansion-source",
-            "v6",
+            "v7",
             "--platform",
             "all",
         ],
@@ -1476,4 +1476,74 @@ fn fifth_expansion_preserves_an_explicit_empty_wikidata_scope() {
         candidates["returned_candidate_links"].as_u64().unwrap(),
         n.min(3)
     );
+}
+
+#[test]
+fn sixth_wikidata_console_source_is_accessible_through_both_cli_modes() {
+    let all = query(&[
+        "--wikidata-expanded",
+        "--expansion-source",
+        "v6",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(all["expansion_source"], "v6");
+    assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 6);
+    assert_eq!(all["source_rows"], 662);
+    assert_eq!(all["source_item_platform_observations"], 309);
+    assert_eq!(all["literal_publication_date_bindings"], 642);
+    assert_eq!(all["nonliteral_publication_bindings"], 2);
+    assert_eq!(all["returned_source_rows"], 2);
+    assert!(all["source_rows_evidence"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|item| {
+            item["source_path"]
+                .as_str()
+                .unwrap()
+                .contains("platform-expansion-v6")
+                && item["source_sha256"].as_str().unwrap().len() == 64
+        }));
+
+    let empty = query(&[
+        "--wikidata-expanded",
+        "--expansion-source",
+        "v6",
+        "--platform",
+        "tigergamecom",
+        "--limit",
+        "3",
+    ]);
+    assert_eq!(empty["source_rows"], 0);
+    assert_eq!(empty["returned_source_rows"], 0);
+    assert_eq!(empty["source_item_platform_observations"], 0);
+
+    let links = query(&[
+        "--wikidata-expanded-candidates",
+        "--expansion-source",
+        "v6",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(links["expansion_source"], "v6");
+    assert_eq!(links["platforms_searched"].as_array().unwrap().len(), 6);
+    let total = links["total_candidate_links"].as_u64().unwrap();
+    assert_eq!(links["returned_candidate_links"], total.min(2));
+
+    let empty_links = query(&[
+        "--wikidata-expanded-candidates",
+        "--expansion-source",
+        "v6",
+        "--platform",
+        "tigergamecom",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(empty_links["total_candidate_links"], 0);
+    assert_eq!(empty_links["returned_candidate_links"], 0);
 }
