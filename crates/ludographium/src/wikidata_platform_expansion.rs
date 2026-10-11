@@ -486,12 +486,18 @@ mod tests {
         assert_eq!(catalog.distinct_item_observations(), 655);
         assert_eq!(catalog.literal_date_claims(), 1_114);
         assert_eq!(catalog.nonliteral_publication_bindings(), 0);
-        assert_eq!(catalog.platform_row_counts()["nintendofamilycomputerdisksystem"], 319);
+        assert_eq!(
+            catalog.platform_row_counts()["nintendofamilycomputerdisksystem"],
+            319
+        );
         assert_eq!(catalog.platform_row_counts()["snkneogeopocket"], 5);
         assert_eq!(catalog.platform_row_counts()["snkneogeopocketcolor"], 45);
         assert_eq!(catalog.platform_row_counts()["segasg1000"], 88);
         assert_eq!(catalog.platform_row_counts()["sega32x"], 98);
-        assert_eq!(catalog.platform_row_counts()["necpcengineturbografx16"], 593);
+        assert_eq!(
+            catalog.platform_row_counts()["necpcengineturbografx16"],
+            593
+        );
         assert!(ExpandedWikidataCatalog::open_v3(&root, "invalid").is_err());
         let (count, result) = catalog.search(None, None, 1).unwrap();
         assert_eq!(count, 1_148);
