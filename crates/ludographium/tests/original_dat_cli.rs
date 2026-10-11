@@ -1605,3 +1605,67 @@ fn seventh_expansion_retains_empty_console_query_scopes() {
     assert_eq!(no_review["total_candidate_links"], 0);
     assert_eq!(no_review["returned_candidate_links"], 0);
 }
+
+#[test]
+fn expanded_property_claims_are_verified_offline() {
+    let all = query(&[
+        "--wikidata-properties",
+        "--expanded-credits",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(
+        all["source_mode"],
+        "verified-wikidata-expanded-property-bindings"
+    );
+    assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 19);
+    assert_eq!(all["source_statements"], 10_269);
+    assert_eq!(all["source_item_platform_observations"], 3_150);
+    assert_eq!(all["returned_claims"], 2);
+    assert!(all["claims"].as_array().unwrap().iter().all(|claim| {
+        claim["source_path"]
+            .as_str()
+            .unwrap()
+            .contains("expanded-credits-v1")
+            && claim["source_sha256"].as_str().unwrap().len() == 64
+    }));
+    let psp = query(&[
+        "--wikidata-properties",
+        "--expanded-credits",
+        "--platform",
+        "sonyplaystationportable",
+        "--property",
+        "P178",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(psp["source_statements"], 3_811);
+    assert_eq!(psp["source_property_counts"]["P178"], 1063);
+    assert_eq!(psp["returned_claims"], 1);
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    for args in [
+        vec!["--expanded-credits", "--platform", "all"],
+        vec![
+            "--wikidata-properties",
+            "--expanded-credits",
+            "--with-entity-labels",
+            "--platform",
+            "all",
+        ],
+        vec![
+            "--wikidata-properties",
+            "--expanded-credits",
+            "--platform",
+            "unknown",
+        ],
+    ] {
+        let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
+        assert!(!output.status.success(), "accepted invalid args: {args:?}");
+    }
+}
