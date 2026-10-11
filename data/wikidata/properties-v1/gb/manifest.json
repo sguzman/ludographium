@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "platform": "gb",
+  "wikidata_platform": "Q186437",
+  "source_revision": "live-query-capture",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "8717e9de19d2263024d66a3a50d38ac4357c70b58260372a409f59a784e46315",
+  "source_response_path": "response.json",
+  "source_response_sha256": "ee41636080887b59a11772bfb5806c635ed53d34d4c3fe142a277f65a56989b7",
+  "source_response_bytes": 491579,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "9cc9a9414424cd797c3473ba9732e933e0d4dd68915967f6609ab2ec469d701e",
+  "source_bindings_bytes": 319753,
+  "captured_at_utc": "2026-10-11T17:37:52Z",
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "query_limit": 10000,
+  "source_rows": 1431,
+  "distinct_items": 475,
+  "identity_policy": "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+}

@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "platform": "nes",
+  "wikidata_platform": "Q172742",
+  "source_revision": "live-query-capture",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "7fdb633faa143dcf71558f1e9f9326de42177f5d1dfaa2e08e8d0f29282c24f7",
+  "source_response_path": "response.json",
+  "source_response_sha256": "43dcd01bfaca7ad9f71ebfd5bd5d124e8b0c604f87872ebe2ec400c6e173161d",
+  "source_response_bytes": 1381473,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "99b65bb4beffc6e679d4b1c50d0039abf691cdbcc801a8c5e7fa5963f0b28441",
+  "source_bindings_bytes": 898967,
+  "captured_at_utc": "2026-10-11T17:38:01Z",
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "query_limit": 10000,
+  "source_rows": 4020,
+  "distinct_items": 1205,
+  "identity_policy": "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+}

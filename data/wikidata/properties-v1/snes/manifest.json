@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "platform": "snes",
+  "wikidata_platform": "Q183259",
+  "source_revision": "live-query-capture",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "f78dbac66ea4b8aeca112d37a00fc28da38d75ea4e6a5c68e239ccfa05b2d5ed",
+  "source_response_path": "response.json",
+  "source_response_sha256": "fd42e09039b19b746970a5357655c296d0eef8cd3d46324ffeb90ec3e6b8b0fc",
+  "source_response_bytes": 1316876,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "e47a2930f4690a0e4ac420fa0c7ce6aefd9347d8ed53f3a8d5ef8e680f0e5fce",
+  "source_bindings_bytes": 856810,
+  "captured_at_utc": "2026-10-11T17:37:49Z",
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "query_limit": 10000,
+  "source_rows": 3833,
+  "distinct_items": 1309,
+  "identity_policy": "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+}
