@@ -639,5 +639,6 @@ pub mod wikidata_items;
 pub mod wikidata_localized_candidates;
 pub mod wikidata_localized_titles;
 pub mod wikidata_properties;
+pub mod wikidata_authority_ids;
 pub mod wikidata_relations;
 pub mod wikidata_years;
