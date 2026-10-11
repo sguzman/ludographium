@@ -1,0 +1,78 @@
+name: Publish localized title candidate audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/review-localized-candidates.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: localized-title-review-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Count all exact same-platform localized name correspondences
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-localized-candidates --platform all --limit 1 \
+            > "$RUNNER_TEMP/localized-candidates.json"
+          jq -e '
+            .source_mode == "multilingual-wikidata-exact-title-review-candidates"
+            and (.summary.platforms_searched | length) == 16
+            and .summary.total_candidate_pairs > 0
+            and .summary.original_records_with_candidates > 0
+            and .summary.candidate_pairs_absent_from_english_title_match > 0
+            and .summary.ambiguous_candidate_pairs >= 0
+            and .returned_candidate_pairs == 1
+          ' "$RUNNER_TEMP/localized-candidates.json" > /dev/null
+          mkdir -p reports
+          jq -n --slurpfile records "$RUNNER_TEMP/localized-candidates.json" \
+            --arg source_commit "$GITHUB_SHA" \
+            '{
+              schema_version: 1,
+              kind: "source-only-multilingual-exact-title-candidate-audit",
+              source_commit_sha: $source_commit,
+              platforms_searched: $records[0].summary.platforms_searched,
+              total_candidate_pairs: $records[0].summary.total_candidate_pairs,
+              original_source_records_with_candidates: $records[0].summary.original_records_with_candidates,
+              ambiguous_candidate_pairs: $records[0].summary.ambiguous_candidate_pairs,
+              pairs_not_present_in_english_baseline: $records[0].summary.candidate_pairs_absent_from_english_title_match,
+              original_name_evidence_by_language: $records[0].summary.contributing_original_name_claims_by_language,
+              comparison_baseline: "original English-label exact title candidate links; historical baseline 8,971 unmodified",
+              matching_policy: "Only same-platform conservative exact normalized title/alias name equality; group repeated source names per QID and source occurrence",
+              source_rights_and_semantics: "Independent original Wikidata CC0 language-tagged labels/aliases and pinned Libretro identification observations, each retaining their own rights and provenance",
+              interpretation: "Every pair is a noncanonical review candidate; new matches and ambiguity are not measured work-identity precision, regional-release evidence or validated source corrections"
+            }' > reports/wikidata-localized-title-review-v1.json
+          jq -c '{
+            total_candidate_pairs,
+            original_source_records_with_candidates,
+            ambiguous_candidate_pairs,
+            pairs_not_present_in_english_baseline
+          }' reports/wikidata-localized-title-review-v1.json
+      - name: Preserve measured source-only audit report in Git
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add reports/wikidata-localized-title-review-v1.json
+          if git diff --cached --quiet; then
+            echo "Audit report already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: measure conservative multilingual title-candidate source coverage'
+          git push origin HEAD:main
