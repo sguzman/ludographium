@@ -1,0 +1,414 @@
+{
+  "schema_version": 1,
+  "kind": "original-wikidata-external-identifier-ambiguity-review",
+  "source_commit_sha": "d7acc52e2f287f35acbe1da5181762bfdef2f9d4",
+  "source": "Wikidata CC0 query bindings from 16 pinned platforms",
+  "total_source_id_claims": 3282,
+  "distinct_provider_identifiers": 1972,
+  "provider_counts": {
+    "P1733": {
+      "source_claims": 2624,
+      "distinct_identifier_strings": 1584,
+      "distinct_game_qids": 1587
+    },
+    "P2725": {
+      "source_claims": 658,
+      "distinct_identifier_strings": 388,
+      "distinct_game_qids": 384
+    }
+  },
+  "identifiers_seen_on_multiple_platforms": 911,
+  "identifier_values_attached_to_multiple_qids": 10,
+  "multi_qid_identifier_evidence": [
+    {
+      "property": "P1733",
+      "identifier": "15750",
+      "distinct_qids": [
+        "Q107424236",
+        "Q2256398"
+      ],
+      "source_observations": [
+        {
+          "property": "P1733",
+          "identifier": "15750",
+          "rdf_kind": "literal",
+          "item_qid": "Q107424236",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "15750",
+          "rdf_kind": "literal",
+          "item_qid": "Q2256398",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P1733",
+      "identifier": "225140",
+      "distinct_qids": [
+        "Q65502565",
+        "Q728061"
+      ],
+      "source_observations": [
+        {
+          "property": "P1733",
+          "identifier": "225140",
+          "rdf_kind": "literal",
+          "item_qid": "Q728061",
+          "platform": "genesis",
+          "source_path": "data/wikidata/relations-v1/genesis/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "225140",
+          "rdf_kind": "literal",
+          "item_qid": "Q728061",
+          "platform": "n64",
+          "source_path": "data/wikidata/relations-v1/n64/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "225140",
+          "rdf_kind": "literal",
+          "item_qid": "Q65502565",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "225140",
+          "rdf_kind": "literal",
+          "item_qid": "Q728061",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P1733",
+      "identifier": "271590",
+      "distinct_qids": [
+        "Q14594724",
+        "Q17452"
+      ],
+      "source_observations": [
+        {
+          "property": "P1733",
+          "identifier": "271590",
+          "rdf_kind": "literal",
+          "item_qid": "Q14594724",
+          "platform": "microsoftxbox360",
+          "source_path": "data/wikidata/relations-v1/microsoftxbox360/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "271590",
+          "rdf_kind": "literal",
+          "item_qid": "Q17452",
+          "platform": "microsoftxbox360",
+          "source_path": "data/wikidata/relations-v1/microsoftxbox360/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "271590",
+          "rdf_kind": "literal",
+          "item_qid": "Q14594724",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "271590",
+          "rdf_kind": "literal",
+          "item_qid": "Q17452",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P1733",
+      "identifier": "370460",
+      "distinct_qids": [
+        "Q3621409",
+        "Q63175402"
+      ],
+      "source_observations": [
+        {
+          "property": "P1733",
+          "identifier": "370460",
+          "rdf_kind": "literal",
+          "item_qid": "Q3621409",
+          "platform": "microsoftxbox360",
+          "source_path": "data/wikidata/relations-v1/microsoftxbox360/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "370460",
+          "rdf_kind": "literal",
+          "item_qid": "Q3621409",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "370460",
+          "rdf_kind": "literal",
+          "item_qid": "Q63175402",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P1733",
+      "identifier": "41900",
+      "distinct_qids": [
+        "Q1415070",
+        "Q7715623"
+      ],
+      "source_observations": [
+        {
+          "property": "P1733",
+          "identifier": "41900",
+          "rdf_kind": "literal",
+          "item_qid": "Q1415070",
+          "platform": "nes",
+          "source_path": "data/wikidata/relations-v1/nes/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "41900",
+          "rdf_kind": "literal",
+          "item_qid": "Q7715623",
+          "platform": "nes",
+          "source_path": "data/wikidata/relations-v1/nes/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P1733",
+      "identifier": "624550",
+      "distinct_qids": [
+        "Q2405612",
+        "Q3186013"
+      ],
+      "source_observations": [
+        {
+          "property": "P1733",
+          "identifier": "624550",
+          "rdf_kind": "literal",
+          "item_qid": "Q2405612",
+          "platform": "genesis",
+          "source_path": "data/wikidata/relations-v1/genesis/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "624550",
+          "rdf_kind": "literal",
+          "item_qid": "Q3186013",
+          "platform": "genesis",
+          "source_path": "data/wikidata/relations-v1/genesis/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "624550",
+          "rdf_kind": "literal",
+          "item_qid": "Q3186013",
+          "platform": "nes",
+          "source_path": "data/wikidata/relations-v1/nes/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P1733",
+      "identifier": "71162",
+      "distinct_qids": [
+        "Q10373364",
+        "Q40177"
+      ],
+      "source_observations": [
+        {
+          "property": "P1733",
+          "identifier": "71162",
+          "rdf_kind": "literal",
+          "item_qid": "Q10373364",
+          "platform": "genesis",
+          "source_path": "data/wikidata/relations-v1/genesis/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "71162",
+          "rdf_kind": "literal",
+          "item_qid": "Q40177",
+          "platform": "genesis",
+          "source_path": "data/wikidata/relations-v1/genesis/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "71162",
+          "rdf_kind": "literal",
+          "item_qid": "Q40177",
+          "platform": "microsoftxbox360",
+          "source_path": "data/wikidata/relations-v1/microsoftxbox360/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "71162",
+          "rdf_kind": "literal",
+          "item_qid": "Q10373364",
+          "platform": "nds",
+          "source_path": "data/wikidata/relations-v1/nds/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "71162",
+          "rdf_kind": "literal",
+          "item_qid": "Q40177",
+          "platform": "nintendowiidigital",
+          "source_path": "data/wikidata/relations-v1/nintendowiidigital/bindings.jsonl"
+        },
+        {
+          "property": "P1733",
+          "identifier": "71162",
+          "rdf_kind": "literal",
+          "item_qid": "Q40177",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P2725",
+      "identifier": "game/another_world_20th_anniversary_edition",
+      "distinct_qids": [
+        "Q257469",
+        "Q55626934"
+      ],
+      "source_observations": [
+        {
+          "property": "P2725",
+          "identifier": "game/another_world_20th_anniversary_edition",
+          "rdf_kind": "literal",
+          "item_qid": "Q257469",
+          "platform": "genesis",
+          "source_path": "data/wikidata/relations-v1/genesis/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/another_world_20th_anniversary_edition",
+          "rdf_kind": "literal",
+          "item_qid": "Q55626934",
+          "platform": "nintendowiiudigital",
+          "source_path": "data/wikidata/relations-v1/nintendowiiudigital/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/another_world_20th_anniversary_edition",
+          "rdf_kind": "literal",
+          "item_qid": "Q257469",
+          "platform": "snes",
+          "source_path": "data/wikidata/relations-v1/snes/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/another_world_20th_anniversary_edition",
+          "rdf_kind": "literal",
+          "item_qid": "Q55626934",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P2725",
+      "identifier": "game/oddworld_strangers_wrath",
+      "distinct_qids": [
+        "Q107424236",
+        "Q2256398"
+      ],
+      "source_observations": [
+        {
+          "property": "P2725",
+          "identifier": "game/oddworld_strangers_wrath",
+          "rdf_kind": "literal",
+          "item_qid": "Q107424236",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/oddworld_strangers_wrath",
+          "rdf_kind": "literal",
+          "item_qid": "Q2256398",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    },
+    {
+      "property": "P2725",
+      "identifier": "game/shovel_knight",
+      "distinct_qids": [
+        "Q123158447",
+        "Q13427374"
+      ],
+      "source_observations": [
+        {
+          "property": "P2725",
+          "identifier": "game/shovel_knight",
+          "rdf_kind": "literal",
+          "item_qid": "Q123158447",
+          "platform": "nintendonintendo3ds",
+          "source_path": "data/wikidata/relations-v1/nintendonintendo3ds/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/shovel_knight",
+          "rdf_kind": "literal",
+          "item_qid": "Q13427374",
+          "platform": "nintendonintendo3ds",
+          "source_path": "data/wikidata/relations-v1/nintendonintendo3ds/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/shovel_knight",
+          "rdf_kind": "literal",
+          "item_qid": "Q123158447",
+          "platform": "nintendowiiudigital",
+          "source_path": "data/wikidata/relations-v1/nintendowiiudigital/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/shovel_knight",
+          "rdf_kind": "literal",
+          "item_qid": "Q13427374",
+          "platform": "nintendowiiudigital",
+          "source_path": "data/wikidata/relations-v1/nintendowiiudigital/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/shovel_knight",
+          "rdf_kind": "literal",
+          "item_qid": "Q123158447",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        },
+        {
+          "property": "P2725",
+          "identifier": "game/shovel_knight",
+          "rdf_kind": "literal",
+          "item_qid": "Q13427374",
+          "platform": "sonyplaystation3psn",
+          "source_path": "data/wikidata/relations-v1/sonyplaystation3psn/bindings.jsonl"
+        }
+      ]
+    }
+  ],
+  "distinct_game_qids_with_both_providers": 358,
+  "interpretation": "Wikidata external-ID source-claim comparison; repeated cross-platform IDs and distinct QID claims do not establish canonical identities or factual identifier errors; no provider-side verification and no empirically measured false-positive rate"
+}
