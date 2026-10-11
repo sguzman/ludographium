@@ -1,0 +1,5622 @@
+{
+  "head" : {
+    "vars" : [ "item", "predicate", "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "فيرتشوا فايتر"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "バーチャファイター"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "버추어 파이터"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "VR战士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "VF1"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "버추얼 파이터"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "버츄얼 파이터"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1060660"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "VR快打 (動畫版)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "دبليو دبليو إف راسلمنيا"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "WWF Wrestlemania: The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "WWF WrestleMania: The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "WWF WrestleMania: The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "WWF WrestleMania: The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "WWF WrestleMania: The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "WWFレッスルマニア"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "WWF Wrestlemania: The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "دبليو دبليو إف راسلمنيا (لعبة فيديو ١٩٩٥)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "WWF WrestleMania : The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318068"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "WWF WrestleMania: The Arcade Game"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "نايت تراب"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Night Trap"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Night Trap"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Night Trap"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "ナイトトラップ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "나이트 트랩"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "午夜陷阱"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "Night Trap"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Night Trap: 25th Anniversary Edition"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1323428"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Night Trap: 25th Anniversary Edition"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Space Harrier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Space Harrier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Space Harrier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Space Harrier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Space Harrier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "スペースハリアー"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "스페이스 해리어"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Space Harrier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "太空哈利"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hant",
+        "type" : "literal",
+        "value" : "太空哈利"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Super Space Harrier"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "スペハリ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1707792"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "スペースハリヤー"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "バーチャレーシング"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "버추어 레이싱"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Virtua Racing"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "VR賽車"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "V.R."
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1849822"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "VR"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "دوم"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "DOOM"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "둠"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "毀滅戰士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-cn",
+        "type" : "literal",
+        "value" : "毁灭战士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hans",
+        "type" : "literal",
+        "value" : "毁灭战士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hant",
+        "type" : "literal",
+        "value" : "毀滅戰士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hk",
+        "type" : "literal",
+        "value" : "毀滅戰士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-sg",
+        "type" : "literal",
+        "value" : "毁灭战士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-tw",
+        "type" : "literal",
+        "value" : "毀滅戰士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "دووم"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "1993 Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "DOOM + DOOM II"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "デゥム"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "The Ultimate Doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Ultimate doom"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "毀滅戰士1"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "毁灭战士"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "毁灭战士1"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "zh-hans",
+        "type" : "literal",
+        "value" : "毁灭战士1"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q189784"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "zh-hant",
+        "type" : "literal",
+        "value" : "毀滅戰士1"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2078491"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kolibri"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2078491"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Kolibri"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2078491"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Kolibri"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2078491"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Kolibri"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2078491"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "コリブリ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2078491"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Kolibri"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2083777"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Pitfall: The Mayan Adventure"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2083777"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pitfall: The Mayan Adventure"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2083777"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pitfall: The Mayan Adventure"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2083777"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Pitfall: The Mayan Adventure"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2083777"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Pitfall : The Mayan Adventure"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Corpse Killer"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Corpse Killer"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Corpse Killer"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Corpse Killer"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "コープス・キラー"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "尸體殺手"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hans",
+        "type" : "literal",
+        "value" : "尸體殺手"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2207258"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hant",
+        "type" : "literal",
+        "value" : "屍體殺手"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2278194"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "T-MEK"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2278194"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "T-MEK"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2278194"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "T-MEK"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2278194"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "T-MEK"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2278194"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "T-MEK"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2278194"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "T-Mek"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2305816"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Supreme Warrior"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2305816"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Supreme Warrior"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2305816"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Supreme Warrior"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2305816"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "サプリーム・ウォリアー"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "ناكلز كيوتيكس"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "カオティクス"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "너클즈 카오틱스"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Knuckles' Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "CHAOTIX"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "CHAOTIX"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Knuckles’ Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Knuckles's Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2366344"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Knuckles Chaotix"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2398038"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Metal Head"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2398038"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Metal Head"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2398038"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Metal Head"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2398038"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "メタルヘッド"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2398038"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "金屬頭・極限"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "World Series Baseball starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2875135"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "World Series Baseball Starring Deion Sanders"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2927090"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Brutal: Above the Claw"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2933153"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Shadow Squadron"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2933153"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Stellar Assault"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2933153"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "ステラアサルト"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2933153"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Shadow Squadron"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2998272"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Cosmic Carnage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2998272"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Cosmic Carnage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2998272"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Cosmic Carnage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2998272"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "サイバーブロール"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2998272"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Cyber Brawl"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Darxide"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Darxide"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Darxide"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Darxide"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Darxide"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "ダークサイド"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Darxide"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Darxide EMP"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3016641"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Darxside"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Golf Magazine: 36 Great Holes Starring Fred Couples"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Golf Magazine: 36 Great Holes Starring Fred Couples"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Golf Magazine: 36 Great Holes Starring Fred Couples"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Golf Magazine Presents 36 Great Holes Starring Fred Couples"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "ゴルフマガジン プレゼンツ 36グレート ホールス スターリング フレッド・カプルス"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "36 Great Holes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fred Couples Golf"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Golf Magazine : 36 Great Holes Starring Fred Couples"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Golf Magazine Presents 36 Greatest Holes of Golf Starring Fred Couples"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110163"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Golf Magazine: 36 Great Holes"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3281949"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "دبليو دبليو إف راو"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3281949"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "WWF Raw"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3281949"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "WWF Raw"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3281949"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "WWF Raw"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3281949"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "WWF Raw"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3325242"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Motocross Championship"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3325242"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "モトクロスチャンピオンシップ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "バーチャレーシング デラックス"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3345883"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "V.R. Virtua Racing Deluxe"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "R.B.I. Baseball '95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "R.B.I. Baseball '95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "R.B.I. ベースボール '95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "R.B.I. Baseball 95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "RBI Baseball '95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "RBI Baseball 95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "R.B.I. Baseball 95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "RBI Baseball '95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3414928"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "RBI Baseball 95"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Romance of the Three Kingdoms IV: Wall of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Romance of the Three Kingdoms IV: Wall of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romance of the Three Kingdoms IV: Wall of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Romance of the Three Kingdoms IV: Wall of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "三國志IV"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "삼국지 IV"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "三國志IV"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romance of the Three Kingdoms 4"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Romance of the Three Kingdoms IV"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Sangokushi IV"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "Mobile三國志4"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "三国志4"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "三国志IV"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "三國志 (ゲームボーイアドバンス)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3440993"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "三國志4"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3486520"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Slam City with Scottie Pippen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3486520"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Slam City with Scottie Pippen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3486520"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Slam City with Scottie Pippen"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3486520"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "スラムシティ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3486520"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "皮蓬的大滿貫之城"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3486520"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Slam City"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "سبايدر-مان: ويب أوف فير"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Amazing Spider-Man: Web of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "The Amazing Spider-Man: Web of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Spider-Man: Web of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "スパイダーマン ウェブ・オブ・ファイア"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "The Amazing Spider-Man: Web of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hant",
+        "type" : "literal",
+        "value" : "驚奇蜘蛛人：火焰之網"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "El Sorprendente Spider-Man: Red de Fuego"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Spider-Man : Web of Fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3493438"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Spider-man: web of fire"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Star Trek: Starfleet Academy: Starship Bridge Simulator"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Star Trek: Starfleet Academy – Starship Bridge Simulator"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-us",
+        "type" : "literal",
+        "value" : "Star Trek: Starfleet Academy - Starship Bridge Simulator (SEGA 32X)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Star Trek : Starfleet Academy"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Star Trek: Starfleet Academy Starship Bridge Simulator"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "スタートレック スターフリート・アカデミー"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Star Trek: Starfleet Academy - Starship Bridge Simulator"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Starfleet Academy Starship Bridge Simulator)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Star Trek : Starfleet Academy - Starship Bridge Simulator"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3496990"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Star Trek: Starfleet Academy Starship Bridge Simulator"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3505337"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Surgical Strike"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3505337"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Surgical Strike"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3505337"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Surgical Strike"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3505337"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "サージカル・ストライク"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3517739"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tempo"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3517739"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "TEMPO"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3517739"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Tempo"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3517739"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "テンポ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "パラスコード"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-ca",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "Parasukōdo"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Zaxxon's Motherbase 2000"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Motherbase"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3574942"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "pt-br",
+        "type" : "literal",
+        "value" : "Parasquad"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374299"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "BC Racers"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374299"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "BC Racers"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374299"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "BC Racers"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374299"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "BC Racers"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374299"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "BCレーサーズ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q374299"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "BC Racers"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q388929"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "After Burner"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q388929"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "アフターバーナー"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q388929"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "애프터 버너"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q388929"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "冲破火网"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q388929"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "After Burner Complete"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fahrenheit"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Fahrenheit (videojuego de 1994)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Fahrenheit"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Fahrenheit"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "ファーレンハイト"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Fahrenheit"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "华氏"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hans",
+        "type" : "literal",
+        "value" : "华氏"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hant",
+        "type" : "literal",
+        "value" : "華氏"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5429600"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "ファーレンファイト"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "بريمال ريج"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Primal Rage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Primal Rage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Primal Rage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Primal Rage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Primal Rage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "プライマルレイジ"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Primal Rage"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "恐龍快打"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-tw",
+        "type" : "literal",
+        "value" : "恐龍快打"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q614287"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "恐龍格鬥"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "فيفا سكور 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "FIFA Soccer 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "FIFA Soccer 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-gb",
+        "type" : "literal",
+        "value" : "FIFA Soccer 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en-us",
+        "type" : "literal",
+        "value" : "FIFA Soccer 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "FIFA 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "FIFA Soccer 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "FIFA Soccer 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "FIFA サッカー96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "FIFA 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "FIFA Soccer 96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "FIFA足球96"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "FIFA 96: Virtual Soccer Stadium"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en-us",
+        "type" : "literal",
+        "value" : "FIFA 96: Virtual Soccer Stadium"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q633461"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "FIFA 1996"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7828831"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Toughman Contest"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7828831"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Toughman Contest"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7828831"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "タフマン・コンテスト"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q843486"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ar",
+        "type" : "literal",
+        "value" : "مورتال كومبات 2"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q843486"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "モータルコンバットII"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q843486"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "모탈 컴뱃 2"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q843486"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "真人快打II"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q843486"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh-hant",
+        "type" : "literal",
+        "value" : "真人快打II"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Blackthorne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Blackthorne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Blackthorne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Blackhawk"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "it",
+        "type" : "literal",
+        "value" : "Blackthorne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "ブラックソーン 復讐の黒き棘"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ko",
+        "type" : "literal",
+        "value" : "블랙쏜"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "pt",
+        "type" : "literal",
+        "value" : "Blackthorne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "黑色荆棘"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "de",
+        "type" : "literal",
+        "value" : "Blackhawk"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Blackhawk"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "es",
+        "type" : "literal",
+        "value" : "Blackhawk (videojuego)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q880945"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2004/02/skos/core#altLabel"
+      },
+      "label" : {
+        "xml:lang" : "fr",
+        "type" : "literal",
+        "value" : "Blackthorne"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54323"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Star Wars Arcade"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54323"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "ja",
+        "type" : "literal",
+        "value" : "スターウォーズ・アーケード"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54323"
+      },
+      "predicate" : {
+        "type" : "uri",
+        "value" : "http://www.w3.org/2000/01/rdf-schema#label"
+      },
+      "label" : {
+        "xml:lang" : "zh",
+        "type" : "literal",
+        "value" : "星球大戰Arcade"
+      }
+    } ]
+  }
+}

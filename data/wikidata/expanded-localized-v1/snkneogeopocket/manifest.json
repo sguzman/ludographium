@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "snkneogeopocket",
+  "source_register": "sources/wikidata-platform-expansion-v3.json",
+  "wikidata_platform": "Q939881",
+  "captured_at_utc": "2026-10-11T23:00:49Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "7fbefef3600fcbededad58fb9c6b74672442d52234941c50094b1a6cfd1c5a46",
+  "source_query_bytes": 294,
+  "source_response_path": "response.json",
+  "source_response_sha256": "c34e9dd2c817e1b0562629077f71692d71316e282a919f27d94fb6918b6198f8",
+  "source_response_bytes": 8761,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "a069d3dff9a91fa396b67b5ac61e44bab2cbd178b79172356b5242086c65c517",
+  "source_bindings_bytes": 5510,
+  "source_rows": 24,
+  "distinct_items": 5,
+  "query_limit": 50000,
+  "language_prefix_scope": [
+    "en",
+    "ja",
+    "es",
+    "zh",
+    "fr",
+    "de",
+    "it",
+    "ko",
+    "ar",
+    "pt"
+  ],
+  "predicate_counts": {
+    "label": 20,
+    "altLabel": 4
+  },
+  "language_tag_counts": {
+    "en": 8,
+    "es": 3,
+    "fr": 4,
+    "ja": 1,
+    "pt": 2,
+    "zh": 4,
+    "zh-hant": 2
+  },
+  "policy": "Original language-tagged source labels and aliases, never canonical game or regional release titles"
+}
