@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?predicate ?label WHERE {
+  ?item wdt:P31 wd:Q7889; wdt:P400 wd:Q25389541.
+  VALUES ?predicate { rdfs:label skos:altLabel }
+  ?item ?predicate ?label.
+  FILTER(REGEX(LANG(?label), "^(en|ja|es|zh|fr|de|it|ko|ar|pt)(-|$)", "i"))
+}
+ORDER BY ?item ?predicate ?label
+LIMIT 50000

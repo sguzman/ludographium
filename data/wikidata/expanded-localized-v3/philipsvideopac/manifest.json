@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "philipsvideopac",
+  "source_register": "sources/wikidata-platform-expansion-v8.json",
+  "wikidata_platform": "Q7185533",
+  "captured_at_utc": "2026-10-11T23:41:17Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "b93af4a118ed045e65c105a8a3dfd6043c24c3896a772a8f81a5bf68b443a1eb",
+  "source_query_bytes": 295,
+  "source_response_path": "response.json",
+  "source_response_sha256": "39738a3ce7e25796d8be9f29aa9fcd508cc1297f28a54f37706edb9dcd11757a",
+  "source_response_bytes": 3639,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "77cdf3b1da1ddf5fc740445dc707bdbbbc2cbfb515bba52a761e8bcea888c18b",
+  "source_bindings_bytes": 2222,
+  "source_rows": 10,
+  "distinct_items": 1,
+  "query_limit": 50000,
+  "language_prefix_scope": [
+    "en",
+    "ja",
+    "es",
+    "zh",
+    "fr",
+    "de",
+    "it",
+    "ko",
+    "ar",
+    "pt"
+  ],
+  "predicate_counts": {
+    "label": 8,
+    "altLabel": 2
+  },
+  "language_tag_counts": {
+    "de": 1,
+    "en": 2,
+    "es": 1,
+    "fr": 1,
+    "it": 1,
+    "ja": 1,
+    "pt": 2,
+    "zh": 1
+  },
+  "policy": "Original language-tagged source labels and aliases, never canonical game or regional release titles"
+}
