@@ -772,8 +772,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             && ((!wikidata_relations && !wikidata_authority_ids)
                 || qid.is_some()
                 || external_id.as_deref() == Some("")
-                || (wikidata_relations
-                    && !matches!(property.as_deref(), Some("P1733" | "P2725")))))
+                || (wikidata_relations && !matches!(property.as_deref(), Some("P1733" | "P2725")))))
         || (with_entity_labels && !wikidata_properties && !wikidata_relations)
         || (property.is_some()
             && !wikidata_properties

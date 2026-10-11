@@ -887,8 +887,17 @@ fn localized_exact_title_correspondence_is_separate_from_english_baseline() {
 
 #[test]
 fn source_pinned_game_authority_ids_are_exactly_searchable_without_provider_joins() {
-    let all = query(&["--wikidata-authority-ids", "--platform", "all", "--limit", "2"]);
-    assert_eq!(all["source_mode"], "pinned-wikidata-third-party-game-authority-id-claims");
+    let all = query(&[
+        "--wikidata-authority-ids",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(
+        all["source_mode"],
+        "pinned-wikidata-third-party-game-authority-id-claims"
+    );
     assert_eq!(all["source_claims"], 65182);
     assert_eq!(all["source_item_platform_observations"], 13609);
     assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 16);
@@ -896,35 +905,96 @@ fn source_pinned_game_authority_ids_are_exactly_searchable_without_provider_join
     assert_eq!(all["source_property_counts"]["P11688"], 16800);
     assert_eq!(all["source_property_counts"]["P1933"], 15725);
     assert_eq!(all["returned_claims"], 2);
-    assert_eq!(all["claims"][0]["source_sha256"].as_str().unwrap().len(), 64);
+    assert_eq!(
+        all["claims"][0]["source_sha256"].as_str().unwrap().len(),
+        64
+    );
     assert!(all["claims"][0]["source_ordinal"].as_u64().unwrap() >= 1);
     let atari = query(&[
-        "--wikidata-authority-ids", "--platform", "atari2600",
-        "--qid", "Q100701966", "--property", "P11688", "--limit", "5",
+        "--wikidata-authority-ids",
+        "--platform",
+        "atari2600",
+        "--qid",
+        "Q100701966",
+        "--property",
+        "P11688",
+        "--limit",
+        "5",
     ]);
     assert!(atari["total_filtered_claims"].as_u64().unwrap() > 0);
-    assert!(atari["claims"].as_array().unwrap().iter().all(|claim| {
-        claim["item_qid"] == "Q100701966" && claim["identifier"] == "39536"
-    }));
+    assert!(atari["claims"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|claim| { claim["item_qid"] == "Q100701966" && claim["identifier"] == "39536" }));
     let reverse = query(&[
-        "--wikidata-authority-ids", "--platform", "all",
-        "--property", "P11688", "--external-id", "39536", "--limit", "5",
+        "--wikidata-authority-ids",
+        "--platform",
+        "all",
+        "--property",
+        "P11688",
+        "--external-id",
+        "39536",
+        "--limit",
+        "5",
     ]);
     assert!(reverse["total_filtered_claims"].as_u64().unwrap() >= 1);
-    assert!(reverse["distinct_wikidata_game_qids_for_identifier"].as_u64().unwrap() >= 1);
-    assert!(reverse["claims"].as_array().unwrap().iter().all(|claim| {
-        claim["property"] == "P11688" && claim["identifier"] == "39536"
-    }));
+    assert!(
+        reverse["distinct_wikidata_game_qids_for_identifier"]
+            .as_u64()
+            .unwrap()
+            >= 1
+    );
+    assert!(reverse["claims"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|claim| { claim["property"] == "P11688" && claim["identifier"] == "39536" }));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
-        vec!["--wikidata-authority-ids", "--platform", "all", "--title", "Mario"],
-        vec!["--wikidata-authority-ids", "--platform", "all", "--property", "P1733"],
-        vec!["--wikidata-authority-ids", "--platform", "all", "--qid", "Q0"],
-        vec!["--wikidata-authority-ids", "--platform", "all", "--external-id", "39536"],
-        vec!["--wikidata-authority-ids", "--platform", "all", "--wikidata-relations"],
+        vec![
+            "--wikidata-authority-ids",
+            "--platform",
+            "all",
+            "--title",
+            "Mario",
+        ],
+        vec![
+            "--wikidata-authority-ids",
+            "--platform",
+            "all",
+            "--property",
+            "P1733",
+        ],
+        vec![
+            "--wikidata-authority-ids",
+            "--platform",
+            "all",
+            "--qid",
+            "Q0",
+        ],
+        vec![
+            "--wikidata-authority-ids",
+            "--platform",
+            "all",
+            "--external-id",
+            "39536",
+        ],
+        vec![
+            "--wikidata-authority-ids",
+            "--platform",
+            "all",
+            "--wikidata-relations",
+        ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(&root).args(&args).output().unwrap();
-        assert!(!output.status.success(), "invalid combination accepted: {args:?}");
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
+        assert!(
+            !output.status.success(),
+            "invalid combination accepted: {args:?}"
+        );
     }
 }
