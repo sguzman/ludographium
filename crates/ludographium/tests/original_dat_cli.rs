@@ -529,6 +529,7 @@ fn independent_wikidata_game_observations_preserve_both_snapshot_sources() {
     assert_eq!(all["title_date_source_items"], 15868);
     assert_eq!(all["property_source_items"], 14759);
     assert_eq!(all["relation_source_items"], 14772);
+    assert_eq!(all["localized_source_items"], 15731);
     assert!(all["combined_distinct_platform_qids"].as_u64().unwrap() >= 15868);
     assert_eq!(all["returned_source_items"], 2);
     let atari = query(&[
@@ -548,6 +549,8 @@ fn independent_wikidata_game_observations_preserve_both_snapshot_sources() {
         .as_str()
         .is_some());
     assert!(item["property_claims"]["P178"].is_array());
+    assert_eq!(item["localized_source_present"], true);
+    assert!(item["localized_names"].as_object().is_some());
     assert_eq!(item["relation_source_present"], true);
     assert!(item["relation_claims"].as_object().is_some());
     assert!(item["interpretation"]

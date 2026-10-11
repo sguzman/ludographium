@@ -867,6 +867,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         let text = WikidataTextCatalog::open(&root, &platform)?;
         let properties = WikidataPropertyCatalog::open(&root, &platform)?;
         let relations = WikidataRelationCatalog::open(&root, &platform)?;
+        let localized = WikidataLocalizedTitleCatalog::open(&root, &platform)?;
         let relation_labels = WikidataEntityLabelCatalog::open_relations(&root)?;
         let full_relations = if platform == "all" {
             None
@@ -887,6 +888,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             &labels,
             &relations,
             &relation_labels,
+            &localized,
         )?;
         let (total, observations) = index.search(qid.as_deref(), title.as_deref(), limit)?;
         println!(
@@ -897,6 +899,9 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "title_date_source_items": index.title_date_source_items(),
                 "property_source_items": index.property_source_items(),
                 "relation_source_items": index.relation_source_items(),
+                "localized_source_items": index.localized_source_items(),
+                "localized_source_only_items": index.localized_only(),
+                "relation_and_localized_only_items": index.relation_and_localized_only(),
                 "relation_label_source_qids": relation_labels.total_qids(),
                 "relation_labels_in_english": relation_labels.english_label_count(),
                 "relation_source_only_items": index.relation_only(),
