@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "platform": "microsoftxbox360",
+  "wikidata_platform": "Q48263",
+  "captured_at_utc": "2026-10-11T19:27:25Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "4970a972b3eb42d627f932871c06eb8ec04a4d25e939d5ef4a017a18aa64b95d",
+  "source_query_bytes": 282,
+  "source_response_path": "response.json",
+  "source_response_sha256": "b96d7c653ecb0f19c3da07e57742d169ce5c5fc15217ccd9ecfa568e5ee1c6a8",
+  "source_response_bytes": 5765527,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "4e46d0510fd9758871c357b0aef16a4557a12e83007f8a77b44d3c40d43d3fac",
+  "source_bindings_bytes": 3733799,
+  "source_rows": 16886,
+  "distinct_items": 1782,
+  "entity_value_bindings": 15484,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 482,
+    "P1733": 748,
+    "P179": 959,
+    "P2725": 172,
+    "P404": 2845,
+    "P407": 3892,
+    "P437": 2742,
+    "P495": 1715,
+    "P750": 3331
+  },
+  "rdf_value_type_counts": {
+    "literal": 1402,
+    "uri": 15484
+  },
+  "identity_policy": "Original independent source claims only; do not infer a canonical game, edition, release, series, language or external-provider identity"
+}
