@@ -2008,6 +2008,19 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
                 .contains("expanded-relations-v3")
         }));
 
+    let new_labels = query(&[
+        "--wikidata-relations",
+        "--metadata-cohort",
+        "expanded-v3",
+        "--with-entity-labels",
+        "--platform",
+        "all",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(new_labels["entity_label_source"]["entity_qids"], 83);
+    assert_eq!(new_labels["entity_label_source"]["english_labels"], 73);
+
     let properties_with_labels = query(&[
         "--wikidata-properties",
         "--metadata-cohort",
@@ -2063,7 +2076,7 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
         vec![
             "--wikidata-properties",
             "--metadata-cohort",
-            "expanded-v3",
+            "expanded-v4",
             "--with-entity-labels",
             "--platform",
             "all",

@@ -128,10 +128,12 @@ and identifier statements** for the twelve provisional v8 scopes. Their
 original source rows, zero-result captures, query/response hashes and unmatched
 QIDs remain separate from verified game identities. Read both offline using
 `--wikidata-properties --metadata-cohort expanded-v3` and
-`--wikidata-relations --metadata-cohort expanded-v3`. Independent English
-entity labels for these newly captured references have not yet been accessioned,
-so `--with-entity-labels` rejects this cohort instead of silently using
-a different cohort's inventory. See the
+`--wikidata-relations --metadata-cohort expanded-v3`. A separately pinned [v8 English entity-label
+inventory](data/wikidata/expanded-labels-v2/) covers all **83 referenced
+QIDs**, including **73 English labels** and **10 explicit unlabeled references**.
+The offline CLI verifies the exact source-manifest inventory before exposing
+`--with-entity-labels` for this cohort; no QID is promoted into an accepted
+entity or game identity. See the
 [credits accession](.github/workflows/wikidata-expanded-credits-v3.yml) and
 [relations accession](.github/workflows/wikidata-expanded-relations-v3.yml)
 for the reproducible source-query contracts.

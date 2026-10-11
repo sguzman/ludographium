@@ -421,6 +421,14 @@ fn expanded_entity_labels(root: &Path) -> Result<WikidataEntityLabelCatalog, Cat
     Ok(labels)
 }
 
+fn expanded_v3_entity_labels(root: &Path) -> Result<WikidataEntityLabelCatalog, CatalogError> {
+    let labels = WikidataEntityLabelCatalog::open_expanded_v2(root)?;
+    let credits = WikidataPropertyCatalog::open_expanded_v3(root, "all")?;
+    let relations = WikidataRelationCatalog::open_expanded_v3(root, "all")?;
+    labels.verify_expanded_v3_referenced_qids(&credits, &relations)?;
+    Ok(labels)
+}
+
 fn run() -> Result<(), Box<dyn Error>> {
     let mut args = env::args().skip(1);
     let mut platform = None;
@@ -657,9 +665,6 @@ fn run() -> Result<(), Box<dyn Error>> {
             "baseline" | "expanded-v1" | "expanded-v2" | "expanded-v3"
         ) || (wikidata_localized_titles && cohort == "combined"))
         || (expanded_credits && metadata_cohort.is_some())
-        || (cohort == "expanded-v3"
-            && with_entity_labels
-            && (wikidata_properties || wikidata_relations))
     {
         return Err(CatalogError::Invalid(
             "--metadata-cohort requires Wikidata properties, relations or localized titles and an allowed source cohort".into(),
@@ -1263,6 +1268,8 @@ fn run() -> Result<(), Box<dyn Error>> {
                 let all = WikidataRelationCatalog::open(&root, "all")?;
                 source.verify_relation_qids(&all)?;
                 Some(source)
+            } else if cohort == "expanded-v3" {
+                Some(expanded_v3_entity_labels(&root)?)
             } else {
                 Some(expanded_entity_labels(&root)?)
             }
@@ -1394,6 +1401,8 @@ fn run() -> Result<(), Box<dyn Error>> {
                 let all = WikidataPropertyCatalog::open(&root, "all")?;
                 source.verify_referenced_qids(&all)?;
                 Some(source)
+            } else if cohort == "expanded-v3" {
+                Some(expanded_v3_entity_labels(&root)?)
             } else {
                 Some(expanded_entity_labels(&root)?)
             }

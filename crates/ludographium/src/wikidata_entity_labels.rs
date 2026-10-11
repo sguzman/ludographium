@@ -13,6 +13,7 @@ use std::path::Path;
 const BASE: &str = "data/wikidata/property-labels-v1";
 const RELATION_BASE: &str = "data/wikidata/relation-labels-v1";
 const EXPANDED_BASE: &str = "data/wikidata/expanded-labels-v1";
+const EXPANDED_V2_BASE: &str = "data/wikidata/expanded-labels-v2";
 
 #[derive(Debug, Deserialize)]
 struct Manifest {
@@ -172,6 +173,50 @@ fn expanded_source_manifest_inventory_sha(root: &Path) -> Result<String, Catalog
     Ok(sha256(inventory.as_bytes()))
 }
 
+/// Verify the newer source-manifest fingerprint over all twelve v8 P400 scopes.
+/// Equivalent to the two ordered shell globs used during the second label accession.
+fn expanded_v3_source_manifest_inventory_sha(root: &Path) -> Result<String, CatalogError> {
+    let register: Value = serde_json::from_slice(&fs::read(
+        root.join("sources/wikidata-platform-expansion-v8.json"),
+    )?)?;
+    let platforms = register["platforms"]
+        .as_array()
+        .ok_or_else(|| invalid("missing expanded-v3 label source platform register"))?;
+    if platforms.len() != 12 {
+        return Err(invalid("incomplete expanded-v3 label source platform register"));
+    }
+    let mut names = BTreeSet::new();
+    for row in platforms {
+        let name = row["platform"]
+            .as_str()
+            .ok_or_else(|| invalid("invalid v8 platform scope"))?;
+        if name.is_empty()
+            || !name
+                .bytes()
+                .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+            || !names.insert(name.to_owned())
+        {
+            return Err(invalid("duplicate or malformed v8 platform scope"));
+        }
+    }
+    let mut inventory = String::new();
+    for source_base in [
+        "data/wikidata/expanded-credits-v3",
+        "data/wikidata/expanded-relations-v3",
+    ] {
+        for platform in &names {
+            let relative = format!("{source_base}/{platform}/manifest.json");
+            let path = root.join(&relative);
+            if fs::symlink_metadata(&path)?.file_type().is_symlink() {
+                return Err(invalid("expanded-v3 label source manifest is a symlink"));
+            }
+            let bytes = fs::read(path)?;
+            inventory.push_str(&format!("{}  {relative}\n", sha256(&bytes)));
+        }
+    }
+    Ok(sha256(inventory.as_bytes()))
+}
+
 fn checked_file(folder: &Path, entry: &SourceFile) -> Result<Vec<u8>, CatalogError> {
     if entry.bytes == 0
         || entry.sha256.len() != 64
@@ -215,6 +260,11 @@ impl WikidataEntityLabelCatalog {
         Self::open_at(root.as_ref(), EXPANDED_BASE, true)
     }
 
+    /// Independent English labels for referenced entity QIDs in v8 property and relation claims.
+    pub fn open_expanded_v2(root: impl AsRef<Path>) -> Result<Self, CatalogError> {
+        Self::open_at(root.as_ref(), EXPANDED_V2_BASE, true)
+    }
+
     fn open_at(root: &Path, base: &'static str, relation: bool) -> Result<Self, CatalogError> {
         let folder = root.join(base);
         if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
@@ -239,6 +289,8 @@ impl WikidataEntityLabelCatalog {
         };
         let actual_source_manifest_sha = if base == EXPANDED_BASE {
             expanded_source_manifest_inventory_sha(root)?
+        } else if base == EXPANDED_V2_BASE {
+            expanded_v3_source_manifest_inventory_sha(root)?
         } else {
             source_manifest_inventory_sha(root, source_accession)?
         };
@@ -399,7 +451,7 @@ impl WikidataEntityLabelCatalog {
                     source_query_sha256: query_entry.sha256.clone(),
                     source_response_sha256: response_entry.sha256.clone(),
                     captured_at_utc: manifest.captured_at_utc.clone(),
-                    interpretation: if base == EXPANDED_BASE {
+                    interpretation: if matches!(base, EXPANDED_BASE | EXPANDED_V2_BASE) {
                         "independent-expanded-wikidata-english-label-not-canonical-game-or-company"
                     } else if relation {
                         "independent-wikidata-relation-english-label-not-canonical-game-or-release"
@@ -479,6 +531,22 @@ impl WikidataEntityLabelCatalog {
         Ok(())
     }
 
+    /// Verify precise coverage of references in the later twelve-scope cohorts.
+    pub fn verify_expanded_v3_referenced_qids(
+        &self,
+        credits: &WikidataPropertyCatalog,
+        relations: &WikidataRelationCatalog,
+    ) -> Result<(), CatalogError> {
+        let mut declared = credits.referenced_entity_qids();
+        declared.extend(relations.referenced_entity_qids());
+        if declared != self.entries.keys().cloned().collect() {
+            return Err(invalid(
+                "v8 referenced entity-QID inventory differs from independently pinned labels",
+            ));
+        }
+        Ok(())
+    }
+
     pub fn total_qids(&self) -> usize {
         self.entries.len()
     }
@@ -530,6 +598,20 @@ mod tests {
         assert_eq!(sample.source_sha256.len(), 64);
         assert!(sample.source_path.contains("expanded-labels-v1"));
         assert!(sample.interpretation.contains("not-canonical"));
+    }
+
+    #[test]
+    fn v8_source_reference_labels_are_exactly_verified() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let labels = WikidataEntityLabelCatalog::open_expanded_v2(&root).unwrap();
+        assert_eq!(labels.total_qids(), 83);
+        assert_eq!(labels.english_label_count(), 73);
+        let properties = WikidataPropertyCatalog::open_expanded_v3(&root, "all").unwrap();
+        let relations = WikidataRelationCatalog::open_expanded_v3(&root, "all").unwrap();
+        labels
+            .verify_expanded_v3_referenced_qids(&properties, &relations)
+            .unwrap();
+        assert!(labels.lookup("Q0").is_none());
     }
 
     #[test]
