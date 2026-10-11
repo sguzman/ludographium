@@ -10,6 +10,7 @@ pub mod media;
 pub mod original_dat;
 pub mod original_fields;
 pub mod runtime;
+pub mod wikidata_text;
 
 use serde::Deserialize;
 use sha1::{Digest, Sha1};
