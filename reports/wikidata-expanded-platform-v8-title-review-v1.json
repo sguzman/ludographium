@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "kind": "original-same-platform-v8-title-candidate-audit",
+  "source_commit_sha": "2b899b3b890d9036ea2b5334ed3bc972417444ae",
+  "source_platform_partitions": 12,
+  "original_source_rows": 53,
+  "original_wikidata_item_platform_observations": 27,
+  "literal_publication_date_bindings": 50,
+  "nonliteral_publication_bindings": 0,
+  "total_candidate_links": 10,
+  "original_libretro_source_records_with_candidates": 10,
+  "ambiguous_candidate_links": 0,
+  "per_platform": [
+    {
+      "platform": "arduboyincarduboy",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "entexadventurevision",
+      "candidate_links": 1,
+      "source_records_with_candidates": 1,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "funtechsuperacan",
+      "candidate_links": 1,
+      "source_records_with_candidates": 1,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "hartunggamemaster",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "konamipicno",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "leapfrogleapsterlearninggamesystem",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "mobilezeebo",
+      "candidate_links": 7,
+      "source_records_with_candidates": 7,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "nintendoereader",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "philipsvideopac",
+      "candidate_links": 1,
+      "source_records_with_candidates": 1,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "vtechcreativision",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    },
+    {
+      "platform": "vtechvsmile",
+      "candidate_links": 0,
+      "source_records_with_candidates": 0,
+      "ambiguous_candidate_links": 0
+    }
+  ],
+  "matching_policy": "Same-platform conservative exact source-title key and original English Wikidata label; raw Libretro source hash and original Wikidata evidence preserved",
+  "interpretation": "Zero-row query partitions are preserved as valid scoped source noncoverage; all nonzero links are review candidates only, not canonical game work media edition or region identities. Candidate counts cannot establish a measured false-positive rate."
+}
