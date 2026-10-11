@@ -565,7 +565,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         + usize::from(file.is_some())
         + usize::from(zip.is_some());
     if (query_modes != 1
-        && !((claims_only || wikidata_text || wikidata_candidates || wikidata_properties || wikidata_items)
+        && !((claims_only
+            || wikidata_text
+            || wikidata_candidates
+            || wikidata_properties
+            || wikidata_items)
             && query_modes == 0))
         || (claims_only && (!source_dat || !enriched))
         || (wikidata_text
@@ -613,17 +617,33 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || media_format.is_some()
                 || zip_entry.is_some()))
         || (wikidata_items
-            && (wikidata_text || wikidata_candidates || wikidata_properties
-                || source_dat || claims_only || enriched || show_curated
-                || compare_years || compare_credits || with_entity_labels
-                || property.is_some() || sha1.is_some() || crc32.is_some()
-                || size.is_some() || file.is_some() || zip.is_some()
-                || media_format.is_some() || zip_entry.is_some()
+            && (wikidata_text
+                || wikidata_candidates
+                || wikidata_properties
+                || source_dat
+                || claims_only
+                || enriched
+                || show_curated
+                || compare_years
+                || compare_credits
+                || with_entity_labels
+                || property.is_some()
+                || sha1.is_some()
+                || crc32.is_some()
+                || size.is_some()
+                || file.is_some()
+                || zip.is_some()
+                || media_format.is_some()
+                || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
         || (with_entity_labels && !wikidata_properties)
         || (property.is_some() && !wikidata_properties)
         || ((compare_years || compare_credits) && !wikidata_candidates)
-        || (qid.is_some() && !wikidata_text && !wikidata_candidates && !wikidata_properties && !wikidata_items)
+        || (qid.is_some()
+            && !wikidata_text
+            && !wikidata_candidates
+            && !wikidata_properties
+            && !wikidata_items)
         || (claims_only
             && (sha1.is_some()
                 || crc32.is_some()
@@ -641,7 +661,11 @@ fn run() -> Result<(), Box<dyn Error>> {
             && !wikidata_candidates
             && !wikidata_properties
             && !wikidata_items)
-        || (qid.is_some() && limit_explicit && !wikidata_candidates && !wikidata_properties && !wikidata_items)
+        || (qid.is_some()
+            && limit_explicit
+            && !wikidata_candidates
+            && !wikidata_properties
+            && !wikidata_items)
         || ((title.is_some()
             || claims_only
             || wikidata_text
@@ -676,19 +700,22 @@ fn run() -> Result<(), Box<dyn Error>> {
         labels.verify_referenced_qids(all_properties.as_ref().unwrap_or(&properties))?;
         let index = WikidataItemProjection::build(&text, &properties, &labels)?;
         let (total, observations) = index.search(qid.as_deref(), title.as_deref(), limit)?;
-        println!("{}", serde_json::to_string_pretty(&json!({
-            "source_mode": "multi-snapshot-wikidata-qid-source-observations",
-            "platform_scope": platform,
-            "title_date_source_items": index.title_date_source_items(),
-            "property_source_items": index.property_source_items(),
-            "combined_distinct_platform_qids": index.total_items(),
-            "title_date_source_only_items": index.title_date_only(),
-            "property_source_only_items": index.property_only(),
-            "total_filtered_source_items": total,
-            "returned_source_items": observations.len(),
-            "source_items": observations,
-            "interpretation": "exact-QID-source-projection-not-verified-game-media-company-or-release-identities"
-        }))?);
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&json!({
+                "source_mode": "multi-snapshot-wikidata-qid-source-observations",
+                "platform_scope": platform,
+                "title_date_source_items": index.title_date_source_items(),
+                "property_source_items": index.property_source_items(),
+                "combined_distinct_platform_qids": index.total_items(),
+                "title_date_source_only_items": index.title_date_only(),
+                "property_source_only_items": index.property_only(),
+                "total_filtered_source_items": total,
+                "returned_source_items": observations.len(),
+                "source_items": observations,
+                "interpretation": "exact-QID-source-projection-not-verified-game-media-company-or-release-identities"
+            }))?
+        );
         return Ok(());
     }
     if wikidata_properties {
