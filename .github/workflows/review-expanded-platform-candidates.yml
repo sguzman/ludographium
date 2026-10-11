@@ -1,0 +1,97 @@
+name: Audit additional console title correspondences
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/review-expanded-platform-candidates.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-expanded-console-title-review-main
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Produce exact source-provenance candidate counts for new console partitions
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-expanded --platform all --limit 1 > "$RUNNER_TEMP/source.json"
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-expanded-candidates --platform all --limit 1 > "$RUNNER_TEMP/all.json"
+          for platform in atari7800 sonyplaystationportable sonyplaystationvita; do
+            cargo run --locked --quiet -p ludographium -- \
+              --wikidata-expanded-candidates --platform "$platform" --limit 1 \
+              > "$RUNNER_TEMP/$platform.json"
+          done
+          jq -n \
+            --slurpfile source "$RUNNER_TEMP/source.json" \
+            --slurpfile all "$RUNNER_TEMP/all.json" \
+            --slurpfile atari "$RUNNER_TEMP/atari7800.json" \
+            --slurpfile psp "$RUNNER_TEMP/sonyplaystationportable.json" \
+            --slurpfile vita "$RUNNER_TEMP/sonyplaystationvita.json" \
+            --arg source_commit "$GITHUB_SHA" \
+            '{
+              schema_version: 1,
+              kind: "source-only-additional-console-title-candidate-audit",
+              source_commit_sha: $source_commit,
+              source_platform_partitions: ($source[0].platforms_searched | length),
+              original_source_rows: $source[0].source_rows,
+              distinct_wikidata_platform_item_observations: $source[0].source_item_platform_observations,
+              literal_publication_date_bindings: $source[0].literal_publication_date_bindings,
+              nonliteral_publication_bindings: $source[0].nonliteral_publication_bindings,
+              total_candidate_links: $all[0].total_candidate_links,
+              original_source_records_with_candidate: $all[0].source_records_with_candidate,
+              ambiguous_candidate_links: $all[0].ambiguous_title_candidate_links,
+              per_platform: [
+                {platform:"atari7800",links:$atari[0].total_candidate_links,
+                  original_source_records_with_candidate:$atari[0].source_records_with_candidate,
+                  ambiguous_links:$atari[0].ambiguous_title_candidate_links},
+                {platform:"sonyplaystationportable",links:$psp[0].total_candidate_links,
+                  original_source_records_with_candidate:$psp[0].source_records_with_candidate,
+                  ambiguous_links:$psp[0].ambiguous_title_candidate_links},
+                {platform:"sonyplaystationvita",links:$vita[0].total_candidate_links,
+                  original_source_records_with_candidate:$vita[0].source_records_with_candidate,
+                  ambiguous_links:$vita[0].ambiguous_title_candidate_links}
+              ],
+              matching_policy: "Only same-platform conservative source title-key equality, with one candidate per original source occurrence and distinct Wikidata QID. Original publication binding rows and provenance hashes are retained.",
+              interpretation: "Exact title correspondences are noncanonical source review leads, not independently authenticated game, work, edition, release or media identities; candidate counts cannot establish an empirical false-positive rate."
+            }' > reports/wikidata-expanded-platform-title-review-v1.json
+          jq -e '
+            .source_platform_partitions == 3
+            and .original_source_rows == 3888
+            and .distinct_wikidata_platform_item_observations == 2254
+            and .nonliteral_publication_bindings == 5
+            and .total_candidate_links > 0
+            and (([.per_platform[].links] | add) == .total_candidate_links)
+            and (([.per_platform[].ambiguous_links] | add) == .ambiguous_candidate_links)
+            and (([.per_platform[].original_source_records_with_candidate] | add) == .original_source_records_with_candidate)
+          ' reports/wikidata-expanded-platform-title-review-v1.json > /dev/null
+          jq -c '{source_platform_partitions, original_source_rows, total_candidate_links, original_source_records_with_candidate, ambiguous_candidate_links, per_platform}' \
+            reports/wikidata-expanded-platform-title-review-v1.json
+      - name: Commit source-grounded review metadata only
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add reports/wikidata-expanded-platform-title-review-v1.json
+          if git diff --cached --quiet; then
+            echo "Review counts unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: quantify three-platform original title evidence'
+          git push origin HEAD:main
