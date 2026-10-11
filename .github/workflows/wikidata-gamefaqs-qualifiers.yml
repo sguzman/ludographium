@@ -113,8 +113,8 @@ jobs:
             jq -e '.source_rows > 0 and .distinct_source_statements > 0 and .source_rows < .query_limit' "$out/manifest.json" > /dev/null
             echo "$platform: $count source statement rows; $qualified explicit platform qualifiers"
             sleep 2
-          done < <(jq -r '.platforms[] | select(.platform == "atari2600") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
-          test "$(find "$base" -name manifest.json | wc -l)" -eq 1
+          done < <(jq -r '.platforms[] | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 16
       - name: Commit only complete text source captures
         shell: bash
         run: |
