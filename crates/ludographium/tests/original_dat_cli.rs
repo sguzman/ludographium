@@ -1777,10 +1777,18 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
         "--limit",
         "1",
     ]);
-    assert_eq!(properties_with_labels["entity_label_source"]["entity_qids"], 2_255);
-    assert_eq!(properties_with_labels["entity_label_source"]["english_labels"], 2_079);
-    assert!(properties_with_labels["claims"][0]["value_label_evidence"].is_object()
-        || properties_with_labels["claims"][0]["value_label_evidence"].is_null());
+    assert_eq!(
+        properties_with_labels["entity_label_source"]["entity_qids"],
+        2_255
+    );
+    assert_eq!(
+        properties_with_labels["entity_label_source"]["english_labels"],
+        2_079
+    );
+    assert!(
+        properties_with_labels["claims"][0]["value_label_evidence"].is_object()
+            || properties_with_labels["claims"][0]["value_label_evidence"].is_null()
+    );
 
     let relations_with_labels = query(&[
         "--wikidata-relations",
@@ -1792,8 +1800,14 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
         "--limit",
         "1",
     ]);
-    assert_eq!(relations_with_labels["entity_label_source"]["entity_qids"], 2_255);
-    assert_eq!(relations_with_labels["entity_label_source"]["english_labels"], 2_079);
+    assert_eq!(
+        relations_with_labels["entity_label_source"]["entity_qids"],
+        2_255
+    );
+    assert_eq!(
+        relations_with_labels["entity_label_source"]["english_labels"],
+        2_079
+    );
 
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
