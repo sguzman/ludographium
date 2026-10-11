@@ -123,6 +123,55 @@ fn source_manifest_inventory_sha(root: &Path, accession: &str) -> Result<String,
     Ok(sha256(inventory.as_bytes()))
 }
 
+/// Deterministically re-hash the 74 immutable source manifests used for
+/// the expanded label inventory. This exactly matches the source accession's
+/// four ordered shell globs and GNU sha256sum text format.
+fn expanded_source_manifest_inventory_sha(root: &Path) -> Result<String, CatalogError> {
+    let cohorts: [(&str, &[usize], usize); 4] = [
+        ("data/wikidata/expanded-credits-v1", &[1, 2, 3, 4], 19),
+        ("data/wikidata/expanded-credits-v2", &[5, 6, 7], 18),
+        ("data/wikidata/expanded-relations-v1", &[1, 2, 3, 4], 19),
+        ("data/wikidata/expanded-relations-v2", &[5, 6, 7], 18),
+    ];
+    let mut inventory = String::new();
+    for (base, versions, expected_count) in cohorts {
+        let mut platforms = BTreeSet::new();
+        for version in versions {
+            let register = format!("sources/wikidata-platform-expansion-v{version}.json");
+            let source: Value = serde_json::from_slice(&fs::read(root.join(register))?)?;
+            let entries = source["platforms"]
+                .as_array()
+                .ok_or_else(|| invalid("expanded label source platform register is malformed"))?;
+            for entry in entries {
+                let name = entry["platform"]
+                    .as_str()
+                    .ok_or_else(|| invalid("expanded label source platform is not text"))?;
+                if name.is_empty()
+                    || !name
+                        .bytes()
+                        .all(|byte| byte.is_ascii_lowercase() || byte.is_ascii_digit())
+                    || !platforms.insert(name.to_owned())
+                {
+                    return Err(invalid("unsafe or repeated expanded label platform scope"));
+                }
+            }
+        }
+        if platforms.len() != expected_count {
+            return Err(invalid("incomplete expanded source manifest inventory"));
+        }
+        for platform in platforms {
+            let relative = format!("{base}/{platform}/manifest.json");
+            let path = root.join(&relative);
+            if fs::symlink_metadata(&path)?.file_type().is_symlink() {
+                return Err(invalid("expanded label source manifest is a symlink"));
+            }
+            let bytes = fs::read(path)?;
+            inventory.push_str(&format!("{}  {relative}\n", sha256(&bytes)));
+        }
+    }
+    Ok(sha256(inventory.as_bytes()))
+}
+
 fn checked_file(folder: &Path, entry: &SourceFile) -> Result<Vec<u8>, CatalogError> {
     if entry.bytes == 0
         || entry.sha256.len() != 64
