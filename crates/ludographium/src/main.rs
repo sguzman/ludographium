@@ -848,7 +848,6 @@ fn run() -> Result<(), Box<dyn Error>> {
     if wikidata_localized_candidates {
         let original = OriginalDatCatalog::open(&root, "all")?;
         let localized = WikidataLocalizedTitleCatalog::open(&root, &platform)?;
-        let authority = WikidataAuthorityIdCatalog::open(&root, &platform)?;
         let old_source = WikidataTextCatalog::open(&root, &platform)?;
         let old_candidates = WikidataCandidateCatalog::reconcile(&original, &old_source);
         let candidates =
@@ -1012,6 +1011,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         let properties = WikidataPropertyCatalog::open(&root, &platform)?;
         let relations = WikidataRelationCatalog::open(&root, &platform)?;
         let localized = WikidataLocalizedTitleCatalog::open(&root, &platform)?;
+        let authority = WikidataAuthorityIdCatalog::open(&root, &platform)?;
         let relation_labels = WikidataEntityLabelCatalog::open_relations(&root)?;
         let full_relations = if platform == "all" {
             None
