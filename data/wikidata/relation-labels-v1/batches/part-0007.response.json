@@ -1,0 +1,928 @@
+{
+  "head" : {
+    "vars" : [ "entity", "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Japan"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q183"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Germany"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q184"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Belarus"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "German"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q168562"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16913803"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hydlide"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1692598"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Micro Machines"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16928345"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16958332"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Invizimals"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16971366"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Cake Mania"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17006796"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q170073"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q170323"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo DS"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17042391"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kaijuu Monogatari"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17042402"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Last Ninja"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17042406"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Legend of Spyro"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17042647"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Entertainment System Game Pak"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17048133"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sniper Elite"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17048665"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sengoku Basara"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17048824"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Super Nintendo Entertainment System Game Pak"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1704979"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Slayer"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1705063"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "American Laser Games"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17076072"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lionsgate Films"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17081865"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ralston Purina"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17215551"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mario role-playing games"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17226383"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Warriors Orochi"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17229001"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Daisenryaku"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1724425"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Super Soccer"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1727636"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "SpongeBob SquarePants video games"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q173285"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "digital data"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q173350"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "printed circuit board"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q173759"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "F1"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q173941"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Electronic Arts"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q174077"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "flash memory"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1740851"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kid Icarus"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1747150"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17497140"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Backyard Sports"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1750894"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Monopoly"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17511804"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tarzan"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1751437"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Project Gotham Racing"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1751789"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Panzer General"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1758628"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mario Tennis"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1758804"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "co-op mode"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1766436"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Age"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1768977"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fire Emblem"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1770004"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q17747126"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fox Digital Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1780267"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1782700"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q178440"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dari"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1786131"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "You Don't Know Jack"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1804779"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Farming Simulator"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1810400"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Macross"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18126700"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "KDS"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18130932"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Traditional Chinese"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18154650"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mighty Rabbit Studios"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1816526"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Madman Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18204890"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Magna Carta"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18206426"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dead Island"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18206942"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Lost Vikings"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18276721"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lemmings"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18286530"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Wolverine"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1828897"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Wars"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18365471"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Wii Shop Channel"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18393935"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Walking Dead"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18396192"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Team Fortress"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18425442"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ikari Warriors"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q185029"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "first-person shooter"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1851885"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sega Meganet"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1852226"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "SSX"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1868663"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1868782"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Colin McRae Rally and Dirt"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q186938"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pro Cycling Manager"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q186941"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Columbia Pictures"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18819567"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pokémon side series"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188196"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188273"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1883234"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Madden NFL"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1886116"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "SaGa"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188642"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q188808"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "PlayStation Vita"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18922752"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18935909"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Witcher"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1897415"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "WarioWare"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1898865"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mario Golf"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q191715"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "WarnerMedia"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q192156"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q192557"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "DreamWorks"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q192851"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "arcade video game machine"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1930918"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "U.S. Gold"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1933462"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "SCE Studio Liverpool"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q193559"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Valve Corporation"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1942227"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q195764"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Project X Zone"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1958699"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Warlords"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19610114"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19706809"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mario Baseball"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18594"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sony Interactive Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1860"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "English"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q19308"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hitman"
+      }
+    } ]
+  }
+}

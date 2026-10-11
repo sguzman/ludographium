@@ -1,0 +1,968 @@
+{
+  "head" : {
+    "vars" : [ "entity", "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Spain"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "United States"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Belgium"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2826457"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Agatha Christie"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2833291"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alexandra Ledermann"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2837387"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "All-Star Baseball"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q284305"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "i-mode"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2858431"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Apogee Software"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2859311"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ar Tonelico"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28678974"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Titanfall"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28698251"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sonic Rush"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q287218"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ABC Signature"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2878448"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Backyard Baseball"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q288035"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q290106"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "StarCraft"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29037787"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kane & Lynch"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2908090"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Who Framed Roger Rabbit"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2908746"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Momotaro Dentetsu"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2927404"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bubsy"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2940671"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pokémon Pinball"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2946291"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Centuri"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29579645"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Super Star Wars"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29580289"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Star Wars"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q297303"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ASCII Corporation"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2981041"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2982970"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "EA Sports College Football"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2985270"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Idea Factory"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2985314"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tectoy"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2991004"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Games for Windows – Live"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29913050"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mario's Picross"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29919397"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Watch Dogs"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29919459"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Wrestle Angels"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2995061"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Twisted Metal"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2995706"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3002349"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Crave Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q301092"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Aardman Animations"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30141609"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lode Runner"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30149605"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Frogger"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3019378"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30223404"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Disaster Report"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q302300"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Brandish"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3028254"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Real Football"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3030260"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Disk Fax"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3030467"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Disney Sports"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30314507"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sailor Moon"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3041291"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dune"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3049164"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Eggerland"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30597443"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sansara Naga"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30611746"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Oregon Trail"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3064605"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Otomedius"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3070866"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3072802"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fire Pro Wrestling"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3080448"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zone of the Enders"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3083196"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "French of France"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3083218"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "European French"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30897213"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Ball Z: The Legacy of Goku"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30935299"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Sonic Boom"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30943865"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Switch Online"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3100030"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gears of War"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3105497"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "gigabit"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3107755"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jikkyō Powerful Pro Yakyū series"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31088632"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Samurai Warriors"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31088854"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Eye of the Beholder"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110042"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kongregate"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3117110"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nicktoons"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31174983"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "PokéPark"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3120814"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gundam: Battle Assault"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3120829"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "RedOctane"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3138737"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Monster Rancher"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3142082"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Double Dragon"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3149799"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Inazuma Eleven"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3150453"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Indie Fund"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3177782"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31789025"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Skate"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3179648"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Littlest Pet Shop"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3194304"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "kilobit"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3196634"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3206072"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "LJN"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3217742"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Reader Rabbit"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q322328"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Nightmare Before Christmas"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3235856"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mega Man Zero"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3247929"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "NASCAR"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q32512828"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Trine"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q325320"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chrono"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3262052"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Populous"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3266978"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "bit Generations"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q326704"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3270727"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kiga"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3273301"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "system console"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3276305"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mr. Driller"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3277355"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Saban Capital Group"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q28255"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "cdv Software Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q294"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Icelandic"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q29401"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Assamese"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q298"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chile"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q30319"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Silesian"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q312"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Apple Inc."
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31708"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Origin"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31953"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "LittleBigPlanet"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q32641"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Valencian"
+      }
+    } ]
+  }
+}

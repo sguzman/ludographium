@@ -1,0 +1,988 @@
+{
+  "head" : {
+    "vars" : [ "entity", "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1207809"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gust Co. Ltd."
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q120802720"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pinball FX"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1210316"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Professor Layton"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121073725"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Skate or Die"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121087816"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Snowy"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1211075"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chrome Web Store"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121327096"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "EA Store"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q121327575"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "EA App"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122040867"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bitmap Soft"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122335296"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Earthlock"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122452127"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Let's Create! Pottery"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122669"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vertigo"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122699774"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Samba de Amigo"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122704369"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hello Kitty"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122741"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122782034"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Maya the Bee"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122791945"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "El Chavo"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122792240"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Death Track"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122792247"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Def Jam"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122800331"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dennis the Menace"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122801160"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Wakfu"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122801432"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Doki Doki Majo Shinpan!"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122801459"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Doko Demo Issyo"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122801547"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Happy Action Theater"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122802641"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gremlins"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122810820"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Star Wars: The Force Unleashed"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122811052"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Despicable Me"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122811343"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "F1 Circus"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122811535"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fantasy Zone"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122817426"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Flying Dragon"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122817835"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Galaga"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122828560"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Godzilla"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12282943"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Naruto: Clash of Ninja Revolution"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122834620"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ranma ½"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122835051"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ghostbusters"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12284440"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Naruto Shippūden: Gekitō Ninja Taisen! EX"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122865516"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Bass Masters Classic"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1229035"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Disney Interactive Studios"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122911489"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "GTI Club"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q122929108"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gionbana"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12296099"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Teenage Mutant Ninja Turtles"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12297331"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Naruto: Ultimate Ninja Storm"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123017174"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Flashback"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123109210"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lego Ninjago"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123109581"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Lego Movie video game series"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123109619"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Koihime Enbu"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123179744"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Teslagrad"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123183545"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Under Night In-Birth"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12323504"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "LEGO Island"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123283172"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Puzzle & Dragons"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12331920"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pixeline"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123575972"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Perplexing Orb"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123575977"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pinball Breakout"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123685924"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Alien Hominid"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123752071"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "KuruKuru Princess"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123865011"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Legend of Heroes: Trails in the Sky"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123908784"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kaizō Chōjin Shubibinman"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q123917058"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "ZOOM Platform"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124213638"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tamagotchi"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124287484"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "WildTangent Games"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124322489"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ready 2 Rumble"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124322764"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Vandal Hearts"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124323758"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Quest Monsters: Joker"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124323809"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Quest Builders"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124323879"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Quest Heroes"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124439585"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Tennis Masters Series"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124656884"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124662527"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Valiant Hearts"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124714601"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Terminator"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124718259"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Terminator Salvation"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124732182"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Knightmare"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124737076"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Monica and Friends"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q124791317"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jetman"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125026266"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Need for Speed Hot Pursuit"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125097660"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "NBA Action"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125124206"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Rastan"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125316369"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Cutie Pets"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125374000"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Now I know my ABCs"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125376717"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Double Breakout"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125450297"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Games For Toddlers"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125500041"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Plants vs. Zombies: Garden Warfare"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125527791"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Collapse!"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q125961718"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dino Breeder"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126062379"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Avatar Laser Wars"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126066668"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "CastleMiner"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126099420"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Spirit"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126399"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Warner Bros. Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126437248"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Quiet"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126558000"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Quarters, Please!"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126721199"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gotta Protectors"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126957445"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Super Meat Boy"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q126972622"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Chronicles of Riddick"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127080337"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Chip 'n Dale Rescue Rangers"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127358553"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Shellshock"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127479521"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127499674"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "How to Survive"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127817859"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Soldam"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q127821241"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Rod Land"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12393"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Legend of Zelda"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12397"
+      }
+    } ]
+  }
+}

@@ -1,0 +1,978 @@
+{
+  "head" : {
+    "vars" : [ "entity", "label" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Netherlands"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5156154"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Compati Hero Series"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5160161"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Conflict"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5170139"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ratchet & Clank"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5190203"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Crush Pinball"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5196401"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Custom Robo"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q520061"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Clock Tower"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5215045"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dance Central"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5228690"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Postal"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5235185"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Quest Monsters"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5239103"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Danball Senki"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5245522"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dead to Rights"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5249105"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Deception"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5250165"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Deep Dungeon"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5252671"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "two-player video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5260943"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dept. Heaven"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5265330"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Destroy All Humans!"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5265394"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Destruction Derby"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q527336"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Atari, Inc."
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q52793624"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Pokémon Snap"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q528169"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Mystery Dungeon"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5310203"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dual format"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5312094"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jake Hunter"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5327066"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Earth Defense Force"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q533239"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Monkey Island"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q533268"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Oddworld"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q533752"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Guitar Hero"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5371838"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fandango"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5381702"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Zoo Tycoon"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5406023"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5423595"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "F-1 Grand Prix"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5428249"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Fabtek"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5433262"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Family Stadium"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5449391"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Final Fantasy Tactics"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5478948"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Manchester United"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54801165"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Injustice"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54820071"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "digital download"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5482131"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Xak"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55106966"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5512669"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "G1 Jockey"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55135017"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Knockout Kings"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55135057"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "King of the Monsters"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55135790"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Lotus"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55135927"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Spy vs. Spy"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55136710"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Bard's Tale"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55161541"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hyperdimension Neptunia"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55166018"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55194959"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "5¼-inch floppy disk"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5519804"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "GameTek"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5520058"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "GamersGate"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55215790"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo GameCube Disc"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55215818"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Wii Disc"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55215820"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Wii U Disc"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55217730"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo DS Game Card"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55217733"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo 3DS Game Card"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55218324"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Switch game card"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55219460"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Game Boy Game Pak"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55219685"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Game Boy Color Game Pak"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55219687"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo Game Boy Advance Game Pak"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5527721"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q553201"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hatsune Miku: Project DIVA"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q553658"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Deep Silver"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55458753"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Fall"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55526606"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Dragon Ball Z: Supersonic Warriors"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q555273"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Plaion"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55562184"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Acclaim Studios Cheltenham"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5557386"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ghosts 'n Goblins"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5571630"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Glory of Heracles"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5618753"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "GungHo Online Entertainment"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56426233"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "The Crew"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5647241"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Handango"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56649449"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Latin American Spanish"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q566838"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Robot Wars"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56827137"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Nintendo DS cartridge file"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56871793"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Jurassic Park"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56872090"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Guacamelee!"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57010655"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "NBA"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57014268"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hammerin' Harry"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57040689"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Kengo"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5717279"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Game & Watch Gallery"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57265383"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Let's Sing"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57265541"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Big Beach Sports"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5729658"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Blacklight"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5730147"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q57581440"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "LostWinds"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q577108"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5783242"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Ape Escape"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q578544"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "X-COM"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5798513"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Panda Computer Games"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5137"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Gujarati"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5146"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Portuguese"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5218"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Quechua"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5287"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Japanese"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5293"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "floppy disk"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q5294"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "DVD"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54300"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Star Wars video game"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q54869"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Star Wars: Battlefront"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q55679"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Need for Speed"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56475"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Hausa"
+      }
+    }, {
+      "entity" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q56942"
+      },
+      "label" : {
+        "xml:lang" : "en",
+        "type" : "literal",
+        "value" : "Wii U"
+      }
+    } ]
+  }
+}
