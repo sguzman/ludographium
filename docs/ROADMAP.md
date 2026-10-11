@@ -42,6 +42,7 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Audit all 3,282 source Steam/GOG ID claims, 1,972 provider-qualified ID strings, cross-platform repetition and 10 multi-QID identifier conflicts as noncanonical source review leads.
 - [x] Acquire 65,182 original source claims for MobyGames numeric/legacy IDs, GameFAQs, HowLongToBeat, OpenCritic, MAME, AtariAge, PlayStation and Metacritic with hash-pinned responses and exact property-qualified offline reverse lookup.
 - [x] Include original authority identifier claims in the exact-QID, per-platform offline game-observation union while keeping the fifth source accession independent and preserving source-only QID observations.
+- [x] Accession and verify all 23,623 original P4769 statement-level observations with explicit/missing P400 qualifiers, distinguishing 9,042 same-partition qualifiers from 14,084 other-platform qualifiers and 497 unqualified rows.
 - [ ] Expand independently *provider-verified* identifier evidence beyond Wikidata assertions; quantify false-positive risk using adjudicated ground truth.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 

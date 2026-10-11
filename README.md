@@ -57,6 +57,7 @@ cargo run --locked -- --wikidata-relations --with-entity-labels --platform atari
 cargo run --locked -- --wikidata-relations --platform all --external-id 15750 --property P1733
 cargo run --locked -- --wikidata-authority-ids --platform all --property P4769 --limit 5
 cargo run --locked -- --wikidata-authority-ids --platform all --property P11688 --external-id 39536
+cargo run --locked -- --wikidata-gamefaqs-qualifiers --platform all --external-id 579332 --limit 5
 cargo run --locked -- --wikidata-localized-titles --platform all --language es --limit 5
 cargo run --locked -- --wikidata-localized-candidates --platform all --limit 5
 ```

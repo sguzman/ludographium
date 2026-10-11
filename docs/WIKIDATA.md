@@ -159,6 +159,43 @@ or incomplete Wikidata qualifiers, **not necessarily a source error**.
 Cross-provider title matches and matching years remain review evidence,
 not independently verified work or regional-release identities.
 
+## Original GameFAQs platform qualifier evidence
+
+The original [GameFAQs P4769 statement-level source accession](../data/wikidata/gamefaqs-qualifiers-v1/)
+preserves **23,623 statement observations** across 16 platforms. Unlike
+a direct P4769 identifier query, it captures each exact Wikidata statement
+URI and its optional P400 **statement qualifier**. All query, response,
+JSONL and manifest hashes are pinned. No qualifier is inferred for unqualified
+statements.
+
+A [reproducible review report](../reports/wikidata-gamefaqs-platform-qualifier-review-v1.json)
+measures how those source qualifiers relate to the *item-level* P400
+platform used to select each partition:
+
+| Source observation type | Rows |
+| --- | ---: |
+| Explicit statement qualifier equals partition's platform | 9,042 |
+| Explicit statement qualifier names another platform | 14,084 |
+| Missing statement-level platform qualifier | 497 |
+| **Original source observation rows** | **23,623** |
+
+The same source item may belong to multiple platforms, so a statement
+qualifier naming another platform is **not necessarily an error**. The
+correct interpretation is that the *game-item platform scope* and the
+*external-ID statement's platform qualifier* are distinct kinds of evidence.
+
+The Rust reader independently verifies full query/response/JSONL fidelity,
+the raw statement URIs and qualifier counts. It exposes a bounded offline
+lookup by exact original GameFAQs value and/or Wikidata item QID:
+
+```sh
+cargo run --locked -- --wikidata-gamefaqs-qualifiers --platform all --limit 5
+cargo run --locked -- --wikidata-gamefaqs-qualifiers --platform atari2600 --qid Q1014915 --external-id 579332
+```
+
+This is original CC0 Wikidata evidence only, **not GameFAQs API verification**
+or an accepted release/edition identity.
+
 ## Independent third-party game authority ID source claims
 
 The fourth structured-data source expansion captures **65,182 original Wikidata
