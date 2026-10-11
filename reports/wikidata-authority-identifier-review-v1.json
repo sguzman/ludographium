@@ -1,0 +1,541 @@
+{
+  "schema_version": 1,
+  "kind": "pinned-wikidata-third-party-game-authority-id-review",
+  "source_commit_sha": "8414deef36f43c8327aa3433cf950f4b51a451d1",
+  "source": "Original pinned Wikidata CC0 authority-id source query responses across 16 declared platforms",
+  "source_claims": 65182,
+  "distinct_property_scoped_identifier_strings": 41503,
+  "identifiers_observed_on_multiple_platforms": 15093,
+  "identifier_values_attached_to_multiple_game_qids": 148,
+  "provider_counts": {
+    "P11688": {
+      "claims": 16800,
+      "distinct_identifier_strings": 11304,
+      "distinct_game_qids": 9414
+    },
+    "P1712": {
+      "claims": 13,
+      "distinct_identifier_strings": 11,
+      "distinct_game_qids": 10
+    },
+    "P1933": {
+      "claims": 15725,
+      "distinct_identifier_strings": 10515,
+      "distinct_game_qids": 8793
+    },
+    "P2451": {
+      "claims": 620,
+      "distinct_identifier_strings": 382,
+      "distinct_game_qids": 363
+    },
+    "P2606": {
+      "claims": 59,
+      "distinct_identifier_strings": 45,
+      "distinct_game_qids": 30
+    },
+    "P2816": {
+      "claims": 6718,
+      "distinct_identifier_strings": 4508,
+      "distinct_game_qids": 4373
+    },
+    "P2864": {
+      "claims": 1214,
+      "distinct_identifier_strings": 848,
+      "distinct_game_qids": 844
+    },
+    "P4769": {
+      "claims": 23606,
+      "distinct_identifier_strings": 13641,
+      "distinct_game_qids": 7707
+    },
+    "P4857": {
+      "claims": 427,
+      "distinct_identifier_strings": 249,
+      "distinct_game_qids": 155
+    }
+  },
+  "game_qids_with_both_mobygames_identifier_schemes": 8712,
+  "multi_qid_examples_first_30": [
+    {
+      "property": "P11688",
+      "identifier": "11293",
+      "distinct_qids": [
+        "Q19850827",
+        "Q2321431"
+      ],
+      "platforms": [
+        "gb"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gb/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "12611",
+      "distinct_qids": [
+        "Q112572645",
+        "Q963231"
+      ],
+      "platforms": [
+        "genesis",
+        "snes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/genesis/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/snes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "1466",
+      "distinct_qids": [
+        "Q139604558",
+        "Q384153"
+      ],
+      "platforms": [
+        "gb",
+        "gba",
+        "microsoftxbox360",
+        "nes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gb/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/gba/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/microsoftxbox360/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "15945",
+      "distinct_qids": [
+        "Q14906476",
+        "Q2397985"
+      ],
+      "platforms": [
+        "gbc",
+        "n64"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gbc/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/n64/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "23373",
+      "distinct_qids": [
+        "Q2937217",
+        "Q3180498"
+      ],
+      "platforms": [
+        "gba"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gba/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "23459",
+      "distinct_qids": [
+        "Q11341046",
+        "Q3091522"
+      ],
+      "platforms": [
+        "gba",
+        "nintendowiiudigital"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gba/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nintendowiiudigital/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "23483",
+      "distinct_qids": [
+        "Q1114374",
+        "Q3516985"
+      ],
+      "platforms": [
+        "nes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "24246",
+      "distinct_qids": [
+        "Q385184",
+        "Q92203821"
+      ],
+      "platforms": [
+        "nintendowiidigital",
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nintendowiidigital/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "25103",
+      "distinct_qids": [
+        "Q23008476",
+        "Q735613"
+      ],
+      "platforms": [
+        "nintendowiidigital",
+        "nintendowiiudigital"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nintendowiidigital/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nintendowiiudigital/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "29930",
+      "distinct_qids": [
+        "Q2452447",
+        "Q91628493"
+      ],
+      "platforms": [
+        "nds"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nds/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "29931",
+      "distinct_qids": [
+        "Q2452447",
+        "Q86725231"
+      ],
+      "platforms": [
+        "nds"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nds/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "29932",
+      "distinct_qids": [
+        "Q2452447",
+        "Q88180316"
+      ],
+      "platforms": [
+        "nds"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nds/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "31074",
+      "distinct_qids": [
+        "Q76255",
+        "Q9184280"
+      ],
+      "platforms": [
+        "microsoftxbox360",
+        "nintendowiidigital",
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/microsoftxbox360/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nintendowiidigital/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "32571",
+      "distinct_qids": [
+        "Q3312139",
+        "Q97824482"
+      ],
+      "platforms": [
+        "gb",
+        "genesis",
+        "sms",
+        "snes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gb/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/genesis/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sms/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/snes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "35137",
+      "distinct_qids": [
+        "Q16266827",
+        "Q7601068"
+      ],
+      "platforms": [
+        "atari2600",
+        "nes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/atari2600/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "3720",
+      "distinct_qids": [
+        "Q1050284",
+        "Q136756899"
+      ],
+      "platforms": [
+        "microsoftxbox360",
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/microsoftxbox360/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "38357",
+      "distinct_qids": [
+        "Q109123086",
+        "Q4041940"
+      ],
+      "platforms": [
+        "gb",
+        "nes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gb/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "39263",
+      "distinct_qids": [
+        "Q2116167",
+        "Q5424172"
+      ],
+      "platforms": [
+        "snes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/snes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "43649",
+      "distinct_qids": [
+        "Q116994393",
+        "Q74683"
+      ],
+      "platforms": [
+        "microsoftxbox360",
+        "nds",
+        "nintendowiidigital",
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/microsoftxbox360/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nds/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nintendowiidigital/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "44640",
+      "distinct_qids": [
+        "Q139781716",
+        "Q16571916"
+      ],
+      "platforms": [
+        "nintendowiidigital"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nintendowiidigital/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "45113",
+      "distinct_qids": [
+        "Q139781716",
+        "Q16571916"
+      ],
+      "platforms": [
+        "nintendowiidigital"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/nintendowiidigital/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "4513",
+      "distinct_qids": [
+        "Q123196063",
+        "Q3271336"
+      ],
+      "platforms": [
+        "gb",
+        "nes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gb/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "45367",
+      "distinct_qids": [
+        "Q1406611",
+        "Q4956075"
+      ],
+      "platforms": [
+        "gb",
+        "genesis",
+        "nes",
+        "snes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gb/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/genesis/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/snes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "45692",
+      "distinct_qids": [
+        "Q2664972",
+        "Q869960"
+      ],
+      "platforms": [
+        "microsoftxbox360",
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/microsoftxbox360/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "46486",
+      "distinct_qids": [
+        "Q108940777",
+        "Q1572908"
+      ],
+      "platforms": [
+        "microsoftxbox360",
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/microsoftxbox360/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "47696",
+      "distinct_qids": [
+        "Q137636614",
+        "Q615211"
+      ],
+      "platforms": [
+        "gbc",
+        "n64"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gbc/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/n64/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "4835",
+      "distinct_qids": [
+        "Q1318068",
+        "Q2470724"
+      ],
+      "platforms": [
+        "genesis",
+        "nes",
+        "snes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/genesis/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/snes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "53449",
+      "distinct_qids": [
+        "Q29888291",
+        "Q5514704"
+      ],
+      "platforms": [
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "5375",
+      "distinct_qids": [
+        "Q1090190",
+        "Q97654626"
+      ],
+      "platforms": [
+        "gb",
+        "nes"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/gb/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/nes/bindings.jsonl"
+      ]
+    },
+    {
+      "property": "P11688",
+      "identifier": "54053",
+      "distinct_qids": [
+        "Q106921071",
+        "Q969764"
+      ],
+      "platforms": [
+        "microsoftxbox360",
+        "sonyplaystation3psn"
+      ],
+      "original_source_paths": [
+        "data/wikidata/authority-ids-v1/microsoftxbox360/bindings.jsonl",
+        "data/wikidata/authority-ids-v1/sonyplaystation3psn/bindings.jsonl"
+      ]
+    }
+  ],
+  "interpretation": "Independent Wikidata property-qualified identifier assertions only. Repetition across platforms is not a duplicate error, matching source identifiers do not verify an external provider entry, and this is not a ground-truth false-positive evaluation."
+}
