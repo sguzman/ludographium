@@ -623,7 +623,10 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
     let source_version = expansion_source.as_deref().unwrap_or("v1");
     if (wikidata_expanded || wikidata_expanded_candidates)
-        && !matches!(source_version, "v1" | "v2" | "v3" | "v4" | "v5" | "v6" | "v7")
+        && !matches!(
+            source_version,
+            "v1" | "v2" | "v3" | "v4" | "v5" | "v6" | "v7"
+        )
     {
         return Err(CatalogError::Invalid(
             "--expansion-source must be v1, v2, v3, v4, v5, v6 or v7".into(),
