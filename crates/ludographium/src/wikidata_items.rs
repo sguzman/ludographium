@@ -386,7 +386,10 @@ mod tests {
         assert_eq!(projection.localized_source_items(), 15_731);
         assert!(projection.total_items() >= 15_868);
         assert_eq!(
-            projection.source_membership_counts().values().sum::<usize>(),
+            projection
+                .source_membership_counts()
+                .values()
+                .sum::<usize>(),
             projection.total_items()
         );
         assert_eq!(
@@ -410,7 +413,12 @@ mod tests {
                 && entry.relation_source_present
                 && entry.localized_source_present
                 && entry.source_membership
-                    == ["title_date", "company_genre", "relations", "localized_titles"]
+                    == [
+                        "title_date",
+                        "company_genre",
+                        "relations",
+                        "localized_titles",
+                    ]
                 && entry.source_presence == "multiple_independent_snapshots"
         }));
     }
