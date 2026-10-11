@@ -1097,30 +1097,56 @@ fn original_gamefaqs_statement_qualifiers_remain_distinct_from_selected_item_pla
 #[test]
 fn independently_pinned_atari_psp_vita_source_responses_are_searchable_offline() {
     let all = query(&["--wikidata-expanded", "--platform", "all", "--limit", "2"]);
-    assert_eq!(all["source_mode"], "pinned-wikidata-expanded-platform-source-text");
+    assert_eq!(
+        all["source_mode"],
+        "pinned-wikidata-expanded-platform-source-text"
+    );
     assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 3);
     assert_eq!(all["source_rows"], 3888);
     assert_eq!(all["source_item_platform_observations"], 2254);
     assert_eq!(all["literal_publication_date_bindings"], 3699);
     assert_eq!(all["nonliteral_publication_bindings"], 5);
     assert_eq!(all["returned_source_rows"], 2);
-    assert_eq!(all["source_rows_evidence"][0]["source_sha256"].as_str().unwrap().len(), 64);
+    assert_eq!(
+        all["source_rows_evidence"][0]["source_sha256"]
+            .as_str()
+            .unwrap()
+            .len(),
+        64
+    );
 
     let atari = query(&[
-        "--wikidata-expanded", "--platform", "atari7800",
-        "--qid", "Q1014915", "--limit", "10",
+        "--wikidata-expanded",
+        "--platform",
+        "atari7800",
+        "--qid",
+        "Q1014915",
+        "--limit",
+        "10",
     ]);
     assert!(atari["total_filtered_source_rows"].as_u64().unwrap() > 0);
-    assert!(atari["source_rows_evidence"].as_array().unwrap().iter().all(|row| {
-        row["platform"] == "atari7800"
-            && row["item_qid"] == "Q1014915"
-            && row["english_label"] == "BurgerTime"
-            && row["interpretation"].as_str().unwrap().contains("not-canonical")
-    }));
+    assert!(atari["source_rows_evidence"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|row| {
+            row["platform"] == "atari7800"
+                && row["item_qid"] == "Q1014915"
+                && row["english_label"] == "BurgerTime"
+                && row["interpretation"]
+                    .as_str()
+                    .unwrap()
+                    .contains("not-canonical")
+        }));
 
     let vita = query(&[
-        "--wikidata-expanded", "--platform", "sonyplaystationvita",
-        "--title", "King Oddball", "--limit", "3",
+        "--wikidata-expanded",
+        "--platform",
+        "sonyplaystationvita",
+        "--title",
+        "King Oddball",
+        "--limit",
+        "3",
     ]);
     assert!(vita["total_filtered_source_rows"].as_u64().unwrap() > 0);
     assert_eq!(vita["nonliteral_publication_bindings"], 5);
@@ -1130,10 +1156,21 @@ fn independently_pinned_atari_psp_vita_source_responses_are_searchable_offline()
         vec!["--wikidata-expanded", "--platform", "all", "--source-dat"],
         vec!["--wikidata-expanded", "--platform", "all", "--qid", "Q0"],
         vec!["--wikidata-expanded", "--platform", "all", "--limit", "0"],
-        vec!["--wikidata-expanded", "--platform", "all", "--wikidata-text"],
+        vec![
+            "--wikidata-expanded",
+            "--platform",
+            "all",
+            "--wikidata-text",
+        ],
     ] {
         let result = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(&root).args(&args).output().unwrap();
-        assert!(!result.status.success(), "invalid CLI arguments accepted: {args:?}");
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
+        assert!(
+            !result.status.success(),
+            "invalid CLI arguments accepted: {args:?}"
+        );
     }
 }
