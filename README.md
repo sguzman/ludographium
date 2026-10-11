@@ -22,11 +22,22 @@ cargo run --locked -- --wikidata-expanded --expansion-source v2 --platform all -
 cargo run --locked -- --wikidata-expanded --expansion-source v3 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded --expansion-source v4 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded --expansion-source v5 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded --expansion-source v6 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v6 --platform all --limit 5
 # Per-console source-title review counts: reports/wikidata-expanded-platform-v{3,4,5}-title-review-v1.json
 cargo run --locked -- --wikidata-expanded-candidates --expansion-source v2 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded --platform atari7800 --qid Q1014915
 cargo run --locked -- --wikidata-expanded --platform sonyplaystationvita --title "King Oddball"
 ```
+
+The sixth expansion cohort adds **six independently hash-pinned Wikidata
+platform queries** (Game Gear, New Nintendo 3DS, Nintendo DSi, Nintendo 64DD,
+Tiger Game.com and Fairchild Channel F). It preserves **662 raw source rows,
+309 item/platform observations, 642 literal publication-date bindings and two
+nonliteral publication bindings**. Tiger Game.com's zero-row query is retained
+and verified as scoped noncoverage, not inferred evidence about its game library.
+The Rust reader and conservative title-candidate CLI accept
+`--expansion-source v6` while keeping prior snapshots immutable.
 
 The original source responses and hashes live under
 [data/wikidata/platform-expansion-v1/](data/wikidata/platform-expansion-v1/).
