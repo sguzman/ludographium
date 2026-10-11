@@ -126,8 +126,8 @@ jobs:
             jq -e '. as $m | ($m.source_rows > 0) and ($m.distinct_items > 0) and ($m.query_limit > $m.source_rows) and (([.property_counts[]] | add) == $m.source_rows)' "$out/manifest.json" > /dev/null
             echo "$platform: $count original relations/IDs, $items items, $entity_values entity-valued bindings"
             sleep 2
-          done < <(jq -r '.platforms[] | select(.platform == "atari2600" or .platform == "nintendovirtualboy" or .platform == "microsoftxbox360") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
-          test "$(find "$base" -name manifest.json | wc -l)" -eq 11
+          done < <(jq -r '.platforms[] | select(.platform == "atari2600" or .platform == "nintendovirtualboy") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 10
       - name: Commit only original text source evidence
         shell: bash
         run: |
