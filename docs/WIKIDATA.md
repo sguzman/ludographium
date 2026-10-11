@@ -159,6 +159,47 @@ or incomplete Wikidata qualifiers, **not necessarily a source error**.
 Cross-provider title matches and matching years remain review evidence,
 not independently verified work or regional-release identities.
 
+## Independent third-party game authority ID source claims
+
+The fourth structured-data source expansion captures **65,182 original Wikidata
+third-party identifier claims** for 13,609 game-item/platform observations
+across all 16 previously declared platforms. Original [query responses,
+literal identifier strings, JSONL and SHA-256 manifests](../data/wikidata/authority-ids-v1/)
+are preserved without contacting or copying the third-party databases.
+
+| Property | Wikidata claim meaning | Source claims |
+| --- | --- | ---: |
+| P11688 | MobyGames game ID (numeric) | 16,800 |
+| P1933 | MobyGames game ID (legacy slug) | 15,725 |
+| P4769 | GameFAQs game ID | 23,606 |
+| P2816 | HowLongToBeat ID | 6,718 |
+| P2864 | OpenCritic ID | 1,214 |
+| P2451 | MAME ROM name | 620 |
+| P4857 | AtariAge ID | 427 |
+| P2606 | PlayStation ID | 59 |
+| P1712 | Metacritic ID | 13 |
+
+The former MobyGames slug (P1933) and numeric ID (P11688) are different
+identifier namespaces. A GameFAQs ID can be platform-scoped while a
+MobyGames numeric ID can describe a broader game entity; these source
+assertions are never silently equated or promoted into definitive release
+identities.
+
+Offline Rust lookup verifies all pinned source files and exposes exact
+provider-qualified reverse lookup and source QID filtering:
+
+```sh
+cargo run --locked -- --wikidata-authority-ids --platform all --limit 5
+cargo run --locked -- --wikidata-authority-ids --platform all --property P4769 --limit 5
+cargo run --locked -- --wikidata-authority-ids --platform all --property P11688 --external-id 39536
+```
+
+The matching scope is **exact identifier string plus explicit property**.
+The original source game QID, platform, ordinal, query, response and text
+hashes stay attached. Different QIDs sharing one claimed external identifier
+are review leads; there is no assertion that the external provider actually
+assigns that identifier to the linked game.
+
 ## Third Wikidata property expansion: series, titles, game modes and external IDs
 
 A further **92,621 original source statements** across all **16 registered

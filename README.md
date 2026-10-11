@@ -55,6 +55,8 @@ cargo run --locked -- --wikidata-relations --platform all --property P1476 --lim
 cargo run --locked -- --wikidata-relations --platform all --property P1733 --limit 5
 cargo run --locked -- --wikidata-relations --with-entity-labels --platform atari2600 --qid Q100701966
 cargo run --locked -- --wikidata-relations --platform all --external-id 15750 --property P1733
+cargo run --locked -- --wikidata-authority-ids --platform all --property P4769 --limit 5
+cargo run --locked -- --wikidata-authority-ids --platform all --property P11688 --external-id 39536
 cargo run --locked -- --wikidata-localized-titles --platform all --language es --limit 5
 cargo run --locked -- --wikidata-localized-candidates --platform all --limit 5
 ```
