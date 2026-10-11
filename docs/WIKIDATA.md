@@ -659,6 +659,38 @@ The underlying expanded database is pinned to its published SHA-256. Source quer
 
 The first successful batch covers 16 explicitly mapped platform categories, not all 75. Other platforms require grounded Wikidata platform IDs and should be added in **batches**, with coverage and ambiguous-candidate statistics, never per-game data entry.
 
+## Sixth verified platform cohort (v6)
+
+The pinned [v6 source register](../sources/wikidata-platform-expansion-v6.json)
+and [original source snapshots](../data/wikidata/platform-expansion-v6/)
+add six independently captured P31 video-game/P400 platform query scopes:
+Sega Game Gear, New Nintendo 3DS, Nintendo DSi, Nintendo 64DD,
+Tiger Game.com and Fairchild Channel F. The capture contains **662 original
+query rows** representing **309 distinct item/platform observations**,
+**575 English-label-bearing rows**, **642 literal publication bindings**,
+and **two nonliteral publication bindings**. These are source observations,
+not verified releases or distinct game works.
+
+The Tiger Game.com query returned **zero** rows. Its manifest, original
+query, zero-binding JSON response, and empty JSONL evidence remain independently
+hash-checked. This is a result for that precise query, not an assertion that
+the platform had no games. New Nintendo 3DS has the two nonliteral publication
+bindings; they are retained as RDF values rather than interpreted as dates.
+
+The offline Rust reader and its bounded conservative title comparison
+support `--expansion-source v6`, without overwriting earlier captures:
+
+```sh
+cargo run --locked -- --wikidata-expanded --expansion-source v6 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded --expansion-source v6 --platform gg --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v6 --platform all --limit 5
+```
+
+The title comparison exposes provisional review candidates only, preserving
+source paths, original ordinals, QIDs, SHA-256 evidence, and ambiguity. Neither
+the existence of an exact same-platform title nor the absence of returned
+rows proves canonical work/release identity or platform-complete coverage.
+
 ## Accuracy and source-rights boundaries
 
 Wikidata's CC0 statements can support independently *attributed* comparisons. They are not automatically independent factual corroboration: Wikidata contributors may have consulted the same upstream references as Libretro contributors. Label correspondence alone has no power to authenticate media hashes, identify a regional edition, or establish that two products are the same canonical work.
