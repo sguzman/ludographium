@@ -169,11 +169,15 @@ impl WikidataItemProjection {
                     relation_source_present: false,
                     localized_names: BTreeMap::new(),
                     localized_source_present: false,
-                    interpretation: "independent-source-evidence-not-verified-game-or-release-identity",
+                    interpretation:
+                        "independent-source-evidence-not-verified-game-or-release-identity",
                 });
             entry.localized_source_present = true;
-            entry.localized_names.entry(claim.language_tag.clone())
-                .or_default().push(json!({"original_localized_name": claim}));
+            entry
+                .localized_names
+                .entry(claim.language_tag.clone())
+                .or_default()
+                .push(json!({"original_localized_name": claim}));
         }
         let mut localized_only = 0;
         let mut relation_and_localized_only = 0;
@@ -202,7 +206,9 @@ impl WikidataItemProjection {
                     entry.source_presence = "property_source_only";
                     only_properties += 1;
                 }
-                (false, false) if entry.relation_source_present && entry.localized_source_present => {
+                (false, false)
+                    if entry.relation_source_present && entry.localized_source_present =>
+                {
                     entry.source_presence = "relation_and_localized_sources_only";
                     relation_and_localized_only += 1;
                 }
@@ -297,10 +303,13 @@ impl WikidataItemProjection {
         for entry in &self.entries {
             if qid.is_some_and(|key| entry.qid != key)
                 || needle.as_ref().is_some_and(|key| {
-                    let primary = entry.english_label.as_ref()
+                    let primary = entry
+                        .english_label
+                        .as_ref()
                         .is_some_and(|value| value.to_lowercase().contains(key));
                     let localized = entry.localized_names.values().flatten().any(|name| {
-                        name["original_localized_name"]["name"].as_str()
+                        name["original_localized_name"]["name"]
+                            .as_str()
                             .is_some_and(|value| value.to_lowercase().contains(key))
                     });
                     !primary && !localized
