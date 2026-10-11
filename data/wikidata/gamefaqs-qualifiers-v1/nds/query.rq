@@ -1,0 +1,8 @@
+SELECT DISTINCT ?item ?statement ?identifier ?qualifiedPlatform WHERE {
+  ?item wdt:P31 wd:Q7889; wdt:P400 wd:Q170323.
+  ?item p:P4769 ?statement.
+  ?statement ps:P4769 ?identifier.
+  OPTIONAL { ?statement pq:P400 ?qualifiedPlatform. }
+}
+ORDER BY ?item ?statement ?identifier ?qualifiedPlatform
+LIMIT 30000

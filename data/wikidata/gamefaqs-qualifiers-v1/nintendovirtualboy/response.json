@@ -1,0 +1,365 @@
+{
+  "head" : {
+    "vars" : [ "item", "statement", "identifier", "qualifiedPlatform" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q10373619"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q10373619-021E8376-4233-46FE-928C-1D13FEE6A1D4"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "571619"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18663560"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q18663560-2AAD531E-A6E6-460A-902C-583FB6D0C144"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563923"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q196255"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q196255-623CC4C2-97DE-4B04-9229-4796F2D0FD0E"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "588701"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q183259"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q196255"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q196255-D0EE845C-AB5E-4E58-8828-38BB2687B18A"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "931283"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q48263"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2212108"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2212108-2A2C96BE-A810-49DF-ACE5-19392862D9A8"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563927"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2215664"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2215664-AED87FD2-62AC-4063-A932-A644364497D4"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563918"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2698314"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2698314-45857AA1-7709-48B3-9189-600216507BC7"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563919"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2741636"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2741636-A6CF10EE-613F-45AC-A5F3-BD4EA6E628B9"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563926"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2745920"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2745920-614FC5D1-21BC-4A96-8C78-2A1B49C7F6A9"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "571617"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2816481"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q2816481-CBBC5BF5-FBC2-4639-95FE-4A56DEF69F83"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "582498"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3090756"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3090756-CD110583-2CC4-4780-A98E-8560B6B001A8"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563914"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3110156"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3110156-BC87E006-5BF4-4763-8587-2B38E2ADCC5F"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563916"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3151583"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3151583-D9B9E7C0-6D44-41AA-A6C7-1DE9F176DCA7"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "579729"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3280765"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3280765-FBBE2565-1162-4630-B1E4-7B60C17B9F9E"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "571616"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3281170"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3281170-F0BA213F-A587-4A74-ABF2-4580551F025A"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "571618"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3281358"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3281358-36f9247c-4432-43c9-a27e-12d29dad60c4"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "571621"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3284225"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3284225-0D25445A-2984-44A9-B337-91E784B66293"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563922"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3284969"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3284969-960CC4E5-73BF-4EBD-945E-18F6D04C6FEF"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "562620"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3285995"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q3285995-7D47D8E9-194D-4A5E-8245-0FDC657DFF66"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563924"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q764619"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q764619-D6E62BEF-F9F1-409C-976E-370AE407BC7B"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "571620"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q903406"
+      },
+      "statement" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/statement/Q903406-C7D94679-9619-47E6-ACF9-5AFBAAE24C39"
+      },
+      "identifier" : {
+        "type" : "literal",
+        "value" : "563917"
+      },
+      "qualifiedPlatform" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q164651"
+      }
+    } ]
+  }
+}
