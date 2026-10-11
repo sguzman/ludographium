@@ -378,6 +378,81 @@ impl WikidataPropertyCatalog {
         )
     }
 
+    /// Query all 65 independent P400 platform partitions without merging game identities.
+    /// A single platform reads only the registered source cohort for that platform.
+    pub fn open_combined(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        let root = root.as_ref();
+        let mut selected = None;
+        if selection != "all" {
+            for version in 0..=8 {
+                let register = if version == 0 {
+                    "sources/wikidata-v1.json".to_owned()
+                } else {
+                    format!("sources/wikidata-platform-expansion-v{version}.json")
+                };
+                let raw: Value = serde_json::from_slice(&fs::read(root.join(register))?)?;
+                let scopes = raw["platforms"]
+                    .as_array()
+                    .ok_or_else(|| invalid("combined source register is missing platforms"))?;
+                if scopes.iter().any(|scope| scope["platform"] == selection) {
+                    let cohort = match version {
+                        0 => 0,
+                        1..=4 => 1,
+                        5..=7 => 2,
+                        8 => 3,
+                        _ => unreachable!(),
+                    };
+                    if selected.replace(cohort).is_some() {
+                        return Err(invalid("duplicate platform across independent source cohorts"));
+                    }
+                }
+            }
+            if selected.is_none() {
+                return Err(invalid("unknown combined source platform"));
+            }
+        }
+        let mut parts = Vec::new();
+        for cohort in 0..4 {
+            if selected.is_some_and(|value| value != cohort) {
+                continue;
+            }
+            let source = match cohort {
+                0 => Self::open(root, selection)?,
+                1 => Self::open_expanded(root, selection)?,
+                2 => Self::open_expanded_v2(root, selection)?,
+                3 => Self::open_expanded_v3(root, selection)?,
+                _ => unreachable!(),
+            };
+            parts.push(source);
+        }
+        let mut seen = HashSet::new();
+        let mut combined = Self {
+            claims: Vec::new(),
+            platforms: Vec::new(),
+            source_item_observations: 0,
+            non_entity_bindings: 0,
+            properties: BTreeMap::new(),
+        };
+        for mut source in parts {
+            for platform in &source.platforms {
+                if !seen.insert(platform.clone()) {
+                    return Err(invalid("combined source cohorts repeated platform"));
+                }
+            }
+            combined.claims.append(&mut source.claims);
+            combined.platforms.append(&mut source.platforms);
+            combined.source_item_observations += source.source_item_observations;
+            combined.non_entity_bindings += source.non_entity_bindings;
+            for (kind, count) in source.properties { *combined.properties.entry(kind).or_insert(0) += count; }
+        }
+        if combined.platforms.is_empty()
+            || (selection == "all" && combined.platforms.len() != 65)
+        {
+            return Err(invalid("incomplete 65-scope combined source collection"));
+        }
+        Ok(combined)
+    }
+
     fn open_expanded_cohorts(
         root: &Path,
         selection: &str,
@@ -688,6 +763,20 @@ mod tests {
             assert_eq!(scope.total_claims(), 0);
         }
         assert!(WikidataPropertyCatalog::open_expanded_v3(&root, "unknown").is_err());
+    }
+
+    #[test]
+    fn combined_property_source_keeps_all_65_platforms_independent() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let all = WikidataPropertyCatalog::open_combined(&root, "all").unwrap();
+        assert_eq!(all.platforms().len(), 65);
+        assert_eq!(all.total_claims(), 58_460);
+        assert_eq!(all.source_item_observations(), 18_247);
+        assert_eq!(all.property_counts().values().sum::<usize>(), 58_460);
+        let selected = WikidataPropertyCatalog::open_combined(&root, "mobilezeebo").unwrap();
+        assert_eq!(selected.platforms(), &["mobilezeebo".to_owned()]);
+        assert_eq!(selected.total_claims(), 56);
+        assert!(WikidataPropertyCatalog::open_combined(&root, "unregistered").is_err());
     }
 
     #[test]

@@ -114,6 +114,13 @@ mappings are unresolved. Verify the provider search evidence with
 The v8 reader can now validate and query these original text captures
 offline without changing older cohorts:
 
+The offline property and relation readers additionally support
+`--metadata-cohort combined` for **65 source platform scopes**. Their
+**58,460 original developer/publisher/genre statements** and **113,204
+relation/identifier statements** remain separate source claims, not merged
+game identities. Combined queries intentionally reject `--with-entity-labels`
+until cross-cohort label provenance can be represented unambiguously.
+
 ```sh
 cargo run --locked -- --wikidata-expanded --expansion-source v8 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded --expansion-source v8 --platform mobilezeebo --limit 5

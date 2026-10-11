@@ -2021,6 +2021,29 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
     assert_eq!(new_labels["entity_label_source"]["entity_qids"], 83);
     assert_eq!(new_labels["entity_label_source"]["english_labels"], 73);
 
+    let all_properties = query(&[
+        "--wikidata-properties",
+        "--metadata-cohort",
+        "combined",
+        "--platform",
+        "all",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(all_properties["source_statements"], 58460);
+    assert_eq!(all_properties["platforms_searched"].as_array().unwrap().len(), 65);
+    let all_relations = query(&[
+        "--wikidata-relations",
+        "--metadata-cohort",
+        "combined",
+        "--platform",
+        "all",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(all_relations["source_statements"], 113204);
+    assert_eq!(all_relations["platforms_searched"].as_array().unwrap().len(), 65);
+
     let properties_with_labels = query(&[
         "--wikidata-properties",
         "--metadata-cohort",
@@ -2073,6 +2096,14 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
             "all",
         ],
         vec!["--metadata-cohort", "expanded-v2", "--platform", "all"],
+        vec![
+            "--wikidata-relations",
+            "--metadata-cohort",
+            "combined",
+            "--with-entity-labels",
+            "--platform",
+            "all",
+        ],
         vec![
             "--wikidata-properties",
             "--metadata-cohort",
