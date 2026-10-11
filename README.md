@@ -52,6 +52,23 @@ available via `--expansion-source v7`.
 The original source responses and hashes live under
 [data/wikidata/platform-expansion-v1/](data/wikidata/platform-expansion-v1/).
 
+## Expanded Wikidata developer, publisher and genre evidence
+
+The independently pinned [19-platform credit corpus](data/wikidata/expanded-credits-v1/)
+adds **10,269 original P178 developer, P123 publisher, and P136 genre
+statements** across Atari, PlayStation, Sega, Nintendo, NEC, and other
+console scopes outside the original sixteen-platform baseline. It covers
+**3,150 game-item/platform observations**. Original SPARQL responses,
+ordered JSONL bindings, source SHA-256 checksums, and unmatched values are
+preserved; none of these claims establishes a canonical game identity.
+
+```sh
+cargo run --locked -- --wikidata-properties --expanded-credits --platform all --limit 5
+cargo run --locked -- --wikidata-properties --expanded-credits --platform sonyplaystationportable --property P178 --limit 5
+```
+
+These are source claims, not independently provider-confirmed credits.
+
 ## Collection
 
 The original v1 JSON baseline covers ten console and handheld platforms (retained for compatibility). **The Git clone now contains the original text DAT metadata for all 75 platform collections and 117,145 source observations**, with [complete provenance and coverage details](docs/BULK-EXPANSION.md). The 65 added identification DATs and 279 bibliographic DATs are [tracked under `archive/libretro-bulk/metadat/`](archive/libretro-bulk/metadat), not stored exclusively in a generated database or fetched on demand.
