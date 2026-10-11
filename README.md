@@ -18,6 +18,8 @@ capture and does not modify the original 16-platform Wikidata baseline.
 ```sh
 cargo run --locked -- --wikidata-expanded --platform all --limit 5
 cargo run --locked -- --wikidata-expanded-candidates --platform all --limit 5
+cargo run --locked -- --wikidata-expanded --expansion-source v2 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v2 --platform all --limit 5
 cargo run --locked -- --wikidata-expanded --platform atari7800 --qid Q1014915
 cargo run --locked -- --wikidata-expanded --platform sonyplaystationvita --title "King Oddball"
 ```

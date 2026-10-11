@@ -52,6 +52,28 @@ distinct date claims are grouped under the same QID/title candidate without
 discarding their original row ordinals. There is no automatic game identity,
 edition, port, or regional-release assignment.
 
+## Second additive platform expansion: Atari and WonderSwan
+
+The separate [v2 source register](../sources/wikidata-platform-expansion-v2.json)
+adds Atari Jaguar (Q650601), Atari Lynx (Q753657), WonderSwan (Q1065792)
+and WonderSwan Color (Q1048035). The complete
+[v2 raw source accession](../data/wikidata/platform-expansion-v2/)
+preserves **305 original response rows, 206 item/platform QID observations
+and 282 literal publication-date bindings**, each with independently hashed
+query/response/JSONL sources.
+
+The Rust hash verifier and same-platform conservative title-candidate reader
+support both immutable expansions. `--expansion-source v1` remains the default;
+v2 is an explicit, read-only selection:
+
+```sh
+cargo run --locked -- --wikidata-expanded --expansion-source v2 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v2 --platform all --limit 5
+```
+
+A title candidate is review evidence, never an accepted work, edition,
+regional-release or Libretro media identity.
+
 ## Committed text corpus
 
 The primary imported Wikidata data now lives in [16 per-platform JSONL files](../data/wikidata/v1/) and a [plain-text provenance manifest](../data/wikidata/v1/manifest.json), approximately **4.2 MB total in Git**. Each item retains its Wikidata QID, English label and captured date statements. `tools/export_wikidata_text.py` deterministically rebuilds and verifies these files from the pinned original JSON source snapshot. SQLite is an optional locally generated search index, not the committed data format. See the [data-format policy](DATA-FORMATS.md).

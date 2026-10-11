@@ -1240,3 +1240,38 @@ fn newly_expanded_platform_title_candidates_are_evidence_only() {
         assert!(!output.status.success());
     }
 }
+
+#[test]
+fn second_wikidata_console_expansion_is_searchable_and_noncanonical() {
+    let source = query(&[
+        "--wikidata-expanded", "--expansion-source", "v2", "--platform", "all", "--limit", "2",
+    ]);
+    assert_eq!(source["source_mode"], "pinned-wikidata-expanded-platform-source-text");
+    assert_eq!(source["expansion_source"], "v2");
+    assert_eq!(source["platforms_searched"].as_array().unwrap().len(), 4);
+    assert_eq!(source["source_rows"], 305);
+    assert_eq!(source["source_item_platform_observations"], 206);
+    assert_eq!(source["literal_publication_date_bindings"], 282);
+    assert_eq!(source["nonliteral_publication_bindings"], 0);
+    let candidates = query(&[
+        "--wikidata-expanded-candidates", "--expansion-source", "v2",
+        "--platform", "all", "--limit", "3",
+    ]);
+    assert_eq!(candidates["expansion_source"], "v2");
+    assert!(candidates["total_candidate_links"].as_u64().unwrap() > 0);
+    assert_eq!(candidates["returned_candidate_links"], 3);
+    assert!(candidates["candidates"].as_array().unwrap().iter().all(|item| {
+        item["interpretation"].as_str().unwrap().contains("not-verified")
+            && item["wikidata_source_path"].as_str().unwrap().contains("platform-expansion-v2")
+    }));
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    for args in [
+        vec!["--wikidata-expanded", "--expansion-source", "v3", "--platform", "all"],
+        vec!["--expansion-source", "v2", "--platform", "all", "--title", "Tetris"],
+        vec!["--wikidata-expanded", "--expansion-source", "v2", "--platform", "atari7800"],
+    ] {
+        let result = Command::new(env!("CARGO_BIN_EXE_ludographium"))
+            .current_dir(&root).args(&args).output().unwrap();
+        assert!(!result.status.success(), "invalid CLI arguments accepted: {args:?}");
+    }
+}
