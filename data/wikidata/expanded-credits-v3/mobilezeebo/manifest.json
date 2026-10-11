@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v8.json",
+  "platform": "mobilezeebo",
+  "wikidata_platform": "Q184372",
+  "captured_at_utc": "2026-10-11T23:50:09Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "a87ce2dba33c4b5b5bfbc848d0d1eaae8ff84c0ddcda01e673b148e251205cbe",
+  "source_query_bytes": 216,
+  "source_response_path": "response.json",
+  "source_response_sha256": "212197bb0ef8a5b2e07e7ab4122bc1c080ad94c7aac7d41da93362f1952ce50a",
+  "source_response_bytes": 19354,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "82dc616c0dd700abada85c331b7ef5823faaa3d930ea39af0c1a0a244d5e5bcb",
+  "source_bindings_bytes": 12528,
+  "source_rows": 56,
+  "distinct_items": 20,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 17,
+    "P136": 23,
+    "P178": 16
+  },
+  "rdf_value_type_counts": {
+    "uri": 56
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

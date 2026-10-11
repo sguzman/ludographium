@@ -1,0 +1,21 @@
+{
+  "head" : {
+    "vars" : [ "item", "property", "value" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q135125551"
+      },
+      "property" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/prop/direct/P136"
+      },
+      "value" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1224999"
+      }
+    } ]
+  }
+}

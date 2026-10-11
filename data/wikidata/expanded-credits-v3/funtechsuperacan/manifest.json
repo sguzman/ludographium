@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v8.json",
+  "platform": "funtechsuperacan",
+  "wikidata_platform": "Q2475188",
+  "captured_at_utc": "2026-10-11T23:50:00Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "581f56664004b60ae6017f0eb81eeb3acaee69c8b8212619edf419aaaf805f9e",
+  "source_query_bytes": 217,
+  "source_response_path": "response.json",
+  "source_response_sha256": "a069f1d1efcddc4ae1a9cd9fd662bec5786bc0337aa1c379e63703d9ad644acd",
+  "source_response_bytes": 1137,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "b07bc81d20e8f3702709549f2cb9d65fbbab6c9e536b017dbeed487059918395",
+  "source_bindings_bytes": 671,
+  "source_rows": 3,
+  "distinct_items": 1,
+  "query_limit": 30000,
+  "properties": [
+    "P178",
+    "P123",
+    "P136"
+  ],
+  "property_counts": {
+    "P123": 1,
+    "P136": 1,
+    "P178": 1
+  },
+  "rdf_value_type_counts": {
+    "uri": 3
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}
