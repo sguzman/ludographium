@@ -7,9 +7,26 @@ use serde::Serialize;
 use std::collections::{BTreeMap, HashSet};
 
 const REGIONS: &[&str] = &[
-    "USA", "Europe", "World", "Japan", "Australia", "Brazil", "Canada",
-    "Korea", "Asia", "China", "Taiwan", "Hong Kong", "France", "Germany",
-    "Spain", "Italy", "Sweden", "Netherlands", "Russia", "UK",
+    "USA",
+    "Europe",
+    "World",
+    "Japan",
+    "Australia",
+    "Brazil",
+    "Canada",
+    "Korea",
+    "Asia",
+    "China",
+    "Taiwan",
+    "Hong Kong",
+    "France",
+    "Germany",
+    "Spain",
+    "Italy",
+    "Sweden",
+    "Netherlands",
+    "Russia",
+    "UK",
 ];
 const LANGUAGES: &[&str] = &[
     "En", "Fr", "De", "Es", "It", "Pt", "Ja", "Ko", "Zh", "Nl", "Ru", "Sv",
@@ -44,7 +61,11 @@ pub fn title_key(title: &str) -> String {
         normalized.truncate(open);
         normalized = normalized.trim_end().to_owned();
     }
-    normalized.split_whitespace().collect::<Vec<_>>().join(" ").to_lowercase()
+    normalized
+        .split_whitespace()
+        .collect::<Vec<_>>()
+        .join(" ")
+        .to_lowercase()
 }
 
 #[derive(Debug, Serialize)]
@@ -84,15 +105,15 @@ impl WikidataCandidateCatalog {
         let platforms: Vec<String> = wikidata.platform_ids().map(str::to_owned).collect();
         let wanted: HashSet<&str> = platforms.iter().map(String::as_str).collect();
         // Platform + exact conservative title key -> distinct Wikidata QIDs.
-        let mut index: BTreeMap<(String, String), Vec<(String, String, String)>> =
-            BTreeMap::new();
+        let mut index: BTreeMap<(String, String), Vec<(String, String, String)>> = BTreeMap::new();
         for (platform, qid, label, sha) in wikidata.reconciliation_labels() {
             let key = title_key(label);
             if !key.is_empty() {
-                index
-                    .entry((platform.to_owned(), key))
-                    .or_default()
-                    .push((qid.to_owned(), label.to_owned(), sha.to_owned()));
+                index.entry((platform.to_owned(), key)).or_default().push((
+                    qid.to_owned(),
+                    label.to_owned(),
+                    sha.to_owned(),
+                ));
             }
         }
         for candidates in index.values_mut() {
@@ -138,7 +159,12 @@ impl WikidataCandidateCatalog {
                 });
             }
         }
-        Self { matches, platform_ids: platforms, ambiguous_links, source_records_with_candidate }
+        Self {
+            matches,
+            platform_ids: platforms,
+            ambiguous_links,
+            source_records_with_candidate,
+        }
     }
 
     pub fn summary(&self) -> CandidateSummary<'_> {
@@ -162,7 +188,8 @@ impl WikidataCandidateCatalog {
             || title.is_some_and(|t| t.trim().is_empty())
             || qid.is_some_and(|id| {
                 !id.strip_prefix('Q').is_some_and(|digits| {
-                    !digits.is_empty() && !digits.starts_with('0')
+                    !digits.is_empty()
+                        && !digits.starts_with('0')
                         && digits.bytes().all(|b| b.is_ascii_digit())
                 })
             })
@@ -176,9 +203,9 @@ impl WikidataCandidateCatalog {
         let mut results = Vec::new();
         for candidate in &self.matches {
             if qid.is_some_and(|id| candidate.wikidata_qid != id)
-                || needle.as_ref().is_some_and(|n| {
-                    !candidate.source_title.to_lowercase().contains(n)
-                })
+                || needle
+                    .as_ref()
+                    .is_some_and(|n| !candidate.source_title.to_lowercase().contains(n))
             {
                 continue;
             }
