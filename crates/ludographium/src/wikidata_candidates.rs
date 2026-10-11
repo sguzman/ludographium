@@ -167,6 +167,11 @@ impl WikidataCandidateCatalog {
         }
     }
 
+    /// Entire ordered evidence set; result limits never truncate the audit.
+    pub fn candidates(&self) -> &[WikidataTitleCandidate] {
+        &self.matches
+    }
+
     pub fn summary(&self) -> CandidateSummary<'_> {
         CandidateSummary {
             platforms_searched: &self.platform_ids,
