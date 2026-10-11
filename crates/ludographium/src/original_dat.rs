@@ -542,8 +542,10 @@ impl OriginalDatCatalog {
         for platform in &self.platforms {
             for game in &platform.games {
                 if let Some(value) = game.fields.get("releaseyear") {
-                    result.entry((platform.id.clone(), game.ordinal))
-                        .or_default().push(OriginalYearEvidence {
+                    result
+                        .entry((platform.id.clone(), game.ordinal))
+                        .or_default()
+                        .push(OriginalYearEvidence {
                             raw_value: value.clone(),
                             source_kind: "identification_dat_scalar",
                             source_path: platform.source.path.clone(),
@@ -561,8 +563,10 @@ impl OriginalDatCatalog {
                 if let (Some(ordinal), Some(value)) =
                     (claim.resolution.base_source_ordinal, claim.value.as_ref())
                 {
-                    result.entry((claim.platform.clone(), ordinal))
-                        .or_default().push(OriginalYearEvidence {
+                    result
+                        .entry((claim.platform.clone(), ordinal))
+                        .or_default()
+                        .push(OriginalYearEvidence {
                             raw_value: value.clone(),
                             source_kind: "matched_bibliographic_dat",
                             source_path: claim.source_path.clone(),
