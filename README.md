@@ -45,6 +45,7 @@ cargo run --locked -- --wikidata-text --platform atari2600 --qid Q379915
 cargo run --locked -- --wikidata-text --platform all --title "Adventure" --limit 5
 cargo run --locked -- --wikidata-candidates --platform all --limit 5
 cargo run --locked -- --wikidata-candidates --compare-years --platform all --limit 5
+cargo run --locked -- --wikidata-candidates --compare-credits --platform all --limit 5
 cargo run --locked -- --wikidata-properties --platform all --limit 5
 cargo run --locked -- --wikidata-properties --platform atari2600 --qid Q379915 --property P178
 cargo run --locked -- --wikidata-properties --with-entity-labels --platform all --limit 5

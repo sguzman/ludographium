@@ -9,6 +9,7 @@ use ludographium::media::{fingerprint_normalized, MediaFormat};
 use ludographium::original_dat::OriginalDatCatalog;
 use ludographium::runtime::verify_runtime_root;
 use ludographium::wikidata_candidates::WikidataCandidateCatalog;
+use ludographium::wikidata_credits::WikidataCreditAudit;
 use ludographium::wikidata_entity_labels::WikidataEntityLabelCatalog;
 use ludographium::wikidata_properties::WikidataPropertyCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
@@ -22,7 +23,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] [--compare-credits] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -421,6 +422,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut with_entity_labels = false;
     let mut property = None;
     let mut compare_years = false;
+    let mut compare_credits = false;
     let mut qid = None;
 
     while let Some(arg) = args.next() {
@@ -450,6 +452,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
         if arg == "--compare-years" {
             compare_years = true;
+            continue;
+        }
+        if arg == "--compare-credits" {
+            compare_credits = true;
             continue;
         }
         if arg == "--verify-runtime" {
@@ -522,6 +528,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || with_entity_labels
             || property.is_some()
             || compare_years
+            || compare_credits
             || qid.is_some()
         {
             return Err(CatalogError::Invalid(
@@ -589,6 +596,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || enriched
                 || show_curated
                 || compare_years
+                || compare_credits
                 || title.is_some()
                 || sha1.is_some()
                 || crc32.is_some()
@@ -599,7 +607,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || zip_entry.is_some()))
         || (with_entity_labels && !wikidata_properties)
         || (property.is_some() && !wikidata_properties)
-        || (compare_years && !wikidata_candidates)
+        || ((compare_years || compare_credits) && !wikidata_candidates)
         || (qid.is_some() && !wikidata_text && !wikidata_candidates && !wikidata_properties)
         || (claims_only
             && (sha1.is_some()
@@ -689,7 +697,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
     if wikidata_candidates {
         let wikidata = WikidataTextCatalog::open(&root, &platform)?;
-        let base = if compare_years {
+        let base = if compare_years || compare_credits {
             OriginalDatCatalog::open(&root, &platform)?.with_enrichment(&root)?
         } else {
             OriginalDatCatalog::open(&root, &platform)?
@@ -716,6 +724,20 @@ fn run() -> Result<(), Box<dyn Error>> {
             "interpretation": "review-candidates-only-no-verified-work-or-media-identities"
         });
         let mut output = output;
+        if compare_credits {
+            let properties = WikidataPropertyCatalog::open(&root, "all")?;
+            let labels = WikidataEntityLabelCatalog::open(&root)?;
+            labels.verify_referenced_qids(&properties)?;
+            let audit = WikidataCreditAudit::build(&base, &properties, &labels, &catalog);
+            let (credit_total, credit_results) =
+                audit.search(title.as_deref(), qid.as_deref(), limit)?;
+            output["credit_evidence_counts"] = json!(audit.counts());
+            output["total_filtered_credit_comparisons"] = json!(credit_total);
+            output["credit_evidence"] = json!(credit_results);
+            output["credit_interpretation"] = json!(
+                "same-name-evidence-is-not-an-accepted-game-company-or-release-identity"
+            );
+        }
         if compare_years {
             let audit = WikidataYearAudit::build(&base, &wikidata, &catalog);
             let (year_count, year_rows) =

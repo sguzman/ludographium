@@ -159,6 +159,32 @@ or incomplete Wikidata qualifiers, **not necessarily a source error**.
 Cross-provider title matches and matching years remain review evidence,
 not independently verified work or regional-release identities.
 
+## Cross-source developer and publisher credit review
+
+The Rust candidate pipeline can now compare **original Libretro developer and
+publisher text claims** with the independent Wikidata P178/P123 value QIDs and
+their separately captured English labels. The comparison is only applied to
+the previously declared same-platform title candidates, retaining the
+original source occurrence, QID ambiguity and both providers' hashes.
+
+```sh
+cargo run --locked -- --wikidata-candidates --compare-credits --platform all --limit 10
+cargo run --locked -- --wikidata-candidates --compare-credits --platform atari2600 --qid Q379915
+```
+
+Every one of the **8,971 existing title candidates** receives a separate
+developer and publisher review classification (17,942 review comparisons).
+Statuses distinguish identical observed names, different names, missing
+Libretro claims, missing Wikidata credits, and missing Wikidata English labels.
+Case and whitespace are normalized for name comparison, but punctuation,
+accents and compound company names are **not** silently merged.
+
+A matching organization name is additional evidence, **not proof** of the
+game work identity or definitive release-specific credit. A difference may
+represent developer divisions, regional publishers, collaborative credits,
+different releases, incomplete claims, or source errors. Original raw values
+remain visible; no company IDs or canonical work relationships are created.
+
 ## Conservative correspondence
 
 The [bulk reconciliation tool](../tools/reconcile_wikidata.py) adds independent source evidence to an existing offline expanded SQLite database. It adds:
