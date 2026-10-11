@@ -116,3 +116,78 @@ fn optional_bibliographic_dat_enrichment_uses_original_attributed_claims() {
             })
         }));
 }
+
+/// A header-only identification DAT must not hide original bibliographic
+/// source observations with serials but no CRC32.
+#[test]
+fn serial_only_claims_are_searchable_without_identification_records() {
+    let plain = query(&[
+        "--source-dat",
+        "--platform",
+        "sonyplaystationportable",
+        "--title",
+        "007 - From Russia with Love",
+    ]);
+    assert_eq!(plain["total_source_records"], 0);
+
+    let claims = query(&[
+        "--source-dat",
+        "--enriched",
+        "--claims",
+        "--platform",
+        "sonyplaystationportable",
+        "--title",
+        "007 - From Russia with Love",
+        "--limit",
+        "10",
+    ]);
+    assert_eq!(claims["source_mode"], "original-field-dat-text");
+    assert!(claims["total_source_claims"].as_u64().unwrap() >= 4);
+    assert!(claims["claims"].as_array().unwrap().iter().any(|claim| {
+        claim["resolution"]["status"] == "missing_crc"
+            && claim["crc32"].is_null()
+            && claim["source_fields"]["rom_serial"]
+                .as_str()
+                .is_some_and(|serial| serial.starts_with("UL"))
+            && claim["source_blob_sha"].as_str().is_some_and(|sha| sha.len() == 40)
+            && claim["source_ordinal"].as_u64().unwrap() > 0
+    }));
+
+    let unfiltered = query(&[
+        "--source-dat",
+        "--enriched",
+        "--claims",
+        "--platform",
+        "sonyplaystationportable",
+        "--limit",
+        "1",
+    ]);
+    assert!(unfiltered["total_source_claims"].as_u64().unwrap() > 100);
+    assert_eq!(unfiltered["returned_claims"], 1);
+}
+
+/// Claim discovery is opt-in and must not accept fingerprint modes.
+#[test]
+fn bibliographic_claim_mode_rejects_unsafe_argument_combinations() {
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    for args in [
+        vec!["--source-dat", "--claims", "--platform", "atari2600"],
+        vec!["--enriched", "--claims", "--platform", "atari2600"],
+        vec![
+            "--source-dat",
+            "--enriched",
+            "--claims",
+            "--platform",
+            "atari2600",
+            "--sha1",
+            "0000000000000000000000000000000000000000",
+        ],
+    ] {
+        let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
+        assert!(!output.status.success(), "invalid arguments unexpectedly accepted: {args:?}");
+    }
+}

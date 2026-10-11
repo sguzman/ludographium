@@ -426,6 +426,43 @@ impl OriginalDatCatalog {
         self.claims.as_deref()
     }
 
+    /// Search *bibliographic source observations*, independently of whether
+    /// a source game or verified CRC32 association exists. An absent title
+    /// filter enumerates observations in stable source order.
+    pub fn search_field_claims(
+        &self,
+        title: Option<&str>,
+        limit: usize,
+    ) -> Result<(usize, Vec<&FieldClaim>), CatalogError> {
+        if !(1..=200).contains(&limit) {
+            return Err(invalid("field claim search limit must be 1..=200"));
+        }
+        let needle = title.map(|value| value.trim().to_lowercase());
+        if needle.as_deref() == Some("") {
+            return Err(invalid("field claim title filter cannot be empty"));
+        }
+        let claims = self
+            .field_claims()
+            .ok_or_else(|| invalid("field claim search requires bibliographic enrichment"))?;
+        let mut total = 0;
+        let mut matches = Vec::new();
+        for claim in claims {
+            if needle.as_ref().is_some_and(|value| {
+                !claim
+                    .source_comment
+                    .as_deref()
+                    .is_some_and(|comment| comment.to_lowercase().contains(value))
+            }) {
+                continue;
+            }
+            total += 1;
+            if matches.len() < limit {
+                matches.push(claim);
+            }
+        }
+        Ok((total, matches))
+    }
+
     fn format_result(
         &self,
         platform: &Platform,

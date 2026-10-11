@@ -17,7 +17,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--claims] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -409,10 +409,15 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut show_curated = false;
     let mut verify_runtime = false;
     let mut source_dat = false;
+    let mut claims_only = false;
 
     while let Some(arg) = args.next() {
         if arg == "--source-dat" {
             source_dat = true;
+            continue;
+        }
+        if arg == "--claims" {
+            claims_only = true;
             continue;
         }
         if arg == "--verify-runtime" {
@@ -475,6 +480,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || enriched
             || show_curated
             || source_dat
+            || claims_only
         {
             return Err(CatalogError::Invalid(
                 "--verify-runtime accepts only the optional --root directory".into(),
@@ -502,13 +508,20 @@ fn run() -> Result<(), Box<dyn Error>> {
         + usize::from(title.is_some())
         + usize::from(file.is_some())
         + usize::from(zip.is_some());
-    if query_modes != 1
+    if (query_modes != 1 && !(claims_only && query_modes == 0))
+        || (claims_only && (!source_dat || !enriched))
+        || (claims_only
+            && (sha1.is_some()
+                || crc32.is_some()
+                || size.is_some()
+                || file.is_some()
+                || zip.is_some()))
         || (crc32.is_some() && size.is_none())
         || (title.is_some() && size.is_some())
         || (file.is_some() && (size.is_some() || limit_explicit))
         || (zip.is_some() && (size.is_some() || limit_explicit))
-        || (title.is_none() && limit_explicit)
-        || (title.is_some() && (limit == 0 || limit > 200))
+        || (title.is_none() && limit_explicit && !claims_only)
+        || ((title.is_some() || claims_only) && (limit == 0 || limit > 200))
         || (zip_entry.is_some()
             && (zip.is_none() || media_format.is_none() || zip_entry.as_deref() == Some("")))
     {
@@ -537,6 +550,25 @@ fn run() -> Result<(), Box<dyn Error>> {
             OriginalDatCatalog::open(&root, &platform)?
         };
         let all = catalog.platform_ids().collect::<Vec<_>>();
+        if claims_only {
+            let (total, matches) = catalog.search_field_claims(title.as_deref(), limit)?;
+            let output = json!({
+                "source_mode": "original-field-dat-text",
+                "query_kind": if title.is_some() {
+                    "bibliographic-source-comment-substring"
+                } else {
+                    "bibliographic-source-claim-list"
+                },
+                "platforms_searched": all,
+                "total_source_claims": total,
+                "returned_claims": matches.len(),
+                "claims": matches,
+                "field_claim_resolution_counts": catalog.claim_resolution_counts(),
+                "interpretation": "original-bibliographic-claims-not-canonical-game-identities"
+            });
+            println!("{}", serde_json::to_string_pretty(&output)?);
+            return Ok(());
+        }
         let (count, matches) = if let Some(ref name) = title {
             let (total, values) = catalog.search_titles(name, limit)?;
             (Some(total), values)
