@@ -848,6 +848,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     if wikidata_localized_candidates {
         let original = OriginalDatCatalog::open(&root, "all")?;
         let localized = WikidataLocalizedTitleCatalog::open(&root, &platform)?;
+        let authority = WikidataAuthorityIdCatalog::open(&root, &platform)?;
         let old_source = WikidataTextCatalog::open(&root, &platform)?;
         let old_candidates = WikidataCandidateCatalog::reconcile(&original, &old_source);
         let candidates =
@@ -1032,6 +1033,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             &relations,
             &relation_labels,
             &localized,
+            &authority,
         )?;
         let (total, observations) = index.search(qid.as_deref(), title.as_deref(), limit)?;
         println!(
@@ -1043,6 +1045,8 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "property_source_items": index.property_source_items(),
                 "relation_source_items": index.relation_source_items(),
                 "localized_source_items": index.localized_source_items(),
+                "authority_source_items": index.authority_source_items(),
+                "authority_only_source_items": index.authority_only(),
                 "localized_source_only_items": index.localized_only(),
                 "relation_and_localized_only_items": index.relation_and_localized_only(),
                 "relation_label_source_qids": relation_labels.total_qids(),

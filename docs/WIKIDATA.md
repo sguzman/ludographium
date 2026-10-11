@@ -334,11 +334,13 @@ and these distributions cannot independently establish a false-positive rate.
 ## Unified read-only Wikidata game-item observations
 
 The Rust `--wikidata-items` mode constructs an exact-QID, per-platform,
-**noncanonical source projection** from all four independent captures:
+**noncanonical source projection** from all five independently pinned data captures:
 original English game labels and date statements; original developer,
 publisher and genre claims; separately captured company/genre entity
-English labels; and original series/language/distribution/title/external-ID
-source claims. Source provenance and capture boundaries remain visible.
+English labels; original series/language/distribution/title/Steam-GOG source
+claims; and the new source-only MobyGames/GameFAQs/HowLongToBeat/OpenCritic/
+MAME/AtariAge/PlayStation/Metacritic identifier claims. Source provenance
+and capture boundaries remain visible.
 
 ```sh
 cargo run --locked -- --wikidata-items --platform all --limit 10

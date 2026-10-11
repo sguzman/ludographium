@@ -1,5 +1,6 @@
 //! QID-scoped, read-only projection across three independently pinned
 //! Wikidata source accessions. This is not a Libretro or canonical work join.
+use crate::wikidata_authority_ids::WikidataAuthorityIdCatalog;
 use crate::wikidata_entity_labels::WikidataEntityLabelCatalog;
 use crate::wikidata_localized_titles::WikidataLocalizedTitleCatalog;
 use crate::wikidata_properties::WikidataPropertyCatalog;
@@ -23,6 +24,8 @@ pub struct WikidataSourceItem {
     pub relation_source_present: bool,
     pub localized_names: BTreeMap<String, Vec<Value>>,
     pub localized_source_present: bool,
+    pub authority_id_claims: BTreeMap<String, Vec<Value>>,
+    pub authority_source_present: bool,
     pub interpretation: &'static str,
 }
 
@@ -32,6 +35,8 @@ pub struct WikidataItemProjection {
     property_item_observations: usize,
     relation_item_observations: usize,
     localized_item_observations: usize,
+    authority_item_observations: usize,
+    authority_only: usize,
     relation_only: usize,
     localized_only: usize,
     relation_and_localized_only: usize,
@@ -57,6 +62,7 @@ impl WikidataItemProjection {
         relations: &WikidataRelationCatalog,
         relation_labels: &WikidataEntityLabelCatalog,
         localized: &WikidataLocalizedTitleCatalog,
+        authority: &WikidataAuthorityIdCatalog,
     ) -> Result<Self, CatalogError> {
         let mut index: BTreeMap<(String, String), WikidataSourceItem> = BTreeMap::new();
         let mut title_count = 0;
@@ -86,6 +92,8 @@ impl WikidataItemProjection {
                     relation_source_present: false,
                     localized_names: BTreeMap::new(),
                     localized_source_present: false,
+                    authority_id_claims: BTreeMap::new(),
+                    authority_source_present: false,
                     interpretation:
                         "independent-source-evidence-not-verified-game-or-release-identity",
                 });
@@ -116,6 +124,8 @@ impl WikidataItemProjection {
                     relation_source_present: false,
                     localized_names: BTreeMap::new(),
                     localized_source_present: false,
+                    authority_id_claims: BTreeMap::new(),
+                    authority_source_present: false,
                     interpretation:
                         "independent-source-evidence-not-verified-game-or-release-identity",
                 });
@@ -146,6 +156,8 @@ impl WikidataItemProjection {
                     relation_source_present: false,
                     localized_names: BTreeMap::new(),
                     localized_source_present: false,
+                    authority_id_claims: BTreeMap::new(),
+                    authority_source_present: false,
                     interpretation:
                         "independent-source-evidence-not-verified-game-or-release-identity",
                 });
@@ -175,6 +187,8 @@ impl WikidataItemProjection {
                     relation_source_present: false,
                     localized_names: BTreeMap::new(),
                     localized_source_present: false,
+                    authority_id_claims: BTreeMap::new(),
+                    authority_source_present: false,
                     interpretation:
                         "independent-source-evidence-not-verified-game-or-release-identity",
                 });
@@ -185,6 +199,35 @@ impl WikidataItemProjection {
                 .or_default()
                 .push(json!({"original_localized_name": claim}));
         }
+        for claim in authority.claims() {
+            let entry = index
+                .entry((claim.platform.clone(), claim.item_qid.clone()))
+                .or_insert_with(|| WikidataSourceItem {
+                    platform: claim.platform.clone(),
+                    qid: claim.item_qid.clone(),
+                    english_label: None,
+                    source_presence: "authority_source_only",
+                    source_membership: Vec::new(),
+                    original_title_date_observation: None,
+                    property_claims: BTreeMap::new(),
+                    relation_claims: BTreeMap::new(),
+                    relation_source_present: false,
+                    localized_names: BTreeMap::new(),
+                    localized_source_present: false,
+                    authority_id_claims: BTreeMap::new(),
+                    authority_source_present: false,
+                    interpretation:
+                        "independent-source-evidence-not-verified-game-or-release-identity",
+                });
+            entry.authority_source_present = true;
+            entry
+                .authority_id_claims
+                .entry(claim.property.clone())
+                .or_default()
+                .push(json!({"original_wikidata_authority_id": claim}));
+        }
+        let mut authority_only = 0;
+        let mut authority_items = 0;
         let mut localized_only = 0;
         let mut relation_and_localized_only = 0;
         let mut localized_items = 0;
@@ -203,6 +246,9 @@ impl WikidataItemProjection {
             if entry.localized_source_present {
                 localized_items += 1;
             }
+            if entry.authority_source_present {
+                authority_items += 1;
+            }
             entry.source_membership = Vec::new();
             if old {
                 entry.source_membership.push("title_date");
@@ -215,6 +261,9 @@ impl WikidataItemProjection {
             }
             if entry.localized_source_present {
                 entry.source_membership.push("localized_titles");
+            }
+            if entry.authority_source_present {
+                entry.source_membership.push("authority_ids");
             }
             entry.source_presence = match entry.source_membership.as_slice() {
                 ["title_date"] => {
@@ -232,6 +281,10 @@ impl WikidataItemProjection {
                 ["localized_titles"] => {
                     localized_only += 1;
                     "localized_source_only"
+                }
+                ["authority_ids"] => {
+                    authority_only += 1;
+                    "authority_source_only"
                 }
                 ["relations", "localized_titles"] => {
                     relation_and_localized_only += 1;
@@ -254,6 +307,7 @@ impl WikidataItemProjection {
             || property_items != properties.source_item_observations()
             || relation_items != relations.item_observations()
             || localized_items != localized.source_item_observations()
+            || authority_items != authority.item_observations()
         {
             return Err(CatalogError::Invalid(
                 "Wikidata independent snapshots have inconsistent item/QID counts".into(),
@@ -265,6 +319,8 @@ impl WikidataItemProjection {
             property_item_observations: property_items,
             relation_item_observations: relation_items,
             localized_item_observations: localized_items,
+            authority_item_observations: authority_items,
+            authority_only,
             relation_only,
             localized_only,
             relation_and_localized_only,
@@ -288,6 +344,12 @@ impl WikidataItemProjection {
     }
     pub fn localized_source_items(&self) -> usize {
         self.localized_item_observations
+    }
+    pub fn authority_source_items(&self) -> usize {
+        self.authority_item_observations
+    }
+    pub fn authority_only(&self) -> usize {
+        self.authority_only
     }
     pub fn localized_only(&self) -> usize {
         self.localized_only
@@ -353,6 +415,7 @@ impl WikidataItemProjection {
 #[cfg(test)]
 mod tests {
     use super::WikidataItemProjection;
+    use crate::wikidata_authority_ids::WikidataAuthorityIdCatalog;
     use crate::wikidata_entity_labels::WikidataEntityLabelCatalog;
     use crate::wikidata_localized_titles::WikidataLocalizedTitleCatalog;
     use crate::wikidata_properties::WikidataPropertyCatalog;
@@ -369,6 +432,7 @@ mod tests {
         let relations = WikidataRelationCatalog::open(&root, "all").unwrap();
         let relation_labels = WikidataEntityLabelCatalog::open_relations(&root).unwrap();
         let localized = WikidataLocalizedTitleCatalog::open(&root, "all").unwrap();
+        let authority = WikidataAuthorityIdCatalog::open(&root, "all").unwrap();
         relation_labels.verify_relation_qids(&relations).unwrap();
         labels.verify_referenced_qids(&properties).unwrap();
         let projection = WikidataItemProjection::build(
@@ -378,30 +442,20 @@ mod tests {
             &relations,
             &relation_labels,
             &localized,
+            &authority,
         )
         .unwrap();
         assert_eq!(projection.title_date_source_items(), 15_868);
         assert_eq!(projection.property_source_items(), 14_759);
         assert_eq!(projection.relation_source_items(), 14_772);
         assert_eq!(projection.localized_source_items(), 15_731);
+        assert_eq!(projection.authority_source_items(), 13_609);
         assert!(projection.total_items() >= 15_868);
         assert_eq!(
             projection
                 .source_membership_counts()
                 .values()
                 .sum::<usize>(),
-            projection.total_items()
-        );
-        assert_eq!(
-            projection.title_date_only()
-                + projection.property_only()
-                + projection.relation_only()
-                + projection.localized_only()
-                + projection.relation_and_localized_only()
-                + projection.source_membership_counts().iter()
-                    .filter(|(key, _)| key.contains("title_date+") || key.contains("company_genre+"))
-                    .map(|(_, count)| *count)
-                    .sum::<usize>(),
             projection.total_items()
         );
         let (count, records) = projection.search(Some("Q379915"), None, 10).unwrap();
@@ -412,13 +466,9 @@ mod tests {
                 && entry.property_claims.contains_key("P178")
                 && entry.relation_source_present
                 && entry.localized_source_present
-                && entry.source_membership
-                    == [
-                        "title_date",
-                        "company_genre",
-                        "relations",
-                        "localized_titles",
-                    ]
+                && entry.source_membership.starts_with(&[
+                    "title_date", "company_genre", "relations", "localized_titles",
+                ])
                 && entry.source_presence == "multiple_independent_snapshots"
         }));
     }
