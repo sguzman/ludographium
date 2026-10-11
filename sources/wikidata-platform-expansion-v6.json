@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "prior_expansion_register": "sources/wikidata-platform-expansion-v5.json",
+  "query_limit": 20000,
+  "platforms": [
+    {
+      "platform": "gg",
+      "wikidata_platform": "Q751719",
+      "label": "Sega Game Gear",
+      "evidence_url": "https://www.wikidata.org/wiki/Q751719"
+    },
+    {
+      "platform": "nintendonewnintendo3ds",
+      "wikidata_platform": "Q17679679",
+      "label": "New Nintendo 3DS",
+      "evidence_url": "https://www.wikidata.org/wiki/Q17679679"
+    },
+    {
+      "platform": "nintendonintendodsi",
+      "wikidata_platform": "Q637178",
+      "label": "Nintendo DSi",
+      "evidence_url": "https://www.wikidata.org/wiki/Q637178"
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "wikidata_platform": "Q253044",
+      "label": "Nintendo 64DD",
+      "evidence_url": "https://www.wikidata.org/wiki/Q253044"
+    },
+    {
+      "platform": "tigergamecom",
+      "wikidata_platform": "Q2498396",
+      "label": "Tiger Game.com",
+      "evidence_url": "https://www.wikidata.org/wiki/Q2498396"
+    },
+    {
+      "platform": "fairchildchannelf",
+      "wikidata_platform": "Q1053294",
+      "label": "Fairchild Channel F",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1053294"
+    }
+  ],
+  "source_policy": "Independent CC0 query captures for exact P31 video game and P400 platform. Zero rows remain explicitly verifiable noncoverage; preserve original queries, responses, JSONL and SHA-256. Do not infer canonical games or replace prior snapshots."
+}
