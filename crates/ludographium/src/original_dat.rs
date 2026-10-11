@@ -58,6 +58,16 @@ struct Platform {
 }
 
 #[derive(Debug, Clone, Serialize)]
+pub struct OriginalCreditEvidence {
+    pub raw_value: String,
+    pub field: String,
+    pub source_kind: &'static str,
+    pub source_path: String,
+    pub source_blob_sha: String,
+    pub source_ordinal: usize,
+}
+
+#[derive(Debug, Clone, Serialize)]
 pub struct OriginalYearEvidence {
     pub raw_value: String,
     pub source_kind: &'static str,
@@ -577,6 +587,56 @@ impl OriginalDatCatalog {
             }
         }
         result
+    }
+
+    /// Source-faithful bibliographic company strings: no inferred company IDs.
+    pub(crate) fn reconciliation_credits(
+        &self,
+    ) -> HashMap<(String, usize, String), Vec<OriginalCreditEvidence>> {
+        let mut credits: HashMap<(String, usize, String), Vec<OriginalCreditEvidence>> =
+            HashMap::new();
+        for platform in &self.platforms {
+            for game in &platform.games {
+                for field in ["developer", "publisher"] {
+                    if let Some(value) = game.fields.get(field) {
+                        credits.entry((
+                            platform.id.clone(), game.ordinal, field.to_owned()
+                        )).or_default().push(OriginalCreditEvidence {
+                            raw_value: value.clone(),
+                            field: field.to_owned(),
+                            source_kind: "identification_dat_scalar",
+                            source_path: platform.source.path.clone(),
+                            source_blob_sha: platform.source.blob.clone(),
+                            source_ordinal: game.ordinal,
+                        });
+                    }
+                }
+            }
+        }
+        if let Some(claims) = &self.claims {
+            for claim in claims {
+                if !matches!(claim.field.as_str(), "developer" | "publisher")
+                    || claim.resolution.status != "matched"
+                {
+                    continue;
+                }
+                if let (Some(ordinal), Some(value)) =
+                    (claim.resolution.base_source_ordinal, claim.value.as_ref())
+                {
+                    credits.entry((
+                        claim.platform.clone(), ordinal, claim.field.clone()
+                    )).or_default().push(OriginalCreditEvidence {
+                        raw_value: value.clone(),
+                        field: claim.field.clone(),
+                        source_kind: "matched_bibliographic_dat",
+                        source_path: claim.source_path.clone(),
+                        source_blob_sha: claim.source_blob_sha.clone(),
+                        source_ordinal: claim.source_ordinal,
+                    });
+                }
+            }
+        }
+        credits
     }
 
     pub fn platform_ids(&self) -> impl Iterator<Item = &str> {

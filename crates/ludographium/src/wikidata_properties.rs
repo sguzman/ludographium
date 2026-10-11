@@ -308,6 +308,10 @@ impl WikidataPropertyCatalog {
         })
     }
 
+    pub fn claims(&self) -> &[PropertyClaim] {
+        &self.claims
+    }
+
     pub fn platforms(&self) -> &[String] {
         &self.platforms
     }
