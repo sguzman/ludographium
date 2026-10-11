@@ -669,7 +669,6 @@ fn run() -> Result<(), Box<dyn Error>> {
             "v2" => ExpandedWikidataCatalog::open_v2(&root, scope)?,
             "v3" => ExpandedWikidataCatalog::open_v3(&root, scope)?,
             "v4" => ExpandedWikidataCatalog::open_v4(&root, scope)?,
-            "v4" => ExpandedWikidataCatalog::open_v4(&root, scope)?,
             _ => ExpandedWikidataCatalog::open(&root, scope)?,
         };
         let original = OriginalDatCatalog::open(&root, scope)?;
@@ -732,6 +731,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         let catalog = match source_version {
             "v2" => ExpandedWikidataCatalog::open_v2(&root, scope)?,
             "v3" => ExpandedWikidataCatalog::open_v3(&root, scope)?,
+            "v4" => ExpandedWikidataCatalog::open_v4(&root, scope)?,
             _ => ExpandedWikidataCatalog::open(&root, scope)?,
         };
         let (total, results) = catalog.search(qid.as_deref(), title.as_deref(), limit)?;
