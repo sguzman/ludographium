@@ -327,6 +327,16 @@ impl WikidataRelationCatalog {
         })
     }
 
+    pub fn claims(&self) -> &[RelationClaim] {
+        &self.claims
+    }
+    pub fn referenced_entity_qids(&self) -> std::collections::BTreeSet<String> {
+        self.claims
+            .iter()
+            .filter_map(|claim| claim.value_entity_qid.clone())
+            .collect()
+    }
+
     pub fn platforms(&self) -> &[String] {
         &self.platforms
     }

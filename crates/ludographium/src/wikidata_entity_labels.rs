@@ -1,6 +1,7 @@
 //! Independently pinned CC0 English labels for QIDs named in Wikidata
 //! developer, publisher and genre claims. These are evidence, not identities.
 use crate::wikidata_properties::WikidataPropertyCatalog;
+use crate::wikidata_relations::WikidataRelationCatalog;
 use crate::CatalogError;
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
@@ -10,6 +11,7 @@ use std::fs;
 use std::path::Path;
 
 const BASE: &str = "data/wikidata/property-labels-v1";
+const RELATION_BASE: &str = "data/wikidata/relation-labels-v1";
 
 #[derive(Debug, Deserialize)]
 struct Manifest {
@@ -17,7 +19,10 @@ struct Manifest {
     source: String,
     license: String,
     captured_at_utc: String,
-    source_property_manifest_inventory_sha256: String,
+    #[serde(default)]
+    source_property_manifest_inventory_sha256: Option<String>,
+    #[serde(default)]
+    source_relation_manifest_inventory_sha256: Option<String>,
     entity_inventory_path: String,
     entity_inventory_sha256: String,
     source_entity_qids: usize,
@@ -103,19 +108,33 @@ impl WikidataEntityLabelCatalog {
     /// Verify the complete pinned QID inventory and all three source files for
     /// every original batch, including raw SPARQL response/JSONL equivalence.
     pub fn open(root: impl AsRef<Path>) -> Result<Self, CatalogError> {
-        let root = root.as_ref();
-        let folder = root.join(BASE);
+        Self::open_at(root.as_ref(), BASE, false)
+    }
+
+    /// Source-independent labels for game series, modes, languages, countries,
+    /// distribution formats and distributors, never accepted identities.
+    pub fn open_relations(root: impl AsRef<Path>) -> Result<Self, CatalogError> {
+        Self::open_at(root.as_ref(), RELATION_BASE, true)
+    }
+
+    fn open_at(root: &Path, base: &'static str, relation: bool) -> Result<Self, CatalogError> {
+        let folder = root.join(base);
         if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
             return Err(invalid(
                 "Wikidata label source directory is a symbolic link",
             ));
         }
         let manifest: Manifest = serde_json::from_slice(&fs::read(folder.join("manifest.json"))?)?;
+        let source_manifest_sha = if relation {
+            manifest.source_relation_manifest_inventory_sha256.as_deref()
+        } else {
+            manifest.source_property_manifest_inventory_sha256.as_deref()
+        };
         if manifest.schema_version != 1
             || manifest.source != "Wikidata"
             || manifest.license != "CC0-1.0"
             || manifest.captured_at_utc.is_empty()
-            || manifest.source_property_manifest_inventory_sha256.len() != 64
+            || !source_manifest_sha.is_some_and(|value| value.len() == 64)
             || manifest.entity_inventory_path != "entities.txt"
             || manifest.query_batch_size != 100
             || manifest.query_partitions == 0
@@ -258,13 +277,16 @@ impl WikidataEntityLabelCatalog {
                 let evidence = EntityLabelEvidence {
                     qid: entity.to_owned(),
                     english_label: label,
-                    source_path: format!("{BASE}/batches/{lines_file}"),
+                    source_path: format!("{base}/batches/{lines_file}"),
                     source_sha256: text_entry.sha256.clone(),
                     source_query_sha256: query_entry.sha256.clone(),
                     source_response_sha256: response_entry.sha256.clone(),
                     captured_at_utc: manifest.captured_at_utc.clone(),
-                    interpretation:
-                        "independent-wikidata-english-label-not-canonical-company-or-genre",
+                    interpretation: if relation {
+                        "independent-wikidata-relation-english-label-not-canonical-game-or-release"
+                    } else {
+                        "independent-wikidata-english-label-not-canonical-company-or-genre"
+                    },
                 };
                 if entries.insert(entity.to_owned(), evidence).is_some() {
                     return Err(invalid("Wikidata QID appears in multiple label partitions"));
@@ -303,6 +325,20 @@ impl WikidataEntityLabelCatalog {
         Ok(())
     }
 
+    /// Ensure every QID-valued source relation has an independent label
+    /// observation, including QIDs with no English label at capture time.
+    pub fn verify_relation_qids(
+        &self,
+        relations: &WikidataRelationCatalog,
+    ) -> Result<(), CatalogError> {
+        if relations.referenced_entity_qids() != self.entries.keys().cloned().collect() {
+            return Err(invalid(
+                "Wikidata relation entity-label QIDs do not match pinned source relations",
+            ));
+        }
+        Ok(())
+    }
+
     pub fn total_qids(&self) -> usize {
         self.entries.len()
     }
@@ -318,6 +354,7 @@ impl WikidataEntityLabelCatalog {
 mod tests {
     use super::WikidataEntityLabelCatalog;
     use crate::wikidata_properties::WikidataPropertyCatalog;
+    use crate::wikidata_relations::WikidataRelationCatalog;
     use std::path::Path;
 
     #[test]
@@ -333,5 +370,17 @@ mod tests {
         let source = WikidataPropertyCatalog::open(&root, "all").unwrap();
         labels.verify_referenced_qids(&source).unwrap();
         assert!(labels.lookup("Q0").is_none());
+    }
+
+    #[test]
+    fn captured_relations_have_separately_verified_entity_labels() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let labels = WikidataEntityLabelCatalog::open_relations(&root).unwrap();
+        assert_eq!(labels.total_qids(), 1_837);
+        assert_eq!(labels.english_label_count(), 1_639);
+        let claims = WikidataRelationCatalog::open(&root, "all").unwrap();
+        labels.verify_relation_qids(&claims).unwrap();
+        assert!(labels.lookup("Q0").is_none());
+        assert!(labels.lookup("Q208850").is_some());
     }
 }
