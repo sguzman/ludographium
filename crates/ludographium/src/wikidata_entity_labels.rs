@@ -513,6 +513,31 @@ mod tests {
     }
 
     #[test]
+    fn expanded_source_labels_are_complete_and_independently_provenanced() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let labels = WikidataEntityLabelCatalog::open_expanded(&root).unwrap();
+        assert_eq!(labels.total_qids(), 2_255);
+        assert_eq!(labels.english_label_count(), 2_079);
+        assert!(labels.lookup("Q0").is_none());
+        let credits_v1 = WikidataPropertyCatalog::open_expanded(&root, "all").unwrap();
+        let credits_v2 = WikidataPropertyCatalog::open_expanded_v2(&root, "all").unwrap();
+        let relations_v1 = WikidataRelationCatalog::open_expanded(&root, "all").unwrap();
+        let relations_v2 = WikidataRelationCatalog::open_expanded_v2(&root, "all").unwrap();
+        labels
+            .verify_expanded_referenced_qids(
+                &credits_v1,
+                &credits_v2,
+                &relations_v1,
+                &relations_v2,
+            )
+            .unwrap();
+        let sample = labels.lookup("Q107").unwrap();
+        assert_eq!(sample.source_sha256.len(), 64);
+        assert!(sample.source_path.contains("expanded-labels-v1"));
+        assert!(sample.interpretation.contains("not-canonical"));
+    }
+
+    #[test]
     fn captured_relations_have_separately_verified_entity_labels() {
         let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
         let labels = WikidataEntityLabelCatalog::open_relations(&root).unwrap();
