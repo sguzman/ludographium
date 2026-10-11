@@ -636,6 +636,7 @@ pub mod wikidata_candidates;
 pub mod wikidata_credits;
 pub mod wikidata_entity_labels;
 pub mod wikidata_items;
+pub mod wikidata_localized_candidates;
 pub mod wikidata_localized_titles;
 pub mod wikidata_properties;
 pub mod wikidata_relations;
