@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v8.json",
+  "platform": "philipsvideopac",
+  "wikidata_platform": "Q7185533",
+  "captured_at_utc": "2026-10-11T23:50:15Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "adbc478a1cdae880fe1c37da993df21e5c0361324ad737878bfaaea8565bf23b",
+  "source_query_bytes": 274,
+  "source_response_path": "response.json",
+  "source_response_sha256": "a4bf3c9209206fe2c4a5ea30ce69a6827eeea0939c26cdc5a770327098072d47",
+  "source_response_bytes": 1825,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "daa7257a43c2d46680bc0a2fbb687a708e6d7cd4770fe08fad6428aa231f508f",
+  "source_bindings_bytes": 1108,
+  "source_rows": 5,
+  "distinct_items": 1,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 1,
+    "P404": 2,
+    "P437": 1,
+    "P495": 1
+  },
+  "rdf_value_type_counts": {
+    "literal": 1,
+    "uri": 4
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}

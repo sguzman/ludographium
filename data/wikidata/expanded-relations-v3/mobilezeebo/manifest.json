@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "sources/wikidata-platform-expansion-v8.json",
+  "platform": "mobilezeebo",
+  "wikidata_platform": "Q184372",
+  "captured_at_utc": "2026-10-11T23:50:09Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "1be0ee9edb5e0d6111e66888a8497d8c92bcb2e49670bd992a8bddde65ffda8c",
+  "source_query_bytes": 273,
+  "source_response_path": "response.json",
+  "source_response_sha256": "d077d8492c4a147d4846836d550d87b02b48b87c8cb1dddea08d31c7b65bf705",
+  "source_response_bytes": 34351,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "9c2445bf13f6490895133e7dca504bb69080a3b16f28dd5266f5a1d66be83eb5",
+  "source_bindings_bytes": 22190,
+  "source_rows": 100,
+  "distinct_items": 20,
+  "query_limit": 30000,
+  "properties": [
+    "P179",
+    "P404",
+    "P407",
+    "P495",
+    "P437",
+    "P750",
+    "P1476",
+    "P1733",
+    "P2725"
+  ],
+  "property_counts": {
+    "P1476": 5,
+    "P1733": 4,
+    "P179": 7,
+    "P404": 22,
+    "P407": 7,
+    "P437": 20,
+    "P495": 13,
+    "P750": 22
+  },
+  "rdf_value_type_counts": {
+    "literal": 9,
+    "uri": 91
+  },
+  "identity_policy": "Original source claims only; no canonical game company genre or release identity inferred. Zero-row queries are scoped noncoverage."
+}
