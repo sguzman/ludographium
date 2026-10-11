@@ -30,7 +30,7 @@ These are original source observations, **not a count of distinct games**. Every
 
 The original 88 pinned Libretro DATs supply **129,008 bibliographic claims** across developer, publisher, release-year, release-month, genre, franchise, serial, age-rating, player-count, and rumble fields. Strict CRC32-and-title comparison attaches **98,856 claims** to base observations; conflicting or unmatched source statements remain visible rather than being silently assigned to games.
 
-[75-platform bulk expansion](docs/BULK-EXPANSION.md) · [Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Source registers](sources/README.md)
+[75-platform bulk expansion](docs/BULK-EXPANSION.md) · [Source coverage](reports/source-coverage-v1.json) · [Enrichment coverage](reports/enrichment-coverage-v1.json) · [Reconciliation review queue](reports/reconciliation-queue-v1.json) · [Cross-provider company and year evidence report](reports/wikidata-cross-provider-review-v1.json) · [Source registers](sources/README.md)
 
 ## Rust offline source search
 
