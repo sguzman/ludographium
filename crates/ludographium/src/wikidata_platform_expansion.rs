@@ -8,7 +8,19 @@ use std::collections::{BTreeMap, HashSet};
 use std::fs;
 use std::path::Path;
 
-const BASE: &str = "data/wikidata/platform-expansion-v1";
+const BASE_V1: &str = "data/wikidata/platform-expansion-v1";
+const BASE_V2: &str = "data/wikidata/platform-expansion-v2";
+const MAP_V1: &[(&str, &str)] = &[
+    ("atari7800", "Q753600"),
+    ("sonyplaystationportable", "Q170325"),
+    ("sonyplaystationvita", "Q188808"),
+];
+const MAP_V2: &[(&str, &str)] = &[
+    ("atarijaguar", "Q650601"),
+    ("atarilynx", "Q753657"),
+    ("bandaiwonderswan", "Q1065792"),
+    ("bandaiwonderswancolor", "Q1048035"),
+];
 
 #[derive(Deserialize)]
 struct Register {
@@ -114,15 +126,27 @@ fn original(folder: &Path, name: &str, bytes: usize, hash: &str) -> Result<Vec<u
 
 impl ExpandedWikidataCatalog {
     pub fn open(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        let root = root.as_ref();
-        let register: Register = serde_json::from_slice(&fs::read(
-            root.join("sources/wikidata-platform-expansion-v1.json"),
-        )?)?;
+        Self::open_source(root.as_ref(), selection, BASE_V1,
+            "sources/wikidata-platform-expansion-v1.json", MAP_V1)
+    }
+
+    pub fn open_v2(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(root.as_ref(), selection, BASE_V2,
+            "sources/wikidata-platform-expansion-v2.json", MAP_V2)
+    }
+
+    fn open_source(
+        root: &Path, selection: &str, base: &str, register_path: &str,
+        approved_platforms: &[(&str, &str)]
+    ) -> Result<Self, CatalogError> {
+        let register: Register = serde_json::from_slice(
+            &fs::read(root.join(register_path))?
+        )?;
         if register.schema_version != 1
             || register.source != "Wikidata"
             || register.license != "CC0-1.0"
             || register.query_limit != 20_000
-            || register.platforms.len() != 3
+            || register.platforms.len() != approved_platforms.len()
         {
             return Err(invalid(
                 "Unexpected Wikidata platform expansion registration",
@@ -137,19 +161,16 @@ impl ExpandedWikidataCatalog {
         let mut english_label_rows = 0;
         let mut platform_row_counts = BTreeMap::new();
         for scope in register.platforms {
-            let approved = matches!(
-                (scope.platform.as_str(), scope.wikidata_platform.as_str()),
-                ("atari7800", "Q753600")
-                    | ("sonyplaystationportable", "Q170325")
-                    | ("sonyplaystationvita", "Q188808")
-            );
+            let approved = approved_platforms.iter().any(|(platform, qid)| {
+                *platform == scope.platform && *qid == scope.wikidata_platform
+            });
             if !approved || !seen.insert(scope.platform.clone()) {
                 return Err(invalid("Unverified or repeated expansion platform mapping"));
             }
             if selection != "all" && selection != scope.platform {
                 continue;
             }
-            let folder = root.join(BASE).join(&scope.platform);
+            let folder = root.join(base).join(&scope.platform);
             if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
                 return Err(invalid("Pinned source folder is a symbolic link"));
             }
@@ -278,7 +299,7 @@ impl ExpandedWikidataCatalog {
                     publication_binding_kind,
                     raw_binding: record,
                     source_ordinal: index + 1,
-                    source_path: format!("{BASE}/{}/bindings.jsonl", scope.platform),
+                    source_path: format!("{base}/{}/bindings.jsonl", scope.platform),
                     source_sha256: manifest.source_bindings_sha256.clone(),
                     source_response_sha256: manifest.source_response_sha256.clone(),
                     source_query_sha256: manifest.source_query_sha256.clone(),
@@ -303,7 +324,7 @@ impl ExpandedWikidataCatalog {
             platform_row_counts.insert(scope.platform.clone(), manifest.source_rows);
             platforms.push(scope.platform);
         }
-        if platforms.is_empty() || (selection == "all" && platforms.len() != 3) {
+        if platforms.is_empty() || (selection == "all" && platforms.len() != approved_platforms.len()) {
             return Err(invalid(format!(
                 "Unknown or incomplete source platform: {selection}"
             )));
@@ -405,5 +426,21 @@ mod tests {
         assert_eq!(count, 3_888);
         assert_eq!(rows.len(), 1);
         assert!(ExpandedWikidataCatalog::open(&root, "unknown").is_err());
+    }
+
+    #[test]
+    fn four_additional_atari_and_wonderswan_partitions_are_verified() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = ExpandedWikidataCatalog::open_v2(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 4);
+        assert_eq!(catalog.total_rows(), 305);
+        assert_eq!(catalog.distinct_item_observations(), 206);
+        assert_eq!(catalog.literal_date_claims(), 282);
+        assert_eq!(catalog.nonliteral_publication_bindings(), 0);
+        assert_eq!(catalog.platform_row_counts()["atarijaguar"], 101);
+        assert_eq!(catalog.platform_row_counts()["atarilynx"], 89);
+        assert_eq!(catalog.platform_row_counts()["bandaiwonderswan"], 75);
+        assert_eq!(catalog.platform_row_counts()["bandaiwonderswancolor"], 40);
+        assert!(ExpandedWikidataCatalog::open_v2(&root, "invalid").is_err());
     }
 }
