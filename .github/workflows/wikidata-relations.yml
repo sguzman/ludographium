@@ -50,7 +50,7 @@ jobs:
             ?item ?property ?value.
           }
           ORDER BY ?item ?property ?value
-          LIMIT 10000
+          LIMIT 30000
           EOF
             curl --fail --location --get --retry 5 --retry-all-errors \
               --retry-delay 6 --max-time 95 --silent --show-error \
@@ -65,7 +65,7 @@ jobs:
             ' "$out/response.json"
             jq -e '
               .head.vars == ["item","property","value"]
-              and (.results.bindings | type == "array" and length > 0 and length < 10000)
+              and (.results.bindings | type == "array" and length > 0 and length < 30000)
               and all(.results.bindings[];
                 (.item.type == "uri"
                  and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
@@ -110,7 +110,7 @@ jobs:
                 source_rows: $count,
                 distinct_items: $items,
                 entity_value_bindings: $entity_values,
-                query_limit: 10000,
+                query_limit: 30000,
                 properties: ["P179","P404","P407","P495","P437","P750","P1476","P1733","P2725"],
                 property_counts: (
                   $response[0].results.bindings
