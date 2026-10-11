@@ -149,7 +149,7 @@ jobs:
             echo "Refusing any generated binary database files"
             exit 1
           fi
-          git add data/wikidata/expanded-localized-v1
+          git add data/wikidata/expanded-localized-v2
           if git diff --cached --quiet; then
             echo "Localized source captures already pinned"
             exit 0
