@@ -1699,16 +1699,26 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
         "verified-wikidata-expanded-property-bindings"
     );
     assert_eq!(second_credits["metadata_cohort"], "expanded-v2");
-    assert_eq!(second_credits["platforms_searched"].as_array().unwrap().len(), 18);
+    assert_eq!(
+        second_credits["platforms_searched"]
+            .as_array()
+            .unwrap()
+            .len(),
+        18
+    );
     assert_eq!(second_credits["source_statements"], 962);
     assert_eq!(second_credits["source_item_platform_observations"], 312);
     assert_eq!(second_credits["returned_claims"], 2);
-    assert!(second_credits["claims"].as_array().unwrap().iter().all(|row| {
-        row["source_path"]
-            .as_str()
-            .unwrap()
-            .contains("expanded-credits-v2")
-    }));
+    assert!(second_credits["claims"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|row| {
+            row["source_path"]
+                .as_str()
+                .unwrap()
+                .contains("expanded-credits-v2")
+        }));
 
     for (cohort, statements, observations, count) in [
         ("expanded-v1", 18_999, 3_108, 19),
@@ -1737,7 +1747,10 @@ fn expanded_wikidata_metadata_cohorts_are_queryable() {
             "expanded-relations-v2"
         };
         assert!(output["claims"].as_array().unwrap().iter().all(|claim| {
-            claim["source_path"].as_str().unwrap().contains(expected_path)
+            claim["source_path"]
+                .as_str()
+                .unwrap()
+                .contains(expected_path)
                 && claim["source_sha256"].as_str().unwrap().len() == 64
         }));
     }
