@@ -53,6 +53,43 @@ struct Manifest {
     rdf_value_type_counts: BTreeMap<String, usize>,
 }
 
+
+#[derive(Debug, Deserialize)]
+struct ExpandedRegister {
+    schema_version: u32,
+    source: String,
+    license: String,
+    query_limit: usize,
+    platforms: Vec<RegisteredPlatform>,
+}
+
+#[derive(Debug, Deserialize)]
+struct ExpandedManifest {
+    schema_version: u32,
+    source: String,
+    license: String,
+    source_revision: String,
+    source_register: String,
+    platform: String,
+    wikidata_platform: String,
+    captured_at_utc: String,
+    source_query_path: String,
+    source_query_sha256: String,
+    source_query_bytes: usize,
+    source_response_path: String,
+    source_response_sha256: String,
+    source_response_bytes: usize,
+    source_bindings_path: String,
+    source_bindings_sha256: String,
+    source_bindings_bytes: usize,
+    source_rows: usize,
+    distinct_items: usize,
+    query_limit: usize,
+    properties: Vec<String>,
+    property_counts: BTreeMap<String, usize>,
+    rdf_value_type_counts: BTreeMap<String, usize>,
+}
+
 #[derive(Debug, Serialize)]
 pub struct RelationClaim {
     pub platform: String,
