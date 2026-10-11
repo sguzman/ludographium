@@ -524,12 +524,7 @@ mod tests {
         let relations_v1 = WikidataRelationCatalog::open_expanded(&root, "all").unwrap();
         let relations_v2 = WikidataRelationCatalog::open_expanded_v2(&root, "all").unwrap();
         labels
-            .verify_expanded_referenced_qids(
-                &credits_v1,
-                &credits_v2,
-                &relations_v1,
-                &relations_v2,
-            )
+            .verify_expanded_referenced_qids(&credits_v1, &credits_v2, &relations_v1, &relations_v2)
             .unwrap();
         let sample = labels.lookup("Q100350796").unwrap();
         assert_eq!(sample.source_sha256.len(), 64);
