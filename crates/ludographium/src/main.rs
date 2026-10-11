@@ -617,16 +617,14 @@ fn run() -> Result<(), Box<dyn Error>> {
 
     if expansion_source.is_some() && !wikidata_expanded && !wikidata_expanded_candidates {
         return Err(CatalogError::Invalid(
-            "--expansion-source requires an expanded Wikidata source mode".into()
-        ).into());
+            "--expansion-source requires an expanded Wikidata source mode".into(),
+        )
+        .into());
     }
     let source_version = expansion_source.as_deref().unwrap_or("v1");
-    if (wikidata_expanded || wikidata_expanded_candidates)
-        && !matches!(source_version, "v1" | "v2")
+    if (wikidata_expanded || wikidata_expanded_candidates) && !matches!(source_version, "v1" | "v2")
     {
-        return Err(CatalogError::Invalid(
-            "--expansion-source must be v1 or v2".into()
-        ).into());
+        return Err(CatalogError::Invalid("--expansion-source must be v1 or v2".into()).into());
     }
 
     if wikidata_expanded_candidates {
