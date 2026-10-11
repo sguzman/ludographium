@@ -656,7 +656,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         || (wikidata_properties
             && (wikidata_text
                 || wikidata_candidates
-            || wikidata_localized_candidates
+                || wikidata_localized_candidates
                 || source_dat
                 || claims_only
                 || enriched
@@ -674,7 +674,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         || (wikidata_relations
             && (wikidata_text
                 || wikidata_candidates
-            || wikidata_localized_candidates
+                || wikidata_localized_candidates
                 || wikidata_properties
                 || wikidata_items
                 || source_dat
@@ -694,7 +694,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         || (wikidata_localized_titles
             && (wikidata_text
                 || wikidata_candidates
-            || wikidata_localized_candidates
+                || wikidata_localized_candidates
                 || wikidata_properties
                 || wikidata_relations
                 || wikidata_items
@@ -718,7 +718,7 @@ fn run() -> Result<(), Box<dyn Error>> {
         || (wikidata_items
             && (wikidata_text
                 || wikidata_candidates
-            || wikidata_localized_candidates
+                || wikidata_localized_candidates
                 || wikidata_properties
                 || source_dat
                 || claims_only
@@ -813,7 +813,8 @@ fn run() -> Result<(), Box<dyn Error>> {
         let old_candidates = WikidataCandidateCatalog::reconcile(&original, &old_source);
         let candidates =
             WikidataLocalizedCandidateCatalog::reconcile(&original, &localized, &old_candidates);
-        let (filtered, observations) = candidates.search(title.as_deref(), qid.as_deref(), limit)?;
+        let (filtered, observations) =
+            candidates.search(title.as_deref(), qid.as_deref(), limit)?;
         println!(
             "{}",
             serde_json::to_string_pretty(&json!({
