@@ -652,12 +652,19 @@ fn original_wikidata_relations_and_external_ids_are_offline_and_attributed() {
 fn reverse_lookup_retains_shared_steam_id_and_multi_qid_ambiguity() {
     let result = query(&[
         "--wikidata-relations",
-        "--platform", "all",
-        "--external-id", "15750",
-        "--property", "P1733",
-        "--limit", "20",
+        "--platform",
+        "all",
+        "--external-id",
+        "15750",
+        "--property",
+        "P1733",
+        "--limit",
+        "20",
     ]);
-    assert_eq!(result["query_kind"], "exact-provider-identifier-source-claim");
+    assert_eq!(
+        result["query_kind"],
+        "exact-provider-identifier-source-claim"
+    );
     assert_eq!(result["exact_provider_id_query"], "15750");
     assert!(result["total_filtered_claims"].as_u64().unwrap() >= 2);
     assert_eq!(result["distinct_game_qids_for_exact_id"], 2);
@@ -669,13 +676,46 @@ fn reverse_lookup_retains_shared_steam_id_and_multi_qid_ambiguity() {
     }));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
-        vec!["--wikidata-relations", "--platform", "all", "--external-id", "15750"],
-        vec!["--wikidata-relations", "--platform", "all", "--external-id", "15750", "--property", "P1476"],
-        vec!["--wikidata-relations", "--platform", "all", "--external-id", "15750", "--property", "P1733", "--qid", "Q2256398"],
-        vec!["--wikidata-properties", "--platform", "all", "--external-id", "15750"],
+        vec![
+            "--wikidata-relations",
+            "--platform",
+            "all",
+            "--external-id",
+            "15750",
+        ],
+        vec![
+            "--wikidata-relations",
+            "--platform",
+            "all",
+            "--external-id",
+            "15750",
+            "--property",
+            "P1476",
+        ],
+        vec![
+            "--wikidata-relations",
+            "--platform",
+            "all",
+            "--external-id",
+            "15750",
+            "--property",
+            "P1733",
+            "--qid",
+            "Q2256398",
+        ],
+        vec![
+            "--wikidata-properties",
+            "--platform",
+            "all",
+            "--external-id",
+            "15750",
+        ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))
-            .current_dir(&root).args(&args).output().unwrap();
+            .current_dir(&root)
+            .args(&args)
+            .output()
+            .unwrap();
         assert!(!output.status.success());
     }
 }

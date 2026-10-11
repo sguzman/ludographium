@@ -490,10 +490,9 @@ fn run() -> Result<(), Box<dyn Error>> {
             }
             "--root" | "--platform" | "--sha1" | "--crc32" | "--size" | "--title" | "--limit"
             | "--file" | "--zip" | "--media-format" | "--zip-entry" | "--qid" | "--property"
-            | "--external-id" => {
-                args.next()
-                    .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?
-            }
+            | "--external-id" => args
+                .next()
+                .ok_or_else(|| CatalogError::Invalid(format!("missing value for {arg}")))?,
             _ => {
                 return Err(
                     CatalogError::Invalid(format!("unknown option: {arg}\n{}", usage())).into(),
@@ -730,15 +729,16 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
     if wikidata_relations {
         let catalog = WikidataRelationCatalog::open(&root, &platform)?;
-        let (total, distinct_qids, distinct_platforms, results) =
-            if let Some(ref identifier) = external_id {
-                let (count, qids, platforms, entries) =
-                    catalog.search_external_id(property.as_deref().unwrap(), identifier, limit)?;
-                (count, Some(qids), Some(platforms), entries)
-            } else {
-                let (count, entries) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
-                (count, None, None, entries)
-            };
+        let (total, distinct_qids, distinct_platforms, results) = if let Some(ref identifier) =
+            external_id
+        {
+            let (count, qids, platforms, entries) =
+                catalog.search_external_id(property.as_deref().unwrap(), identifier, limit)?;
+            (count, Some(qids), Some(platforms), entries)
+        } else {
+            let (count, entries) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
+            (count, None, None, entries)
+        };
         let labels = if with_entity_labels {
             let source = WikidataEntityLabelCatalog::open_relations(&root)?;
             let all = WikidataRelationCatalog::open(&root, "all")?;
