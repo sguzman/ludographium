@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "prior_expansion_register": "sources/wikidata-platform-expansion-v1.json",
+  "query_limit": 20000,
+  "query": "Same P31 video game and P400 platform semantics as first expansion; optional English label and P577 raw publication binding",
+  "platforms": [
+    {
+      "platform": "atarijaguar",
+      "wikidata_platform": "Q650601",
+      "platform_label": "Atari Jaguar",
+      "evidence_url": "https://www.wikidata.org/wiki/Q650601"
+    },
+    {
+      "platform": "atarilynx",
+      "wikidata_platform": "Q753657",
+      "platform_label": "Atari Lynx",
+      "evidence_url": "https://www.wikidata.org/wiki/Q753657"
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "wikidata_platform": "Q1065792",
+      "platform_label": "WonderSwan",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1065792"
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "wikidata_platform": "Q1048035",
+      "platform_label": "WonderSwan Color",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1048035"
+    }
+  ],
+  "source_policy": "Additive independent CC0 source snapshot with raw query, response, JSONL, source digest and timestamp. No rewriting prior captures or canonical media/work/edition inference."
+}
