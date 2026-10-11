@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "prior_expansion_register": "sources/wikidata-platform-expansion-v2.json",
+  "query_limit": 20000,
+  "platforms": [
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "wikidata_platform": "Q135321",
+      "label": "Famicom Disk System",
+      "evidence_url": "https://www.wikidata.org/wiki/Q135321"
+    },
+    {
+      "platform": "snkneogeopocket",
+      "wikidata_platform": "Q939881",
+      "label": "Neo Geo Pocket",
+      "evidence_url": "https://www.wikidata.org/wiki/Q939881"
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "wikidata_platform": "Q1977455",
+      "label": "Neo Geo Pocket Color",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1977455"
+    },
+    {
+      "platform": "segasg1000",
+      "wikidata_platform": "Q1136956",
+      "label": "Sega SG-1000",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1136956"
+    },
+    {
+      "platform": "sega32x",
+      "wikidata_platform": "Q1063978",
+      "label": "Sega 32X",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1063978"
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "wikidata_platform": "Q1057377",
+      "label": "PC Engine / TurboGrafx-16",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1057377"
+    }
+  ],
+  "source_policy": "Original independent platform QID source observations. Preserve query, untruncated response, JSONL row bytes, source hashes and timestamp; do not replace earlier source captures or infer canonical game/media/release identities."
+}
