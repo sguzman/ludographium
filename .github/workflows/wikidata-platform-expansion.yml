@@ -72,6 +72,13 @@ jobs:
               'https://query.wikidata.org/sparql' \
               -o "$out/response.json"
             jq -r --arg platform "$platform" '"\($platform): \(.results.bindings | length) original source rows"' "$out/response.json"
+            jq -c '{
+              response_variables: .head.vars,
+              item_types: ([.results.bindings[].item.type] | group_by(.) | map({kind:.[0],count:length})),
+              label_types: ([.results.bindings[] | .itemLabel.type // "missing"] | group_by(.) | map({kind:.[0],count:length})),
+              label_languages: ([.results.bindings[] | .itemLabel["xml:lang"] // "missing"] | group_by(.) | map({language:.[0],count:length})),
+              date_types: ([.results.bindings[] | .publication.type // "missing"] | group_by(.) | map({kind:.[0],count:length}))
+            }' "$out/response.json"
             test "$(wc -c < "$out/response.json")" -lt 35000000
             jq -e '
               .head.vars == ["item","itemLabel","publication"]
@@ -129,8 +136,8 @@ jobs:
             jq -e '.source_rows > 0 and .source_rows < .query_limit and .distinct_item_qids > 0' "$out/manifest.json" >/dev/null
             echo "$platform: $rows source observations, $items item QIDs, $dates date bindings"
             sleep 2
-          done < <(jq -r '.platforms[:2][] | [.platform, .wikidata_platform] | @tsv' "$register")
-          test "$(find data/wikidata/platform-expansion-v1 -name manifest.json | wc -l)" -eq 2
+          done < <(jq -r '.platforms[2:][] | [.platform, .wikidata_platform] | @tsv' "$register")
+          test "$(find data/wikidata/platform-expansion-v1 -name manifest.json | wc -l)" -eq 3
       - name: Preserve only hash-verified text source responses
         shell: bash
         run: |
