@@ -458,6 +458,27 @@ impl WikidataEntityLabelCatalog {
         Ok(())
     }
 
+    /// Verify that the expanded label inventory is exactly the union of
+    /// entity-QID references from both independently pinned source families.
+    pub fn verify_expanded_referenced_qids(
+        &self,
+        credits_v1: &WikidataPropertyCatalog,
+        credits_v2: &WikidataPropertyCatalog,
+        relations_v1: &WikidataRelationCatalog,
+        relations_v2: &WikidataRelationCatalog,
+    ) -> Result<(), CatalogError> {
+        let mut declared = credits_v1.referenced_entity_qids();
+        declared.extend(credits_v2.referenced_entity_qids());
+        declared.extend(relations_v1.referenced_entity_qids());
+        declared.extend(relations_v2.referenced_entity_qids());
+        if declared != self.entries.keys().cloned().collect() {
+            return Err(invalid(
+                "expanded label inventory differs from QIDs referenced by pinned source claims",
+            ));
+        }
+        Ok(())
+    }
+
     pub fn total_qids(&self) -> usize {
         self.entries.len()
     }
