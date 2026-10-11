@@ -691,6 +691,31 @@ source paths, original ordinals, QIDs, SHA-256 evidence, and ambiguity. Neither
 the existence of an exact same-platform title nor the absence of returned
 rows proves canonical work/release identity or platform-complete coverage.
 
+## Seventh verified platform cohort (v7)
+
+The independent [v7 source register](../sources/wikidata-platform-expansion-v7.json)
+and [original query captures](../data/wikidata/platform-expansion-v7/)
+cover six more Libretro source collections: Emerson Arcadia 2001,
+Epoch Super Cassette Vision, GamePark GP32, Interton VC 4000,
+RCA Studio II, and Sega Advanced Pico Beena.
+
+The six hash-pinned P31/P400 Wikidata queries returned **20 original rows**
+representing **14 per-platform item observations**, with **18 English-label
+rows** and **20 literal P577 publication bindings**. No nonliteral publication
+bindings were returned. The GP32 and Interton VC 4000 query scopes returned
+**zero** rows and are separately pinned as verified noncoverage for those
+queries, without implying anything about the consoles' actual game libraries.
+
+```sh
+cargo run --locked -- --wikidata-expanded --expansion-source v7 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v7 --platform all --limit 5
+```
+
+The original source records are immutable and independent of the prior six
+cohorts. Source-label title review remains noncanonical; unknown dates,
+unverified identities and unmatched source occurrences are not silently
+resolved.
+
 ## Accuracy and source-rights boundaries
 
 Wikidata's CC0 statements can support independently *attributed* comparisons. They are not automatically independent factual corroboration: Wikidata contributors may have consulted the same upstream references as Libretro contributors. Label correspondence alone has no power to authenticate media hashes, identify a regional edition, or establish that two products are the same canonical work.
