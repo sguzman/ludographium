@@ -1239,10 +1239,14 @@ fn run() -> Result<(), Box<dyn Error>> {
             (count, None, None, entries)
         };
         let labels = if with_entity_labels {
-            let source = WikidataEntityLabelCatalog::open_relations(&root)?;
-            let all = WikidataRelationCatalog::open(&root, "all")?;
-            source.verify_relation_qids(&all)?;
-            Some(source)
+            if cohort == "baseline" {
+                let source = WikidataEntityLabelCatalog::open_relations(&root)?;
+                let all = WikidataRelationCatalog::open(&root, "all")?;
+                source.verify_relation_qids(&all)?;
+                Some(source)
+            } else {
+                Some(expanded_entity_labels(&root)?)
+            }
         } else {
             None
         };
@@ -1364,10 +1368,14 @@ fn run() -> Result<(), Box<dyn Error>> {
         };
         let (total, records) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
         let labels = if with_entity_labels {
-            let source = WikidataEntityLabelCatalog::open(&root)?;
-            let all = WikidataPropertyCatalog::open(&root, "all")?;
-            source.verify_referenced_qids(&all)?;
-            Some(source)
+            if !expanded_credits && cohort == "baseline" {
+                let source = WikidataEntityLabelCatalog::open(&root)?;
+                let all = WikidataPropertyCatalog::open(&root, "all")?;
+                source.verify_referenced_qids(&all)?;
+                Some(source)
+            } else {
+                Some(expanded_entity_labels(&root)?)
+            }
         } else {
             None
         };
