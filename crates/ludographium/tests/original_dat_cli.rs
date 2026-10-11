@@ -149,7 +149,9 @@ fn serial_only_claims_are_searchable_without_identification_records() {
             && claim["source_fields"]["rom_serial"]
                 .as_str()
                 .is_some_and(|serial| serial.starts_with("UL"))
-            && claim["source_blob_sha"].as_str().is_some_and(|sha| sha.len() == 40)
+            && claim["source_blob_sha"]
+                .as_str()
+                .is_some_and(|sha| sha.len() == 40)
             && claim["source_ordinal"].as_u64().unwrap() > 0
     }));
 
@@ -188,6 +190,9 @@ fn bibliographic_claim_mode_rejects_unsafe_argument_combinations() {
             .args(&args)
             .output()
             .unwrap();
-        assert!(!output.status.success(), "invalid arguments unexpectedly accepted: {args:?}");
+        assert!(
+            !output.status.success(),
+            "invalid arguments unexpectedly accepted: {args:?}"
+        );
     }
 }
