@@ -312,9 +312,7 @@ impl ExpandedWikidataCatalog {
             let text = std::str::from_utf8(&raw_text)
                 .map_err(|_| invalid("Non-UTF-8 original JSONL bindings"))?;
             let lines: Vec<&str> = text.lines().collect();
-            if (!text.is_empty() && !text.ends_with('\n'))
-                || lines.len() != manifest.source_rows
-            {
+            if (!text.is_empty() && !text.ends_with('\n')) || lines.len() != manifest.source_rows {
                 return Err(invalid("Original JSONL rows do not match manifest"));
             }
             let mut unique_items = HashSet::new();
