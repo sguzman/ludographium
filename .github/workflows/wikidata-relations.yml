@@ -60,6 +60,9 @@ jobs:
               --data-urlencode "query@$out/query.rq" \
               'https://query.wikidata.org/sparql' \
               -o "$out/response.json"
+            jq -r --arg platform "$platform" '
+              "\($platform): response_vars=\(.head.vars) rows=\(.results.bindings | length)"
+            ' "$out/response.json"
             jq -e '
               .head.vars == ["item","property","value"]
               and (.results.bindings | type == "array" and length > 0 and length < 10000)
