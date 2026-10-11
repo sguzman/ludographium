@@ -62,7 +62,10 @@ fn compare_year_sets(
     original: &[OriginalYearEvidence],
     wikidata: &[WikidataDateEvidence],
 ) -> &'static str {
-    let left: HashSet<u16> = original.iter().filter_map(|x| parse_year(&x.raw_value)).collect();
+    let left: HashSet<u16> = original
+        .iter()
+        .filter_map(|x| parse_year(&x.raw_value))
+        .collect();
     let right: HashSet<u16> = wikidata.iter().filter_map(|x| x.parsed_year).collect();
     if left.is_empty() && right.is_empty() {
         "both_years_missing"
@@ -137,7 +140,10 @@ impl WikidataYearAudit {
                 interpretation: "review-only-year-evidence-not-release-date-verification",
             });
         }
-        Self { comparisons, counts }
+        Self {
+            comparisons,
+            counts,
+        }
     }
 
     pub fn status_counts(&self) -> &BTreeMap<String, usize> {
@@ -157,7 +163,8 @@ impl WikidataYearAudit {
             || status.is_some_and(|value| !self.counts.contains_key(value))
         {
             return Err(CatalogError::Invalid(
-                "year evidence search requires nonblank title, known status and limit 1..=200".into(),
+                "year evidence search requires nonblank title, known status and limit 1..=200"
+                    .into(),
             ));
         }
         let needle = title.map(str::to_lowercase);
@@ -166,9 +173,9 @@ impl WikidataYearAudit {
         for row in &self.comparisons {
             if qid.is_some_and(|value| row.wikidata_qid != value)
                 || status.is_some_and(|value| row.year_status != value)
-                || needle.as_ref().is_some_and(|value| {
-                    !row.source_title.to_lowercase().contains(value)
-                })
+                || needle
+                    .as_ref()
+                    .is_some_and(|value| !row.source_title.to_lowercase().contains(value))
             {
                 continue;
             }
@@ -183,7 +190,9 @@ impl WikidataYearAudit {
 
 #[cfg(test)]
 mod tests {
-    use super::{compare_year_sets, date_year, parse_year, WikidataDateEvidence, WikidataYearAudit};
+    use super::{
+        compare_year_sets, date_year, parse_year, WikidataDateEvidence, WikidataYearAudit,
+    };
     use crate::original_dat::{OriginalDatCatalog, OriginalYearEvidence};
     use crate::wikidata_candidates::WikidataCandidateCatalog;
     use crate::wikidata_text::{WikidataDate, WikidataTextCatalog};
@@ -208,15 +217,24 @@ mod tests {
         assert_eq!(parse_year("1980-01-01T00:00:00Z"), Some(1980));
         assert_eq!(parse_year("1980ish"), None);
         assert_eq!(parse_year("01980"), None);
-        assert_eq!(compare_year_sets(&originals, &[date]), "overlapping_observed_years");
+        assert_eq!(
+            compare_year_sets(&originals, &[date]),
+            "overlapping_observed_years"
+        );
         let different = WikidataDateEvidence {
             raw_value: "1981-01-01T00:00:00Z".to_owned(),
             rdf_kind: "literal".to_owned(),
             datatype: None,
             parsed_year: Some(1981),
         };
-        assert_eq!(compare_year_sets(&originals, &[different]), "different_observed_years");
-        assert_eq!(compare_year_sets(&originals, &[]), "wikidata_literal_year_missing");
+        assert_eq!(
+            compare_year_sets(&originals, &[different]),
+            "different_observed_years"
+        );
+        assert_eq!(
+            compare_year_sets(&originals, &[]),
+            "wikidata_literal_year_missing"
+        );
         assert_eq!(compare_year_sets(&[], &[]), "both_years_missing");
         let rdf_uri = WikidataDate {
             kind: "uri".to_owned(),
@@ -239,8 +257,17 @@ mod tests {
         let audit = WikidataYearAudit::build(&original, &wikidata, &candidates);
         assert_eq!(candidates.summary().total_candidate_links, 8_971);
         assert_eq!(audit.status_counts().values().sum::<usize>(), 8_971);
-        assert!(audit.status_counts().get("overlapping_observed_years").copied().unwrap_or(0) > 0);
+        assert!(
+            audit
+                .status_counts()
+                .get("overlapping_observed_years")
+                .copied()
+                .unwrap_or(0)
+                > 0
+        );
         let (_, samples) = audit.search(None, None, None, 5).unwrap();
-        assert!(samples.iter().all(|sample| sample.interpretation.contains("review-only")));
+        assert!(samples
+            .iter()
+            .all(|sample| sample.interpretation.contains("review-only")));
     }
 }
