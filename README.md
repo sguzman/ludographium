@@ -8,6 +8,22 @@ It catalogs titles, versions, regions, publication facts, product identifiers, a
 
 **Source data are plain text, not binary databases.** The [Wikidata accession is checked into Git as small per-platform JSONL files](data/wikidata/v1/); SQLite is only an optional derived offline index. See the [source-format policy](docs/DATA-FORMATS.md). The earlier SQLite Release assets remain available for backward compatibility, but new releases will not publish those large binary databases.
 
+## Additional platform source accession
+
+A separate pinned Wikidata CC0 accession now covers **Atari 7800,
+PlayStation Portable, and PlayStation Vita** (2,254 game-item/platform
+observations from 3,888 original source rows). This is an additive source
+capture and does not modify the original 16-platform Wikidata baseline.
+
+```sh
+cargo run --locked -- --wikidata-expanded --platform all --limit 5
+cargo run --locked -- --wikidata-expanded --platform atari7800 --qid Q1014915
+cargo run --locked -- --wikidata-expanded --platform sonyplaystationvita --title "King Oddball"
+```
+
+The original source responses and hashes live under
+[data/wikidata/platform-expansion-v1/](data/wikidata/platform-expansion-v1/).
+
 ## Collection
 
 The original v1 JSON baseline covers ten console and handheld platforms (retained for compatibility). **The Git clone now contains the original text DAT metadata for all 75 platform collections and 117,145 source observations**, with [complete provenance and coverage details](docs/BULK-EXPANSION.md). The 65 added identification DATs and 279 bibliographic DATs are [tracked under `archive/libretro-bulk/metadat/`](archive/libretro-bulk/metadat), not stored exclusively in a generated database or fetched on demand.

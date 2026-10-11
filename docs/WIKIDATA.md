@@ -12,6 +12,31 @@ The first completed source capture on **2026-10-09** includes **16 platform mapp
 
 The [published Wikidata-enriched SQLite database](https://github.com/sguzman/ludographium/releases/download/data-v1.6.0/ludographium-wikidata-data-v1.6.0.sqlite) retained all **117,145** Libretro source observations and **167,640** attributed field claims unchanged. It adds independent Wikidata entities, dates, exact query-response evidence and noncanonical title candidates.
 
+## Additional independently sourced console coverage
+
+A separate, immutable
+[platform expansion register](../sources/wikidata-platform-expansion-v1.json)
+adds three already accessioned Libretro console collections to the Wikidata
+CC0 source universe: Atari 7800 (Q753600), PlayStation Portable (Q170325)
+and PlayStation Vita (Q188808). This mapping does **not** imply that all
+Libretro source records correspond to a Wikidata item.
+
+The [original source captures](../data/wikidata/platform-expansion-v1/)
+retain 3,888 raw game source rows, 2,254 distinct per-platform item QIDs,
+3,736 English-label bindings, and 3,699 literal publication-date bindings.
+The five additional PlayStation Vita P577 RDF URI bindings are retained
+without converting those nonliteral values into historical dates.
+
+Every partition preserves the exact query, response, original JSONL
+bindings, SHA-256 hashes and collection timestamp. The Rust
+`--wikidata-expanded` CLI independently checks source bytes, each
+response/JSONL row, platform QID, and date binding kind. It provides
+read-only, bounded title and QID lookup with no network requirement.
+
+This is a separate source accession, not a refresh or silent rewrite of
+the preceding 16-platform baseline, and no canonical work, release, port,
+edition or Libretro identity is inferred.
+
 ## Committed text corpus
 
 The primary imported Wikidata data now lives in [16 per-platform JSONL files](../data/wikidata/v1/) and a [plain-text provenance manifest](../data/wikidata/v1/manifest.json), approximately **4.2 MB total in Git**. Each item retains its Wikidata QID, English label and captured date statements. `tools/export_wikidata_text.py` deterministically rebuilds and verifies these files from the pinned original JSON source snapshot. SQLite is an optional locally generated search index, not the committed data format. See the [data-format policy](DATA-FORMATS.md).
