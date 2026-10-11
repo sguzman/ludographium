@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "kind": "source-only-additional-console-title-candidate-audit",
+  "source_commit_sha": "9b72337d97085d78f60855017d3cae625ecfd164",
+  "source_platform_partitions": 3,
+  "original_source_rows": 3888,
+  "distinct_wikidata_platform_item_observations": 2254,
+  "literal_publication_date_bindings": 3699,
+  "nonliteral_publication_bindings": 5,
+  "total_candidate_links": 473,
+  "original_source_records_with_candidate": 471,
+  "ambiguous_candidate_links": 4,
+  "per_platform": [
+    {
+      "platform": "atari7800",
+      "links": 63,
+      "original_source_records_with_candidate": 63,
+      "ambiguous_links": 0
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "links": 349,
+      "original_source_records_with_candidate": 347,
+      "ambiguous_links": 4
+    },
+    {
+      "platform": "sonyplaystationvita",
+      "links": 61,
+      "original_source_records_with_candidate": 61,
+      "ambiguous_links": 0
+    }
+  ],
+  "matching_policy": "Only same-platform conservative source title-key equality, with one candidate per original source occurrence and distinct Wikidata QID. Original publication binding rows and provenance hashes are retained.",
+  "interpretation": "Exact title correspondences are noncanonical source review leads, not independently authenticated game, work, edition, release or media identities; candidate counts cannot establish an empirical false-positive rate."
+}
