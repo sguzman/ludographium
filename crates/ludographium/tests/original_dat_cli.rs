@@ -913,7 +913,10 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
     assert_eq!(third["total_original_localized_names"], 247);
     assert_eq!(third["platforms_searched"].as_array().unwrap().len(), 12);
     assert_eq!(third["source_platform_row_counts"]["mobilezeebo"], 184);
-    assert_eq!(third["source_platform_row_counts"]["nintendosufamiturbo"], 0);
+    assert_eq!(
+        third["source_platform_row_counts"]["nintendosufamiturbo"],
+        0
+    );
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
         vec![
@@ -1473,7 +1476,7 @@ fn second_wikidata_console_expansion_is_searchable_and_noncanonical() {
         vec![
             "--wikidata-expanded",
             "--expansion-source",
-            "v8",
+            "v9",
             "--platform",
             "all",
         ],
