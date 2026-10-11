@@ -459,27 +459,43 @@ fn wikidata_entity_labels_are_optional_verified_evidence_in_property_queries() {
 #[test]
 fn cross_source_company_credit_audit_preserves_unresolved_names_and_provenance() {
     let result = query(&[
-        "--wikidata-candidates", "--compare-credits",
-        "--platform", "all", "--limit", "4",
+        "--wikidata-candidates",
+        "--compare-credits",
+        "--platform",
+        "all",
+        "--limit",
+        "4",
     ]);
     assert_eq!(result["total_candidate_links"], 8971);
     assert_eq!(result["total_filtered_credit_comparisons"], 17942);
     let counts = result["credit_evidence_counts"].as_object().unwrap();
     for credit in ["developer", "publisher"] {
-        let total: u64 = counts[credit].as_object().unwrap()
-            .values().map(|value| value.as_u64().unwrap()).sum();
+        let total: u64 = counts[credit]
+            .as_object()
+            .unwrap()
+            .values()
+            .map(|value| value.as_u64().unwrap())
+            .sum();
         assert_eq!(total, 8971);
     }
     assert_eq!(result["credit_evidence"].as_array().unwrap().len(), 4);
-    assert!(result["credit_evidence"].as_array().unwrap().iter().all(|entry| {
-        entry["source_blob_sha"].as_str().is_some()
-            && entry["title_candidate_status"].as_str().is_some()
-            && entry["interpretation"].as_str().unwrap().contains("review-only")
-    }));
+    assert!(result["credit_evidence"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .all(|entry| {
+            entry["source_blob_sha"].as_str().is_some()
+                && entry["title_candidate_status"].as_str().is_some()
+                && entry["interpretation"]
+                    .as_str()
+                    .unwrap()
+                    .contains("review-only")
+        }));
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let invalid = Command::new(env!("CARGO_BIN_EXE_ludographium"))
         .current_dir(&root)
         .args(["--compare-credits", "--platform", "all", "--limit", "4"])
-        .output().unwrap();
+        .output()
+        .unwrap();
     assert!(!invalid.status.success());
 }
