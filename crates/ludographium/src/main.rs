@@ -10,6 +10,7 @@ use ludographium::original_dat::OriginalDatCatalog;
 use ludographium::runtime::verify_runtime_root;
 use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
+use ludographium::wikidata_years::WikidataYearAudit;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
@@ -19,7 +20,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-candidates --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-candidates [--compare-years] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -414,6 +415,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut claims_only = false;
     let mut wikidata_text = false;
     let mut wikidata_candidates = false;
+    let mut compare_years = false;
     let mut qid = None;
 
     while let Some(arg) = args.next() {
@@ -431,6 +433,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
         if arg == "--wikidata-candidates" {
             wikidata_candidates = true;
+            continue;
+        }
+        if arg == "--compare-years" {
+            compare_years = true;
             continue;
         }
         if arg == "--verify-runtime" {
@@ -497,6 +503,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || claims_only
             || wikidata_text
             || wikidata_candidates
+            || compare_years
             || qid.is_some()
         {
             return Err(CatalogError::Invalid(
@@ -555,6 +562,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || media_format.is_some()
                 || zip_entry.is_some()
                 || (qid.is_some() && title.is_some())))
+        || (compare_years && !wikidata_candidates)
         || (qid.is_some() && !wikidata_text && !wikidata_candidates)
         || (claims_only
             && (sha1.is_some()
@@ -591,7 +599,11 @@ fn run() -> Result<(), Box<dyn Error>> {
     }
     if wikidata_candidates {
         let wikidata = WikidataTextCatalog::open(&root, &platform)?;
-        let base = OriginalDatCatalog::open(&root, &platform)?;
+        let base = if compare_years {
+            OriginalDatCatalog::open(&root, &platform)?.with_enrichment(&root)?
+        } else {
+            OriginalDatCatalog::open(&root, &platform)?
+        };
         let catalog = WikidataCandidateCatalog::reconcile(&base, &wikidata);
         let summary = catalog.summary();
         let (total, matches) = catalog.search(title.as_deref(), qid.as_deref(), limit)?;
@@ -613,6 +625,18 @@ fn run() -> Result<(), Box<dyn Error>> {
             "candidates": matches,
             "interpretation": "review-candidates-only-no-verified-work-or-media-identities"
         });
+        let mut output = output;
+        if compare_years {
+            let audit = WikidataYearAudit::build(&base, &wikidata, &catalog);
+            let (year_count, year_rows) =
+                audit.search(title.as_deref(), qid.as_deref(), None, limit)?;
+            output["year_comparison_counts"] = json!(audit.status_counts());
+            output["total_filtered_year_comparisons"] = json!(year_count);
+            output["year_evidence"] = json!(year_rows);
+            output["year_interpretation"] = json!(
+                "year-overlap-or-difference-is-review-evidence-not-game-or-regional-date-proof"
+            );
+        }
         println!("{}", serde_json::to_string_pretty(&output)?);
         return Ok(());
     }
