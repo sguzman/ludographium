@@ -409,3 +409,35 @@ fn wikidata_property_sources_are_available_in_rust_with_qid_provenance() {
         );
     }
 }
+
+#[test]
+fn wikidata_entity_labels_are_optional_verified_evidence_in_property_queries() {
+    let all = query(&[
+        "--wikidata-properties",
+        "--with-entity-labels",
+        "--platform",
+        "all",
+        "--limit",
+        "5",
+    ]);
+    assert_eq!(all["source_statements"], 47144);
+    assert_eq!(all["entity_label_source"]["entity_qids"], 2768);
+    assert_eq!(all["entity_label_source"]["english_labels"], 2614);
+    assert_eq!(all["entity_label_source"]["unlabeled_qids"], 154);
+    for original in all["claims"].as_array().unwrap() {
+        if let Some(qid) = original["value_qid"].as_str() {
+            assert_eq!(original["value_label_evidence"]["qid"], qid);
+            assert_eq!(original["value_label_evidence"]["source_query_sha256"].as_str().unwrap().len(), 64);
+            assert!(original["value_label_evidence"]["source_path"]
+                .as_str().unwrap().contains("property-labels-v1"));
+        }
+    }
+
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let invalid = Command::new(env!("CARGO_BIN_EXE_ludographium"))
+        .current_dir(&root)
+        .args(["--with-entity-labels", "--platform", "atari2600", "--title", "Adventure"])
+        .output()
+        .unwrap();
+    assert!(!invalid.status.success());
+}

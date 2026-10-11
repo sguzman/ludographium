@@ -52,6 +52,36 @@ identity, establish release-specific credits, authenticate Wikidata assertions,
 or prove the game's correspondence to any Libretro media record**.
 Exact same-platform title candidates remain separate review evidence.
 
+## English labels for referenced company and genre QIDs
+
+The third CC0 accession captures English labels for the distinct entity QIDs
+referenced by the new P178/P123/P136 claims, using exact QID VALUES queries
+rather than textual or fuzzy game-name matching.
+
+- **2,768** distinct QID-valued references, all retained in a sorted plain-text
+  inventory.
+- **2,614** QIDs with captured English labels and **154** without one.
+- **28** complete source query/response partitions (100 QIDs maximum each),
+  including original per-item JSONL bindings and SHA-256 manifests.
+
+[Preserved source snapshots](../data/wikidata/property-labels-v1/) and
+[successful capture](https://github.com/sguzman/ludographium/actions/runs/38164894590).
+
+The Rust reader checks SHA-256 and byte lengths for every pinned source file,
+query/response/JSONL consistency, QID inventory, label language, exact
+cross-references to the original property claims, and missing-label evidence.
+
+Use the opt-in `--with-entity-labels` flag to include separately attributed
+label evidence alongside original property claims:
+
+```sh
+cargo run --locked -- --wikidata-properties --with-entity-labels --platform all --limit 5
+cargo run --locked -- --wikidata-properties --with-entity-labels --platform atari2600 --qid Q379915
+```
+
+The entity label is a source claim about a QID, not a canonical developer,
+publisher, genre, or game identity. Missing labels remain missing.
+
 ## Bulk accession
 
 The [source register](../sources/wikidata-v1.json) declares 16 Wikidata platform IDs across the existing 75-platform console corpus. It includes original ten-system families and selected additional Atari, Nintendo, Xbox and PlayStation collections.

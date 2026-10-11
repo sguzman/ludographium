@@ -10,6 +10,7 @@ use ludographium::original_dat::OriginalDatCatalog;
 use ludographium::runtime::verify_runtime_root;
 use ludographium::wikidata_candidates::WikidataCandidateCatalog;
 use ludographium::wikidata_properties::WikidataPropertyCatalog;
+use ludographium::wikidata_entity_labels::WikidataEntityLabelCatalog;
 use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::wikidata_years::WikidataYearAudit;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
@@ -21,7 +22,7 @@ use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 fn usage() -> &'static str {
-    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-properties --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
+    "Usage: ludographium --verify-runtime [--root <catalog-directory>] | ludographium --wikidata-properties [--with-entity-labels] --platform <wikidata-platform-id|all> [--qid <QID>] [--property <P178|P123|P136>] [--limit <1..200>] | ludographium --wikidata-candidates [--compare-years] --platform <wikidata-platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --wikidata-text --platform <platform-id|all> [--root <catalog-directory>] [--qid <QID> | --title <substring>] [--limit <1..200>] | ludographium --source-dat --enriched --claims --platform <platform-id|all> [--root <catalog-directory>] [--title <substring>] [--limit <1..200>] | ludographium --platform <platform-id|all> [--root <catalog-directory>] [--source-dat] [--enriched] [--curated] (--sha1 <40-hex> | --crc32 <8-hex> --size <bytes> | --title <substring> [--limit <1..200>] | --file <path> | --zip <archive.zip>) [--media-format <nes-ines|snes-copier512|n64-v64|n64-n64>] [--zip-entry <exact-member-name>]"
 }
 
 fn format_match(found: &MediaMatch<'_>) -> Value {
@@ -417,6 +418,7 @@ fn run() -> Result<(), Box<dyn Error>> {
     let mut wikidata_text = false;
     let mut wikidata_candidates = false;
     let mut wikidata_properties = false;
+    let mut with_entity_labels = false;
     let mut property = None;
     let mut compare_years = false;
     let mut qid = None;
@@ -440,6 +442,10 @@ fn run() -> Result<(), Box<dyn Error>> {
         }
         if arg == "--wikidata-properties" {
             wikidata_properties = true;
+            continue;
+        }
+        if arg == "--with-entity-labels" {
+            with_entity_labels = true;
             continue;
         }
         if arg == "--compare-years" {
@@ -513,6 +519,7 @@ fn run() -> Result<(), Box<dyn Error>> {
             || wikidata_text
             || wikidata_candidates
             || wikidata_properties
+            || with_entity_labels
             || property.is_some()
             || compare_years
             || qid.is_some()
@@ -590,6 +597,7 @@ fn run() -> Result<(), Box<dyn Error>> {
                 || zip.is_some()
                 || media_format.is_some()
                 || zip_entry.is_some()))
+        || (with_entity_labels && !wikidata_properties)
         || (property.is_some() && !wikidata_properties)
         || (compare_years && !wikidata_candidates)
         || (qid.is_some() && !wikidata_text && !wikidata_candidates && !wikidata_properties)
@@ -634,6 +642,23 @@ fn run() -> Result<(), Box<dyn Error>> {
     if wikidata_properties {
         let catalog = WikidataPropertyCatalog::open(&root, &platform)?;
         let (total, records) = catalog.search(qid.as_deref(), property.as_deref(), limit)?;
+        let labels = if with_entity_labels {
+            let source = WikidataEntityLabelCatalog::open(&root)?;
+            let all = WikidataPropertyCatalog::open(&root, "all")?;
+            source.verify_referenced_qids(&all)?;
+            Some(source)
+        } else {
+            None
+        };
+        let claims: Vec<Value> = records.iter().map(|record| {
+            let mut original = serde_json::to_value(record)?;
+            if let Some(ref label_source) = labels {
+                original["value_label_evidence"] = json!(
+                    record.value_qid.as_deref().and_then(|id| label_source.lookup(id))
+                );
+            }
+            Ok::<Value, serde_json::Error>(original)
+        }).collect::<Result<_, _>>()?;
         println!(
             "{}",
             serde_json::to_string_pretty(&json!({
@@ -646,7 +671,13 @@ fn run() -> Result<(), Box<dyn Error>> {
                 "source_property_counts": catalog.property_counts(),
                 "total_filtered_claims": total,
                 "returned_claims": records.len(),
-                "claims": records,
+                "claims": claims,
+                "entity_label_source": labels.as_ref().map(|source| json!({
+                    "entity_qids": source.total_qids(),
+                    "english_labels": source.english_label_count(),
+                    "unlabeled_qids": source.total_qids() - source.english_label_count(),
+                    "source": "independent-pinned-Wikidata-CC0-English-label-observations"
+                })),
                 "interpretation": "Wikidata CC0 source claims not canonical games companies or genres"
             }))?
         );
