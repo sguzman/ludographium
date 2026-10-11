@@ -560,7 +560,7 @@ mod tests {
         assert_eq!(combined.total_claims(), 153_951);
         assert_eq!(
             combined.total_claims(),
-            combined.platform_row_counts().values().sum()
+            combined.platform_row_counts().values().sum::<usize>()
         );
         assert_eq!(
             combined.source_item_observations(),
