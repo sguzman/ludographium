@@ -150,7 +150,7 @@ jobs:
             echo "Refusing binary database files in source revision"
             exit 1
           fi
-          git add data/wikidata/platform-expansion-v2
+          git add data/wikidata/platform-expansion-v3
           if git diff --cached --quiet; then
             echo "Source accession already pinned"
             exit 0
