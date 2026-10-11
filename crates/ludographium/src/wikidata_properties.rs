@@ -647,7 +647,12 @@ mod tests {
         assert!(count > 0);
         assert_eq!(example.len(), 1);
         assert!(example[0].source_path.contains("expanded-credits-v2"));
-        for empty in ["casioloopy", "tigergamecom", "gameparkgp32", "intertonvc4000"] {
+        for empty in [
+            "casioloopy",
+            "tigergamecom",
+            "gameparkgp32",
+            "intertonvc4000",
+        ] {
             let scope = WikidataPropertyCatalog::open_expanded_v2(&root, empty).unwrap();
             assert_eq!(scope.total_claims(), 0);
             assert_eq!(scope.source_item_observations(), 0);
