@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "kind": "noncanonical-cross-provider-review-counts",
+  "source_commit_sha": "63fce97da50496cb36253a79051a9c6cc09102d4",
+  "platform_collections": 16,
+  "source_title_candidate_links": 8971,
+  "source_observations_with_candidates": 8908,
+  "ambiguous_title_candidate_links": 126,
+  "developer_name_review": {
+    "both_sources_missing": 671,
+    "different_observed_names": 2130,
+    "identical_observed_name": 1355,
+    "libretro_credit_missing": 3691,
+    "wikidata_credit_missing": 755,
+    "wikidata_english_label_missing": 369
+  },
+  "publisher_name_review": {
+    "both_sources_missing": 645,
+    "different_observed_names": 1530,
+    "identical_observed_name": 1604,
+    "libretro_credit_missing": 3720,
+    "wikidata_credit_missing": 714,
+    "wikidata_english_label_missing": 758
+  },
+  "publication_year_review": {
+    "both_years_missing": 213,
+    "different_observed_years": 584,
+    "libretro_year_missing": 5604,
+    "overlapping_observed_years": 2483,
+    "wikidata_literal_year_missing": 87
+  },
+  "methodological_scope": "Same-platform conservative title candidate comparisons between pinned Libretro field DATs and independently captured Wikidata structured claims and English labels.",
+  "caveat": "Counts do not establish a canonical work, release, developer, publisher, or company identity. An identical name is not independent authentication, and different names/years can reflect legitimate regional or edition differences. False-positive rate cannot be estimated from unadjudicated candidate counts."
+}
