@@ -15,6 +15,7 @@ const BASE_V4: &str = "data/wikidata/platform-expansion-v4";
 const BASE_V5: &str = "data/wikidata/platform-expansion-v5";
 const BASE_V6: &str = "data/wikidata/platform-expansion-v6";
 const BASE_V7: &str = "data/wikidata/platform-expansion-v7";
+const BASE_V8: &str = "data/wikidata/platform-expansion-v8";
 const MAP_V1: &[(&str, &str)] = &[
     ("atari7800", "Q753600"),
     ("sonyplaystationportable", "Q170325"),
@@ -70,6 +71,21 @@ const MAP_V7: &[(&str, &str)] = &[
     ("intertonvc4000", "Q302411"),
     ("rcastudioii", "Q1143954"),
     ("segabeena", "Q4686254"),
+];
+
+const MAP_V8: &[(&str, &str)] = &[
+    ("arduboyincarduboy", "Q25389541"),
+    ("entexadventurevision", "Q379965"),
+    ("funtechsuperacan", "Q2475188"),
+    ("hartunggamemaster", "Q5675347"),
+    ("konamipicno", "Q22124372"),
+    ("leapfrogleapsterlearninggamesystem", "Q6509976"),
+    ("mobilezeebo", "Q184372"),
+    ("nintendosufamiturbo", "Q7200192"),
+    ("nintendoereader", "Q1993197"),
+    ("philipsvideopac", "Q7185533"),
+    ("vtechcreativision", "Q2502670"),
+    ("vtechvsmile", "Q1055215"),
 ];
 
 #[derive(Deserialize)]
@@ -245,6 +261,16 @@ impl ExpandedWikidataCatalog {
         )
     }
 
+    pub fn open_v8(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V8,
+            "sources/wikidata-platform-expansion-v8.json",
+            MAP_V8,
+        )
+    }
+
     fn open_source(
         root: &Path,
         selection: &str,
@@ -295,9 +321,9 @@ impl ExpandedWikidataCatalog {
                 || manifest.wikidata_platform != scope.wikidata_platform
                 || manifest.query_limit != register.query_limit
                 || manifest.source_rows >= manifest.query_limit
-                || (!matches!(base, BASE_V5 | BASE_V6 | BASE_V7)
+                || (!matches!(base, BASE_V5 | BASE_V6 | BASE_V7 | BASE_V8)
                     && (manifest.source_rows == 0 || manifest.distinct_item_qids == 0))
-                || (matches!(base, BASE_V5 | BASE_V6 | BASE_V7)
+                || (matches!(base, BASE_V5 | BASE_V6 | BASE_V7 | BASE_V8)
                     && ((manifest.source_rows == 0) != (manifest.distinct_item_qids == 0)))
                 || manifest.source_query_path != "query.rq"
                 || manifest.source_response_path != "response.json"
@@ -606,6 +632,29 @@ mod tests {
         assert_eq!(total, 482);
         assert!(samples[0].source_path.contains("platform-expansion-v4"));
         assert!(ExpandedWikidataCatalog::open_v4(&root, "invalid").is_err());
+    }
+
+    #[test]
+    fn eighth_provisional_p400_cohort_keeps_pinned_source_only_evidence() {
+        let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+        let catalog = ExpandedWikidataCatalog::open_v8(&root, "all").unwrap();
+        assert_eq!(catalog.platforms().len(), 12);
+        assert_eq!(
+            catalog.total_rows(),
+            catalog.platform_row_counts().values().sum::<usize>()
+        );
+        assert!(catalog.observations().iter().all(|item| {
+            item.source_path.contains("platform-expansion-v8")
+                && item.source_sha256.len() == 64
+                && item.interpretation.contains("not-canonical")
+        }));
+        assert!(ExpandedWikidataCatalog::open_v8(&root, "invalid").is_err());
+        let zeebo = ExpandedWikidataCatalog::open_v8(&root, "mobilezeebo").unwrap();
+        assert_eq!(zeebo.platforms(), &["mobilezeebo".to_owned()]);
+        assert_eq!(
+            zeebo.total_rows(),
+            catalog.platform_row_counts()["mobilezeebo"]
+        );
     }
 
     #[test]

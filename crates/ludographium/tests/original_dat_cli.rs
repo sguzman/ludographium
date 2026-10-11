@@ -1304,6 +1304,42 @@ fn independently_pinned_atari_psp_vita_source_responses_are_searchable_offline()
 }
 
 #[test]
+fn eighth_platform_cohort_retains_provisional_scope_and_original_source_provenance() {
+    let all = query(&[
+        "--wikidata-expanded",
+        "--expansion-source",
+        "v8",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(all["expansion_source"], "v8");
+    assert_eq!(all["platforms_searched"].as_array().unwrap().len(), 12);
+    assert_eq!(all["source_platform_rows"].as_object().unwrap().len(), 12);
+    assert_eq!(
+        all["source_rows"].as_u64().unwrap(),
+        all["source_platform_rows"]
+            .as_object()
+            .unwrap()
+            .values()
+            .map(|value| value.as_u64().unwrap())
+            .sum::<u64>()
+    );
+    let zero_or_some = query(&[
+        "--wikidata-expanded",
+        "--expansion-source",
+        "v8",
+        "--platform",
+        "nintendoereader",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(zero_or_some["platforms_searched"].as_array().unwrap().len(), 1);
+    assert_eq!(zero_or_some["expansion_source"], "v8");
+}
+
+#[test]
 fn newly_expanded_platform_title_candidates_are_evidence_only() {
     let all = query(&[
         "--wikidata-expanded-candidates",

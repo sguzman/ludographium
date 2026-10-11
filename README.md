@@ -95,12 +95,25 @@ accessions independent, hash-pinned Wikidata entity-search responses through
 [GitHub Actions](.github/workflows/wikidata-platform-discovery-v1.yml).
 Search-result QIDs remain independently sourced discovery evidence, never
 accepted canonical platform mappings. A separate [provisional v8 P400
-source register](sources/wikidata-platform-expansion-v8.json) schedules original
-game-claim queries for twelve plausible scope identifiers; the remaining
-Pocket Challenge V2 and LeapPad mappings are unresolved. No source-title match
-or query result is automatically an accepted game identity. Validate the
-original discovery captures offline with
+source register](sources/wikidata-platform-expansion-v8.json) preserves
+twelve independently captured direct-P400 query scopes. The [v8 source
+captures](data/wikidata/platform-expansion-v8/) contain **53 original source
+rows, 27 item/platform observations, 49 English-label bindings, and 50 literal
+date bindings**, including six explicit zero-row scopes. These are attributed
+Wikidata source claims, not accepted game identities, physical-platform mappings,
+or complete coverage. The remaining Pocket Challenge V2 and LeapPad platform
+mappings are unresolved. Verify the provider search evidence with
 `python tools/discover_wikidata_platforms.py --check`.
+
+The v8 reader can now validate and query these original text captures
+offline without changing older cohorts:
+
+```sh
+cargo run --locked -- --wikidata-expanded --expansion-source v8 --platform all --limit 5
+cargo run --locked -- --wikidata-expanded --expansion-source v8 --platform mobilezeebo --limit 5
+cargo run --locked -- --wikidata-expanded-candidates --expansion-source v8 --platform all --limit 5
+```
+
 
 
 ## Expanded Wikidata developer, publisher and genre evidence
