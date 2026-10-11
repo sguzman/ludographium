@@ -12,6 +12,7 @@ use std::path::Path;
 
 const BASE: &str = "data/wikidata/property-labels-v1";
 const RELATION_BASE: &str = "data/wikidata/relation-labels-v1";
+const EXPANDED_BASE: &str = "data/wikidata/expanded-labels-v1";
 
 #[derive(Debug, Deserialize)]
 struct Manifest {
@@ -160,6 +161,11 @@ impl WikidataEntityLabelCatalog {
         Self::open_at(root.as_ref(), RELATION_BASE, true)
     }
 
+    /// Source-derived label inventory across both expanded credit and relation cohorts.
+    pub fn open_expanded(root: impl AsRef<Path>) -> Result<Self, CatalogError> {
+        Self::open_at(root.as_ref(), EXPANDED_BASE, true)
+    }
+
     fn open_at(root: &Path, base: &'static str, relation: bool) -> Result<Self, CatalogError> {
         let folder = root.join(base);
         if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
@@ -182,7 +188,11 @@ impl WikidataEntityLabelCatalog {
         } else {
             "data/wikidata/properties-v1"
         };
-        let actual_source_manifest_sha = source_manifest_inventory_sha(root, source_accession)?;
+        let actual_source_manifest_sha = if base == EXPANDED_BASE {
+            expanded_source_manifest_inventory_sha(root)?
+        } else {
+            source_manifest_inventory_sha(root, source_accession)?
+        };
         if source_manifest_sha != Some(actual_source_manifest_sha.as_str()) {
             return Err(invalid(
                 "original Wikidata label accession source-manifest inventory SHA-256 mismatch",
@@ -340,7 +350,9 @@ impl WikidataEntityLabelCatalog {
                     source_query_sha256: query_entry.sha256.clone(),
                     source_response_sha256: response_entry.sha256.clone(),
                     captured_at_utc: manifest.captured_at_utc.clone(),
-                    interpretation: if relation {
+                    interpretation: if base == EXPANDED_BASE {
+                        "independent-expanded-wikidata-english-label-not-canonical-game-or-company"
+                    } else if relation {
                         "independent-wikidata-relation-english-label-not-canonical-game-or-release"
                     } else {
                         "independent-wikidata-english-label-not-canonical-company-or-genre"
