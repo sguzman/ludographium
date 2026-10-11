@@ -7,8 +7,8 @@ use ludographium::curated::CuratedCatalog;
 use ludographium::enrichment::{EnrichedMediaMatch, EnrichedPlatformCatalog};
 use ludographium::media::{fingerprint_normalized, MediaFormat};
 use ludographium::original_dat::OriginalDatCatalog;
-use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::runtime::verify_runtime_root;
+use ludographium::wikidata_text::WikidataTextCatalog;
 use ludographium::{CatalogError, MediaMatch, PlatformCatalog};
 use serde_json::{json, Value};
 use std::env;
@@ -520,10 +520,19 @@ fn run() -> Result<(), Box<dyn Error>> {
         + usize::from(zip.is_some());
     if (query_modes != 1 && !((claims_only || wikidata_text) && query_modes == 0))
         || (claims_only && (!source_dat || !enriched))
-        || (wikidata_text && (source_dat || claims_only || enriched || show_curated
-            || sha1.is_some() || crc32.is_some() || size.is_some() || file.is_some()
-            || zip.is_some() || media_format.is_some() || zip_entry.is_some()
-            || (qid.is_some() && title.is_some())))
+        || (wikidata_text
+            && (source_dat
+                || claims_only
+                || enriched
+                || show_curated
+                || sha1.is_some()
+                || crc32.is_some()
+                || size.is_some()
+                || file.is_some()
+                || zip.is_some()
+                || media_format.is_some()
+                || zip_entry.is_some()
+                || (qid.is_some() && title.is_some())))
         || (qid.is_some() && !wikidata_text)
         || (claims_only
             && (sha1.is_some()
