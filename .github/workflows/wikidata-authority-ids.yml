@@ -1,0 +1,151 @@
+name: Accession Wikidata game authority-control identifiers
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/wikidata-authority-ids.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-game-authority-ids-source-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Capture original Wikidata platform-scoped external authority identifiers
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=data/wikidata/authority-ids-v1
+          # Pinned source captures are immutable and are hash-checked on rerun.
+          while read -r platform qid; do
+            out="$base/$platform"
+            if test -f "$out/manifest.json"; then
+              test "$(jq -r '.wikidata_platform' "$out/manifest.json")" = "$qid"
+              for name in query.rq response.json bindings.jsonl; do
+                key="$(case "$name" in query.rq) echo query ;; response.json) echo response ;; *) echo bindings ;; esac)"
+                test "$(sha256sum "$out/$name" | cut -d' ' -f1)" = "$(jq -r --arg key "$key" '.["source_" + $key + "_sha256"]' "$out/manifest.json")"
+              done
+              echo "Preserved $platform pinned source unchanged"
+              continue
+            fi
+            mkdir -p "$out"
+            cat > "$out/query.rq" <<EOF
+          SELECT DISTINCT ?item ?property ?value WHERE {
+            ?item wdt:P31 wd:Q7889; wdt:P400 wd:$qid.
+            VALUES ?property {
+              wdt:P11688 wdt:P1933 wdt:P4769 wdt:P2816
+              wdt:P1712 wdt:P2864 wdt:P2606 wdt:P2451 wdt:P4857
+            }
+            ?item ?property ?value.
+          }
+          ORDER BY ?item ?property ?value
+          LIMIT 30000
+          EOF
+            curl --fail --location --get --retry 5 --retry-all-errors \
+              --retry-delay 6 --max-time 95 --silent --show-error \
+              -H 'User-Agent: Ludographium/1.0 (https://github.com/sguzman/ludographium; CC0 source research)' \
+              -H 'Accept: application/sparql-results+json' \
+              --data-urlencode 'format=json' \
+              --data-urlencode "query@$out/query.rq" \
+              'https://query.wikidata.org/sparql' \
+              -o "$out/response.json"
+            jq -r --arg platform "$platform" '
+              "\($platform): response_vars=\(.head.vars) rows=\(.results.bindings | length)"
+            ' "$out/response.json"
+            jq -e '
+              .head.vars == ["item","property","value"]
+              and (.results.bindings | type == "array" and length > 0 and length < 30000)
+              and all(.results.bindings[];
+                (.item.type == "uri"
+                 and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
+                and (.property.type == "uri"
+                 and (.property.value | test("^https?://www[.]wikidata[.]org/prop/direct/P(11688|1933|4769|2816|1712|2864|2606|2451|4857)$")))
+                and (.value.type | IN("uri","literal","typed-literal","bnode"))
+                and (.value.value | type == "string" and length > 0))
+            ' "$out/response.json" > /dev/null
+            test "$(wc -c < "$out/response.json")" -lt 20000000
+            jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
+            count="$(wc -l < "$out/bindings.jsonl")"
+            items="$(jq -r '.results.bindings[].item.value' "$out/response.json" | LC_ALL=C sort -u | wc -l)"
+            entity_values="$(jq '[.results.bindings[].value | select(.type == "uri" and (.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))] | length' "$out/response.json")"
+            jq -n --arg platform "$platform" --arg platform_qid "$qid" \
+              --arg captured_at_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              --arg query_sha "$(sha256sum "$out/query.rq" | cut -d' ' -f1)" \
+              --arg response_sha "$(sha256sum "$out/response.json" | cut -d' ' -f1)" \
+              --arg bindings_sha "$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)" \
+              --argjson query_bytes "$(wc -c < "$out/query.rq")" \
+              --argjson response_bytes "$(wc -c < "$out/response.json")" \
+              --argjson bindings_bytes "$(wc -c < "$out/bindings.jsonl")" \
+              --argjson count "$count" --argjson items "$items" \
+              --argjson entity_values "$entity_values" \
+              --slurpfile response "$out/response.json" \
+              '{
+                schema_version: 1,
+                source: "Wikidata",
+                license: "CC0-1.0",
+                source_revision: "live-query-capture",
+                platform: $platform,
+                wikidata_platform: $platform_qid,
+                captured_at_utc: $captured_at_utc,
+                source_query_path: "query.rq",
+                source_query_sha256: $query_sha,
+                source_query_bytes: $query_bytes,
+                source_response_path: "response.json",
+                source_response_sha256: $response_sha,
+                source_response_bytes: $response_bytes,
+                source_bindings_path: "bindings.jsonl",
+                source_bindings_sha256: $bindings_sha,
+                source_bindings_bytes: $bindings_bytes,
+                source_rows: $count,
+                distinct_items: $items,
+                entity_value_bindings: $entity_values,
+                query_limit: 30000,
+                properties: ["P11688","P1933","P4769","P2816","P1712","P2864","P2606","P2451","P4857"],
+                property_counts: (
+                  $response[0].results.bindings
+                  | group_by(.property.value)
+                  | map({key:(.[0].property.value | split("/")[-1]), value:length})
+                  | from_entries
+                ),
+                rdf_value_type_counts: (
+                  $response[0].results.bindings
+                  | group_by(.value.type)
+                  | map({key:.[0].value.type,value:length})
+                  | from_entries
+                ),
+                identity_policy: "Original Wikidata source assertions of third-party authority IDs, not provider-verified, not resolved canonical game/edition/release/media identities"
+              }' > "$out/manifest.json"
+            jq -e '. as $m | ($m.source_rows > 0) and ($m.distinct_items > 0) and ($m.query_limit > $m.source_rows) and (([.property_counts[]] | add) == $m.source_rows)' "$out/manifest.json" > /dev/null
+            echo "$platform: $count original relations/IDs, $items items, $entity_values entity-valued bindings"
+            sleep 2
+          done < <(jq -r '.platforms[:5][] | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 5
+      - name: Commit only original text source evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Refusing generated binary database files"
+            exit 1
+          fi
+          git add data/wikidata/authority-ids-v1
+          if git diff --cached --quiet; then
+            echo "All requested source captures already committed"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(wikidata): accession third-party game authority identifier source claims'
+          git push origin HEAD:main
