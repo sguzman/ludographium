@@ -210,7 +210,10 @@ fn wikidata_text_source_cli_preserves_item_ids_dates_and_provenance() {
     assert_eq!(qid["returned_matches"], 1);
     assert_eq!(qid["matches"][0]["english_label"], "Adventure");
     assert_eq!(qid["matches"][0]["source"]["license"], "CC0-1.0");
-    assert_eq!(qid["matches"][0]["dates"][0]["value"], "1980-01-01T00:00:00Z");
+    assert_eq!(
+        qid["matches"][0]["dates"][0]["value"],
+        "1980-01-01T00:00:00Z"
+    );
 
     let titles = query(&[
         "--wikidata-text",
@@ -227,13 +230,7 @@ fn wikidata_text_source_cli_preserves_item_ids_dates_and_provenance() {
     assert!(titles["total_source_matches"].as_u64().unwrap() > 0);
     assert_eq!(titles["returned_matches"], 5);
 
-    let list = query(&[
-        "--wikidata-text",
-        "--platform",
-        "atari2600",
-        "--limit",
-        "1",
-    ]);
+    let list = query(&["--wikidata-text", "--platform", "atari2600", "--limit", "1"]);
     assert_eq!(list["query_kind"], "wikidata-source-list");
     assert_eq!(list["returned_matches"], 1);
 }
