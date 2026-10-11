@@ -86,20 +86,29 @@ fn sha256(bytes: &[u8]) -> String {
     format!("{:x}", hasher.finalize())
 }
 fn qid_uri(uri: &str) -> Option<&str> {
-    let value = uri.strip_prefix("http://www.wikidata.org/entity/")
+    let value = uri
+        .strip_prefix("http://www.wikidata.org/entity/")
         .or_else(|| uri.strip_prefix("https://www.wikidata.org/entity/"))?;
-    value.strip_prefix('Q').is_some_and(|digits| {
-        !digits.is_empty() && !digits.starts_with('0')
-            && digits.bytes().all(|b| b.is_ascii_digit())
-    }).then_some(value)
+    value
+        .strip_prefix('Q')
+        .is_some_and(|digits| {
+            !digits.is_empty()
+                && !digits.starts_with('0')
+                && digits.bytes().all(|b| b.is_ascii_digit())
+        })
+        .then_some(value)
 }
 fn property_uri(uri: &str) -> Option<&str> {
-    let value = uri.strip_prefix("http://www.wikidata.org/prop/direct/")
+    let value = uri
+        .strip_prefix("http://www.wikidata.org/prop/direct/")
         .or_else(|| uri.strip_prefix("https://www.wikidata.org/prop/direct/"))?;
     IDS.contains(&value).then_some(value)
 }
 fn pinned(
-    directory: &Path, filename: &str, expected_bytes: usize, expected_hash: &str,
+    directory: &Path,
+    filename: &str,
+    expected_bytes: usize,
+    expected_hash: &str,
 ) -> Result<Vec<u8>, CatalogError> {
     let path = directory.join(filename);
     if fs::symlink_metadata(&path)?.file_type().is_symlink() {
@@ -108,7 +117,8 @@ fn pinned(
     let bytes = fs::read(&path)?;
     if bytes.len() != expected_bytes || sha256(&bytes) != expected_hash {
         return Err(invalid(format!(
-            "Wikidata original relation source checksum mismatch: {}", path.display()
+            "Wikidata original relation source checksum mismatch: {}",
+            path.display()
         )));
     }
     Ok(bytes)
@@ -117,13 +127,16 @@ fn validated(value: &Value) -> Result<(&str, &str, Option<&str>, &str), CatalogE
     if value["item"]["type"] != "uri" || value["property"]["type"] != "uri" {
         return Err(invalid("Wikidata subject/property must be RDF URIs"));
     }
-    let item = value["item"]["value"].as_str()
+    let item = value["item"]["value"]
+        .as_str()
         .and_then(qid_uri)
         .ok_or_else(|| invalid("invalid source game QID"))?;
-    let property = value["property"]["value"].as_str()
+    let property = value["property"]["value"]
+        .as_str()
         .and_then(property_uri)
         .ok_or_else(|| invalid("unexpected relation/identifier property"))?;
-    let kind = value["value"]["type"].as_str()
+    let kind = value["value"]["type"]
+        .as_str()
         .ok_or_else(|| invalid("missing RDF value kind"))?;
     if !matches!(kind, "uri" | "literal" | "typed-literal" | "bnode")
         || value["value"]["value"].as_str().is_none_or(str::is_empty)
@@ -143,8 +156,10 @@ impl WikidataRelationCatalog {
         let root = root.as_ref();
         let register: Register =
             serde_json::from_slice(&fs::read(root.join("sources/wikidata-v1.json"))?)?;
-        if register.schema_version != 1 || register.provider != "wikidata"
-            || register.provider_license != "CC0-1.0" || register.platforms.len() != 16
+        if register.schema_version != 1
+            || register.provider != "wikidata"
+            || register.provider_license != "CC0-1.0"
+            || register.platforms.len() != 16
         {
             return Err(invalid("Wikidata platform source register mismatch"));
         }
@@ -157,22 +172,35 @@ impl WikidataRelationCatalog {
         for scope in &register.platforms {
             if !declared_platforms.insert(&scope.platform)
                 || scope.platform.is_empty()
-                || !scope.platform.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
-                || qid_uri(&format!("http://www.wikidata.org/entity/{}", scope.wikidata_platform)).is_none()
+                || !scope
+                    .platform
+                    .bytes()
+                    .all(|b| b.is_ascii_lowercase() || b.is_ascii_digit())
+                || qid_uri(&format!(
+                    "http://www.wikidata.org/entity/{}",
+                    scope.wikidata_platform
+                ))
+                .is_none()
             {
-                return Err(invalid("duplicate or invalid Wikidata platform registration"));
+                return Err(invalid(
+                    "duplicate or invalid Wikidata platform registration",
+                ));
             }
             if selection != "all" && selection != scope.platform {
                 continue;
             }
             let folder = root.join(BASE).join(&scope.platform);
             if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
-                return Err(invalid("Wikidata original source folder must not be a symlink"));
+                return Err(invalid(
+                    "Wikidata original source folder must not be a symlink",
+                ));
             }
             let manifest: Manifest =
                 serde_json::from_slice(&fs::read(folder.join("manifest.json"))?)?;
-            if manifest.schema_version != 1 || manifest.source != "Wikidata"
-                || manifest.license != "CC0-1.0" || manifest.source_revision != "live-query-capture"
+            if manifest.schema_version != 1
+                || manifest.source != "Wikidata"
+                || manifest.license != "CC0-1.0"
+                || manifest.source_revision != "live-query-capture"
                 || manifest.platform != scope.platform
                 || manifest.wikidata_platform != scope.wikidata_platform
                 || manifest.captured_at_utc.is_empty()
@@ -181,35 +209,54 @@ impl WikidataRelationCatalog {
                 || manifest.source_bindings_path != "bindings.jsonl"
                 || manifest.properties != IDS
                 || !matches!(manifest.query_limit, 10_000 | 30_000)
-                || manifest.source_rows == 0 || manifest.source_rows >= manifest.query_limit
+                || manifest.source_rows == 0
+                || manifest.source_rows >= manifest.query_limit
                 || manifest.distinct_items == 0
             {
-                return Err(invalid(format!("invalid Wikidata relation source manifest: {}", scope.platform)));
+                return Err(invalid(format!(
+                    "invalid Wikidata relation source manifest: {}",
+                    scope.platform
+                )));
             }
-            let query = pinned(&folder, "query.rq", manifest.source_query_bytes,
-                &manifest.source_query_sha256)?;
+            let query = pinned(
+                &folder,
+                "query.rq",
+                manifest.source_query_bytes,
+                &manifest.source_query_sha256,
+            )?;
             let query_text = std::str::from_utf8(&query)
                 .map_err(|_| invalid("non-UTF-8 original source query"))?;
             if !query_text.contains(&format!("wd:{}", scope.wikidata_platform))
                 || !query_text.contains(&format!("LIMIT {}", manifest.query_limit))
                 || !query_text.contains("SELECT DISTINCT ?item ?property ?value")
-                || IDS.iter().any(|property| !query_text.contains(&format!("wdt:{property}")))
+                || IDS
+                    .iter()
+                    .any(|property| !query_text.contains(&format!("wdt:{property}")))
             {
                 return Err(invalid("source query property/platform scope changed"));
             }
-            let response = pinned(&folder, "response.json",
-                manifest.source_response_bytes, &manifest.source_response_sha256)?;
+            let response = pinned(
+                &folder,
+                "response.json",
+                manifest.source_response_bytes,
+                &manifest.source_response_sha256,
+            )?;
             let source: Value = serde_json::from_slice(&response)?;
             if source["head"]["vars"] != json!(["item", "property", "value"]) {
                 return Err(invalid("unexpected Wikidata response variable names"));
             }
-            let bindings = source["results"]["bindings"].as_array()
+            let bindings = source["results"]["bindings"]
+                .as_array()
                 .ok_or_else(|| invalid("missing original Wikidata response bindings"))?;
             if bindings.len() != manifest.source_rows {
                 return Err(invalid("source response/manifest row count mismatch"));
             }
-            let text = pinned(&folder, "bindings.jsonl",
-                manifest.source_bindings_bytes, &manifest.source_bindings_sha256)?;
+            let text = pinned(
+                &folder,
+                "bindings.jsonl",
+                manifest.source_bindings_bytes,
+                &manifest.source_bindings_sha256,
+            )?;
             let raw = std::str::from_utf8(&text)
                 .map_err(|_| invalid("non-UTF-8 original Wikidata relation JSONL"))?;
             let lines: Vec<_> = raw.lines().collect();
@@ -227,7 +274,9 @@ impl WikidataRelationCatalog {
                 }
                 let (item, property, entity, kind) = validated(&value)?;
                 item_ids.insert(item.to_owned());
-                *scope_properties.entry(property.to_owned()).or_insert(0usize) += 1;
+                *scope_properties
+                    .entry(property.to_owned())
+                    .or_insert(0usize) += 1;
                 *kinds.entry(kind.to_owned()).or_insert(0usize) += 1;
                 if entity.is_some() {
                     scope_entity_values += 1;
@@ -244,7 +293,8 @@ impl WikidataRelationCatalog {
                     source_response_sha256: manifest.source_response_sha256.clone(),
                     source_query_sha256: manifest.source_query_sha256.clone(),
                     captured_at_utc: manifest.captured_at_utc.clone(),
-                    interpretation: "independent-wikidata-source-claim-not-verified-game-or-release-identity",
+                    interpretation:
+                        "independent-wikidata-source-claim-not-verified-game-or-release-identity",
                 });
             }
             if item_ids.len() != manifest.distinct_items
@@ -252,7 +302,9 @@ impl WikidataRelationCatalog {
                 || scope_properties != manifest.property_counts
                 || kinds != manifest.rdf_value_type_counts
             {
-                return Err(invalid("source relation property, RDF type or item counts differ"));
+                return Err(invalid(
+                    "source relation property, RDF type or item counts differ",
+                ));
             }
             for (key, value) in scope_properties {
                 *counts.entry(key).or_insert(0) += value;
@@ -262,10 +314,17 @@ impl WikidataRelationCatalog {
             platforms.push(scope.platform.clone());
         }
         if platforms.is_empty() || (selection == "all" && platforms.len() != 16) {
-            return Err(invalid(format!("unsupported or incomplete relation platform: {selection}")));
+            return Err(invalid(format!(
+                "unsupported or incomplete relation platform: {selection}"
+            )));
         }
-        Ok(Self { claims, platforms, item_observations: total_items,
-            entity_values, counts })
+        Ok(Self {
+            claims,
+            platforms,
+            item_observations: total_items,
+            entity_values,
+            counts,
+        })
     }
 
     pub fn platforms(&self) -> &[String] {
@@ -284,10 +343,14 @@ impl WikidataRelationCatalog {
         &self.counts
     }
     pub fn search(
-        &self, qid: Option<&str>, property: Option<&str>, limit: usize,
+        &self,
+        qid: Option<&str>,
+        property: Option<&str>,
+        limit: usize,
     ) -> Result<(usize, Vec<&RelationClaim>), CatalogError> {
         if !(1..=200).contains(&limit)
-            || qid.is_some_and(|x| qid_uri(&format!("http://www.wikidata.org/entity/{x}")).is_none())
+            || qid
+                .is_some_and(|x| qid_uri(&format!("http://www.wikidata.org/entity/{x}")).is_none())
             || property.is_some_and(|x| !IDS.contains(&x))
         {
             return Err(invalid("source relation search requires valid QID, property P179/P404/P407/P495/P437/P750/P1476/P1733/P2725 and limit 1..=200"));
@@ -311,15 +374,24 @@ impl WikidataRelationCatalog {
 
 #[cfg(test)]
 mod tests {
-    use super::{qid_uri, property_uri, WikidataRelationCatalog};
+    use super::{property_uri, qid_uri, WikidataRelationCatalog};
     use std::path::Path;
 
     #[test]
     fn distinguish_original_entity_values_from_identifiers_and_language_literals() {
-        assert_eq!(qid_uri("http://www.wikidata.org/entity/Q2156030"), Some("Q2156030"));
+        assert_eq!(
+            qid_uri("http://www.wikidata.org/entity/Q2156030"),
+            Some("Q2156030")
+        );
         assert_eq!(qid_uri("http://www.wikidata.org/entity/Q0"), None);
-        assert_eq!(property_uri("http://www.wikidata.org/prop/direct/P1733"), Some("P1733"));
-        assert_eq!(property_uri("http://www.wikidata.org/prop/direct/P136"), None);
+        assert_eq!(
+            property_uri("http://www.wikidata.org/prop/direct/P1733"),
+            Some("P1733")
+        );
+        assert_eq!(
+            property_uri("http://www.wikidata.org/prop/direct/P136"),
+            None
+        );
     }
 
     #[test]
