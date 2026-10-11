@@ -50,6 +50,8 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Preserve six specialized console query scopes (35 source rows, 22 game QIDs) including an explicitly hash-verified zero-result Casio Loopy capture, with Rust v5 lookup and conservative title review.
 - [x] Integrate six additional v6 platform queries into hash-verified offline Rust lookup and noncanonical title review, retaining all 662 raw rows, 309 item/platform observations, two nonliteral publication bindings, and the zero-result Tiger Game.com partition.
 - [x] Accession and integrate six additional seventh-cohort Wikidata console scopes (20 original source rows, 14 item/platform observations, two explicit zero-row partitions) with immutable query/response evidence and offline source/title-review lookup.
+- [x] Bulk-acquire, preserve and offline-verify 11,231 additional independent Wikidata P178/P123/P136 statements across all 37 added platform scopes (19 plus 18), without canonical work/company associations.
+- [x] Bulk-acquire, preserve and offline-verify 20,460 additional Wikidata series, language, distribution, title and external-ID statements across the same 37 added platform scopes, leaving ambiguous provider identifiers unresolved.
 - [x] Quantify exact noncanonical title candidates for three independently captured console cohorts: v3 290 links (4 ambiguous), v4 238 links (0 ambiguous), v5 10 links (0 ambiguous), retaining empty source and no-match cases.
 - [ ] Expand independently *provider-verified* identifier evidence beyond Wikidata assertions; quantify false-positive risk using adjudicated ground truth.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
