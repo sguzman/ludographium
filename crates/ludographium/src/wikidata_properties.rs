@@ -347,7 +347,33 @@ impl WikidataPropertyCatalog {
     /// Read the separate 19-platform CC0 credit corpus with original response checks.
     /// This does not join source claims to canonical game or company identities.
     pub fn open_expanded(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        let root = root.as_ref();
+        Self::open_expanded_cohorts(
+            root.as_ref(),
+            selection,
+            &[(1, 3), (2, 4), (3, 6), (4, 6)],
+            "data/wikidata/expanded-credits-v1",
+            19,
+        )
+    }
+
+    /// Independently captured credits for the remaining 18 console query scopes.
+    pub fn open_expanded_v2(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        Self::open_expanded_cohorts(
+            root.as_ref(),
+            selection,
+            &[(5, 6), (6, 6), (7, 6)],
+            "data/wikidata/expanded-credits-v2",
+            18,
+        )
+    }
+
+    fn open_expanded_cohorts(
+        root: &Path,
+        selection: &str,
+        cohorts: &[(usize, usize)],
+        source_base: &str,
+        expected_total: usize,
+    ) -> Result<Self, CatalogError> {
         let mut seen_platforms = HashSet::new();
         let mut platforms = Vec::new();
         let mut claims = Vec::new();
@@ -355,7 +381,7 @@ impl WikidataPropertyCatalog {
         let mut non_entity_bindings = 0;
         let mut properties = BTreeMap::new();
 
-        for (version, expected_platforms) in [(1, 3), (2, 4), (3, 6), (4, 6)] {
+        for &(version, expected_platforms) in cohorts {
             let register_path = format!("sources/wikidata-platform-expansion-v{version}.json");
             let register: ExpandedRegister =
                 serde_json::from_slice(&fs::read(root.join(&register_path))?)?;
@@ -385,9 +411,7 @@ impl WikidataPropertyCatalog {
                 if selection != "all" && selection != scope.platform {
                     continue;
                 }
-                let folder = root
-                    .join("data/wikidata/expanded-credits-v1")
-                    .join(&scope.platform);
+                let folder = root.join(source_base).join(&scope.platform);
                 if fs::symlink_metadata(&folder)?.file_type().is_symlink() {
                     return Err(invalid("expanded Wikidata source folder is a symlink"));
                 }
@@ -485,10 +509,7 @@ impl WikidataPropertyCatalog {
                         value_qid: entity.map(str::to_owned),
                         raw_binding: record,
                         source_ordinal: index + 1,
-                        source_path: format!(
-                            "data/wikidata/expanded-credits-v1/{}/bindings.jsonl",
-                            scope.platform
-                        ),
+                        source_path: format!("{source_base}/{}/bindings.jsonl", scope.platform),
                         source_sha256: manifest.source_bindings_sha256.clone(),
                         source_query_sha256: manifest.source_query_sha256.clone(),
                         source_response_sha256: manifest.source_response_sha256.clone(),
@@ -507,7 +528,7 @@ impl WikidataPropertyCatalog {
                 platforms.push(scope.platform.clone());
             }
         }
-        if platforms.is_empty() || (selection == "all" && platforms.len() != 19) {
+        if platforms.is_empty() || (selection == "all" && platforms.len() != expected_total) {
             return Err(invalid("unknown or incomplete expanded credit platform"));
         }
         Ok(Self {
