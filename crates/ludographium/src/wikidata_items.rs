@@ -467,7 +467,10 @@ mod tests {
                 && entry.relation_source_present
                 && entry.localized_source_present
                 && entry.source_membership.starts_with(&[
-                    "title_date", "company_genre", "relations", "localized_titles",
+                    "title_date",
+                    "company_genre",
+                    "relations",
+                    "localized_titles",
                 ])
                 && entry.source_presence == "multiple_independent_snapshots"
         }));
