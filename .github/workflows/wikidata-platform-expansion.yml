@@ -90,14 +90,15 @@ jobs:
                   or (.itemLabel.type == "literal" and .itemLabel["xml:lang"] == "en"
                       and (.itemLabel.value | type == "string")))
                 and ((has("publication") | not)
-                  or (.publication.type | IN("literal","typed-literal"))
+                  or (.publication.type | IN("literal","typed-literal","uri","bnode"))
                      and (.publication.value | type == "string")))
             ' "$out/response.json" > /dev/null
             jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
             rows="$(wc -l < "$out/bindings.jsonl")"
             items="$(jq -r '.results.bindings[].item.value' "$out/response.json" | LC_ALL=C sort -u | wc -l)"
             labels="$(jq '[.results.bindings[] | select(has("itemLabel"))] | length' "$out/response.json")"
-            dates="$(jq '[.results.bindings[] | select(has("publication"))] | length' "$out/response.json")"
+            dates="$(jq '[.results.bindings[] | select(has("publication") and (.publication.type | IN("literal","typed-literal")))] | length' "$out/response.json")"
+            nonliteral="$(jq '[.results.bindings[] | select(has("publication") and (.publication.type | IN("uri","bnode")))] | length' "$out/response.json")"
             jq -n --arg platform "$platform" --arg qid "$qid" \
               --arg captured_at_utc "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
               --arg query_sha "$(sha256sum "$out/query.rq" | cut -d' ' -f1)" \
@@ -108,6 +109,7 @@ jobs:
               --argjson bindings_bytes "$(wc -c < "$out/bindings.jsonl")" \
               --argjson rows "$rows" --argjson items "$items" \
               --argjson labels "$labels" --argjson dates "$dates" \
+              --argjson nonliteral "$nonliteral" \
               '{
                 schema_version: 1,
                 source: "Wikidata",
@@ -129,12 +131,13 @@ jobs:
                 distinct_item_qids: $items,
                 rows_with_english_label: $labels,
                 rows_with_publication_date: $dates,
+                rows_with_nonliteral_publication: $nonliteral,
                 query_limit: 20000,
                 source_selection: "direct P31 video game and P400 selected console; independent optional English labels and P577 publication date bindings",
                 identity_policy: "Source observations only. No canonical games, dates, editions, release territories or Libretro matches inferred."
               }' > "$out/manifest.json"
             jq -e '.source_rows > 0 and .source_rows < .query_limit and .distinct_item_qids > 0' "$out/manifest.json" >/dev/null
-            echo "$platform: $rows source observations, $items item QIDs, $dates date bindings"
+            echo "$platform: $rows source observations, $items item QIDs, $dates literal date claims, $nonliteral nonliteral P577 bindings retained"
             sleep 2
           done < <(jq -r '.platforms[2:][] | [.platform, .wikidata_platform] | @tsv' "$register")
           test "$(find data/wikidata/platform-expansion-v1 -name manifest.json | wc -l)" -eq 3
