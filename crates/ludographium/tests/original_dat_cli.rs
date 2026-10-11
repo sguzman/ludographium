@@ -547,7 +547,12 @@ fn independent_wikidata_game_observations_preserve_both_snapshot_sources() {
     assert_eq!(item["source_presence"], "multiple_independent_snapshots");
     assert_eq!(
         item["source_membership"],
-        serde_json::json!(["title_date", "company_genre", "relations", "localized_titles"])
+        serde_json::json!([
+            "title_date",
+            "company_genre",
+            "relations",
+            "localized_titles"
+        ])
     );
     assert!(item["original_title_date_observation"]["source"]["sha256"]
         .as_str()
