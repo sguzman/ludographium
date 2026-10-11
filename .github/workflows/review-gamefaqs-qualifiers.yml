@@ -1,0 +1,113 @@
+name: Audit original GameFAQs platform qualifier coverage
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/review-gamefaqs-qualifiers.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-gamefaqs-qualifier-review-main
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Measure explicit source qualifiers and item-level query scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reports
+          tmp="$RUNNER_TEMP/gamefaqs-qualified-rows.jsonl"
+          : > "$tmp"
+          for dir in data/wikidata/gamefaqs-qualifiers-v1/*; do
+            test -f "$dir/manifest.json"
+            platform="$(jq -r '.platform' "$dir/manifest.json")"
+            qid="$(jq -r '.wikidata_platform' "$dir/manifest.json")"
+            jq -c --arg platform "$platform" --arg qid "$qid" '
+              {
+                platform: $platform,
+                item_qid: (.item.value | split("/")[-1]),
+                statement_uri: .statement.value,
+                identifier: .identifier.value,
+                qualifier_qid: (.qualifiedPlatform.value // null
+                  | if . == null then null else split("/")[-1] end),
+                source_relation: (
+                  if (has("qualifiedPlatform") | not) then "no_explicit_platform_qualifier"
+                  elif .qualifiedPlatform.value == ("http://www.wikidata.org/entity/" + $qid)
+                    or .qualifiedPlatform.value == ("https://www.wikidata.org/entity/" + $qid)
+                    then "qualifier_equals_selected_item_platform"
+                  else "qualifier_names_other_platform"
+                  end
+                )
+              }
+            ' "$dir/bindings.jsonl" >> "$tmp"
+          done
+          jq -s --arg source_commit "$GITHUB_SHA" '
+            . as $rows
+            | {
+                schema_version: 1,
+                kind: "pinned-wikidata-gamefaqs-statement-platform-qualifier-audit",
+                source_commit_sha: $source_commit,
+                captured_platforms: ($rows | map(.platform) | unique | length),
+                original_statement_observation_rows: ($rows | length),
+                distinct_wikidata_statement_uris: ($rows | map(.statement_uri) | unique | length),
+                original_qualifier_relation_counts: (
+                  $rows | group_by(.source_relation)
+                  | map({key: .[0].source_relation, value:length})
+                  | from_entries
+                ),
+                per_platform: (
+                  $rows | group_by(.platform)
+                  | map({
+                    key: .[0].platform,
+                    value: {
+                      source_rows: length,
+                      with_explicit_qualifier: (map(select(.qualifier_qid != null)) | length),
+                      qualifier_names_query_platform: (
+                        map(select(.source_relation == "qualifier_equals_selected_item_platform")) | length
+                      ),
+                      qualifier_names_other_platform: (
+                        map(select(.source_relation == "qualifier_names_other_platform")) | length
+                      )
+                    }
+                  }) | from_entries
+                ),
+                interpretation: "Wikidata statement-level GameFAQs P4769 values and optional P400 qualifiers. The query platform is an item-level P400 selection; a different statement qualifier is not an error. Missing qualifiers remain unknown. No external GameFAQs verification or canonical edition assignment."
+              }
+          ' "$tmp" > reports/wikidata-gamefaqs-platform-qualifier-review-v1.json
+          jq -e '
+            .captured_platforms == 16
+            and .original_statement_observation_rows == 23623
+            and (
+              (.original_qualifier_relation_counts | [.[]] | add)
+              == .original_statement_observation_rows
+            )
+            and (
+              (.original_qualifier_relation_counts.qualifier_equals_selected_item_platform // 0)
+              + (.original_qualifier_relation_counts.qualifier_names_other_platform // 0)
+              == 23126
+            )
+          ' reports/wikidata-gamefaqs-platform-qualifier-review-v1.json > /dev/null
+          jq -c '.original_qualifier_relation_counts' \
+            reports/wikidata-gamefaqs-platform-qualifier-review-v1.json
+      - name: Commit reproducible source-only summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add reports/wikidata-gamefaqs-platform-qualifier-review-v1.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: distinguish explicit GameFAQs qualifier scope from item platform selection'
+          git push origin HEAD:main
