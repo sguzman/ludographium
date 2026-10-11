@@ -1349,7 +1349,11 @@ fn run() -> Result<(), Box<dyn Error>> {
         println!(
             "{}",
             serde_json::to_string_pretty(&json!({
-                "source_mode": "verified-wikidata-property-bindings",
+                "source_mode": if expanded_credits {
+                    "verified-wikidata-expanded-property-bindings"
+                } else {
+                    "verified-wikidata-property-bindings"
+                },
                 "query_kind": if qid.is_some() {"exact-game-item-qid"} else {"source-statement-list"},
                 "platforms_searched": catalog.platforms(),
                 "source_statements": catalog.total_claims(),
