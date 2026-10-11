@@ -126,22 +126,33 @@ fn original(folder: &Path, name: &str, bytes: usize, hash: &str) -> Result<Vec<u
 
 impl ExpandedWikidataCatalog {
     pub fn open(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        Self::open_source(root.as_ref(), selection, BASE_V1,
-            "sources/wikidata-platform-expansion-v1.json", MAP_V1)
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V1,
+            "sources/wikidata-platform-expansion-v1.json",
+            MAP_V1,
+        )
     }
 
     pub fn open_v2(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        Self::open_source(root.as_ref(), selection, BASE_V2,
-            "sources/wikidata-platform-expansion-v2.json", MAP_V2)
+        Self::open_source(
+            root.as_ref(),
+            selection,
+            BASE_V2,
+            "sources/wikidata-platform-expansion-v2.json",
+            MAP_V2,
+        )
     }
 
     fn open_source(
-        root: &Path, selection: &str, base: &str, register_path: &str,
-        approved_platforms: &[(&str, &str)]
+        root: &Path,
+        selection: &str,
+        base: &str,
+        register_path: &str,
+        approved_platforms: &[(&str, &str)],
     ) -> Result<Self, CatalogError> {
-        let register: Register = serde_json::from_slice(
-            &fs::read(root.join(register_path))?
-        )?;
+        let register: Register = serde_json::from_slice(&fs::read(root.join(register_path))?)?;
         if register.schema_version != 1
             || register.source != "Wikidata"
             || register.license != "CC0-1.0"
@@ -324,7 +335,9 @@ impl ExpandedWikidataCatalog {
             platform_row_counts.insert(scope.platform.clone(), manifest.source_rows);
             platforms.push(scope.platform);
         }
-        if platforms.is_empty() || (selection == "all" && platforms.len() != approved_platforms.len()) {
+        if platforms.is_empty()
+            || (selection == "all" && platforms.len() != approved_platforms.len())
+        {
             return Err(invalid(format!(
                 "Unknown or incomplete source platform: {selection}"
             )));
