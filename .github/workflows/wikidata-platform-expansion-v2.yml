@@ -140,7 +140,7 @@ jobs:
             echo "$platform: $rows source observations, $items item QIDs, $dates literal date claims, $nonliteral nonliteral P577 bindings retained"
             sleep 2
           done < <(jq -r '.platforms[] | [.platform, .wikidata_platform] | @tsv' "$register")
-          test "$(find data/wikidata/platform-expansion-v1 -name manifest.json | wc -l)" -eq 4
+          test "$(find data/wikidata/platform-expansion-v2 -name manifest.json | wc -l)" -eq 4
       - name: Preserve only hash-verified text source responses
         shell: bash
         run: |
