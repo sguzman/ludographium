@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-platform-expansion",
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "endpoint": "https://query.wikidata.org/sparql",
+  "prior_expansion_register": "sources/wikidata-platform-expansion-v3.json",
+  "query_limit": 20000,
+  "platforms": [
+    {
+      "platform": "atari5200",
+      "wikidata_platform": "Q743222",
+      "label": "Atari 5200",
+      "evidence_url": "https://www.wikidata.org/wiki/Q743222"
+    },
+    {
+      "platform": "colecocolecovision",
+      "wikidata_platform": "Q1046862",
+      "label": "ColecoVision",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1046862"
+    },
+    {
+      "platform": "gcevectrex",
+      "wikidata_platform": "Q767631",
+      "label": "GCE Vectrex",
+      "evidence_url": "https://www.wikidata.org/wiki/Q767631"
+    },
+    {
+      "platform": "mattelintellivision",
+      "wikidata_platform": "Q1061441",
+      "label": "Mattel Intellivision",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1061441"
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "wikidata_platform": "Q576932",
+      "label": "Magnavox Odyssey 2",
+      "evidence_url": "https://www.wikidata.org/wiki/Q576932"
+    },
+    {
+      "platform": "nintendopokemonmini",
+      "wikidata_platform": "Q1759168",
+      "label": "Nintendo Pokémon Mini",
+      "evidence_url": "https://www.wikidata.org/wiki/Q1759168"
+    }
+  ],
+  "source_policy": "Additive CC0 observations selected by exact direct Wikidata P31 video game and P400 platform claims. Preserve query, original response, JSONL, SHA-256 and capture time, never accept canonical work or media identities or refresh old captures implicitly."
+}
