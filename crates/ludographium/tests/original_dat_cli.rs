@@ -874,6 +874,33 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
     assert_eq!(zero["total_original_localized_names"], 0);
     assert_eq!(zero["returned_source_names"], 0);
     assert_eq!(zero["platforms_searched"].as_array().unwrap().len(), 1);
+    let combined = query(&[
+        "--wikidata-localized-titles",
+        "--metadata-cohort",
+        "combined",
+        "--platform",
+        "all",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(combined["platforms_searched"].as_array().unwrap().len(), 53);
+    assert_eq!(combined["total_original_localized_names"], 153951);
+    assert_eq!(combined["metadata_cohort"], "combined");
+    assert_eq!(combined["source_platform_row_counts"]["gameparkgp32"], 0);
+    let selected = query(&[
+        "--wikidata-localized-titles",
+        "--metadata-cohort",
+        "combined",
+        "--platform",
+        "gg",
+        "--language",
+        "ja",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(selected["platforms_searched"].as_array().unwrap().len(), 1);
+    assert_eq!(selected["total_original_localized_names"], 1444);
+    assert!(selected["total_filtered_source_names"].as_u64().unwrap() > 0);
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     for args in [
         vec![
@@ -889,6 +916,20 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
             "all",
             "--metadata-cohort",
             "expanded-v1",
+        ],
+        vec![
+            "--wikidata-properties",
+            "--platform",
+            "all",
+            "--metadata-cohort",
+            "combined",
+        ],
+        vec![
+            "--wikidata-localized-titles",
+            "--platform",
+            "unknown",
+            "--metadata-cohort",
+            "combined",
         ],
     ] {
         let output = Command::new(env!("CARGO_BIN_EXE_ludographium"))

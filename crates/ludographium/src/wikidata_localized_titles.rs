@@ -168,18 +168,66 @@ fn parse_original(row: &Value) -> Result<(&str, &'static str, &str, &str), Catal
 
 impl WikidataLocalizedTitleCatalog {
     pub fn open(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        Self::open_source(root.as_ref(), selection, "baseline")
+        Self::open_source(root.as_ref(), selection, "baseline", false)
     }
 
     pub fn open_expanded(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        Self::open_source(root.as_ref(), selection, "expanded-v1")
+        Self::open_source(root.as_ref(), selection, "expanded-v1", false)
     }
 
     pub fn open_expanded_v2(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
-        Self::open_source(root.as_ref(), selection, "expanded-v2")
+        Self::open_source(root.as_ref(), selection, "expanded-v2", false)
     }
 
-    fn open_source(root: &Path, selection: &str, cohort: &str) -> Result<Self, CatalogError> {
+    /// Query every independent source cohort without conflating names or game identities.
+    /// A platform-specific query loads only the matching source partition.
+    pub fn open_combined(root: impl AsRef<Path>, selection: &str) -> Result<Self, CatalogError> {
+        let root = root.as_ref();
+        let mut combined = Self {
+            claims: Vec::new(),
+            platforms: Vec::new(),
+            observed_items: 0,
+            languages: BTreeMap::new(),
+            name_kinds: BTreeMap::new(),
+            platform_row_counts: BTreeMap::new(),
+        };
+        let mut seen = HashSet::new();
+        for cohort in ["baseline", "expanded-v1", "expanded-v2"] {
+            let mut source = Self::open_source(root, selection, cohort, true)?;
+            for platform in &source.platforms {
+                if !seen.insert(platform.clone()) {
+                    return Err(invalid(format!(
+                        "localized source platform is registered in multiple cohorts: {platform}"
+                    )));
+                }
+            }
+            combined.platforms.append(&mut source.platforms);
+            combined.claims.append(&mut source.claims);
+            combined.observed_items += source.observed_items;
+            for (tag, count) in source.languages {
+                *combined.languages.entry(tag).or_insert(0) += count;
+            }
+            for (kind, count) in source.name_kinds {
+                *combined.name_kinds.entry(kind).or_insert(0) += count;
+            }
+            combined.platform_row_counts.extend(source.platform_row_counts);
+        }
+        if combined.platforms.is_empty()
+            || (selection == "all" && combined.platforms.len() != 53)
+        {
+            return Err(invalid(format!(
+                "unknown or incomplete combined localized source platform: {selection}"
+            )));
+        }
+        Ok(combined)
+    }
+
+    fn open_source(
+        root: &Path,
+        selection: &str,
+        cohort: &str,
+        allow_empty_selection: bool,
+    ) -> Result<Self, CatalogError> {
         let (base, registered, expected_platforms) = match cohort {
             "baseline" => {
                 let register: Register =
@@ -382,7 +430,9 @@ impl WikidataLocalizedTitleCatalog {
             platforms.push(platform.platform.clone());
             observed_items += manifest.distinct_items;
         }
-        if platforms.is_empty() || (selection == "all" && platforms.len() != expected_platforms) {
+        if (!allow_empty_selection && platforms.is_empty())
+            || (selection == "all" && platforms.len() != expected_platforms)
+        {
             return Err(invalid(format!(
                 "unknown or incomplete localized source platform: {selection}"
             )));
@@ -505,5 +555,16 @@ mod tests {
         assert_eq!(second.platform_row_counts()["tigergamecom"], 0);
         assert_eq!(second.platform_row_counts()["gg"], 1444);
         assert!(WikidataLocalizedTitleCatalog::open_expanded_v2(&root, "invalid").is_err());
+        let combined = WikidataLocalizedTitleCatalog::open_combined(&root, "all").unwrap();
+        assert_eq!(combined.platform_ids().len(), 53);
+        assert_eq!(combined.total_claims(), 153_951);
+        assert_eq!(combined.total_claims(), combined.platform_row_counts().values().sum());
+        assert_eq!(combined.source_item_observations(), 15_731 + expanded.source_item_observations() + second.source_item_observations());
+        assert_eq!(combined.platform_row_counts()["gameparkgp32"], 0);
+        assert_eq!(combined.platform_row_counts()["atari2600"], 1_856);
+        assert!(WikidataLocalizedTitleCatalog::open_combined(&root, "unknown").is_err());
+        let scoped = WikidataLocalizedTitleCatalog::open_combined(&root, "gg").unwrap();
+        assert_eq!(scoped.platform_ids(), &["gg".to_owned()]);
+        assert_eq!(scoped.total_claims(), 1_444);
     }
 }

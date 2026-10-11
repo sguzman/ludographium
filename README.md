@@ -67,6 +67,16 @@ cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v2 
 cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v2 --platform gameparkgp32 --limit 5
 ```
 
+Across the original 16 platform scopes and these two added cohorts, a
+**combined 53-scope offline query** now exposes **153,951 original localized
+name/alias observations** while preserving every record's source partition,
+ordinal, language, original binding and verified source hashes:
+
+```sh
+cargo run --locked -- --wikidata-localized-titles --metadata-cohort combined --platform all --language es --limit 5
+cargo run --locked -- --wikidata-localized-titles --metadata-cohort combined --platform gg --language ja --limit 5
+```
+
 The original 16-platform mode remains the default. Zero-row queries indicate
 only source-specific Wikidata noncoverage, not absence of games.
 
