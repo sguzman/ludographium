@@ -11,25 +11,125 @@ permissions:
   contents: write
 
 concurrency:
-  group: wikidata-properties-pilot-main
+  group: wikidata-properties-source-acquisition-main
   cancel-in-progress: false
 
 jobs:
   accession:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
-      - name: Acquire Atari 2600 developer/publisher/genre statements
+      - name: Accession remaining declared console platforms without rewriting pinned sources
         shell: bash
         run: |
           set -euo pipefail
-          platform=atari2600
-          qid="$(jq -r --arg platform "$platform" '.platforms[] | select(.platform == $platform) | .wikidata_platform' sources/wikidata-v1.json)"
-          test "$qid" = Q206261
+          while IFS=
+          cat > "$out/query.rq" <<EOF
+          SELECT DISTINCT ?item ?property ?value WHERE {
+            ?item wdt:P31 wd:Q7889; wdt:P400 wd:$qid.
+            VALUES ?property { wdt:P178 wdt:P123 wdt:P136 }
+            ?item ?property ?value.
+          }
+          ORDER BY ?item ?property ?value
+          LIMIT 10000
+          EOF
+          curl --fail --location --get --retry 4 --retry-all-errors \
+            --retry-delay 6 --max-time 90 --silent --show-error \
+            -H 'User-Agent: Ludographium/1.0 (https://github.com/sguzman/ludographium; independent CC0 metadata research)' \
+            -H 'Accept: application/sparql-results+json' \
+            --data-urlencode 'format=json' \
+            --data-urlencode "query@$out/query.rq" \
+            'https://query.wikidata.org/sparql' \
+            -o "$out/response.json"
+          test "$(wc -c < "$out/response.json")" -le 10000000
+          jq -e '
+            .head.vars == ["item", "property", "value"]
+            and (.results.bindings | type == "array" and length > 0 and length < 10000)
+            and all(.results.bindings[];
+              (.item.type == "uri"
+               and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$")))
+              and (.property.type == "uri"
+               and (.property.value | test("^https?://www[.]wikidata[.]org/prop/direct/P(178|123|136)$")))
+              and (.value.type == "uri"
+               and (.value.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$"))))
+          ' "$out/response.json" > /dev/null
+          jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
+          rows="$(wc -l < "$out/bindings.jsonl")"
+          test "$rows" -gt 0
+          query_sha="$(sha256sum "$out/query.rq" | cut -d' ' -f1)"
+          response_sha="$(sha256sum "$out/response.json" | cut -d' ' -f1)"
+          text_sha="$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)"
+          distinct_items="$(jq -r '.results.bindings[].item.value' "$out/response.json" | sort -u | wc -l)"
+          fetch_time="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          jq -n \
+            --arg platform "$platform" \
+            --arg platform_qid "$qid" \
+            --arg timestamp "$fetch_time" \
+            --arg query_sha "$query_sha" \
+            --arg response_sha "$response_sha" \
+            --arg text_sha "$text_sha" \
+            --argjson rows "$rows" \
+            --argjson distinct_items "$distinct_items" \
+            --argjson text_bytes "$(wc -c < "$out/bindings.jsonl")" \
+            --argjson response_bytes "$(wc -c < "$out/response.json")" \
+            '{
+              schema_version: 1,
+              source: "Wikidata",
+              license: "CC0-1.0",
+              platform: $platform,
+              wikidata_platform: $platform_qid,
+              source_revision: "live-query-capture",
+              source_query_path: "query.rq",
+              source_query_sha256: $query_sha,
+              source_response_path: "response.json",
+              source_response_sha256: $response_sha,
+              source_response_bytes: $response_bytes,
+              source_bindings_path: "bindings.jsonl",
+              source_bindings_sha256: $text_sha,
+              source_bindings_bytes: $text_bytes,
+              captured_at_utc: $timestamp,
+              properties: ["P178","P123","P136"],
+              query_limit: 10000,
+              source_rows: $rows,
+              distinct_items: $distinct_items,
+              identity_policy: "Attributed property claims only; do not assign canonical game, work, company or genre identities"
+            }' > "$out/manifest.json"
+          jq -e '.source_rows > 0 and .distinct_items > 0 and .query_limit > .source_rows and .license == "CC0-1.0"' \
+            "$out/manifest.json" > /dev/null
+          echo "Verified $platform accession: $rows statements, $distinct_items item IDs"
+          sleep 2
+          done < <(jq -r '.platforms[] | [.platform, .wikidata_platform] | @tsv' sources/wikidata-v1.json)
+          test "$(find data/wikidata/properties-v1 -name manifest.json | wc -l)" -eq 16
+      - name: Commit only original source text and attributable metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Refusing to commit generated binary databases"
+            exit 1
+          fi
+          git add data/wikidata/properties-v1
+          if git diff --cached --quiet; then
+            echo "Source text already present"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(wikidata): accession 16-platform company and genre source observations'
+          git push origin HEAD:main
+\t' read -r platform qid; do
           out="data/wikidata/properties-v1/$platform"
+          if test -f "$out/manifest.json"; then
+            test "$(jq -r '.wikidata_platform' "$out/manifest.json")" = "$qid"
+            test "$(sha256sum "$out/response.json" | cut -d' ' -f1)" = "$(jq -r '.source_response_sha256' "$out/manifest.json")"
+            test "$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)" = "$(jq -r '.source_bindings_sha256' "$out/manifest.json")"
+            echo "Preserved existing pinned $platform source accession"
+            continue
+          fi
           mkdir -p "$out"
           cat > "$out/query.rq" <<EOF
           SELECT DISTINCT ?item ?property ?value WHERE {
