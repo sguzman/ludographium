@@ -133,7 +133,7 @@ jobs:
             jq -e '. as $m | .source_rows > 0 and .distinct_items > 0 and .query_limit > .source_rows and ([.predicate_counts[]] | add) == $m.source_rows and ([.language_tag_counts[]] | add) == $m.source_rows' "$out/manifest.json" > /dev/null
             echo "$platform: verified $count localized title and alias observations across $items source game items"
             sleep 2
-          done < <(jq -r '.platforms[] | select(.platform == "nds") | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
+          done < <(jq -r '.platforms[] | "\(.platform) \(.wikidata_platform)"' sources/wikidata-v1.json)
           test "$(find "$base" -name manifest.json | wc -l)" -eq 16
       - name: Preserve only language-tagged original source text
         shell: bash
