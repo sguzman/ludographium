@@ -1,0 +1,86 @@
+name: Publish cross-source bibliographic review counts
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/review-source-evidence.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-cross-source-review-report-main
+  cancel-in-progress: false
+
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Recompute all developer publisher and publication-year review counts from committed sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo run --locked --quiet -p ludographium -- \
+            --wikidata-candidates --compare-credits --compare-years \
+            --platform all --limit 1 > "$RUNNER_TEMP/source-review.json"
+          jq -e '
+            .total_candidate_links == 8971
+            and .source_records_with_candidate == 8908
+            and .ambiguous_candidate_links == 126
+            and (
+              (.credit_evidence_counts.developer | [.[]] | add) == 8971
+            )
+            and (
+              (.credit_evidence_counts.publisher | [.[]] | add) == 8971
+            )
+            and (
+              (.year_comparison_counts | [.[]] | add) == 8971
+            )
+          ' "$RUNNER_TEMP/source-review.json" > /dev/null
+          mkdir -p reports
+          jq -n --slurpfile review "$RUNNER_TEMP/source-review.json" \
+            --arg source_commit "$GITHUB_SHA" \
+            '{
+              schema_version: 1,
+              kind: "noncanonical-cross-provider-review-counts",
+              source_commit_sha: $source_commit,
+              platform_collections: ($review[0].platforms_searched | length),
+              source_title_candidate_links: $review[0].total_candidate_links,
+              source_observations_with_candidates: $review[0].source_records_with_candidate,
+              ambiguous_title_candidate_links: $review[0].ambiguous_candidate_links,
+              developer_name_review: $review[0].credit_evidence_counts.developer,
+              publisher_name_review: $review[0].credit_evidence_counts.publisher,
+              publication_year_review: $review[0].year_comparison_counts,
+              methodological_scope: "Same-platform conservative title candidate comparisons between pinned Libretro field DATs and independently captured Wikidata structured claims and English labels.",
+              caveat: "Counts do not establish a canonical work, release, developer, publisher, or company identity. An identical name is not independent authentication, and different names/years can reflect legitimate regional or edition differences. False-positive rate cannot be estimated from unadjudicated candidate counts."
+            }' > reports/wikidata-cross-provider-review-v1.json
+          jq -c '{
+            links: .source_title_candidate_links,
+            developer: .developer_name_review,
+            publisher: .publisher_name_review,
+            release_year: .publication_year_review
+          }' reports/wikidata-cross-provider-review-v1.json
+      - name: Preserve source-grounded review counts in Git
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Refusing binary database changes"
+            exit 1
+          fi
+          git add reports/wikidata-cross-provider-review-v1.json
+          if git diff --cached --quiet; then
+            echo "Review report already current"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: preserve full-corpus Wikidata/Libretro credit and year evidence counts'
+          git push origin HEAD:main
