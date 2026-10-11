@@ -742,6 +742,44 @@ for different source scopes and does not verify this cohort's complete
 set of referenced company/genre entities. Unlabeled QIDs remain unlabeled
 until separately sourced label evidence is available.
 
+## Completed expanded-credit and relation acquisition across 37 additional scopes
+
+The two [developer/publisher/genre claim batches](../data/wikidata/expanded-credits-v1/)
+and [second-source cohort](../data/wikidata/expanded-credits-v2/) contain
+**11,231 original P178/P123/P136 statements**. The first nineteen
+platform-query partitions supply 10,269 statements (3,150 per-platform
+item observations); the remaining eighteen supply 962 statements (312
+item/platform observations). Empty results are retained as hash-pinned
+query-specific noncoverage, not as assertions that the associated hardware
+lacks games.
+
+The independent [first relation cohort](../data/wikidata/expanded-relations-v1/)
+and [second relation cohort](../data/wikidata/expanded-relations-v2/)
+contain **20,460 original source statements**, comprising 18,999 and
+1,461 bindings respectively. Both use the same nine-property scope as the
+original sixteen-platform relation accession (P179, P404, P407, P495,
+P437, P750, P1476, P1733, P2725). Taken together they contain 653
+Steam (P1733) and 193 GOG (P2725) identifier assertions. Repeated
+provider ID strings and cross-platform claims are **not** independently
+authenticated external-provider records.
+
+All four capture batches preserve their separate original query, response,
+JSONL, manifest, platform QID, timestamps, and SHA-256 evidence. The Rust
+reader rechecks those records before returning them. The CLI retains the
+original baseline as the default and permits source-specific reads:
+
+```sh
+cargo run --locked -- --wikidata-properties --metadata-cohort expanded-v1 --platform all --limit 5
+cargo run --locked -- --wikidata-properties --metadata-cohort expanded-v2 --platform all --limit 5
+cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v1 --platform all --limit 5
+cargo run --locked -- --wikidata-relations --metadata-cohort expanded-v2 --platform all --limit 5
+```
+
+Expanded source partitions deliberately do not reuse the original
+sixteen-platform entity-label inventory. Label provenance requires a
+separate applicable acquisition; missing labels and ambiguous values are
+left unresolved.
+
 ## Accuracy and source-rights boundaries
 
 Wikidata's CC0 statements can support independently *attributed* comparisons. They are not automatically independent factual corroboration: Wikidata contributors may have consulted the same upstream references as Libretro contributors. Label correspondence alone has no power to authenticate media hashes, identify a regional edition, or establish that two products are the same canonical work.
