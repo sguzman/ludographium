@@ -55,12 +55,10 @@ def classification(a, b):
     # A full original display name can contain another title as a phrase.
     # This is not an identity assertion, nor is the substring deleted.
     if min(len(norm_a), len(norm_b)) >= 5 and (
-        norm_a.startswith(norm_b + " ")
-        or norm_a.startswith(norm_b + " ~")
-        or norm_b.startswith(norm_a + " ")
-        or norm_b.startswith(norm_a + " ~")
-        or norm_a.endswith(" " + norm_b)
-        or norm_b.endswith(" " + norm_a)
+        norm_a.startswith(norm_b + " ~ ")
+        or norm_b.startswith(norm_a + " ~ ")
+        or norm_a.endswith(" ~ " + norm_b)
+        or norm_b.endswith(" ~ " + norm_a)
     ):
         return "one-title-contained-in-another"
     return "different-normalized-titles"
