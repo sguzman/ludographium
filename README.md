@@ -348,7 +348,13 @@ python tools/query_mame_title_review.py --ambiguous-only --limit 5
 python tools/query_mame_title_review.py --platform nes --min-scope-support 10 --limit 5
 python tools/query_mame_title_review.py --cohort v3 --limit 5
 python tools/query_mame_title_review.py --cohort combined --limit 5
+python tools/query_mame_title_review.py --cohort combined --offset 6823 --limit 4
 ```
+
+Use `--offset` and `--limit` to page through all 6,833 source-only
+title-review leads in filtered baseline-first order, including across
+the third-cohort boundary. `next_offset` is null at the end and never
+reassigns source identities.
 
 Each returned lead includes the number of competing candidate records for
 its source MAME entry. Unique leads remain unverified.
