@@ -40,7 +40,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add data/reconciliation/mame-libretro-sha1-v1/links.jsonl reports/mame-libretro-media-sha1-v1-summary.json
+          git add data/reconciliation/mame-libretro-sha1-v1/links.jsonl data/reconciliation/mame-libretro-sha1-v1/size-disagreements.jsonl reports/mame-libretro-media-sha1-v1-summary.json
           if git diff --cached --quiet; then
             echo "SHA-1 evidence comparison is already pinned"
             exit 0

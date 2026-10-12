@@ -161,6 +161,7 @@ def build_expected(root=ROOT):
     register = source_register(root)
     libretro_by_sha1, source_counts = read_libretro(root)
     links = []
+    size_conflicts = []
     totals = Counter()
     per_list = []
     for filename in register["files"]:
@@ -192,6 +193,24 @@ def build_expected(root=ROOT):
                 for match in candidates:
                     if source_size is not None and source_size != match["media_size_bytes"]:
                         list_counts["same_sha1_size_disagreement"] += 1
+                        size_conflicts.append({
+                            "schema_version": 1,
+                            "kind": "unresolved-mame-libretro-same-sha1-size-conflict",
+                            "media_sha1": digest,
+                            "mame": {
+                                "source_list": list_id,
+                                "software_ordinal": ordinal,
+                                "software_name": row["original_software_attributes"]["name"],
+                                "source_title": row["original_title"],
+                                "source_media_ordinal": media["source_ordinal"],
+                                "source_media_kind": media["kind"],
+                                "declared_size_bytes": source_size,
+                                "source_xml_sha256": row["original_xml_sha256"],
+                                "source_index_sha256": manifest["index_sha256"],
+                            },
+                            "libretro": match,
+                            "interpretation": "excluded-from-match-index-source-declared-size-conflict-not-file-or-game-identity",
+                        })
                         continue
                     links.append({
                         "schema_version": 1,
@@ -234,12 +253,22 @@ def build_expected(root=ROOT):
         row["libretro"]["source_record_ordinal"],
         row["libretro"]["source_media_ordinal"],
     ))
+    size_conflicts.sort(key=lambda row: (
+        row["mame"]["source_list"],
+        row["mame"]["software_ordinal"],
+        row["mame"]["source_media_ordinal"],
+        row["libretro"]["platform"],
+        row["libretro"]["source_record_ordinal"],
+        row["libretro"]["source_media_ordinal"],
+    ))
     if len(links) > 200_000:
         raise ValueError("candidate pairs exceeded explicit evidence-safety ceiling")
     if totals["mame_software_records"] != 31464:
         raise ValueError("source index no longer covers 31,464 MAME software entries")
     by_platform = Counter(link["libretro"]["platform"] for link in links)
     payload = ("\n".join(compact(row) for row in links) + ("\n" if links else "")).encode("utf-8")
+    disagreements = ("\n".join(compact(row) for row in size_conflicts)
+                     + ("\n" if size_conflicts else "")).encode("utf-8")
     report = {
         "schema_version": 1,
         "kind": "independent-cross-source-media-sha1-exact-match-review",
@@ -261,10 +290,14 @@ def build_expected(root=ROOT):
         "match_index_path": str(MATCH_BASE / "links.jsonl"),
         "match_index_sha256": sha256(payload),
         "match_index_bytes": len(payload),
+        "size_disagreement_rows": len(size_conflicts),
+        "size_disagreement_path": str(MATCH_BASE / "size-disagreements.jsonl"),
+        "size_disagreement_sha256": sha256(disagreements),
+        "size_disagreement_bytes": len(disagreements),
         "per_mame_source_list": per_list,
         "interpretation": INTERPRETATION,
     }
-    return payload, json.dumps(report, indent=2, ensure_ascii=False) + "\n"
+    return payload, disagreements, json.dumps(report, indent=2, ensure_ascii=False) + "\n"
 
 
 def main():
@@ -273,16 +306,20 @@ def main():
     modes.add_argument("--build", action="store_true")
     modes.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    rows, summary = build_expected()
+    rows, disagreements, summary = build_expected()
     target = ROOT / MATCH_BASE / "links.jsonl"
+    conflict_path = ROOT / MATCH_BASE / "size-disagreements.jsonl"
     report = ROOT / SUMMARY
     if args.build:
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(rows)
+        conflict_path.write_bytes(disagreements)
         report.parent.mkdir(parents=True, exist_ok=True)
         report.write_text(summary, encoding="utf-8")
     elif (
         not target.exists() or target.is_symlink() or target.read_bytes() != rows
+        or not conflict_path.exists() or conflict_path.is_symlink()
+        or conflict_path.read_bytes() != disagreements
         or not report.exists() or report.is_symlink()
         or report.read_text(encoding="utf-8") != summary
     ):
