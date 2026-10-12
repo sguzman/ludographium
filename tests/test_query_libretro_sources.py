@@ -47,6 +47,39 @@ class OriginalDatSearchTest(unittest.TestCase):
             with self.subTest(offset=offset), self.assertRaises(ValueError):
                 query(ROOT / "nonexistent", offset=offset)
 
+    def test_additive_review_cohort_excludes_verified_third_wave_leads(self):
+        original = query(
+            ROOT, platform="atari5200", without_review_leads=True, limit=1
+        )
+        combined = query(
+            ROOT, platform="atari5200", without_review_leads=True,
+            review_cohort="combined", limit=1,
+        )
+        self.assertEqual(original["review_evidence_cohorts"], ["baseline"])
+        self.assertEqual(combined["review_evidence_cohorts"], ["baseline", "v3"])
+        self.assertGreater(
+            original["total_filtered_original_source_records"],
+            combined["total_filtered_original_source_records"],
+        )
+        self.assertEqual(
+            original["scanned_original_source_records"],
+            combined["scanned_original_source_records"],
+        )
+        # Unrelated source scopes retain original review-gap membership.
+        old = query(ROOT, platform="n64", without_review_leads=True, limit=1)
+        new = query(
+            ROOT, platform="n64", without_review_leads=True,
+            review_cohort="combined", limit=1,
+        )
+        self.assertEqual(
+            old["total_filtered_original_source_records"],
+            new["total_filtered_original_source_records"],
+        )
+        with self.assertRaises(ValueError):
+            query(ROOT, review_cohort="combined")
+        with self.assertRaises(ValueError):
+            query(ROOT, review_cohort="unregistered")
+
     def test_invalid_filters_are_rejected_without_source_reads(self):
         for kwargs in (
             {"platform": "not-a-platform"},
