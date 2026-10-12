@@ -1,5 +1,6 @@
 """Safety checks for the optional local MAME source-evidence database."""
 import argparse
+import subprocess
 import sys
 import unittest
 from pathlib import Path
@@ -47,6 +48,40 @@ class SqliteMameSourceGuards(unittest.TestCase):
         for kwargs in ({}, {"title": " "}, {"sha1": "invalid"}, {"limit": 201}):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query_both_sources(None, **kwargs)
+
+    def test_invalid_cross_provider_cli_exits_before_database_access(self):
+        cases = (
+            (["--query-all"], "--query-all requires --title or --sha1"),
+            (
+                ["--query-libretro", "--without-review-leads", "--linked-only"],
+                "--without-review-leads conflicts",
+            ),
+            (
+                ["--query", "--list", "gamecom", "--without-review-leads",
+                 "--linked-only"],
+                "--without-review-leads conflicts",
+            ),
+            (
+                ["--query-all", "--title", "Tetris", "--list", "gamecom"],
+                "unsupported filters for selected source mode",
+            ),
+        )
+        for flags, expected in cases:
+            with self.subTest(flags=flags):
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(ROOT / "tools/build_mame_catalog_sqlite.py"),
+                        "--db", str(ROOT / "nonexistent-evidence-test.sqlite"),
+                        *flags,
+                    ],
+                    capture_output=True,
+                    text=True,
+                    check=False,
+                )
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn(expected, result.stderr)
+                self.assertNotIn("missing or linked disposable", result.stderr)
 
     def test_source_mode_rejects_cross_provider_flags(self):
         values = {
