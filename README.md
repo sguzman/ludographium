@@ -31,6 +31,18 @@ attributes; the [aggregate report](reports/mame-software-observations-v1-summary
 remains separate from canonical game or release identity. Build/verify with
 `python tools/index_mame_softlists.py --build` or `--check`.
 
+### Cross-source media SHA-1 correspondence
+
+A [provenance-preserving bulk SHA-1 comparator](tools/reconcile_mame_media.py)
+has a dedicated [GitHub Actions accession
+workflow](.github/workflows/reconcile-mame-libretro-sha1-v1.yml). It checks
+original files and compares source-declared SHA-1 digests across the **49 MAME
+software lists and 75 original Libretro DAT collections**, retaining source
+ordinals, titles, media names, source paths, and SHA-256/Git-blob provenance.
+Matching a media part/chip digest is review evidence **only**, not a confirmed
+game, edition, release or platform identity. Unlike title matching, this
+comparison does not infer a game correspondence from spelling or localization.
+
 ## Additional platform source accession
 
 A separate pinned Wikidata CC0 accession now covers **Atari 7800,

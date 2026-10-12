@@ -1,0 +1,56 @@
+name: Build exact SHA-1 MAME-Libretro source correspondence audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/reconcile-mame-libretro-sha1-v1.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reconcile-mame-libretro-sha1-v1-main
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify original MAME software-list and Libretro DAT source inputs
+        run: |
+          python tools/acquire_mame_softlists.py --check
+          python tools/index_mame_softlists.py --check
+      - name: Build provenance-preserving media SHA-1 candidate evidence
+        run: |
+          python tools/reconcile_mame_media.py --build
+          python tools/reconcile_mame_media.py --check
+      - name: Pin only review candidates and source yield report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/mame-libretro-sha1-v1/links.jsonl reports/mame-libretro-media-sha1-v1-summary.json
+          if git diff --cached --quiet; then
+            echo "SHA-1 evidence comparison is already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin exact media-fingerprint overlap across 49 MAME and 75 Libretro sources'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Failed to pin exact source evidence" >&2
+          exit 1
