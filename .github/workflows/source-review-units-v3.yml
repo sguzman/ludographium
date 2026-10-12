@@ -1,0 +1,54 @@
+name: Accession additive third-cohort stable original-source review tasks
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/source-review-units-v3.yml
+      - tools/build_source_review_units_v3.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: source-review-units-v3-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Check independent original media and name source review ledgers
+        run: |
+          python tools/reconcile_mame_v3_media.py --check
+          python tools/reconcile_mame_v3_titles.py --check
+          python tools/build_source_review_units.py --check
+          python -m unittest discover -s tests -p test_source_review_units_v3.py -v
+      - name: Build independent stable IDs for additional review tasks
+        run: |
+          python tools/build_source_review_units_v3.py --write
+          python tools/build_source_review_units_v3.py --check
+      - name: Commit only pinned original source review evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/source-review-units-v3/units.jsonl reports/source-review-units-v3-summary.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin 133 additive third-cohort stable source review tasks'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Unable to preserve additive source review tasks" >&2
+          exit 1
