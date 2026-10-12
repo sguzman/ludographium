@@ -1130,6 +1130,13 @@ def main():
         parser.error(
             "unsupported filters for selected source mode: " + ", ".join(unsupported)
         )
+    if args.query_all and args.title is None and args.sha1 is None:
+        parser.error("--query-all requires --title or --sha1")
+    if args.without_review_leads and (
+        (args.query_libretro and args.linked_only)
+        or (args.query and (args.linked_only or args.libretro_platform is not None))
+    ):
+        parser.error("--without-review-leads conflicts with required source matches")
     if args.build:
         build(ROOT, args.db)
         with open_readonly(args.db) as db:
