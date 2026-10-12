@@ -139,18 +139,23 @@ comparison does not infer a game correspondence from spelling or localization.
 ### Optional complete offline SQLite source-evidence reader
 
 The [derived source-evidence SQLite builder](tools/build_mame_catalog_sqlite.py)
-locally materializes **32,953 pinned MAME software observations** and
-**117,145 separate original Libretro DAT records**, including both providers'
-original media, serial and provenance fields, plus **19,025 exact SHA-1
-media-evidence links** and **6,825 separately flagged review-only
-exact-title candidates**. The index preserves the 65 CC0 MAME partitions and
-75 CC-BY-SA-4.0 Libretro collections as independent sources, together with
-the separately rejected declared-size conflict. Build atomically from checked-in text:
+locally materializes **33,119 pinned MAME software observations** across
+**69 CC0 source lists** and **117,145 original Libretro DAT records** across
+**75 independently attributed collections**. It retains original media,
+serial and provenance claims, **19,152 exact SHA-1/size evidence pairs**,
+**6,833 review-only exact-title candidates**, and **21,845 stable source
+review tasks**. The original 65-list cohorts and their 19,025 media links,
+6,825 title leads and 21,712 review IDs are retained intact; the third cohort
+adds 166 software observations, 127 media pairs, eight title leads and 133
+new review units. One original declared-size conflict remains rejected.
+No cross-provider game or release identity is inferred. Build atomically from checked-in text:
 
 ```sh
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --build
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --verify
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --title "Batman" --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --list a5200 --linked-only --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-review --list a5200 --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --libretro-platform tigergamecom --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform gb --title Tetris --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform n64 --without-review-leads --limit 5
@@ -435,7 +440,7 @@ is absent or that source identities have been adjudicated.
 
 The IDs identify **original-source review tasks**, not canonical games.
 The optional [local SQLite source reader](tools/build_mame_catalog_sqlite.py)
-also supports `--query-review`, indexing all 21,712 task IDs and their
+also supports `--query-review`, indexing all 21,845 task IDs and their
 original competing Libretro targets for fast exact-ID, source-class,
 ambiguity, title and evidence-family searches. Run:
 
