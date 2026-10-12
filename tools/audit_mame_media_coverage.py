@@ -13,6 +13,7 @@ from pathlib import Path
 
 from acquire_mame_softlists import ROOT
 from reconcile_mame_media import read_libretro
+from build_expanded_corpus import pinned_manifest
 
 LINKS = Path("data/reconciliation/mame-libretro-sha1-v1/links.jsonl")
 SOURCE_REPORT = Path("reports/mame-libretro-media-sha1-v1-summary.json")
@@ -54,8 +55,17 @@ def build_report(root=ROOT):
     for observations in index.values():
         for claim in observations:
             original_by_scope[claim["platform"]].add(claim["source_record_ordinal"])
-    if len(original_by_scope) != 75:
+    original_registers = read_json(root / "sources/libretro-no-intro.json")
+    extended_register = pinned_manifest(root)
+    declared_scopes = {
+        entry["platform"] for entry in original_registers["files"]
+    } | {
+        entry["platform"] for entry in extended_register["platforms"]
+    }
+    if len(declared_scopes) != 75 or set(original_by_scope) - declared_scopes:
         raise ValueError("registered Libretro inventory is incomplete")
+    for platform in declared_scopes:
+        original_by_scope[platform]  # Empty original DAT sources remain explicit.
     mame_by_source = {
         item["source_list_name"]: item for item in mame_summary["partitions"]
     }

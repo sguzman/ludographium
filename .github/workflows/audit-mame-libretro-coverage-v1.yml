@@ -6,6 +6,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/audit-mame-libretro-coverage-v1.yml
+      - tools/audit_mame_media_coverage.py
 
 permissions:
   contents: write
