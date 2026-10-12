@@ -19,7 +19,7 @@ class ThreeProviderCoverageQueryTest(unittest.TestCase):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query(ROOT, **kwargs)
 
-    def test_all_original_collections_and_no-secondary_evidence_scope(self):
+    def test_all_original_collections_and_no_secondary_evidence_scope(self):
         current = query(ROOT, limit=2)
         self.assertEqual(current["libretro_source_collection_count"], 75)
         self.assertEqual(current["returned_source_collections"], 2)
