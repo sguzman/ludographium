@@ -1,0 +1,1516 @@
+{
+  "schema_version": 1,
+  "kind": "independent-wikidata-source-yield-matrix",
+  "source_gap_report": "reports/wikidata-p400-platform-gaps-v2.json",
+  "registered_source_platform_scopes": 65,
+  "libretro_source_collections": 75,
+  "unregistered_libretro_source_collections": 10,
+  "source_family_observation_totals": {
+    "text": 36934,
+    "localized": 154198,
+    "credits": 58460,
+    "relations": 113204
+  },
+  "source_family_zero_row_scopes": {
+    "text": 10,
+    "localized": 10,
+    "credits": 10,
+    "relations": 12
+  },
+  "all_source_families_empty_scopes": [
+    "arduboyincarduboy",
+    "casioloopy",
+    "gameparkgp32",
+    "hartunggamemaster",
+    "intertonvc4000",
+    "konamipicno",
+    "nintendosufamiturbo",
+    "tigergamecom",
+    "vtechcreativision",
+    "vtechvsmile"
+  ],
+  "registered_scopes": [
+    {
+      "platform": "arduboyincarduboy",
+      "wikidata_platform": "Q25389541",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/arduboyincarduboy/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/arduboyincarduboy/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/arduboyincarduboy/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/arduboyincarduboy/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "atari2600",
+      "wikidata_platform": "Q206261",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 513,
+        "localized": 1856,
+        "credits": 952,
+        "relations": 1099
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/atari2600/manifest.json",
+        "credits": "data/wikidata/properties-v1/atari2600/manifest.json",
+        "relations": "data/wikidata/relations-v1/atari2600/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "atari5200",
+      "wikidata_platform": "Q743222",
+      "register_cohort": "v4",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v4.json",
+      "source_rows": {
+        "text": 109,
+        "localized": 575,
+        "credits": 224,
+        "relations": 261
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v4/atari5200/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/atari5200/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/atari5200/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/atari5200/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "atari7800",
+      "wikidata_platform": "Q753600",
+      "register_cohort": "v1",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v1.json",
+      "source_rows": {
+        "text": 101,
+        "localized": 425,
+        "credits": 178,
+        "relations": 226
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v1/atari7800/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/atari7800/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/atari7800/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/atari7800/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "atarijaguar",
+      "wikidata_platform": "Q650601",
+      "register_cohort": "v2",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v2.json",
+      "source_rows": {
+        "text": 101,
+        "localized": 234,
+        "credits": 185,
+        "relations": 229
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v2/atarijaguar/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/atarijaguar/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/atarijaguar/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/atarijaguar/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "atarilynx",
+      "wikidata_platform": "Q753657",
+      "register_cohort": "v2",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v2.json",
+      "source_rows": {
+        "text": 89,
+        "localized": 171,
+        "credits": 149,
+        "relations": 157
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v2/atarilynx/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/atarilynx/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/atarilynx/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/atarilynx/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "bandaiwonderswan",
+      "wikidata_platform": "Q1065792",
+      "register_cohort": "v2",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v2.json",
+      "source_rows": {
+        "text": 75,
+        "localized": 249,
+        "credits": 105,
+        "relations": 103
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v2/bandaiwonderswan/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/bandaiwonderswan/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/bandaiwonderswan/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/bandaiwonderswan/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "bandaiwonderswancolor",
+      "wikidata_platform": "Q1048035",
+      "register_cohort": "v2",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v2.json",
+      "source_rows": {
+        "text": 40,
+        "localized": 154,
+        "credits": 66,
+        "relations": 46
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v2/bandaiwonderswancolor/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/bandaiwonderswancolor/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/bandaiwonderswancolor/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/bandaiwonderswancolor/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "casioloopy",
+      "wikidata_platform": "Q661952",
+      "register_cohort": "v5",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v5.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v5/casioloopy/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/casioloopy/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/casioloopy/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/casioloopy/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "casiopv1000",
+      "wikidata_platform": "Q60407",
+      "register_cohort": "v5",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v5.json",
+      "source_rows": {
+        "text": 11,
+        "localized": 38,
+        "credits": 17,
+        "relations": 9
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v5/casiopv1000/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/casiopv1000/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/casiopv1000/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/casiopv1000/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "colecocolecovision",
+      "wikidata_platform": "Q1046862",
+      "register_cohort": "v4",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v4.json",
+      "source_rows": {
+        "text": 191,
+        "localized": 674,
+        "credits": 281,
+        "relations": 292
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v4/colecocolecovision/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/colecocolecovision/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/colecocolecovision/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/colecocolecovision/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "emersonarcadia2001",
+      "wikidata_platform": "Q1196518",
+      "register_cohort": "v7",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v7.json",
+      "source_rows": {
+        "text": 3,
+        "localized": 9,
+        "credits": 4,
+        "relations": 1
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v7/emersonarcadia2001/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/emersonarcadia2001/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/emersonarcadia2001/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/emersonarcadia2001/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "entexadventurevision",
+      "wikidata_platform": "Q379965",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 7,
+        "localized": 12,
+        "credits": 11,
+        "relations": 2
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/entexadventurevision/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/entexadventurevision/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/entexadventurevision/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/entexadventurevision/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "epochsupercassettevision",
+      "wikidata_platform": "Q8018077",
+      "register_cohort": "v7",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v7.json",
+      "source_rows": {
+        "text": 14,
+        "localized": 65,
+        "credits": 24,
+        "relations": 36
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v7/epochsupercassettevision/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/epochsupercassettevision/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/epochsupercassettevision/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/epochsupercassettevision/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "fairchildchannelf",
+      "wikidata_platform": "Q1053294",
+      "register_cohort": "v6",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v6.json",
+      "source_rows": {
+        "text": 2,
+        "localized": 26,
+        "credits": 1,
+        "relations": 1
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v6/fairchildchannelf/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/fairchildchannelf/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/fairchildchannelf/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/fairchildchannelf/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "funtechsuperacan",
+      "wikidata_platform": "Q2475188",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 1,
+        "localized": 5,
+        "credits": 3,
+        "relations": 2
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/funtechsuperacan/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/funtechsuperacan/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/funtechsuperacan/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/funtechsuperacan/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "gameparkgp32",
+      "wikidata_platform": "Q426119",
+      "register_cohort": "v7",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v7.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v7/gameparkgp32/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/gameparkgp32/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/gameparkgp32/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/gameparkgp32/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "gb",
+      "wikidata_platform": "Q186437",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 887,
+        "localized": 3812,
+        "credits": 1431,
+        "relations": 2005
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/gb/manifest.json",
+        "credits": "data/wikidata/properties-v1/gb/manifest.json",
+        "relations": "data/wikidata/relations-v1/gb/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "gba",
+      "wikidata_platform": "Q188642",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 1647,
+        "localized": 7948,
+        "credits": 2868,
+        "relations": 4374
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/gba/manifest.json",
+        "credits": "data/wikidata/properties-v1/gba/manifest.json",
+        "relations": "data/wikidata/relations-v1/gba/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "gbc",
+      "wikidata_platform": "Q203992",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 601,
+        "localized": 2463,
+        "credits": 1039,
+        "relations": 1497
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/gbc/manifest.json",
+        "credits": "data/wikidata/properties-v1/gbc/manifest.json",
+        "relations": "data/wikidata/relations-v1/gbc/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "gcevectrex",
+      "wikidata_platform": "Q767631",
+      "register_cohort": "v4",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v4.json",
+      "source_rows": {
+        "text": 19,
+        "localized": 77,
+        "credits": 39,
+        "relations": 38
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v4/gcevectrex/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/gcevectrex/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/gcevectrex/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/gcevectrex/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "genesis",
+      "wikidata_platform": "Q10676",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 1746,
+        "localized": 8141,
+        "credits": 3108,
+        "relations": 4345
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/genesis/manifest.json",
+        "credits": "data/wikidata/properties-v1/genesis/manifest.json",
+        "relations": "data/wikidata/relations-v1/genesis/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "gg",
+      "wikidata_platform": "Q751719",
+      "register_cohort": "v6",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v6.json",
+      "source_rows": {
+        "text": 321,
+        "localized": 1444,
+        "credits": 514,
+        "relations": 709
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v6/gg/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/gg/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/gg/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/gg/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "hartunggamemaster",
+      "wikidata_platform": "Q5675347",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/hartunggamemaster/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/hartunggamemaster/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/hartunggamemaster/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/hartunggamemaster/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "intertonvc4000",
+      "wikidata_platform": "Q302411",
+      "register_cohort": "v7",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v7.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v7/intertonvc4000/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/intertonvc4000/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/intertonvc4000/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/intertonvc4000/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "konamipicno",
+      "wikidata_platform": "Q22124372",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/konamipicno/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/konamipicno/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/konamipicno/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/konamipicno/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "leapfrogleapsterlearninggamesystem",
+      "wikidata_platform": "Q6509976",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 2,
+        "localized": 2,
+        "credits": 1,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/leapfrogleapsterlearninggamesystem/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/leapfrogleapsterlearninggamesystem/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/leapfrogleapsterlearninggamesystem/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/leapfrogleapsterlearninggamesystem/manifest.json"
+      },
+      "empty_source_families": [
+        "relations"
+      ],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "magnavoxodyssey2",
+      "wikidata_platform": "Q576932",
+      "register_cohort": "v4",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v4.json",
+      "source_rows": {
+        "text": 30,
+        "localized": 135,
+        "credits": 50,
+        "relations": 44
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v4/magnavoxodyssey2/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/magnavoxodyssey2/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/magnavoxodyssey2/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/magnavoxodyssey2/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "mattelintellivision",
+      "wikidata_platform": "Q1061441",
+      "register_cohort": "v4",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v4.json",
+      "source_rows": {
+        "text": 123,
+        "localized": 478,
+        "credits": 288,
+        "relations": 236
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v4/mattelintellivision/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/mattelintellivision/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/mattelintellivision/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/mattelintellivision/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "microsoftxbox360",
+      "wikidata_platform": "Q48263",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 3355,
+        "localized": 17665,
+        "credits": 6318,
+        "relations": 16886
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/microsoftxbox360/manifest.json",
+        "credits": "data/wikidata/properties-v1/microsoftxbox360/manifest.json",
+        "relations": "data/wikidata/relations-v1/microsoftxbox360/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "mobilezeebo",
+      "wikidata_platform": "Q184372",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 30,
+        "localized": 184,
+        "credits": 56,
+        "relations": 100
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/mobilezeebo/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/mobilezeebo/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/mobilezeebo/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/mobilezeebo/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "n64",
+      "wikidata_platform": "Q184839",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 539,
+        "localized": 3363,
+        "credits": 1267,
+        "relations": 1970
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/n64/manifest.json",
+        "credits": "data/wikidata/properties-v1/n64/manifest.json",
+        "relations": "data/wikidata/relations-v1/n64/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nds",
+      "wikidata_platform": "Q170323",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 3044,
+        "localized": 12420,
+        "credits": 4581,
+        "relations": 8313
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/nds/manifest.json",
+        "credits": "data/wikidata/properties-v1/nds/manifest.json",
+        "relations": "data/wikidata/relations-v1/nds/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "necpcenginesupergrafx",
+      "wikidata_platform": "Q202375",
+      "register_cohort": "v5",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v5.json",
+      "source_rows": {
+        "text": 5,
+        "localized": 42,
+        "credits": 21,
+        "relations": 22
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v5/necpcenginesupergrafx/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/necpcenginesupergrafx/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/necpcenginesupergrafx/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/necpcenginesupergrafx/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "necpcengineturbografx16",
+      "wikidata_platform": "Q1057377",
+      "register_cohort": "v3",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v3.json",
+      "source_rows": {
+        "text": 593,
+        "localized": 2641,
+        "credits": 1049,
+        "relations": 1321
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v3/necpcengineturbografx16/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/necpcengineturbografx16/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/necpcengineturbografx16/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/necpcengineturbografx16/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nes",
+      "wikidata_platform": "Q172742",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 2642,
+        "localized": 8833,
+        "credits": 4020,
+        "relations": 4535
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/nes/manifest.json",
+        "credits": "data/wikidata/properties-v1/nes/manifest.json",
+        "relations": "data/wikidata/relations-v1/nes/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendoereader",
+      "wikidata_platform": "Q1993197",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 12,
+        "localized": 34,
+        "credits": 10,
+        "relations": 14
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/nintendoereader/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/nintendoereader/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/nintendoereader/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/nintendoereader/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendofamilycomputerdisksystem",
+      "wikidata_platform": "Q135321",
+      "register_cohort": "v3",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v3.json",
+      "source_rows": {
+        "text": 319,
+        "localized": 1717,
+        "credits": 397,
+        "relations": 577
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v3/nintendofamilycomputerdisksystem/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/nintendofamilycomputerdisksystem/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/nintendofamilycomputerdisksystem/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/nintendofamilycomputerdisksystem/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendonewnintendo3ds",
+      "wikidata_platform": "Q17679679",
+      "register_cohort": "v6",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v6.json",
+      "source_rows": {
+        "text": 127,
+        "localized": 266,
+        "credits": 112,
+        "relations": 286
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v6/nintendonewnintendo3ds/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/nintendonewnintendo3ds/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/nintendonewnintendo3ds/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/nintendonewnintendo3ds/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendonintendo3ds",
+      "wikidata_platform": "Q203597",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 1648,
+        "localized": 6498,
+        "credits": 2141,
+        "relations": 5087
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/nintendonintendo3ds/manifest.json",
+        "credits": "data/wikidata/properties-v1/nintendonintendo3ds/manifest.json",
+        "relations": "data/wikidata/relations-v1/nintendonintendo3ds/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendonintendo64dd",
+      "wikidata_platform": "Q253044",
+      "register_cohort": "v6",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v6.json",
+      "source_rows": {
+        "text": 3,
+        "localized": 15,
+        "credits": 4,
+        "relations": 4
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v6/nintendonintendo64dd/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/nintendonintendo64dd/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/nintendonintendo64dd/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/nintendonintendo64dd/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendonintendodsi",
+      "wikidata_platform": "Q637178",
+      "register_cohort": "v6",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v6.json",
+      "source_rows": {
+        "text": 209,
+        "localized": 345,
+        "credits": 229,
+        "relations": 353
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v6/nintendonintendodsi/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/nintendonintendodsi/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/nintendonintendodsi/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/nintendonintendodsi/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendopokemonmini",
+      "wikidata_platform": "Q1759168",
+      "register_cohort": "v4",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v4.json",
+      "source_rows": {
+        "text": 10,
+        "localized": 34,
+        "credits": 5,
+        "relations": 5
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v4/nintendopokemonmini/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/nintendopokemonmini/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/nintendopokemonmini/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/nintendopokemonmini/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendosatellaview",
+      "wikidata_platform": "Q1193565",
+      "register_cohort": "v5",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v5.json",
+      "source_rows": {
+        "text": 12,
+        "localized": 42,
+        "credits": 14,
+        "relations": 22
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v5/nintendosatellaview/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/nintendosatellaview/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/nintendosatellaview/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/nintendosatellaview/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendosufamiturbo",
+      "wikidata_platform": "Q7200192",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/nintendosufamiturbo/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/nintendosufamiturbo/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/nintendosufamiturbo/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/nintendosufamiturbo/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "nintendovirtualboy",
+      "wikidata_platform": "Q164651",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 29,
+        "localized": 220,
+        "credits": 68,
+        "relations": 59
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/nintendovirtualboy/manifest.json",
+        "credits": "data/wikidata/properties-v1/nintendovirtualboy/manifest.json",
+        "relations": "data/wikidata/relations-v1/nintendovirtualboy/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendowiidigital",
+      "wikidata_platform": "Q8079",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 4888,
+        "localized": 12272,
+        "credits": 5361,
+        "relations": 10109
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/nintendowiidigital/manifest.json",
+        "credits": "data/wikidata/properties-v1/nintendowiidigital/manifest.json",
+        "relations": "data/wikidata/relations-v1/nintendowiidigital/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "nintendowiiudigital",
+      "wikidata_platform": "Q56942",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 1898,
+        "localized": 7262,
+        "credits": 2564,
+        "relations": 8029
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/nintendowiiudigital/manifest.json",
+        "credits": "data/wikidata/properties-v1/nintendowiiudigital/manifest.json",
+        "relations": "data/wikidata/relations-v1/nintendowiiudigital/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "philipsvideopac",
+      "wikidata_platform": "Q7185533",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 1,
+        "localized": 10,
+        "credits": 4,
+        "relations": 5
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/philipsvideopac/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/philipsvideopac/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/philipsvideopac/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/philipsvideopac/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "rcastudioii",
+      "wikidata_platform": "Q1143954",
+      "register_cohort": "v7",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v7.json",
+      "source_rows": {
+        "text": 1,
+        "localized": 2,
+        "credits": 3,
+        "relations": 2
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v7/rcastudioii/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/rcastudioii/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/rcastudioii/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/rcastudioii/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "sega32x",
+      "wikidata_platform": "Q1063978",
+      "register_cohort": "v3",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v3.json",
+      "source_rows": {
+        "text": 98,
+        "localized": 401,
+        "credits": 133,
+        "relations": 191
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v3/sega32x/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/sega32x/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/sega32x/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/sega32x/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "segabeena",
+      "wikidata_platform": "Q4686254",
+      "register_cohort": "v7",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v7.json",
+      "source_rows": {
+        "text": 2,
+        "localized": 7,
+        "credits": 5,
+        "relations": 3
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v7/segabeena/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/segabeena/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/segabeena/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/segabeena/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "segapico",
+      "wikidata_platform": "Q1374482",
+      "register_cohort": "v5",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v5.json",
+      "source_rows": {
+        "text": 6,
+        "localized": 21,
+        "credits": 13,
+        "relations": 13
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v5/segapico/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/segapico/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/segapico/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/segapico/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "segasg1000",
+      "wikidata_platform": "Q1136956",
+      "register_cohort": "v3",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v3.json",
+      "source_rows": {
+        "text": 88,
+        "localized": 394,
+        "credits": 140,
+        "relations": 157
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v3/segasg1000/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/segasg1000/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/segasg1000/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/segasg1000/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "sms",
+      "wikidata_platform": "Q209868",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 448,
+        "localized": 2172,
+        "credits": 777,
+        "relations": 1068
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/sms/manifest.json",
+        "credits": "data/wikidata/properties-v1/sms/manifest.json",
+        "relations": "data/wikidata/relations-v1/sms/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "snes",
+      "wikidata_platform": "Q183259",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 2801,
+        "localized": 9699,
+        "credits": 3833,
+        "relations": 5129
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/snes/manifest.json",
+        "credits": "data/wikidata/properties-v1/snes/manifest.json",
+        "relations": "data/wikidata/relations-v1/snes/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "snkneogeopocket",
+      "wikidata_platform": "Q939881",
+      "register_cohort": "v3",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v3.json",
+      "source_rows": {
+        "text": 5,
+        "localized": 24,
+        "credits": 11,
+        "relations": 16
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v3/snkneogeopocket/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/snkneogeopocket/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/snkneogeopocket/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/snkneogeopocket/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "snkneogeopocketcolor",
+      "wikidata_platform": "Q1977455",
+      "register_cohort": "v3",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v3.json",
+      "source_rows": {
+        "text": 45,
+        "localized": 237,
+        "credits": 87,
+        "relations": 142
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v3/snkneogeopocketcolor/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/snkneogeopocketcolor/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/snkneogeopocketcolor/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/snkneogeopocketcolor/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "sonyplaystation3psn",
+      "wikidata_platform": "Q10683",
+      "register_cohort": "baseline",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-v1.json",
+      "source_rows": {
+        "text": 3655,
+        "localized": 20066,
+        "credits": 6816,
+        "relations": 18116
+      },
+      "source_manifests": {
+        "text": "data/wikidata/v1/manifest.json",
+        "localized": "data/wikidata/localized-titles-v1/sonyplaystation3psn/manifest.json",
+        "credits": "data/wikidata/properties-v1/sonyplaystation3psn/manifest.json",
+        "relations": "data/wikidata/relations-v1/sonyplaystation3psn/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "sonyplaystationportable",
+      "wikidata_platform": "Q170325",
+      "register_cohort": "v1",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v1.json",
+      "source_rows": {
+        "text": 2088,
+        "localized": 11351,
+        "credits": 3811,
+        "relations": 7128
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v1/sonyplaystationportable/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/sonyplaystationportable/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/sonyplaystationportable/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/sonyplaystationportable/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "sonyplaystationvita",
+      "wikidata_platform": "Q188808",
+      "register_cohort": "v1",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v1.json",
+      "source_rows": {
+        "text": 1699,
+        "localized": 6967,
+        "credits": 3071,
+        "relations": 7830
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v1/sonyplaystationvita/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v1/sonyplaystationvita/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v1/sonyplaystationvita/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v1/sonyplaystationvita/manifest.json"
+      },
+      "empty_source_families": [],
+      "all_four_families_empty": false
+    },
+    {
+      "platform": "tigergamecom",
+      "wikidata_platform": "Q2498396",
+      "register_cohort": "v6",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v6.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v6/tigergamecom/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/tigergamecom/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/tigergamecom/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/tigergamecom/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "vtechcreativision",
+      "wikidata_platform": "Q2502670",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/vtechcreativision/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/vtechcreativision/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/vtechcreativision/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/vtechcreativision/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "vtechvsmile",
+      "wikidata_platform": "Q1055215",
+      "register_cohort": "v8",
+      "scope_status": "provisional-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v8.json",
+      "source_rows": {
+        "text": 0,
+        "localized": 0,
+        "credits": 0,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v8/vtechvsmile/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v3/vtechvsmile/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v3/vtechvsmile/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v3/vtechvsmile/manifest.json"
+      },
+      "empty_source_families": [
+        "text",
+        "localized",
+        "credits",
+        "relations"
+      ],
+      "all_four_families_empty": true
+    },
+    {
+      "platform": "watarasupervision",
+      "wikidata_platform": "Q732683",
+      "register_cohort": "v5",
+      "scope_status": "registered-provider-query-target",
+      "source_register": "sources/wikidata-platform-expansion-v5.json",
+      "source_rows": {
+        "text": 1,
+        "localized": 1,
+        "credits": 1,
+        "relations": 0
+      },
+      "source_manifests": {
+        "text": "data/wikidata/platform-expansion-v5/watarasupervision/manifest.json",
+        "localized": "data/wikidata/expanded-localized-v2/watarasupervision/manifest.json",
+        "credits": "data/wikidata/expanded-credits-v2/watarasupervision/manifest.json",
+        "relations": "data/wikidata/expanded-relations-v2/watarasupervision/manifest.json"
+      },
+      "empty_source_families": [
+        "relations"
+      ],
+      "all_four_families_empty": false
+    }
+  ],
+  "unregistered_collections": [
+    {
+      "platform": "benessepocketchallengev2",
+      "source_label": "Benesse - Pocket Challenge V2",
+      "review_class": "unregistered-platform-or-accessory",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "leapfrogleappad",
+      "source_label": "LeapFrog - LeapPad",
+      "review_class": "unregistered-platform-or-accessory",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "microsoftxbox360digital",
+      "source_label": "Microsoft - Xbox 360 (Digital)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "microsoftxbox360gamesondemand",
+      "source_label": "Microsoft - XBOX 360 (Games on Demand)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "nintendonewnintendo3dsdigital",
+      "source_label": "Nintendo - New Nintendo 3DS (Digital)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "nintendonintendo3dsdigital",
+      "source_label": "Nintendo - Nintendo 3DS (Digital)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "nintendonintendodsdownloadplay",
+      "source_label": "Nintendo - Nintendo DS (Download Play)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "sonyplaystationportablepsn",
+      "source_label": "Sony - PlayStation Portable (PSN)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "sonyplaystationportablepsx2psp",
+      "source_label": "Sony - PlayStation Portable (PSX2PSP)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    },
+    {
+      "platform": "sonyplaystationvitapsn",
+      "source_label": "Sony - PlayStation Vita (PSN)",
+      "review_class": "distribution-partition",
+      "coverage_status": "no-independent-P400-register"
+    }
+  ],
+  "interpretation": "Counts represent original attributed source rows within separate P400 query scopes, not unique games or releases, adjudicated associations, or completeness of any source. Zero-row queries are scoped provider noncoverage and are not evidence that a platform has no games."
+}
