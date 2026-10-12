@@ -1030,18 +1030,20 @@ def verify(conn, root):
         raise ValueError("derived local MAME index failed SQLite integrity check")
     if conn.execute("PRAGMA foreign_key_check").fetchone() is not None:
         raise ValueError("derived local MAME index has broken source-ordinal references")
+    with_v4 = include_v4_database(conn)
+    expected_scope = EXPECTED_V4 if with_v4 else EXPECTED
     observed = counts(conn)
     for table, expected in (
-        ("provenance", 97),
-        ("source_lists", EXPECTED["source_lists"]),
-        ("software", EXPECTED["software"]),
-        ("libretro_sources", EXPECTED["libretro_sources"]),
-        ("libretro_records", EXPECTED["libretro_records"]),
-        ("libretro_media", EXPECTED["libretro_media"]),
-        ("exact_media_links", EXPECTED["links"]),
-        ("rejected_size_conflicts", EXPECTED["conflicts"]),
-        ("title_review_candidates", EXPECTED["title_review"]),
-        ("source_review_units", EXPECTED["review_units"]),
+        ("provenance", len(inputs(root, include_v4=with_v4))),
+        ("source_lists", expected_scope["source_lists"]),
+        ("software", expected_scope["software"]),
+        ("libretro_sources", expected_scope["libretro_sources"]),
+        ("libretro_records", expected_scope["libretro_records"]),
+        ("libretro_media", expected_scope["libretro_media"]),
+        ("exact_media_links", expected_scope["links"]),
+        ("rejected_size_conflicts", expected_scope["conflicts"]),
+        ("title_review_candidates", expected_scope["title_review"]),
+        ("source_review_units", expected_scope["review_units"]),
     ):
         if observed[table] != expected:
             raise ValueError(f"derived source index count mismatch: {table}")
@@ -1054,9 +1056,12 @@ def verify(conn, root):
         "SELECT l.cohort,count(*) FROM software s "
         "JOIN source_lists l USING(source_list) GROUP BY l.cohort"
     ).fetchall())
-    if listed != {"v1": 49, "v2": 16, "v3": 4} or software_by_cohort != {
-        "v1": 31464, "v2": 1489, "v3": 166
-    }:
+    expected_lists = {"v1": 49, "v2": 16, "v3": 4}
+    expected_software = {"v1": 31464, "v2": 1489, "v3": 166}
+    if with_v4:
+        expected_lists["v4"] = 8
+        expected_software["v4"] = 373
+    if listed != expected_lists or software_by_cohort != expected_software:
         raise ValueError("original MAME source cohort provenance changed")
     for table, mame_column, expected_v3 in (
         ("exact_media_links", "mame_list", 127),
@@ -1071,17 +1076,39 @@ def verify(conn, root):
         if rows != expected_v3:
             raise ValueError(f"third-cohort derived evidence inventory changed: {table}")
     if (
-        conn.execute("SELECT count(*) FROM exact_media_links WHERE source_ordinal>?",
-                     (BASELINE["links"],)).fetchone()[0] != 127
+        conn.execute(
+            "SELECT count(*) FROM exact_media_links WHERE source_ordinal>? "
+            "AND source_ordinal<=?",
+            (BASELINE["links"], EXPECTED["links"]),
+        ).fetchone()[0] != 127
         or conn.execute("SELECT count(*) FROM title_review_candidates WHERE source_ordinal>?",
                         (BASELINE["title_review"],)).fetchone()[0] != 8
     ):
         raise ValueError("original third-cohort evidence ordinals drifted")
+    for table, expected_rows in (
+        ("exact_media_links", 70 if with_v4 else 0),
+        ("source_review_units", 70 if with_v4 else 0),
+        ("title_review_candidates", 0),
+    ):
+        n = conn.execute(
+            f"SELECT count(*) FROM {table} e "
+            "JOIN source_lists l ON e.mame_list=l.source_list "
+            "WHERE l.cohort='v4'"
+        ).fetchone()[0]
+        if n != expected_rows:
+            raise ValueError(f"fourth-cohort source evidence inventory drifted: {table}")
+    if conn.execute(
+        "SELECT count(*) FROM exact_media_links WHERE source_ordinal>?",
+        (EXPECTED["links"],),
+    ).fetchone()[0] != (70 if with_v4 else 0):
+        raise ValueError("original fourth-cohort media candidate ordinals changed")
     registered = {
         path: (digest, size) for path, digest, size in
         conn.execute("SELECT source_path,original_sha256,source_bytes FROM provenance")
     }
-    if set(registered) != {str(path) for path in inputs(root)}:
+    if set(registered) != {
+        str(path) for path in inputs(root, include_v4=with_v4)
+    }:
         raise ValueError("unexpected original source inventory in derived database")
     for name, (digest, size) in registered.items():
         if (digest, size) != source_digest(root, Path(name)):
@@ -1252,8 +1279,8 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
         })
     return {
         "source_mode": "local-derived-read-only-attributed-mame-source-index",
-        "source_software_entries": EXPECTED["software"],
-        "independent_mame_source_lists": EXPECTED["source_lists"],
+        "source_software_entries": expected_database_counts(conn)["software"],
+        "independent_mame_source_lists": expected_database_counts(conn)["source_lists"],
         "total_filtered_source_observations": total,
         "returned_source_observations": len(hits),
         "offset": offset,
@@ -1466,7 +1493,7 @@ def query_review(conn, *, review_id=None, source_list=None, platform=None,
         returned.append(unit)
     return {
         "source_mode": "disposable-local-stable-source-review-task-index",
-        "total_pinned_source_review_units": EXPECTED["review_units"],
+        "total_pinned_source_review_units": expected_database_counts(conn)["review_units"],
         "total_filtered_review_units": total,
         "returned_review_units": len(returned),
         "offset": offset,
