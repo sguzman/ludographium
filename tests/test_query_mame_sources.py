@@ -113,6 +113,37 @@ class MameQueryTests(unittest.TestCase):
             with self.subTest(offset=offset), self.assertRaises(ValueError):
                 source_query(ROOT, offset=offset)
 
+    def test_fifth_cohort_expands_83_list_query_without_reordering_77_list(self):
+        fifth = source_query(ROOT, cohort="v5", limit=4)
+        self.assertEqual(fifth["original_source_lists"], 6)
+        self.assertEqual(fifth["source_software_entries"], 1652)
+        self.assertEqual(fifth["total_filtered_original_records"], 1652)
+        self.assertEqual(fifth["records"][0]["source_list"], "3do_m2")
+        self.assertEqual(fifth["records"][3]["source_list"], "cdi")
+        neo = source_query(ROOT, cohort="v5", source_list="neogeo", limit=2)
+        self.assertEqual(neo["total_filtered_original_records"], 307)
+        self.assertTrue(all(
+            row["source_list"] == "neogeo" and row["original_xml_sha256"]
+            for row in neo["records"]
+        ))
+        joined = source_query(ROOT, cohort="all-registered", offset=33490, limit=4)
+        self.assertEqual(joined["original_source_lists"], 83)
+        self.assertEqual(joined["source_software_entries"], 35144)
+        self.assertEqual(joined["total_filtered_original_records"], 35144)
+        self.assertEqual(joined["next_offset"], 33494)
+        self.assertEqual(joined["source_query_cohort"], "all-registered")
+        self.assertEqual(len(joined["all_original_source_registers"]), 5)
+        self.assertEqual(
+            [row["source_list"] for row in joined["records"]],
+            ["svision", "svision", "3do_m2", "3do_m2"],
+        )
+        original = source_query(ROOT, cohort="all-pinned", offset=33490, limit=4)
+        self.assertEqual(original["source_software_entries"], 33492)
+        self.assertEqual(original["returned_original_records"], 2)
+        self.assertIsNone(original["next_offset"])
+        with self.assertRaises(ValueError):
+            source_query(ROOT, cohort="v5", without_review_leads=True)
+
     def test_fourth_cohort_source_records_and_full_77_list_paging(self):
         fourth = source_query(ROOT, cohort="v4", limit=2)
         self.assertEqual(fourth["original_source_lists"], 8)
