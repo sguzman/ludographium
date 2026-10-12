@@ -15,6 +15,7 @@ from import_dat import import_dat
 from query_source_review_units import (
     validate as validate_review_units,
     validate_v3 as validate_v3_review_units,
+    validate_v4 as validate_v4_review_units,
 )
 
 ORIGINAL_GAP_REPORT = "reports/libretro-source-review-acquisition-gaps-v1.json"
@@ -32,7 +33,7 @@ def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
         raise ValueError("source result limit must be 1..200")
     if type(offset) is not int or not 0 <= offset <= 1_000_000:
         raise ValueError("source result offset must be 0..1000000")
-    if review_cohort not in ("baseline", "combined"):
+    if review_cohort not in ("baseline", "combined", "all-pinned"):
         raise ValueError("review evidence cohort must be baseline or combined")
     if review_cohort != "baseline" and not without_review_leads:
         raise ValueError("combined review cohort requires --without-review-leads")
@@ -73,11 +74,18 @@ def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
             (target["platform"], target["original_source_ordinal"])
             for unit in units for target in unit["candidate_libretro_targets"]
         }
-        if review_cohort == "combined":
+        if review_cohort in ("combined", "all-pinned"):
             _, additive_units, _ = validate_v3_review_units(root)
             excluded.update(
                 (target["platform"], target["original_source_ordinal"])
                 for unit in additive_units
+                for target in unit["candidate_libretro_targets"]
+            )
+        if review_cohort == "all-pinned":
+            _, fourth_units, _ = validate_v4_review_units(root)
+            excluded.update(
+                (target["platform"], target["original_source_ordinal"])
+                for unit in fourth_units
                 for target in unit["candidate_libretro_targets"]
             )
     returned = []
@@ -141,6 +149,7 @@ def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
         ),
         "without_review_leads": without_review_leads,
         "review_evidence_cohorts": (
+            ["baseline", "v3", "v4"] if review_cohort == "all-pinned" else
             ["baseline", "v3"] if review_cohort == "combined" else ["baseline"]
         ),
         "records": returned,
@@ -160,7 +169,7 @@ def main():
     parser.add_argument("--serial")
     parser.add_argument("--sha1")
     parser.add_argument("--without-review-leads", action="store_true")
-    parser.add_argument("--review-cohort", choices=("baseline", "combined"),
+    parser.add_argument("--review-cohort", choices=("baseline", "combined", "all-pinned"),
                         default="baseline")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--offset", type=int, default=0,
