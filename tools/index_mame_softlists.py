@@ -8,14 +8,18 @@ import xml.etree.ElementTree as ET
 
 from acquire_mame_softlists import (
     BASE as ORIGINAL_BASE,
+    BASE_V2 as ORIGINAL_BASE_V2,
     ROOT,
     REPORT as ORIGINAL_REPORT,
+    REPORT_V2 as ORIGINAL_REPORT_V2,
     source_register,
     verify_one,
 )
 
 INDEX_BASE = Path("data/mame/software-observations-v1")
 SUMMARY = Path("reports/mame-software-observations-v1-summary.json")
+INDEX_BASE_V2 = Path("data/mame/software-observations-v2")
+SUMMARY_V2 = Path("reports/mame-software-observations-v2-summary.json")
 FIELDS = ("software_entries", "rom_sha1_claims", "disk_sha1_claims",
           "entries_with_year", "entries_with_publisher", "entries_with_serial")
 
@@ -72,8 +76,10 @@ def original_claims(xml, listname, source_sha, original_relative):
     return claims
 
 
-def index_one(root, filename, raw_stats):
-    base = ORIGINAL_BASE / filename.removesuffix(".xml")
+def index_one(root, filename, raw_stats, cohort="v1"):
+    source_base = ORIGINAL_BASE if cohort == "v1" else ORIGINAL_BASE_V2
+    index_base = INDEX_BASE if cohort == "v1" else INDEX_BASE_V2
+    base = source_base / filename.removesuffix(".xml")
     original = (root / base / filename).read_bytes()
     claims = original_claims(
         original,
@@ -113,7 +119,7 @@ def index_one(root, filename, raw_stats):
         if rows[here] != raw_stats[source]:
             raise ValueError(f"original MAME {here} count differs: {filename}")
     payload = ("\n".join(compact(claim) for claim in claims) + "\n").encode("utf-8")
-    indexdir = INDEX_BASE / filename.removesuffix(".xml")
+    indexdir = index_base / filename.removesuffix(".xml")
     manifest = {
         "schema_version": 1,
         "source": "MAME",
@@ -132,23 +138,29 @@ def index_one(root, filename, raw_stats):
     return indexdir, manifest, payload
 
 
-def build_expected(root=ROOT):
-    register = source_register(root)
+def build_expected(root=ROOT, cohort="v1"):
+    register = source_register(root, cohort)
     manifests = []
     totals = {field: 0 for field in FIELDS}
     for filename in register["files"]:
         source = verify_one(root, register, filename)
-        indexdir, index, payload = index_one(root, filename, source)
+        indexdir, index, payload = index_one(root, filename, source, cohort)
         manifests.append((indexdir, index, payload))
         for field in FIELDS:
             totals[field] += index["source_observation_counts"][field]
-    if len(manifests) != 49 or totals["software_entries"] != 31464:
+    if (
+        len(manifests) != (49 if cohort == "v1" else 16)
+        or (cohort == "v1" and totals["software_entries"] != 31464)
+        or (cohort == "v2" and totals["software_entries"] == 0)
+    ):
         raise ValueError("incomplete original MAME source index")
     summary = {
         "schema_version": 1,
         "kind": "independent-cc0-mame-software-entry-projection",
-        "source_register": "sources/mame-softlists-v1.json",
-        "original_capture_summary": str(ORIGINAL_REPORT),
+        "source_register": f"sources/mame-softlists-{cohort}.json",
+        "original_capture_summary": str(
+            ORIGINAL_REPORT if cohort == "v1" else ORIGINAL_REPORT_V2
+        ),
         "indexed_source_partitions": len(manifests),
         "source_observation_totals": totals,
         "partitions": [
@@ -172,8 +184,9 @@ def main():
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--build", action="store_true")
     mode.add_argument("--check", action="store_true")
+    parser.add_argument("--cohort", choices=["v1", "v2"], default="v1")
     args = parser.parse_args()
-    manifests, summary = build_expected()
+    manifests, summary = build_expected(cohort=args.cohort)
     report = json.dumps(summary, ensure_ascii=False, indent=2) + "\n"
     for folder, manifest, payload in manifests:
         manifest_text = json.dumps(manifest, ensure_ascii=False, indent=2) + "\n"
@@ -192,7 +205,7 @@ def main():
             or manifest_path.read_text(encoding="utf-8") != manifest_text
         ):
             parser.error(f"stale or missing original source index: {folder}")
-    destination = ROOT / SUMMARY
+    destination = ROOT / (SUMMARY if args.cohort == "v1" else SUMMARY_V2)
     if args.build:
         destination.write_text(report, encoding="utf-8")
     elif (

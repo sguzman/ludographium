@@ -1,0 +1,57 @@
+name: Index second CC0 MAME software-list source wave
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/index-mame-softlists-v2.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: index-mame-softlists-v2-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify first 49 source projections and all new original CC0 XML files
+        run: |
+          python tools/index_mame_softlists.py --cohort v1 --check
+          python tools/acquire_mame_softlists.py --cohort v2 --check
+      - name: Bulk-project all sixteen additional XML source records
+        run: |
+          python tools/index_mame_softlists.py --cohort v2 --build
+          python tools/index_mame_softlists.py --cohort v2 --check
+          test "$(find data/mame/software-observations-v2 -name manifest.json | wc -l)" -eq 16
+      - name: Pin unjoined original software entries with source fingerprints
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/mame/software-observations-v2 reports/mame-software-observations-v2-summary.json
+          if git diff --cached --quiet; then
+            echo "Second MAME software projection already verified"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin additional source-faithful software-entry observations'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Unable to pin independent second-cohort source projection" >&2
+          exit 1

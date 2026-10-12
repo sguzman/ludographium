@@ -55,7 +55,15 @@ verifies the original 49 lists remain intact before capturing Neo Geo Pocket
 and Color, WonderSwan and Color, Pokémon Mini, SG-1000, Pico, PV-1000,
 Super A'Can, Videopac, Studio II and other dedicated-console source sets.
 Every source retains its own manifest, original bytes and CC0 header.
-These new sources are **not** automatically game-identity joins.
+These new sources are **not** automatically game-identity joins. The
+[second source-yield report](reports/mame-softlists-v2-summary.json) verifies
+**1,489 additional original software entries** with 1,543 ROM SHA-1 and
+two disk SHA-1 assertions.
+
+The [second software-observation projection workflow](.github/workflows/index-mame-softlists-v2.yml)
+builds an additional verified, read-only JSONL index with exact source titles,
+publisher/year literals, serials, original XML checksums, and media attributes,
+without modifying the first 31,464-entry index.
 
 ### Cross-source media SHA-1 correspondence
 
