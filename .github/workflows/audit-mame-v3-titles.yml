@@ -1,0 +1,56 @@
+name: Pin additive third-MAME-cohort conservative title review
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-mame-v3-titles.yml
+      - tools/reconcile_mame_v3_titles.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: additive-mame-v3-titles-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify independent third-cohort media source evidence
+        run: |
+          python tools/reconcile_mame_v3_media.py --check
+          python -m unittest discover -s tests -p test_mame_v3_title_review.py -v
+      - name: Build isolated title-review leads for the four additional MAME lists
+        run: |
+          python tools/reconcile_mame_v3_titles.py --write
+          python tools/reconcile_mame_v3_titles.py --check
+      - name: Commit only review leads and original source-evidence report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/mame-libretro-title-review-v3/candidates.jsonl reports/mame-libretro-title-review-v3-summary.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin isolated third-cohort MAME exact-title review leads'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Unable to pin original third-cohort title evidence" >&2
+          exit 1
