@@ -1,0 +1,1396 @@
+{
+  "schema_version": 1,
+  "kind": "original-source-name-variance-on-exact-media-sha1-evidence",
+  "input_source_report": "reports/mame-libretro-media-sha1-v1-summary.json",
+  "input_media_sha1_index": "data/reconciliation/mame-libretro-sha1-v1/links.jsonl",
+  "input_media_sha1_index_sha256": "7665360bfe8ef4bd65012206a4b4a6c27450f7f4cfe30a02d0caec151940373f",
+  "input_media_sha1_evidence_rows": 19025,
+  "source_name_classes": {
+    "different-normalized-titles": 9341,
+    "equal-after-conservative-normalization": 3729,
+    "exact-original-title": 5923,
+    "one-title-contained-in-another": 32
+  },
+  "equal_original_or_normalized_title_rows": 9652,
+  "display_name_variance_rows": 9373,
+  "variance_evidence_path": "data/reconciliation/mame-libretro-title-variance-v1/differences.jsonl",
+  "variance_evidence_sha256": "aaba646c9c87771bce68fd5a6d78b37cdaf5f959037b172121f916af104aaf2d",
+  "variance_evidence_bytes": 7296825,
+  "source_scope_pair_statistics": [
+    {
+      "mame_list": "32x",
+      "libretro_platform": "sega32x",
+      "evidence_rows": 199,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 162,
+        "equal-after-conservative-normalization": 12,
+        "exact-original-title": 20,
+        "one-title-contained-in-another": 5
+      }
+    },
+    {
+      "mame_list": "a2600",
+      "libretro_platform": "atari2600",
+      "evidence_rows": 778,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 417,
+        "equal-after-conservative-normalization": 360,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "mame_list": "a7800",
+      "libretro_platform": "atari7800",
+      "evidence_rows": 113,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 110,
+        "equal-after-conservative-normalization": 3
+      }
+    },
+    {
+      "mame_list": "arcadia",
+      "libretro_platform": "emersonarcadia2001",
+      "evidence_rows": 40,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 36
+      }
+    },
+    {
+      "mame_list": "channelf",
+      "libretro_platform": "fairchildchannelf",
+      "evidence_rows": 34,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 15,
+        "equal-after-conservative-normalization": 17,
+        "exact-original-title": 2
+      }
+    },
+    {
+      "mame_list": "coleco",
+      "libretro_platform": "colecocolecovision",
+      "evidence_rows": 19,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 11
+      }
+    },
+    {
+      "mame_list": "database",
+      "libretro_platform": "intertonvc4000",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 5
+      }
+    },
+    {
+      "mame_list": "famicom_flop",
+      "libretro_platform": "nintendofamilycomputerdisksystem",
+      "evidence_rows": 93,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 34,
+        "equal-after-conservative-normalization": 59
+      }
+    },
+    {
+      "mame_list": "gameboy",
+      "libretro_platform": "gb",
+      "evidence_rows": 1714,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 783,
+        "equal-after-conservative-normalization": 327,
+        "exact-original-title": 604
+      }
+    },
+    {
+      "mame_list": "gamecom",
+      "libretro_platform": "tigergamecom",
+      "evidence_rows": 23,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 19
+      }
+    },
+    {
+      "mame_list": "gamegear",
+      "libretro_platform": "gg",
+      "evidence_rows": 780,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 466,
+        "equal-after-conservative-normalization": 147,
+        "exact-original-title": 167
+      }
+    },
+    {
+      "mame_list": "gamegear",
+      "libretro_platform": "sms",
+      "evidence_rows": 28,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 28
+      }
+    },
+    {
+      "mame_list": "gba",
+      "libretro_platform": "gba",
+      "evidence_rows": 2883,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 914,
+        "equal-after-conservative-normalization": 684,
+        "exact-original-title": 1277,
+        "one-title-contained-in-another": 8
+      }
+    },
+    {
+      "mame_list": "gba_ereader",
+      "libretro_platform": "nintendoereader",
+      "evidence_rows": 537,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 410,
+        "exact-original-title": 127
+      }
+    },
+    {
+      "mame_list": "gbcolor",
+      "libretro_platform": "gbc",
+      "evidence_rows": 1645,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 939,
+        "equal-after-conservative-normalization": 297,
+        "exact-original-title": 408,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "mame_list": "gmaster",
+      "libretro_platform": "hartunggamemaster",
+      "evidence_rows": 18,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 14
+      }
+    },
+    {
+      "mame_list": "gp32",
+      "libretro_platform": "gameparkgp32",
+      "evidence_rows": 28,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 14,
+        "equal-after-conservative-normalization": 1,
+        "exact-original-title": 13
+      }
+    },
+    {
+      "mame_list": "intv",
+      "libretro_platform": "mattelintellivision",
+      "evidence_rows": 123,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 48,
+        "equal-after-conservative-normalization": 75
+      }
+    },
+    {
+      "mame_list": "jaguar",
+      "libretro_platform": "atarijaguar",
+      "evidence_rows": 85,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 33,
+        "equal-after-conservative-normalization": 52
+      }
+    },
+    {
+      "mame_list": "leapfrog_leappad_cart",
+      "libretro_platform": "leapfrogleappad",
+      "evidence_rows": 1,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1
+      }
+    },
+    {
+      "mame_list": "leapster",
+      "libretro_platform": "leapfrogleapsterlearninggamesystem",
+      "evidence_rows": 98,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 47,
+        "equal-after-conservative-normalization": 13,
+        "exact-original-title": 38
+      }
+    },
+    {
+      "mame_list": "lynx",
+      "libretro_platform": "atarilynx",
+      "evidence_rows": 106,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 36,
+        "equal-after-conservative-normalization": 70
+      }
+    },
+    {
+      "mame_list": "megadriv",
+      "libretro_platform": "genesis",
+      "evidence_rows": 2426,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1410,
+        "equal-after-conservative-normalization": 389,
+        "exact-original-title": 621,
+        "one-title-contained-in-another": 6
+      }
+    },
+    {
+      "mame_list": "n64",
+      "libretro_platform": "n64",
+      "evidence_rows": 27,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 27
+      }
+    },
+    {
+      "mame_list": "nds",
+      "libretro_platform": "nds",
+      "evidence_rows": 10,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 6,
+        "equal-after-conservative-normalization": 3,
+        "exact-original-title": 1
+      }
+    },
+    {
+      "mame_list": "nes",
+      "libretro_platform": "nes",
+      "evidence_rows": 943,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 518,
+        "equal-after-conservative-normalization": 47,
+        "exact-original-title": 378
+      }
+    },
+    {
+      "mame_list": "nes_datach",
+      "libretro_platform": "nes",
+      "evidence_rows": 7,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 7
+      }
+    },
+    {
+      "mame_list": "ngp",
+      "libretro_platform": "snkneogeopocket",
+      "evidence_rows": 6,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "exact-original-title": 2
+      }
+    },
+    {
+      "mame_list": "ngpc",
+      "libretro_platform": "snkneogeopocketcolor",
+      "evidence_rows": 68,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 38,
+        "equal-after-conservative-normalization": 12,
+        "exact-original-title": 18
+      }
+    },
+    {
+      "mame_list": "pce",
+      "libretro_platform": "necpcengineturbografx16",
+      "evidence_rows": 302,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 94,
+        "equal-after-conservative-normalization": 208
+      }
+    },
+    {
+      "mame_list": "pce_tourvision",
+      "libretro_platform": "necpcengineturbografx16",
+      "evidence_rows": 114,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 114
+      }
+    },
+    {
+      "mame_list": "picno",
+      "libretro_platform": "konamipicno",
+      "evidence_rows": 20,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "mame_list": "pico",
+      "libretro_platform": "segapico",
+      "evidence_rows": 428,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 305,
+        "equal-after-conservative-normalization": 11,
+        "exact-original-title": 112
+      }
+    },
+    {
+      "mame_list": "pockchalv2",
+      "libretro_platform": "benessepocketchallengev2",
+      "evidence_rows": 18,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 18
+      }
+    },
+    {
+      "mame_list": "pokemini",
+      "libretro_platform": "nintendopokemonmini",
+      "evidence_rows": 40,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 40
+      }
+    },
+    {
+      "mame_list": "pv1000",
+      "libretro_platform": "casiopv1000",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "mame_list": "scv",
+      "libretro_platform": "epochsupercassettevision",
+      "evidence_rows": 32,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 7,
+        "equal-after-conservative-normalization": 25
+      }
+    },
+    {
+      "mame_list": "sega_beena_cart",
+      "libretro_platform": "segabeena",
+      "evidence_rows": 58,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 33,
+        "equal-after-conservative-normalization": 25
+      }
+    },
+    {
+      "mame_list": "sg1000",
+      "libretro_platform": "segasg1000",
+      "evidence_rows": 204,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 122,
+        "equal-after-conservative-normalization": 15,
+        "exact-original-title": 66,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "mame_list": "sms",
+      "libretro_platform": "genesis",
+      "evidence_rows": 1,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1
+      }
+    },
+    {
+      "mame_list": "sms",
+      "libretro_platform": "sms",
+      "evidence_rows": 616,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 276,
+        "equal-after-conservative-normalization": 252,
+        "exact-original-title": 88
+      }
+    },
+    {
+      "mame_list": "snes",
+      "libretro_platform": "snes",
+      "evidence_rows": 3213,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1107,
+        "equal-after-conservative-normalization": 235,
+        "exact-original-title": 1871
+      }
+    },
+    {
+      "mame_list": "snes_bspack",
+      "libretro_platform": "nintendosatellaview",
+      "evidence_rows": 184,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 167,
+        "equal-after-conservative-normalization": 17
+      }
+    },
+    {
+      "mame_list": "snes_strom",
+      "libretro_platform": "nintendosufamiturbo",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "mame_list": "studio2",
+      "libretro_platform": "rcastudioii",
+      "evidence_rows": 15,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 15
+      }
+    },
+    {
+      "mame_list": "supracan",
+      "libretro_platform": "funtechsuperacan",
+      "evidence_rows": 12,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 2,
+        "one-title-contained-in-another": 10
+      }
+    },
+    {
+      "mame_list": "vboy",
+      "libretro_platform": "nintendovirtualboy",
+      "evidence_rows": 31,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 5,
+        "equal-after-conservative-normalization": 6,
+        "exact-original-title": 20
+      }
+    },
+    {
+      "mame_list": "vc4000",
+      "libretro_platform": "intertonvc4000",
+      "evidence_rows": 37,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 31,
+        "equal-after-conservative-normalization": 6
+      }
+    },
+    {
+      "mame_list": "vectrex",
+      "libretro_platform": "gcevectrex",
+      "evidence_rows": 42,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 23,
+        "equal-after-conservative-normalization": 19
+      }
+    },
+    {
+      "mame_list": "videopac",
+      "libretro_platform": "magnavoxodyssey2",
+      "evidence_rows": 130,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 90,
+        "equal-after-conservative-normalization": 11,
+        "exact-original-title": 29
+      }
+    },
+    {
+      "mame_list": "videopac",
+      "libretro_platform": "philipsvideopac",
+      "evidence_rows": 32,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 27,
+        "exact-original-title": 5
+      }
+    },
+    {
+      "mame_list": "vsmile_cart",
+      "libretro_platform": "vtechvsmile",
+      "evidence_rows": 293,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 223,
+        "equal-after-conservative-normalization": 14,
+        "exact-original-title": 56
+      }
+    },
+    {
+      "mame_list": "vsmileb_cart",
+      "libretro_platform": "vtechvsmile",
+      "evidence_rows": 23,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 23
+      }
+    },
+    {
+      "mame_list": "vsmilem_cart",
+      "libretro_platform": "vtechvsmile",
+      "evidence_rows": 87,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 87
+      }
+    },
+    {
+      "mame_list": "wscolor",
+      "libretro_platform": "bandaiwonderswancolor",
+      "evidence_rows": 100,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 10,
+        "equal-after-conservative-normalization": 90
+      }
+    },
+    {
+      "mame_list": "wswan",
+      "libretro_platform": "bandaiwonderswan",
+      "evidence_rows": 122,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 16,
+        "equal-after-conservative-normalization": 106
+      }
+    }
+  ],
+  "mame_source_list_statistics": [
+    {
+      "mame_list": "32x",
+      "evidence_rows": 199,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 162,
+        "equal-after-conservative-normalization": 12,
+        "exact-original-title": 20,
+        "one-title-contained-in-another": 5
+      }
+    },
+    {
+      "mame_list": "a2600",
+      "evidence_rows": 778,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 417,
+        "equal-after-conservative-normalization": 360,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "mame_list": "a7800",
+      "evidence_rows": 113,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 110,
+        "equal-after-conservative-normalization": 3
+      }
+    },
+    {
+      "mame_list": "arcadia",
+      "evidence_rows": 40,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 36
+      }
+    },
+    {
+      "mame_list": "channelf",
+      "evidence_rows": 34,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 15,
+        "equal-after-conservative-normalization": 17,
+        "exact-original-title": 2
+      }
+    },
+    {
+      "mame_list": "coleco",
+      "evidence_rows": 19,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 11
+      }
+    },
+    {
+      "mame_list": "database",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 5
+      }
+    },
+    {
+      "mame_list": "famicom_flop",
+      "evidence_rows": 93,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 34,
+        "equal-after-conservative-normalization": 59
+      }
+    },
+    {
+      "mame_list": "gameboy",
+      "evidence_rows": 1714,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 783,
+        "equal-after-conservative-normalization": 327,
+        "exact-original-title": 604
+      }
+    },
+    {
+      "mame_list": "gamecom",
+      "evidence_rows": 23,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 19
+      }
+    },
+    {
+      "mame_list": "gamegear",
+      "evidence_rows": 808,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 494,
+        "equal-after-conservative-normalization": 147,
+        "exact-original-title": 167
+      }
+    },
+    {
+      "mame_list": "gba",
+      "evidence_rows": 2883,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 914,
+        "equal-after-conservative-normalization": 684,
+        "exact-original-title": 1277,
+        "one-title-contained-in-another": 8
+      }
+    },
+    {
+      "mame_list": "gba_ereader",
+      "evidence_rows": 537,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 410,
+        "exact-original-title": 127
+      }
+    },
+    {
+      "mame_list": "gbcolor",
+      "evidence_rows": 1645,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 939,
+        "equal-after-conservative-normalization": 297,
+        "exact-original-title": 408,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "mame_list": "gmaster",
+      "evidence_rows": 18,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 14
+      }
+    },
+    {
+      "mame_list": "gp32",
+      "evidence_rows": 28,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 14,
+        "equal-after-conservative-normalization": 1,
+        "exact-original-title": 13
+      }
+    },
+    {
+      "mame_list": "intv",
+      "evidence_rows": 123,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 48,
+        "equal-after-conservative-normalization": 75
+      }
+    },
+    {
+      "mame_list": "jaguar",
+      "evidence_rows": 85,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 33,
+        "equal-after-conservative-normalization": 52
+      }
+    },
+    {
+      "mame_list": "leapfrog_leappad_cart",
+      "evidence_rows": 1,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1
+      }
+    },
+    {
+      "mame_list": "leapster",
+      "evidence_rows": 98,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 47,
+        "equal-after-conservative-normalization": 13,
+        "exact-original-title": 38
+      }
+    },
+    {
+      "mame_list": "lynx",
+      "evidence_rows": 106,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 36,
+        "equal-after-conservative-normalization": 70
+      }
+    },
+    {
+      "mame_list": "megadriv",
+      "evidence_rows": 2426,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1410,
+        "equal-after-conservative-normalization": 389,
+        "exact-original-title": 621,
+        "one-title-contained-in-another": 6
+      }
+    },
+    {
+      "mame_list": "n64",
+      "evidence_rows": 27,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 27
+      }
+    },
+    {
+      "mame_list": "nds",
+      "evidence_rows": 10,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 6,
+        "equal-after-conservative-normalization": 3,
+        "exact-original-title": 1
+      }
+    },
+    {
+      "mame_list": "nes",
+      "evidence_rows": 943,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 518,
+        "equal-after-conservative-normalization": 47,
+        "exact-original-title": 378
+      }
+    },
+    {
+      "mame_list": "nes_datach",
+      "evidence_rows": 7,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 7
+      }
+    },
+    {
+      "mame_list": "ngp",
+      "evidence_rows": 6,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "exact-original-title": 2
+      }
+    },
+    {
+      "mame_list": "ngpc",
+      "evidence_rows": 68,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 38,
+        "equal-after-conservative-normalization": 12,
+        "exact-original-title": 18
+      }
+    },
+    {
+      "mame_list": "pce",
+      "evidence_rows": 302,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 94,
+        "equal-after-conservative-normalization": 208
+      }
+    },
+    {
+      "mame_list": "pce_tourvision",
+      "evidence_rows": 114,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 114
+      }
+    },
+    {
+      "mame_list": "picno",
+      "evidence_rows": 20,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "mame_list": "pico",
+      "evidence_rows": 428,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 305,
+        "equal-after-conservative-normalization": 11,
+        "exact-original-title": 112
+      }
+    },
+    {
+      "mame_list": "pockchalv2",
+      "evidence_rows": 18,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 18
+      }
+    },
+    {
+      "mame_list": "pokemini",
+      "evidence_rows": 40,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 40
+      }
+    },
+    {
+      "mame_list": "pv1000",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "mame_list": "scv",
+      "evidence_rows": 32,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 7,
+        "equal-after-conservative-normalization": 25
+      }
+    },
+    {
+      "mame_list": "sega_beena_cart",
+      "evidence_rows": 58,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 33,
+        "equal-after-conservative-normalization": 25
+      }
+    },
+    {
+      "mame_list": "sg1000",
+      "evidence_rows": 204,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 122,
+        "equal-after-conservative-normalization": 15,
+        "exact-original-title": 66,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "mame_list": "sms",
+      "evidence_rows": 617,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 277,
+        "equal-after-conservative-normalization": 252,
+        "exact-original-title": 88
+      }
+    },
+    {
+      "mame_list": "snes",
+      "evidence_rows": 3213,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1107,
+        "equal-after-conservative-normalization": 235,
+        "exact-original-title": 1871
+      }
+    },
+    {
+      "mame_list": "snes_bspack",
+      "evidence_rows": 184,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 167,
+        "equal-after-conservative-normalization": 17
+      }
+    },
+    {
+      "mame_list": "snes_strom",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "mame_list": "studio2",
+      "evidence_rows": 15,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 15
+      }
+    },
+    {
+      "mame_list": "supracan",
+      "evidence_rows": 12,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 2,
+        "one-title-contained-in-another": 10
+      }
+    },
+    {
+      "mame_list": "vboy",
+      "evidence_rows": 31,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 5,
+        "equal-after-conservative-normalization": 6,
+        "exact-original-title": 20
+      }
+    },
+    {
+      "mame_list": "vc4000",
+      "evidence_rows": 37,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 31,
+        "equal-after-conservative-normalization": 6
+      }
+    },
+    {
+      "mame_list": "vectrex",
+      "evidence_rows": 42,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 23,
+        "equal-after-conservative-normalization": 19
+      }
+    },
+    {
+      "mame_list": "videopac",
+      "evidence_rows": 162,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 117,
+        "equal-after-conservative-normalization": 11,
+        "exact-original-title": 34
+      }
+    },
+    {
+      "mame_list": "vsmile_cart",
+      "evidence_rows": 293,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 223,
+        "equal-after-conservative-normalization": 14,
+        "exact-original-title": 56
+      }
+    },
+    {
+      "mame_list": "vsmileb_cart",
+      "evidence_rows": 23,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 23
+      }
+    },
+    {
+      "mame_list": "vsmilem_cart",
+      "evidence_rows": 87,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 87
+      }
+    },
+    {
+      "mame_list": "wscolor",
+      "evidence_rows": 100,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 10,
+        "equal-after-conservative-normalization": 90
+      }
+    },
+    {
+      "mame_list": "wswan",
+      "evidence_rows": 122,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 16,
+        "equal-after-conservative-normalization": 106
+      }
+    }
+  ],
+  "libretro_source_scope_statistics": [
+    {
+      "libretro_platform": "atari2600",
+      "evidence_rows": 778,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 417,
+        "equal-after-conservative-normalization": 360,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "libretro_platform": "atari7800",
+      "evidence_rows": 113,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 110,
+        "equal-after-conservative-normalization": 3
+      }
+    },
+    {
+      "libretro_platform": "atarijaguar",
+      "evidence_rows": 85,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 33,
+        "equal-after-conservative-normalization": 52
+      }
+    },
+    {
+      "libretro_platform": "atarilynx",
+      "evidence_rows": 106,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 36,
+        "equal-after-conservative-normalization": 70
+      }
+    },
+    {
+      "libretro_platform": "bandaiwonderswan",
+      "evidence_rows": 122,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 16,
+        "equal-after-conservative-normalization": 106
+      }
+    },
+    {
+      "libretro_platform": "bandaiwonderswancolor",
+      "evidence_rows": 100,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 10,
+        "equal-after-conservative-normalization": 90
+      }
+    },
+    {
+      "libretro_platform": "benessepocketchallengev2",
+      "evidence_rows": 18,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 18
+      }
+    },
+    {
+      "libretro_platform": "casiopv1000",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "libretro_platform": "colecocolecovision",
+      "evidence_rows": 19,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 11
+      }
+    },
+    {
+      "libretro_platform": "emersonarcadia2001",
+      "evidence_rows": 40,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 36
+      }
+    },
+    {
+      "libretro_platform": "epochsupercassettevision",
+      "evidence_rows": 32,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 7,
+        "equal-after-conservative-normalization": 25
+      }
+    },
+    {
+      "libretro_platform": "fairchildchannelf",
+      "evidence_rows": 34,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 15,
+        "equal-after-conservative-normalization": 17,
+        "exact-original-title": 2
+      }
+    },
+    {
+      "libretro_platform": "funtechsuperacan",
+      "evidence_rows": 12,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 2,
+        "one-title-contained-in-another": 10
+      }
+    },
+    {
+      "libretro_platform": "gameparkgp32",
+      "evidence_rows": 28,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 14,
+        "equal-after-conservative-normalization": 1,
+        "exact-original-title": 13
+      }
+    },
+    {
+      "libretro_platform": "gb",
+      "evidence_rows": 1714,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 783,
+        "equal-after-conservative-normalization": 327,
+        "exact-original-title": 604
+      }
+    },
+    {
+      "libretro_platform": "gba",
+      "evidence_rows": 2883,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 914,
+        "equal-after-conservative-normalization": 684,
+        "exact-original-title": 1277,
+        "one-title-contained-in-another": 8
+      }
+    },
+    {
+      "libretro_platform": "gbc",
+      "evidence_rows": 1645,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 939,
+        "equal-after-conservative-normalization": 297,
+        "exact-original-title": 408,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "libretro_platform": "gcevectrex",
+      "evidence_rows": 42,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 23,
+        "equal-after-conservative-normalization": 19
+      }
+    },
+    {
+      "libretro_platform": "genesis",
+      "evidence_rows": 2427,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1411,
+        "equal-after-conservative-normalization": 389,
+        "exact-original-title": 621,
+        "one-title-contained-in-another": 6
+      }
+    },
+    {
+      "libretro_platform": "gg",
+      "evidence_rows": 780,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 466,
+        "equal-after-conservative-normalization": 147,
+        "exact-original-title": 167
+      }
+    },
+    {
+      "libretro_platform": "hartunggamemaster",
+      "evidence_rows": 18,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 14
+      }
+    },
+    {
+      "libretro_platform": "intertonvc4000",
+      "evidence_rows": 50,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 39,
+        "equal-after-conservative-normalization": 11
+      }
+    },
+    {
+      "libretro_platform": "konamipicno",
+      "evidence_rows": 20,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 8,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "libretro_platform": "leapfrogleappad",
+      "evidence_rows": 1,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1
+      }
+    },
+    {
+      "libretro_platform": "leapfrogleapsterlearninggamesystem",
+      "evidence_rows": 98,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 47,
+        "equal-after-conservative-normalization": 13,
+        "exact-original-title": 38
+      }
+    },
+    {
+      "libretro_platform": "magnavoxodyssey2",
+      "evidence_rows": 130,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 90,
+        "equal-after-conservative-normalization": 11,
+        "exact-original-title": 29
+      }
+    },
+    {
+      "libretro_platform": "mattelintellivision",
+      "evidence_rows": 123,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 48,
+        "equal-after-conservative-normalization": 75
+      }
+    },
+    {
+      "libretro_platform": "n64",
+      "evidence_rows": 27,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 27
+      }
+    },
+    {
+      "libretro_platform": "nds",
+      "evidence_rows": 10,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 6,
+        "equal-after-conservative-normalization": 3,
+        "exact-original-title": 1
+      }
+    },
+    {
+      "libretro_platform": "necpcengineturbografx16",
+      "evidence_rows": 416,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 208,
+        "equal-after-conservative-normalization": 208
+      }
+    },
+    {
+      "libretro_platform": "nes",
+      "evidence_rows": 950,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 525,
+        "equal-after-conservative-normalization": 47,
+        "exact-original-title": 378
+      }
+    },
+    {
+      "libretro_platform": "nintendoereader",
+      "evidence_rows": 537,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 410,
+        "exact-original-title": 127
+      }
+    },
+    {
+      "libretro_platform": "nintendofamilycomputerdisksystem",
+      "evidence_rows": 93,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 34,
+        "equal-after-conservative-normalization": 59
+      }
+    },
+    {
+      "libretro_platform": "nintendopokemonmini",
+      "evidence_rows": 40,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 40
+      }
+    },
+    {
+      "libretro_platform": "nintendosatellaview",
+      "evidence_rows": 184,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 167,
+        "equal-after-conservative-normalization": 17
+      }
+    },
+    {
+      "libretro_platform": "nintendosufamiturbo",
+      "evidence_rows": 13,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1,
+        "equal-after-conservative-normalization": 12
+      }
+    },
+    {
+      "libretro_platform": "nintendovirtualboy",
+      "evidence_rows": 31,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 5,
+        "equal-after-conservative-normalization": 6,
+        "exact-original-title": 20
+      }
+    },
+    {
+      "libretro_platform": "philipsvideopac",
+      "evidence_rows": 32,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 27,
+        "exact-original-title": 5
+      }
+    },
+    {
+      "libretro_platform": "rcastudioii",
+      "evidence_rows": 15,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 15
+      }
+    },
+    {
+      "libretro_platform": "sega32x",
+      "evidence_rows": 199,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 162,
+        "equal-after-conservative-normalization": 12,
+        "exact-original-title": 20,
+        "one-title-contained-in-another": 5
+      }
+    },
+    {
+      "libretro_platform": "segabeena",
+      "evidence_rows": 58,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 33,
+        "equal-after-conservative-normalization": 25
+      }
+    },
+    {
+      "libretro_platform": "segapico",
+      "evidence_rows": 428,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 305,
+        "equal-after-conservative-normalization": 11,
+        "exact-original-title": 112
+      }
+    },
+    {
+      "libretro_platform": "segasg1000",
+      "evidence_rows": 204,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 122,
+        "equal-after-conservative-normalization": 15,
+        "exact-original-title": 66,
+        "one-title-contained-in-another": 1
+      }
+    },
+    {
+      "libretro_platform": "sms",
+      "evidence_rows": 644,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 304,
+        "equal-after-conservative-normalization": 252,
+        "exact-original-title": 88
+      }
+    },
+    {
+      "libretro_platform": "snes",
+      "evidence_rows": 3213,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 1107,
+        "equal-after-conservative-normalization": 235,
+        "exact-original-title": 1871
+      }
+    },
+    {
+      "libretro_platform": "snkneogeopocket",
+      "evidence_rows": 6,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "exact-original-title": 2
+      }
+    },
+    {
+      "libretro_platform": "snkneogeopocketcolor",
+      "evidence_rows": 68,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 38,
+        "equal-after-conservative-normalization": 12,
+        "exact-original-title": 18
+      }
+    },
+    {
+      "libretro_platform": "tigergamecom",
+      "evidence_rows": 23,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 4,
+        "equal-after-conservative-normalization": 19
+      }
+    },
+    {
+      "libretro_platform": "vtechvsmile",
+      "evidence_rows": 403,
+      "source_name_variance_counts": {
+        "different-normalized-titles": 333,
+        "equal-after-conservative-normalization": 14,
+        "exact-original-title": 56
+      }
+    }
+  ],
+  "interpretation": "Comparison of original attributed display-title literals on exact source-reported SHA1-and-byte-size media evidence. Differences can represent localization, descriptive expansions, naming conventions, edition variants or provider mistakes. Neither matching nor differing names establish, refute, merge or correct game/release identities."
+}
