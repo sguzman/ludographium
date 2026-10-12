@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-softlist-source-yield-report",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "source_register": "sources/mame-softlists-v2.json",
+  "source_license": "CC0-1.0",
+  "software_list_partitions": 16,
+  "source_observation_totals": {
+    "source_software_entries": 1489,
+    "source_rom_sha1_observations": 1543,
+    "source_disk_sha1_observations": 2,
+    "source_year_observations": 1489,
+    "source_publisher_observations": 1489
+  },
+  "partitions": [
+    {
+      "source_file": "hash/famicom_cass.xml",
+      "source_list_name": "famicom_cass",
+      "source_software_entries": 27,
+      "source_rom_sha1_observations": 50,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 27,
+      "source_publisher_observations": 27,
+      "source_manifest": "data/mame/softlists-v2/famicom_cass/manifest.json",
+      "source_sha256": "746b15d8246ddd562e48e61ba95e702688f0b2d735f37fdf187574e2b5d57691"
+    },
+    {
+      "source_file": "hash/nes_datach.xml",
+      "source_list_name": "nes_datach",
+      "source_software_entries": 7,
+      "source_rom_sha1_observations": 7,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 7,
+      "source_publisher_observations": 7,
+      "source_manifest": "data/mame/softlists-v2/nes_datach/manifest.json",
+      "source_sha256": "b672b97d8a2dc0ffbb4f6609a459ab90a24cacae5100fb33c4023430945c6080"
+    },
+    {
+      "source_file": "hash/nes_kstudio.xml",
+      "source_list_name": "nes_kstudio",
+      "source_software_entries": 2,
+      "source_rom_sha1_observations": 2,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 2,
+      "source_publisher_observations": 2,
+      "source_manifest": "data/mame/softlists-v2/nes_kstudio/manifest.json",
+      "source_sha256": "68656b2f610a9c95a4f51386732cf1c724043333d6905ddc81ea77a8b41a5877"
+    },
+    {
+      "source_file": "hash/ngp.xml",
+      "source_list_name": "ngp",
+      "source_software_entries": 10,
+      "source_rom_sha1_observations": 10,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 10,
+      "source_publisher_observations": 10,
+      "source_manifest": "data/mame/softlists-v2/ngp/manifest.json",
+      "source_sha256": "95e07ed53a540b9f96823d1862a6217f68ab98560ca051a138b4f6a4cd50a616"
+    },
+    {
+      "source_file": "hash/ngpc.xml",
+      "source_list_name": "ngpc",
+      "source_software_entries": 119,
+      "source_rom_sha1_observations": 119,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 119,
+      "source_publisher_observations": 119,
+      "source_manifest": "data/mame/softlists-v2/ngpc/manifest.json",
+      "source_sha256": "1b68a1b95b040821c6531fa995fda817287ac4e29f2ecbb38adcdf2305925faf"
+    },
+    {
+      "source_file": "hash/pce_tourvision.xml",
+      "source_list_name": "pce_tourvision",
+      "source_software_entries": 117,
+      "source_rom_sha1_observations": 117,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 117,
+      "source_publisher_observations": 117,
+      "source_manifest": "data/mame/softlists-v2/pce_tourvision/manifest.json",
+      "source_sha256": "7b7f4166a0f45a6fafec70497f05411f1d4674ca6233f1f845b5f838eb50129c"
+    },
+    {
+      "source_file": "hash/pico.xml",
+      "source_list_name": "pico",
+      "source_software_entries": 440,
+      "source_rom_sha1_observations": 455,
+      "source_disk_sha1_observations": 1,
+      "source_year_observations": 440,
+      "source_publisher_observations": 440,
+      "source_manifest": "data/mame/softlists-v2/pico/manifest.json",
+      "source_sha256": "1ef98742972a5273b1fef754caea13fd015909a8b10371854d12026f6bdae4aa"
+    },
+    {
+      "source_file": "hash/pokemini.xml",
+      "source_list_name": "pokemini",
+      "source_software_entries": 43,
+      "source_rom_sha1_observations": 43,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 43,
+      "source_publisher_observations": 43,
+      "source_manifest": "data/mame/softlists-v2/pokemini/manifest.json",
+      "source_sha256": "c5fc5222d60931013b9513db4687a97b5294fd489fd8c3ac9571f32c67e835ae"
+    },
+    {
+      "source_file": "hash/pv1000.xml",
+      "source_list_name": "pv1000",
+      "source_software_entries": 32,
+      "source_rom_sha1_observations": 32,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 32,
+      "source_publisher_observations": 32,
+      "source_manifest": "data/mame/softlists-v2/pv1000/manifest.json",
+      "source_sha256": "5ab47201f2a575067e4e0618b7afc87831daa8d731a3751c99c12c6527b88409"
+    },
+    {
+      "source_file": "hash/sg1000.xml",
+      "source_list_name": "sg1000",
+      "source_software_entries": 214,
+      "source_rom_sha1_observations": 213,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 214,
+      "source_publisher_observations": 214,
+      "source_manifest": "data/mame/softlists-v2/sg1000/manifest.json",
+      "source_sha256": "3ed4fa62100b53c81a1bab4bb43d6e908b04580faaafac68158260b4e0dbd2ad"
+    },
+    {
+      "source_file": "hash/snes_vkun.xml",
+      "source_list_name": "snes_vkun",
+      "source_software_entries": 1,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 1,
+      "source_year_observations": 1,
+      "source_publisher_observations": 1,
+      "source_manifest": "data/mame/softlists-v2/snes_vkun/manifest.json",
+      "source_sha256": "d21022c5447905bf4822186fa2fe8a4a19d76b4f9542da5a47386375ba218700"
+    },
+    {
+      "source_file": "hash/studio2.xml",
+      "source_list_name": "studio2",
+      "source_software_entries": 36,
+      "source_rom_sha1_observations": 48,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 36,
+      "source_publisher_observations": 36,
+      "source_manifest": "data/mame/softlists-v2/studio2/manifest.json",
+      "source_sha256": "8aa5c51ccc20b42c036882ede6aac1c012da6d9815e9adeaab77710f1c2acb67"
+    },
+    {
+      "source_file": "hash/supracan.xml",
+      "source_list_name": "supracan",
+      "source_software_entries": 12,
+      "source_rom_sha1_observations": 13,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 12,
+      "source_publisher_observations": 12,
+      "source_manifest": "data/mame/softlists-v2/supracan/manifest.json",
+      "source_sha256": "927638d21bed2575d2bd156e12a430240d4821c28e47b757b206e593bc7109a2"
+    },
+    {
+      "source_file": "hash/videopac.xml",
+      "source_list_name": "videopac",
+      "source_software_entries": 200,
+      "source_rom_sha1_observations": 204,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 200,
+      "source_publisher_observations": 200,
+      "source_manifest": "data/mame/softlists-v2/videopac/manifest.json",
+      "source_sha256": "a5803c3e323b8f47122c468f28bdf672cf088025104ec1345ba8bc88a38e9108"
+    },
+    {
+      "source_file": "hash/wscolor.xml",
+      "source_list_name": "wscolor",
+      "source_software_entries": 104,
+      "source_rom_sha1_observations": 104,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 104,
+      "source_publisher_observations": 104,
+      "source_manifest": "data/mame/softlists-v2/wscolor/manifest.json",
+      "source_sha256": "6e24bbebac573761e821ebc7de59ada7e2882f460f6de8b2316a56108e5ed2a3"
+    },
+    {
+      "source_file": "hash/wswan.xml",
+      "source_list_name": "wswan",
+      "source_software_entries": 125,
+      "source_rom_sha1_observations": 126,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 125,
+      "source_publisher_observations": 125,
+      "source_manifest": "data/mame/softlists-v2/wswan/manifest.json",
+      "source_sha256": "89dd1a07ede5c0267045849bd3bef2e37f88eff3fb191b4e0f3009ffb38b68d4"
+    }
+  ],
+  "interpretation": "Attributable original MAME source software/media observations, not verified canonical works, regions, releases, or merged Libretro identities. No game media was acquired."
+}

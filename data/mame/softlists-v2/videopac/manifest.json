@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v2.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/videopac.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/videopac.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "videopac.xml",
+  "original_xml_bytes": 107918,
+  "original_xml_sha256": "a5803c3e323b8f47122c468f28bdf672cf088025104ec1345ba8bc88a38e9108",
+  "source_list_name": "videopac",
+  "source_list_description": "Philips Videopac / Odyssey 2 cartridges",
+  "source_software_entries": 200,
+  "source_description_observations": 200,
+  "source_year_observations": 200,
+  "source_publisher_observations": 200,
+  "source_serial_observations": 84,
+  "source_rom_sha1_observations": 204,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

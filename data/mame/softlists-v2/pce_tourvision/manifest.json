@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v2.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/pce_tourvision.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/pce_tourvision.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "pce_tourvision.xml",
+  "original_xml_bytes": 64241,
+  "original_xml_sha256": "7b7f4166a0f45a6fafec70497f05411f1d4674ca6233f1f845b5f838eb50129c",
+  "source_list_name": "pce_tourvision",
+  "source_list_description": "TourVisión (bootleg Arcade NEC PC-Engine) cartridges",
+  "source_software_entries": 117,
+  "source_description_observations": 117,
+  "source_year_observations": 117,
+  "source_publisher_observations": 117,
+  "source_serial_observations": 0,
+  "source_rom_sha1_observations": 117,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

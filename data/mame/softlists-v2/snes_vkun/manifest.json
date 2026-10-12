@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v2.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/snes_vkun.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/snes_vkun.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "snes_vkun.xml",
+  "original_xml_bytes": 1400,
+  "original_xml_sha256": "d21022c5447905bf4822186fa2fe8a4a19d76b4f9542da5a47386375ba218700",
+  "source_list_name": "snes_vkun",
+  "source_list_description": "Voicer-kun audio compact discs",
+  "source_software_entries": 1,
+  "source_description_observations": 1,
+  "source_year_observations": 1,
+  "source_publisher_observations": 1,
+  "source_serial_observations": 0,
+  "source_rom_sha1_observations": 0,
+  "source_disk_sha1_observations": 1,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

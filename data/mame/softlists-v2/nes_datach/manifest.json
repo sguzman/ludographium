@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v2.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/nes_datach.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/nes_datach.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "nes_datach.xml",
+  "original_xml_bytes": 5529,
+  "original_xml_sha256": "b672b97d8a2dc0ffbb4f6609a459ab90a24cacae5100fb33c4023430945c6080",
+  "source_list_name": "nes_datach",
+  "source_list_description": "Nintendo Entertainment System - Datach Joint ROM System mini-cartridges",
+  "source_software_entries": 7,
+  "source_description_observations": 7,
+  "source_year_observations": 7,
+  "source_publisher_observations": 7,
+  "source_serial_observations": 7,
+  "source_rom_sha1_observations": 7,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v2.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/wswan.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/wswan.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "wswan.xml",
+  "original_xml_bytes": 145856,
+  "original_xml_sha256": "89dd1a07ede5c0267045849bd3bef2e37f88eff3fb191b4e0f3009ffb38b68d4",
+  "source_list_name": "wswan",
+  "source_list_description": "Bandai Wonderswan cartridges",
+  "source_software_entries": 125,
+  "source_description_observations": 125,
+  "source_year_observations": 125,
+  "source_publisher_observations": 125,
+  "source_serial_observations": 125,
+  "source_rom_sha1_observations": 126,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

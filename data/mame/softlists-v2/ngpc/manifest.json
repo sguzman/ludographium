@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v2.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/ngpc.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/ngpc.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "ngpc.xml",
+  "original_xml_bytes": 69537,
+  "original_xml_sha256": "1b68a1b95b040821c6531fa995fda817287ac4e29f2ecbb38adcdf2305925faf",
+  "source_list_name": "ngpc",
+  "source_list_description": "SNK Neo Geo Pocket Color cartridges",
+  "source_software_entries": 119,
+  "source_description_observations": 119,
+  "source_year_observations": 119,
+  "source_publisher_observations": 119,
+  "source_serial_observations": 97,
+  "source_rom_sha1_observations": 119,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

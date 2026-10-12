@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v2.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/famicom_cass.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/famicom_cass.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "famicom_cass.xml",
+  "original_xml_bytes": 21965,
+  "original_xml_sha256": "746b15d8246ddd562e48e61ba95e702688f0b2d735f37fdf187574e2b5d57691",
+  "source_list_name": "famicom_cass",
+  "source_list_description": "Nintendo Famicom Family BASIC cassettes",
+  "source_software_entries": 27,
+  "source_description_observations": 27,
+  "source_year_observations": 27,
+  "source_publisher_observations": 27,
+  "source_serial_observations": 0,
+  "source_rom_sha1_observations": 50,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}
