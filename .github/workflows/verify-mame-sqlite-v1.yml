@@ -65,6 +65,10 @@ jobs:
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform gb --title Pokemon --limit 2 > "$temp/gameboy.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform n64 --without-review-leads --limit 2 > "$temp/libretro-gaps.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-all --title Tetris --limit 2 > "$temp/both.json"
+          if python tools/build_mame_catalog_sqlite.py --db "$database" --query-all --list gamecom --title Tetris --limit 2 > "$temp/invalid-joint-query.log" 2>&1; then
+            echo "Joint source search silently ignored provider-specific constraints" >&2
+            exit 1
+          fi
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --evidence-type title --ambiguous-only --limit 2 > "$temp/review.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --platform tigergamecom --limit 2 > "$temp/gamecom-review.json"
           python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" "$temp/libretro-gaps.json" "$temp/both.json" <<'PY'
