@@ -71,6 +71,8 @@ python tools/query_mame_sources.py --list gamecom --title Batman --limit 5
 python tools/query_mame_sources.py --publisher "Tiger Electronics" --limit 5
 python tools/query_mame_sources.py --without-review-leads --list nes --limit 5
 python tools/query_mame_sources.py --cohort all --offset 32951 --limit 4
+python tools/query_mame_sources.py --cohort v4 --list svision --limit 5
+python tools/query_mame_sources.py --cohort all-pinned --offset 33117 --limit 4
 python tools/query_mame_media.py --platform tigergamecom --limit 5
 python tools/query_mame_media.py --cohort v3 --platform atari5200 --limit 5
 python tools/query_mame_media.py --cohort combined --limit 5
@@ -80,11 +82,19 @@ python tools/query_mame_media.py --mame-list gameboy --limit 5
 
 These tools verify their source index SHA-256 and retain original supplier
 attribution, media size evidence, and review-only matching semantics.
-The MAME source query also supports `--cohort all` for all 69 pinned
-original source lists. Its bounded `--offset`/`--limit` options page over
-filtered original observations in register order; `source_query_cohort`
-reports the requested cohort, and `next_offset` becomes null at the end.
-This does not change the source indexes or create game identity joins.
+The original `--cohort all` remains the **69-list, 33,119-record**
+source cohort for reproducible historical searches. The independently pinned
+[fourth CC0 source register](sources/mame-softlists-v4.json) adds eight
+software lists and **373 observations** (181 ROM SHA-1 claims, 193 disc
+SHA-1 claims), including Watara Supervision, 3DO, CD32, GameKing, GameKing 3,
+Game Pocket Computer, Mega Duck, and NEC PC-FX. Search `--cohort v4` for
+these records alone or `--cohort all-pinned` for **77 original MAME source
+lists, 33,492 software observations**, without changing older results.
+Each source is hash-pinned to its original CC0 XML; optional bounded
+`--offset`/`--limit` page over source-native record order.
+The derived SQLite and cross-provider review reports currently describe the
+prior 69-list evidence scope; fourth-cohort source accessions are not yet
+promoted into those review indexes or any canonical game identities.
 
 The media query defaults to the original **65-list** pinned source snapshot,
 preserving existing results. Choose `--cohort v3` for four independently
