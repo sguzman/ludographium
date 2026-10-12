@@ -109,6 +109,44 @@ class StableReviewQueryTest(unittest.TestCase):
             with self.subTest(value=value), self.assertRaises(ValueError):
                 query(ROOT, cohort="combined", offset=value)
 
+    def test_fourth_cohort_adds_separate_source_only_review_tasks(self):
+        fourth = query(ROOT, cohort="v4", limit=2, include_evidence=True)
+        self.assertEqual(fourth["total_pinned_source_review_units"], 70)
+        self.assertEqual(fourth["total_filtered_source_review_units"], 70)
+        self.assertEqual(fourth["returned_source_review_units"], 2)
+        self.assertTrue(all(
+            unit["mame"]["source_cohort"] == "v4"
+            and unit["mame"]["source_list"] == "svision"
+            and unit["review_status"] == "unreviewed-original-evidence"
+            and unit["original_media_evidence"]
+            and not unit["original_title_evidence"]
+            for unit in fourth["units"]
+        ))
+        self.assertEqual(query(ROOT, cohort="v4", mame_list="svision", limit=1)[
+            "total_filtered_source_review_units"
+        ], 70)
+        self.assertEqual(query(ROOT, cohort="v4", evidence_type="title", limit=1)[
+            "total_filtered_source_review_units"
+        ], 0)
+
+    def test_all_pinned_review_query_crosses_69_list_boundary(self):
+        page = query(ROOT, cohort="all-pinned", offset=21843, limit=5)
+        self.assertEqual(page["total_pinned_source_review_units"], 21915)
+        self.assertEqual(page["total_filtered_source_review_units"], 21915)
+        self.assertEqual(page["returned_source_review_units"], 5)
+        self.assertEqual(page["next_offset"], 21848)
+        self.assertEqual(page["source_cohorts"], ["baseline", "v3", "v4"])
+        self.assertEqual(
+            [row["source_evidence_cohort"] for row in page["units"]],
+            ["v3", "v3", "v4", "v4", "v4"],
+        )
+        self.assertEqual(len({row["stable_review_id"] for row in page["units"]}), 5)
+        last = query(ROOT, cohort="all-pinned", offset=21914, limit=5)
+        self.assertEqual(last["returned_source_review_units"], 1)
+        self.assertIsNone(last["next_offset"])
+        old = query(ROOT, cohort="combined", limit=1)
+        self.assertEqual(old["total_pinned_source_review_units"], 21845)
+
     def test_rejects_unsafe_filters(self):
         for args in (
             {"review_id": "lgreview:v1:x"},
