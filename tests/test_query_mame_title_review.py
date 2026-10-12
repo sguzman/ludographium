@@ -47,6 +47,22 @@ class ConservativeTitleQueryTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 query(base, limit=1)
 
+    def test_additive_title_review_remains_separate_from_original_65_lists(self):
+        third = query(ROOT, cohort="v3", limit=3)
+        self.assertEqual(third["original_source_candidate_pairs"], 8)
+        self.assertEqual(third["distinct_original_mame_records_with_candidates"], 6)
+        self.assertTrue(all(
+            item["mame"]["source_cohort"] == "v3"
+            and item["source_evidence_cohort"] == "v3"
+            for item in third["pairs"]
+        ))
+        combined = query(ROOT, cohort="combined", limit=1)
+        self.assertEqual(combined["source_cohorts"], ["baseline", "v3"])
+        self.assertEqual(combined["original_source_candidate_pairs"], 6833)
+        self.assertEqual(combined["distinct_original_mame_records_with_candidates"], 2705)
+        with self.assertRaises(ValueError):
+            query(ROOT, cohort="unknown")
+
     def test_ambiguity_and_filters_keep_all_provenance(self):
         result = query(ROOT, ambiguous_only=True, limit=4)
         self.assertGreater(result["total_filtered_candidate_pairs"], 0)

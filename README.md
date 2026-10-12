@@ -323,7 +323,11 @@ and source-ordained candidates without asserting game, platform, release,
 region, translation or edition identity. Unsupported source-scope pairings
 are not guessed. The current pinned run found **6,825 candidate pairs**
 involving **2,699 MAME observations** without an exact media overlap.
-These are not accepted title identities. The
+These are not accepted title identities. The additive third MAME
+cohort has a separate [review report](reports/mame-libretro-title-review-v3-summary.json):
+**8 additional exact-name review leads** across 6 original MAME software
+observations, derived from four independently SHA-1-supported source scopes.
+The original 6,825 rows remain unchanged. The
 [read-only query interface](tools/query_mame_title_review.py) checks
 the complete source SHA-256 before searching:
 
@@ -331,6 +335,8 @@ the complete source SHA-256 before searching:
 python tools/query_mame_title_review.py --title "Mario" --limit 5
 python tools/query_mame_title_review.py --ambiguous-only --limit 5
 python tools/query_mame_title_review.py --platform nes --min-scope-support 10 --limit 5
+python tools/query_mame_title_review.py --cohort v3 --limit 5
+python tools/query_mame_title_review.py --cohort combined --limit 5
 ```
 
 Each returned lead includes the number of competing candidate records for
