@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only search over all 32,953 provenance-verified MAME software records."""
+"""Read-only source search over three independently pinned MAME CC0 cohorts."""
 import argparse
 import hashlib
 import json
@@ -10,6 +10,7 @@ from acquire_mame_softlists import ROOT, source_register, verify_one
 
 INDEX_BASE = Path("data/mame/software-observations-v1")
 INDEX_BASE_V2 = Path("data/mame/software-observations-v2")
+INDEX_BASE_V3 = Path("data/mame/software-observations-v3")
 REPORT = Path("reports/mame-software-observations-v1-summary.json")
 
 
@@ -21,7 +22,9 @@ def read_json(path):
 
 def original_index_rows(root, filename, original, cohort="v1"):
     stem = filename.removesuffix(".xml")
-    base = INDEX_BASE if cohort == "v1" else INDEX_BASE_V2
+    base = {
+        "v1": INDEX_BASE, "v2": INDEX_BASE_V2, "v3": INDEX_BASE_V3,
+    }[cohort]
     directory = root / base / stem
     manifest = read_json(directory / "manifest.json")
     rows_path = directory / "observations.jsonl"
@@ -57,35 +60,47 @@ def original_index_rows(root, filename, original, cohort="v1"):
 
 def query(root, *, source_list=None, title=None, publisher=None, year=None,
           media_sha1=None, software_name=None,
-          without_review_leads=False, limit=20):
-    if not 1 <= limit <= 200:
+          without_review_leads=False, cohort="v1-v2", limit=20):
+    if type(limit) is not int or not 1 <= limit <= 200:
         raise ValueError("source query limit must be 1..=200")
+    if cohort not in ("v1-v2", "v3", "all"):
+        raise ValueError("unknown independent CC0 MAME source cohort")
+    if without_review_leads and cohort != "v1-v2":
+        raise ValueError("review-gap evidence covers only v1-v2 source observations")
     if media_sha1 is not None and not re.fullmatch(r"[a-fA-F0-9]{40}", media_sha1):
         raise ValueError("source media SHA-1 must have forty hex digits")
     if any(value is not None and not value.strip()
            for value in (source_list, title, publisher, year, software_name)):
         raise ValueError("source filters must not be blank")
-    registers = [
-        (cohort, source_register(root, cohort))
-        for cohort in ("v1", "v2")
-    ]
+    active = (
+        ("v1", "v2") if cohort == "v1-v2" else
+        ("v3",) if cohort == "v3" else
+        ("v1", "v2", "v3")
+    )
+    registers = [(name, source_register(root, name)) for name in active]
     valid_lists = {
         filename.removesuffix(".xml")
         for _, register in registers for filename in register["files"]
     }
-    if len(valid_lists) != 65:
-        raise ValueError("expected 65 independent MAME source lists")
+    expected_sources = {"v1-v2": 65, "v3": 4, "all": 69}[cohort]
+    expected_entries = {"v1-v2": 32953, "v3": 166, "all": 33119}[cohort]
+    if len(valid_lists) != expected_sources:
+        raise ValueError("incomplete independent MAME source-list inventory")
     if source_list is not None and source_list not in valid_lists:
         raise ValueError(f"unregistered MAME software-list source: {source_list}")
-    summary = read_json(root / REPORT)
-    second = read_json(root / "reports/mame-software-observations-v2-summary.json")
-    if (
-        summary["indexed_source_partitions"] != 49
-        or summary["source_observation_totals"]["software_entries"] != 31464
-        or second["indexed_source_partitions"] != 16
-        or second["source_observation_totals"]["software_entries"] != 1489
-    ):
-        raise ValueError("MAME source inventory count changed")
+    expected_reports = {
+        "v1": (REPORT, 49, 31464),
+        "v2": (Path("reports/mame-software-observations-v2-summary.json"), 16, 1489),
+        "v3": (Path("reports/mame-software-observations-v3-summary.json"), 4, 166),
+    }
+    for name in active:
+        path, partitions, observations = expected_reports[name]
+        source_report = read_json(root / path)
+        if (
+            source_report["indexed_source_partitions"] != partitions
+            or source_report["source_observation_totals"]["software_entries"] != observations
+        ):
+            raise ValueError(f"original source inventory changed: {name}")
     reviewed_mame_keys = None
     if without_review_leads:
         from query_source_review_units import validate as validate_source_review
@@ -145,10 +160,16 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
                     candidates.append(row)
     return {
         "source_mode": "verified-mame-cc0-original-software-records",
-        "source_register": "sources/mame-softlists-v1.json",
-        "additional_source_register": "sources/mame-softlists-v2.json",
-        "source_software_entries": 32953,
-        "original_source_lists": 65,
+        "source_register": f"sources/mame-softlists-{active[0]}.json",
+        "additional_source_register": (
+            "sources/mame-softlists-v2.json" if "v2" in active else None
+        ),
+        "all_original_source_registers": [
+            f"sources/mame-softlists-{name}.json" for name in active
+        ],
+        "source_query_cohort": cohort,
+        "source_software_entries": expected_entries,
+        "original_source_lists": expected_sources,
         "total_filtered_original_records": matched_count,
         "without_any_cross_provider_review_lead": without_review_leads,
         "full_source_review_gap_inventory": 11241 if without_review_leads else None,
@@ -171,13 +192,15 @@ def main():
     parser.add_argument("--software-name")
     parser.add_argument("--sha1")
     parser.add_argument("--without-review-leads", action="store_true")
+    parser.add_argument("--cohort", choices=["v1-v2", "v3", "all"], default="v1-v2")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
     result = query(
         ROOT, source_list=args.source_list, title=args.title,
         publisher=args.publisher, year=args.year,
         software_name=args.software_name, media_sha1=args.sha1,
-        without_review_leads=args.without_review_leads, limit=args.limit,
+        without_review_leads=args.without_review_leads,
+        cohort=args.cohort, limit=args.limit,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

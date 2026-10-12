@@ -48,6 +48,26 @@ class MameQueryTests(unittest.TestCase):
         )
         self.assertEqual(gamecom["total_filtered_original_records"], 0)
 
+    def test_third_original_mame_cohort_stays_separate_and_searchable(self):
+        newer = source_query(ROOT, cohort="v3", source_list="casloopy", limit=2)
+        self.assertEqual(newer["source_query_cohort"], "v3")
+        self.assertEqual(newer["source_software_entries"], 166)
+        self.assertEqual(newer["original_source_lists"], 4)
+        self.assertGreater(newer["total_filtered_original_records"], 0)
+        self.assertTrue(all(
+            row["source_list"] == "casloopy" for row in newer["records"]
+        ))
+        combined = source_query(
+            ROOT, cohort="all", source_list="a5200", limit=1
+        )
+        self.assertEqual(combined["original_source_lists"], 69)
+        self.assertEqual(combined["source_software_entries"], 33119)
+        self.assertEqual(len(combined["all_original_source_registers"]), 3)
+        with self.assertRaises(ValueError):
+            source_query(ROOT, cohort="v3", without_review_leads=True)
+        with self.assertRaises(ValueError):
+            source_query(ROOT, cohort="all", without_review_leads=True)
+
     def test_exact_sha1_candidates_keep_original_source_provenance(self):
         result = candidate_query(ROOT, libretro_platform="tigergamecom", limit=2)
         self.assertGreater(result["total_filtered_candidate_pairs"], 0)

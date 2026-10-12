@@ -187,6 +187,20 @@ is kept **separate** from the first two cohorts until its evidence has been
 verified and downstream 65-list views are explicitly upgraded. None of
 these source captures changes or silently deduplicates the prior corpus.
 
+The third cohort contributes **166 original software entries**, **199 ROM
+SHA-1 source assertions**, and 137 original serial-bearing entries. Query
+those four lists independently, or opt into searching all 69 original
+MAME lists, without altering the default 65-list search:
+
+```sh
+python tools/query_mame_sources.py --cohort v3 --list casloopy --limit 5
+python tools/query_mame_sources.py --cohort all --list a5200 --limit 5
+```
+
+The older `--without-review-leads` filter remains restricted to v1–v2
+because the third cohort has not been through the cross-provider reviewer.
+
+
 ### Three-provider bulk acquisition coverage
 
 The [three-provider source coverage auditor](tools/audit_three_provider_source_coverage.py)
