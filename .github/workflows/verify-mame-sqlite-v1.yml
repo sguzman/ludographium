@@ -41,8 +41,17 @@ jobs:
           assert value["libretro_media"] == 117145
           assert value["exact_media_links"] == 19025
           assert value["rejected_size_conflicts"] == 1
+          assert value["title_review_candidates"] == 6825
+          assert value["provenance"] == 86
           assert value["media_claims"] > 38000
           print("Verified comprehensive local source-evidence reader:",value)
+          import sqlite3
+          db_path=sys.argv[1].replace("summary.json","ludographium-mame.sqlite")
+          with sqlite3.connect(db_path) as db:
+              assert db.execute("SELECT count(*) FROM title_review_candidates").fetchone()[0] == 6825
+              assert db.execute("""SELECT count(*) FROM title_review_candidates t
+                JOIN exact_media_links l ON t.mame_list=l.mame_list
+                AND t.mame_software_ordinal=l.mame_software_ordinal""").fetchone()[0] == 0
           PY
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list gamecom --title Batman --limit 2 > "$temp/gamecom.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list wswan --linked-only --limit 2 > "$temp/wswan.json"

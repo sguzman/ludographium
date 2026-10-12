@@ -25,6 +25,8 @@ ORIGINAL_REPORTS = (
     "reports/mame-software-observations-v2-summary.json",
 )
 CONFLICTS = Path("data/reconciliation/mame-libretro-sha1-v1/size-disagreements.jsonl")
+TITLE_REPORT = Path("reports/mame-libretro-title-review-v1-summary.json")
+TITLE_CANDIDATES = Path("data/reconciliation/mame-libretro-title-review-v1/candidates.jsonl")
 EXPECTED = {
     "source_lists": 65,
     "software": 32953,
@@ -33,6 +35,7 @@ EXPECTED = {
     "libretro_media": 117145,
     "links": 19025,
     "conflicts": 1,
+    "title_review": 6825,
 }
 SCHEMA = """
 PRAGMA foreign_keys=ON;
@@ -129,6 +132,20 @@ CREATE TABLE exact_media_links (
     FOREIGN KEY(libretro_platform,libretro_software_ordinal,libretro_media_ordinal)
       REFERENCES libretro_media(platform,source_ordinal,media_ordinal)
 );
+CREATE TABLE title_review_candidates (
+    source_ordinal INTEGER PRIMARY KEY,
+    mame_list TEXT NOT NULL,
+    mame_software_ordinal INTEGER NOT NULL,
+    libretro_platform TEXT NOT NULL,
+    libretro_software_ordinal INTEGER NOT NULL,
+    normalized_title TEXT NOT NULL,
+    scope_support INTEGER NOT NULL CHECK(scope_support>=3),
+    original_json TEXT NOT NULL,
+    FOREIGN KEY(mame_list,mame_software_ordinal)
+      REFERENCES software(source_list,source_ordinal),
+    FOREIGN KEY(libretro_platform,libretro_software_ordinal)
+      REFERENCES libretro_records(platform,source_ordinal)
+);
 CREATE TABLE rejected_size_conflicts (
     source_ordinal INTEGER PRIMARY KEY,
     mame_list TEXT NOT NULL,
@@ -148,6 +165,8 @@ CREATE INDEX idx_libretro_title ON libretro_records(title_literal COLLATE NOCASE
 CREATE INDEX idx_libretro_media_sha1 ON libretro_media(sha1);
 CREATE INDEX idx_links_libretro ON exact_media_links(libretro_platform,libretro_software_ordinal);
 CREATE INDEX idx_links_mame ON exact_media_links(mame_list,mame_software_ordinal);
+CREATE INDEX idx_title_review_mame ON title_review_candidates(mame_list,mame_software_ordinal);
+CREATE INDEX idx_title_review_libretro ON title_review_candidates(libretro_platform,libretro_software_ordinal);
 CREATE VIEW original_mame_claims AS
     SELECT s.source_list,s.source_ordinal,s.software_name,
       s.title_literal,s.publisher_literal,s.year_literal,
@@ -230,6 +249,8 @@ def inputs(root):
         LINKS_REPORT,
         LINKS_PATH,
         CONFLICTS,
+        TITLE_REPORT,
+        TITLE_CANDIDATES,
         Path("sources/libretro-no-intro.json"),
         Path("sources/bulk-expansion-v1.json"),
     ) + tuple(path for _, _, path in libretro_original_scopes(root))
@@ -403,6 +424,70 @@ def populate(conn, root):
             observed += 1
         if observed != expected:
             raise ValueError(f"incomplete {table} original source observations")
+
+    title_report = source_json(root, TITLE_REPORT)
+    title_original = source_bytes(root, TITLE_CANDIDATES)
+    if (
+        title_report["schema_version"] != 1
+        or title_report["kind"] != "conservative-sha1-grounded-exact-title-review"
+        or title_report["candidate_path"] != str(TITLE_CANDIDATES)
+        or title_report["candidate_sha256"] != hashlib.sha256(title_original).hexdigest()
+        or title_report["candidate_bytes"] != len(title_original)
+        or title_report["total_review_only_exact_title_candidates"] != EXPECTED["title_review"]
+        or title_report["minimum_distinct_mame_media_supported_scope_records"] != 3
+    ):
+        raise ValueError("unverified SHA1-grounded title review source report")
+    from reconcile_mame_titles import normalized_title
+    review_count = 0
+    for raw in title_original.splitlines():
+        row = json.loads(raw)
+        mame = row["mame"]
+        libretro = row["libretro"]
+        key = row["normalized_title_key"]
+        if (
+            row["schema_version"] != 1
+            or row["kind"] != "review-only-exact-source-title-correspondence"
+            or row["source_scope_pair_sha1_supported_mame_records"] < 3
+            or not row["interpretation"].startswith("review-only-")
+            or normalized_title(mame["original_title"]) != key
+            or normalized_title(libretro["original_title"]) != key
+        ):
+            raise ValueError("unsubstantiated original source title lead")
+        mame_title = conn.execute(
+            "SELECT title_literal FROM software WHERE source_list=? AND source_ordinal=?",
+            (mame["source_list"], mame["software_ordinal"]),
+        ).fetchone()
+        libretro_title = conn.execute(
+            "SELECT title_literal FROM libretro_records WHERE platform=? AND source_ordinal=?",
+            (libretro["platform"], libretro["source_ordinal"]),
+        ).fetchone()
+        original_mame_source = conn.execute(
+            "SELECT original_xml_sha256 FROM source_lists WHERE source_list=?",
+            (mame["source_list"],),
+        ).fetchone()
+        original_libretro_source = conn.execute(
+            "SELECT original_git_blob_sha FROM libretro_sources WHERE platform=?",
+            (libretro["platform"],),
+        ).fetchone()
+        if (
+            mame_title is None or mame_title[0] != mame["original_title"]
+            or libretro_title is None or libretro_title[0] != libretro["original_title"]
+            or original_mame_source is None
+            or original_mame_source[0] != mame["original_source_xml_sha256"]
+            or original_libretro_source is None
+            or original_libretro_source[0] != libretro["original_git_blob_sha"]
+        ):
+            raise ValueError("title candidate points at a different original source record")
+        conn.execute(
+            "INSERT INTO title_review_candidates VALUES (?,?,?,?,?,?,?,?)",
+            (review_count + 1, mame["source_list"], mame["software_ordinal"],
+             libretro["platform"], libretro["source_ordinal"], key,
+             row["source_scope_pair_sha1_supported_mame_records"], compact(row)),
+        )
+        review_count += 1
+    if review_count != EXPECTED["title_review"]:
+        raise ValueError("incomplete pinned title-review candidate inventory")
+
     if total_software != EXPECTED["software"]:
         raise ValueError(f"MAME source record count changed: {total_software}")
     conn.commit()
@@ -415,6 +500,7 @@ def counts(conn):
         "provenance", "source_lists", "software", "serial_claims",
         "media_claims", "libretro_sources", "libretro_records", "libretro_media",
         "exact_media_links", "rejected_size_conflicts",
+        "title_review_candidates",
     ):
         result[table] = conn.execute(f"SELECT count(*) FROM {table}").fetchone()[0]
     return result
@@ -428,7 +514,7 @@ def verify(conn, root):
         raise ValueError("derived local MAME index has broken source-ordinal references")
     observed = counts(conn)
     for table, expected in (
-        ("provenance", 84),
+        ("provenance", 86),
         ("source_lists", EXPECTED["source_lists"]),
         ("software", EXPECTED["software"]),
         ("libretro_sources", EXPECTED["libretro_sources"]),
@@ -436,6 +522,7 @@ def verify(conn, root):
         ("libretro_media", EXPECTED["libretro_media"]),
         ("exact_media_links", EXPECTED["links"]),
         ("rejected_size_conflicts", EXPECTED["conflicts"]),
+        ("title_review_candidates", EXPECTED["title_review"]),
     ):
         if observed[table] != expected:
             raise ValueError(f"derived source index count mismatch: {table}")
@@ -464,6 +551,13 @@ def verify(conn, root):
               OR a.media_size_bytes != l.media_size_bytes"""
     ).fetchone()[0]:
         raise ValueError("SHA-1 or size claims differ from original media evidence")
+    if conn.execute(
+        """SELECT count(*) FROM title_review_candidates t
+           JOIN exact_media_links l ON
+             t.mame_list=l.mame_list
+             AND t.mame_software_ordinal=l.mame_software_ordinal"""
+    ).fetchone()[0]:
+        raise ValueError("already-hash-corroborated source records entered title-only backlog")
     return observed
 
 
@@ -561,6 +655,16 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
             "WHERE mame_list=? AND mame_software_ordinal=?",
             (source_list, ordinal),
         ).fetchone()[0]
+        candidate_titles = conn.execute(
+            "SELECT original_json FROM title_review_candidates WHERE "
+            "mame_list=? AND mame_software_ordinal=? ORDER BY source_ordinal LIMIT 51",
+            (source_list, ordinal),
+        ).fetchall()
+        title_count = conn.execute(
+            "SELECT count(*) FROM title_review_candidates WHERE "
+            "mame_list=? AND mame_software_ordinal=?",
+            (source_list, ordinal),
+        ).fetchone()[0]
         hits.append({
             "original_source_observation": json.loads(original_json),
             "exact_media_evidence_links": [
@@ -568,6 +672,11 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
             ],
             "total_exact_media_evidence_links": all_links,
             "links_truncated": all_links > 50,
+            "separate_unverified_title_review_leads": [
+                json.loads(value[0]) for value in candidate_titles[:50]
+            ],
+            "total_unverified_title_review_leads": title_count,
+            "title_review_leads_truncated": title_count > 50,
         })
     return {
         "source_mode": "local-derived-read-only-attributed-mame-source-index",
@@ -641,6 +750,17 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
             "SELECT original_dat_path,original_git_blob_sha,original_dat_sha256,"
             "source_license FROM libretro_sources WHERE platform=?", (name,)
         ).fetchone()
+        title_refs = conn.execute(
+            "SELECT original_json FROM title_review_candidates WHERE "
+            "libretro_platform=? AND libretro_software_ordinal=? "
+            "ORDER BY source_ordinal LIMIT 51",
+            (name, ordinal),
+        ).fetchall()
+        title_ref_count = conn.execute(
+            "SELECT count(*) FROM title_review_candidates WHERE "
+            "libretro_platform=? AND libretro_software_ordinal=?",
+            (name, ordinal),
+        ).fetchone()[0]
         hits.append({
             "original_libretro_record": json.loads(raw),
             "source_platform": name,
@@ -651,6 +771,11 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
             "review_only_mame_media_links": [json.loads(ref[0]) for ref in refs[:50]],
             "total_review_only_mame_media_links": total_refs,
             "links_truncated": total_refs > 50,
+            "separate_unverified_title_review_leads": [
+                json.loads(value[0]) for value in title_refs[:50]
+            ],
+            "total_unverified_title_review_leads": title_ref_count,
+            "title_review_leads_truncated": title_ref_count > 50,
         })
     return {
         "source_mode": "local-derived-read-only-attributed-libretro-original-dat",

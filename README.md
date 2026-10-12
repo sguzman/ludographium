@@ -91,7 +91,8 @@ The [derived source-evidence SQLite builder](tools/build_mame_catalog_sqlite.py)
 locally materializes **32,953 pinned MAME software observations** and
 **117,145 separate original Libretro DAT records**, including both providers'
 original media, serial and provenance fields, plus **19,025 exact SHA-1
-media-evidence links**. The index preserves the 65 CC0 MAME partitions and
+media-evidence links** and **6,825 separately flagged review-only
+exact-title candidates**. The index preserves the 65 CC0 MAME partitions and
 75 CC-BY-SA-4.0 Libretro collections as independent sources, together with
 the separately rejected declared-size conflict. Build atomically from checked-in text:
 
@@ -104,7 +105,8 @@ python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --q
 ```
 
 Search also accepts `--list`, `--publisher`, `--year`, `--serial`,
-`--sha1`, and `--linked-only`; the separate
+`--sha1`, and `--linked-only`; both source search modes display exact media
+links and unverified title-review alternatives separately; the separate
 `--query-libretro` mode accepts `--platform`, `--region`, `--serial`,
 `--title`, and `--linked-only`. Results remain original source claims
 with optional review-only media links. This is an **optional local cache**,
