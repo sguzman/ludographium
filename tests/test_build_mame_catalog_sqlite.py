@@ -5,7 +5,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from build_mame_catalog_sqlite import numeric_size, optional_sha1, query, query_libretro
+from build_mame_catalog_sqlite import (
+    numeric_size, optional_sha1, query, query_libretro, unicode_casefold
+)
 
 
 class SqliteMameSourceGuards(unittest.TestCase):
@@ -15,6 +17,12 @@ class SqliteMameSourceGuards(unittest.TestCase):
         self.assertIsNone(numeric_size(None))
         with self.assertRaises(ValueError):
             numeric_size("unknown")
+
+    def test_multilingual_titles_casefold_without_modifying_literals(self):
+        self.assertEqual(unicode_casefold("POKÉMON"), "pokémon")
+        self.assertEqual(unicode_casefold("ＡＢＣ"), "abc")
+        self.assertEqual(unicode_casefold("Σ"), unicode_casefold("σ"))
+        self.assertEqual(unicode_casefold(None), "")
 
     def test_source_digest_needs_strict_hex(self):
         self.assertEqual(optional_sha1("AB" * 20), "ab" * 20)

@@ -13,6 +13,7 @@ from pathlib import Path
 import re
 import sqlite3
 import tempfile
+import unicodedata
 
 from acquire_mame_softlists import ROOT, source_register, verify_one
 from query_mame_sources import original_index_rows
@@ -193,6 +194,12 @@ def source_digest(root, relative):
 
 def compact(value):
     return json.dumps(value, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+
+
+def unicode_casefold(value):
+    if value is None:
+        return ""
+    return unicodedata.normalize("NFKC", str(value)).casefold()
 
 
 def numeric_size(value):
@@ -583,6 +590,7 @@ def build(root, destination):
 def open_readonly(destination):
     uri = Path(destination).resolve().as_uri() + "?mode=ro&immutable=1"
     conn = sqlite3.connect(uri, uri=True)
+    conn.create_function("unicode_casefold", 1, unicode_casefold, deterministic=True)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -602,11 +610,11 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
         filters.append("s.source_list=?")
         values.append(source_list)
     if title:
-        filters.append("instr(lower(coalesce(s.title_literal,'')),lower(?))>0")
-        values.append(title)
+        filters.append("instr(unicode_casefold(s.title_literal),?)>0")
+        values.append(unicode_casefold(title))
     if publisher:
-        filters.append("instr(lower(coalesce(s.publisher_literal,'')),lower(?))>0")
-        values.append(publisher)
+        filters.append("instr(unicode_casefold(s.publisher_literal),?)>0")
+        values.append(unicode_casefold(publisher))
     if year:
         filters.append("s.year_literal=?")
         values.append(year)
@@ -705,8 +713,8 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
         clauses.append("r.platform=?")
         args.append(platform)
     if title:
-        clauses.append("instr(lower(r.title_literal),lower(?))>0")
-        args.append(title)
+        clauses.append("instr(unicode_casefold(r.title_literal),?)>0")
+        args.append(unicode_casefold(title))
     if region:
         clauses.append("r.region_literal=?")
         args.append(region)

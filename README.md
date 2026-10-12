@@ -104,6 +104,10 @@ python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --q
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform gb --title Tetris --limit 5
 ```
 
+Title and publisher substring searches use Unicode NFKC normalization and
+casefolding for **lookup only**, preserving source literals verbatim (including
+accented titles and scripts outside ASCII).
+
 Search also accepts `--list`, `--publisher`, `--year`, `--serial`,
 `--sha1`, and `--linked-only`; both source search modes display exact media
 links and unverified title-review alternatives separately; the separate
