@@ -23,6 +23,10 @@ jobs:
         run: python -m unittest discover -s tests -p test_query_mame_sources.py -v
       - name: Verify systematic Wikidata platform coverage backlog
         run: python tools/audit_wikidata_platform_gaps.py --check
+      - name: Verify independent MAME and Libretro review-source acquisition gaps
+        run: |
+          python tools/audit_source_review_gaps.py --check
+          python tools/audit_libretro_source_review_gaps.py --check
       - name: Validate pinned exploratory platform-search sources
         run: python tools/discover_wikidata_platforms.py --check
       - name: Validate pinned sources and generated indexes
