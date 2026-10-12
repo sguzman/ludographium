@@ -1,0 +1,54 @@
+name: Publish verified direct-P400 source probe audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-wikidata-p400-untyped.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-wikidata-p400-untyped-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Audit original query response bytes and P31 source classifications
+        run: |
+          python tools/audit_wikidata_evidence_matrix.py --check
+          python tools/audit_wikidata_p400_untyped.py --write
+          python tools/audit_wikidata_p400_untyped.py --check
+          python -m unittest discover -s tests -p test_wikidata_p400_untyped.py -v
+      - name: Commit only deterministic provenance audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/wikidata-p400-untyped-probe-audit-v1.json
+          if git diff --cached --quiet; then
+            echo "Original source audit already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin independently verified ten-scope P400 probe analysis'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Could not pin verified P400 probe audit" >&2
+          exit 1
