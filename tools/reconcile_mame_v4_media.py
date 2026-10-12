@@ -174,22 +174,22 @@ def build_expected(root=ROOT):
         "original_mame_disk_sha1_claims": original_claims["disk"],
         "original_libretro_dat_collections": 75,
         "original_libretro_records": dat_counts["libretro_source_records"],
-        "source_corrobated_media_candidate_pairs": len(linked),
+        "source_corroborated_media_candidate_pairs": len(linked),
         "source_sha1_equal_without_declared_mame_size_pairs": len(uncorroborated),
         "source_same_sha1_declared_size_conflicts": len(conflicting),
-        "distinct_mame_software_with_corrobated_media_leads": len(matched_software),
-        "distinct_libretro_records_with_corrobated_media_leads": len(matched_dat),
-        "source_scope_corrobated_pair_counts": [
+        "distinct_mame_software_with_corroborated_media_leads": len(matched_software),
+        "distinct_libretro_records_with_corroborated_media_leads": len(matched_dat),
+        "source_scope_corroborated_pair_counts": [
             {
                 "mame_source_list": left,
                 "libretro_platform": right,
-                "size_corrobated_media_candidate_pairs": number,
+                "size_corroborated_media_candidate_pairs": number,
             }
             for (left, right), number in sorted(source_counts.items())
         ],
-        "corrobated_candidate_path": str(INDEX),
-        "corrobated_candidate_sha256": hashlib.sha256(outputs[0]).hexdigest(),
-        "corrobated_candidate_bytes": len(outputs[0]),
+        "corroborated_candidate_path": str(INDEX),
+        "corroborated_candidate_sha256": hashlib.sha256(outputs[0]).hexdigest(),
+        "corroborated_candidate_bytes": len(outputs[0]),
         "size_uncorroborated_path": str(UNKNOWN_SIZE),
         "size_uncorroborated_sha256": hashlib.sha256(outputs[1]).hexdigest(),
         "size_uncorroborated_bytes": len(outputs[1]),
@@ -237,7 +237,7 @@ def main():
         parser.error("original fourth-cohort media SHA1 evidence was modified or omitted")
     summary = json.loads(report_text)
     print(
-        "verified", summary["source_corrobated_media_candidate_pairs"],
+        "verified", summary["source_corroborated_media_candidate_pairs"],
         "v4 source SHA1+size pairs;",
         summary["source_sha1_equal_without_declared_mame_size_pairs"],
         "size-unknown leads;", summary["source_same_sha1_declared_size_conflicts"],
