@@ -1,4 +1,5 @@
 """Safety checks for the optional local MAME source-evidence database."""
+import argparse
 import sys
 import unittest
 from pathlib import Path
@@ -6,7 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from build_mame_catalog_sqlite import (
-    numeric_size, optional_sha1, query, query_libretro, unicode_casefold
+    numeric_size, optional_sha1, query, query_libretro, unicode_casefold,
+    unsupported_mode_filters
 )
 
 
@@ -34,6 +36,23 @@ class SqliteMameSourceGuards(unittest.TestCase):
                        {"source_list": " "}, {"title": "x" * 251}):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query(None, **kwargs)
+
+    def test_source_mode_rejects_cross_provider_flags(self):
+        values = {
+            "list": None, "publisher": None, "year": None,
+            "libretro_platform": None, "platform": None,
+            "region": None, "title": None, "serial": None,
+            "sha1": None, "linked_only": False,
+        }
+        mame = argparse.Namespace(**values, query=True, query_libretro=False)
+        mame.platform = "gb"
+        self.assertEqual(unsupported_mode_filters(mame), ["platform"])
+        libretro = argparse.Namespace(**values, query=False, query_libretro=True)
+        libretro.publisher = "Nintendo"
+        self.assertEqual(unsupported_mode_filters(libretro), ["publisher"])
+        builds = argparse.Namespace(**values, query=False, query_libretro=False)
+        builds.title = "unwanted"
+        self.assertEqual(unsupported_mode_filters(builds), ["title"])
 
     def test_libretro_query_filters_fail_before_database_access(self):
         for kwargs in ({"limit": 0}, {"limit": 201}, {"sha1": "xyz"},

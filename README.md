@@ -113,7 +113,9 @@ Search also accepts `--list`, `--publisher`, `--year`, `--serial`,
 links and unverified title-review alternatives separately; the separate
 `--query-libretro` mode accepts `--platform`, `--region`, `--serial`,
 `--title`, and `--linked-only`. Results remain original source claims
-with optional review-only media links. This is an **optional local cache**,
+with optional review-only media links. Each mode rejects filters
+belonging to the other provider instead of silently ignoring constraints.
+This is an **optional local cache**,
 not a canonical game or release identity registry. The
 [full-corpus CI verification](.github/workflows/verify-mame-sqlite-v1.yml)
 builds and tests it temporarily and deletes the binary afterward; SQLite

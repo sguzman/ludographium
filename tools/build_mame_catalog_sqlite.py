@@ -796,6 +796,22 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
     }
 
 
+def unsupported_mode_filters(args):
+    """Return explicit unsupported filters, never silently ignore user constraints."""
+    if args.query:
+        fields = ("platform", "region")
+    elif args.query_libretro:
+        fields = ("list", "publisher", "year", "libretro_platform")
+    else:
+        fields = (
+            "list", "title", "publisher", "year", "serial", "sha1",
+            "libretro_platform", "platform", "region", "linked_only",
+        )
+    return [
+        field for field in fields if getattr(args, field, None) not in (None, False)
+    ]
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, required=True)
@@ -817,6 +833,11 @@ def main():
     parser.add_argument("--linked-only", action="store_true")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
+    unsupported = unsupported_mode_filters(args)
+    if unsupported:
+        parser.error(
+            "unsupported filters for selected source mode: " + ", ".join(unsupported)
+        )
     if args.build:
         build(ROOT, args.db)
         with open_readonly(args.db) as db:
