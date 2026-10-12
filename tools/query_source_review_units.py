@@ -187,9 +187,11 @@ def validate_v3(root=ROOT):
 def query(root=ROOT, *, review_id=None, mame_list=None,
           libretro_platform=None, title=None, priority_class=None,
           ambiguous_only=False, evidence_type=None, include_evidence=False,
-          limit=20, cohort="baseline"):
+          limit=20, cohort="baseline", offset=0):
     if type(limit) is not int or not 1 <= limit <= 200:
         raise ValueError("review search limit must be 1..200")
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("review search offset must be 0..1000000")
     if review_id is not None and not REVIEW_ID.fullmatch(review_id):
         raise ValueError("review ID is not an original source-stable identifier")
     for value in (mame_list, libretro_platform, title):
@@ -211,12 +213,21 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
             evidence_type=evidence_type, include_evidence=include_evidence,
             limit=limit,
         )
-        older = query(root, **selected, cohort="baseline")
-        newer = query(root, **selected, cohort="v3")
+        # The order is stable: original pinned units precede the separately
+        # pinned third cohort. Offset is measured over FILTERED units, not
+        # original JSONL ordinals. This also permits crossing the boundary.
+        older = query(root, **selected, cohort="baseline", offset=offset)
+        baseline_matches = older["total_filtered_source_review_units"]
+        v3_offset = max(0, offset - baseline_matches)
+        newer = query(root, **selected, cohort="v3", offset=v3_offset)
         combined = (
             [{**row, "source_evidence_cohort": "baseline"} for row in older["units"]]
             + [{**row, "source_evidence_cohort": "v3"} for row in newer["units"]]
         )[:limit]
+        total_filtered = (
+            older["total_filtered_source_review_units"]
+            + newer["total_filtered_source_review_units"]
+        )
         return {
             "source_mode": "separate-original-source-review-cohort-aggregation",
             "source_cohorts": ["baseline", "v3"],
@@ -224,11 +235,13 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
                 older["total_pinned_source_review_units"]
                 + newer["total_pinned_source_review_units"]
             ),
-            "total_filtered_source_review_units": (
-                older["total_filtered_source_review_units"]
-                + newer["total_filtered_source_review_units"]
-            ),
+            "total_filtered_source_review_units": total_filtered,
             "returned_source_review_units": len(combined),
+            "offset": offset,
+            "next_offset": (
+                offset + len(combined)
+                if offset + len(combined) < total_filtered else None
+            ),
             "review_index_sha256": {
                 "baseline": older["review_index_sha256"],
                 "v3": newer["review_index_sha256"],
@@ -272,7 +285,7 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
         if evidence_type == "title" and not row["title_evidence_jsonl_source_ordinals"]:
             continue
         matched += 1
-        if len(returned) >= limit:
+        if matched <= offset or len(returned) >= limit:
             continue
         projected = dict(row)
         if include_evidence:
@@ -300,6 +313,11 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
         ),
         "total_filtered_source_review_units": matched,
         "returned_source_review_units": len(returned),
+        "offset": offset,
+        "next_offset": (
+            offset + len(returned)
+            if offset + len(returned) < matched else None
+        ),
         "review_index_sha256": summary["review_index_sha256"],
         "units": returned,
         "interpretation": (
@@ -322,13 +340,15 @@ def main():
     parser.add_argument("--cohort", choices=("baseline", "v3", "combined"),
                         default="baseline")
     parser.add_argument("--limit", type=int, default=20)
+    parser.add_argument("--offset", type=int, default=0,
+                        help="filtered review units to skip (stable cohort order)")
     args = parser.parse_args()
     result = query(
         ROOT, review_id=args.review_id, mame_list=args.mame_list,
         libretro_platform=args.platform, title=args.title,
         priority_class=args.priority_class, ambiguous_only=args.ambiguous_only,
         evidence_type=args.evidence_type, include_evidence=args.include_evidence,
-        cohort=args.cohort, limit=args.limit,
+        cohort=args.cohort, limit=args.limit, offset=args.offset,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
