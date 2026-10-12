@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "kind": "additive-third-mame-cohort-stable-source-review-queue",
+  "prior_original_source_review_report": "reports/source-review-units-v1-summary.json",
+  "unchanged_prior_source_review_units": 21712,
+  "mame_source_cohort": "v3",
+  "source_media_report": "reports/mame-libretro-sha1-v3-summary.json",
+  "source_media_index_sha256": "8e4353d42d264ce72299df93d5c4488d6d650bec590f69c5b5044d391ead7fdf",
+  "source_title_report": "reports/mame-libretro-title-review-v3-summary.json",
+  "source_title_index_sha256": "7c5afb729f3f6b96d86410e913f2300987601830a3ed58bba07a5c92e8850b6c",
+  "original_media_candidate_pairs": 127,
+  "original_title_candidate_pairs": 8,
+  "additional_original_review_units": 133,
+  "cumulative_separate_source_review_units": 21845,
+  "source_review_priority_class_counts": {
+    "multiple-exact-title-source-targets": 2,
+    "single-exact-title-source-target": 4,
+    "single-media-supported-source-target": 127
+  },
+  "source_review_ambiguity_counts": {
+    "ambiguous_source_units": 2,
+    "single_target_source_units": 131
+  },
+  "review_index_path": "data/reconciliation/source-review-units-v3/units.jsonl",
+  "review_index_sha256": "14fa095da52a25724a33622537f93cf9e602d3332b895d577b992fb8764d940f",
+  "review_index_bytes": 144332,
+  "interpretation": "Stable IDs identify independent third-cohort original source observations as review tasks only, not canonical game or release identities. Older pinned review units remain immutable."
+}
