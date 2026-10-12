@@ -5,10 +5,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from audit_libretro_source_review_gaps import evidence_status
+from audit_libretro_source_review_gaps import evidence_status, build_report
 
 
 class OriginalLibretroGapClasses(unittest.TestCase):
+    def test_unregistered_combined_evidence_source_is_rejected(self):
+        with self.assertRaises(ValueError):
+            build_report(ROOT / "missing", cohort="hypothetical")
+
     def test_all_supported_combinations_are_distinct(self):
         self.assertEqual(evidence_status(False, False), "no-review-lead")
         self.assertEqual(evidence_status(True, False), "media-only")
