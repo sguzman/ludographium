@@ -189,6 +189,17 @@ python tools/query_source_review_units.py --mame-list gamecom --include-evidence
 python tools/query_source_review_units.py --review-id lgreview:v1:<64-hex-digest> --include-evidence
 ```
 
+A complementary [Libretro-first source-gap auditor](tools/audit_libretro_source_review_gaps.py)
+checks all **117,145 source DAT records across 75 Libretro collections**
+against the original MAME-target review queue. The
+[75-platform coverage report](reports/libretro-source-review-acquisition-gaps-v1.json)
+separates media-only, title-only, both, and no-review-evidence records;
+it also records per-scope source revision, original Git blob SHA and license.
+Its [automated workflow](.github/workflows/audit-libretro-review-gaps-v1.yml)
+rebuilds the report from independently pinned originals. A record without a
+lead is a **provider-acquisition priority**, never an assertion that a game
+is absent or that source identities have been adjudicated.
+
 The IDs identify **original-source review tasks**, not canonical games.
 The optional [local SQLite source reader](tools/build_mame_catalog_sqlite.py)
 also supports `--query-review`, indexing all 21,712 task IDs and their

@@ -1,0 +1,55 @@
+name: Publish full original Libretro review acquisition gap matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-libretro-review-gaps-v1.yml
+      - tools/audit_libretro_source_review_gaps.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-libretro-review-gaps-v1-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify pinned cross-source review evidence and source gap classes
+        run: |
+          python tools/build_source_review_units.py --check
+          python -m unittest discover -s tests -p test_audit_libretro_source_review_gaps.py -v
+          python tools/audit_libretro_source_review_gaps.py --write
+          python tools/audit_libretro_source_review_gaps.py --check
+      - name: Commit deterministic 75-platform source acquisition diagnostic
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/libretro-source-review-acquisition-gaps-v1.json
+          if git diff --cached --quiet; then
+            echo "Original Libretro review gap audit unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin 75-platform original Libretro review-source gaps'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo 'Could not publish source-only coverage report' >&2
+          exit 1
