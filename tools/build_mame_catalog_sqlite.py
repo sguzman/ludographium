@@ -20,18 +20,29 @@ from query_mame_sources import original_index_rows
 from query_mame_media import INDEX as LINKS_PATH, REPORT as LINKS_REPORT
 from import_dat import import_dat
 from build_expanded_corpus import pinned_manifest
-from query_source_review_units import validate as validated_source_review_units
+from query_source_review_units import (
+    validate as validated_source_review_units,
+    validate_v3 as validated_v3_source_review_units,
+)
 
 ORIGINAL_REPORTS = (
     "reports/mame-software-observations-v1-summary.json",
     "reports/mame-software-observations-v2-summary.json",
+    "reports/mame-software-observations-v3-summary.json",
 )
 CONFLICTS = Path("data/reconciliation/mame-libretro-sha1-v1/size-disagreements.jsonl")
 TITLE_REPORT = Path("reports/mame-libretro-title-review-v1-summary.json")
 TITLE_CANDIDATES = Path("data/reconciliation/mame-libretro-title-review-v1/candidates.jsonl")
 REVIEW_INDEX = Path("data/reconciliation/source-review-units-v1/units.jsonl")
 REVIEW_REPORT = Path("reports/source-review-units-v1-summary.json")
-EXPECTED = {
+V3_MEDIA_REPORT = Path("reports/mame-libretro-sha1-v3-summary.json")
+V3_MEDIA_INDEX = Path("data/reconciliation/mame-libretro-sha1-v3/links.jsonl")
+V3_CONFLICTS = Path("data/reconciliation/mame-libretro-sha1-v3/size-disagreements.jsonl")
+V3_TITLE_REPORT = Path("reports/mame-libretro-title-review-v3-summary.json")
+V3_TITLE_INDEX = Path("data/reconciliation/mame-libretro-title-review-v3/candidates.jsonl")
+V3_REVIEW_REPORT = Path("reports/source-review-units-v3-summary.json")
+V3_REVIEW_INDEX = Path("data/reconciliation/source-review-units-v3/units.jsonl")
+BASELINE = {
     "source_lists": 65,
     "software": 32953,
     "libretro_sources": 75,
@@ -42,6 +53,14 @@ EXPECTED = {
     "title_review": 6825,
     "review_units": 21712,
 }
+EXPECTED = {
+    **BASELINE,
+    "source_lists": 69,
+    "software": 33119,
+    "links": 19152,
+    "title_review": 6833,
+    "review_units": 21845,
+}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
 CREATE TABLE provenance (
@@ -51,7 +70,7 @@ CREATE TABLE provenance (
 );
 CREATE TABLE source_lists (
     source_list TEXT PRIMARY KEY,
-    cohort TEXT NOT NULL CHECK (cohort IN ('v1','v2')),
+    cohort TEXT NOT NULL CHECK (cohort IN ('v1','v2','v3')),
     original_xml_path TEXT NOT NULL,
     original_xml_sha256 TEXT NOT NULL,
     original_index_path TEXT NOT NULL,
@@ -281,8 +300,8 @@ def inputs(root):
     register_paths = (
         Path("sources/mame-softlists-v1.json"),
         Path("sources/mame-softlists-v2.json"),
-        Path(ORIGINAL_REPORTS[0]),
-        Path(ORIGINAL_REPORTS[1]),
+        Path("sources/mame-softlists-v3.json"),
+        *(Path(p) for p in ORIGINAL_REPORTS),
         LINKS_REPORT,
         LINKS_PATH,
         CONFLICTS,
@@ -290,6 +309,13 @@ def inputs(root):
         TITLE_CANDIDATES,
         REVIEW_REPORT,
         REVIEW_INDEX,
+        V3_MEDIA_REPORT,
+        V3_MEDIA_INDEX,
+        V3_CONFLICTS,
+        V3_TITLE_REPORT,
+        V3_TITLE_INDEX,
+        V3_REVIEW_REPORT,
+        V3_REVIEW_INDEX,
         Path("sources/libretro-no-intro.json"),
         Path("sources/bulk-expansion-v1.json"),
     ) + tuple(path for _, _, path in libretro_original_scopes(root))
@@ -299,7 +325,7 @@ def inputs(root):
         or report["kind"] != "independent-cross-source-media-sha1-exact-match-review"
         or report["mame_software_lists"] != 65
         or report["libretro_source_platforms"] != 75
-        or report["exact_sha1_source_candidate_pairs"] != EXPECTED["links"]
+        or report["exact_sha1_source_candidate_pairs"] != BASELINE["links"]
     ):
         raise ValueError("unsupported cross-source evidence release")
     digest, byte_count = source_digest(root, LINKS_PATH)
@@ -309,10 +335,10 @@ def inputs(root):
         or byte_count != report["match_index_bytes"]
         or conflict_digest != report["size_disagreement_sha256"]
         or conflict_bytes != report["size_disagreement_bytes"]
-        or report["size_disagreement_rows"] != EXPECTED["conflicts"]
+        or report["size_disagreement_rows"] != BASELINE["conflicts"]
     ):
         raise ValueError("original exact-hash index no longer matches pinned report")
-    counts = (31464, 1489)
+    counts = (31464, 1489, 166)
     for relative, count in zip(ORIGINAL_REPORTS, counts):
         registered = source_json(root, Path(relative))
         if registered["source_observation_totals"]["software_entries"] != count:
@@ -328,7 +354,7 @@ def populate(conn, root):
         conn.execute("INSERT INTO provenance VALUES (?,?,?)", (str(path), digest, size))
     total_software = 0
     total_media = 0
-    for cohort in ("v1", "v2"):
+    for cohort in ("v1", "v2", "v3"):
         register = source_register(root, cohort)
         for filename in register["files"]:
             source = verify_one(root, register, filename)
@@ -424,9 +450,9 @@ def populate(conn, root):
         raise ValueError("Libretro source observation inventory drifted")
 
     for table, path, expected, expected_kind in (
-        ("exact_media_links", LINKS_PATH, EXPECTED["links"],
+        ("exact_media_links", LINKS_PATH, BASELINE["links"],
          "exact-mame-libretro-media-sha1-source-candidate"),
-        ("rejected_size_conflicts", CONFLICTS, EXPECTED["conflicts"],
+        ("rejected_size_conflicts", CONFLICTS, BASELINE["conflicts"],
          "unresolved-mame-libretro-same-sha1-size-conflict"),
     ):
         observed = 0
@@ -472,7 +498,7 @@ def populate(conn, root):
         or title_report["candidate_path"] != str(TITLE_CANDIDATES)
         or title_report["candidate_sha256"] != hashlib.sha256(title_original).hexdigest()
         or title_report["candidate_bytes"] != len(title_original)
-        or title_report["total_review_only_exact_title_candidates"] != EXPECTED["title_review"]
+        or title_report["total_review_only_exact_title_candidates"] != BASELINE["title_review"]
         or title_report["minimum_distinct_mame_media_supported_scope_records"] != 3
     ):
         raise ValueError("unverified SHA1-grounded title review source report")
@@ -524,12 +550,12 @@ def populate(conn, root):
              row["source_scope_pair_sha1_supported_mame_records"], compact(row)),
         )
         review_count += 1
-    if review_count != EXPECTED["title_review"]:
+    if review_count != BASELINE["title_review"]:
         raise ValueError("incomplete pinned title-review candidate inventory")
 
     review_manifest, original_units, _ = validated_source_review_units(root)
     if (
-        review_manifest["source_review_units"] != EXPECTED["review_units"]
+        review_manifest["source_review_units"] != BASELINE["review_units"]
         or review_manifest["source_media_index_sha256"] !=
             source_json(root, LINKS_REPORT)["match_index_sha256"]
         or review_manifest["source_title_index_sha256"] !=
@@ -604,13 +630,200 @@ def populate(conn, root):
                     or (source_link[2],source_link[3]) not in actual_targets
                 ):
                     raise ValueError("review unit references unrelated evidence row")
-    if targets_inserted < EXPECTED["review_units"]:
+    if targets_inserted < BASELINE["review_units"]:
         raise ValueError("source-review target inventory is truncated")
 
+    # Appended v3 records retain their own XML snapshot, source ordinal,
+    # raw JSON and evidence namespace. Historical baseline evidence is unchanged.
+    append_v3_evidence(conn, root)
     if total_software != EXPECTED["software"]:
         raise ValueError(f"MAME source record count changed: {total_software}")
     conn.commit()
     return {"software": total_software, "media": total_media}
+
+
+def append_v3_evidence(conn, root):
+    """Index separate third-cohort claims without changing baseline coordinates."""
+    media_report = source_json(root, V3_MEDIA_REPORT)
+    title_report = source_json(root, V3_TITLE_REPORT)
+    report, units, _ = validated_v3_source_review_units(root)
+    media_raw = source_bytes(root, V3_MEDIA_INDEX)
+    title_raw = source_bytes(root, V3_TITLE_INDEX)
+    rejected_raw = source_bytes(root, V3_CONFLICTS)
+    if (
+        media_report["schema_version"] != 1
+        or media_report["kind"] != "separate-third-cohort-exact-original-media-source-candidates"
+        or media_report["mame_original_source_lists"] != 4
+        or media_report["source_media_sha1_candidate_pairs"] != 127
+        or media_report["candidate_path"] != str(V3_MEDIA_INDEX)
+        or media_report["candidate_sha256"] != hashlib.sha256(media_raw).hexdigest()
+        or media_report["candidate_bytes"] != len(media_raw)
+        or media_report["rejected_size_conflicts_path"] != str(V3_CONFLICTS)
+        or media_report["rejected_size_conflicts_sha256"] != hashlib.sha256(rejected_raw).hexdigest()
+        or media_report["rejected_size_conflicts_bytes"] != len(rejected_raw)
+        or rejected_raw
+        or title_report["schema_version"] != 1
+        or title_report["kind"] != "additive-third-mame-cohort-title-review"
+        or title_report["original_title_review_candidate_pairs"] != 8
+        or title_report["candidate_path"] != str(V3_TITLE_INDEX)
+        or title_report["candidate_sha256"] != hashlib.sha256(title_raw).hexdigest()
+        or title_report["candidate_bytes"] != len(title_raw)
+        or report["original_media_candidate_pairs"] != 127
+        or report["original_title_candidate_pairs"] != 8
+        or report["additional_original_review_units"] != 133
+        or len(units) != 133
+    ):
+        raise ValueError("unverified third-cohort source evidence accession")
+
+    media_pairs = [json.loads(raw) for raw in media_raw.splitlines()]
+    title_pairs = [json.loads(raw) for raw in title_raw.splitlines()]
+    if len(media_pairs) != 127 or len(title_pairs) != 8:
+        raise ValueError("truncated third-cohort original evidence inventory")
+
+    for ordinal, row in enumerate(media_pairs, 1):
+        mame, libretro = row["mame"], row["libretro"]
+        digest = optional_sha1(row["original_media_sha1"])
+        mame_claim = conn.execute(
+            "SELECT m.sha1,m.declared_size_bytes,m.media_kind,s.title_literal,"
+            "l.original_xml_sha256,l.cohort FROM media_claims m "
+            "JOIN software s ON s.source_list=m.source_list "
+            "AND s.source_ordinal=m.source_ordinal "
+            "JOIN source_lists l ON l.source_list=m.source_list "
+            "WHERE m.source_list=? AND m.source_ordinal=? AND m.media_ordinal=?",
+            (mame["source_list"], mame["software_ordinal"], mame["source_media_ordinal"]),
+        ).fetchone()
+        libretro_claim = conn.execute(
+            "SELECT m.sha1,m.media_size_bytes,r.title_literal,l.original_git_blob_sha "
+            "FROM libretro_media m JOIN libretro_records r ON "
+            "r.platform=m.platform AND r.source_ordinal=m.source_ordinal "
+            "JOIN libretro_sources l ON l.platform=m.platform "
+            "WHERE m.platform=? AND m.source_ordinal=? AND m.media_ordinal=?",
+            (libretro["platform"], libretro["source_record_ordinal"],
+             libretro["source_media_ordinal"]),
+        ).fetchone()
+        size = mame["original_declared_size_bytes"]
+        if (
+            row["schema_version"] != 1
+            or row["kind"] != "review-only-v3-mame-libretro-exact-media-sha1-candidate"
+            or not row["size_corroborated"]
+            or mame_claim != (
+                digest, size, mame["source_media_kind"], mame["original_title"],
+                mame["source_xml_sha256"], "v3"
+            )
+            or libretro_claim != (
+                digest, size, libretro["original_title"], libretro["source_dat_blob_sha"]
+            )
+            or size != libretro["original_media_size_bytes"]
+            or row["interpretation"] != (
+                "review-only-source-sha1-candidate-not-accepted-game-or-release-identity"
+            )
+        ):
+            raise ValueError(f"third-cohort media evidence does not match original sources: {ordinal}")
+        conn.execute(
+            "INSERT INTO exact_media_links VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (BASELINE["links"] + ordinal, mame["source_list"], mame["software_ordinal"],
+             mame["source_media_ordinal"], libretro["platform"],
+             libretro["source_record_ordinal"], libretro["source_media_ordinal"],
+             digest, size, compact(row)),
+        )
+
+    from reconcile_mame_titles import normalized_title
+    for ordinal, row in enumerate(title_pairs, 1):
+        mame, libretro = row["mame"], row["libretro"]
+        original_mame = conn.execute(
+            "SELECT s.title_literal,l.original_xml_sha256,l.cohort FROM software s "
+            "JOIN source_lists l ON l.source_list=s.source_list "
+            "WHERE s.source_list=? AND s.source_ordinal=?",
+            (mame["source_list"], mame["original_software_ordinal"]),
+        ).fetchone()
+        original_libretro = conn.execute(
+            "SELECT r.title_literal,l.original_git_blob_sha FROM libretro_records r "
+            "JOIN libretro_sources l ON r.platform=l.platform "
+            "WHERE r.platform=? AND r.source_ordinal=?",
+            (libretro["platform"], libretro["original_source_ordinal"]),
+        ).fetchone()
+        key = row["normalized_title_key"]
+        if (
+            row["schema_version"] != 1
+            or row["kind"] != "third-mame-cohort-review-only-exact-title-evidence"
+            or original_mame != (mame["original_title"], mame["source_xml_sha256"], "v3")
+            or original_libretro != (
+                libretro["original_title"], libretro["original_git_blob_sha"]
+            )
+            or normalized_title(mame["original_title"]) != key
+            or normalized_title(libretro["original_title"]) != key
+            or row["scope_pair_distinct_mame_sha1_supported_records"] < 3
+            or row["interpretation"] != (
+                "review-only-name-equality-in-media-supported-source-scope-"
+                "not-a-verified-game-or-release-identity"
+            )
+        ):
+            raise ValueError(f"third-cohort title evidence does not match original sources: {ordinal}")
+        conn.execute(
+            "INSERT INTO title_review_candidates VALUES (?,?,?,?,?,?,?,?)",
+            (BASELINE["title_review"] + ordinal, mame["source_list"],
+             mame["original_software_ordinal"], libretro["platform"],
+             libretro["original_source_ordinal"], key,
+             row["scope_pair_distinct_mame_sha1_supported_records"], compact(row)),
+        )
+
+    for unit in units:
+        mame = unit["mame"]
+        name, ordinal = mame["source_list"], mame["original_software_ordinal"]
+        original = conn.execute(
+            "SELECT s.title_literal,l.original_xml_sha256,l.cohort FROM software s "
+            "JOIN source_lists l ON l.source_list=s.source_list "
+            "WHERE s.source_list=? AND s.source_ordinal=?",
+            (name, ordinal),
+        ).fetchone()
+        if original != (mame["original_title"], mame["original_xml_sha256"], "v3"):
+            raise ValueError("third-cohort stable review task has changed MAME source")
+        media_ordinals = unit["media_evidence_jsonl_source_ordinals"]
+        title_ordinals = unit["title_evidence_jsonl_source_ordinals"]
+        evidence_kind = "media" if media_ordinals else "title"
+        conn.execute(
+            "INSERT INTO source_review_units VALUES (?,?,?,?,?,?,?)",
+            (unit["stable_review_id"], name, ordinal,
+             unit["source_review_priority_class"],
+             int(unit["multiple_source_target_alternatives"]),
+             evidence_kind, compact(unit)),
+        )
+        targets = set()
+        for target in unit["candidate_libretro_targets"]:
+            platform, target_ordinal = target["platform"], target["original_source_ordinal"]
+            source = conn.execute(
+                "SELECT r.title_literal,l.original_git_blob_sha FROM libretro_records r "
+                "JOIN libretro_sources l ON r.platform=l.platform "
+                "WHERE r.platform=? AND r.source_ordinal=?",
+                (platform, target_ordinal),
+            ).fetchone()
+            if source != (target["original_title"], target["original_git_blob_sha"]):
+                raise ValueError("third-cohort review target has changed original DAT")
+            conn.execute(
+                "INSERT INTO source_review_targets VALUES (?,?,?,?,?,?)",
+                (unit["stable_review_id"], platform, target_ordinal,
+                 int(target["has_equal_sha1_and_size_evidence"]),
+                 int(target["has_exact_normalized_title_review_evidence"]),
+                 compact(target)),
+            )
+            targets.add((platform, target_ordinal))
+        for table, ordinals, baseline in (
+            ("exact_media_links", media_ordinals, BASELINE["links"]),
+            ("title_review_candidates", title_ordinals, BASELINE["title_review"]),
+        ):
+            for evidence_ordinal in ordinals:
+                link = conn.execute(
+                    f"SELECT mame_list,mame_software_ordinal,"
+                    f"libretro_platform,libretro_software_ordinal "
+                    f"FROM {table} WHERE source_ordinal=?",
+                    (baseline + evidence_ordinal,),
+                ).fetchone()
+                if (
+                    link is None
+                    or link[:2] != (name, ordinal)
+                    or link[2:] not in targets
+                ):
+                    raise ValueError("third-cohort review ID references unrelated evidence")
 
 
 def counts(conn):
@@ -634,7 +847,7 @@ def verify(conn, root):
         raise ValueError("derived local MAME index has broken source-ordinal references")
     observed = counts(conn)
     for table, expected in (
-        ("provenance", 88),
+        ("provenance", 97),
         ("source_lists", EXPECTED["source_lists"]),
         ("software", EXPECTED["software"]),
         ("libretro_sources", EXPECTED["libretro_sources"]),
