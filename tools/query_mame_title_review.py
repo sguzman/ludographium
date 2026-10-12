@@ -17,7 +17,8 @@ V3_SUMMARY = Path("reports/mame-libretro-title-review-v3-summary.json")
 
 
 def query_v3(root=ROOT, *, mame_list=None, libretro_platform=None,
-             title=None, min_scope_support=3, ambiguous_only=False, limit=20):
+             title=None, min_scope_support=3, ambiguous_only=False, limit=20,
+             offset=0):
     """The four additional original MAME source lists have a separate index."""
     report_path, index_path = root / V3_SUMMARY, root / V3_INDEX
     if (
@@ -102,7 +103,7 @@ def query_v3(root=ROOT, *, mame_list=None, libretro_platform=None,
         ):
             continue
         matches += 1
-        if len(results) < limit:
+        if matches > offset and len(results) < limit:
             results.append({
                 **row,
                 "source_evidence_cohort": "v3",
@@ -115,6 +116,10 @@ def query_v3(root=ROOT, *, mame_list=None, libretro_platform=None,
         "distinct_original_mame_records_with_candidates": len(alternatives),
         "total_filtered_candidate_pairs": matches,
         "returned_candidate_pairs": len(results),
+        "offset": offset,
+        "next_offset": (
+            offset + len(results) if offset + len(results) < matches else None
+        ),
         "source_index_sha256": report["candidate_sha256"],
         "pairs": results,
         "interpretation": (
@@ -126,7 +131,10 @@ def query_v3(root=ROOT, *, mame_list=None, libretro_platform=None,
 
 
 def query(root=ROOT, *, mame_list=None, libretro_platform=None, title=None,
-          min_scope_support=3, ambiguous_only=False, limit=20, cohort="baseline"):
+          min_scope_support=3, ambiguous_only=False, limit=20,
+          cohort="baseline", offset=0):
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("title review offset must be 0..1000000")
     if not 1 <= limit <= 200:
         raise ValueError("review query limit must be 1 through 200")
     if not 3 <= min_scope_support <= 1000000:
@@ -139,23 +147,27 @@ def query(root=ROOT, *, mame_list=None, libretro_platform=None, title=None,
     if cohort not in ("baseline", "v3", "combined"):
         raise ValueError("unsupported independent title-review cohort")
     if cohort != "baseline":
-        extra = query_v3(
-            root, mame_list=mame_list, libretro_platform=libretro_platform,
+        selected = dict(
+            mame_list=mame_list, libretro_platform=libretro_platform,
             title=title, min_scope_support=min_scope_support,
             ambiguous_only=ambiguous_only, limit=limit,
         )
         if cohort == "v3":
-            return extra
-        first = query(
-            root, mame_list=mame_list, libretro_platform=libretro_platform,
-            title=title, min_scope_support=min_scope_support,
-            ambiguous_only=ambiguous_only, limit=limit, cohort="baseline",
-        )
+            return query_v3(root, **selected, offset=offset)
+        first = query(root, **selected, cohort="baseline", offset=offset)
+        # Count matches before paging, then advance into the independent
+        # third cohort only after the baseline filtered results are exhausted.
+        v3_offset = max(0, offset - first["total_filtered_candidate_pairs"])
+        extra = query_v3(root, **selected, offset=v3_offset)
         merged = [
             {**item, "source_evidence_cohort": "baseline"}
             for item in first["pairs"]
         ] + extra["pairs"]
         pairs = merged[:limit]
+        total_filtered = (
+            first["total_filtered_candidate_pairs"]
+            + extra["total_filtered_candidate_pairs"]
+        )
         return {
             "source_mode": "independently-pinned-mame-cross-cohort-title-review",
             "source_cohorts": ["baseline", "v3"],
@@ -167,11 +179,13 @@ def query(root=ROOT, *, mame_list=None, libretro_platform=None, title=None,
                 first["distinct_original_mame_records_with_candidates"]
                 + extra["distinct_original_mame_records_with_candidates"]
             ),
-            "total_filtered_candidate_pairs": (
-                first["total_filtered_candidate_pairs"]
-                + extra["total_filtered_candidate_pairs"]
-            ),
+            "total_filtered_candidate_pairs": total_filtered,
             "returned_candidate_pairs": len(pairs),
+            "offset": offset,
+            "next_offset": (
+                offset + len(pairs)
+                if offset + len(pairs) < total_filtered else None
+            ),
             "source_index_sha256": {
                 "baseline": first["source_index_sha256"],
                 "v3": extra["source_index_sha256"],
@@ -270,7 +284,7 @@ def query(root=ROOT, *, mame_list=None, libretro_platform=None, title=None,
         if ambiguous_only and count <= 1:
             continue
         matches += 1
-        if len(filtered) < limit:
+        if matches > offset and len(filtered) < limit:
             filtered.append({
                 **row,
                 "source_review_alternatives_for_same_mame_record": count,
@@ -282,6 +296,10 @@ def query(root=ROOT, *, mame_list=None, libretro_platform=None, title=None,
         "distinct_original_mame_records_with_candidates": len(groups),
         "total_filtered_candidate_pairs": matches,
         "returned_candidate_pairs": len(filtered),
+        "offset": offset,
+        "next_offset": (
+            offset + len(filtered) if offset + len(filtered) < matches else None
+        ),
         "source_index_sha256": report["candidate_sha256"],
         "minimum_original_media_supported_scope_records": (
             report["minimum_distinct_mame_media_supported_scope_records"]
@@ -306,13 +324,15 @@ def main():
     parser.add_argument("--cohort", choices=("baseline", "v3", "combined"),
                         default="baseline")
     parser.add_argument("--limit", type=int, default=20)
+    parser.add_argument("--offset", type=int, default=0,
+                        help="filtered title-review pairs to skip")
     args = parser.parse_args()
     result = query(
         ROOT, mame_list=args.mame_list,
         libretro_platform=args.platform, title=args.title,
         min_scope_support=args.min_scope_support,
         ambiguous_only=args.ambiguous_only, limit=args.limit,
-        cohort=args.cohort,
+        cohort=args.cohort, offset=args.offset,
     )
     print(json.dumps(result, indent=2, ensure_ascii=False))
 
