@@ -1,0 +1,58 @@
+name: Publish independent three-provider source acquisition coverage
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-three-provider-source-coverage.yml
+      - tools/audit_three_provider_source_coverage.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-three-provider-source-coverage-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify four-family Wikidata coverage and original media sources
+        run: |
+          python tools/audit_wikidata_evidence_matrix.py --check
+          python tools/audit_mame_media_coverage.py --check
+          python -m unittest discover -s tests -p test_three_provider_source_coverage.py -v
+      - name: Publish one immutable-basis source coverage matrix per Libretro collection
+        run: |
+          python tools/audit_three_provider_source_coverage.py --write
+          python tools/audit_three_provider_source_coverage.py --check
+      - name: Commit deterministic tri-provider acquisition report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/three-provider-source-coverage-v1.json
+          if git diff --cached --quiet; then
+            echo "Coverage matrix unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin complete three-provider source acquisition coverage'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Unable to publish independent provider coverage report" >&2
+          exit 1

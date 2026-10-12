@@ -173,6 +173,20 @@ not a canonical game or release identity registry. The
 builds and tests it temporarily and deletes the binary afterward; SQLite
 files are not committed or published.
 
+### Three-provider bulk acquisition coverage
+
+The [three-provider source coverage auditor](tools/audit_three_provider_source_coverage.py)
+cross-tabulates all **75 original Libretro collection scopes** with
+**65 registered Wikidata P400 source scopes** and the **65 independent MAME
+software lists**. MAME list-to-Libretro associations are recorded **only
+when original SHA-1 and media byte sizes already agree**. The
+[pinned per-collection coverage matrix](reports/three-provider-source-coverage-v1.json)
+retains separate Wikidata language, fact, credits, relations and MAME media
+source-evidence yields, explicit missing registrations, and original DAT
+record counts. Its four evidence-coverage classes guide future bulk source
+acquisition; they do not establish game or platform identity or imply
+that games are absent from zero-row source queries.
+
 ### Independent Libretro collections sharing original media fingerprints
 
 The [cross-scope source auditor](tools/audit_libretro_cross_scope_sha1.py)
