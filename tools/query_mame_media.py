@@ -16,6 +16,8 @@ REPORT = Path("reports/mame-libretro-media-sha1-v1-summary.json")
 INDEX = Path("data/reconciliation/mame-libretro-sha1-v1/links.jsonl")
 V3_REPORT = Path("reports/mame-libretro-sha1-v3-summary.json")
 V3_INDEX = Path("data/reconciliation/mame-libretro-sha1-v3/links.jsonl")
+V4_REPORT = Path("reports/mame-libretro-sha1-v4-summary.json")
+V4_INDEX = Path("data/reconciliation/mame-libretro-sha1-v4/links.jsonl")
 POLICY = "review-only-media-sha1-byte-evidence-not-verified-game-release-platform-identity"
 SHA1 = re.compile(r"[a-f0-9]{40}\Z")
 
@@ -25,6 +27,8 @@ def verified_rows(root, *, source):
         report_path, index_path = REPORT, INDEX
     elif source == "v3":
         report_path, index_path = V3_REPORT, V3_INDEX
+    elif source == "v4":
+        report_path, index_path = V4_REPORT, V4_INDEX
     else:
         raise ValueError("unsupported independently pinned media source cohort")
     path = root / report_path
@@ -47,7 +51,7 @@ def verified_rows(root, *, source):
             and report["libretro_source_platforms"] == 75
             and report["match_index_path"] == str(index_path)
         )
-    else:
+    elif source == "v3":
         expected = report["source_media_sha1_candidate_pairs"]
         digest = report["candidate_sha256"]
         byte_count = report["candidate_bytes"]
@@ -62,6 +66,22 @@ def verified_rows(root, *, source):
             and report["candidate_path"] == str(index_path)
             and report["mame_source_license"] == "CC0-1.0"
             and report["libretro_source_license"] == "CC-BY-SA-4.0"
+        )
+    else:
+        expected = report["source_corroborated_media_candidate_pairs"]
+        digest = report["corroborated_candidate_sha256"]
+        byte_count = report["corroborated_candidate_bytes"]
+        manifest_ok = (
+            report["schema_version"] == 1
+            and report["kind"] == "independent-fourth-mame-cohort-media-sha1-evidence-audit"
+            and report["mame_source_register"] == "sources/mame-softlists-v4.json"
+            and report["original_mame_source_lists"] == 8
+            and report["original_mame_software_observations"] == 373
+            and report["original_libretro_dat_collections"] == 75
+            and report["source_license_mame"] == "CC0-1.0"
+            and report["source_license_libretro"] == "CC-BY-SA-4.0"
+            and report["corroborated_candidate_path"] == str(index_path)
+            and expected == 70
         )
     if (
         not manifest_ok
@@ -83,7 +103,7 @@ def verified_rows(root, *, source):
                 and SHA1.fullmatch(item["media_sha1"]) is not None
                 and item["interpretation"].startswith("review-only")
             )
-        else:
+        elif source == "v3":
             valid = (
                 item["schema_version"] == 1
                 and item["kind"] == "review-only-v3-mame-libretro-exact-media-sha1-candidate"
@@ -97,6 +117,21 @@ def verified_rows(root, *, source):
                     "not-accepted-game-or-release-identity"
                 )
                 and mame["source_manifest_path"].startswith("data/mame/softlists-v3/")
+                and libretro["source_dat_path"].startswith("archive/libretro-")
+            )
+        else:
+            valid = (
+                item["schema_version"] == 1
+                and item["source_cohort"] == "v4"
+                and item["kind"] == "fourth-cohort-corroborated-media-review-candidate"
+                and item["size_corroborated"]
+                and item["mame"]["original_declared_size_bytes"] is not None
+                and mame["original_declared_size_bytes"] ==
+                    libretro["original_media_size_bytes"]
+                and SHA1.fullmatch(item["original_media_sha1"]) is not None
+                and item["interpretation"] ==
+                    "review-only-equal-sha1-and-byte-size-not-a-game-or-release-identity"
+                and mame["original_manifest_path"].startswith("data/mame/softlists-v4/")
                 and libretro["source_dat_path"].startswith("archive/libretro-")
             )
         if not valid:
@@ -113,8 +148,8 @@ def query(root=ROOT, *, sha1=None, libretro_platform=None, mame_list=None,
         raise ValueError("limit must be 1..=200")
     if type(offset) is not int or not 0 <= offset <= 1_000_000:
         raise ValueError("offset must be 0..1000000")
-    if cohort not in ("baseline", "v3", "combined"):
-        raise ValueError("cohort must be baseline, v3 or combined")
+    if cohort not in ("baseline", "v3", "v4", "combined", "all-pinned"):
+        raise ValueError("cohort must be baseline, v3, v4, combined or all-pinned")
     if sha1 is not None and not re.fullmatch(r"[a-fA-F0-9]{40}", sha1):
         raise ValueError("SHA-1 requires 40 hex digits")
     if any(
@@ -124,7 +159,10 @@ def query(root=ROOT, *, sha1=None, libretro_platform=None, mame_list=None,
         for text in (libretro_platform, mame_list, title)
     ):
         raise ValueError("blank or unbounded text filter")
-    chosen = ("baseline", "v3") if cohort == "combined" else (cohort,)
+    chosen = (
+        ("baseline", "v3") if cohort == "combined" else
+        ("baseline", "v3", "v4") if cohort == "all-pinned" else (cohort,)
+    )
     registries = [(*verified_rows(root, source=source), source) for source in chosen]
     needle = sha1.lower() if sha1 else None
     total = 0
@@ -157,7 +195,8 @@ def query(root=ROOT, *, sha1=None, libretro_platform=None, mame_list=None,
     digest_info = {
         source: (
             report["match_index_sha256"] if source == "baseline"
-            else report["candidate_sha256"]
+            else report["candidate_sha256"] if source == "v3"
+            else report["corroborated_candidate_sha256"]
         )
         for report, _, source in registries
     }
@@ -178,12 +217,14 @@ def query(root=ROOT, *, sha1=None, libretro_platform=None, mame_list=None,
         "source_digest_sha256": (
             digest_info["baseline"] if cohort == "baseline"
             else digest_info["v3"] if cohort == "v3"
+            else digest_info["v4"] if cohort == "v4"
             else digest_info
         ),
         **({
             "source_cohorts": list(chosen),
             "independent_mame_source_lists": 65 if cohort == "baseline" else (
-                4 if cohort == "v3" else 69
+                4 if cohort == "v3" else 8 if cohort == "v4" else
+                69 if cohort == "combined" else 77
             ),
         } if cohort != "baseline" else {}),
         "pairs": results,
@@ -197,7 +238,7 @@ def main():
     parser.add_argument("--platform")
     parser.add_argument("--mame-list")
     parser.add_argument("--title")
-    parser.add_argument("--cohort", choices=("baseline", "v3", "combined"),
+    parser.add_argument("--cohort", choices=("baseline", "v3", "v4", "combined", "all-pinned"),
                         default="baseline")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--offset", type=int, default=0,
