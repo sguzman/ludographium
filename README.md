@@ -149,6 +149,24 @@ python tools/query_mame_title_review.py --platform nes --min-scope-support 10 --
 Each returned lead includes the number of competing candidate records for
 its source MAME entry. Unique leads remain unverified.
 
+### Stable-ID corpus-wide source-evidence review queue
+
+The [evidence-only review-unit builder](tools/build_source_review_units.py)
+groups independently pinned exact-media candidates (19,025 rows) and
+conservative exact-title leads (6,825 rows) by their **original MAME source
+occurrence**, without joining game identities or duplicating the full raw
+evidence. Each unit gets an immutable-snapshot-qualified
+`lgreview:v1:` identifier from its original list, XML SHA-256 and ordinal.
+It retains every competing Libretro source-record target and the precise
+one-based evidence JSONL row coordinates.
+
+The [versioned review report](reports/source-review-units-v1-summary.json)
+groups cases into single/multiple-target source evidence with separate
+media- and title-supported categories. Even one-target, equal-SHA-1
+records are **unreviewed evidence, not canonical works or releases**.
+The [CI source queue workflow](.github/workflows/build-source-review-units-v1.yml)
+rebuilds and validates this text-only review queue from the original sources.
+
 ## Additional platform source accession
 
 A separate pinned Wikidata CC0 accession now covers **Atari 7800,
