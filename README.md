@@ -22,6 +22,15 @@ titles, and years will **not** automatically merge MAME, Libretro and
 Wikidata game, release, or media identities. No ROM/media binaries are
 downloaded.
 
+A [deterministic source-only software index](data/mame/software-observations-v1/)
+projects the **31,464 original XML entries** to provenance-linked JSONL with
+original software identifiers, literal titles, original publisher/year fields,
+serials, shared features, and ROM/disk fingerprint attributes. It preserves
+one-based original entry and media ordinals, source XML SHA-256 and original
+attributes; the [aggregate report](reports/mame-software-observations-v1-summary.json)
+remains separate from canonical game or release identity. Build/verify with
+`python tools/index_mame_softlists.py --build` or `--check`.
+
 ## Additional platform source accession
 
 A separate pinned Wikidata CC0 accession now covers **Atari 7800,

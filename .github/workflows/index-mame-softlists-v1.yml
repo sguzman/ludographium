@@ -1,0 +1,54 @@
+name: Build provenance-preserving MAME software observation index
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/index-mame-softlists-v1.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mame-software-observations-v1-main
+  cancel-in-progress: false
+
+jobs:
+  projection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify and project all original MAME software/media source observations
+        run: |
+          python tools/acquire_mame_softlists.py --check
+          python tools/index_mame_softlists.py --build
+          python tools/index_mame_softlists.py --check
+          python -m unittest discover -s tests -p test_index_mame_softlists.py -v
+      - name: Pin text-only software observation index with original source hashes
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/mame/software-observations-v1 reports/mame-software-observations-v1-summary.json
+          if git diff --cached --quiet; then
+            echo "All original source indexes already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin 31464 independently attributed software observations'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Failed to publish deterministic MAME source index" >&2
+          exit 1
