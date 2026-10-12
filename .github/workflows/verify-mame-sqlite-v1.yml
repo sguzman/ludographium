@@ -108,6 +108,21 @@ jobs:
           assert "no-cross-source" in results[9]["matching_policy"]
           print("Verified ten source-scoped search modes with pinned independent licenses")
           PY
+          cat > "$temp/queries.jsonl" <<'JSONL'
+          {"id":"tetris","title":"Tetris","limit":2}
+          {"id":"mario","title":"Mario","limit":2}
+          JSONL
+          python tools/batch_query_game_sources.py --db "$database" --input "$temp/queries.jsonl" > "$temp/batch-results.jsonl"
+          python - "$temp/batch-results.jsonl" <<'PY'
+          import json,sys
+          with open(sys.argv[1],encoding="utf-8") as source:
+              results=[json.loads(line) for line in source]
+          assert [row["request_id"] for row in results] == ["tetris","mario"]
+          assert all(row["response"]["mame"]["total_filtered_source_observations"] > 0 for row in results)
+          assert all(row["response"]["libretro"]["total_filtered_source_observations"] > 0 for row in results)
+          assert all(row["response"]["matching_policy"] == "no-cross-source-work-or-release-identity-merge" for row in results)
+          print("Verified two bounded batch searches using one pinned source database")
+          PY
       - name: Confirm no binary database is committed or published
         shell: bash
         run: |
