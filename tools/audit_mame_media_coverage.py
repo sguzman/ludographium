@@ -170,7 +170,7 @@ def build_report(root=ROOT):
         "kind": "source-only-mame-libretro-exact-sha1-gap-analysis",
         "source_media_report": str(SOURCE_REPORT),
         "source_media_sha256": match_summary["match_index_sha256"],
-        "mame_source_lists": len(mame),
+        "mame_source_list_count": len(mame),
         "libretro_source_collections": len(libretro),
         "exact_media_sha1_candidate_pairs": links_count,
         "mame_source_observation_totals": mame_totals,

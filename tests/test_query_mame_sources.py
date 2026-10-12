@@ -26,6 +26,10 @@ class MameQueryTests(unittest.TestCase):
         newer = source_query(ROOT, source_list="wswan", limit=2)
         self.assertGreater(newer["total_filtered_original_records"], 0)
         self.assertEqual(newer["source_software_entries"], 32953)
+        self.assertEqual(newer["original_source_lists"], 65)
+        self.assertEqual(
+            newer["additional_source_register"], "sources/mame-softlists-v2.json"
+        )
         self.assertTrue(all(
             item["source_list"] == "wswan" for item in newer["records"]
         ))

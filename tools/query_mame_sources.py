@@ -119,6 +119,7 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
     return {
         "source_mode": "verified-mame-cc0-original-software-records",
         "source_register": "sources/mame-softlists-v1.json",
+        "additional_source_register": "sources/mame-softlists-v2.json",
         "source_software_entries": 32953,
         "original_source_lists": 65,
         "total_filtered_original_records": matched_count,
