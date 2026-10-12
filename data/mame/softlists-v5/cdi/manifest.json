@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v5.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/cdi.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/cdi.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "cdi.xml",
+  "original_xml_bytes": 541722,
+  "original_xml_sha256": "6ceab574416a7811fe8cfe3a1cf6c0bb3db98c7202e3048aa91d52ff25f81742",
+  "source_list_name": "cdi",
+  "source_list_description": "Philips CD-i images (Green Book)",
+  "source_software_entries": 646,
+  "source_description_observations": 646,
+  "source_year_observations": 646,
+  "source_publisher_observations": 646,
+  "source_serial_observations": 9,
+  "source_rom_sha1_observations": 0,
+  "source_disk_sha1_observations": 695,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

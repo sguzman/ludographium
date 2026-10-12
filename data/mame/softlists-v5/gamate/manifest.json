@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v5.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/gamate.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/gamate.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "gamate.xml",
+  "original_xml_bytes": 27485,
+  "original_xml_sha256": "b8c94d66e2390ef9e105e6aa86eacbfd947df796f53ecd694e649657bc90e2d2",
+  "source_list_name": "gamate",
+  "source_list_description": "Bit Corp Gamate cartridges",
+  "source_software_entries": 62,
+  "source_description_observations": 62,
+  "source_year_observations": 62,
+  "source_publisher_observations": 62,
+  "source_serial_observations": 62,
+  "source_rom_sha1_observations": 62,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

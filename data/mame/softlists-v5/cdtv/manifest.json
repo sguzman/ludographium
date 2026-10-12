@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v5.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/cdtv.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/cdtv.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "cdtv.xml",
+  "original_xml_bytes": 129357,
+  "original_xml_sha256": "44e349e7ee726d2d4ad83cee62cc164a668ea6f75e76f1548fcd8959e51397c0",
+  "source_list_name": "cdtv",
+  "source_list_description": "Commodore Amiga CDTV CD-ROMs",
+  "source_software_entries": 132,
+  "source_description_observations": 132,
+  "source_year_observations": 132,
+  "source_publisher_observations": 132,
+  "source_serial_observations": 4,
+  "source_rom_sha1_observations": 0,
+  "source_disk_sha1_observations": 136,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

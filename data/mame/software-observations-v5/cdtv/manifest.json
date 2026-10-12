@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v5/cdtv/manifest.json",
+  "original_xml_sha256": "44e349e7ee726d2d4ad83cee62cc164a668ea6f75e76f1548fcd8959e51397c0",
+  "original_source_list": "cdtv",
+  "original_xml_path": "data/mame/softlists-v5/cdtv/cdtv.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "0b96c0d6e420edd3bcee82debc1f9e11f8d9fb4566a2410118d5ca25524ccc84",
+  "index_bytes": 127340,
+  "index_rows": 132,
+  "source_observation_counts": {
+    "software_entries": 132,
+    "rom_sha1_claims": 0,
+    "disk_sha1_claims": 136,
+    "entries_with_year": 132,
+    "entries_with_publisher": 132,
+    "entries_with_serial": 4
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-entry-projection",
+  "source_register": "sources/mame-softlists-v5.json",
+  "original_capture_summary": "reports/mame-softlists-v5-summary.json",
+  "indexed_source_partitions": 6,
+  "source_observation_totals": {
+    "software_entries": 1652,
+    "rom_sha1_claims": 3601,
+    "disk_sha1_claims": 1381,
+    "entries_with_year": 1652,
+    "entries_with_publisher": 1652,
+    "entries_with_serial": 703
+  },
+  "partitions": [
+    {
+      "source_list": "3do_m2",
+      "original_xml_path": "data/mame/softlists-v5/3do_m2/3do_m2.xml",
+      "original_xml_sha256": "77adc265459e93e486c1e67f15f0bb826de48b9b2461373587cc4c58acb3b426",
+      "index_manifest": "data/mame/software-observations-v5/3do_m2/manifest.json",
+      "index_sha256": "9f12337b4856b9fc088271ae97ed0c051ee8b613a54d16638c0db39634033ad2",
+      "counts": {
+        "software_entries": 3,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 3,
+        "entries_with_year": 3,
+        "entries_with_publisher": 3,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "cdi",
+      "original_xml_path": "data/mame/softlists-v5/cdi/cdi.xml",
+      "original_xml_sha256": "6ceab574416a7811fe8cfe3a1cf6c0bb3db98c7202e3048aa91d52ff25f81742",
+      "index_manifest": "data/mame/software-observations-v5/cdi/manifest.json",
+      "index_sha256": "f2b375e18b1e1751edcd5e9c2c1f6cd5800dca21e72ff2b2e7e07a560943b902",
+      "counts": {
+        "software_entries": 646,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 695,
+        "entries_with_year": 646,
+        "entries_with_publisher": 646,
+        "entries_with_serial": 9
+      }
+    },
+    {
+      "source_list": "cdtv",
+      "original_xml_path": "data/mame/softlists-v5/cdtv/cdtv.xml",
+      "original_xml_sha256": "44e349e7ee726d2d4ad83cee62cc164a668ea6f75e76f1548fcd8959e51397c0",
+      "index_manifest": "data/mame/software-observations-v5/cdtv/manifest.json",
+      "index_sha256": "0b96c0d6e420edd3bcee82debc1f9e11f8d9fb4566a2410118d5ca25524ccc84",
+      "counts": {
+        "software_entries": 132,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 136,
+        "entries_with_year": 132,
+        "entries_with_publisher": 132,
+        "entries_with_serial": 4
+      }
+    },
+    {
+      "source_list": "gamate",
+      "original_xml_path": "data/mame/softlists-v5/gamate/gamate.xml",
+      "original_xml_sha256": "b8c94d66e2390ef9e105e6aa86eacbfd947df796f53ecd694e649657bc90e2d2",
+      "index_manifest": "data/mame/software-observations-v5/gamate/manifest.json",
+      "index_sha256": "ecdb3bd310896e21e79a97647d432fed34c72a85fd4e4b86d5c2ac68371b728a",
+      "counts": {
+        "software_entries": 62,
+        "rom_sha1_claims": 62,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 62,
+        "entries_with_publisher": 62,
+        "entries_with_serial": 62
+      }
+    },
+    {
+      "source_list": "megacd",
+      "original_xml_path": "data/mame/softlists-v5/megacd/megacd.xml",
+      "original_xml_sha256": "ea0317fc2301bc07e0872d2802617862880d0692f9d99e7447a0b81259a4f0e9",
+      "index_manifest": "data/mame/software-observations-v5/megacd/manifest.json",
+      "index_sha256": "740adf08deea24683de1fe30410d5975219a81fdda9be483f1bdaed3edf52eb4",
+      "counts": {
+        "software_entries": 502,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 547,
+        "entries_with_year": 502,
+        "entries_with_publisher": 502,
+        "entries_with_serial": 428
+      }
+    },
+    {
+      "source_list": "neogeo",
+      "original_xml_path": "data/mame/softlists-v5/neogeo/neogeo.xml",
+      "original_xml_sha256": "7a5336c9d4f337f2cc41a1171ac2a5fa9464662e59b2c1d1133bdbc27fe42402",
+      "index_manifest": "data/mame/software-observations-v5/neogeo/manifest.json",
+      "index_sha256": "fd705f04e529ac3112cd389b087670af0ca8f7f8cda9c4127309e054074545ea",
+      "counts": {
+        "software_entries": 307,
+        "rom_sha1_claims": 3539,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 307,
+        "entries_with_publisher": 307,
+        "entries_with_serial": 200
+      }
+    }
+  ],
+  "interpretation": "Exactly pinned MAME XML claims projected to independent JSONL records. Original publishers, years, titles, media SHA1/CRC, serials and regional notes are evidence, not adjudicated canonical work/release identities."
+}

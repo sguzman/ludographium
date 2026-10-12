@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v5/megacd/manifest.json",
+  "original_xml_sha256": "ea0317fc2301bc07e0872d2802617862880d0692f9d99e7447a0b81259a4f0e9",
+  "original_source_list": "megacd",
+  "original_xml_path": "data/mame/softlists-v5/megacd/megacd.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "740adf08deea24683de1fe30410d5975219a81fdda9be483f1bdaed3edf52eb4",
+  "index_bytes": 510149,
+  "index_rows": 502,
+  "source_observation_counts": {
+    "software_entries": 502,
+    "rom_sha1_claims": 0,
+    "disk_sha1_claims": 547,
+    "entries_with_year": 502,
+    "entries_with_publisher": 502,
+    "entries_with_serial": 428
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

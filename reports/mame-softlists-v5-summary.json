@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-softlist-source-yield-report",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "source_register": "sources/mame-softlists-v5.json",
+  "source_license": "CC0-1.0",
+  "software_list_partitions": 6,
+  "source_observation_totals": {
+    "source_software_entries": 1652,
+    "source_rom_sha1_observations": 3601,
+    "source_disk_sha1_observations": 1381,
+    "source_year_observations": 1652,
+    "source_publisher_observations": 1652
+  },
+  "partitions": [
+    {
+      "source_file": "hash/3do_m2.xml",
+      "source_list_name": "3do_m2",
+      "source_software_entries": 3,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 3,
+      "source_year_observations": 3,
+      "source_publisher_observations": 3,
+      "source_manifest": "data/mame/softlists-v5/3do_m2/manifest.json",
+      "source_sha256": "77adc265459e93e486c1e67f15f0bb826de48b9b2461373587cc4c58acb3b426"
+    },
+    {
+      "source_file": "hash/cdi.xml",
+      "source_list_name": "cdi",
+      "source_software_entries": 646,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 695,
+      "source_year_observations": 646,
+      "source_publisher_observations": 646,
+      "source_manifest": "data/mame/softlists-v5/cdi/manifest.json",
+      "source_sha256": "6ceab574416a7811fe8cfe3a1cf6c0bb3db98c7202e3048aa91d52ff25f81742"
+    },
+    {
+      "source_file": "hash/cdtv.xml",
+      "source_list_name": "cdtv",
+      "source_software_entries": 132,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 136,
+      "source_year_observations": 132,
+      "source_publisher_observations": 132,
+      "source_manifest": "data/mame/softlists-v5/cdtv/manifest.json",
+      "source_sha256": "44e349e7ee726d2d4ad83cee62cc164a668ea6f75e76f1548fcd8959e51397c0"
+    },
+    {
+      "source_file": "hash/gamate.xml",
+      "source_list_name": "gamate",
+      "source_software_entries": 62,
+      "source_rom_sha1_observations": 62,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 62,
+      "source_publisher_observations": 62,
+      "source_manifest": "data/mame/softlists-v5/gamate/manifest.json",
+      "source_sha256": "b8c94d66e2390ef9e105e6aa86eacbfd947df796f53ecd694e649657bc90e2d2"
+    },
+    {
+      "source_file": "hash/megacd.xml",
+      "source_list_name": "megacd",
+      "source_software_entries": 502,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 547,
+      "source_year_observations": 502,
+      "source_publisher_observations": 502,
+      "source_manifest": "data/mame/softlists-v5/megacd/manifest.json",
+      "source_sha256": "ea0317fc2301bc07e0872d2802617862880d0692f9d99e7447a0b81259a4f0e9"
+    },
+    {
+      "source_file": "hash/neogeo.xml",
+      "source_list_name": "neogeo",
+      "source_software_entries": 307,
+      "source_rom_sha1_observations": 3539,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 307,
+      "source_publisher_observations": 307,
+      "source_manifest": "data/mame/softlists-v5/neogeo/manifest.json",
+      "source_sha256": "7a5336c9d4f337f2cc41a1171ac2a5fa9464662e59b2c1d1133bdbc27fe42402"
+    }
+  ],
+  "interpretation": "Attributable original MAME source software/media observations, not verified canonical works, regions, releases, or merged Libretro identities. No game media was acquired."
+}

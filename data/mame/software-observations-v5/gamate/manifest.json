@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v5/gamate/manifest.json",
+  "original_xml_sha256": "b8c94d66e2390ef9e105e6aa86eacbfd947df796f53ecd694e649657bc90e2d2",
+  "original_source_list": "gamate",
+  "original_xml_path": "data/mame/softlists-v5/gamate/gamate.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "ecdb3bd310896e21e79a97647d432fed34c72a85fd4e4b86d5c2ac68371b728a",
+  "index_bytes": 56725,
+  "index_rows": 62,
+  "source_observation_counts": {
+    "software_entries": 62,
+    "rom_sha1_claims": 62,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 62,
+    "entries_with_publisher": 62,
+    "entries_with_serial": 62
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}
