@@ -9,6 +9,7 @@ on:
       - tools/reconcile_mame_media.py
       - tools/index_mame_softlists.py
       - sources/mame-softlists-v1.json
+      - sources/mame-softlists-v2.json
 
 permissions:
   contents: write
@@ -32,6 +33,8 @@ jobs:
         run: |
           python tools/acquire_mame_softlists.py --check
           python tools/index_mame_softlists.py --check
+          python tools/acquire_mame_softlists.py --cohort v2 --check
+          python tools/index_mame_softlists.py --cohort v2 --check
       - name: Build provenance-preserving media SHA-1 candidate evidence
         run: |
           python tools/reconcile_mame_media.py --build

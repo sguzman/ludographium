@@ -18,6 +18,7 @@ from build_expanded_corpus import pinned_manifest
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = Path("data/mame/software-observations-v1")
+BASE_V2 = Path("data/mame/software-observations-v2")
 MATCH_BASE = Path("data/reconciliation/mame-libretro-sha1-v1")
 SUMMARY = Path("reports/mame-libretro-media-sha1-v1-summary.json")
 HEX40 = re.compile(r"[a-fA-F0-9]{40}\Z")
@@ -44,9 +45,14 @@ def source_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def verified_mame_index(root, filename, expected):
+def verified_mame_index(root, filename, expected, cohort="v1"):
     key = filename.removesuffix(".xml")
-    directory = root / BASE / key
+    index_base = BASE if cohort == "v1" else BASE_V2
+    original_base = (
+        Path("data/mame/softlists-v1")
+        if cohort == "v1" else Path("data/mame/softlists-v2")
+    )
+    directory = root / index_base / key
     manifest = source_json(directory / "manifest.json")
     path = directory / "observations.jsonl"
     if path.is_symlink():
@@ -59,7 +65,7 @@ def verified_mame_index(root, filename, expected):
         or manifest["original_source_list"] != expected["source_list_name"]
         or manifest["original_xml_sha256"] != expected["original_xml_sha256"]
         or manifest["original_xml_path"] != str(
-            Path("data/mame/softlists-v1") / key / filename
+            original_base / key / filename
         )
         or manifest["index_path"] != "observations.jsonl"
         or manifest["index_sha256"] != sha256(raw)
@@ -158,15 +164,22 @@ def read_libretro(root):
 
 
 def build_expected(root=ROOT):
-    register = source_register(root)
+    registered = [
+        (cohort, register, filename)
+        for cohort in ("v1", "v2")
+        for register in [source_register(root, cohort)]
+        for filename in register["files"]
+    ]
+    if len(registered) != 65:
+        raise ValueError("incomplete independent two-cohort MAME software source register")
     libretro_by_sha1, source_counts = read_libretro(root)
     links = []
     size_conflicts = []
     totals = Counter()
     per_list = []
-    for filename in register["files"]:
+    for cohort, register, filename in registered:
         original = verify_one(root, register, filename)
-        records, manifest = verified_mame_index(root, filename, original)
+        records, manifest = verified_mame_index(root, filename, original, cohort)
         list_id = original["source_list_name"]
         list_counts = Counter()
         for ordinal, row in enumerate(records, 1):
@@ -229,7 +242,9 @@ def build_expected(root=ROOT):
                             "source_xml_sha256": row["original_xml_sha256"],
                             "source_index_sha256": manifest["index_sha256"],
                             "source_index_path": str(
-                                BASE / filename.removesuffix(".xml") / "observations.jsonl"
+                                (BASE if cohort == "v1" else BASE_V2)
+                                / filename.removesuffix(".xml")
+                                / "observations.jsonl"
                             ),
                         },
                         "libretro": match,
@@ -263,8 +278,8 @@ def build_expected(root=ROOT):
     ))
     if len(links) > 200_000:
         raise ValueError("candidate pairs exceeded explicit evidence-safety ceiling")
-    if totals["mame_software_records"] != 31464:
-        raise ValueError("source index no longer covers 31,464 MAME software entries")
+    if totals["mame_software_records"] != 32953:
+        raise ValueError("source index no longer covers 32,953 MAME software entries")
     by_platform = Counter(link["libretro"]["platform"] for link in links)
     payload = ("\n".join(compact(row) for row in links) + ("\n" if links else "")).encode("utf-8")
     disagreements = ("\n".join(compact(row) for row in size_conflicts)
@@ -273,9 +288,10 @@ def build_expected(root=ROOT):
         "schema_version": 1,
         "kind": "independent-cross-source-media-sha1-exact-match-review",
         "mame_source_register": "sources/mame-softlists-v1.json",
+        "mame_additional_source_register": "sources/mame-softlists-v2.json",
         "libretro_base_register": "sources/libretro-no-intro.json",
         "libretro_expansion_register": "sources/bulk-expansion-v1.json",
-        "mame_software_lists": len(register["files"]),
+        "mame_software_lists": len(registered),
         "libretro_source_platforms": 75,
         "mame_observation_totals": dict(sorted(totals.items())),
         "libretro_observation_totals": dict(sorted(source_counts.items())),
