@@ -113,6 +113,42 @@ class MameQueryTests(unittest.TestCase):
             with self.subTest(offset=offset), self.assertRaises(ValueError):
                 source_query(ROOT, offset=offset)
 
+    def test_fourth_cohort_source_records_and_full_77_list_paging(self):
+        fourth = source_query(ROOT, cohort="v4", limit=2)
+        self.assertEqual(fourth["original_source_lists"], 8)
+        self.assertEqual(fourth["source_software_entries"], 373)
+        self.assertEqual(fourth["total_filtered_original_records"], 373)
+        self.assertEqual(fourth["all_original_source_registers"], [
+            "sources/mame-softlists-v4.json"
+        ])
+        self.assertEqual(fourth["records"][0]["source_list"], "3do")
+        supervision = source_query(
+            ROOT, cohort="v4", source_list="svision", limit=2
+        )
+        self.assertEqual(supervision["total_filtered_original_records"], 72)
+        self.assertTrue(all(
+            record["source_list"] == "svision" and record["original_xml_sha256"]
+            for record in supervision["records"]
+        ))
+        full = source_query(ROOT, cohort="all-pinned", offset=33117, limit=4)
+        self.assertEqual(full["source_query_cohort"], "all-pinned")
+        self.assertEqual(full["original_source_lists"], 77)
+        self.assertEqual(full["source_software_entries"], 33492)
+        self.assertEqual(full["total_filtered_original_records"], 33492)
+        self.assertEqual(full["next_offset"], 33121)
+        self.assertEqual(len(full["all_original_source_registers"]), 4)
+        self.assertEqual(
+            [record["source_list"] == "3do" for record in full["records"]],
+            [False, False, True, True],
+        )
+        # Historical 69-list cohort retains the same count and order.
+        old = source_query(ROOT, cohort="all", offset=33117, limit=4)
+        self.assertEqual(old["source_software_entries"], 33119)
+        self.assertEqual(old["returned_original_records"], 2)
+        self.assertIsNone(old["next_offset"])
+        with self.assertRaises(ValueError):
+            source_query(ROOT, cohort="v4", without_review_leads=True)
+
     def test_exact_sha1_candidates_keep_original_source_provenance(self):
         result = candidate_query(ROOT, libretro_platform="tigergamecom", limit=2)
         self.assertGreater(result["total_filtered_candidate_pairs"], 0)
