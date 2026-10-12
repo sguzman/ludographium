@@ -1,0 +1,85 @@
+name: Pin fourth-cohort noncanonical stable source-review tasks
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/source-review-units-v4.yml
+      - tools/build_source_review_units_v4.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: source-review-units-v4-main
+  cancel-in-progress: false
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Validate all prior original source review queues
+        run: |
+          set -euo pipefail
+          python tools/build_source_review_units.py --check
+          python tools/build_source_review_units_v3.py --check
+          python tools/reconcile_mame_v4_media.py --check
+      - name: Derive independently checked fourth-cohort stable review tasks
+        run: |
+          set -euo pipefail
+          python tools/build_source_review_units_v4.py --write
+          python tools/build_source_review_units_v4.py --check
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          original = json.loads(Path("reports/source-review-units-v1-summary.json").read_text())
+          third = json.loads(Path("reports/source-review-units-v3-summary.json").read_text())
+          fourth = json.loads(Path("reports/source-review-units-v4-summary.json").read_text())
+          assert original["source_review_units"] == 21712
+          assert third["additional_original_review_units"] == 133
+          assert fourth["unchanged_prior_source_review_units"] == 21845
+          assert fourth["additional_original_review_units"] == 70
+          assert fourth["cumulative_separate_source_review_units"] == 21915
+          raw = Path(fourth["review_index_path"]).read_bytes()
+          assert len(raw.splitlines()) == 70
+          assert hashlib.sha256(raw).hexdigest() == fourth["review_index_sha256"]
+          assert len(raw) == fourth["review_index_bytes"]
+          rows = [json.loads(line) for line in raw.splitlines()]
+          assert len({row["stable_review_id"] for row in rows}) == 70
+          assert all(row["mame"]["source_cohort"] == "v4" for row in rows)
+          assert all(row["mame"]["source_list"] == "svision" for row in rows)
+          assert all(row["media_evidence_jsonl_source_ordinals"] for row in rows)
+          assert all(not row["title_evidence_jsonl_source_ordinals"] for row in rows)
+          assert all(row["review_status"] == "unreviewed-original-evidence" for row in rows)
+          assert sum(len(row["media_evidence_jsonl_source_ordinals"]) for row in rows) == 70
+          print("Verified 70 additive original-source review tasks, no identity promotion")
+          PY
+      - name: Commit fourth-cohort stable source review ledger
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/source-review-units-v4 reports/source-review-units-v4-summary.json
+          if git diff --cached --quiet; then
+            echo "Original fourth-cohort source review tasks already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin 70 original fourth-cohort stable review tasks'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Could not publish fourth-cohort stable source-review ledger" >&2
+          exit 1
