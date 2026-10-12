@@ -1,0 +1,89 @@
+name: Accession eight independent CC0 console and handheld software lists
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/mame-softlists-v4.yml
+      - sources/mame-softlists-v4.json
+      - tools/acquire_mame_softlists.py
+      - tools/index_mame_softlists.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mame-softlists-v4-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify prior 69 pinned original source lists
+        run: |
+          set -euo pipefail
+          for cohort in v1 v2 v3; do
+            python tools/acquire_mame_softlists.py --cohort "$cohort" --check
+            python tools/index_mame_softlists.py --cohort "$cohort" --check
+          done
+      - name: Pin and project eight separately attributed original CC0 software lists
+        run: |
+          set -euo pipefail
+          python tools/acquire_mame_softlists.py --cohort v4 --acquire
+          python tools/acquire_mame_softlists.py --cohort v4 --check
+          python tools/index_mame_softlists.py --cohort v4 --build
+          python tools/index_mame_softlists.py --cohort v4 --check
+          test "$(find data/mame/softlists-v4 -name manifest.json | wc -l)" -eq 8
+          test "$(find data/mame/software-observations-v4 -name manifest.json | wc -l)" -eq 8
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          summaries = [
+              json.loads(Path(f"reports/{name}").read_text())
+              for name in (
+                  "mame-softlists-v4-summary.json",
+                  "mame-software-observations-v4-summary.json",
+              )
+          ]
+          original, projected = summaries
+          assert original["software_list_partitions"] == 8
+          assert projected["indexed_source_partitions"] == 8
+          assert original["source_observation_totals"]["source_software_entries"] == 373
+          assert projected["source_observation_totals"]["software_entries"] == 373
+          assert projected["source_observation_totals"]["rom_sha1_claims"] > 0
+          assert projected["source_observation_totals"]["disk_sha1_claims"] > 0
+          assert original["source_license"] == "CC0-1.0"
+          assert all(Path(x["original_xml_path"]).is_file() for x in projected["partitions"])
+          assert all(x["index_sha256"] for x in projected["partitions"])
+          print("Verified 373 independently indexed, original CC0 source software observations")
+          PY
+      - name: Commit independently verified original XML and JSONL, no game media
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/mame/softlists-v4 data/mame/software-observations-v4 reports/mame-softlists-v4-summary.json reports/mame-software-observations-v4-summary.json
+          if git diff --cached --quiet; then
+            echo "Fourth-cohort pinned source text already matches"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin eight CC0 fourth-cohort console and handheld source lists'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Could not publish source-only MAME fourth-cohort accession" >&2
+          exit 1
