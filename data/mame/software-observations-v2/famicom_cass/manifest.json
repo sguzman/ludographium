@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/famicom_cass/manifest.json",
+  "original_xml_sha256": "746b15d8246ddd562e48e61ba95e702688f0b2d735f37fdf187574e2b5d57691",
+  "original_source_list": "famicom_cass",
+  "original_xml_path": "data/mame/softlists-v2/famicom_cass/famicom_cass.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "70d8ecde577462fdea7f4075d529e942dfb2b937a341e9e8c01254d62cc3de37",
+  "index_bytes": 34279,
+  "index_rows": 27,
+  "source_observation_counts": {
+    "software_entries": 27,
+    "rom_sha1_claims": 50,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 27,
+    "entries_with_publisher": 27,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

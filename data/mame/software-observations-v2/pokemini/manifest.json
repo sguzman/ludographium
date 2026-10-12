@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/pokemini/manifest.json",
+  "original_xml_sha256": "c5fc5222d60931013b9513db4687a97b5294fd489fd8c3ac9571f32c67e835ae",
+  "original_source_list": "pokemini",
+  "original_xml_path": "data/mame/softlists-v2/pokemini/pokemini.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "bb0329b14e86f07c018461f16d4ffc8ff3139ebeda3ff4b2a5d33a4bfd760074",
+  "index_bytes": 41767,
+  "index_rows": 43,
+  "source_observation_counts": {
+    "software_entries": 43,
+    "rom_sha1_claims": 43,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 43,
+    "entries_with_publisher": 43,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

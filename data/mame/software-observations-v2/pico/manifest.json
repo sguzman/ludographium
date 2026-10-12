@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/pico/manifest.json",
+  "original_xml_sha256": "1ef98742972a5273b1fef754caea13fd015909a8b10371854d12026f6bdae4aa",
+  "original_source_list": "pico",
+  "original_xml_path": "data/mame/softlists-v2/pico/pico.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "5f7c5c5b4f0d6dd81008668d91fd74614b596c8cf458300b05cb81229c1f79f6",
+  "index_bytes": 473113,
+  "index_rows": 440,
+  "source_observation_counts": {
+    "software_entries": 440,
+    "rom_sha1_claims": 455,
+    "disk_sha1_claims": 1,
+    "entries_with_year": 440,
+    "entries_with_publisher": 440,
+    "entries_with_serial": 331
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

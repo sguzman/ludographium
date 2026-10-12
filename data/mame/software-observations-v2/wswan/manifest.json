@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/wswan/manifest.json",
+  "original_xml_sha256": "89dd1a07ede5c0267045849bd3bef2e37f88eff3fb191b4e0f3009ffb38b68d4",
+  "original_source_list": "wswan",
+  "original_xml_path": "data/mame/softlists-v2/wswan/wswan.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "a536e9328223168ae4adf4a1b6cc274c8da7b6cb13734f89fcdf023539e45c42",
+  "index_bytes": 137279,
+  "index_rows": 125,
+  "source_observation_counts": {
+    "software_entries": 125,
+    "rom_sha1_claims": 126,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 125,
+    "entries_with_publisher": 125,
+    "entries_with_serial": 125
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

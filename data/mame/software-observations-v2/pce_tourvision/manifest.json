@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/pce_tourvision/manifest.json",
+  "original_xml_sha256": "7b7f4166a0f45a6fafec70497f05411f1d4674ca6233f1f845b5f838eb50129c",
+  "original_source_list": "pce_tourvision",
+  "original_xml_path": "data/mame/softlists-v2/pce_tourvision/pce_tourvision.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "f273b9fecfee5b2df53542a36a81f58c453cb19283ac3bd69dd1c28ff0ba9373",
+  "index_bytes": 119420,
+  "index_rows": 117,
+  "source_observation_counts": {
+    "software_entries": 117,
+    "rom_sha1_claims": 117,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 117,
+    "entries_with_publisher": 117,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

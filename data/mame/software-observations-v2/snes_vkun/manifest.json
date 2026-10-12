@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/snes_vkun/manifest.json",
+  "original_xml_sha256": "d21022c5447905bf4822186fa2fe8a4a19d76b4f9542da5a47386375ba218700",
+  "original_source_list": "snes_vkun",
+  "original_xml_path": "data/mame/softlists-v2/snes_vkun/snes_vkun.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "bf307b231b09fbe3c4969550760106fb17118d87e69e4da12c5c8c8f13388ec8",
+  "index_bytes": 873,
+  "index_rows": 1,
+  "source_observation_counts": {
+    "software_entries": 1,
+    "rom_sha1_claims": 0,
+    "disk_sha1_claims": 1,
+    "entries_with_year": 1,
+    "entries_with_publisher": 1,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

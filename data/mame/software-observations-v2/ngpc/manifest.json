@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/ngpc/manifest.json",
+  "original_xml_sha256": "1b68a1b95b040821c6531fa995fda817287ac4e29f2ecbb38adcdf2305925faf",
+  "original_source_list": "ngpc",
+  "original_xml_path": "data/mame/softlists-v2/ngpc/ngpc.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "20254279347a560e4599d0df29c55fb7c54a630359b3f02430a24c96de39aa42",
+  "index_bytes": 123396,
+  "index_rows": 119,
+  "source_observation_counts": {
+    "software_entries": 119,
+    "rom_sha1_claims": 119,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 119,
+    "entries_with_publisher": 119,
+    "entries_with_serial": 97
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

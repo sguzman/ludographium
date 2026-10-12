@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v2/videopac/manifest.json",
+  "original_xml_sha256": "a5803c3e323b8f47122c468f28bdf672cf088025104ec1345ba8bc88a38e9108",
+  "original_source_list": "videopac",
+  "original_xml_path": "data/mame/softlists-v2/videopac/videopac.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "5c0731daf6d714531f3163ace9408fb24fc8041835f9064654fbedb16efdfea1",
+  "index_bytes": 191317,
+  "index_rows": 200,
+  "source_observation_counts": {
+    "software_entries": 200,
+    "rom_sha1_claims": 204,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 200,
+    "entries_with_publisher": 200,
+    "entries_with_serial": 84
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}
