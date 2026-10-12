@@ -155,12 +155,19 @@ python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --b
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --verify
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --title "Batman" --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --list a5200 --linked-only --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --list a5200 --offset 100 --limit 10
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-review --list a5200 --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --libretro-platform tigergamecom --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform gb --title Tetris --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform n64 --without-review-leads --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-all --title "Tetris" --limit 5
 ```
+
+All local SQLite search modes support bounded `--offset` and `--limit`
+pagination over filtered rows, returning `next_offset` until the source
+results are exhausted. For `--query-all`, the same offset is applied
+**independently to MAME and Libretro**; it never merges their records or
+assumes their result counts match.
 
 The `--query-all` mode accepts only `--title` and/or `--sha1`
 and returns **two independently attributed source-result sets**. It does
