@@ -86,6 +86,14 @@ cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v3 
 The original 16-platform mode remains the default. Zero-row queries indicate
 only source-specific Wikidata noncoverage, not absence of games.
 
+The exact-title correspondence reviewer also supports
+`--wikidata-localized-candidates --metadata-cohort combined --platform all`
+across all **65 platform source scopes**, including all original language-tagged
+label/alias evidence. It preserves ambiguous source QIDs and distinguishes
+matches already supported by independently pinned English game-label evidence
+from genuinely additional localized-name candidate links. Exact title
+correspondence is **review-only**, not a verified work, region or release join.
+
 A [type-agnostic source probe](.github/workflows/wikidata-p400-untyped-probe-v1.yml)
 bulk-queries all ten completely empty P400 scopes without requiring their
 items to have the Wikidata video-game instance type. Its separate source

@@ -114,6 +114,10 @@ impl ExpandedTitleCandidateCatalog {
         }
     }
 
+    pub fn candidates(&self) -> &[ExpandedTitleCandidate] {
+        &self.links
+    }
+
     pub fn platforms(&self) -> &[String] {
         &self.platform_ids
     }

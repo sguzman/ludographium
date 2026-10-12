@@ -962,6 +962,52 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
 }
 
 #[test]
+fn corpus_wide_multilingual_candidate_review_preserves_evidence_and_ambiguity() {
+    let combined = query(&[
+        "--wikidata-localized-candidates",
+        "--metadata-cohort",
+        "combined",
+        "--platform",
+        "all",
+        "--limit",
+        "1",
+    ]);
+    assert_eq!(combined["metadata_cohort"], "combined");
+    assert_eq!(
+        combined["summary"]["platforms_searched"]
+            .as_array()
+            .unwrap()
+            .len(),
+        65
+    );
+    let total = combined["summary"]["total_candidate_pairs"].as_u64().unwrap();
+    assert!(total > 0);
+    assert_eq!(combined["total_filtered_candidate_pairs"], total);
+    assert_eq!(combined["returned_candidate_pairs"], 1);
+    assert!(
+        combined["summary"]["candidate_pairs_absent_from_english_title_match"]
+            .as_u64()
+            .unwrap()
+            <= total
+    );
+    let expanded = query(&[
+        "--wikidata-localized-candidates",
+        "--metadata-cohort",
+        "expanded-v2",
+        "--platform",
+        "gg",
+        "--limit",
+        "2",
+    ]);
+    assert_eq!(expanded["metadata_cohort"], "expanded-v2");
+    assert_eq!(
+        expanded["summary"]["platforms_searched"],
+        serde_json::json!(["gg"])
+    );
+    assert!(expanded["summary"]["total_candidate_pairs"].as_u64().is_some());
+}
+
+#[test]
 fn localized_exact_title_correspondence_is_separate_from_english_baseline() {
     let result = query(&[
         "--wikidata-localized-candidates",

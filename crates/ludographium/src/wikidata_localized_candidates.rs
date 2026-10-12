@@ -1,6 +1,7 @@
 //! Same-platform localized-label and alternate-title equality candidates.
 //! These are independent source claims, not work, region or release identities.
 use crate::original_dat::OriginalDatCatalog;
+use crate::wikidata_expanded_candidates::ExpandedTitleCandidateCatalog;
 use crate::wikidata_candidates::{title_key, WikidataCandidateCatalog};
 use crate::wikidata_localized_titles::WikidataLocalizedTitleCatalog;
 use crate::CatalogError;
@@ -64,9 +65,20 @@ impl WikidataLocalizedCandidateCatalog {
         localized: &WikidataLocalizedTitleCatalog,
         english: &WikidataCandidateCatalog,
     ) -> Self {
+        Self::reconcile_with_expanded(base, localized, english, &[])
+    }
+
+    /// Include the independent expanded English-label candidates when judging
+    /// whether exact multilingual source matches are genuinely new.
+    pub fn reconcile_with_expanded(
+        base: &OriginalDatCatalog,
+        localized: &WikidataLocalizedTitleCatalog,
+        english: &WikidataCandidateCatalog,
+        expanded: &[ExpandedTitleCandidateCatalog],
+    ) -> Self {
         let scope = localized.platform_ids().to_vec();
         let permitted: HashSet<&str> = scope.iter().map(String::as_str).collect();
-        let known_english: HashSet<(String, usize, String)> = english
+        let mut known_english: HashSet<(String, usize, String)> = english
             .candidates()
             .iter()
             .map(|candidate| {
@@ -77,6 +89,15 @@ impl WikidataLocalizedCandidateCatalog {
                 )
             })
             .collect();
+        for source in expanded {
+            for candidate in source.candidates() {
+                known_english.insert((
+                    candidate.platform.clone(),
+                    candidate.libretro_source_ordinal,
+                    candidate.wikidata_item_qid.clone(),
+                ));
+            }
+        }
         let mut source_by_key: BTreeMap<
             (String, String),
             BTreeMap<String, Vec<LocalizedTitleEvidence>>,
