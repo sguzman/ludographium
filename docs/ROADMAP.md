@@ -57,6 +57,11 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [ ] Expand independently *provider-verified* identifier evidence beyond Wikidata assertions; quantify false-positive risk using adjudicated ground truth.
 - [x] Publish a durable, versioned SQLite companion for downstream offline consumers (`data-v1.4.0`).
 
+- [x] Build and integrity-check a disposable 69-list CC0 MAME plus 75-scope CC-BY-SA Libretro SQLite companion, with 33,119 original MAME observations, 117,145 DAT records, 19,152 source-media evidence pairs, 6,833 title-review leads, 21,845 source-review tasks and stable cohort attribution.
+- [x] Provide bounded, filtered paging across original MAME, Libretro, source-media, title-review and stable review-unit readers; verify independent original source ordinals and preserve historic baseline evidence.
+- [x] Publish an additive 69-list, 75-collection Libretro gap matrix while preserving the original 65-list report: 93,911 DAT source records remain without current cross-provider review evidence, spanning 21 collections with no review leads.
+- [ ] Expand independent source coverage for unmatched digital/optical and later-generation platforms with provider-specific licensing and provenance review; treat no-match as an evidence gap, not proof of a missing game.
+
 ## Identity and curation
 
 - [x] Establish evidence-validated UUID identifiers for work, release, and build records.
