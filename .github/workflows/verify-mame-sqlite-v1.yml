@@ -63,6 +63,17 @@ jobs:
                 JOIN exact_media_links l ON t.mame_list=l.mame_list
                 AND t.mame_software_ordinal=l.mame_software_ordinal""").fetchone()[0] == 0
           PY
+          cp "$database" "$temp/tampered-cohort.sqlite"
+          python - "$temp/tampered-cohort.sqlite" <<'PY'
+          import sqlite3,sys
+          with sqlite3.connect(sys.argv[1]) as db:
+              db.execute("UPDATE source_lists SET cohort='v2' WHERE source_list='a5200'")
+          PY
+          if python tools/build_mame_catalog_sqlite.py --db "$temp/tampered-cohort.sqlite" --verify > "$temp/tampered.log" 2>&1; then
+            echo "Modified cohort provenance passed SQLite verification" >&2
+            exit 1
+          fi
+          grep -q "original MAME source cohort provenance changed" "$temp/tampered.log"
           python - "$database" <<'PY'
           import sys
           from pathlib import Path
