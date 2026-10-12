@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "additive-fourth-mame-cohort-stable-source-review-queue",
+  "mame_source_cohort": "v4",
+  "prior_original_source_review_report": "reports/source-review-units-v3-summary.json",
+  "unchanged_prior_source_review_units": 21845,
+  "source_media_report": "reports/mame-libretro-sha1-v4-summary.json",
+  "source_media_index_sha256": "590cdc9a99dab6610b03fc8eb41c446d2405d19a0bc08156c96c58234ad19415",
+  "original_media_candidate_pairs": 70,
+  "additional_original_review_units": 70,
+  "cumulative_separate_source_review_units": 21915,
+  "source_review_priority_class_counts": {
+    "single-media-supported-source-target": 70
+  },
+  "source_review_ambiguity_counts": {
+    "single_target_source_units": 70
+  },
+  "review_index_path": "data/reconciliation/source-review-units-v4/units.jsonl",
+  "review_index_sha256": "b7a8c2fa9d6c2157ccaf5b08f93fc2e77b727b90b94f9b4bd3dafb9151060b7f",
+  "review_index_bytes": 76649,
+  "interpretation": "Independent fourth-cohort SHA1 and declared-size source evidence is organized as stable source-observation review tasks only. No game, release, edition, platform, media or cross-provider identity is accepted. All earlier source review IDs and original evidence remain unchanged."
+}
