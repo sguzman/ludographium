@@ -18,6 +18,18 @@ ROOT = Path(__file__).resolve().parents[1]
 REGISTER = Path("sources/mame-softlists-v1.json")
 BASE = Path("data/mame/softlists-v1")
 REPORT = Path("reports/mame-softlists-v1-summary.json")
+REGISTER_V2 = Path("sources/mame-softlists-v2.json")
+BASE_V2 = Path("data/mame/softlists-v2")
+REPORT_V2 = Path("reports/mame-softlists-v2-summary.json")
+
+
+def cohort_paths(register):
+    cohort = register.get("accession_cohort", "v1")
+    if cohort == "v1":
+        return REGISTER, BASE, REPORT
+    if cohort == "v2":
+        return REGISTER_V2, BASE_V2, REPORT_V2
+    raise ValueError("unsupported MAME CC0 source accession cohort")
 LICENSE = re.compile(rb"license\s*:\s*CC0-1\.0\b", re.I)
 NAME = re.compile(r"[a-z0-9][a-z0-9_]*\.xml\Z")
 MAX_SOURCE_BYTES = 25 * 1024 * 1024
@@ -37,8 +49,13 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def source_register(root):
-    register = read_json(root / REGISTER)
+def source_register(root, cohort="v1"):
+    if cohort not in ("v1", "v2"):
+        raise ValueError("unknown MAME source cohort")
+    source_path = REGISTER if cohort == "v1" else REGISTER_V2
+    register = read_json(root / source_path)
+    if register.get("accession_cohort", "v1") != cohort:
+        raise ValueError("source register claims a different source cohort")
     files = register["files"]
     if (
         register["schema_version"] != 1
@@ -49,7 +66,7 @@ def source_register(root):
         or register["license"] != "CC0-1.0"
         or not re.fullmatch(r"[a-f0-9]{40}", register["upstream_commit_sha"])
         or not isinstance(files, list)
-        or len(files) != 49
+        or len(files) != (49 if cohort == "v1" else 16)
         or files != sorted(set(files))
         or any(not isinstance(name, str) or not NAME.fullmatch(name) for name in files)
     ):
@@ -102,7 +119,8 @@ def pinned_url(register, filename):
 
 
 def verify_one(root, register, filename):
-    folder = root / BASE / filename.removesuffix(".xml")
+    source_register_path, source_base, _ = cohort_paths(register)
+    folder = root / source_base / filename.removesuffix(".xml")
     manifest = read_json(folder / "manifest.json")
     xml_path = folder / filename
     if folder.is_symlink() or xml_path.is_symlink():
@@ -112,7 +130,7 @@ def verify_one(root, register, filename):
     expected = {
         "schema_version": 1,
         "source": "MAME",
-        "source_register": str(REGISTER),
+        "source_register": str(source_register_path),
         "upstream_commit_sha": register["upstream_commit_sha"],
         "upstream_source_path": "hash/" + filename,
         "original_source_url": pinned_url(register, filename),
@@ -151,7 +169,8 @@ def download(register, filename):
 
 
 def acquire_one(root, register, filename):
-    folder = root / BASE / filename.removesuffix(".xml")
+    source_register_path, source_base, _ = cohort_paths(register)
+    folder = root / source_base / filename.removesuffix(".xml")
     if (folder / "manifest.json").exists():
         verify_one(root, register, filename)
         return False
@@ -162,7 +181,7 @@ def acquire_one(root, register, filename):
     manifest = {
         "schema_version": 1,
         "source": "MAME",
-        "source_register": str(REGISTER),
+        "source_register": str(source_register_path),
         "upstream_commit_sha": register["upstream_commit_sha"],
         "upstream_source_path": "hash/" + filename,
         "original_source_url": pinned_url(register, filename),
@@ -181,6 +200,7 @@ def acquire_one(root, register, filename):
 
 
 def summary(root, register):
+    source_register_path, source_base, _ = cohort_paths(register)
     records = []
     for filename in register["files"]:
         observation = verify_one(root, register, filename)
@@ -193,7 +213,7 @@ def summary(root, register):
             "source_year_observations": observation["source_year_observations"],
             "source_publisher_observations": observation["source_publisher_observations"],
             "source_manifest": str(
-                BASE / filename.removesuffix(".xml") / "manifest.json"
+                source_base / filename.removesuffix(".xml") / "manifest.json"
             ),
             "source_sha256": observation["original_xml_sha256"],
         })
@@ -206,7 +226,7 @@ def summary(root, register):
         "schema_version": 1,
         "kind": "independent-cc0-mame-softlist-source-yield-report",
         "upstream_commit_sha": register["upstream_commit_sha"],
-        "source_register": str(REGISTER),
+        "source_register": str(source_register_path),
         "source_license": "CC0-1.0",
         "software_list_partitions": len(records),
         "source_observation_totals": {
@@ -222,8 +242,9 @@ def main():
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--acquire", action="store_true")
     mode.add_argument("--check", action="store_true")
+    parser.add_argument("--cohort", choices=["v1", "v2"], default="v1")
     args = parser.parse_args()
-    register = source_register(ROOT)
+    register = source_register(ROOT, args.cohort)
     if args.acquire:
         acquired = 0
         for filename in register["files"]:
@@ -233,15 +254,16 @@ def main():
                 time.sleep(1)
         print(f"source files accessioned={acquired} verified={len(register['files'])}")
     payload = json.dumps(summary(ROOT, register), indent=2, ensure_ascii=False) + "\n"
-    path = ROOT / REPORT
+    _, _, report_path = cohort_paths(register)
+    path = ROOT / report_path
     if args.check:
         if not path.exists() or path.read_text(encoding="utf-8") != payload:
-            parser.error(f"source yield report is missing or stale: {REPORT}")
-        print(f"verified all original CC0 sources and report: {REPORT}")
+            parser.error(f"source yield report is missing or stale: {report_path}")
+        print(f"verified all original CC0 sources and report: {report_path}")
     else:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(payload, encoding="utf-8")
-        print(f"wrote original CC0 source yield report: {REPORT}")
+        print(f"wrote original CC0 source yield report: {report_path}")
 
 
 if __name__ == "__main__":

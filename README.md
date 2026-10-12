@@ -46,6 +46,17 @@ python tools/query_mame_media.py --mame-list gameboy --limit 5
 These tools verify their source index SHA-256 and retain original supplier
 attribution, media size evidence, and review-only matching semantics.
 
+### Second CC0 MAME handheld and console source wave
+
+A [second immutable source register](sources/mame-softlists-v2.json) adds
+16 independently selected software-list XML partitions from the same pinned
+MAME revision. The [source accession workflow](.github/workflows/mame-softlists-v2.yml)
+verifies the original 49 lists remain intact before capturing Neo Geo Pocket
+and Color, WonderSwan and Color, Pokémon Mini, SG-1000, Pico, PV-1000,
+Super A'Can, Videopac, Studio II and other dedicated-console source sets.
+Every source retains its own manifest, original bytes and CC0 header.
+These new sources are **not** automatically game-identity joins.
+
 ### Cross-source media SHA-1 correspondence
 
 A [provenance-preserving bulk SHA-1 comparator](tools/reconcile_mame_media.py)

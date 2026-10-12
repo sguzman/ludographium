@@ -1,0 +1,56 @@
+name: Accession 16 additional CC0 MAME handheld and console lists
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/mame-softlists-v2.yml
+      - sources/mame-softlists-v2.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mame-softlists-v2-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Confirm first 49 original CC0 source lists remain unmodified
+        run: python tools/acquire_mame_softlists.py --cohort v1 --check
+      - name: Accession 16 additional independently registered original XML source files
+        run: |
+          python tools/acquire_mame_softlists.py --cohort v2 --acquire
+          python tools/acquire_mame_softlists.py --cohort v2 --check
+          test "$(find data/mame/softlists-v2 -name manifest.json | wc -l)" -eq 16
+      - name: Preserve only CC0 original source bytes and attributable source yields
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/mame/softlists-v2 reports/mame-softlists-v2-summary.json
+          if git diff --cached --quiet; then
+            echo "Original second MAME accession is already verified"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin 16 additional original CC0 console software lists'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Could not push immutable independent MAME sources" >&2
+          exit 1

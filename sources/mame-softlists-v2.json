@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-list-snapshots",
+  "accession_cohort": "v2",
+  "source": "MAME",
+  "upstream_repository": "mamedev/mame",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_path": "hash",
+  "license": "CC0-1.0",
+  "prior_source_register": "sources/mame-softlists-v1.json",
+  "source_license_reference": "https://github.com/mamedev/mame/blob/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/COPYING",
+  "files": [
+    "famicom_cass.xml",
+    "nes_datach.xml",
+    "nes_kstudio.xml",
+    "ngp.xml",
+    "ngpc.xml",
+    "pce_tourvision.xml",
+    "pico.xml",
+    "pokemini.xml",
+    "pv1000.xml",
+    "sg1000.xml",
+    "snes_vkun.xml",
+    "studio2.xml",
+    "supracan.xml",
+    "videopac.xml",
+    "wscolor.xml",
+    "wswan.xml"
+  ],
+  "policy": "Sixteen additional independently captured original MAME software lists, no ROM/media content or inferred game/edition/release identity. Preserve original XML bytes, SHA-256, years, publishers, serials, and media digests separately from existing Libretro and Wikidata claims."
+}
