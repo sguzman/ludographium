@@ -62,7 +62,6 @@ def build_expected(root=ROOT):
             or mame["original_declared_size_bytes"] is None
             or mame["original_declared_size_bytes"] != libretro["original_media_size_bytes"]
             or not pair["interpretation"].startswith("review-only-")
-            or not mame["original_xml_path"] if False else False
         ):
             raise ValueError(f"invalid fourth-cohort corroborated source pair: {line}")
         source = {
