@@ -60,6 +60,11 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Build and integrity-check a disposable 69-list CC0 MAME plus 75-scope CC-BY-SA Libretro SQLite companion, with 33,119 original MAME observations, 117,145 DAT records, 19,152 source-media evidence pairs, 6,833 title-review leads, 21,845 source-review tasks and stable cohort attribution.
 - [x] Provide bounded, filtered paging across original MAME, Libretro, source-media, title-review and stable review-unit readers; verify independent original source ordinals and preserve historic baseline evidence.
 - [x] Publish an additive 69-list, 75-collection Libretro gap matrix while preserving the original 65-list report: 93,911 DAT source records remain without current cross-provider review evidence, spanning 21 collections with no review leads.
+- [x] Independently pin eight further CC0 MAME software source lists as a fourth cohort (3DO, Amiga CD32, GameKing/GameKing 3, Game Pocket Computer, Mega Duck, PC-FX, Watara Supervision), retaining 373 XML-based software occurrences, 181 ROM SHA-1 claims and 193 disc SHA-1 claims.
+- [x] Retain 70 corroborated original Watara Supervision SHA-1 and declared-byte-size evidence pairs, with unknown-size and contradictory-size evidence kept separate and no release or game identity joins.
+- [x] Pin 70 additional stable fourth-cohort source review tasks, bringing the separately attributable original source-review queue to 21,915, with source readers covering 77 original MAME lists and 33,492 software observations without silently changing the 69-list SQLite scope.
+- [x] Publish an all-pinned 77-list Libretro source-gap matrix across 75 original DAT collections: 93,841 source records without current independent MAME review leads, and 20 collections without any lead.
+
 - [ ] Expand independent source coverage for unmatched digital/optical and later-generation platforms with provider-specific licensing and provenance review; treat no-match as an evidence gap, not proof of a missing game.
 
 ## Identity and curation
