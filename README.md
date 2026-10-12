@@ -62,6 +62,7 @@ python tools/query_mame_sources.py --without-review-leads --list nes --limit 5
 python tools/query_mame_media.py --platform tigergamecom --limit 5
 python tools/query_mame_media.py --cohort v3 --platform atari5200 --limit 5
 python tools/query_mame_media.py --cohort combined --limit 5
+python tools/query_mame_media.py --cohort combined --offset 19023 --limit 4
 python tools/query_mame_media.py --mame-list gameboy --limit 5
 ```
 
@@ -75,6 +76,10 @@ registered newer MAME lists (127 source-media candidates) or
 combined result explicitly identifies its original evidence cohort; source
 fields and conflicting-size exclusions are not overwritten or promoted to
 accepted game or release identities.
+Use `--offset` with `--limit` to traverse the complete filtered
+SHA-1 evidence inventory in baseline-first order, including across the
+65-list/4-list boundary. Results report `offset` and `next_offset`
+(null when exhausted) alongside full filtered and source totals.
 
 The `--without-review-leads` source filter cross-checks the complete
 [bulk acquisition gap audit](reports/source-review-acquisition-gaps-v1.json).
