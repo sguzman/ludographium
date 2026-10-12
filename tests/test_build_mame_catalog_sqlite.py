@@ -61,6 +61,26 @@ class SqliteMameSourceGuards(unittest.TestCase):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query_both_sources(None, **kwargs)
 
+    def test_fourth_cohort_build_flag_cannot_modify_reader_modes(self):
+        for mode in ("--verify", "--summary", "--query", "--query-review",
+                     "--query-libretro", "--query-all"):
+            with self.subTest(mode=mode):
+                flags = [mode, "--include-v4"]
+                if mode == "--query-all":
+                    flags += ["--title", "Tetris"]
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(ROOT / "tools/build_mame_catalog_sqlite.py"),
+                        "--db", str(ROOT / "nonexistent-evidence-test.sqlite"),
+                        *flags,
+                    ],
+                    capture_output=True, text=True, check=False,
+                )
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn("--include-v4 is a build-only option", result.stderr)
+                self.assertNotIn("missing or linked disposable", result.stderr)
+
     def test_invalid_cross_provider_cli_exits_before_database_access(self):
         cases = (
             (["--query-all"], "--query-all requires --title or --sha1"),
