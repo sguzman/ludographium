@@ -11,6 +11,7 @@ from acquire_mame_softlists import ROOT, source_register, verify_one
 INDEX_BASE = Path("data/mame/software-observations-v1")
 INDEX_BASE_V2 = Path("data/mame/software-observations-v2")
 INDEX_BASE_V3 = Path("data/mame/software-observations-v3")
+INDEX_BASE_V4 = Path("data/mame/software-observations-v4")
 REPORT = Path("reports/mame-software-observations-v1-summary.json")
 
 
@@ -24,6 +25,7 @@ def original_index_rows(root, filename, original, cohort="v1"):
     stem = filename.removesuffix(".xml")
     base = {
         "v1": INDEX_BASE, "v2": INDEX_BASE_V2, "v3": INDEX_BASE_V3,
+        "v4": INDEX_BASE_V4,
     }[cohort]
     directory = root / base / stem
     manifest = read_json(directory / "manifest.json")
@@ -65,7 +67,7 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
         raise ValueError("source query limit must be 1..=200")
     if type(offset) is not int or not 0 <= offset <= 1_000_000:
         raise ValueError("source query offset must be 0..1000000")
-    if cohort not in ("v1-v2", "v3", "all"):
+    if cohort not in ("v1-v2", "v3", "v4", "all", "all-pinned"):
         raise ValueError("unknown independent CC0 MAME source cohort")
     if without_review_leads and cohort != "v1-v2":
         raise ValueError("review-gap evidence covers only v1-v2 source observations")
@@ -77,15 +79,17 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
     active = (
         ("v1", "v2") if cohort == "v1-v2" else
         ("v3",) if cohort == "v3" else
-        ("v1", "v2", "v3")
+        ("v4",) if cohort == "v4" else
+        ("v1", "v2", "v3") if cohort == "all" else
+        ("v1", "v2", "v3", "v4")
     )
     registers = [(name, source_register(root, name)) for name in active]
     valid_lists = {
         filename.removesuffix(".xml")
         for _, register in registers for filename in register["files"]
     }
-    expected_sources = {"v1-v2": 65, "v3": 4, "all": 69}[cohort]
-    expected_entries = {"v1-v2": 32953, "v3": 166, "all": 33119}[cohort]
+    expected_sources = {"v1-v2": 65, "v3": 4, "v4": 8, "all": 69, "all-pinned": 77}[cohort]
+    expected_entries = {"v1-v2": 32953, "v3": 166, "v4": 373, "all": 33119, "all-pinned": 33492}[cohort]
     if len(valid_lists) != expected_sources:
         raise ValueError("incomplete independent MAME source-list inventory")
     if source_list is not None and source_list not in valid_lists:
@@ -94,6 +98,7 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
         "v1": (REPORT, 49, 31464),
         "v2": (Path("reports/mame-software-observations-v2-summary.json"), 16, 1489),
         "v3": (Path("reports/mame-software-observations-v3-summary.json"), 4, 166),
+        "v4": (Path("reports/mame-software-observations-v4-summary.json"), 8, 373),
     }
     for name in active:
         path, partitions, observations = expected_reports[name]
@@ -199,7 +204,7 @@ def main():
     parser.add_argument("--software-name")
     parser.add_argument("--sha1")
     parser.add_argument("--without-review-leads", action="store_true")
-    parser.add_argument("--cohort", choices=["v1-v2", "v3", "all"], default="v1-v2")
+    parser.add_argument("--cohort", choices=["v1-v2", "v3", "v4", "all", "all-pinned"], default="v1-v2")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--offset", type=int, default=0,
                         help="filtered original source observations to skip")
