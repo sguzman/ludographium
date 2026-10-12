@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only search over all 31,464 provenance-verified MAME software records."""
+"""Read-only search over all 32,953 provenance-verified MAME software records."""
 import argparse
 import hashlib
 import json
@@ -56,7 +56,8 @@ def original_index_rows(root, filename, original, cohort="v1"):
 
 
 def query(root, *, source_list=None, title=None, publisher=None, year=None,
-          media_sha1=None, software_name=None, limit=20):
+          media_sha1=None, software_name=None,
+          without_review_leads=False, limit=20):
     if not 1 <= limit <= 200:
         raise ValueError("source query limit must be 1..=200")
     if media_sha1 is not None and not re.fullmatch(r"[a-fA-F0-9]{40}", media_sha1):
@@ -85,6 +86,28 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
         or second["source_observation_totals"]["software_entries"] != 1489
     ):
         raise ValueError("MAME source inventory count changed")
+    reviewed_mame_keys = None
+    if without_review_leads:
+        from query_source_review_units import validate as validate_source_review
+        manifest, review_units, _ = validate_source_review(root)
+        gap = read_json(root / "reports/source-review-acquisition-gaps-v1.json")
+        if (
+            gap["schema_version"] != 1
+            or gap["source_review_index_sha256"] != manifest["review_index_sha256"]
+            or gap["original_source_observation_totals"][
+                "original_records_without_any_review_lead"
+            ] != 11241
+            or gap["original_source_observation_totals"][
+                "original_software_entries"
+            ] != 32953
+        ):
+            raise ValueError("source-review gap report is missing or unverified")
+        reviewed_mame_keys = {
+            (unit["mame"]["source_list"], unit["mame"]["original_software_ordinal"])
+            for unit in review_units
+        }
+        if len(reviewed_mame_keys) != 21712:
+            raise ValueError("incomplete original source-review exclusion inventory")
     candidates = []
     matched_count = 0
     search_sha = media_sha1.lower() if media_sha1 else None
@@ -94,6 +117,10 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
                 continue
             original = verify_one(root, register, filename)
             for row in original_index_rows(root, filename, original, cohort):
+                if reviewed_mame_keys is not None and (
+                    row["source_list"], row["original_software_ordinal"]
+                ) in reviewed_mame_keys:
+                    continue
                 if title is not None and title.casefold() not in (
                     row["original_title"] or ""
                 ).casefold():
@@ -123,9 +150,15 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
         "source_software_entries": 32953,
         "original_source_lists": 65,
         "total_filtered_original_records": matched_count,
+        "without_any_cross_provider_review_lead": without_review_leads,
+        "full_source_review_gap_inventory": 11241 if without_review_leads else None,
         "returned_original_records": len(candidates),
         "records": candidates,
-        "interpretation": "read-only-original-source-claims-not-adjudicated-game-media-or-release-identities",
+        "interpretation": (
+            "read-only-original-source-claims-without-current-cross-provider-review-leads"
+            if without_review_leads else
+            "read-only-original-source-claims-not-adjudicated-game-media-or-release-identities"
+        ),
     }
 
 
@@ -137,13 +170,14 @@ def main():
     parser.add_argument("--year")
     parser.add_argument("--software-name")
     parser.add_argument("--sha1")
+    parser.add_argument("--without-review-leads", action="store_true")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
     result = query(
         ROOT, source_list=args.source_list, title=args.title,
         publisher=args.publisher, year=args.year,
         software_name=args.software_name, media_sha1=args.sha1,
-        limit=args.limit,
+        without_review_leads=args.without_review_leads, limit=args.limit,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 

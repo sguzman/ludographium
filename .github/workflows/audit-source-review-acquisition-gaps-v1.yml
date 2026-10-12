@@ -7,6 +7,7 @@ on:
     paths:
       - .github/workflows/audit-source-review-acquisition-gaps-v1.yml
       - tools/audit_source_review_gaps.py
+      - tools/query_mame_sources.py
 
 permissions:
   contents: write
@@ -34,6 +35,7 @@ jobs:
         run: |
           python tools/audit_source_review_gaps.py --write
           python tools/audit_source_review_gaps.py --check
+          python -m unittest discover -s tests -p test_query_mame_sources.py -v
       - name: Preserve text-only attributed bulk acquisition gap report
         shell: bash
         run: |

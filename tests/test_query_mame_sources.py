@@ -34,6 +34,20 @@ class MameQueryTests(unittest.TestCase):
             item["source_list"] == "wswan" for item in newer["records"]
         ))
 
+    def test_source_only_acquisition_gaps_are_searchable_without_identity_inference(self):
+        report = source_query(ROOT, without_review_leads=True, limit=2)
+        self.assertEqual(report["total_filtered_original_records"], 11241)
+        self.assertEqual(report["full_source_review_gap_inventory"], 11241)
+        self.assertTrue(report["without_any_cross_provider_review_lead"])
+        self.assertTrue(all(row["original_xml_sha256"] for row in report["records"]))
+        psx = source_query(ROOT, source_list="psx", without_review_leads=True, limit=1)
+        self.assertEqual(psx["total_filtered_original_records"], 2915)
+        self.assertEqual(psx["returned_original_records"], 1)
+        gamecom = source_query(
+            ROOT, source_list="gamecom", without_review_leads=True, limit=1
+        )
+        self.assertEqual(gamecom["total_filtered_original_records"], 0)
+
     def test_exact_sha1_candidates_keep_original_source_provenance(self):
         result = candidate_query(ROOT, libretro_platform="tigergamecom", limit=2)
         self.assertGreater(result["total_filtered_candidate_pairs"], 0)

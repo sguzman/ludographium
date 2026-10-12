@@ -40,12 +40,20 @@ mixing provider licenses or promoting identities:
 ```sh
 python tools/query_mame_sources.py --list gamecom --title Batman --limit 5
 python tools/query_mame_sources.py --publisher "Tiger Electronics" --limit 5
+python tools/query_mame_sources.py --without-review-leads --list nes --limit 5
 python tools/query_mame_media.py --platform tigergamecom --limit 5
 python tools/query_mame_media.py --mame-list gameboy --limit 5
 ```
 
 These tools verify their source index SHA-256 and retain original supplier
 attribution, media size evidence, and review-only matching semantics.
+
+The `--without-review-leads` source filter cross-checks the complete
+[bulk acquisition gap audit](reports/source-review-acquisition-gaps-v1.json).
+It surfaces the **11,241 original MAME records** not represented by current
+hash-supported or exact-title review leads, retaining their original
+publishers, years and source metadata. This means *no current cross-provider
+correspondence*, never that a game is missing or its identity is disproven.
 
 ### Second CC0 MAME handheld and console source wave
 
