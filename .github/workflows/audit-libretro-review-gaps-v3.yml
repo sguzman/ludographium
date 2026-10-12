@@ -1,0 +1,99 @@
+name: Publish 77-list all-pinned Libretro source-review gap matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-libretro-review-gaps-v3.yml
+      - tools/audit_libretro_source_review_gaps.py
+      - reports/source-review-units-v4-summary.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-libretro-review-gaps-v3-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Independently verify all prior pinned source-review cohorts
+        run: |
+          set -euo pipefail
+          python tools/build_source_review_units.py --check
+          python tools/build_source_review_units_v3.py --check
+          python tools/build_source_review_units_v4.py --check
+          python tools/audit_libretro_source_review_gaps.py --check
+          python tools/audit_libretro_source_review_gaps.py --cohort combined --check
+      - name: Audit original 75 Libretro DAT scopes using all 77 MAME source lists
+        run: |
+          set -euo pipefail
+          python tools/audit_libretro_source_review_gaps.py --cohort all-pinned --write
+          python tools/audit_libretro_source_review_gaps.py --cohort all-pinned --check
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path("reports")
+          prior=json.loads((root/"libretro-source-review-acquisition-gaps-v2.json").read_text())
+          current=json.loads((root/"libretro-source-review-acquisition-gaps-v3.json").read_text())
+          old=prior["original_source_record_totals"]
+          new=current["original_source_record_totals"]
+          assert prior["mame_source_lists"] == 69
+          assert current["mame_source_lists"] == 77
+          assert current["libretro_source_collections"] == 75
+          assert current["source_evidence_cohorts"] == ["baseline", "v3", "v4"]
+          assert current["cumulative_source_review_units"] == 21915
+          assert current["fourth_cohort_additional_review_units"] == 70
+          assert new["original_dat_records"] == old["original_dat_records"] == 117145
+          assert new["original_records_with_any_review_lead"] == old["original_records_with_any_review_lead"] + 70
+          assert new["original_records_without_any_review_lead"] == old["original_records_without_any_review_lead"] - 70
+          assert new["exact_media_only_source_records"] == old["exact_media_only_source_records"] + 70
+          assert new["conservative_title_only_source_records"] == old["conservative_title_only_source_records"]
+          assert new["records_with_both_media_and_title_leads"] == old["records_with_both_media_and_title_leads"]
+          old_empty=set(prior["libretro_platforms_with_no_source_review_evidence"])
+          new_empty=set(current["libretro_platforms_with_no_source_review_evidence"])
+          assert len(old_empty) == 21
+          assert new_empty == old_empty - {"watarasupervision"}
+          assert len(new_empty) == 20
+          assert len(current["libretro_collections_ranked_by_no_review_evidence"]) == 75
+          assert sum(
+              new[key] for key in (
+                  "exact_media_only_source_records",
+                  "conservative_title_only_source_records",
+                  "records_with_both_media_and_title_leads",
+                  "original_records_without_any_review_lead",
+              )
+          ) == 117145
+          print("Verified additive original-source review evidence coverage",new)
+          PY
+      - name: Commit independently reproducible 77-list Libretro source gap report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/libretro-source-review-acquisition-gaps-v3.json
+          if git diff --cached --quiet; then
+            echo "Complete pinned Libretro source coverage report unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin 77-list noncanonical Libretro acquisition gap matrix'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo 'Failed to publish 77-list source-only coverage report' >&2
+          exit 1
