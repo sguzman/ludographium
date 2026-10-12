@@ -80,6 +80,37 @@ class OriginalDatSearchTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             query(ROOT, review_cohort="unregistered")
 
+    def test_fourth_cohort_only_removes_verified_watara_review_gaps(self):
+        older = query(
+            ROOT, platform="watarasupervision", without_review_leads=True,
+            review_cohort="combined", limit=2,
+        )
+        complete = query(
+            ROOT, platform="watarasupervision", without_review_leads=True,
+            review_cohort="all-pinned", limit=2,
+        )
+        self.assertEqual(
+            older["total_filtered_original_source_records"]
+            - complete["total_filtered_original_source_records"], 70
+        )
+        self.assertEqual(
+            complete["review_evidence_cohorts"], ["baseline", "v3", "v4"]
+        )
+        self.assertEqual(
+            older["scanned_original_source_records"],
+            complete["scanned_original_source_records"],
+        )
+        unmodified = query(
+            ROOT, platform="n64", without_review_leads=True,
+            review_cohort="all-pinned", limit=1,
+        )
+        self.assertEqual(
+            unmodified["total_filtered_original_source_records"], query(
+                ROOT, platform="n64", without_review_leads=True,
+                review_cohort="combined", limit=1,
+            )["total_filtered_original_source_records"],
+        )
+
     def test_invalid_filters_are_rejected_without_source_reads(self):
         for kwargs in (
             {"platform": "not-a-platform"},
