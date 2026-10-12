@@ -21,6 +21,19 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Verify independent MAME source-only query interfaces
         run: python -m unittest discover -s tests -p test_query_mame_sources.py -v
+      - name: Verify direct original Libretro DAT reader without SQLite
+        run: |
+          python tools/query_libretro_sources.py --platform tigergamecom --limit 2 > /tmp/ludographium-libretro-original.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          result=json.loads(Path("/tmp/ludographium-libretro-original.json").read_text())
+          assert result["registered_source_platform_scopes"] == 75
+          assert result["source_scopes_scanned"] == 1
+          assert result["total_filtered_original_source_records"] > 0
+          assert all(row["source_license"] == "CC-BY-SA-4.0" for row in result["records"])
+          print("Verified direct source-only Libretro DAT query")
+          PY
       - name: Verify systematic Wikidata platform coverage backlog
         run: python tools/audit_wikidata_platform_gaps.py --check
       - name: Verify independent MAME and Libretro review-source acquisition gaps
