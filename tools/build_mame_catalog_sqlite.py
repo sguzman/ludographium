@@ -934,7 +934,10 @@ def open_readonly(destination):
 
 def query(conn, *, source_list=None, title=None, publisher=None, year=None,
           serial=None, media_sha1=None, libretro_platform=None,
-          linked_only=False, without_review_leads=False, limit=20):
+          linked_only=False, without_review_leads=False, limit=20,
+          offset=0):
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("MAME query offset must be 0..1000000")
     if without_review_leads and (linked_only or libretro_platform is not None):
         raise ValueError("unlinked source filter conflicts with required media matches")
     if not 1 <= limit <= 200:
@@ -991,8 +994,8 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
     total = conn.execute("SELECT count(*)" + sql_from, values).fetchone()[0]
     records = conn.execute(
         "SELECT s.source_list,s.source_ordinal,s.original_json" + sql_from
-        + " ORDER BY s.source_list,s.source_ordinal LIMIT ?",
-        (*values, limit),
+        + " ORDER BY s.source_list,s.source_ordinal LIMIT ? OFFSET ?",
+        (*values, limit, offset),
     ).fetchall()
     hits = []
     for source_list, ordinal, original_json in records:
@@ -1036,6 +1039,8 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
         "independent_mame_source_lists": EXPECTED["source_lists"],
         "total_filtered_source_observations": total,
         "returned_source_observations": len(hits),
+        "offset": offset,
+        "next_offset": offset + len(hits) if offset + len(hits) < total else None,
         "without_any_cross_provider_review_lead": without_review_leads,
         "records": hits,
         "interpretation": (
@@ -1049,8 +1054,10 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
 
 def query_libretro(conn, *, platform=None, title=None, region=None,
                    serial=None, sha1=None, linked_only=False,
-                   without_review_leads=False, limit=20):
+                   without_review_leads=False, limit=20, offset=0):
     """Read original Libretro DAT statements, with separately attributable MAME links."""
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("Libretro query offset must be 0..1000000")
     if without_review_leads and linked_only:
         raise ValueError("unlinked Libretro source filter conflicts with linked-only")
     if not 1 <= limit <= 200:
@@ -1096,8 +1103,8 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
     total = conn.execute("SELECT count(*)" + tail, args).fetchone()[0]
     rows = conn.execute(
         "SELECT r.platform,r.source_ordinal,r.original_json" + tail
-        + " ORDER BY r.platform,r.source_ordinal LIMIT ?",
-        (*args, limit),
+        + " ORDER BY r.platform,r.source_ordinal LIMIT ? OFFSET ?",
+        (*args, limit, offset),
     ).fetchall()
     hits = []
     for name, ordinal, raw in rows:
@@ -1150,6 +1157,8 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
         "without_any_cross_provider_review_lead": without_review_leads,
         "total_filtered_source_observations": total,
         "returned_source_observations": len(hits),
+        "offset": offset,
+        "next_offset": offset + len(hits) if offset + len(hits) < total else None,
         "records": hits,
         "interpretation": (
             "original-Libretro-records-without-current-MAME-source-review-evidence-not-canonical-identity"
@@ -1162,8 +1171,10 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
 
 def query_review(conn, *, review_id=None, source_list=None, platform=None,
                  title=None, priority_class=None, ambiguous_only=False,
-                 evidence_type=None, limit=20):
+                 evidence_type=None, limit=20, offset=0):
     """Search review tasks using stable IDs, never accepted game identities."""
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("review query offset must be 0..1000000")
     if type(limit) is not int or not 1 <= limit <= 200:
         raise ValueError("source-review query limit must be 1..200")
     if review_id is not None and not re.fullmatch(r"lgreview:v1:[0-9a-f]{64}", review_id):
@@ -1221,8 +1232,8 @@ def query_review(conn, *, review_id=None, source_list=None, platform=None,
     total = conn.execute("SELECT count(*)" + tail, args).fetchone()[0]
     rows = conn.execute(
         "SELECT r.review_id,r.original_json" + tail
-        + " ORDER BY r.mame_list,r.mame_software_ordinal LIMIT ?",
-        (*args, limit),
+        + " ORDER BY r.mame_list,r.mame_software_ordinal LIMIT ? OFFSET ?",
+        (*args, limit, offset),
     ).fetchall()
     returned = []
     for stable_id, original_json in rows:
@@ -1241,6 +1252,8 @@ def query_review(conn, *, review_id=None, source_list=None, platform=None,
         "total_pinned_source_review_units": EXPECTED["review_units"],
         "total_filtered_review_units": total,
         "returned_review_units": len(returned),
+        "offset": offset,
+        "next_offset": offset + len(returned) if offset + len(returned) < total else None,
         "units": returned,
         "interpretation": (
             "Stable IDs denote pinned source review tasks; no canonical "
@@ -1250,8 +1263,10 @@ def query_review(conn, *, review_id=None, source_list=None, platform=None,
 
 
 
-def query_both_sources(conn, *, title=None, sha1=None, limit=20):
+def query_both_sources(conn, *, title=None, sha1=None, limit=20, offset=0):
     """Run independent original-source searches without joining work identities."""
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("cross-provider query offset must be 0..1000000")
     if title is None and sha1 is None:
         raise ValueError("cross-provider lookup requires --title or --sha1")
     if type(limit) is not int or not 1 <= limit <= 200:
@@ -1261,11 +1276,13 @@ def query_both_sources(conn, *, title=None, sha1=None, limit=20):
         raise ValueError("invalid cross-provider original title search")
     if sha1 is not None and not re.fullmatch("[0-9a-fA-F]{40}", sha1):
         raise ValueError("cross-provider source SHA-1 requires 40 hex digits")
-    mame = query(conn, title=title, media_sha1=sha1, limit=limit)
-    libretro = query_libretro(conn, title=title, sha1=sha1, limit=limit)
+    mame = query(conn, title=title, media_sha1=sha1, limit=limit, offset=offset)
+    libretro = query_libretro(conn, title=title, sha1=sha1, limit=limit,
+                             offset=offset)
     return {
         "source_mode": "separate-original-MAME-and-Libretro-provider-lookups",
         "matching_policy": "no-cross-source-work-or-release-identity-merge",
+        "offset_per_provider": offset,
         "mame": mame,
         "libretro": libretro,
         "returned_source_observations": (
@@ -1337,12 +1354,16 @@ def main():
     parser.add_argument("--ambiguous-only", action="store_true")
     parser.add_argument("--evidence-type", choices=["media", "title"])
     parser.add_argument("--limit", type=int, default=20)
+    parser.add_argument("--offset", type=int, default=0,
+                        help="matching rows to skip separately for each provider")
     args = parser.parse_args()
     unsupported = unsupported_mode_filters(args)
     if unsupported:
         parser.error(
             "unsupported filters for selected source mode: " + ", ".join(unsupported)
         )
+    if (args.build or args.verify or args.summary) and args.offset:
+        parser.error("--offset is only supported for source query modes")
     if args.query_all and args.title is None and args.sha1 is None:
         parser.error("--query-all requires --title or --sha1")
     if args.without_review_leads and (
@@ -1371,11 +1392,13 @@ def main():
                     priority_class=args.priority_class,
                     ambiguous_only=args.ambiguous_only,
                     evidence_type=args.evidence_type, limit=args.limit,
+                    offset=args.offset,
                 )
             elif args.query_all:
                 verify(db, ROOT)
                 result = query_both_sources(
                     db, title=args.title, sha1=args.sha1, limit=args.limit,
+                    offset=args.offset,
                 )
             elif args.query_libretro:
                 verify(db, ROOT)
@@ -1384,7 +1407,7 @@ def main():
                     region=args.region, serial=args.serial, sha1=args.sha1,
                     linked_only=args.linked_only,
                     without_review_leads=args.without_review_leads,
-                    limit=args.limit,
+                    limit=args.limit, offset=args.offset,
                 )
             else:
                 verify(db, ROOT)
@@ -1394,7 +1417,7 @@ def main():
                     media_sha1=args.sha1, libretro_platform=args.libretro_platform,
                     linked_only=args.linked_only,
                     without_review_leads=args.without_review_leads,
-                    limit=args.limit,
+                    limit=args.limit, offset=args.offset,
                 )
     print(json.dumps(result, indent=2, ensure_ascii=False))
 
