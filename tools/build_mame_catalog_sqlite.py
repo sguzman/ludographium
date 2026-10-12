@@ -23,6 +23,7 @@ from build_expanded_corpus import pinned_manifest
 from query_source_review_units import (
     validate as validated_source_review_units,
     validate_v3 as validated_v3_source_review_units,
+    validate_v4 as validated_v4_source_review_units,
 )
 
 ORIGINAL_REPORTS = (
@@ -42,6 +43,18 @@ V3_TITLE_REPORT = Path("reports/mame-libretro-title-review-v3-summary.json")
 V3_TITLE_INDEX = Path("data/reconciliation/mame-libretro-title-review-v3/candidates.jsonl")
 V3_REVIEW_REPORT = Path("reports/source-review-units-v3-summary.json")
 V3_REVIEW_INDEX = Path("data/reconciliation/source-review-units-v3/units.jsonl")
+V4_REGISTER = Path("sources/mame-softlists-v4.json")
+V4_OBSERVATIONS = Path("reports/mame-software-observations-v4-summary.json")
+V4_MEDIA_REPORT = Path("reports/mame-libretro-sha1-v4-summary.json")
+V4_MEDIA_INDEX = Path("data/reconciliation/mame-libretro-sha1-v4/links.jsonl")
+V4_UNKNOWN_SIZE = Path("data/reconciliation/mame-libretro-sha1-v4/size-uncorroborated.jsonl")
+V4_CONFLICTS = Path("data/reconciliation/mame-libretro-sha1-v4/size-disagreements.jsonl")
+V4_REVIEW_REPORT = Path("reports/source-review-units-v4-summary.json")
+V4_REVIEW_INDEX = Path("data/reconciliation/source-review-units-v4/units.jsonl")
+V4_INPUTS = (
+    V4_REGISTER, V4_OBSERVATIONS, V4_MEDIA_REPORT, V4_MEDIA_INDEX,
+    V4_UNKNOWN_SIZE, V4_CONFLICTS, V4_REVIEW_REPORT, V4_REVIEW_INDEX,
+)
 BASELINE = {
     "source_lists": 65,
     "software": 32953,
@@ -61,6 +74,13 @@ EXPECTED = {
     "title_review": 6833,
     "review_units": 21845,
 }
+EXPECTED_V4 = {
+    **EXPECTED,
+    "source_lists": 77,
+    "software": 33492,
+    "links": 19222,
+    "review_units": 21915,
+}
 SCHEMA = """
 PRAGMA foreign_keys=ON;
 CREATE TABLE provenance (
@@ -70,7 +90,7 @@ CREATE TABLE provenance (
 );
 CREATE TABLE source_lists (
     source_list TEXT PRIMARY KEY,
-    cohort TEXT NOT NULL CHECK (cohort IN ('v1','v2','v3')),
+    cohort TEXT NOT NULL CHECK (cohort IN ('v1','v2','v3','v4')),
     original_xml_path TEXT NOT NULL,
     original_xml_sha256 TEXT NOT NULL,
     original_index_path TEXT NOT NULL,
@@ -296,7 +316,7 @@ def libretro_original_scopes(root):
     return original_scopes
 
 
-def inputs(root):
+def inputs(root, *, include_v4=False):
     register_paths = (
         Path("sources/mame-softlists-v1.json"),
         Path("sources/mame-softlists-v2.json"),
@@ -338,23 +358,46 @@ def inputs(root):
         or report["size_disagreement_rows"] != BASELINE["conflicts"]
     ):
         raise ValueError("original exact-hash index no longer matches pinned report")
+    if include_v4:
+        register_paths += V4_INPUTS
     counts = (31464, 1489, 166)
     for relative, count in zip(ORIGINAL_REPORTS, counts):
         registered = source_json(root, Path(relative))
         if registered["source_observation_totals"]["software_entries"] != count:
             raise ValueError(f"unverified source-entry inventory: {relative}")
+    if include_v4:
+        original = source_json(root, V4_OBSERVATIONS)
+        if (
+            original["indexed_source_partitions"] != 8
+            or original["source_observation_totals"]["software_entries"] != 373
+            or original["source_observation_totals"]["rom_sha1_claims"] != 181
+            or original["source_observation_totals"]["disk_sha1_claims"] != 193
+        ):
+            raise ValueError("fourth-cohort original MAME source summary changed")
     return register_paths
 
 
-def populate(conn, root):
-    pinned_inputs = inputs(root)
+def include_v4_database(conn):
+    """Determine dataset scope from independently tracked input provenance."""
+    return conn.execute(
+        "SELECT EXISTS(SELECT 1 FROM provenance WHERE source_path=?)",
+        (str(V4_REGISTER),),
+    ).fetchone()[0] == 1
+
+
+def expected_database_counts(conn):
+    return EXPECTED_V4 if include_v4_database(conn) else EXPECTED
+
+
+def populate(conn, root, *, include_v4=False):
+    pinned_inputs = inputs(root, include_v4=include_v4)
     conn.executescript(SCHEMA)
     for path in pinned_inputs:
         digest, size = source_digest(root, path)
         conn.execute("INSERT INTO provenance VALUES (?,?,?)", (str(path), digest, size))
     total_software = 0
     total_media = 0
-    for cohort in ("v1", "v2", "v3"):
+    for cohort in (("v1", "v2", "v3", "v4") if include_v4 else ("v1", "v2", "v3")):
         register = source_register(root, cohort)
         for filename in register["files"]:
             source = verify_one(root, register, filename)
@@ -636,7 +679,10 @@ def populate(conn, root):
     # Appended v3 records retain their own XML snapshot, source ordinal,
     # raw JSON and evidence namespace. Historical baseline evidence is unchanged.
     append_v3_evidence(conn, root)
-    if total_software != EXPECTED["software"]:
+    if include_v4:
+        append_v4_evidence(conn, root)
+    expected = EXPECTED_V4 if include_v4 else EXPECTED
+    if total_software != expected["software"]:
         raise ValueError(f"MAME source record count changed: {total_software}")
     conn.commit()
     return {"software": total_software, "media": total_media}
@@ -937,7 +983,7 @@ def verify(conn, root):
     return observed
 
 
-def build(root, destination):
+def build(root, destination, *, include_v4=False):
     destination = Path(destination)
     destination.parent.mkdir(parents=True, exist_ok=True)
     fd, temp_name = tempfile.mkstemp(
@@ -947,7 +993,7 @@ def build(root, destination):
     try:
         with sqlite3.connect(temp_name) as conn:
             conn.execute("PRAGMA journal_mode=DELETE")
-            populate(conn, root)
+            populate(conn, root, include_v4=include_v4)
             verify(conn, root)
             conn.execute("VACUUM")
         os.replace(temp_name, destination)
@@ -1362,6 +1408,10 @@ def unsupported_mode_filters(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, required=True)
+    parser.add_argument(
+        "--include-v4", action="store_true",
+        help="on --build only, include eight additional original CC0 software lists",
+    )
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--build", action="store_true")
     mode.add_argument("--verify", action="store_true")
@@ -1396,6 +1446,8 @@ def main():
         )
     if (args.build or args.verify or args.summary) and args.offset:
         parser.error("--offset is only supported for source query modes")
+    if args.include_v4 and not args.build:
+        parser.error("--include-v4 is a build-only option")
     if args.query_all and args.title is None and args.sha1 is None:
         parser.error("--query-all requires --title or --sha1")
     if args.without_review_leads and (
@@ -1404,7 +1456,7 @@ def main():
     ):
         parser.error("--without-review-leads conflicts with required source matches")
     if args.build:
-        build(ROOT, args.db)
+        build(ROOT, args.db, include_v4=args.include_v4)
         with open_readonly(args.db) as db:
             result = verify(db, ROOT)
     else:
