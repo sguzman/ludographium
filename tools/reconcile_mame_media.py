@@ -107,12 +107,13 @@ def read_libretro(root):
         or len(new["platforms"]) != 65
     ):
         raise ValueError("incomplete independent Libretro source registers")
+    expanded_import = {**new, "files": new["platforms"]}
     key_to_sources = defaultdict(list)
     seen_scopes = set()
     source_media = Counter()
     for scope in (
         {"register": old, "files": old["files"], "prefix": "archive/libretro-no-intro"},
-        {"register": new, "files": new["platforms"], "prefix": "archive/libretro-bulk"},
+        {"register": expanded_import, "files": new["platforms"], "prefix": "archive/libretro-bulk"},
     ):
         for item in scope["files"]:
             platform = item["platform"]
