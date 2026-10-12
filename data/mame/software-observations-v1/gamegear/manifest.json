@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/gamegear/manifest.json",
+  "original_xml_sha256": "3d86324d0d0c4a0fd78409bdecaf565c42edd55aca646d9349fdcff0f371a7a1",
+  "original_source_list": "gamegear",
+  "original_xml_path": "data/mame/softlists-v1/gamegear/gamegear.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "4735647e87abacf8427154fd5beb8eccb1334b4d6440023e8d7651a3f9a5ce1e",
+  "index_bytes": 812213,
+  "index_rows": 823,
+  "source_observation_counts": {
+    "software_entries": 823,
+    "rom_sha1_claims": 830,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 823,
+    "entries_with_publisher": 823,
+    "entries_with_serial": 426
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

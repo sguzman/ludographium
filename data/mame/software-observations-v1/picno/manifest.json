@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/picno/manifest.json",
+  "original_xml_sha256": "60f4b7e3f6e3eec596d6b56060b170693ef69e03431a626af2a1cd70112db6a9",
+  "original_source_list": "picno",
+  "original_xml_path": "data/mame/softlists-v1/picno/picno.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "41c0aef27f52d600c6e3365795d3d0f7c28c9ed565235b88ef973bdb7d295784",
+  "index_bytes": 20616,
+  "index_rows": 21,
+  "source_observation_counts": {
+    "software_entries": 21,
+    "rom_sha1_claims": 21,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 21,
+    "entries_with_publisher": 21,
+    "entries_with_serial": 21
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

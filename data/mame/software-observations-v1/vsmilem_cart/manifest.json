@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/vsmilem_cart/manifest.json",
+  "original_xml_sha256": "d1db98d6dfe7919e5ff82410e839fc22ca458d266c034a43eb431351a306de72",
+  "original_source_list": "vsmilem_cart",
+  "original_xml_path": "data/mame/softlists-v1/vsmilem_cart/vsmilem_cart.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "aa805efd601b507fc16246357fb9df3da47bbcc81204f51d01025ab16ae1f0fb",
+  "index_bytes": 105344,
+  "index_rows": 102,
+  "source_observation_counts": {
+    "software_entries": 102,
+    "rom_sha1_claims": 112,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 102,
+    "entries_with_publisher": 102,
+    "entries_with_serial": 102
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

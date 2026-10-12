@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/psx/manifest.json",
+  "original_xml_sha256": "3643ba4da41292a66f170c2fa22cda5a2223dd63e7dbc5d1c04b9d259ca73e48",
+  "original_source_list": "psx",
+  "original_xml_path": "data/mame/softlists-v1/psx/psx.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "1b6c4682567b44be45c4686088d386eb3e31d40919849805c61e924272a7a1ea",
+  "index_bytes": 2988235,
+  "index_rows": 2915,
+  "source_observation_counts": {
+    "software_entries": 2915,
+    "rom_sha1_claims": 0,
+    "disk_sha1_claims": 3154,
+    "entries_with_year": 2915,
+    "entries_with_publisher": 2915,
+    "entries_with_serial": 2830
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

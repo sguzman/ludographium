@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/saturn/manifest.json",
+  "original_xml_sha256": "3021da6a5f35299055ca33b7f2e7820e5362b974d48e4da521a551e7b2ff63a6",
+  "original_source_list": "saturn",
+  "original_xml_path": "data/mame/softlists-v1/saturn/saturn.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "dc2b50fd9728679f75a35d74906228ae34c261ab2344c2a88b5a6430a3a9cba7",
+  "index_bytes": 2423807,
+  "index_rows": 2235,
+  "source_observation_counts": {
+    "software_entries": 2235,
+    "rom_sha1_claims": 0,
+    "disk_sha1_claims": 2536,
+    "entries_with_year": 2235,
+    "entries_with_publisher": 2235,
+    "entries_with_serial": 2195
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

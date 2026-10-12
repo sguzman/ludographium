@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/lynx/manifest.json",
+  "original_xml_sha256": "ced2ff12267d2aedef06bf880fb2fbee0023c75189555be4b8c192e745103333",
+  "original_source_list": "lynx",
+  "original_xml_path": "data/mame/softlists-v1/lynx/lynx.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "b9ade4feaf45d6b594fb43678b377d1a3ff34687e463f57d6005a3d10edf6d88",
+  "index_bytes": 109439,
+  "index_rows": 119,
+  "source_observation_counts": {
+    "software_entries": 119,
+    "rom_sha1_claims": 119,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 119,
+    "entries_with_publisher": 119,
+    "entries_with_serial": 79
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/vboy/manifest.json",
+  "original_xml_sha256": "88021ba04f8b4ecece251fa7af030f4320abfd2b6e22e4b9b5814e93e2fce2ee",
+  "original_source_list": "vboy",
+  "original_xml_path": "data/mame/softlists-v1/vboy/vboy.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "2747bde05e85cd97fe84944b9be6eca3a0f52aa8d4c0c2544f00526eae72a4bb",
+  "index_bytes": 34656,
+  "index_rows": 32,
+  "source_observation_counts": {
+    "software_entries": 32,
+    "rom_sha1_claims": 32,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 32,
+    "entries_with_publisher": 32,
+    "entries_with_serial": 30
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

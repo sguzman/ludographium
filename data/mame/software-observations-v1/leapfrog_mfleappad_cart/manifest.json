@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/leapfrog_mfleappad_cart/manifest.json",
+  "original_xml_sha256": "c90b4780370f9325c5f39a78ac300d75d12a792a26908f4befb70a059311ece1",
+  "original_source_list": "leapfrog_mfleappad_cart",
+  "original_xml_path": "data/mame/softlists-v1/leapfrog_mfleappad_cart/leapfrog_mfleappad_cart.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "6a09416ffe1f4852f9caa17bedc482ec401ccdb9e5691db8e4ed88bdaa95e492",
+  "index_bytes": 24209,
+  "index_rows": 23,
+  "source_observation_counts": {
+    "software_entries": 23,
+    "rom_sha1_claims": 23,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 23,
+    "entries_with_publisher": 23,
+    "entries_with_serial": 23
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

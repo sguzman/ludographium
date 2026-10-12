@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/nes/manifest.json",
+  "original_xml_sha256": "c56125c78be08e26a93f7d5485bc8b1f15d90c3478e5fbc2858594b95da9edc0",
+  "original_source_list": "nes",
+  "original_xml_path": "data/mame/softlists-v1/nes/nes.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "c3005f2270bf6dac52d924f26f4145a427f7e710579c393671a70dd0d75dbe3b",
+  "index_bytes": 5786649,
+  "index_rows": 4562,
+  "source_observation_counts": {
+    "software_entries": 4562,
+    "rom_sha1_claims": 7990,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 4562,
+    "entries_with_publisher": 4562,
+    "entries_with_serial": 2742
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

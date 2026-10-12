@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/pockchalv2/manifest.json",
+  "original_xml_sha256": "7f983791765db05a898160f23ff501dea5833a1db9d0a3ca353d80d16b9810a7",
+  "original_source_list": "pockchalv2",
+  "original_xml_path": "data/mame/softlists-v1/pockchalv2/pockchalv2.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "3906504274163644e216edc7e6ba40cc99f8ba3da8a65454b24b61378a9ee517",
+  "index_bytes": 21964,
+  "index_rows": 20,
+  "source_observation_counts": {
+    "software_entries": 20,
+    "rom_sha1_claims": 20,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 20,
+    "entries_with_publisher": 20,
+    "entries_with_serial": 20
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

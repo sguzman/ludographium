@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/vc4000/manifest.json",
+  "original_xml_sha256": "ede1c6161622702487858a3b7b242df5a399aa6b57d2e79f870b456aa86a8268",
+  "original_source_list": "vc4000",
+  "original_xml_path": "data/mame/softlists-v1/vc4000/vc4000.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "201ef0e11a0612140746afae64b7e8ed5e5b0a92531ab71203edded9fe970d44",
+  "index_bytes": 34404,
+  "index_rows": 37,
+  "source_observation_counts": {
+    "software_entries": 37,
+    "rom_sha1_claims": 37,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 37,
+    "entries_with_publisher": 37,
+    "entries_with_serial": 37
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

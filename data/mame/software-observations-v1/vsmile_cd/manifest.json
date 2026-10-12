@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/vsmile_cd/manifest.json",
+  "original_xml_sha256": "2feaca3cfa8a3009ec1e3bc4bf92b4e445d83af7cbb1178dee438801f8f3720a",
+  "original_source_list": "vsmile_cd",
+  "original_xml_path": "data/mame/softlists-v1/vsmile_cd/vsmile_cd.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "5d7ab4175205829389543d39a65f6b2182a75d48f299c0ef038e0d72a5b6cfdf",
+  "index_bytes": 31764,
+  "index_rows": 34,
+  "source_observation_counts": {
+    "software_entries": 34,
+    "rom_sha1_claims": 0,
+    "disk_sha1_claims": 34,
+    "entries_with_year": 34,
+    "entries_with_publisher": 34,
+    "entries_with_serial": 33
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

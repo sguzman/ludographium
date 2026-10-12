@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/megadriv/manifest.json",
+  "original_xml_sha256": "1f7164abbda2cfb0d5ceca7c674862edcabd4aa5389feed2cf9eac51c0e3be41",
+  "original_source_list": "megadriv",
+  "original_xml_path": "data/mame/softlists-v1/megadriv/megadriv.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "67a251a76f4b5ce4d024372eaed286efb19c8ebbbf5789cacfd2d41a257114b0",
+  "index_bytes": 2936710,
+  "index_rows": 2825,
+  "source_observation_counts": {
+    "software_entries": 2825,
+    "rom_sha1_claims": 2976,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 2825,
+    "entries_with_publisher": 2825,
+    "entries_with_serial": 523
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

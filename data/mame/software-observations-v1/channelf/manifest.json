@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/channelf/manifest.json",
+  "original_xml_sha256": "6fda4db4867b1e52db394b5dfea6ccf1b96df6f1bd5dbd172003a8a33b0f0c7f",
+  "original_source_list": "channelf",
+  "original_xml_path": "data/mame/softlists-v1/channelf/channelf.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "fa8251ee6b8b08b4b5f6c5ce9cb952bbad5a4acd8ddb83a144477f84a4c24610",
+  "index_bytes": 39674,
+  "index_rows": 43,
+  "source_observation_counts": {
+    "software_entries": 43,
+    "rom_sha1_claims": 43,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 43,
+    "entries_with_publisher": 43,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

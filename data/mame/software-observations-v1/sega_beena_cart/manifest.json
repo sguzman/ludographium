@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/sega_beena_cart/manifest.json",
+  "original_xml_sha256": "e8a0e1753b29bd890c0e5901390b26852e9d649ee76af0ab2f0d2cec2ce16d3f",
+  "original_source_list": "sega_beena_cart",
+  "original_xml_path": "data/mame/softlists-v1/sega_beena_cart/sega_beena_cart.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "27f498810bc6bd7dad3cac465e68110d194438b21dd7e4aea853db8b9b172936",
+  "index_bytes": 314259,
+  "index_rows": 65,
+  "source_observation_counts": {
+    "software_entries": 65,
+    "rom_sha1_claims": 879,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 65,
+    "entries_with_publisher": 65,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

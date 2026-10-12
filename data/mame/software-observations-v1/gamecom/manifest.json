@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/gamecom/manifest.json",
+  "original_xml_sha256": "0b0690ddbf12f11d45f5451c60c5c8920c25486ee8cf2525d561e2a491919e55",
+  "original_source_list": "gamecom",
+  "original_xml_path": "data/mame/softlists-v1/gamecom/gamecom.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "02384651f98ec5fd89476622ad77b5d0da75ed3e9fb6d932da80fdef7e7802d2",
+  "index_bytes": 21676,
+  "index_rows": 23,
+  "source_observation_counts": {
+    "software_entries": 23,
+    "rom_sha1_claims": 23,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 23,
+    "entries_with_publisher": 23,
+    "entries_with_serial": 22
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

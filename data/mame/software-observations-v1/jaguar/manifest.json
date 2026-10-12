@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/jaguar/manifest.json",
+  "original_xml_sha256": "ac50a162320567cbcc82ea27046f90d3e799f453c7bcc327815e8432aa50f839",
+  "original_source_list": "jaguar",
+  "original_xml_path": "data/mame/softlists-v1/jaguar/jaguar.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "1db74cfe83f9b5190454f6de5a857a7fadff834eae0400ee2208329029a19a1e",
+  "index_bytes": 104400,
+  "index_rows": 102,
+  "source_observation_counts": {
+    "software_entries": 102,
+    "rom_sha1_claims": 104,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 102,
+    "entries_with_publisher": 102,
+    "entries_with_serial": 68
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

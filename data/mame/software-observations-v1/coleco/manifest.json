@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/coleco/manifest.json",
+  "original_xml_sha256": "9c180c611869d7b44e2d679649c565d96c2dab2f4eea29af3528065857f47c18",
+  "original_source_list": "coleco",
+  "original_xml_path": "data/mame/softlists-v1/coleco/coleco.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "09761e46d7fbc2b3720a1fa88892de8c472fa536895e36b64ed0f4a82c8adf3e",
+  "index_bytes": 313745,
+  "index_rows": 237,
+  "source_observation_counts": {
+    "software_entries": 237,
+    "rom_sha1_claims": 546,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 237,
+    "entries_with_publisher": 237,
+    "entries_with_serial": 170
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

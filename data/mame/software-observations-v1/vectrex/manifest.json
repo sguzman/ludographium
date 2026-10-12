@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/vectrex/manifest.json",
+  "original_xml_sha256": "1fa54348cf8b6a911952083c7339188f52beb7d60555fe5fdd29b09ff8ddd24b",
+  "original_source_list": "vectrex",
+  "original_xml_path": "data/mame/softlists-v1/vectrex/vectrex.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "74f2d77767937fc0d1334f721853fc6f5b8f089f8116c8300e0e7ee103255402",
+  "index_bytes": 67972,
+  "index_rows": 75,
+  "source_observation_counts": {
+    "software_entries": 75,
+    "rom_sha1_claims": 75,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 75,
+    "entries_with_publisher": 75,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

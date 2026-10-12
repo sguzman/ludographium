@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/gmaster/manifest.json",
+  "original_xml_sha256": "15c186075e1ab2bbd604bca38f8b15af84448b0f527d09e66240fd54c0ab3b57",
+  "original_source_list": "gmaster",
+  "original_xml_path": "data/mame/softlists-v1/gmaster/gmaster.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "30d9f9d39ee7ede1c096faaba555a8e2252c897b547866ea74498b56c20a5ec9",
+  "index_bytes": 15699,
+  "index_rows": 18,
+  "source_observation_counts": {
+    "software_entries": 18,
+    "rom_sha1_claims": 18,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 18,
+    "entries_with_publisher": 18,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

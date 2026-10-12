@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/arcadia/manifest.json",
+  "original_xml_sha256": "0f22e3adc427df388526c7d48038a284911c5b9ab817f890497ec3a403e98dc5",
+  "original_source_list": "arcadia",
+  "original_xml_path": "data/mame/softlists-v1/arcadia/arcadia.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "3057b02d713b6a243f4ef4d5e85345bb22d8745914584feadc937c6aeb773667",
+  "index_bytes": 57054,
+  "index_rows": 62,
+  "source_observation_counts": {
+    "software_entries": 62,
+    "rom_sha1_claims": 64,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 62,
+    "entries_with_publisher": 62,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

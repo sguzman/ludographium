@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/gameboy/manifest.json",
+  "original_xml_sha256": "8e05e4f81d6eaff553f7ae00aae61177f22655c3627a1b72fdd24553953d80b3",
+  "original_source_list": "gameboy",
+  "original_xml_path": "data/mame/softlists-v1/gameboy/gameboy.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "ebdacdf477c83af0124aebd1068a3391398e93db7c73df9417c2168164c8fde6",
+  "index_bytes": 1762649,
+  "index_rows": 1743,
+  "source_observation_counts": {
+    "software_entries": 1743,
+    "rom_sha1_claims": 1743,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 1743,
+    "entries_with_publisher": 1743,
+    "entries_with_serial": 1601
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/gba_ereader/manifest.json",
+  "original_xml_sha256": "55b24471b61dd586ec4fe44fff0d568daa8de3d9d926c388b4b950135a121e8e",
+  "original_source_list": "gba_ereader",
+  "original_xml_path": "data/mame/softlists-v1/gba_ereader/gba_ereader.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "c7b352af5e823b6ec0075a888c47b488a7716902ed46e82726f0f10930840e7d",
+  "index_bytes": 651111,
+  "index_rows": 686,
+  "source_observation_counts": {
+    "software_entries": 686,
+    "rom_sha1_claims": 686,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 686,
+    "entries_with_publisher": 686,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

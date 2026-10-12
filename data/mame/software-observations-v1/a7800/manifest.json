@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/a7800/manifest.json",
+  "original_xml_sha256": "5343714eedd715f7f1f080f1e283d5ed56e6f6509ea3eff2f8f7c8c53ee066b9",
+  "original_source_list": "a7800",
+  "original_xml_path": "data/mame/softlists-v1/a7800/a7800.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "e2ca874da8ebb5f951c7f6e13b82e7173f0c7de14903b73dae9b4df07ce6f377",
+  "index_bytes": 202805,
+  "index_rows": 204,
+  "source_observation_counts": {
+    "software_entries": 204,
+    "rom_sha1_claims": 214,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 204,
+    "entries_with_publisher": 204,
+    "entries_with_serial": 126
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

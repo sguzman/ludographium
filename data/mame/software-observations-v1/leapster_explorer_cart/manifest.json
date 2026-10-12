@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/leapster_explorer_cart/manifest.json",
+  "original_xml_sha256": "e25718df334dadb1cad15a482b62812eaaf5e0f2c707dce6bbbdc74d28a958bf",
+  "original_source_list": "leapster_explorer_cart",
+  "original_xml_path": "data/mame/softlists-v1/leapster_explorer_cart/leapster_explorer_cart.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "ea0744574aceb293d2e1ffe86e720ce75471026a72eebdfe532f885b6d1fe8d5",
+  "index_bytes": 3396,
+  "index_rows": 3,
+  "source_observation_counts": {
+    "software_entries": 3,
+    "rom_sha1_claims": 3,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 3,
+    "entries_with_publisher": 3,
+    "entries_with_serial": 3
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

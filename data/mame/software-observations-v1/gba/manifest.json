@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/gba/manifest.json",
+  "original_xml_sha256": "dc14af286739a50307e7d5893cc1fb29946297d1e7983adb2d68f63c999350fe",
+  "original_source_list": "gba",
+  "original_xml_path": "data/mame/softlists-v1/gba/gba.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "b545f7a9de8eaa14a001bd47f362927593dfa3237ff6e14d0c1f8ed7fbec00b1",
+  "index_bytes": 3040925,
+  "index_rows": 3041,
+  "source_observation_counts": {
+    "software_entries": 3041,
+    "rom_sha1_claims": 3043,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 3041,
+    "entries_with_publisher": 3041,
+    "entries_with_serial": 2584
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

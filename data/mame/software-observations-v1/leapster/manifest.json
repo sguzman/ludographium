@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/leapster/manifest.json",
+  "original_xml_sha256": "18193106230ed4c0390c979362dd24b78c8d4a30cc0181ad7b4a420f6f162a0d",
+  "original_source_list": "leapster",
+  "original_xml_path": "data/mame/softlists-v1/leapster/leapster.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "fd5bcf7e72cfa2ab48a32949758fc0dff6950de15cf7b5b813d01b773d6d8610",
+  "index_bytes": 133842,
+  "index_rows": 136,
+  "source_observation_counts": {
+    "software_entries": 136,
+    "rom_sha1_claims": 136,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 136,
+    "entries_with_publisher": 136,
+    "entries_with_serial": 136
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

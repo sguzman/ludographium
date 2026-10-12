@@ -1,0 +1,753 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-entry-projection",
+  "source_register": "sources/mame-softlists-v1.json",
+  "original_capture_summary": "reports/mame-softlists-v1-summary.json",
+  "indexed_source_partitions": 49,
+  "source_observation_totals": {
+    "software_entries": 31464,
+    "rom_sha1_claims": 31300,
+    "disk_sha1_claims": 6228,
+    "entries_with_year": 31464,
+    "entries_with_publisher": 31464,
+    "entries_with_serial": 20628
+  },
+  "partitions": [
+    {
+      "source_list": "32x",
+      "original_xml_path": "data/mame/softlists-v1/32x/32x.xml",
+      "original_xml_sha256": "62d7745ffa53f71ae45df14d8513a217ecb4c8440d9c135adaf43085a19c52a8",
+      "index_manifest": "data/mame/software-observations-v1/32x/manifest.json",
+      "index_sha256": "10de710e35c22ab31bafa51539effdf4f6037d277d51b44038f7d053150726b4",
+      "counts": {
+        "software_entries": 208,
+        "rom_sha1_claims": 220,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 208,
+        "entries_with_publisher": 208,
+        "entries_with_serial": 19
+      }
+    },
+    {
+      "source_list": "a2600",
+      "original_xml_path": "data/mame/softlists-v1/a2600/a2600.xml",
+      "original_xml_sha256": "efe03008c6c2a4aa197eac1242d838913b3ec4eb434d04f2b59bb769a726197c",
+      "index_manifest": "data/mame/software-observations-v1/a2600/manifest.json",
+      "index_sha256": "642cebc4d0527b8c485cfab97368b8dbbaaded1613465c6d7503f4cda5f60eda",
+      "counts": {
+        "software_entries": 1592,
+        "rom_sha1_claims": 1601,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 1592,
+        "entries_with_publisher": 1592,
+        "entries_with_serial": 140
+      }
+    },
+    {
+      "source_list": "a7800",
+      "original_xml_path": "data/mame/softlists-v1/a7800/a7800.xml",
+      "original_xml_sha256": "5343714eedd715f7f1f080f1e283d5ed56e6f6509ea3eff2f8f7c8c53ee066b9",
+      "index_manifest": "data/mame/software-observations-v1/a7800/manifest.json",
+      "index_sha256": "e2ca874da8ebb5f951c7f6e13b82e7173f0c7de14903b73dae9b4df07ce6f377",
+      "counts": {
+        "software_entries": 204,
+        "rom_sha1_claims": 214,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 204,
+        "entries_with_publisher": 204,
+        "entries_with_serial": 126
+      }
+    },
+    {
+      "source_list": "arcadia",
+      "original_xml_path": "data/mame/softlists-v1/arcadia/arcadia.xml",
+      "original_xml_sha256": "0f22e3adc427df388526c7d48038a284911c5b9ab817f890497ec3a403e98dc5",
+      "index_manifest": "data/mame/software-observations-v1/arcadia/manifest.json",
+      "index_sha256": "3057b02d713b6a243f4ef4d5e85345bb22d8745914584feadc937c6aeb773667",
+      "counts": {
+        "software_entries": 62,
+        "rom_sha1_claims": 64,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 62,
+        "entries_with_publisher": 62,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "channelf",
+      "original_xml_path": "data/mame/softlists-v1/channelf/channelf.xml",
+      "original_xml_sha256": "6fda4db4867b1e52db394b5dfea6ccf1b96df6f1bd5dbd172003a8a33b0f0c7f",
+      "index_manifest": "data/mame/software-observations-v1/channelf/manifest.json",
+      "index_sha256": "fa8251ee6b8b08b4b5f6c5ce9cb952bbad5a4acd8ddb83a144477f84a4c24610",
+      "counts": {
+        "software_entries": 43,
+        "rom_sha1_claims": 43,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 43,
+        "entries_with_publisher": 43,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "coleco",
+      "original_xml_path": "data/mame/softlists-v1/coleco/coleco.xml",
+      "original_xml_sha256": "9c180c611869d7b44e2d679649c565d96c2dab2f4eea29af3528065857f47c18",
+      "index_manifest": "data/mame/software-observations-v1/coleco/manifest.json",
+      "index_sha256": "09761e46d7fbc2b3720a1fa88892de8c472fa536895e36b64ed0f4a82c8adf3e",
+      "counts": {
+        "software_entries": 237,
+        "rom_sha1_claims": 546,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 237,
+        "entries_with_publisher": 237,
+        "entries_with_serial": 170
+      }
+    },
+    {
+      "source_list": "database",
+      "original_xml_path": "data/mame/softlists-v1/database/database.xml",
+      "original_xml_sha256": "fc7c4ba346058af0d544825c66487af7483012a39e29bfd07712e40690dba3ad",
+      "index_manifest": "data/mame/software-observations-v1/database/manifest.json",
+      "index_sha256": "70b7e8b74bddb30a34613c549d538c8e9a586d5e294ca768b139942879baa27e",
+      "counts": {
+        "software_entries": 19,
+        "rom_sha1_claims": 19,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 19,
+        "entries_with_publisher": 19,
+        "entries_with_serial": 18
+      }
+    },
+    {
+      "source_list": "famicom_flop",
+      "original_xml_path": "data/mame/softlists-v1/famicom_flop/famicom_flop.xml",
+      "original_xml_sha256": "4070674b4dfda90bad990322101de047860d2f422289b0f6310ff3e19c43476e",
+      "index_manifest": "data/mame/software-observations-v1/famicom_flop/manifest.json",
+      "index_sha256": "a56999d90c7506225f97af4999d4129e0bc8aba9c18c23b4e61df6eef88e2eee",
+      "counts": {
+        "software_entries": 311,
+        "rom_sha1_claims": 311,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 311,
+        "entries_with_publisher": 311,
+        "entries_with_serial": 227
+      }
+    },
+    {
+      "source_list": "gameboy",
+      "original_xml_path": "data/mame/softlists-v1/gameboy/gameboy.xml",
+      "original_xml_sha256": "8e05e4f81d6eaff553f7ae00aae61177f22655c3627a1b72fdd24553953d80b3",
+      "index_manifest": "data/mame/software-observations-v1/gameboy/manifest.json",
+      "index_sha256": "ebdacdf477c83af0124aebd1068a3391398e93db7c73df9417c2168164c8fde6",
+      "counts": {
+        "software_entries": 1743,
+        "rom_sha1_claims": 1743,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 1743,
+        "entries_with_publisher": 1743,
+        "entries_with_serial": 1601
+      }
+    },
+    {
+      "source_list": "gamecom",
+      "original_xml_path": "data/mame/softlists-v1/gamecom/gamecom.xml",
+      "original_xml_sha256": "0b0690ddbf12f11d45f5451c60c5c8920c25486ee8cf2525d561e2a491919e55",
+      "index_manifest": "data/mame/software-observations-v1/gamecom/manifest.json",
+      "index_sha256": "02384651f98ec5fd89476622ad77b5d0da75ed3e9fb6d932da80fdef7e7802d2",
+      "counts": {
+        "software_entries": 23,
+        "rom_sha1_claims": 23,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 23,
+        "entries_with_publisher": 23,
+        "entries_with_serial": 22
+      }
+    },
+    {
+      "source_list": "gamegear",
+      "original_xml_path": "data/mame/softlists-v1/gamegear/gamegear.xml",
+      "original_xml_sha256": "3d86324d0d0c4a0fd78409bdecaf565c42edd55aca646d9349fdcff0f371a7a1",
+      "index_manifest": "data/mame/software-observations-v1/gamegear/manifest.json",
+      "index_sha256": "4735647e87abacf8427154fd5beb8eccb1334b4d6440023e8d7651a3f9a5ce1e",
+      "counts": {
+        "software_entries": 823,
+        "rom_sha1_claims": 830,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 823,
+        "entries_with_publisher": 823,
+        "entries_with_serial": 426
+      }
+    },
+    {
+      "source_list": "gba",
+      "original_xml_path": "data/mame/softlists-v1/gba/gba.xml",
+      "original_xml_sha256": "dc14af286739a50307e7d5893cc1fb29946297d1e7983adb2d68f63c999350fe",
+      "index_manifest": "data/mame/software-observations-v1/gba/manifest.json",
+      "index_sha256": "b545f7a9de8eaa14a001bd47f362927593dfa3237ff6e14d0c1f8ed7fbec00b1",
+      "counts": {
+        "software_entries": 3041,
+        "rom_sha1_claims": 3043,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 3041,
+        "entries_with_publisher": 3041,
+        "entries_with_serial": 2584
+      }
+    },
+    {
+      "source_list": "gba_ereader",
+      "original_xml_path": "data/mame/softlists-v1/gba_ereader/gba_ereader.xml",
+      "original_xml_sha256": "55b24471b61dd586ec4fe44fff0d568daa8de3d9d926c388b4b950135a121e8e",
+      "index_manifest": "data/mame/software-observations-v1/gba_ereader/manifest.json",
+      "index_sha256": "c7b352af5e823b6ec0075a888c47b488a7716902ed46e82726f0f10930840e7d",
+      "counts": {
+        "software_entries": 686,
+        "rom_sha1_claims": 686,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 686,
+        "entries_with_publisher": 686,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "gbcolor",
+      "original_xml_path": "data/mame/softlists-v1/gbcolor/gbcolor.xml",
+      "original_xml_sha256": "08c7ee7dedd4f8d0bd957c440fb5956b2f334490df9cf16ebf2a6e5d542e82a9",
+      "index_manifest": "data/mame/software-observations-v1/gbcolor/manifest.json",
+      "index_sha256": "84f53ffd0b8a7ca52e837cd3040ad93471c0cdddf223f29d7a3412d0927937de",
+      "counts": {
+        "software_entries": 1718,
+        "rom_sha1_claims": 1719,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 1718,
+        "entries_with_publisher": 1718,
+        "entries_with_serial": 1456
+      }
+    },
+    {
+      "source_list": "gmaster",
+      "original_xml_path": "data/mame/softlists-v1/gmaster/gmaster.xml",
+      "original_xml_sha256": "15c186075e1ab2bbd604bca38f8b15af84448b0f527d09e66240fd54c0ab3b57",
+      "index_manifest": "data/mame/software-observations-v1/gmaster/manifest.json",
+      "index_sha256": "30d9f9d39ee7ede1c096faaba555a8e2252c897b547866ea74498b56c20a5ec9",
+      "counts": {
+        "software_entries": 18,
+        "rom_sha1_claims": 18,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 18,
+        "entries_with_publisher": 18,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "gp32",
+      "original_xml_path": "data/mame/softlists-v1/gp32/gp32.xml",
+      "original_xml_sha256": "d4a28d1db8a2197ad5f6b247e03ae759ad9adc98352357c245d57926e0783885",
+      "index_manifest": "data/mame/software-observations-v1/gp32/manifest.json",
+      "index_sha256": "f28b749869865f41bdab87a0e115b582631909f72ed27695d2345abffa8f25cb",
+      "counts": {
+        "software_entries": 38,
+        "rom_sha1_claims": 38,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 38,
+        "entries_with_publisher": 38,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "intv",
+      "original_xml_path": "data/mame/softlists-v1/intv/intv.xml",
+      "original_xml_sha256": "e9d5f4b079c571eb930d7fa31325125b9e060e807ee553eb4fe2fa4498c55bc8",
+      "index_manifest": "data/mame/software-observations-v1/intv/manifest.json",
+      "index_sha256": "97e20b0f5bfee480bbc569d847152265481d8e5451f7029f3e3cf6ff4495e853",
+      "counts": {
+        "software_entries": 192,
+        "rom_sha1_claims": 267,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 192,
+        "entries_with_publisher": 192,
+        "entries_with_serial": 129
+      }
+    },
+    {
+      "source_list": "jaguar",
+      "original_xml_path": "data/mame/softlists-v1/jaguar/jaguar.xml",
+      "original_xml_sha256": "ac50a162320567cbcc82ea27046f90d3e799f453c7bcc327815e8432aa50f839",
+      "index_manifest": "data/mame/software-observations-v1/jaguar/manifest.json",
+      "index_sha256": "1db74cfe83f9b5190454f6de5a857a7fadff834eae0400ee2208329029a19a1e",
+      "counts": {
+        "software_entries": 102,
+        "rom_sha1_claims": 104,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 102,
+        "entries_with_publisher": 102,
+        "entries_with_serial": 68
+      }
+    },
+    {
+      "source_list": "leapfrog_leappad_cart",
+      "original_xml_path": "data/mame/softlists-v1/leapfrog_leappad_cart/leapfrog_leappad_cart.xml",
+      "original_xml_sha256": "ba977e0de6c588f1046fbedea0f2fec8b1b7f24d8b4cca9560838aed69894d26",
+      "index_manifest": "data/mame/software-observations-v1/leapfrog_leappad_cart/manifest.json",
+      "index_sha256": "1edf845629df19fd80257acfca070171f644d365336fd30a51ba98c2b630c746",
+      "counts": {
+        "software_entries": 158,
+        "rom_sha1_claims": 186,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 158,
+        "entries_with_publisher": 158,
+        "entries_with_serial": 150
+      }
+    },
+    {
+      "source_list": "leapfrog_ltleappad_cart",
+      "original_xml_path": "data/mame/softlists-v1/leapfrog_ltleappad_cart/leapfrog_ltleappad_cart.xml",
+      "original_xml_sha256": "8c841c987cca0138d8e33eac6657c9d85e21d4608dd924c2c07cccb02a29575f",
+      "index_manifest": "data/mame/software-observations-v1/leapfrog_ltleappad_cart/manifest.json",
+      "index_sha256": "a0e0e7fc8280b474639ef998bec1cec4501b8cbc7760e36cb89fc3aa7549bfc9",
+      "counts": {
+        "software_entries": 9,
+        "rom_sha1_claims": 51,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 9,
+        "entries_with_publisher": 9,
+        "entries_with_serial": 9
+      }
+    },
+    {
+      "source_list": "leapfrog_mfleappad_cart",
+      "original_xml_path": "data/mame/softlists-v1/leapfrog_mfleappad_cart/leapfrog_mfleappad_cart.xml",
+      "original_xml_sha256": "c90b4780370f9325c5f39a78ac300d75d12a792a26908f4befb70a059311ece1",
+      "index_manifest": "data/mame/software-observations-v1/leapfrog_mfleappad_cart/manifest.json",
+      "index_sha256": "6a09416ffe1f4852f9caa17bedc482ec401ccdb9e5691db8e4ed88bdaa95e492",
+      "counts": {
+        "software_entries": 23,
+        "rom_sha1_claims": 23,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 23,
+        "entries_with_publisher": 23,
+        "entries_with_serial": 23
+      }
+    },
+    {
+      "source_list": "leapster",
+      "original_xml_path": "data/mame/softlists-v1/leapster/leapster.xml",
+      "original_xml_sha256": "18193106230ed4c0390c979362dd24b78c8d4a30cc0181ad7b4a420f6f162a0d",
+      "index_manifest": "data/mame/software-observations-v1/leapster/manifest.json",
+      "index_sha256": "fd5bcf7e72cfa2ab48a32949758fc0dff6950de15cf7b5b813d01b773d6d8610",
+      "counts": {
+        "software_entries": 136,
+        "rom_sha1_claims": 136,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 136,
+        "entries_with_publisher": 136,
+        "entries_with_serial": 136
+      }
+    },
+    {
+      "source_list": "leapster_explorer_cart",
+      "original_xml_path": "data/mame/softlists-v1/leapster_explorer_cart/leapster_explorer_cart.xml",
+      "original_xml_sha256": "e25718df334dadb1cad15a482b62812eaaf5e0f2c707dce6bbbdc74d28a958bf",
+      "index_manifest": "data/mame/software-observations-v1/leapster_explorer_cart/manifest.json",
+      "index_sha256": "ea0744574aceb293d2e1ffe86e720ce75471026a72eebdfe532f885b6d1fe8d5",
+      "counts": {
+        "software_entries": 3,
+        "rom_sha1_claims": 3,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 3,
+        "entries_with_publisher": 3,
+        "entries_with_serial": 3
+      }
+    },
+    {
+      "source_list": "lynx",
+      "original_xml_path": "data/mame/softlists-v1/lynx/lynx.xml",
+      "original_xml_sha256": "ced2ff12267d2aedef06bf880fb2fbee0023c75189555be4b8c192e745103333",
+      "index_manifest": "data/mame/software-observations-v1/lynx/manifest.json",
+      "index_sha256": "b9ade4feaf45d6b594fb43678b377d1a3ff34687e463f57d6005a3d10edf6d88",
+      "counts": {
+        "software_entries": 119,
+        "rom_sha1_claims": 119,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 119,
+        "entries_with_publisher": 119,
+        "entries_with_serial": 79
+      }
+    },
+    {
+      "source_list": "megadriv",
+      "original_xml_path": "data/mame/softlists-v1/megadriv/megadriv.xml",
+      "original_xml_sha256": "1f7164abbda2cfb0d5ceca7c674862edcabd4aa5389feed2cf9eac51c0e3be41",
+      "index_manifest": "data/mame/software-observations-v1/megadriv/manifest.json",
+      "index_sha256": "67a251a76f4b5ce4d024372eaed286efb19c8ebbbf5789cacfd2d41a257114b0",
+      "counts": {
+        "software_entries": 2825,
+        "rom_sha1_claims": 2976,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 2825,
+        "entries_with_publisher": 2825,
+        "entries_with_serial": 523
+      }
+    },
+    {
+      "source_list": "n64",
+      "original_xml_path": "data/mame/softlists-v1/n64/n64.xml",
+      "original_xml_sha256": "0f5a5223ded605cde5c9e51cd1a20d9e67ecce65eb39db9265a224b59fab1b66",
+      "index_manifest": "data/mame/software-observations-v1/n64/manifest.json",
+      "index_sha256": "8159db97c6dcafc89afe9aa191b2655eca729f54e861d44c2cc78731cf7212a0",
+      "counts": {
+        "software_entries": 994,
+        "rom_sha1_claims": 1016,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 994,
+        "entries_with_publisher": 994,
+        "entries_with_serial": 900
+      }
+    },
+    {
+      "source_list": "n64dd",
+      "original_xml_path": "data/mame/softlists-v1/n64dd/n64dd.xml",
+      "original_xml_sha256": "0bbe1c9cff050d52e39358c2f162aaea8b85d20dbe16626795a260a378abadfb",
+      "index_manifest": "data/mame/software-observations-v1/n64dd/manifest.json",
+      "index_sha256": "851d8383d0193b7e2545b5da7e73e7ab14c98b75f49eea00074c97e922f23af5",
+      "counts": {
+        "software_entries": 13,
+        "rom_sha1_claims": 13,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 13,
+        "entries_with_publisher": 13,
+        "entries_with_serial": 12
+      }
+    },
+    {
+      "source_list": "nds",
+      "original_xml_path": "data/mame/softlists-v1/nds/nds.xml",
+      "original_xml_sha256": "42a8ac464672c80188a0037cf9a81f91c3d3272ac4c27550a708d169fc22d4c4",
+      "index_manifest": "data/mame/software-observations-v1/nds/manifest.json",
+      "index_sha256": "c14c95b20d8303d0cc8daefe907a9006056cad3a90c915526c771032827bf499",
+      "counts": {
+        "software_entries": 10,
+        "rom_sha1_claims": 10,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 10,
+        "entries_with_publisher": 10,
+        "entries_with_serial": 10
+      }
+    },
+    {
+      "source_list": "nes",
+      "original_xml_path": "data/mame/softlists-v1/nes/nes.xml",
+      "original_xml_sha256": "c56125c78be08e26a93f7d5485bc8b1f15d90c3478e5fbc2858594b95da9edc0",
+      "index_manifest": "data/mame/software-observations-v1/nes/manifest.json",
+      "index_sha256": "c3005f2270bf6dac52d924f26f4145a427f7e710579c393671a70dd0d75dbe3b",
+      "counts": {
+        "software_entries": 4562,
+        "rom_sha1_claims": 7990,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 4562,
+        "entries_with_publisher": 4562,
+        "entries_with_serial": 2742
+      }
+    },
+    {
+      "source_list": "pce",
+      "original_xml_path": "data/mame/softlists-v1/pce/pce.xml",
+      "original_xml_sha256": "e511e34b5995bf7d3d8516af4c959a30eab9417491caf069c30feeea0bf16f7f",
+      "index_manifest": "data/mame/software-observations-v1/pce/manifest.json",
+      "index_sha256": "a3114ed85e7d8141ad70582d4c9598f4f714d8693f6d5d0b2b76a98176ccf70f",
+      "counts": {
+        "software_entries": 325,
+        "rom_sha1_claims": 325,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 325,
+        "entries_with_publisher": 325,
+        "entries_with_serial": 297
+      }
+    },
+    {
+      "source_list": "pcecd",
+      "original_xml_path": "data/mame/softlists-v1/pcecd/pcecd.xml",
+      "original_xml_sha256": "d6ed949a646ff9d0037fdf101bf5e8bc46e183484ffd95a672322d84d9ad7935",
+      "index_manifest": "data/mame/software-observations-v1/pcecd/manifest.json",
+      "index_sha256": "40052405e39eab7a681da9a9727036df2a10bb421658e5ff34f8f828546cf2e7",
+      "counts": {
+        "software_entries": 502,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 504,
+        "entries_with_year": 502,
+        "entries_with_publisher": 502,
+        "entries_with_serial": 473
+      }
+    },
+    {
+      "source_list": "picno",
+      "original_xml_path": "data/mame/softlists-v1/picno/picno.xml",
+      "original_xml_sha256": "60f4b7e3f6e3eec596d6b56060b170693ef69e03431a626af2a1cd70112db6a9",
+      "index_manifest": "data/mame/software-observations-v1/picno/manifest.json",
+      "index_sha256": "41c0aef27f52d600c6e3365795d3d0f7c28c9ed565235b88ef973bdb7d295784",
+      "counts": {
+        "software_entries": 21,
+        "rom_sha1_claims": 21,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 21,
+        "entries_with_publisher": 21,
+        "entries_with_serial": 21
+      }
+    },
+    {
+      "source_list": "pockchalv2",
+      "original_xml_path": "data/mame/softlists-v1/pockchalv2/pockchalv2.xml",
+      "original_xml_sha256": "7f983791765db05a898160f23ff501dea5833a1db9d0a3ca353d80d16b9810a7",
+      "index_manifest": "data/mame/software-observations-v1/pockchalv2/manifest.json",
+      "index_sha256": "3906504274163644e216edc7e6ba40cc99f8ba3da8a65454b24b61378a9ee517",
+      "counts": {
+        "software_entries": 20,
+        "rom_sha1_claims": 20,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 20,
+        "entries_with_publisher": 20,
+        "entries_with_serial": 20
+      }
+    },
+    {
+      "source_list": "pockchalw",
+      "original_xml_path": "data/mame/softlists-v1/pockchalw/pockchalw.xml",
+      "original_xml_sha256": "cf65bfcc9e821fee298ad1c3f27ad4dcb827da6661b622f7562c7162116ef7d0",
+      "index_manifest": "data/mame/software-observations-v1/pockchalw/manifest.json",
+      "index_sha256": "ae54e4cf93042c842156fb76df1e929ba791c66aa167265e815167dfc3ad35a1",
+      "counts": {
+        "software_entries": 40,
+        "rom_sha1_claims": 40,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 40,
+        "entries_with_publisher": 40,
+        "entries_with_serial": 40
+      }
+    },
+    {
+      "source_list": "psx",
+      "original_xml_path": "data/mame/softlists-v1/psx/psx.xml",
+      "original_xml_sha256": "3643ba4da41292a66f170c2fa22cda5a2223dd63e7dbc5d1c04b9d259ca73e48",
+      "index_manifest": "data/mame/software-observations-v1/psx/manifest.json",
+      "index_sha256": "1b6c4682567b44be45c4686088d386eb3e31d40919849805c61e924272a7a1ea",
+      "counts": {
+        "software_entries": 2915,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 3154,
+        "entries_with_year": 2915,
+        "entries_with_publisher": 2915,
+        "entries_with_serial": 2830
+      }
+    },
+    {
+      "source_list": "saturn",
+      "original_xml_path": "data/mame/softlists-v1/saturn/saturn.xml",
+      "original_xml_sha256": "3021da6a5f35299055ca33b7f2e7820e5362b974d48e4da521a551e7b2ff63a6",
+      "index_manifest": "data/mame/software-observations-v1/saturn/manifest.json",
+      "index_sha256": "dc2b50fd9728679f75a35d74906228ae34c261ab2344c2a88b5a6430a3a9cba7",
+      "counts": {
+        "software_entries": 2235,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 2536,
+        "entries_with_year": 2235,
+        "entries_with_publisher": 2235,
+        "entries_with_serial": 2195
+      }
+    },
+    {
+      "source_list": "scv",
+      "original_xml_path": "data/mame/softlists-v1/scv/scv.xml",
+      "original_xml_sha256": "73d6eb9953123d697760c80c03caa8df669c2f65fe36911db418c367945f95ea",
+      "index_manifest": "data/mame/software-observations-v1/scv/manifest.json",
+      "index_sha256": "5884bc0141e6c745e199b4c1b0d04fdec4dd9f5eb89978bd60e3b5dad45f3fd5",
+      "counts": {
+        "software_entries": 32,
+        "rom_sha1_claims": 35,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 32,
+        "entries_with_publisher": 32,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "sega_beena_cart",
+      "original_xml_path": "data/mame/softlists-v1/sega_beena_cart/sega_beena_cart.xml",
+      "original_xml_sha256": "e8a0e1753b29bd890c0e5901390b26852e9d649ee76af0ab2f0d2cec2ce16d3f",
+      "index_manifest": "data/mame/software-observations-v1/sega_beena_cart/manifest.json",
+      "index_sha256": "27f498810bc6bd7dad3cac465e68110d194438b21dd7e4aea853db8b9b172936",
+      "counts": {
+        "software_entries": 65,
+        "rom_sha1_claims": 879,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 65,
+        "entries_with_publisher": 65,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "sms",
+      "original_xml_path": "data/mame/softlists-v1/sms/sms.xml",
+      "original_xml_sha256": "f4f67425d9c85b8e118aa3825f866bfc51f09b2c57d7c503f366596efa6d275a",
+      "index_manifest": "data/mame/software-observations-v1/sms/manifest.json",
+      "index_sha256": "72a4033458ec87fafa2756cfd0a44c1579460d555f0834e4d1354c627213eaa5",
+      "counts": {
+        "software_entries": 653,
+        "rom_sha1_claims": 665,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 653,
+        "entries_with_publisher": 653,
+        "entries_with_serial": 430
+      }
+    },
+    {
+      "source_list": "snes",
+      "original_xml_path": "data/mame/softlists-v1/snes/snes.xml",
+      "original_xml_sha256": "46d2cbfd3a2d07739b54ddf8b3ace6ed6fda038cd35a6514e74d25aa26e7e842",
+      "index_manifest": "data/mame/software-observations-v1/snes/manifest.json",
+      "index_sha256": "17dc49f0d207ff19e90197babec97829429a6a57f7064f0673c3407f124e9cae",
+      "counts": {
+        "software_entries": 3714,
+        "rom_sha1_claims": 4288,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 3714,
+        "entries_with_publisher": 3714,
+        "entries_with_serial": 2200
+      }
+    },
+    {
+      "source_list": "snes_bspack",
+      "original_xml_path": "data/mame/softlists-v1/snes_bspack/snes_bspack.xml",
+      "original_xml_sha256": "895ad0ad40f2133e50e0016b09b0d6468279f5ca0936552c569162147367ffd6",
+      "index_manifest": "data/mame/software-observations-v1/snes_bspack/manifest.json",
+      "index_sha256": "1c5e7d588cd2cd1c475c31dc83521c600737409cc59d7b0df9ef2958b278f8c5",
+      "counts": {
+        "software_entries": 401,
+        "rom_sha1_claims": 401,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 401,
+        "entries_with_publisher": 401,
+        "entries_with_serial": 2
+      }
+    },
+    {
+      "source_list": "snes_strom",
+      "original_xml_path": "data/mame/softlists-v1/snes_strom/snes_strom.xml",
+      "original_xml_sha256": "9140d7e480d7566beddc515731c44be165df1d3e116a237505f5c71ab1389289",
+      "index_manifest": "data/mame/software-observations-v1/snes_strom/manifest.json",
+      "index_sha256": "d2b9891d1af548e623aa3ea99e74030b028f70d9c3fe48ec3aa019762e77eeab",
+      "counts": {
+        "software_entries": 13,
+        "rom_sha1_claims": 13,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 13,
+        "entries_with_publisher": 13,
+        "entries_with_serial": 13
+      }
+    },
+    {
+      "source_list": "vboy",
+      "original_xml_path": "data/mame/softlists-v1/vboy/vboy.xml",
+      "original_xml_sha256": "88021ba04f8b4ecece251fa7af030f4320abfd2b6e22e4b9b5814e93e2fce2ee",
+      "index_manifest": "data/mame/software-observations-v1/vboy/manifest.json",
+      "index_sha256": "2747bde05e85cd97fe84944b9be6eca3a0f52aa8d4c0c2544f00526eae72a4bb",
+      "counts": {
+        "software_entries": 32,
+        "rom_sha1_claims": 32,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 32,
+        "entries_with_publisher": 32,
+        "entries_with_serial": 30
+      }
+    },
+    {
+      "source_list": "vc4000",
+      "original_xml_path": "data/mame/softlists-v1/vc4000/vc4000.xml",
+      "original_xml_sha256": "ede1c6161622702487858a3b7b242df5a399aa6b57d2e79f870b456aa86a8268",
+      "index_manifest": "data/mame/software-observations-v1/vc4000/manifest.json",
+      "index_sha256": "201ef0e11a0612140746afae64b7e8ed5e5b0a92531ab71203edded9fe970d44",
+      "counts": {
+        "software_entries": 37,
+        "rom_sha1_claims": 37,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 37,
+        "entries_with_publisher": 37,
+        "entries_with_serial": 37
+      }
+    },
+    {
+      "source_list": "vectrex",
+      "original_xml_path": "data/mame/softlists-v1/vectrex/vectrex.xml",
+      "original_xml_sha256": "1fa54348cf8b6a911952083c7339188f52beb7d60555fe5fdd29b09ff8ddd24b",
+      "index_manifest": "data/mame/software-observations-v1/vectrex/manifest.json",
+      "index_sha256": "74f2d77767937fc0d1334f721853fc6f5b8f089f8116c8300e0e7ee103255402",
+      "counts": {
+        "software_entries": 75,
+        "rom_sha1_claims": 75,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 75,
+        "entries_with_publisher": 75,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "vsmile_cart",
+      "original_xml_path": "data/mame/softlists-v1/vsmile_cart/vsmile_cart.xml",
+      "original_xml_sha256": "c27a48e9241feb53cdc2d72789935585969d7d7ca9006bb5c67c40a94af51681",
+      "index_manifest": "data/mame/software-observations-v1/vsmile_cart/manifest.json",
+      "index_sha256": "7209fb223602c7914a2871fb8b881a6cb9295bb5e84e2ab27cc1860ac78f8758",
+      "counts": {
+        "software_entries": 313,
+        "rom_sha1_claims": 322,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 313,
+        "entries_with_publisher": 313,
+        "entries_with_serial": 309
+      }
+    },
+    {
+      "source_list": "vsmile_cd",
+      "original_xml_path": "data/mame/softlists-v1/vsmile_cd/vsmile_cd.xml",
+      "original_xml_sha256": "2feaca3cfa8a3009ec1e3bc4bf92b4e445d83af7cbb1178dee438801f8f3720a",
+      "index_manifest": "data/mame/software-observations-v1/vsmile_cd/manifest.json",
+      "index_sha256": "5d7ab4175205829389543d39a65f6b2182a75d48f299c0ef038e0d72a5b6cfdf",
+      "counts": {
+        "software_entries": 34,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 34,
+        "entries_with_year": 34,
+        "entries_with_publisher": 34,
+        "entries_with_serial": 33
+      }
+    },
+    {
+      "source_list": "vsmileb_cart",
+      "original_xml_path": "data/mame/softlists-v1/vsmileb_cart/vsmileb_cart.xml",
+      "original_xml_sha256": "7fd0c8be674432f96edb8a2443f36ea1cca7fb03eddc96435848139bc0f512bb",
+      "index_manifest": "data/mame/software-observations-v1/vsmileb_cart/manifest.json",
+      "index_sha256": "bbf3b65a7a53545729629e8337ce5a30463bbc45ceb61fd58db3dc2b8938109f",
+      "counts": {
+        "software_entries": 23,
+        "rom_sha1_claims": 23,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 23,
+        "entries_with_publisher": 23,
+        "entries_with_serial": 23
+      }
+    },
+    {
+      "source_list": "vsmilem_cart",
+      "original_xml_path": "data/mame/softlists-v1/vsmilem_cart/vsmilem_cart.xml",
+      "original_xml_sha256": "d1db98d6dfe7919e5ff82410e839fc22ca458d266c034a43eb431351a306de72",
+      "index_manifest": "data/mame/software-observations-v1/vsmilem_cart/manifest.json",
+      "index_sha256": "aa805efd601b507fc16246357fb9df3da47bbcc81204f51d01025ab16ae1f0fb",
+      "counts": {
+        "software_entries": 102,
+        "rom_sha1_claims": 112,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 102,
+        "entries_with_publisher": 102,
+        "entries_with_serial": 102
+      }
+    }
+  ],
+  "interpretation": "Exactly pinned MAME XML claims projected to independent JSONL records. Original publishers, years, titles, media SHA1/CRC, serials and regional notes are evidence, not adjudicated canonical work/release identities."
+}

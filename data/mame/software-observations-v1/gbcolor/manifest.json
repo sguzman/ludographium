@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/gbcolor/manifest.json",
+  "original_xml_sha256": "08c7ee7dedd4f8d0bd957c440fb5956b2f334490df9cf16ebf2a6e5d542e82a9",
+  "original_source_list": "gbcolor",
+  "original_xml_path": "data/mame/softlists-v1/gbcolor/gbcolor.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "84f53ffd0b8a7ca52e837cd3040ad93471c0cdddf223f29d7a3412d0927937de",
+  "index_bytes": 1773952,
+  "index_rows": 1718,
+  "source_observation_counts": {
+    "software_entries": 1718,
+    "rom_sha1_claims": 1719,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 1718,
+    "entries_with_publisher": 1718,
+    "entries_with_serial": 1456
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

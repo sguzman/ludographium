@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/snes/manifest.json",
+  "original_xml_sha256": "46d2cbfd3a2d07739b54ddf8b3ace6ed6fda038cd35a6514e74d25aa26e7e842",
+  "original_source_list": "snes",
+  "original_xml_path": "data/mame/softlists-v1/snes/snes.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "17dc49f0d207ff19e90197babec97829429a6a57f7064f0673c3407f124e9cae",
+  "index_bytes": 3951583,
+  "index_rows": 3714,
+  "source_observation_counts": {
+    "software_entries": 3714,
+    "rom_sha1_claims": 4288,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 3714,
+    "entries_with_publisher": 3714,
+    "entries_with_serial": 2200
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/famicom_flop/manifest.json",
+  "original_xml_sha256": "4070674b4dfda90bad990322101de047860d2f422289b0f6310ff3e19c43476e",
+  "original_source_list": "famicom_flop",
+  "original_xml_path": "data/mame/softlists-v1/famicom_flop/famicom_flop.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "a56999d90c7506225f97af4999d4129e0bc8aba9c18c23b4e61df6eef88e2eee",
+  "index_bytes": 327020,
+  "index_rows": 311,
+  "source_observation_counts": {
+    "software_entries": 311,
+    "rom_sha1_claims": 311,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 311,
+    "entries_with_publisher": 311,
+    "entries_with_serial": 227
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

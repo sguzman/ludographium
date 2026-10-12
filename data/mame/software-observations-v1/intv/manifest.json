@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v1/intv/manifest.json",
+  "original_xml_sha256": "e9d5f4b079c571eb930d7fa31325125b9e060e807ee553eb4fe2fa4498c55bc8",
+  "original_source_list": "intv",
+  "original_xml_path": "data/mame/softlists-v1/intv/intv.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "97e20b0f5bfee480bbc569d847152265481d8e5451f7029f3e3cf6ff4495e853",
+  "index_bytes": 196073,
+  "index_rows": 192,
+  "source_observation_counts": {
+    "software_entries": 192,
+    "rom_sha1_claims": 267,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 192,
+    "entries_with_publisher": 192,
+    "entries_with_serial": 129
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}
