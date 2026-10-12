@@ -63,6 +63,26 @@ class ConservativeTitleQueryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             query(ROOT, cohort="unknown")
 
+    def test_bounded_pages_cross_original_and_additive_title_leads(self):
+        combined = query(ROOT, cohort="combined", offset=6823, limit=4)
+        self.assertEqual(combined["original_source_candidate_pairs"], 6833)
+        self.assertEqual(combined["total_filtered_candidate_pairs"], 6833)
+        self.assertEqual(combined["returned_candidate_pairs"], 4)
+        self.assertEqual(combined["next_offset"], 6827)
+        self.assertEqual(
+            [r["source_evidence_cohort"] for r in combined["pairs"]],
+            ["baseline", "baseline", "v3", "v3"],
+        )
+        last = query(ROOT, cohort="v3", offset=7, limit=3)
+        self.assertEqual(last["returned_candidate_pairs"], 1)
+        self.assertIsNone(last["next_offset"])
+        empty = query(ROOT, cohort="v3", offset=8, limit=3)
+        self.assertEqual(empty["returned_candidate_pairs"], 0)
+        self.assertIsNone(empty["next_offset"])
+        for offset in (-1, True, "1", 1_000_001):
+            with self.subTest(offset=offset), self.assertRaises(ValueError):
+                query(ROOT / "nonexistent", offset=offset)
+
     def test_ambiguity_and_filters_keep_all_provenance(self):
         result = query(ROOT, ambiguous_only=True, limit=4)
         self.assertGreater(result["total_filtered_candidate_pairs"], 0)
