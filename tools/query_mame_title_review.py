@@ -5,6 +5,7 @@ from collections import Counter
 import hashlib
 import json
 from pathlib import Path
+import re
 
 from reconcile_mame_titles import normalized_title
 
@@ -38,20 +39,51 @@ def query(root=ROOT, *, mame_list=None, libretro_platform=None, title=None,
         or (raw and not raw.endswith(b"\n"))
     ):
         raise ValueError("altered or unregistered title-review evidence")
+    eligible_scopes = {
+        (item["mame_source_list"], item["libretro_source_platform"]):
+        item["distinct_mame_software_records_with_exact_media_evidence"]
+        for item in report["source_scope_correspondence_evidence"]
+        if item["eligible_for_title_review"]
+    }
+    if len(eligible_scopes) != report["source_scope_pairs_eligible_for_title_review"]:
+        raise ValueError("duplicate or absent supported source scopes")
     groups = Counter()
+    unique_pairs = set()
     accepted_rows = []
-    for line in raw.splitlines():
+    for ordinal, line in enumerate(raw.splitlines(), 1):
         row = json.loads(line)
         mame, libretro = row["mame"], row["libretro"]
+        scope_key = (mame["source_list"], libretro["platform"])
+        pair_key = (
+            mame["source_list"], mame["software_ordinal"],
+            libretro["platform"], libretro["source_ordinal"],
+        )
         if (
             row["schema_version"] != 1
             or row["kind"] != "review-only-exact-source-title-correspondence"
-            or row["source_scope_pair_sha1_supported_mame_records"] < 3
-            or not row["interpretation"].startswith("review-only-")
+            or row["interpretation"] != (
+                "review-only-equal-normalized-titles-with-scope-corroboration-"
+                "not-verified-game-or-release-identity"
+            )
+            or eligible_scopes.get(scope_key) is None
+            or eligible_scopes[scope_key] < 3
+            or row["source_scope_pair_sha1_supported_mame_records"] != (
+                eligible_scopes[scope_key]
+            )
+            or type(mame["software_ordinal"]) is not int
+            or type(libretro["source_ordinal"]) is not int
+            or mame["software_ordinal"] <= 0
+            or libretro["source_ordinal"] <= 0
+            or not re.fullmatch("[a-f0-9]{64}", mame["original_source_xml_sha256"])
+            or not re.fullmatch("[a-f0-9]{40}", libretro["original_git_blob_sha"])
             or normalized_title(mame["original_title"]) != row["normalized_title_key"]
             or normalized_title(libretro["original_title"]) != row["normalized_title_key"]
+            or pair_key in unique_pairs
         ):
-            raise ValueError("title-review assertion does not satisfy source constraints")
+            raise ValueError(
+                f"title-review lead {ordinal} violates pinned source evidence"
+            )
+        unique_pairs.add(pair_key)
         group_key = (mame["source_list"], mame["software_ordinal"])
         groups[group_key] += 1
         accepted_rows.append(row)
@@ -92,6 +124,10 @@ def query(root=ROOT, *, mame_list=None, libretro_platform=None, title=None,
         "total_filtered_candidate_pairs": matches,
         "returned_candidate_pairs": len(filtered),
         "source_index_sha256": report["candidate_sha256"],
+        "minimum_original_media_supported_scope_records": (
+            report["minimum_distinct_mame_media_supported_scope_records"]
+        ),
+        "eligible_source_scope_pairs": len(eligible_scopes),
         "pairs": filtered,
         "interpretation": (
             "Each pair is an unadjudicated exact-title lead grounded in "

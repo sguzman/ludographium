@@ -1,11 +1,14 @@
 """Offline title-review search guards and provenance assertions."""
+import hashlib
+import json
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from query_mame_title_review import query
+from query_mame_title_review import INDEX, SUMMARY, query
 
 
 class ConservativeTitleQueryTests(unittest.TestCase):
@@ -20,6 +23,29 @@ class ConservativeTitleQueryTests(unittest.TestCase):
             for row in result["pairs"]
         ))
         self.assertIn("not a verified game", result["interpretation"])
+
+    def test_scope_evidence_is_independently_checked_after_rehashing(self):
+        with tempfile.TemporaryDirectory() as temp:
+            base = Path(temp)
+            (base / INDEX.parent).mkdir(parents=True)
+            (base / SUMMARY.parent).mkdir(parents=True, exist_ok=True)
+            lines = (ROOT / INDEX).read_bytes().splitlines()
+            first = json.loads(lines[0])
+            first["source_scope_pair_sha1_supported_mame_records"] += 1
+            lines[0] = json.dumps(
+                first, ensure_ascii=False, sort_keys=True,
+                separators=(",", ":")
+            ).encode("utf-8")
+            altered = b"\\n".join(lines) + b"\\n"
+            (base / INDEX).write_bytes(altered)
+            report = json.loads((ROOT / SUMMARY).read_text(encoding="utf-8"))
+            report["candidate_sha256"] = hashlib.sha256(altered).hexdigest()
+            report["candidate_bytes"] = len(altered)
+            (base / SUMMARY).write_text(
+                json.dumps(report), encoding="utf-8"
+            )
+            with self.assertRaises(ValueError):
+                query(base, limit=1)
 
     def test_ambiguity_and_filters_keep_all_provenance(self):
         result = query(ROOT, ambiguous_only=True, limit=4)
