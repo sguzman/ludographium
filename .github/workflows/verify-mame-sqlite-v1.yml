@@ -51,8 +51,8 @@ jobs:
           db_path=sys.argv[1].replace("summary.json","ludographium-mame.sqlite")
           with sqlite3.connect(db_path) as db:
               assert db.execute("SELECT count(*) FROM title_review_candidates").fetchone()[0] == 6825
-          assert db.execute("SELECT count(*) FROM source_review_units").fetchone()[0] == 21712
-          assert db.execute("SELECT count(*) FROM source_review_units WHERE ambiguous=1").fetchone()[0] == 2042
+              assert db.execute("SELECT count(*) FROM source_review_units").fetchone()[0] == 21712
+              assert db.execute("SELECT count(*) FROM source_review_units WHERE ambiguous=1").fetchone()[0] == 2042
               assert db.execute("""SELECT count(*) FROM title_review_candidates t
                 JOIN exact_media_links l ON t.mame_list=l.mame_list
                 AND t.mame_software_ordinal=l.mame_software_ordinal""").fetchone()[0] == 0
@@ -69,7 +69,9 @@ jobs:
           results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
           assert all(item["total_filtered_source_observations"] > 0 for item in results)
           assert all(item["returned_source_observations"] > 0 for item in results)
-          assert all(item["interpretation"].find("not-canonical") >= 0 for item in results)
+          assert all(item["interpretation"].find("not-canonical") >= 0 for item in results[:5])
+          assert "no canonical" in results[5]["interpretation"]
+          assert "no canonical" in results[6]["interpretation"]
           assert results[3]["independent_libretro_source_collections"] == 75
           assert results[3]["original_libretro_source_records"] == 117145
           assert all(item["source_license"] == "CC-BY-SA-4.0" for item in results[3]["records"])
