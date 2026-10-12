@@ -180,6 +180,73 @@ jobs:
           assert all(row["response"]["matching_policy"] == "no-cross-source-work-or-release-identity-merge" for row in results)
           print("Verified two bounded batch searches using one pinned source database")
           PY
+      - name: Build opt-in 77-list source-evidence SQLite with unchanged baseline
+        shell: bash
+        run: |
+          set -euo pipefail
+          temp="$(mktemp -d)"
+          trap 'rm -rf "$temp"' EXIT
+          db="$temp/all-pinned.sqlite"
+          python tools/build_mame_catalog_sqlite.py --db "$db" --build --include-v4 > "$temp/build.json"
+          python tools/build_mame_catalog_sqlite.py --db "$db" --verify > "$temp/verified.json"
+          python tools/build_mame_catalog_sqlite.py --db "$db" --summary > "$temp/summary.json"
+          python tools/build_mame_catalog_sqlite.py --db "$db" --query --list svision --linked-only --limit 2 > "$temp/svision.json"
+          python tools/build_mame_catalog_sqlite.py --db "$db" --query-review --list svision --limit 2 > "$temp/review.json"
+          python tools/build_mame_catalog_sqlite.py --db "$db" --query-libretro --platform watarasupervision --linked-only --limit 2 > "$temp/dat.json"
+          python tools/build_mame_catalog_sqlite.py --db "$db" --query-all --title Tetris --limit 2 > "$temp/both.json"
+          python - "$db" "$temp/summary.json" "$temp/svision.json" "$temp/review.json" "$temp/dat.json" "$temp/both.json" <<'PY'
+          import json, sqlite3, sys
+          with open(sys.argv[2],encoding="utf-8") as stream:
+              count=json.load(stream)
+          for field,value in (
+              ("source_lists",77),("software",33492),
+              ("libretro_sources",75),("libretro_records",117145),
+              ("libretro_media",117145),("exact_media_links",19222),
+              ("title_review_candidates",6833),("source_review_units",21915),
+              ("rejected_size_conflicts",1),("provenance",105),
+          ):
+              assert count[field] == value, (field, count[field], value)
+          assert count["source_review_targets"] >= 21915
+          with sqlite3.connect(sys.argv[1]) as db:
+              assert db.execute("SELECT count(*) FROM source_lists WHERE cohort='v4'").fetchone()[0] == 8
+              assert db.execute("""SELECT count(*) FROM software s JOIN source_lists l
+                  USING(source_list) WHERE l.cohort='v4'""").fetchone()[0] == 373
+              assert db.execute("""SELECT count(*) FROM exact_media_links e JOIN
+                  source_lists l ON e.mame_list=l.source_list
+                  WHERE l.cohort='v4'""").fetchone()[0] == 70
+              assert db.execute("""SELECT count(*) FROM source_review_units e JOIN
+                  source_lists l ON e.mame_list=l.source_list
+                  WHERE l.cohort='v4'""").fetchone()[0] == 70
+              assert db.execute("SELECT count(*) FROM exact_media_links WHERE source_ordinal BETWEEN 19026 AND 19152").fetchone()[0] == 127
+              assert db.execute("SELECT count(*) FROM exact_media_links WHERE source_ordinal BETWEEN 19153 AND 19222").fetchone()[0] == 70
+              assert db.execute("SELECT count(*) FROM exact_media_links WHERE media_size_bytes IS NULL").fetchone()[0] == 0
+              assert db.execute("SELECT count(*) FROM title_review_candidates WHERE source_ordinal>6825").fetchone()[0] == 8
+          source,review,dat,both=[
+              json.load(open(name,encoding="utf-8")) for name in sys.argv[3:]
+          ]
+          assert source["source_software_entries"] == 33492
+          assert source["total_filtered_source_observations"] == 70
+          assert source["records"][0]["original_source_observation"]["source_list"] == "svision"
+          assert review["total_pinned_source_review_units"] == 21915
+          assert review["total_filtered_review_units"] == 70
+          assert review["units"][0]["mame"]["source_cohort"] == "v4"
+          assert dat["original_libretro_source_records"] == 117145
+          assert dat["total_filtered_source_observations"] > 0
+          assert both["mame"]["source_software_entries"] == 33492
+          assert both["libretro"]["original_libretro_source_records"] == 117145
+          print("Verified additive fourth-cohort original source and independent DAT evidence")
+          PY
+          cp "$db" "$temp/tampered-v4.sqlite"
+          python - "$temp/tampered-v4.sqlite" <<'PY'
+          import sqlite3,sys
+          with sqlite3.connect(sys.argv[1]) as db:
+              db.execute("UPDATE source_lists SET cohort='v3' WHERE source_list='svision'")
+          PY
+          if python tools/build_mame_catalog_sqlite.py --db "$temp/tampered-v4.sqlite" --verify > "$temp/tampered.log" 2>&1; then
+            echo "Modified fourth-cohort provenance passed validation" >&2
+            exit 1
+          fi
+          grep -q "original MAME source cohort provenance changed" "$temp/tampered.log"
       - name: Confirm no binary database is committed or published
         shell: bash
         run: |
