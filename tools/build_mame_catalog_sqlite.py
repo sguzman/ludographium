@@ -721,7 +721,9 @@ def open_readonly(destination):
 
 def query(conn, *, source_list=None, title=None, publisher=None, year=None,
           serial=None, media_sha1=None, libretro_platform=None,
-          linked_only=False, limit=20):
+          linked_only=False, without_review_leads=False, limit=20):
+    if without_review_leads and (linked_only or libretro_platform is not None):
+        raise ValueError("unlinked source filter conflicts with required media matches")
     if not 1 <= limit <= 200:
         raise ValueError("limit must be between 1 and 200")
     for value in (source_list, title, publisher, year, serial, libretro_platform):
@@ -765,6 +767,11 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
             clause += " AND c.libretro_platform=?"
             values.append(libretro_platform)
         filters.append(clause + ")")
+    if without_review_leads:
+        filters.append(
+            "NOT EXISTS (SELECT 1 FROM source_review_units r WHERE "
+            "r.mame_list=s.source_list AND r.mame_software_ordinal=s.source_ordinal)"
+        )
     sql_from = " FROM software s "
     if filters:
         sql_from += " WHERE " + " AND ".join(filters)
@@ -816,8 +823,13 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
         "independent_mame_source_lists": EXPECTED["source_lists"],
         "total_filtered_source_observations": total,
         "returned_source_observations": len(hits),
+        "without_any_cross_provider_review_lead": without_review_leads,
         "records": hits,
-        "interpretation": "original-source-observations-with-review-only-media-links-not-canonical-game-or-release-identities",
+        "interpretation": (
+            "original-source-records-without-current-cross-provider-review-evidence-not-canonical-game-identities"
+            if without_review_leads else
+            "original-source-observations-with-review-only-media-links-not-canonical-game-or-release-identities"
+        ),
     }
 
 
@@ -1017,15 +1029,18 @@ def unsupported_mode_filters(args):
                   "ambiguous_only", "evidence_type")
     elif args.query_libretro:
         fields = ("list", "publisher", "year", "libretro_platform",
-                  "review_id", "priority_class", "ambiguous_only", "evidence_type")
+                  "review_id", "priority_class", "ambiguous_only", "evidence_type",
+                  "without_review_leads")
     elif getattr(args, "query_review", False):
         fields = ("publisher", "year", "serial", "sha1",
-                  "libretro_platform", "region", "linked_only")
+                  "libretro_platform", "region", "linked_only",
+                  "without_review_leads")
     else:
         fields = (
             "list", "title", "publisher", "year", "serial", "sha1",
             "libretro_platform", "platform", "region", "linked_only",
             "review_id", "priority_class", "ambiguous_only", "evidence_type",
+            "without_review_leads",
         )
     return [
         field for field in fields if getattr(args, field, None) not in (None, False)
@@ -1052,6 +1067,7 @@ def main():
     parser.add_argument("--platform")
     parser.add_argument("--region")
     parser.add_argument("--linked-only", action="store_true")
+    parser.add_argument("--without-review-leads", action="store_true")
     parser.add_argument("--review-id")
     parser.add_argument("--priority-class")
     parser.add_argument("--ambiguous-only", action="store_true")
@@ -1098,7 +1114,9 @@ def main():
                     db, source_list=args.list, title=args.title,
                     publisher=args.publisher, year=args.year, serial=args.serial,
                     media_sha1=args.sha1, libretro_platform=args.libretro_platform,
-                    linked_only=args.linked_only, limit=args.limit,
+                    linked_only=args.linked_only,
+                    without_review_leads=args.without_review_leads,
+                    limit=args.limit,
                 )
     print(json.dumps(result, indent=2, ensure_ascii=False))
 

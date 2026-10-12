@@ -197,6 +197,7 @@ ambiguity, title and evidence-family searches. Run:
 
 ```sh
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-review --evidence-type title --ambiguous-only --limit 3
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --list psx --without-review-leads --limit 5
 ```
 
 The SQLite file is ephemeral; its review-unit table is reconstructed from

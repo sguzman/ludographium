@@ -58,13 +58,14 @@ jobs:
                 AND t.mame_software_ordinal=l.mame_software_ordinal""").fetchone()[0] == 0
           PY
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list gamecom --title Batman --limit 2 > "$temp/gamecom.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query --list psx --without-review-leads --limit 2 > "$temp/unlinked.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list wswan --linked-only --limit 2 > "$temp/wswan.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --libretro-platform tigergamecom --limit 3 > "$temp/links.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform tigergamecom --linked-only --limit 3 > "$temp/libretro.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform gb --title Pokemon --limit 2 > "$temp/gameboy.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --evidence-type title --ambiguous-only --limit 2 > "$temp/review.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --platform tigergamecom --limit 2 > "$temp/gamecom-review.json"
-          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" <<'PY'
+          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" <<'PY'
           import json,sys
           results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
           assert all(item["total_filtered_source_observations"] > 0 for item in results[:5])
@@ -81,7 +82,12 @@ jobs:
           assert all(unit["multiple_source_target_alternatives"] for unit in results[5]["units"])
           assert all(unit["title_evidence_jsonl_source_ordinals"] for unit in results[5]["units"])
           assert all(unit["stable_review_id"].startswith("lgreview:v1:") for unit in results[6]["units"])
-          print("Verified seven source-scoped search modes with pinned independent licenses")
+          assert results[7]["total_filtered_source_observations"] == 2915
+          assert results[7]["without_any_cross_provider_review_lead"]
+          assert all(not x["exact_media_evidence_links"] and
+                     not x["separate_unverified_title_review_leads"]
+                     for x in results[7]["records"])
+          print("Verified eight source-scoped search modes with pinned independent licenses")
           PY
       - name: Confirm no binary database is committed or published
         shell: bash

@@ -33,7 +33,8 @@ class SqliteMameSourceGuards(unittest.TestCase):
 
     def test_query_rejects_unbounded_or_invalid_input_before_sql(self):
         for kwargs in ({"limit": 0}, {"limit": 201}, {"media_sha1": "xyz"},
-                       {"source_list": " "}, {"title": "x" * 251}):
+                       {"source_list": " "}, {"title": "x" * 251},
+                       {"without_review_leads": True, "linked_only": True}):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query(None, **kwargs)
 
