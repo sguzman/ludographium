@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "kind": "additive-third-mame-cohort-title-review",
+  "original_mame_source_register": "sources/mame-softlists-v3.json",
+  "prior_title_cohort": "reports/mame-libretro-title-review-v1-summary.json",
+  "source_media_report": "reports/mame-libretro-sha1-v3-summary.json",
+  "source_media_index_sha256": "8e4353d42d264ce72299df93d5c4488d6d650bec590f69c5b5044d391ead7fdf",
+  "original_mame_source_lists": 4,
+  "original_software_observations": 166,
+  "original_software_with_sha1_source_leads": 127,
+  "original_software_without_sha1_source_leads": 39,
+  "source_scope_pairs_with_sha1_support": 4,
+  "eligible_source_scope_pairs": 4,
+  "minimum_distinct_mame_sha1_scope_support": 3,
+  "original_title_review_candidate_pairs": 8,
+  "distinct_original_mame_software_with_title_leads": 6,
+  "source_scope_support": [
+    {
+      "mame_source_list": "a5200",
+      "libretro_original_scope": "atari5200",
+      "distinct_mame_source_records_with_prior_sha1_evidence": 101,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "advision",
+      "libretro_original_scope": "entexadventurevision",
+      "distinct_mame_source_records_with_prior_sha1_evidence": 4,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "casloopy",
+      "libretro_original_scope": "casioloopy",
+      "distinct_mame_source_records_with_prior_sha1_evidence": 7,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "crvision",
+      "libretro_original_scope": "vtechcreativision",
+      "distinct_mame_source_records_with_prior_sha1_evidence": 15,
+      "eligible_for_title_review": true
+    }
+  ],
+  "candidate_path": "data/reconciliation/mame-libretro-title-review-v3/candidates.jsonl",
+  "candidate_sha256": "7c5afb729f3f6b96d86410e913f2300987601830a3ed58bba07a5c92e8850b6c",
+  "candidate_bytes": 6657,
+  "interpretation": "Third-cohort exact normalized title leads only, in source-scope pairs supported by at least three independent SHA1-and-equal-size MAME source records. All candidate alternatives remain unreviewed; no accepted game, release, edition, region, translation or platform identities are inferred."
+}
