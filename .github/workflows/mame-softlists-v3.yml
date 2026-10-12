@@ -1,0 +1,63 @@
+name: Accession overlooked CC0 MAME Atari and micro-console source lists
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/mame-softlists-v3.yml
+      - sources/mame-softlists-v3.json
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mame-softlists-v3-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Check all 65 original source lists and unjoined projections stay pinned
+        run: |
+          python tools/acquire_mame_softlists.py --cohort v1 --check
+          python tools/acquire_mame_softlists.py --cohort v2 --check
+          python tools/index_mame_softlists.py --cohort v1 --check
+          python tools/index_mame_softlists.py --cohort v2 --check
+      - name: Pin additional original CC0 XML and project independent source records
+        run: |
+          python tools/acquire_mame_softlists.py --cohort v3 --acquire
+          python tools/acquire_mame_softlists.py --cohort v3 --check
+          python tools/index_mame_softlists.py --cohort v3 --build
+          python tools/index_mame_softlists.py --cohort v3 --check
+          test "$(find data/mame/softlists-v3 -name manifest.json | wc -l)" -eq 4
+          test "$(find data/mame/software-observations-v3 -name manifest.json | wc -l)" -eq 4
+      - name: Commit original bytes and independently verified CC0 observations
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/mame/softlists-v3 data/mame/software-observations-v3 reports/mame-softlists-v3-summary.json reports/mame-software-observations-v3-summary.json
+          if git diff --cached --quiet; then
+            echo "All source bytes and projections already verified"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin four additional original CC0 platform source lists'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((2 * attempt))"
+          done
+          echo "Unable to pin original micro-console MAME source accession" >&2
+          exit 1

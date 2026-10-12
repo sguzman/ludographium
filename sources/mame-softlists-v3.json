@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-list-snapshots",
+  "accession_cohort": "v3",
+  "source": "MAME",
+  "upstream_repository": "mamedev/mame",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_path": "hash",
+  "license": "CC0-1.0",
+  "prior_source_register": "sources/mame-softlists-v2.json",
+  "source_license_reference": "https://github.com/mamedev/mame/blob/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/COPYING",
+  "files": [
+    "a5200.xml",
+    "advision.xml",
+    "casloopy.xml",
+    "crvision.xml"
+  ],
+  "policy": "Independent original Atari 5200, Entex Adventure Vision, Casio Loopy and VTech CreatiVision software-list CC0 claims. Preserve original XML bytes, SHA256, source media fingerprints, year and publisher literals, unmerged from the first 65 MAME lists, Libretro DAT collections and Wikidata P400 source registrations; no media binaries."
+}

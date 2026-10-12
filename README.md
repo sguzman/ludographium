@@ -173,6 +173,20 @@ not a canonical game or release identity registry. The
 builds and tests it temporarily and deletes the binary afterward; SQLite
 files are not committed or published.
 
+### Third independent CC0 platform-source wave
+
+Four original MAME software-list files at the same immutable upstream
+revision supply additional Atari 5200, Entex Adventure Vision, Casio
+Loopy and VTech CreatiVision evidence. The
+[third cohort register](sources/mame-softlists-v3.json) and
+[acquisition/index workflow](.github/workflows/mame-softlists-v3.yml)
+capture the original CC0 XML, original hashes, publisher/year/serial facts,
+media SHA-1 and standalone source-faithful JSONL observations. The
+[third original source-yield report](reports/mame-softlists-v3-summary.json)
+is kept **separate** from the first two cohorts until its evidence has been
+verified and downstream 65-list views are explicitly upgraded. None of
+these source captures changes or silently deduplicates the prior corpus.
+
 ### Three-provider bulk acquisition coverage
 
 The [three-provider source coverage auditor](tools/audit_three_provider_source_coverage.py)
