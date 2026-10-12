@@ -43,11 +43,15 @@ region, source ordinal and media-hash assertions with attribution.
 python tools/query_libretro_sources.py --platform tigergamecom --limit 5
 python tools/query_libretro_sources.py --platform n64 --title Mario --limit 5
 python tools/query_libretro_sources.py --platform n64 --without-review-leads --limit 5
+python tools/query_libretro_sources.py --platform n64 --offset 200 --limit 100
 ```
 
 The optional missing-review-lead filter checks the original, SHA-256-pinned
 21,712-unit cross-provider review ledger. Unlinked means no current
-correspondence evidence, never a missing or rejected game.
+correspondence evidence, never a missing or rejected game. Use bounded
+`--offset`/`--limit` to page through filtered original DAT records in
+registered source-scope order, with `next_offset` null once exhausted.
+Every page is verified against the original attributed DAT source bytes.
 
 ### Offline source-only MAME search
 
