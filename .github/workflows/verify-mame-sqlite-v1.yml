@@ -63,6 +63,37 @@ jobs:
                 JOIN exact_media_links l ON t.mame_list=l.mame_list
                 AND t.mame_software_ordinal=l.mame_software_ordinal""").fetchone()[0] == 0
           PY
+          python - "$database" <<'PY'
+          import sys
+          from pathlib import Path
+          sys.path.insert(0, str(Path.cwd() / "tools"))
+          from build_mame_catalog_sqlite import (
+              open_readonly, query, query_libretro, query_review,
+              query_both_sources, verify, ROOT,
+          )
+          with open_readonly(sys.argv[1]) as db:
+              verify(db, ROOT)
+              for fn, options, key in (
+                  (query, {"source_list":"a5200"}, "records"),
+                  (query_libretro, {"platform":"tigergamecom"}, "records"),
+                  (query_review, {"source_list":"a5200"}, "units"),
+              ):
+                  first=fn(db, limit=3, **options)
+                  shifted=fn(db, offset=1, limit=2, **options)
+                  assert first[key][1:] == shifted[key]
+                  assert shifted["offset"] == 1
+                  assert shifted["next_offset"] == 3
+              paired=query_both_sources(db,title="Tetris",limit=3)
+              shifted=query_both_sources(db,title="Tetris",offset=1,limit=2)
+              for provider in ("mame","libretro"):
+                  assert paired[provider]["records"][1:] == shifted[provider]["records"]
+              assert shifted["offset_per_provider"] == 1
+              tail=query(db, source_list="a5200", offset=110, limit=4)
+              assert tail["total_filtered_source_observations"] == 111
+              assert tail["returned_source_observations"] == 1
+              assert tail["next_offset"] is None
+          print("Verified bounded source paging across MAME, Libretro, review and joint modes")
+          PY
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list gamecom --title Batman --limit 2 > "$temp/gamecom.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list a5200 --linked-only --limit 2 > "$temp/a5200.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --list a5200 --limit 2 > "$temp/a5200-review.json"
