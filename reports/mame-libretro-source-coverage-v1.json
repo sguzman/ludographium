@@ -1,0 +1,991 @@
+{
+  "schema_version": 1,
+  "kind": "source-only-mame-libretro-exact-sha1-gap-analysis",
+  "source_media_report": "reports/mame-libretro-media-sha1-v1-summary.json",
+  "source_media_sha256": "8bfc39accfa5aa1022f7a76f68eb9b46f38d0a00bf95ed860f54f7f93abe4bdd",
+  "mame_source_lists": [
+    {
+      "source_list": "32x",
+      "original_software_records": 208,
+      "records_with_exact_media_sha1_overlap": 199,
+      "records_without_exact_media_sha1_overlap": 9,
+      "original_cross_source_candidate_pairs": 199,
+      "original_source_sha256": "62d7745ffa53f71ae45df14d8513a217ecb4c8440d9c135adaf43085a19c52a8"
+    },
+    {
+      "source_list": "a2600",
+      "original_software_records": 1592,
+      "records_with_exact_media_sha1_overlap": 778,
+      "records_without_exact_media_sha1_overlap": 814,
+      "original_cross_source_candidate_pairs": 778,
+      "original_source_sha256": "efe03008c6c2a4aa197eac1242d838913b3ec4eb434d04f2b59bb769a726197c"
+    },
+    {
+      "source_list": "a7800",
+      "original_software_records": 204,
+      "records_with_exact_media_sha1_overlap": 113,
+      "records_without_exact_media_sha1_overlap": 91,
+      "original_cross_source_candidate_pairs": 113,
+      "original_source_sha256": "5343714eedd715f7f1f080f1e283d5ed56e6f6509ea3eff2f8f7c8c53ee066b9"
+    },
+    {
+      "source_list": "arcadia",
+      "original_software_records": 62,
+      "records_with_exact_media_sha1_overlap": 40,
+      "records_without_exact_media_sha1_overlap": 22,
+      "original_cross_source_candidate_pairs": 40,
+      "original_source_sha256": "0f22e3adc427df388526c7d48038a284911c5b9ab817f890497ec3a403e98dc5"
+    },
+    {
+      "source_list": "channelf",
+      "original_software_records": 43,
+      "records_with_exact_media_sha1_overlap": 34,
+      "records_without_exact_media_sha1_overlap": 9,
+      "original_cross_source_candidate_pairs": 34,
+      "original_source_sha256": "6fda4db4867b1e52db394b5dfea6ccf1b96df6f1bd5dbd172003a8a33b0f0c7f"
+    },
+    {
+      "source_list": "coleco",
+      "original_software_records": 237,
+      "records_with_exact_media_sha1_overlap": 18,
+      "records_without_exact_media_sha1_overlap": 219,
+      "original_cross_source_candidate_pairs": 19,
+      "original_source_sha256": "9c180c611869d7b44e2d679649c565d96c2dab2f4eea29af3528065857f47c18"
+    },
+    {
+      "source_list": "database",
+      "original_software_records": 19,
+      "records_with_exact_media_sha1_overlap": 13,
+      "records_without_exact_media_sha1_overlap": 6,
+      "original_cross_source_candidate_pairs": 13,
+      "original_source_sha256": "fc7c4ba346058af0d544825c66487af7483012a39e29bfd07712e40690dba3ad"
+    },
+    {
+      "source_list": "famicom_flop",
+      "original_software_records": 311,
+      "records_with_exact_media_sha1_overlap": 93,
+      "records_without_exact_media_sha1_overlap": 218,
+      "original_cross_source_candidate_pairs": 93,
+      "original_source_sha256": "4070674b4dfda90bad990322101de047860d2f422289b0f6310ff3e19c43476e"
+    },
+    {
+      "source_list": "gameboy",
+      "original_software_records": 1743,
+      "records_with_exact_media_sha1_overlap": 1714,
+      "records_without_exact_media_sha1_overlap": 29,
+      "original_cross_source_candidate_pairs": 1714,
+      "original_source_sha256": "8e05e4f81d6eaff553f7ae00aae61177f22655c3627a1b72fdd24553953d80b3"
+    },
+    {
+      "source_list": "gamecom",
+      "original_software_records": 23,
+      "records_with_exact_media_sha1_overlap": 23,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 23,
+      "original_source_sha256": "0b0690ddbf12f11d45f5451c60c5c8920c25486ee8cf2525d561e2a491919e55"
+    },
+    {
+      "source_list": "gamegear",
+      "original_software_records": 823,
+      "records_with_exact_media_sha1_overlap": 807,
+      "records_without_exact_media_sha1_overlap": 16,
+      "original_cross_source_candidate_pairs": 808,
+      "original_source_sha256": "3d86324d0d0c4a0fd78409bdecaf565c42edd55aca646d9349fdcff0f371a7a1"
+    },
+    {
+      "source_list": "gba",
+      "original_software_records": 3041,
+      "records_with_exact_media_sha1_overlap": 2883,
+      "records_without_exact_media_sha1_overlap": 158,
+      "original_cross_source_candidate_pairs": 2883,
+      "original_source_sha256": "dc14af286739a50307e7d5893cc1fb29946297d1e7983adb2d68f63c999350fe"
+    },
+    {
+      "source_list": "gba_ereader",
+      "original_software_records": 686,
+      "records_with_exact_media_sha1_overlap": 537,
+      "records_without_exact_media_sha1_overlap": 149,
+      "original_cross_source_candidate_pairs": 537,
+      "original_source_sha256": "55b24471b61dd586ec4fe44fff0d568daa8de3d9d926c388b4b950135a121e8e"
+    },
+    {
+      "source_list": "gbcolor",
+      "original_software_records": 1718,
+      "records_with_exact_media_sha1_overlap": 1645,
+      "records_without_exact_media_sha1_overlap": 73,
+      "original_cross_source_candidate_pairs": 1645,
+      "original_source_sha256": "08c7ee7dedd4f8d0bd957c440fb5956b2f334490df9cf16ebf2a6e5d542e82a9"
+    },
+    {
+      "source_list": "gmaster",
+      "original_software_records": 18,
+      "records_with_exact_media_sha1_overlap": 18,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 18,
+      "original_source_sha256": "15c186075e1ab2bbd604bca38f8b15af84448b0f527d09e66240fd54c0ab3b57"
+    },
+    {
+      "source_list": "gp32",
+      "original_software_records": 38,
+      "records_with_exact_media_sha1_overlap": 28,
+      "records_without_exact_media_sha1_overlap": 10,
+      "original_cross_source_candidate_pairs": 28,
+      "original_source_sha256": "d4a28d1db8a2197ad5f6b247e03ae759ad9adc98352357c245d57926e0783885"
+    },
+    {
+      "source_list": "intv",
+      "original_software_records": 192,
+      "records_with_exact_media_sha1_overlap": 123,
+      "records_without_exact_media_sha1_overlap": 69,
+      "original_cross_source_candidate_pairs": 123,
+      "original_source_sha256": "e9d5f4b079c571eb930d7fa31325125b9e060e807ee553eb4fe2fa4498c55bc8"
+    },
+    {
+      "source_list": "jaguar",
+      "original_software_records": 102,
+      "records_with_exact_media_sha1_overlap": 85,
+      "records_without_exact_media_sha1_overlap": 17,
+      "original_cross_source_candidate_pairs": 85,
+      "original_source_sha256": "ac50a162320567cbcc82ea27046f90d3e799f453c7bcc327815e8432aa50f839"
+    },
+    {
+      "source_list": "leapfrog_leappad_cart",
+      "original_software_records": 158,
+      "records_with_exact_media_sha1_overlap": 1,
+      "records_without_exact_media_sha1_overlap": 157,
+      "original_cross_source_candidate_pairs": 1,
+      "original_source_sha256": "ba977e0de6c588f1046fbedea0f2fec8b1b7f24d8b4cca9560838aed69894d26"
+    },
+    {
+      "source_list": "leapfrog_ltleappad_cart",
+      "original_software_records": 9,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 9,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "8c841c987cca0138d8e33eac6657c9d85e21d4608dd924c2c07cccb02a29575f"
+    },
+    {
+      "source_list": "leapfrog_mfleappad_cart",
+      "original_software_records": 23,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 23,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "c90b4780370f9325c5f39a78ac300d75d12a792a26908f4befb70a059311ece1"
+    },
+    {
+      "source_list": "leapster",
+      "original_software_records": 136,
+      "records_with_exact_media_sha1_overlap": 98,
+      "records_without_exact_media_sha1_overlap": 38,
+      "original_cross_source_candidate_pairs": 98,
+      "original_source_sha256": "18193106230ed4c0390c979362dd24b78c8d4a30cc0181ad7b4a420f6f162a0d"
+    },
+    {
+      "source_list": "leapster_explorer_cart",
+      "original_software_records": 3,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 3,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "e25718df334dadb1cad15a482b62812eaaf5e0f2c707dce6bbbdc74d28a958bf"
+    },
+    {
+      "source_list": "lynx",
+      "original_software_records": 119,
+      "records_with_exact_media_sha1_overlap": 106,
+      "records_without_exact_media_sha1_overlap": 13,
+      "original_cross_source_candidate_pairs": 106,
+      "original_source_sha256": "ced2ff12267d2aedef06bf880fb2fbee0023c75189555be4b8c192e745103333"
+    },
+    {
+      "source_list": "megadriv",
+      "original_software_records": 2825,
+      "records_with_exact_media_sha1_overlap": 2422,
+      "records_without_exact_media_sha1_overlap": 403,
+      "original_cross_source_candidate_pairs": 2426,
+      "original_source_sha256": "1f7164abbda2cfb0d5ceca7c674862edcabd4aa5389feed2cf9eac51c0e3be41"
+    },
+    {
+      "source_list": "n64",
+      "original_software_records": 994,
+      "records_with_exact_media_sha1_overlap": 27,
+      "records_without_exact_media_sha1_overlap": 967,
+      "original_cross_source_candidate_pairs": 27,
+      "original_source_sha256": "0f5a5223ded605cde5c9e51cd1a20d9e67ecce65eb39db9265a224b59fab1b66"
+    },
+    {
+      "source_list": "n64dd",
+      "original_software_records": 13,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 13,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "0bbe1c9cff050d52e39358c2f162aaea8b85d20dbe16626795a260a378abadfb"
+    },
+    {
+      "source_list": "nds",
+      "original_software_records": 10,
+      "records_with_exact_media_sha1_overlap": 10,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 10,
+      "original_source_sha256": "42a8ac464672c80188a0037cf9a81f91c3d3272ac4c27550a708d169fc22d4c4"
+    },
+    {
+      "source_list": "nes",
+      "original_software_records": 4562,
+      "records_with_exact_media_sha1_overlap": 943,
+      "records_without_exact_media_sha1_overlap": 3619,
+      "original_cross_source_candidate_pairs": 943,
+      "original_source_sha256": "c56125c78be08e26a93f7d5485bc8b1f15d90c3478e5fbc2858594b95da9edc0"
+    },
+    {
+      "source_list": "pce",
+      "original_software_records": 325,
+      "records_with_exact_media_sha1_overlap": 302,
+      "records_without_exact_media_sha1_overlap": 23,
+      "original_cross_source_candidate_pairs": 302,
+      "original_source_sha256": "e511e34b5995bf7d3d8516af4c959a30eab9417491caf069c30feeea0bf16f7f"
+    },
+    {
+      "source_list": "pcecd",
+      "original_software_records": 502,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 502,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "d6ed949a646ff9d0037fdf101bf5e8bc46e183484ffd95a672322d84d9ad7935"
+    },
+    {
+      "source_list": "picno",
+      "original_software_records": 21,
+      "records_with_exact_media_sha1_overlap": 20,
+      "records_without_exact_media_sha1_overlap": 1,
+      "original_cross_source_candidate_pairs": 20,
+      "original_source_sha256": "60f4b7e3f6e3eec596d6b56060b170693ef69e03431a626af2a1cd70112db6a9"
+    },
+    {
+      "source_list": "pockchalv2",
+      "original_software_records": 20,
+      "records_with_exact_media_sha1_overlap": 18,
+      "records_without_exact_media_sha1_overlap": 2,
+      "original_cross_source_candidate_pairs": 18,
+      "original_source_sha256": "7f983791765db05a898160f23ff501dea5833a1db9d0a3ca353d80d16b9810a7"
+    },
+    {
+      "source_list": "pockchalw",
+      "original_software_records": 40,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 40,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "cf65bfcc9e821fee298ad1c3f27ad4dcb827da6661b622f7562c7162116ef7d0"
+    },
+    {
+      "source_list": "psx",
+      "original_software_records": 2915,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 2915,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "3643ba4da41292a66f170c2fa22cda5a2223dd63e7dbc5d1c04b9d259ca73e48"
+    },
+    {
+      "source_list": "saturn",
+      "original_software_records": 2235,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 2235,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "3021da6a5f35299055ca33b7f2e7820e5362b974d48e4da521a551e7b2ff63a6"
+    },
+    {
+      "source_list": "scv",
+      "original_software_records": 32,
+      "records_with_exact_media_sha1_overlap": 32,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 32,
+      "original_source_sha256": "73d6eb9953123d697760c80c03caa8df669c2f65fe36911db418c367945f95ea"
+    },
+    {
+      "source_list": "sega_beena_cart",
+      "original_software_records": 65,
+      "records_with_exact_media_sha1_overlap": 58,
+      "records_without_exact_media_sha1_overlap": 7,
+      "original_cross_source_candidate_pairs": 58,
+      "original_source_sha256": "e8a0e1753b29bd890c0e5901390b26852e9d649ee76af0ab2f0d2cec2ce16d3f"
+    },
+    {
+      "source_list": "sms",
+      "original_software_records": 653,
+      "records_with_exact_media_sha1_overlap": 616,
+      "records_without_exact_media_sha1_overlap": 37,
+      "original_cross_source_candidate_pairs": 617,
+      "original_source_sha256": "f4f67425d9c85b8e118aa3825f866bfc51f09b2c57d7c503f366596efa6d275a"
+    },
+    {
+      "source_list": "snes",
+      "original_software_records": 3714,
+      "records_with_exact_media_sha1_overlap": 3208,
+      "records_without_exact_media_sha1_overlap": 506,
+      "original_cross_source_candidate_pairs": 3213,
+      "original_source_sha256": "46d2cbfd3a2d07739b54ddf8b3ace6ed6fda038cd35a6514e74d25aa26e7e842"
+    },
+    {
+      "source_list": "snes_bspack",
+      "original_software_records": 401,
+      "records_with_exact_media_sha1_overlap": 184,
+      "records_without_exact_media_sha1_overlap": 217,
+      "original_cross_source_candidate_pairs": 184,
+      "original_source_sha256": "895ad0ad40f2133e50e0016b09b0d6468279f5ca0936552c569162147367ffd6"
+    },
+    {
+      "source_list": "snes_strom",
+      "original_software_records": 13,
+      "records_with_exact_media_sha1_overlap": 13,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 13,
+      "original_source_sha256": "9140d7e480d7566beddc515731c44be165df1d3e116a237505f5c71ab1389289"
+    },
+    {
+      "source_list": "vboy",
+      "original_software_records": 32,
+      "records_with_exact_media_sha1_overlap": 31,
+      "records_without_exact_media_sha1_overlap": 1,
+      "original_cross_source_candidate_pairs": 31,
+      "original_source_sha256": "88021ba04f8b4ecece251fa7af030f4320abfd2b6e22e4b9b5814e93e2fce2ee"
+    },
+    {
+      "source_list": "vc4000",
+      "original_software_records": 37,
+      "records_with_exact_media_sha1_overlap": 37,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 37,
+      "original_source_sha256": "ede1c6161622702487858a3b7b242df5a399aa6b57d2e79f870b456aa86a8268"
+    },
+    {
+      "source_list": "vectrex",
+      "original_software_records": 75,
+      "records_with_exact_media_sha1_overlap": 42,
+      "records_without_exact_media_sha1_overlap": 33,
+      "original_cross_source_candidate_pairs": 42,
+      "original_source_sha256": "1fa54348cf8b6a911952083c7339188f52beb7d60555fe5fdd29b09ff8ddd24b"
+    },
+    {
+      "source_list": "vsmile_cart",
+      "original_software_records": 313,
+      "records_with_exact_media_sha1_overlap": 293,
+      "records_without_exact_media_sha1_overlap": 20,
+      "original_cross_source_candidate_pairs": 293,
+      "original_source_sha256": "c27a48e9241feb53cdc2d72789935585969d7d7ca9006bb5c67c40a94af51681"
+    },
+    {
+      "source_list": "vsmile_cd",
+      "original_software_records": 34,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 34,
+      "original_cross_source_candidate_pairs": 0,
+      "original_source_sha256": "2feaca3cfa8a3009ec1e3bc4bf92b4e445d83af7cbb1178dee438801f8f3720a"
+    },
+    {
+      "source_list": "vsmileb_cart",
+      "original_software_records": 23,
+      "records_with_exact_media_sha1_overlap": 23,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 23,
+      "original_source_sha256": "7fd0c8be674432f96edb8a2443f36ea1cca7fb03eddc96435848139bc0f512bb"
+    },
+    {
+      "source_list": "vsmilem_cart",
+      "original_software_records": 102,
+      "records_with_exact_media_sha1_overlap": 87,
+      "records_without_exact_media_sha1_overlap": 15,
+      "original_cross_source_candidate_pairs": 87,
+      "original_source_sha256": "d1db98d6dfe7919e5ff82410e839fc22ca458d266c034a43eb431351a306de72"
+    }
+  ],
+  "libretro_source_collections": 75,
+  "exact_media_sha1_candidate_pairs": 17734,
+  "mame_source_observation_totals": {
+    "original_software_records": 31464,
+    "records_with_exact_media_sha1_overlap": 17722,
+    "records_without_exact_media_sha1_overlap": 13742
+  },
+  "libretro_source_observation_totals": {
+    "original_dat_records": 117145,
+    "records_with_exact_media_sha1_overlap": 17680,
+    "records_without_exact_media_sha1_overlap": 99465
+  },
+  "mame_lists_with_no_media_overlap": [
+    "leapfrog_ltleappad_cart",
+    "leapfrog_mfleappad_cart",
+    "leapster_explorer_cart",
+    "n64dd",
+    "pcecd",
+    "pockchalw",
+    "psx",
+    "saturn",
+    "vsmile_cd"
+  ],
+  "libretro_scopes_with_no_media_overlap": [
+    "arduboyincarduboy",
+    "atari5200",
+    "bandaiwonderswan",
+    "bandaiwonderswancolor",
+    "casioloopy",
+    "casiopv1000",
+    "entexadventurevision",
+    "funtechsuperacan",
+    "magnavoxodyssey2",
+    "microsoftxbox360",
+    "microsoftxbox360digital",
+    "microsoftxbox360gamesondemand",
+    "mobilezeebo",
+    "necpcenginesupergrafx",
+    "nintendonewnintendo3ds",
+    "nintendonewnintendo3dsdigital",
+    "nintendonintendo3ds",
+    "nintendonintendo3dsdigital",
+    "nintendonintendo64dd",
+    "nintendonintendodsdownloadplay",
+    "nintendonintendodsi",
+    "nintendopokemonmini",
+    "nintendowiidigital",
+    "nintendowiiudigital",
+    "philipsvideopac",
+    "rcastudioii",
+    "segapico",
+    "segasg1000",
+    "snkneogeopocket",
+    "snkneogeopocketcolor",
+    "sonyplaystation3psn",
+    "sonyplaystationportable",
+    "sonyplaystationportablepsn",
+    "sonyplaystationportablepsx2psp",
+    "sonyplaystationvita",
+    "sonyplaystationvitapsn",
+    "vtechcreativision",
+    "watarasupervision"
+  ],
+  "libretro_source_scopes": [
+    {
+      "source_platform": "arduboyincarduboy",
+      "original_dat_records": 463,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 463,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "atari2600",
+      "original_dat_records": 905,
+      "records_with_exact_media_sha1_overlap": 778,
+      "records_without_exact_media_sha1_overlap": 127,
+      "original_cross_source_candidate_pairs": 778
+    },
+    {
+      "source_platform": "atari5200",
+      "original_dat_records": 201,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 201,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "atari7800",
+      "original_dat_records": 352,
+      "records_with_exact_media_sha1_overlap": 112,
+      "records_without_exact_media_sha1_overlap": 240,
+      "original_cross_source_candidate_pairs": 113
+    },
+    {
+      "source_platform": "atarijaguar",
+      "original_dat_records": 512,
+      "records_with_exact_media_sha1_overlap": 85,
+      "records_without_exact_media_sha1_overlap": 427,
+      "original_cross_source_candidate_pairs": 85
+    },
+    {
+      "source_platform": "atarilynx",
+      "original_dat_records": 681,
+      "records_with_exact_media_sha1_overlap": 106,
+      "records_without_exact_media_sha1_overlap": 575,
+      "original_cross_source_candidate_pairs": 106
+    },
+    {
+      "source_platform": "bandaiwonderswan",
+      "original_dat_records": 219,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 219,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "bandaiwonderswancolor",
+      "original_dat_records": 229,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 229,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "benessepocketchallengev2",
+      "original_dat_records": 67,
+      "records_with_exact_media_sha1_overlap": 18,
+      "records_without_exact_media_sha1_overlap": 49,
+      "original_cross_source_candidate_pairs": 18
+    },
+    {
+      "source_platform": "casioloopy",
+      "original_dat_records": 19,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 19,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "casiopv1000",
+      "original_dat_records": 13,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 13,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "colecocolecovision",
+      "original_dat_records": 193,
+      "records_with_exact_media_sha1_overlap": 18,
+      "records_without_exact_media_sha1_overlap": 175,
+      "original_cross_source_candidate_pairs": 19
+    },
+    {
+      "source_platform": "emersonarcadia2001",
+      "original_dat_records": 48,
+      "records_with_exact_media_sha1_overlap": 40,
+      "records_without_exact_media_sha1_overlap": 8,
+      "original_cross_source_candidate_pairs": 40
+    },
+    {
+      "source_platform": "entexadventurevision",
+      "original_dat_records": 4,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 4,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "epochsupercassettevision",
+      "original_dat_records": 33,
+      "records_with_exact_media_sha1_overlap": 32,
+      "records_without_exact_media_sha1_overlap": 1,
+      "original_cross_source_candidate_pairs": 32
+    },
+    {
+      "source_platform": "fairchildchannelf",
+      "original_dat_records": 34,
+      "records_with_exact_media_sha1_overlap": 34,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 34
+    },
+    {
+      "source_platform": "funtechsuperacan",
+      "original_dat_records": 12,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 12,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "gameparkgp32",
+      "original_dat_records": 28,
+      "records_with_exact_media_sha1_overlap": 28,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 28
+    },
+    {
+      "source_platform": "gb",
+      "original_dat_records": 2254,
+      "records_with_exact_media_sha1_overlap": 1714,
+      "records_without_exact_media_sha1_overlap": 540,
+      "original_cross_source_candidate_pairs": 1714
+    },
+    {
+      "source_platform": "gba",
+      "original_dat_records": 3692,
+      "records_with_exact_media_sha1_overlap": 2881,
+      "records_without_exact_media_sha1_overlap": 811,
+      "original_cross_source_candidate_pairs": 2883
+    },
+    {
+      "source_platform": "gbc",
+      "original_dat_records": 2566,
+      "records_with_exact_media_sha1_overlap": 1645,
+      "records_without_exact_media_sha1_overlap": 921,
+      "original_cross_source_candidate_pairs": 1645
+    },
+    {
+      "source_platform": "gcevectrex",
+      "original_dat_records": 46,
+      "records_with_exact_media_sha1_overlap": 42,
+      "records_without_exact_media_sha1_overlap": 4,
+      "original_cross_source_candidate_pairs": 42
+    },
+    {
+      "source_platform": "genesis",
+      "original_dat_records": 3365,
+      "records_with_exact_media_sha1_overlap": 2421,
+      "records_without_exact_media_sha1_overlap": 944,
+      "original_cross_source_candidate_pairs": 2427
+    },
+    {
+      "source_platform": "gg",
+      "original_dat_records": 915,
+      "records_with_exact_media_sha1_overlap": 780,
+      "records_without_exact_media_sha1_overlap": 135,
+      "original_cross_source_candidate_pairs": 780
+    },
+    {
+      "source_platform": "hartunggamemaster",
+      "original_dat_records": 18,
+      "records_with_exact_media_sha1_overlap": 18,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 18
+    },
+    {
+      "source_platform": "intertonvc4000",
+      "original_dat_records": 56,
+      "records_with_exact_media_sha1_overlap": 41,
+      "records_without_exact_media_sha1_overlap": 15,
+      "original_cross_source_candidate_pairs": 50
+    },
+    {
+      "source_platform": "konamipicno",
+      "original_dat_records": 20,
+      "records_with_exact_media_sha1_overlap": 20,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 20
+    },
+    {
+      "source_platform": "leapfrogleappad",
+      "original_dat_records": 1,
+      "records_with_exact_media_sha1_overlap": 1,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 1
+    },
+    {
+      "source_platform": "leapfrogleapsterlearninggamesystem",
+      "original_dat_records": 118,
+      "records_with_exact_media_sha1_overlap": 98,
+      "records_without_exact_media_sha1_overlap": 20,
+      "original_cross_source_candidate_pairs": 98
+    },
+    {
+      "source_platform": "magnavoxodyssey2",
+      "original_dat_records": 131,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 131,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "mattelintellivision",
+      "original_dat_records": 252,
+      "records_with_exact_media_sha1_overlap": 122,
+      "records_without_exact_media_sha1_overlap": 130,
+      "original_cross_source_candidate_pairs": 123
+    },
+    {
+      "source_platform": "microsoftxbox360",
+      "original_dat_records": 18825,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 18825,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "microsoftxbox360digital",
+      "original_dat_records": 5567,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 5567,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "microsoftxbox360gamesondemand",
+      "original_dat_records": 0,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "mobilezeebo",
+      "original_dat_records": 57,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 57,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "n64",
+      "original_dat_records": 1435,
+      "records_with_exact_media_sha1_overlap": 27,
+      "records_without_exact_media_sha1_overlap": 1408,
+      "original_cross_source_candidate_pairs": 27
+    },
+    {
+      "source_platform": "nds",
+      "original_dat_records": 7701,
+      "records_with_exact_media_sha1_overlap": 10,
+      "records_without_exact_media_sha1_overlap": 7691,
+      "original_cross_source_candidate_pairs": 10
+    },
+    {
+      "source_platform": "necpcenginesupergrafx",
+      "original_dat_records": 5,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 5,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "necpcengineturbografx16",
+      "original_dat_records": 495,
+      "records_with_exact_media_sha1_overlap": 302,
+      "records_without_exact_media_sha1_overlap": 193,
+      "original_cross_source_candidate_pairs": 302
+    },
+    {
+      "source_platform": "nes",
+      "original_dat_records": 14132,
+      "records_with_exact_media_sha1_overlap": 939,
+      "records_without_exact_media_sha1_overlap": 13193,
+      "original_cross_source_candidate_pairs": 943
+    },
+    {
+      "source_platform": "nintendoereader",
+      "original_dat_records": 3238,
+      "records_with_exact_media_sha1_overlap": 537,
+      "records_without_exact_media_sha1_overlap": 2701,
+      "original_cross_source_candidate_pairs": 537
+    },
+    {
+      "source_platform": "nintendofamilycomputerdisksystem",
+      "original_dat_records": 405,
+      "records_with_exact_media_sha1_overlap": 93,
+      "records_without_exact_media_sha1_overlap": 312,
+      "original_cross_source_candidate_pairs": 93
+    },
+    {
+      "source_platform": "nintendonewnintendo3ds",
+      "original_dat_records": 11,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 11,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendonewnintendo3dsdigital",
+      "original_dat_records": 119,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 119,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendonintendo3ds",
+      "original_dat_records": 2076,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 2076,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendonintendo3dsdigital",
+      "original_dat_records": 947,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 947,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendonintendo64dd",
+      "original_dat_records": 16,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 16,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendonintendodsdownloadplay",
+      "original_dat_records": 597,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 597,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendonintendodsi",
+      "original_dat_records": 1068,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 1068,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendopokemonmini",
+      "original_dat_records": 42,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 42,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendosatellaview",
+      "original_dat_records": 565,
+      "records_with_exact_media_sha1_overlap": 184,
+      "records_without_exact_media_sha1_overlap": 381,
+      "original_cross_source_candidate_pairs": 184
+    },
+    {
+      "source_platform": "nintendosufamiturbo",
+      "original_dat_records": 13,
+      "records_with_exact_media_sha1_overlap": 13,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 13
+    },
+    {
+      "source_platform": "nintendovirtualboy",
+      "original_dat_records": 65,
+      "records_with_exact_media_sha1_overlap": 31,
+      "records_without_exact_media_sha1_overlap": 34,
+      "original_cross_source_candidate_pairs": 31
+    },
+    {
+      "source_platform": "nintendowiidigital",
+      "original_dat_records": 2722,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 2722,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "nintendowiiudigital",
+      "original_dat_records": 3373,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 3373,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "philipsvideopac",
+      "original_dat_records": 32,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 32,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "rcastudioii",
+      "original_dat_records": 18,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 18,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sega32x",
+      "original_dat_records": 207,
+      "records_with_exact_media_sha1_overlap": 199,
+      "records_without_exact_media_sha1_overlap": 8,
+      "original_cross_source_candidate_pairs": 199
+    },
+    {
+      "source_platform": "segabeena",
+      "original_dat_records": 58,
+      "records_with_exact_media_sha1_overlap": 58,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 58
+    },
+    {
+      "source_platform": "segapico",
+      "original_dat_records": 443,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 443,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "segasg1000",
+      "original_dat_records": 212,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 212,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sms",
+      "original_dat_records": 1163,
+      "records_with_exact_media_sha1_overlap": 631,
+      "records_without_exact_media_sha1_overlap": 532,
+      "original_cross_source_candidate_pairs": 644
+    },
+    {
+      "source_platform": "snes",
+      "original_dat_records": 4268,
+      "records_with_exact_media_sha1_overlap": 3200,
+      "records_without_exact_media_sha1_overlap": 1068,
+      "original_cross_source_candidate_pairs": 3213
+    },
+    {
+      "source_platform": "snkneogeopocket",
+      "original_dat_records": 9,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 9,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "snkneogeopocketcolor",
+      "original_dat_records": 115,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 115,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sonyplaystation3psn",
+      "original_dat_records": 5585,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 5585,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sonyplaystationportable",
+      "original_dat_records": 3441,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 3441,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sonyplaystationportablepsn",
+      "original_dat_records": 2685,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 2685,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sonyplaystationportablepsx2psp",
+      "original_dat_records": 65,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 65,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sonyplaystationvita",
+      "original_dat_records": 240,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 240,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "sonyplaystationvitapsn",
+      "original_dat_records": 17100,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 17100,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "tigergamecom",
+      "original_dat_records": 23,
+      "records_with_exact_media_sha1_overlap": 23,
+      "records_without_exact_media_sha1_overlap": 0,
+      "original_cross_source_candidate_pairs": 23
+    },
+    {
+      "source_platform": "vtechcreativision",
+      "original_dat_records": 31,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 31,
+      "original_cross_source_candidate_pairs": 0
+    },
+    {
+      "source_platform": "vtechvsmile",
+      "original_dat_records": 455,
+      "records_with_exact_media_sha1_overlap": 399,
+      "records_without_exact_media_sha1_overlap": 56,
+      "original_cross_source_candidate_pairs": 403
+    },
+    {
+      "source_platform": "watarasupervision",
+      "original_dat_records": 74,
+      "records_with_exact_media_sha1_overlap": 0,
+      "records_without_exact_media_sha1_overlap": 74,
+      "original_cross_source_candidate_pairs": 0
+    }
+  ],
+  "interpretation": "These are independent source-row overlap diagnostics, not a count of missing games, unverified editions or canonical platform identities. No matching media digest may reflect different formats, dump headers, split chips, optical discs or distinct provider inventories."
+}
