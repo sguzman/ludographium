@@ -74,6 +74,8 @@ python tools/query_mame_sources.py --without-review-leads --list nes --limit 5
 python tools/query_mame_sources.py --cohort all --offset 32951 --limit 4
 python tools/query_mame_sources.py --cohort v4 --list svision --limit 5
 python tools/query_mame_sources.py --cohort all-pinned --offset 33117 --limit 4
+python tools/query_mame_sources.py --cohort v5 --list neogeo --limit 5
+python tools/query_mame_sources.py --cohort all-registered --offset 33490 --limit 4
 python tools/query_mame_media.py --platform tigergamecom --limit 5
 python tools/query_mame_media.py --cohort v3 --platform atari5200 --limit 5
 python tools/query_mame_media.py --cohort combined --limit 5
@@ -93,12 +95,24 @@ SHA-1 claims), including Watara Supervision, 3DO, CD32, GameKing, GameKing 3,
 Game Pocket Computer, Mega Duck, and NEC PC-FX. Search `--cohort v4` for
 these records alone or `--cohort all-pinned` for **77 original MAME source
 lists, 33,492 software observations**, without changing older results.
-Each source is hash-pinned to its original CC0 XML; optional bounded
+The independently pinned [fifth CC0 source register](sources/mame-softlists-v5.json)
+adds **six more console and handheld software lists with 1,652 source
+observations**: Philips CD-i (646), Sega Mega-CD (502), Neo Geo (307),
+Commodore CDTV (132), Gamate (62), and 3DO M2 (3).
+Those original source XMLs also contain 3,601 ROM SHA-1 claims and 1,381
+disc SHA-1 claims, retained separately without game, platform, release,
+or byte-equivalence identity inference.
+Choose `--cohort v5` to search only those original source statements,
+or `--cohort all-registered` to traverse **83 CC0 lists and 35,144 MAME
+source software observations**. The existing `--cohort all` (69 lists)
+and `--cohort all-pinned` (77 lists) remain unchanged. Each source is
+hash-pinned to its original CC0 XML; optional bounded
 `--offset`/`--limit` page over source-native record order.
-The optional derived SQLite retains its independently verified **69-list**
-scope. Fourth-cohort source observations, media-evidence comparisons, stable
-review tasks and coverage audits are independently pinned outside that SQLite
-database; no canonical game, release or media identity is promoted.
+The optional derived SQLite defaults to its independently verified
+69-list scope and supports the **77-list** fourth cohort via an explicit
+build-only `--include-v4` flag. The fifth-cohort source observations remain
+independently pinned outside the current 77-list SQLite and reconciliation
+ledgers; no canonical game, release or media identity is promoted.
 
 The media query defaults to the original **65-list** pinned source snapshot,
 preserving existing results. Choose `--cohort v3` for four independently
