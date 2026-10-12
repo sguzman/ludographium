@@ -939,6 +939,7 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
             "all",
             "--metadata-cohort",
             "combined",
+            "--with-entity-labels",
         ],
         vec![
             "--wikidata-localized-titles",
@@ -953,7 +954,10 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
             .args(&args)
             .output()
             .unwrap();
-        assert!(!output.status.success());
+        assert!(
+            !output.status.success(),
+            "unsupported localized metadata arguments accepted: {args:?}"
+        );
     }
 }
 
