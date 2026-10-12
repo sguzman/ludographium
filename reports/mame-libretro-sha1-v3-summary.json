@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "kind": "separate-third-cohort-exact-original-media-source-candidates",
+  "mame_source_register": "sources/mame-softlists-v3.json",
+  "libretro_source_registers": [
+    "sources/libretro-no-intro.json",
+    "sources/bulk-expansion-v1.json"
+  ],
+  "mame_source_license": "CC0-1.0",
+  "libretro_source_license": "CC-BY-SA-4.0",
+  "mame_original_source_lists": 4,
+  "mame_original_software_observations": 166,
+  "mame_original_sha1_claims": 199,
+  "independent_libretro_dat_collections": 75,
+  "original_libretro_dat_records": 117145,
+  "source_media_sha1_candidate_pairs": 127,
+  "candidate_pairs_with_corroborated_size": 127,
+  "independent_mame_software_with_candidates": 127,
+  "independent_libretro_dat_records_with_candidates": 127,
+  "source_size_disagreement_rows": 0,
+  "source_scope_pair_candidate_evidence": [
+    {
+      "mame_source_list": "a5200",
+      "libretro_source_scope": "atari5200",
+      "source_media_candidate_pairs": 101
+    },
+    {
+      "mame_source_list": "advision",
+      "libretro_source_scope": "entexadventurevision",
+      "source_media_candidate_pairs": 4
+    },
+    {
+      "mame_source_list": "casloopy",
+      "libretro_source_scope": "casioloopy",
+      "source_media_candidate_pairs": 7
+    },
+    {
+      "mame_source_list": "crvision",
+      "libretro_source_scope": "vtechcreativision",
+      "source_media_candidate_pairs": 15
+    }
+  ],
+  "candidate_path": "data/reconciliation/mame-libretro-sha1-v3/links.jsonl",
+  "candidate_sha256": "8e4353d42d264ce72299df93d5c4488d6d650bec590f69c5b5044d391ead7fdf",
+  "candidate_bytes": 120230,
+  "rejected_size_conflicts_path": "data/reconciliation/mame-libretro-sha1-v3/size-disagreements.jsonl",
+  "rejected_size_conflicts_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "rejected_size_conflicts_bytes": 0,
+  "interpretation": "Four original MAME CC0 software-list sources were compared against 75 separately attributed Libretro CC-BY-SA DAT scopes. Equal media SHA1 and byte-size assertions are independent source candidates, not accepted game, work, release, edition or platform identities. Conflicting declared media sizes remain separate and unresolved. Earlier v1/v2 MAME source correspondence is unchanged."
+}
