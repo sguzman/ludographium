@@ -1,0 +1,52 @@
+name: Publish systematic MAME-Libretro media source gap audit
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-mame-libretro-coverage-v1.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-mame-libretro-coverage-v1-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify source-only provenance and compute full gap report
+        run: |
+          python tools/reconcile_mame_media.py --check
+          python tools/audit_mame_media_coverage.py --write
+          python tools/audit_mame_media_coverage.py --check
+      - name: Commit deterministic source coverage report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/mame-libretro-source-coverage-v1.json
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin 49-by-75 exact-media source coverage and absence-of-overlap audit'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo 'Unable to publish evidence-only source coverage' >&2
+          exit 1
