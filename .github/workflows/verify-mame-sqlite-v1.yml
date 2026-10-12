@@ -36,6 +36,9 @@ jobs:
               value=json.load(source)
           assert value["source_lists"] == 65
           assert value["software"] == 32953
+          assert value["libretro_sources"] == 75
+          assert value["libretro_records"] == 117145
+          assert value["libretro_media"] == 117145
           assert value["exact_media_links"] == 19025
           assert value["rejected_size_conflicts"] == 1
           assert value["media_claims"] > 38000
@@ -44,13 +47,18 @@ jobs:
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list gamecom --title Batman --limit 2 > "$temp/gamecom.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list wswan --linked-only --limit 2 > "$temp/wswan.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --libretro-platform tigergamecom --limit 3 > "$temp/links.json"
-          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" <<'PY'
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform tigergamecom --linked-only --limit 3 > "$temp/libretro.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform gb --title Pokemon --limit 2 > "$temp/gameboy.json"
+          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" <<'PY'
           import json,sys
           results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
           assert all(item["total_filtered_source_observations"] > 0 for item in results)
           assert all(item["returned_source_observations"] > 0 for item in results)
           assert all(item["interpretation"].find("not-canonical") >= 0 for item in results)
-          print("Verified three source-scoped search modes")
+          assert results[3]["independent_libretro_source_collections"] == 75
+          assert results[3]["original_libretro_source_records"] == 117145
+          assert all(item["source_license"] == "CC-BY-SA-4.0" for item in results[3]["records"])
+          print("Verified five source-scoped search modes and independent licenses")
           PY
       - name: Confirm no binary database is committed or published
         shell: bash

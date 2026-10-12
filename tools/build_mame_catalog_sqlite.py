@@ -17,6 +17,8 @@ import tempfile
 from acquire_mame_softlists import ROOT, source_register, verify_one
 from query_mame_sources import original_index_rows
 from query_mame_media import INDEX as LINKS_PATH, REPORT as LINKS_REPORT
+from import_dat import import_dat
+from build_expanded_corpus import pinned_manifest
 
 ORIGINAL_REPORTS = (
     "reports/mame-software-observations-v1-summary.json",
@@ -26,6 +28,9 @@ CONFLICTS = Path("data/reconciliation/mame-libretro-sha1-v1/size-disagreements.j
 EXPECTED = {
     "source_lists": 65,
     "software": 32953,
+    "libretro_sources": 75,
+    "libretro_records": 117145,
+    "libretro_media": 117145,
     "links": 19025,
     "conflicts": 1,
 }
@@ -79,6 +84,35 @@ CREATE TABLE media_claims (
     FOREIGN KEY(source_list,source_ordinal)
       REFERENCES software(source_list,source_ordinal)
 );
+CREATE TABLE libretro_sources (
+    platform TEXT PRIMARY KEY,
+    original_dat_path TEXT NOT NULL,
+    original_git_blob_sha TEXT NOT NULL,
+    original_dat_sha256 TEXT NOT NULL,
+    original_records INTEGER NOT NULL,
+    source_license TEXT NOT NULL CHECK(source_license='CC-BY-SA-4.0')
+);
+CREATE TABLE libretro_records (
+    platform TEXT NOT NULL REFERENCES libretro_sources(platform),
+    source_ordinal INTEGER NOT NULL CHECK(source_ordinal>0),
+    title_literal TEXT NOT NULL,
+    region_literal TEXT,
+    serial_literal TEXT,
+    original_json TEXT NOT NULL,
+    PRIMARY KEY(platform,source_ordinal)
+);
+CREATE TABLE libretro_media (
+    platform TEXT NOT NULL,
+    source_ordinal INTEGER NOT NULL,
+    media_ordinal INTEGER NOT NULL,
+    sha1 TEXT NOT NULL,
+    media_size_bytes INTEGER NOT NULL CHECK(media_size_bytes>=0),
+    media_name TEXT NOT NULL,
+    original_json TEXT NOT NULL,
+    PRIMARY KEY(platform,source_ordinal,media_ordinal),
+    FOREIGN KEY(platform,source_ordinal)
+      REFERENCES libretro_records(platform,source_ordinal)
+);
 CREATE TABLE exact_media_links (
     source_ordinal INTEGER PRIMARY KEY,
     mame_list TEXT NOT NULL,
@@ -91,7 +125,9 @@ CREATE TABLE exact_media_links (
     media_size_bytes INTEGER NOT NULL,
     original_json TEXT NOT NULL,
     FOREIGN KEY(mame_list,mame_software_ordinal,mame_media_ordinal)
-      REFERENCES media_claims(source_list,source_ordinal,media_ordinal)
+      REFERENCES media_claims(source_list,source_ordinal,media_ordinal),
+    FOREIGN KEY(libretro_platform,libretro_software_ordinal,libretro_media_ordinal)
+      REFERENCES libretro_media(platform,source_ordinal,media_ordinal)
 );
 CREATE TABLE rejected_size_conflicts (
     source_ordinal INTEGER PRIMARY KEY,
@@ -108,6 +144,8 @@ CREATE INDEX idx_software_publisher ON software(publisher_literal COLLATE NOCASE
 CREATE INDEX idx_software_year ON software(year_literal);
 CREATE INDEX idx_serial_literal ON serial_claims(serial_literal);
 CREATE INDEX idx_media_sha1 ON media_claims(sha1);
+CREATE INDEX idx_libretro_title ON libretro_records(title_literal COLLATE NOCASE);
+CREATE INDEX idx_libretro_media_sha1 ON libretro_media(sha1);
 CREATE INDEX idx_links_libretro ON exact_media_links(libretro_platform,libretro_software_ordinal);
 CREATE INDEX idx_links_mame ON exact_media_links(mame_list,mame_software_ordinal);
 CREATE VIEW original_mame_claims AS
@@ -158,6 +196,31 @@ def optional_sha1(value):
     return value.lower()
 
 
+def libretro_original_scopes(root):
+    original = source_json(root, Path("sources/libretro-no-intro.json"))
+    expanded = pinned_manifest(root)
+    if (
+        original["source_id"] != expanded["source_id"]
+        or original["repository_revision"] != expanded["repository_revision"]
+        or original["declared_repository_license"] != expanded["declared_repository_license"]
+        or len(original["files"]) != 10
+        or len(expanded["platforms"]) != 65
+    ):
+        raise ValueError("incompatible original Libretro source revisions or licenses")
+    imported_expansion = {**expanded, "files": expanded["platforms"]}
+    original_scopes = [
+        (entry, original, Path("archive/libretro-no-intro") / (entry["platform"] + ".dat"))
+        for entry in original["files"]
+    ]
+    original_scopes += [
+        (entry, imported_expansion, Path("archive/libretro-bulk") / entry["source_path"])
+        for entry in expanded["platforms"]
+    ]
+    if len({entry["platform"] for entry, _, _ in original_scopes}) != EXPECTED["libretro_sources"]:
+        raise ValueError("duplicate independent Libretro platform collection")
+    return original_scopes
+
+
 def inputs(root):
     register_paths = (
         Path("sources/mame-softlists-v1.json"),
@@ -167,7 +230,9 @@ def inputs(root):
         LINKS_REPORT,
         LINKS_PATH,
         CONFLICTS,
-    )
+        Path("sources/libretro-no-intro.json"),
+        Path("sources/bulk-expansion-v1.json"),
+    ) + tuple(path for _, _, path in libretro_original_scopes(root))
     report = source_json(root, LINKS_REPORT)
     if (
         report["schema_version"] != 1
@@ -260,6 +325,44 @@ def populate(conn, root):
                 observed_count += 1
             if observed_count != observed_manifest["index_rows"]:
                 raise ValueError(f"missing source claims for {source_list}")
+    libretro_records = 0
+    libretro_media_count = 0
+    for entry, original_register, relative in libretro_original_scopes(root):
+        raw = source_bytes(root, relative)
+        parsed = import_dat(raw, original_register, entry["platform"])
+        if parsed["source_revision"] != original_register["repository_revision"]:
+            raise ValueError(f"stale Libretro source scope: {entry['platform']}")
+        if entry.get("bytes") is not None and entry["bytes"] != len(raw):
+            raise ValueError(f"changed original DAT size: {relative}")
+        platform = entry["platform"]
+        conn.execute(
+            "INSERT INTO libretro_sources VALUES (?,?,?,?,?,?)",
+            (platform, str(relative), parsed["source_blob_sha"],
+             hashlib.sha256(raw).hexdigest(), parsed["record_count"],
+             parsed["source_license"]),
+        )
+        for row in parsed["records"]:
+            ordinal = row["source_ordinal"]
+            conn.execute(
+                "INSERT INTO libretro_records VALUES (?,?,?,?,?,?)",
+                (platform, ordinal, row["name"], row.get("region"),
+                 row.get("serial"), compact(row)),
+            )
+            libretro_records += 1
+            for media_ordinal, media in enumerate(row["roms"], 1):
+                conn.execute(
+                    "INSERT INTO libretro_media VALUES (?,?,?,?,?,?,?)",
+                    (platform, ordinal, media_ordinal,
+                     optional_sha1(media["sha1"]), media["size"],
+                     media["name"], compact(media)),
+                )
+                libretro_media_count += 1
+    if (
+        libretro_records != EXPECTED["libretro_records"]
+        or libretro_media_count != EXPECTED["libretro_media"]
+    ):
+        raise ValueError("Libretro source observation inventory drifted")
+
     for table, path, expected, expected_kind in (
         ("exact_media_links", LINKS_PATH, EXPECTED["links"],
          "exact-mame-libretro-media-sha1-source-candidate"),
@@ -310,7 +413,8 @@ def counts(conn):
     result = {}
     for table in (
         "provenance", "source_lists", "software", "serial_claims",
-        "media_claims", "exact_media_links", "rejected_size_conflicts",
+        "media_claims", "libretro_sources", "libretro_records", "libretro_media",
+        "exact_media_links", "rejected_size_conflicts",
     ):
         result[table] = conn.execute(f"SELECT count(*) FROM {table}").fetchone()[0]
     return result
@@ -324,9 +428,12 @@ def verify(conn, root):
         raise ValueError("derived local MAME index has broken source-ordinal references")
     observed = counts(conn)
     for table, expected in (
-        ("provenance", 7),
+        ("provenance", 84),
         ("source_lists", EXPECTED["source_lists"]),
         ("software", EXPECTED["software"]),
+        ("libretro_sources", EXPECTED["libretro_sources"]),
+        ("libretro_records", EXPECTED["libretro_records"]),
+        ("libretro_media", EXPECTED["libretro_media"]),
         ("exact_media_links", EXPECTED["links"]),
         ("rejected_size_conflicts", EXPECTED["conflicts"]),
     ):
@@ -347,8 +454,14 @@ def verify(conn, root):
              a.mame_list=m.source_list
              AND a.mame_software_ordinal=m.source_ordinal
              AND a.mame_media_ordinal=m.media_ordinal
+           JOIN libretro_media l ON
+             a.libretro_platform=l.platform
+             AND a.libretro_software_ordinal=l.source_ordinal
+             AND a.libretro_media_ordinal=l.media_ordinal
            WHERE a.media_sha1 != m.sha1
-              OR a.media_size_bytes != m.declared_size_bytes"""
+              OR a.media_size_bytes != m.declared_size_bytes
+              OR a.media_sha1 != l.sha1
+              OR a.media_size_bytes != l.media_size_bytes"""
     ).fetchone()[0]:
         raise ValueError("SHA-1 or size claims differ from original media evidence")
     return observed
@@ -467,6 +580,89 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
     }
 
 
+
+def query_libretro(conn, *, platform=None, title=None, region=None,
+                   serial=None, sha1=None, linked_only=False, limit=20):
+    """Read original Libretro DAT statements, with separately attributable MAME links."""
+    if not 1 <= limit <= 200:
+        raise ValueError("limit must be between 1 and 200")
+    for value in (platform, title, region, serial):
+        if value is not None and (not value.strip() or len(value) > 250):
+            raise ValueError("invalid Libretro source filter")
+    if sha1 is not None and not re.fullmatch("[0-9a-fA-F]{40}", sha1):
+        raise ValueError("invalid original Libretro media SHA-1")
+    clauses, args = [], []
+    if platform:
+        clauses.append("r.platform=?")
+        args.append(platform)
+    if title:
+        clauses.append("instr(lower(r.title_literal),lower(?))>0")
+        args.append(title)
+    if region:
+        clauses.append("r.region_literal=?")
+        args.append(region)
+    if serial:
+        clauses.append("r.serial_literal=?")
+        args.append(serial)
+    if sha1:
+        clauses.append(
+            "EXISTS (SELECT 1 FROM libretro_media m WHERE m.platform=r.platform "
+            "AND m.source_ordinal=r.source_ordinal AND m.sha1=?)"
+        )
+        args.append(sha1.lower())
+    if linked_only:
+        clauses.append(
+            "EXISTS (SELECT 1 FROM exact_media_links x WHERE "
+            "x.libretro_platform=r.platform AND x.libretro_software_ordinal=r.source_ordinal)"
+        )
+    tail = " FROM libretro_records r"
+    if clauses:
+        tail += " WHERE " + " AND ".join(clauses)
+    total = conn.execute("SELECT count(*)" + tail, args).fetchone()[0]
+    rows = conn.execute(
+        "SELECT r.platform,r.source_ordinal,r.original_json" + tail
+        + " ORDER BY r.platform,r.source_ordinal LIMIT ?",
+        (*args, limit),
+    ).fetchall()
+    hits = []
+    for name, ordinal, raw in rows:
+        refs = conn.execute(
+            "SELECT original_json FROM exact_media_links "
+            "WHERE libretro_platform=? AND libretro_software_ordinal=? "
+            "ORDER BY source_ordinal LIMIT 51",
+            (name, ordinal),
+        ).fetchall()
+        total_refs = conn.execute(
+            "SELECT count(*) FROM exact_media_links WHERE "
+            "libretro_platform=? AND libretro_software_ordinal=?",
+            (name, ordinal),
+        ).fetchone()[0]
+        source = conn.execute(
+            "SELECT original_dat_path,original_git_blob_sha,original_dat_sha256,"
+            "source_license FROM libretro_sources WHERE platform=?", (name,)
+        ).fetchone()
+        hits.append({
+            "original_libretro_record": json.loads(raw),
+            "source_platform": name,
+            "original_source_path": source[0],
+            "original_git_blob_sha": source[1],
+            "original_dat_sha256": source[2],
+            "source_license": source[3],
+            "review_only_mame_media_links": [json.loads(ref[0]) for ref in refs[:50]],
+            "total_review_only_mame_media_links": total_refs,
+            "links_truncated": total_refs > 50,
+        })
+    return {
+        "source_mode": "local-derived-read-only-attributed-libretro-original-dat",
+        "independent_libretro_source_collections": EXPECTED["libretro_sources"],
+        "original_libretro_source_records": EXPECTED["libretro_records"],
+        "total_filtered_source_observations": total,
+        "returned_source_observations": len(hits),
+        "records": hits,
+        "interpretation": "original-CC-BY-SA-source-records-with-optional-CC0-MAME-media-review-evidence-not-canonical-identity",
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--db", type=Path, required=True)
@@ -475,6 +671,7 @@ def main():
     mode.add_argument("--verify", action="store_true")
     mode.add_argument("--summary", action="store_true")
     mode.add_argument("--query", action="store_true")
+    mode.add_argument("--query-libretro", action="store_true")
     parser.add_argument("--list")
     parser.add_argument("--title")
     parser.add_argument("--publisher")
@@ -482,6 +679,8 @@ def main():
     parser.add_argument("--serial")
     parser.add_argument("--sha1")
     parser.add_argument("--libretro-platform")
+    parser.add_argument("--platform")
+    parser.add_argument("--region")
     parser.add_argument("--linked-only", action="store_true")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
@@ -498,6 +697,13 @@ def main():
             elif args.summary:
                 verify(db, ROOT)
                 result = counts(db)
+            elif args.query_libretro:
+                verify(db, ROOT)
+                result = query_libretro(
+                    db, platform=args.platform, title=args.title,
+                    region=args.region, serial=args.serial, sha1=args.sha1,
+                    linked_only=args.linked_only, limit=args.limit,
+                )
             else:
                 verify(db, ROOT)
                 result = query(

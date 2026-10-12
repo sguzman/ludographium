@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
-from build_mame_catalog_sqlite import numeric_size, optional_sha1, query
+from build_mame_catalog_sqlite import numeric_size, optional_sha1, query, query_libretro
 
 
 class SqliteMameSourceGuards(unittest.TestCase):
@@ -26,6 +26,12 @@ class SqliteMameSourceGuards(unittest.TestCase):
                        {"source_list": " "}, {"title": "x" * 251}):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query(None, **kwargs)
+
+    def test_libretro_query_filters_fail_before_database_access(self):
+        for kwargs in ({"limit": 0}, {"limit": 201}, {"sha1": "xyz"},
+                       {"platform": " "}, {"region": "x" * 251}):
+            with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
+                query_libretro(None, **kwargs)
 
 
 if __name__ == "__main__":
