@@ -20,6 +20,7 @@ from query_mame_sources import original_index_rows
 from query_mame_media import INDEX as LINKS_PATH, REPORT as LINKS_REPORT
 from import_dat import import_dat
 from build_expanded_corpus import pinned_manifest
+from query_source_review_units import validate as validated_source_review_units
 
 ORIGINAL_REPORTS = (
     "reports/mame-software-observations-v1-summary.json",
@@ -28,6 +29,8 @@ ORIGINAL_REPORTS = (
 CONFLICTS = Path("data/reconciliation/mame-libretro-sha1-v1/size-disagreements.jsonl")
 TITLE_REPORT = Path("reports/mame-libretro-title-review-v1-summary.json")
 TITLE_CANDIDATES = Path("data/reconciliation/mame-libretro-title-review-v1/candidates.jsonl")
+REVIEW_INDEX = Path("data/reconciliation/source-review-units-v1/units.jsonl")
+REVIEW_REPORT = Path("reports/source-review-units-v1-summary.json")
 EXPECTED = {
     "source_lists": 65,
     "software": 32953,
@@ -37,6 +40,7 @@ EXPECTED = {
     "links": 19025,
     "conflicts": 1,
     "title_review": 6825,
+    "review_units": 21712,
 }
 SCHEMA = """
 PRAGMA foreign_keys=ON;
@@ -147,6 +151,29 @@ CREATE TABLE title_review_candidates (
     FOREIGN KEY(libretro_platform,libretro_software_ordinal)
       REFERENCES libretro_records(platform,source_ordinal)
 );
+CREATE TABLE source_review_units (
+    review_id TEXT PRIMARY KEY,
+    mame_list TEXT NOT NULL,
+    mame_software_ordinal INTEGER NOT NULL,
+    priority_class TEXT NOT NULL,
+    ambiguous INTEGER NOT NULL CHECK(ambiguous IN (0,1)),
+    evidence_kind TEXT NOT NULL CHECK(evidence_kind IN ('media','title')),
+    original_json TEXT NOT NULL,
+    UNIQUE(mame_list,mame_software_ordinal),
+    FOREIGN KEY(mame_list,mame_software_ordinal)
+      REFERENCES software(source_list,source_ordinal)
+);
+CREATE TABLE source_review_targets (
+    review_id TEXT NOT NULL REFERENCES source_review_units(review_id),
+    libretro_platform TEXT NOT NULL,
+    libretro_software_ordinal INTEGER NOT NULL,
+    media_supported INTEGER NOT NULL CHECK(media_supported IN (0,1)),
+    exact_title_supported INTEGER NOT NULL CHECK(exact_title_supported IN (0,1)),
+    original_json TEXT NOT NULL,
+    PRIMARY KEY(review_id,libretro_platform,libretro_software_ordinal),
+    FOREIGN KEY(libretro_platform,libretro_software_ordinal)
+      REFERENCES libretro_records(platform,source_ordinal)
+);
 CREATE TABLE rejected_size_conflicts (
     source_ordinal INTEGER PRIMARY KEY,
     mame_list TEXT NOT NULL,
@@ -166,6 +193,9 @@ CREATE INDEX idx_libretro_title ON libretro_records(title_literal COLLATE NOCASE
 CREATE INDEX idx_libretro_media_sha1 ON libretro_media(sha1);
 CREATE INDEX idx_links_libretro ON exact_media_links(libretro_platform,libretro_software_ordinal);
 CREATE INDEX idx_links_mame ON exact_media_links(mame_list,mame_software_ordinal);
+CREATE INDEX idx_source_review_scope ON source_review_units(mame_list,priority_class);
+CREATE INDEX idx_source_review_class ON source_review_units(evidence_kind,ambiguous);
+CREATE INDEX idx_source_review_libretro ON source_review_targets(libretro_platform,libretro_software_ordinal);
 CREATE INDEX idx_title_review_mame ON title_review_candidates(mame_list,mame_software_ordinal);
 CREATE INDEX idx_title_review_libretro ON title_review_candidates(libretro_platform,libretro_software_ordinal);
 CREATE VIEW original_mame_claims AS
@@ -258,6 +288,8 @@ def inputs(root):
         CONFLICTS,
         TITLE_REPORT,
         TITLE_CANDIDATES,
+        REVIEW_REPORT,
+        REVIEW_INDEX,
         Path("sources/libretro-no-intro.json"),
         Path("sources/bulk-expansion-v1.json"),
     ) + tuple(path for _, _, path in libretro_original_scopes(root))
@@ -495,6 +527,86 @@ def populate(conn, root):
     if review_count != EXPECTED["title_review"]:
         raise ValueError("incomplete pinned title-review candidate inventory")
 
+    review_manifest, original_units, _ = validated_source_review_units(root)
+    if (
+        review_manifest["source_review_units"] != EXPECTED["review_units"]
+        or review_manifest["source_media_index_sha256"] !=
+            source_json(root, LINKS_REPORT)["match_index_sha256"]
+        or review_manifest["source_title_index_sha256"] !=
+            title_report["candidate_sha256"]
+    ):
+        raise ValueError("stale or incomplete stable-ID original source review queue")
+    targets_inserted = 0
+    for unit in original_units:
+        mame = unit["mame"]
+        source_list = mame["source_list"]
+        ordinal = mame["original_software_ordinal"]
+        original = conn.execute(
+            "SELECT s.title_literal,l.original_xml_sha256 FROM software s "
+            "JOIN source_lists l ON s.source_list=l.source_list "
+            "WHERE s.source_list=? AND s.source_ordinal=?",
+            (source_list, ordinal),
+        ).fetchone()
+        if (
+            original is None
+            or original[0] != mame["original_title"]
+            or original[1] != mame["original_xml_sha256"]
+        ):
+            raise ValueError("source review unit refers to another original MAME record")
+        media_ordinals = unit["media_evidence_jsonl_source_ordinals"]
+        title_ordinals = unit["title_evidence_jsonl_source_ordinals"]
+        evidence_kind = "media" if media_ordinals else "title"
+        conn.execute(
+            "INSERT INTO source_review_units VALUES (?,?,?,?,?,?,?)",
+            (unit["stable_review_id"], source_list, ordinal,
+             unit["source_review_priority_class"],
+             int(unit["multiple_source_target_alternatives"]),
+             evidence_kind, compact(unit)),
+        )
+        actual_targets = set()
+        for target in unit["candidate_libretro_targets"]:
+            platform = target["platform"]
+            target_ordinal = target["original_source_ordinal"]
+            matched = conn.execute(
+                "SELECT r.title_literal,s.original_git_blob_sha FROM libretro_records r "
+                "JOIN libretro_sources s ON r.platform=s.platform "
+                "WHERE r.platform=? AND r.source_ordinal=?",
+                (platform, target_ordinal),
+            ).fetchone()
+            if (
+                matched is None or matched[0] != target["original_title"]
+                or matched[1] != target["original_git_blob_sha"]
+            ):
+                raise ValueError("source review unit target does not match original DAT")
+            conn.execute(
+                "INSERT INTO source_review_targets VALUES (?,?,?,?,?,?)",
+                (unit["stable_review_id"], platform, target_ordinal,
+                 int(target["has_equal_sha1_and_size_evidence"]),
+                 int(target["has_exact_normalized_title_review_evidence"]),
+                 compact(target)),
+            )
+            actual_targets.add((platform, target_ordinal))
+            targets_inserted += 1
+        for table, row_ordinals in (
+            ("exact_media_links", media_ordinals),
+            ("title_review_candidates", title_ordinals),
+        ):
+            for evidence_ordinal in row_ordinals:
+                source_link = conn.execute(
+                    f"SELECT mame_list,mame_software_ordinal,"
+                    f"libretro_platform,libretro_software_ordinal "
+                    f"FROM {table} WHERE source_ordinal=?",
+                    (evidence_ordinal,),
+                ).fetchone()
+                if (
+                    source_link is None
+                    or (source_link[0],source_link[1]) != (source_list,ordinal)
+                    or (source_link[2],source_link[3]) not in actual_targets
+                ):
+                    raise ValueError("review unit references unrelated evidence row")
+    if targets_inserted < EXPECTED["review_units"]:
+        raise ValueError("source-review target inventory is truncated")
+
     if total_software != EXPECTED["software"]:
         raise ValueError(f"MAME source record count changed: {total_software}")
     conn.commit()
@@ -507,7 +619,8 @@ def counts(conn):
         "provenance", "source_lists", "software", "serial_claims",
         "media_claims", "libretro_sources", "libretro_records", "libretro_media",
         "exact_media_links", "rejected_size_conflicts",
-        "title_review_candidates",
+        "title_review_candidates", "source_review_units",
+        "source_review_targets",
     ):
         result[table] = conn.execute(f"SELECT count(*) FROM {table}").fetchone()[0]
     return result
@@ -521,7 +634,7 @@ def verify(conn, root):
         raise ValueError("derived local MAME index has broken source-ordinal references")
     observed = counts(conn)
     for table, expected in (
-        ("provenance", 86),
+        ("provenance", 88),
         ("source_lists", EXPECTED["source_lists"]),
         ("software", EXPECTED["software"]),
         ("libretro_sources", EXPECTED["libretro_sources"]),
@@ -530,6 +643,7 @@ def verify(conn, root):
         ("exact_media_links", EXPECTED["links"]),
         ("rejected_size_conflicts", EXPECTED["conflicts"]),
         ("title_review_candidates", EXPECTED["title_review"]),
+        ("source_review_units", EXPECTED["review_units"]),
     ):
         if observed[table] != expected:
             raise ValueError(f"derived source index count mismatch: {table}")
@@ -542,6 +656,16 @@ def verify(conn, root):
     for name, (digest, size) in registered.items():
         if (digest, size) != source_digest(root, Path(name)):
             raise ValueError(f"original source evidence changed: {name}")
+    if observed["source_review_targets"] < observed["source_review_units"]:
+        raise ValueError("truncated indexed Libretro source-review alternatives")
+    if conn.execute(
+        """SELECT count(*) FROM source_review_units r
+           JOIN software s ON r.mame_list=s.source_list
+             AND r.mame_software_ordinal=s.source_ordinal
+           WHERE json_extract(r.original_json,'$.mame.original_title') != s.title_literal
+             OR r.review_id != json_extract(r.original_json,'$.stable_review_id')"""
+    ).fetchone()[0]:
+        raise ValueError("source review task differs from original MAME record")
     if conn.execute(
         """SELECT count(*) FROM exact_media_links a
            JOIN media_claims m ON
@@ -796,16 +920,112 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
     }
 
 
+
+def query_review(conn, *, review_id=None, source_list=None, platform=None,
+                 title=None, priority_class=None, ambiguous_only=False,
+                 evidence_type=None, limit=20):
+    """Search review tasks using stable IDs, never accepted game identities."""
+    if type(limit) is not int or not 1 <= limit <= 200:
+        raise ValueError("source-review query limit must be 1..200")
+    if review_id is not None and not re.fullmatch(r"lgreview:v1:[0-9a-f]{64}", review_id):
+        raise ValueError("review ID must be a valid pinned source identifier")
+    for value in (source_list, platform, title):
+        if value is not None and (not isinstance(value, str)
+                                  or not value.strip() or len(value) > 250):
+            raise ValueError("invalid bounded source-review filter")
+    if priority_class is not None and priority_class not in (
+        "multiple-exact-title-source-targets",
+        "multiple-media-supported-source-targets",
+        "single-exact-title-source-target",
+        "single-media-supported-source-target",
+    ):
+        raise ValueError("unknown source-review classification")
+    if evidence_type not in (None, "media", "title"):
+        raise ValueError("unknown original evidence type")
+    clauses, args = [], []
+    if review_id:
+        clauses.append("r.review_id=?")
+        args.append(review_id)
+    if source_list:
+        clauses.append("r.mame_list=?")
+        args.append(source_list)
+    if platform:
+        clauses.append(
+            "EXISTS (SELECT 1 FROM source_review_targets t "
+            "WHERE t.review_id=r.review_id AND t.libretro_platform=?)"
+        )
+        args.append(platform)
+    if title:
+        clauses.append(
+            "(instr(unicode_casefold(s.title_literal),?)>0 OR "
+            "EXISTS (SELECT 1 FROM source_review_targets t "
+            "JOIN libretro_records l ON l.platform=t.libretro_platform "
+            "AND l.source_ordinal=t.libretro_software_ordinal "
+            "WHERE t.review_id=r.review_id "
+            "AND instr(unicode_casefold(l.title_literal),?)>0))"
+        )
+        args.extend((unicode_casefold(title), unicode_casefold(title)))
+    if priority_class:
+        clauses.append("r.priority_class=?")
+        args.append(priority_class)
+    if ambiguous_only:
+        clauses.append("r.ambiguous=1")
+    if evidence_type:
+        clauses.append("r.evidence_kind=?")
+        args.append(evidence_type)
+    tail = (
+        " FROM source_review_units r JOIN software s ON "
+        "r.mame_list=s.source_list AND r.mame_software_ordinal=s.source_ordinal"
+    )
+    if clauses:
+        tail += " WHERE " + " AND ".join(clauses)
+    total = conn.execute("SELECT count(*)" + tail, args).fetchone()[0]
+    rows = conn.execute(
+        "SELECT r.review_id,r.original_json" + tail
+        + " ORDER BY r.mame_list,r.mame_software_ordinal LIMIT ?",
+        (*args, limit),
+    ).fetchall()
+    returned = []
+    for stable_id, original_json in rows:
+        alternatives = conn.execute(
+            "SELECT original_json FROM source_review_targets "
+            "WHERE review_id=? ORDER BY libretro_platform,libretro_software_ordinal",
+            (stable_id,),
+        ).fetchall()
+        unit = json.loads(original_json)
+        targets = [json.loads(x[0]) for x in alternatives]
+        if targets != unit["candidate_libretro_targets"]:
+            raise ValueError("derived review targets differ from pinned evidence")
+        returned.append(unit)
+    return {
+        "source_mode": "disposable-local-stable-source-review-task-index",
+        "total_pinned_source_review_units": EXPECTED["review_units"],
+        "total_filtered_review_units": total,
+        "returned_review_units": len(returned),
+        "units": returned,
+        "interpretation": (
+            "Stable IDs denote pinned source review tasks; no canonical "
+            "game, work, edition, release or source identity is accepted."
+        ),
+    }
+
+
 def unsupported_mode_filters(args):
     """Return explicit unsupported filters, never silently ignore user constraints."""
     if args.query:
-        fields = ("platform", "region")
+        fields = ("platform", "region", "review_id", "priority_class",
+                  "ambiguous_only", "evidence_type")
     elif args.query_libretro:
-        fields = ("list", "publisher", "year", "libretro_platform")
+        fields = ("list", "publisher", "year", "libretro_platform",
+                  "review_id", "priority_class", "ambiguous_only", "evidence_type")
+    elif getattr(args, "query_review", False):
+        fields = ("publisher", "year", "serial", "sha1",
+                  "libretro_platform", "region", "linked_only")
     else:
         fields = (
             "list", "title", "publisher", "year", "serial", "sha1",
             "libretro_platform", "platform", "region", "linked_only",
+            "review_id", "priority_class", "ambiguous_only", "evidence_type",
         )
     return [
         field for field in fields if getattr(args, field, None) not in (None, False)
@@ -821,6 +1041,7 @@ def main():
     mode.add_argument("--summary", action="store_true")
     mode.add_argument("--query", action="store_true")
     mode.add_argument("--query-libretro", action="store_true")
+    mode.add_argument("--query-review", action="store_true")
     parser.add_argument("--list")
     parser.add_argument("--title")
     parser.add_argument("--publisher")
@@ -831,6 +1052,10 @@ def main():
     parser.add_argument("--platform")
     parser.add_argument("--region")
     parser.add_argument("--linked-only", action="store_true")
+    parser.add_argument("--review-id")
+    parser.add_argument("--priority-class")
+    parser.add_argument("--ambiguous-only", action="store_true")
+    parser.add_argument("--evidence-type", choices=["media", "title"])
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
     unsupported = unsupported_mode_filters(args)
@@ -851,6 +1076,15 @@ def main():
             elif args.summary:
                 verify(db, ROOT)
                 result = counts(db)
+            elif args.query_review:
+                verify(db, ROOT)
+                result = query_review(
+                    db, review_id=args.review_id, source_list=args.list,
+                    platform=args.platform, title=args.title,
+                    priority_class=args.priority_class,
+                    ambiguous_only=args.ambiguous_only,
+                    evidence_type=args.evidence_type, limit=args.limit,
+                )
             elif args.query_libretro:
                 verify(db, ROOT)
                 result = query_libretro(

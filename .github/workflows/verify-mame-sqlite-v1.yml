@@ -42,13 +42,17 @@ jobs:
           assert value["exact_media_links"] == 19025
           assert value["rejected_size_conflicts"] == 1
           assert value["title_review_candidates"] == 6825
-          assert value["provenance"] == 86
+          assert value["provenance"] == 88
+          assert value["source_review_units"] == 21712
+          assert value["source_review_targets"] >= 21712
           assert value["media_claims"] > 38000
           print("Verified comprehensive local source-evidence reader:",value)
           import sqlite3
           db_path=sys.argv[1].replace("summary.json","ludographium-mame.sqlite")
           with sqlite3.connect(db_path) as db:
               assert db.execute("SELECT count(*) FROM title_review_candidates").fetchone()[0] == 6825
+          assert db.execute("SELECT count(*) FROM source_review_units").fetchone()[0] == 21712
+          assert db.execute("SELECT count(*) FROM source_review_units WHERE ambiguous=1").fetchone()[0] == 2042
               assert db.execute("""SELECT count(*) FROM title_review_candidates t
                 JOIN exact_media_links l ON t.mame_list=l.mame_list
                 AND t.mame_software_ordinal=l.mame_software_ordinal""").fetchone()[0] == 0
@@ -58,7 +62,9 @@ jobs:
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --libretro-platform tigergamecom --limit 3 > "$temp/links.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform tigergamecom --linked-only --limit 3 > "$temp/libretro.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform gb --title Pokemon --limit 2 > "$temp/gameboy.json"
-          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" <<'PY'
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --evidence-type title --ambiguous-only --limit 2 > "$temp/review.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --platform tigergamecom --limit 2 > "$temp/gamecom-review.json"
+          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" <<'PY'
           import json,sys
           results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
           assert all(item["total_filtered_source_observations"] > 0 for item in results)
@@ -67,7 +73,11 @@ jobs:
           assert results[3]["independent_libretro_source_collections"] == 75
           assert results[3]["original_libretro_source_records"] == 117145
           assert all(item["source_license"] == "CC-BY-SA-4.0" for item in results[3]["records"])
-          print("Verified five source-scoped search modes and independent licenses")
+          assert results[5]["total_pinned_source_review_units"] == 21712
+          assert all(unit["multiple_source_target_alternatives"] for unit in results[5]["units"])
+          assert all(unit["title_evidence_jsonl_source_ordinals"] for unit in results[5]["units"])
+          assert all(unit["stable_review_id"].startswith("lgreview:v1:") for unit in results[6]["units"])
+          print("Verified seven source-scoped search modes with pinned independent licenses")
           PY
       - name: Confirm no binary database is committed or published
         shell: bash

@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from build_mame_catalog_sqlite import (
-    numeric_size, optional_sha1, query, query_libretro, unicode_casefold,
+    numeric_size, optional_sha1, query, query_libretro, query_review, unicode_casefold,
     unsupported_mode_filters
 )
 
@@ -50,9 +50,22 @@ class SqliteMameSourceGuards(unittest.TestCase):
         libretro = argparse.Namespace(**values, query=False, query_libretro=True)
         libretro.publisher = "Nintendo"
         self.assertEqual(unsupported_mode_filters(libretro), ["publisher"])
+        review = argparse.Namespace(
+            **values, query=False, query_libretro=False, query_review=True
+        )
+        review.sha1 = "a" * 40
+        self.assertEqual(unsupported_mode_filters(review), ["sha1"])
         builds = argparse.Namespace(**values, query=False, query_libretro=False)
         builds.title = "unwanted"
         self.assertEqual(unsupported_mode_filters(builds), ["title"])
+
+    def test_stable_source_review_rejects_unsupported_filters(self):
+        for kwargs in ({"limit": 0}, {"limit": 201},
+                       {"review_id": "lgreview:v1:wrong"},
+                       {"priority_class": "canonical-game"},
+                       {"source_list": " "}, {"evidence_type": "guessed"}):
+            with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
+                query_review(None, **kwargs)
 
     def test_libretro_query_filters_fail_before_database_access(self):
         for kwargs in ({"limit": 0}, {"limit": 201}, {"sha1": "xyz"},

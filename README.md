@@ -182,6 +182,18 @@ python tools/query_source_review_units.py --review-id lgreview:v1:<64-hex-digest
 ```
 
 The IDs identify **original-source review tasks**, not canonical games.
+The optional [local SQLite source reader](tools/build_mame_catalog_sqlite.py)
+also supports `--query-review`, indexing all 21,712 task IDs and their
+original competing Libretro targets for fast exact-ID, source-class,
+ambiguity, title and evidence-family searches. Run:
+
+```sh
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-review --evidence-type title --ambiguous-only --limit 3
+```
+
+The SQLite file is ephemeral; its review-unit table is reconstructed from
+the original CC0 MAME and CC-BY-SA Libretro evidence. Nothing is automatically
+accepted as the identity of a game, platform, edition or release.
 
 ## Additional platform source accession
 
