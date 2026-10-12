@@ -13,10 +13,14 @@ from pathlib import Path
 from acquire_mame_softlists import ROOT
 from build_mame_catalog_sqlite import libretro_original_scopes, source_bytes
 from import_dat import import_dat
-from query_source_review_units import validate as validate_review_units
+from query_source_review_units import (
+    validate as validate_review_units,
+    validate_v3 as validate_v3_review_units,
+)
 from query_mame_media import REPORT as MEDIA_REPORT
 
 OUTPUT = Path("reports/libretro-source-review-acquisition-gaps-v1.json")
+OUTPUT_V2 = Path("reports/libretro-source-review-acquisition-gaps-v2.json")
 SUMMARY = Path("reports/source-review-units-v1-summary.json")
 INTERPRETATION = (
     "Each count represents independently pinned Libretro DAT source records. "
@@ -43,7 +47,9 @@ def load_source_json(root, path):
     return json.loads(source_bytes(root, path))
 
 
-def build_report(root=ROOT):
+def build_report(root=ROOT, *, cohort="baseline"):
+    if cohort not in ("baseline", "combined"):
+        raise ValueError("unregistered cross-provider review evidence cohort")
     manifest, review_units, _ = validate_review_units(root)
     media_report = load_source_json(root, MEDIA_REPORT)
     if (
@@ -52,6 +58,21 @@ def build_report(root=ROOT):
         or media_report["distinct_matched_libretro_records"] != 18856
     ):
         raise ValueError("original cross-provider review inventory changed")
+    additive_summary = None
+    expected_media_records = media_report["distinct_matched_libretro_records"]
+    if cohort == "combined":
+        additive_summary, newer, _ = validate_v3_review_units(root)
+        if (
+            additive_summary["unchanged_prior_source_review_units"] != 21712
+            or additive_summary["additional_original_review_units"] != 133
+            or additive_summary["original_media_candidate_pairs"] != 127
+            or additive_summary["cumulative_separate_source_review_units"] != 21845
+        ):
+            raise ValueError("unverified additive MAME review evidence")
+        review_units = [*review_units, *newer]
+        # All four third-cohort Libretro scopes had zero baseline review
+        # candidates. No baseline media record can be double-counted.
+        expected_media_records += 127
     target_flags = defaultdict(lambda: {"media": False, "title": False})
     target_snapshots = {}
     target_titles = {}
@@ -143,7 +164,7 @@ def build_report(root=ROOT):
         })
     if set(target_snapshots) - seen_records:
         raise ValueError("review queue refers to nonexistent Libretro source records")
-    if len(media_record_keys) != media_report["distinct_matched_libretro_records"]:
+    if len(media_record_keys) != expected_media_records:
         raise ValueError("cross-source SHA-1 review coverage changed")
     if len(scope_ids) != 75 or source_count != 117145:
         raise ValueError("incomplete original 75-scope Libretro inventory")
@@ -172,7 +193,7 @@ def build_report(root=ROOT):
         )) != source_count
         or (totals["exact_media_only_source_records"]
             + totals["records_with_both_media_and_title_leads"]
-            != media_report["distinct_matched_libretro_records"])
+            != expected_media_records)
         or (totals["original_records_with_any_review_lead"]
             + totals["original_records_without_any_review_lead"] != source_count)
     ):
@@ -182,14 +203,18 @@ def build_report(root=ROOT):
         key=lambda x: (-x["records_with_no_cross_provider_review_lead"],
                        x["source_platform"]),
     )
-    return {
+    result = {
         "schema_version": 1,
-        "kind": "pinned-libretro-source-record-review-acquisition-backlog",
+        "kind": (
+            "additive-69-mame-list-libretro-source-review-acquisition-backlog"
+            if cohort == "combined" else
+            "pinned-libretro-source-record-review-acquisition-backlog"
+        ),
         "original_review_units_manifest": str(SUMMARY),
         "original_review_units_sha256": manifest["review_index_sha256"],
         "original_media_evidence_sha256": media_report["match_index_sha256"],
         "libretro_source_collections": len(grouped),
-        "mame_source_lists": 65,
+        "mame_source_lists": 69 if cohort == "combined" else 65,
         "original_source_record_totals": totals,
         "libretro_platforms_with_no_source_review_evidence": [
             item["source_platform"] for item in ranked
@@ -200,6 +225,19 @@ def build_report(root=ROOT):
         "libretro_collections_ranked_by_no_review_evidence": ranked,
         "interpretation": INTERPRETATION,
     }
+    if cohort == "combined":
+        result.update({
+            "source_evidence_cohorts": ["baseline", "v3"],
+            "original_baseline_review_units": 21712,
+            "additive_review_units": 133,
+            "cumulative_source_review_units": 21845,
+            "additive_review_units_manifest": "reports/source-review-units-v3-summary.json",
+            "additive_review_units_sha256": additive_summary["review_index_sha256"],
+            "additive_media_evidence_sha256": additive_summary["source_media_index_sha256"],
+            "additive_title_evidence_sha256": additive_summary["source_title_index_sha256"],
+            "prior_baseline_gap_report": str(OUTPUT),
+        })
+    return result
 
 
 def main():
@@ -207,9 +245,11 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--write", action="store_true")
     group.add_argument("--check", action="store_true")
+    parser.add_argument("--cohort", choices=("baseline", "combined"),
+                        default="baseline")
     args = parser.parse_args()
-    value = json.dumps(build_report(), ensure_ascii=False, indent=2) + "\n"
-    path = ROOT / OUTPUT
+    value = json.dumps(build_report(cohort=args.cohort), ensure_ascii=False, indent=2) + "\n"
+    path = ROOT / (OUTPUT_V2 if args.cohort == "combined" else OUTPUT)
     if args.write:
         path.write_text(value, encoding="utf-8")
     elif path.is_symlink() or not path.exists() or path.read_text(encoding="utf-8") != value:
