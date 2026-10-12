@@ -15,11 +15,12 @@ from build_source_review_units import (
     ROOT, OUTPUT, SUMMARY, MEDIA_INDEX, MEDIA_REPORT,
     TITLE_INDEX, TITLE_REPORT, original_review_id,
 )
-from build_source_review_units_v3 import (
-    OUTPUT as V3_OUTPUT, REPORT as V3_REPORT,
-    MEDIA_INDEX as V3_MEDIA_INDEX, TITLE_INDEX as V3_TITLE_INDEX,
-    build_expected as build_v3_review_expected,
-)
+# Third-cohort sources are deliberately loaded only when requested;
+# eager imports would form a cycle through the local SQLite source reader.
+V3_OUTPUT = Path("data/reconciliation/source-review-units-v3/units.jsonl")
+V3_REPORT = Path("reports/source-review-units-v3-summary.json")
+V3_MEDIA_INDEX = Path("data/reconciliation/mame-libretro-sha1-v3/links.jsonl")
+V3_TITLE_INDEX = Path("data/reconciliation/mame-libretro-title-review-v3/candidates.jsonl")
 
 CLASSES = (
     "multiple-exact-title-source-targets",
@@ -159,6 +160,8 @@ def validate(root=ROOT):
 
 def validate_v3(root=ROOT):
     """Re-derive every independent third-cohort unit from original pinned rows."""
+    from build_source_review_units_v3 import build_expected as build_v3_review_expected
+
     expected_raw, expected_summary = build_v3_review_expected(root)
     pinned_raw = source_bytes(root, V3_OUTPUT)
     pinned_summary = source_bytes(root, V3_REPORT).decode("utf-8")
