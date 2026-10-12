@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "kind": "conservative-sha1-grounded-exact-title-review",
+  "source_media_evidence_report": "reports/mame-libretro-media-sha1-v1-summary.json",
+  "source_media_index_sha256": "7665360bfe8ef4bd65012206a4b4a6c27450f7f4cfe30a02d0caec151940373f",
+  "mame_source_list_count": 65,
+  "libretro_source_collection_count": 75,
+  "original_mame_source_software_observations": 32953,
+  "original_mame_software_records_without_any_exact_sha1_match": 13940,
+  "minimum_distinct_mame_media_supported_scope_records": 3,
+  "source_scope_pairs_with_media_support": 56,
+  "source_scope_pairs_eligible_for_title_review": 54,
+  "total_review_only_exact_title_candidates": 6825,
+  "distinct_mame_software_with_title_candidate": 2699,
+  "candidate_path": "data/reconciliation/mame-libretro-title-review-v1/candidates.jsonl",
+  "candidate_sha256": "ccb351eed9f6f89dad30f75bccdb525ff42562761640e1d727dd21690325892e",
+  "candidate_bytes": 5284702,
+  "source_scope_correspondence_evidence": [
+    {
+      "mame_source_list": "32x",
+      "libretro_source_platform": "sega32x",
+      "distinct_mame_software_records_with_exact_media_evidence": 199,
+      "distinct_media_supported_source_record_pairs": 199,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "a2600",
+      "libretro_source_platform": "atari2600",
+      "distinct_mame_software_records_with_exact_media_evidence": 778,
+      "distinct_media_supported_source_record_pairs": 778,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "a7800",
+      "libretro_source_platform": "atari7800",
+      "distinct_mame_software_records_with_exact_media_evidence": 113,
+      "distinct_media_supported_source_record_pairs": 113,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "arcadia",
+      "libretro_source_platform": "emersonarcadia2001",
+      "distinct_mame_software_records_with_exact_media_evidence": 40,
+      "distinct_media_supported_source_record_pairs": 40,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "channelf",
+      "libretro_source_platform": "fairchildchannelf",
+      "distinct_mame_software_records_with_exact_media_evidence": 34,
+      "distinct_media_supported_source_record_pairs": 34,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "coleco",
+      "libretro_source_platform": "colecocolecovision",
+      "distinct_mame_software_records_with_exact_media_evidence": 18,
+      "distinct_media_supported_source_record_pairs": 18,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "database",
+      "libretro_source_platform": "intertonvc4000",
+      "distinct_mame_software_records_with_exact_media_evidence": 13,
+      "distinct_media_supported_source_record_pairs": 13,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "famicom_flop",
+      "libretro_source_platform": "nintendofamilycomputerdisksystem",
+      "distinct_mame_software_records_with_exact_media_evidence": 93,
+      "distinct_media_supported_source_record_pairs": 93,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gameboy",
+      "libretro_source_platform": "gb",
+      "distinct_mame_software_records_with_exact_media_evidence": 1714,
+      "distinct_media_supported_source_record_pairs": 1714,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gamecom",
+      "libretro_source_platform": "tigergamecom",
+      "distinct_mame_software_records_with_exact_media_evidence": 23,
+      "distinct_media_supported_source_record_pairs": 23,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gamegear",
+      "libretro_source_platform": "gg",
+      "distinct_mame_software_records_with_exact_media_evidence": 780,
+      "distinct_media_supported_source_record_pairs": 780,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gamegear",
+      "libretro_source_platform": "sms",
+      "distinct_mame_software_records_with_exact_media_evidence": 28,
+      "distinct_media_supported_source_record_pairs": 28,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gba",
+      "libretro_source_platform": "gba",
+      "distinct_mame_software_records_with_exact_media_evidence": 2883,
+      "distinct_media_supported_source_record_pairs": 2883,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gba_ereader",
+      "libretro_source_platform": "nintendoereader",
+      "distinct_mame_software_records_with_exact_media_evidence": 537,
+      "distinct_media_supported_source_record_pairs": 537,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gbcolor",
+      "libretro_source_platform": "gbc",
+      "distinct_mame_software_records_with_exact_media_evidence": 1645,
+      "distinct_media_supported_source_record_pairs": 1645,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gmaster",
+      "libretro_source_platform": "hartunggamemaster",
+      "distinct_mame_software_records_with_exact_media_evidence": 18,
+      "distinct_media_supported_source_record_pairs": 18,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "gp32",
+      "libretro_source_platform": "gameparkgp32",
+      "distinct_mame_software_records_with_exact_media_evidence": 28,
+      "distinct_media_supported_source_record_pairs": 28,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "intv",
+      "libretro_source_platform": "mattelintellivision",
+      "distinct_mame_software_records_with_exact_media_evidence": 123,
+      "distinct_media_supported_source_record_pairs": 123,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "jaguar",
+      "libretro_source_platform": "atarijaguar",
+      "distinct_mame_software_records_with_exact_media_evidence": 85,
+      "distinct_media_supported_source_record_pairs": 85,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "leapfrog_leappad_cart",
+      "libretro_source_platform": "leapfrogleappad",
+      "distinct_mame_software_records_with_exact_media_evidence": 1,
+      "distinct_media_supported_source_record_pairs": 1,
+      "eligible_for_title_review": false
+    },
+    {
+      "mame_source_list": "leapster",
+      "libretro_source_platform": "leapfrogleapsterlearninggamesystem",
+      "distinct_mame_software_records_with_exact_media_evidence": 98,
+      "distinct_media_supported_source_record_pairs": 98,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "lynx",
+      "libretro_source_platform": "atarilynx",
+      "distinct_mame_software_records_with_exact_media_evidence": 106,
+      "distinct_media_supported_source_record_pairs": 106,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "megadriv",
+      "libretro_source_platform": "genesis",
+      "distinct_mame_software_records_with_exact_media_evidence": 2422,
+      "distinct_media_supported_source_record_pairs": 2426,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "n64",
+      "libretro_source_platform": "n64",
+      "distinct_mame_software_records_with_exact_media_evidence": 27,
+      "distinct_media_supported_source_record_pairs": 27,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "nds",
+      "libretro_source_platform": "nds",
+      "distinct_mame_software_records_with_exact_media_evidence": 10,
+      "distinct_media_supported_source_record_pairs": 10,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "nes",
+      "libretro_source_platform": "nes",
+      "distinct_mame_software_records_with_exact_media_evidence": 943,
+      "distinct_media_supported_source_record_pairs": 943,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "nes_datach",
+      "libretro_source_platform": "nes",
+      "distinct_mame_software_records_with_exact_media_evidence": 7,
+      "distinct_media_supported_source_record_pairs": 7,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "ngp",
+      "libretro_source_platform": "snkneogeopocket",
+      "distinct_mame_software_records_with_exact_media_evidence": 6,
+      "distinct_media_supported_source_record_pairs": 6,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "ngpc",
+      "libretro_source_platform": "snkneogeopocketcolor",
+      "distinct_mame_software_records_with_exact_media_evidence": 68,
+      "distinct_media_supported_source_record_pairs": 68,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "pce",
+      "libretro_source_platform": "necpcengineturbografx16",
+      "distinct_mame_software_records_with_exact_media_evidence": 302,
+      "distinct_media_supported_source_record_pairs": 302,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "pce_tourvision",
+      "libretro_source_platform": "necpcengineturbografx16",
+      "distinct_mame_software_records_with_exact_media_evidence": 114,
+      "distinct_media_supported_source_record_pairs": 114,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "picno",
+      "libretro_source_platform": "konamipicno",
+      "distinct_mame_software_records_with_exact_media_evidence": 20,
+      "distinct_media_supported_source_record_pairs": 20,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "pico",
+      "libretro_source_platform": "segapico",
+      "distinct_mame_software_records_with_exact_media_evidence": 428,
+      "distinct_media_supported_source_record_pairs": 428,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "pockchalv2",
+      "libretro_source_platform": "benessepocketchallengev2",
+      "distinct_mame_software_records_with_exact_media_evidence": 18,
+      "distinct_media_supported_source_record_pairs": 18,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "pokemini",
+      "libretro_source_platform": "nintendopokemonmini",
+      "distinct_mame_software_records_with_exact_media_evidence": 40,
+      "distinct_media_supported_source_record_pairs": 40,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "pv1000",
+      "libretro_source_platform": "casiopv1000",
+      "distinct_mame_software_records_with_exact_media_evidence": 13,
+      "distinct_media_supported_source_record_pairs": 13,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "scv",
+      "libretro_source_platform": "epochsupercassettevision",
+      "distinct_mame_software_records_with_exact_media_evidence": 32,
+      "distinct_media_supported_source_record_pairs": 32,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "sega_beena_cart",
+      "libretro_source_platform": "segabeena",
+      "distinct_mame_software_records_with_exact_media_evidence": 58,
+      "distinct_media_supported_source_record_pairs": 58,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "sg1000",
+      "libretro_source_platform": "segasg1000",
+      "distinct_mame_software_records_with_exact_media_evidence": 204,
+      "distinct_media_supported_source_record_pairs": 204,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "sms",
+      "libretro_source_platform": "genesis",
+      "distinct_mame_software_records_with_exact_media_evidence": 1,
+      "distinct_media_supported_source_record_pairs": 1,
+      "eligible_for_title_review": false
+    },
+    {
+      "mame_source_list": "sms",
+      "libretro_source_platform": "sms",
+      "distinct_mame_software_records_with_exact_media_evidence": 616,
+      "distinct_media_supported_source_record_pairs": 616,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "snes",
+      "libretro_source_platform": "snes",
+      "distinct_mame_software_records_with_exact_media_evidence": 3208,
+      "distinct_media_supported_source_record_pairs": 3213,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "snes_bspack",
+      "libretro_source_platform": "nintendosatellaview",
+      "distinct_mame_software_records_with_exact_media_evidence": 184,
+      "distinct_media_supported_source_record_pairs": 184,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "snes_strom",
+      "libretro_source_platform": "nintendosufamiturbo",
+      "distinct_mame_software_records_with_exact_media_evidence": 13,
+      "distinct_media_supported_source_record_pairs": 13,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "studio2",
+      "libretro_source_platform": "rcastudioii",
+      "distinct_mame_software_records_with_exact_media_evidence": 15,
+      "distinct_media_supported_source_record_pairs": 15,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "supracan",
+      "libretro_source_platform": "funtechsuperacan",
+      "distinct_mame_software_records_with_exact_media_evidence": 12,
+      "distinct_media_supported_source_record_pairs": 12,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "vboy",
+      "libretro_source_platform": "nintendovirtualboy",
+      "distinct_mame_software_records_with_exact_media_evidence": 31,
+      "distinct_media_supported_source_record_pairs": 31,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "vc4000",
+      "libretro_source_platform": "intertonvc4000",
+      "distinct_mame_software_records_with_exact_media_evidence": 37,
+      "distinct_media_supported_source_record_pairs": 37,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "vectrex",
+      "libretro_source_platform": "gcevectrex",
+      "distinct_mame_software_records_with_exact_media_evidence": 42,
+      "distinct_media_supported_source_record_pairs": 42,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "videopac",
+      "libretro_source_platform": "magnavoxodyssey2",
+      "distinct_mame_software_records_with_exact_media_evidence": 130,
+      "distinct_media_supported_source_record_pairs": 130,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "videopac",
+      "libretro_source_platform": "philipsvideopac",
+      "distinct_mame_software_records_with_exact_media_evidence": 32,
+      "distinct_media_supported_source_record_pairs": 32,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "vsmile_cart",
+      "libretro_source_platform": "vtechvsmile",
+      "distinct_mame_software_records_with_exact_media_evidence": 293,
+      "distinct_media_supported_source_record_pairs": 293,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "vsmileb_cart",
+      "libretro_source_platform": "vtechvsmile",
+      "distinct_mame_software_records_with_exact_media_evidence": 23,
+      "distinct_media_supported_source_record_pairs": 23,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "vsmilem_cart",
+      "libretro_source_platform": "vtechvsmile",
+      "distinct_mame_software_records_with_exact_media_evidence": 87,
+      "distinct_media_supported_source_record_pairs": 87,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "wscolor",
+      "libretro_source_platform": "bandaiwonderswancolor",
+      "distinct_mame_software_records_with_exact_media_evidence": 100,
+      "distinct_media_supported_source_record_pairs": 100,
+      "eligible_for_title_review": true
+    },
+    {
+      "mame_source_list": "wswan",
+      "libretro_source_platform": "bandaiwonderswan",
+      "distinct_mame_software_records_with_exact_media_evidence": 122,
+      "distinct_media_supported_source_record_pairs": 122,
+      "eligible_for_title_review": true
+    }
+  ],
+  "interpretation": "These are review-only exact normalized title correspondences in source-list pairs grounded in >=3 independent MAME source records with prior exact SHA1 and size evidence. Only recognized trailing region/language/revision tags are removed. No title, game, edition, release, translation or system identity is accepted."
+}
