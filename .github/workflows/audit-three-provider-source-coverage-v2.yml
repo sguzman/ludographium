@@ -1,0 +1,57 @@
+name: Publish additive 69-MAME-list source acquisition coverage map
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-three-provider-source-coverage-v2.yml
+      - tools/audit_three_provider_source_coverage_v2.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-three-provider-coverage-v2-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Independently verify source-only v1 and third-cohort SHA1 accession
+        run: |
+          python tools/audit_three_provider_source_coverage.py --check
+          python tools/reconcile_mame_v3_media.py --check
+      - name: Build and verify additive 75-collection provider coverage
+        run: |
+          python tools/audit_three_provider_source_coverage_v2.py --write
+          python tools/audit_three_provider_source_coverage_v2.py --check
+      - name: Pin additive source report without modifying v1 original evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/three-provider-source-coverage-v2.json
+          if git diff --cached --quiet; then
+            echo "Additive original-source coverage report unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin additive 69-list three-provider source coverage'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Unable to publish new source coverage report" >&2
+          exit 1

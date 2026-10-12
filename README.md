@@ -209,6 +209,15 @@ are kept independent from the existing 19,025-pair, 65-list baseline.
 Matching SHA-1/size evidence is a **candidate**, not an accepted cross-provider
 game, edition, release or platform identity.
 
+An additive [69-list provider coverage report](reports/three-provider-source-coverage-v2.json)
+incorporates these four lists' **127 corroborated SHA-1 media
+observations** while preserving the original
+[65-list report](reports/three-provider-source-coverage-v1.json) unchanged.
+The two generations of source relationships remain separately attributable;
+the new report shows precisely which original Libretro collections gained
+secondary evidence.
+
+
 
 
 ### Three-provider bulk acquisition coverage
