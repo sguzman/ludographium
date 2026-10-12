@@ -60,9 +60,11 @@ def original_index_rows(root, filename, original, cohort="v1"):
 
 def query(root, *, source_list=None, title=None, publisher=None, year=None,
           media_sha1=None, software_name=None,
-          without_review_leads=False, cohort="v1-v2", limit=20):
+          without_review_leads=False, cohort="v1-v2", limit=20, offset=0):
     if type(limit) is not int or not 1 <= limit <= 200:
         raise ValueError("source query limit must be 1..=200")
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("source query offset must be 0..1000000")
     if cohort not in ("v1-v2", "v3", "all"):
         raise ValueError("unknown independent CC0 MAME source cohort")
     if without_review_leads and cohort != "v1-v2":
@@ -126,12 +128,12 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
     candidates = []
     matched_count = 0
     search_sha = media_sha1.lower() if media_sha1 else None
-    for cohort, register in registers:
+    for source_cohort, register in registers:
         for filename in register["files"]:
             if source_list is not None and source_list != filename.removesuffix(".xml"):
                 continue
             original = verify_one(root, register, filename)
-            for row in original_index_rows(root, filename, original, cohort):
+            for row in original_index_rows(root, filename, original, source_cohort):
                 if reviewed_mame_keys is not None and (
                     row["source_list"], row["original_software_ordinal"]
                 ) in reviewed_mame_keys:
@@ -156,7 +158,7 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
                 ):
                     continue
                 matched_count += 1
-                if len(candidates) < limit:
+                if matched_count > offset and len(candidates) < limit:
                     candidates.append(row)
     return {
         "source_mode": "verified-mame-cc0-original-software-records",
@@ -174,6 +176,11 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
         "without_any_cross_provider_review_lead": without_review_leads,
         "full_source_review_gap_inventory": 11241 if without_review_leads else None,
         "returned_original_records": len(candidates),
+        "offset": offset,
+        "next_offset": (
+            offset + len(candidates)
+            if offset + len(candidates) < matched_count else None
+        ),
         "records": candidates,
         "interpretation": (
             "read-only-original-source-claims-without-current-cross-provider-review-leads"
@@ -194,13 +201,15 @@ def main():
     parser.add_argument("--without-review-leads", action="store_true")
     parser.add_argument("--cohort", choices=["v1-v2", "v3", "all"], default="v1-v2")
     parser.add_argument("--limit", type=int, default=20)
+    parser.add_argument("--offset", type=int, default=0,
+                        help="filtered original source observations to skip")
     args = parser.parse_args()
     result = query(
         ROOT, source_list=args.source_list, title=args.title,
         publisher=args.publisher, year=args.year,
         software_name=args.software_name, media_sha1=args.sha1,
         without_review_leads=args.without_review_leads,
-        cohort=args.cohort, limit=args.limit,
+        cohort=args.cohort, limit=args.limit, offset=args.offset,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
