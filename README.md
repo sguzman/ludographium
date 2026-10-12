@@ -44,6 +44,7 @@ python tools/query_libretro_sources.py --platform tigergamecom --limit 5
 python tools/query_libretro_sources.py --platform n64 --title Mario --limit 5
 python tools/query_libretro_sources.py --platform n64 --without-review-leads --limit 5
 python tools/query_libretro_sources.py --platform n64 --offset 200 --limit 100
+python tools/query_libretro_sources.py --platform atari5200 --without-review-leads --review-cohort combined --limit 5
 ```
 
 The optional missing-review-lead filter checks the original, SHA-256-pinned
@@ -52,6 +53,12 @@ correspondence evidence, never a missing or rejected game. Use bounded
 `--offset`/`--limit` to page through filtered original DAT records in
 registered source-scope order, with `next_offset` null once exhausted.
 Every page is verified against the original attributed DAT source bytes.
+By default the review-gap filter reproduces the original **21,712-unit
+baseline**. Select `--review-cohort combined` with
+`--without-review-leads` to additionally exclude targets referenced by the
+133 separately pinned third-cohort review units. The original 75-collection
+Libretro gap report and its old counts remain unchanged. Neither filter
+asserts that an unlinked DAT record is a missing game.
 
 ### Offline source-only MAME search
 
