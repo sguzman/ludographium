@@ -24,6 +24,9 @@ REPORT_V2 = Path("reports/mame-softlists-v2-summary.json")
 REGISTER_V3 = Path("sources/mame-softlists-v3.json")
 BASE_V3 = Path("data/mame/softlists-v3")
 REPORT_V3 = Path("reports/mame-softlists-v3-summary.json")
+REGISTER_V4 = Path("sources/mame-softlists-v4.json")
+BASE_V4 = Path("data/mame/softlists-v4")
+REPORT_V4 = Path("reports/mame-softlists-v4-summary.json")
 
 
 def cohort_paths(register):
@@ -34,6 +37,8 @@ def cohort_paths(register):
         return REGISTER_V2, BASE_V2, REPORT_V2
     if cohort == "v3":
         return REGISTER_V3, BASE_V3, REPORT_V3
+    if cohort == "v4":
+        return REGISTER_V4, BASE_V4, REPORT_V4
     raise ValueError("unsupported MAME CC0 source accession cohort")
 LICENSE = re.compile(rb"license\s*:\s*CC0-1\.0\b", re.I)
 NAME = re.compile(r"[a-z0-9][a-z0-9_]*\.xml\Z")
@@ -55,10 +60,11 @@ def read_json(path):
 
 
 def source_register(root, cohort="v1"):
-    if cohort not in ("v1", "v2", "v3"):
+    if cohort not in ("v1", "v2", "v3", "v4"):
         raise ValueError("unknown MAME source cohort")
     source_path = {
         "v1": REGISTER, "v2": REGISTER_V2, "v3": REGISTER_V3,
+        "v4": REGISTER_V4,
     }[cohort]
     register = read_json(root / source_path)
     if register.get("accession_cohort", "v1") != cohort:
@@ -73,7 +79,7 @@ def source_register(root, cohort="v1"):
         or register["license"] != "CC0-1.0"
         or not re.fullmatch(r"[a-f0-9]{40}", register["upstream_commit_sha"])
         or not isinstance(files, list)
-        or len(files) != {"v1": 49, "v2": 16, "v3": 4}[cohort]
+        or len(files) != {"v1": 49, "v2": 16, "v3": 4, "v4": 8}[cohort]
         or files != sorted(set(files))
         or any(not isinstance(name, str) or not NAME.fullmatch(name) for name in files)
     ):
@@ -249,7 +255,7 @@ def main():
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--acquire", action="store_true")
     mode.add_argument("--check", action="store_true")
-    parser.add_argument("--cohort", choices=["v1", "v2", "v3"], default="v1")
+    parser.add_argument("--cohort", choices=["v1", "v2", "v3", "v4"], default="v1")
     args = parser.parse_args()
     register = source_register(ROOT, args.cohort)
     if args.acquire:
