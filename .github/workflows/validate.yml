@@ -40,6 +40,7 @@ jobs:
         run: |
           python tools/audit_source_review_gaps.py --check
           python tools/audit_libretro_source_review_gaps.py --check
+          python tools/audit_libretro_source_review_gaps.py --cohort combined --check
       - name: Validate pinned exploratory platform-search sources
         run: python tools/discover_wikidata_platforms.py --check
       - name: Validate pinned sources and generated indexes
