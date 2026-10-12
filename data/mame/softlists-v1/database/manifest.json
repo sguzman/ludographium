@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v1.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/database.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/database.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "database.xml",
+  "original_xml_bytes": 8827,
+  "original_xml_sha256": "fc7c4ba346058af0d544825c66487af7483012a39e29bfd07712e40690dba3ad",
+  "source_list_name": "database",
+  "source_list_description": "Voltmace Database cartridges",
+  "source_software_entries": 19,
+  "source_description_observations": 19,
+  "source_year_observations": 19,
+  "source_publisher_observations": 19,
+  "source_serial_observations": 18,
+  "source_rom_sha1_observations": 19,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v1.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/vc4000.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/vc4000.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "vc4000.xml",
+  "original_xml_bytes": 17845,
+  "original_xml_sha256": "ede1c6161622702487858a3b7b242df5a399aa6b57d2e79f870b456aa86a8268",
+  "source_list_name": "vc4000",
+  "source_list_description": "Interton VC 4000 cartridges",
+  "source_software_entries": 37,
+  "source_description_observations": 37,
+  "source_year_observations": 37,
+  "source_publisher_observations": 37,
+  "source_serial_observations": 37,
+  "source_rom_sha1_observations": 37,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

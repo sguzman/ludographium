@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v1.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/n64.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/n64.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "n64.xml",
+  "original_xml_bytes": 634521,
+  "original_xml_sha256": "0f5a5223ded605cde5c9e51cd1a20d9e67ecce65eb39db9265a224b59fab1b66",
+  "source_list_name": "n64",
+  "source_list_description": "Nintendo 64 cartridges",
+  "source_software_entries": 994,
+  "source_description_observations": 994,
+  "source_year_observations": 994,
+  "source_publisher_observations": 994,
+  "source_serial_observations": 900,
+  "source_rom_sha1_observations": 1016,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

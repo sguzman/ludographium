@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v1.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/pce.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/pce.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "pce.xml",
+  "original_xml_bytes": 168501,
+  "original_xml_sha256": "e511e34b5995bf7d3d8516af4c959a30eab9417491caf069c30feeea0bf16f7f",
+  "source_list_name": "pce",
+  "source_list_description": "NEC PC Engine HuCards",
+  "source_software_entries": 325,
+  "source_description_observations": 325,
+  "source_year_observations": 325,
+  "source_publisher_observations": 325,
+  "source_serial_observations": 297,
+  "source_rom_sha1_observations": 325,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}
