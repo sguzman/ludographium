@@ -860,6 +860,38 @@ def verify(conn, root):
     ):
         if observed[table] != expected:
             raise ValueError(f"derived source index count mismatch: {table}")
+    # Aggregate totals alone cannot detect one cohort being mislabeled
+    # while another absorbs its records. Preserve separately pinned census.
+    listed = dict(conn.execute(
+        "SELECT cohort,count(*) FROM source_lists GROUP BY cohort"
+    ).fetchall())
+    software_by_cohort = dict(conn.execute(
+        "SELECT l.cohort,count(*) FROM software s "
+        "JOIN source_lists l USING(source_list) GROUP BY l.cohort"
+    ).fetchall())
+    if listed != {"v1": 49, "v2": 16, "v3": 4} or software_by_cohort != {
+        "v1": 31464, "v2": 1489, "v3": 166
+    }:
+        raise ValueError("original MAME source cohort provenance changed")
+    for table, mame_column, expected_v3 in (
+        ("exact_media_links", "mame_list", 127),
+        ("title_review_candidates", "mame_list", 8),
+        ("source_review_units", "mame_list", 133),
+    ):
+        rows = conn.execute(
+            f"SELECT count(*) FROM {table} e "
+            f"JOIN source_lists s ON s.source_list=e.{mame_column} "
+            "WHERE s.cohort='v3'"
+        ).fetchone()[0]
+        if rows != expected_v3:
+            raise ValueError(f"third-cohort derived evidence inventory changed: {table}")
+    if (
+        conn.execute("SELECT count(*) FROM exact_media_links WHERE source_ordinal>?",
+                     (BASELINE["links"],)).fetchone()[0] != 127
+        or conn.execute("SELECT count(*) FROM title_review_candidates WHERE source_ordinal>?",
+                        (BASELINE["title_review"],)).fetchone()[0] != 8
+    ):
+        raise ValueError("original third-cohort evidence ordinals drifted")
     registered = {
         path: (digest, size) for path, digest, size in
         conn.execute("SELECT source_path,original_sha256,source_bytes FROM provenance")
