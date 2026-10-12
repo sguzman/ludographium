@@ -1,0 +1,58 @@
+name: Reconcile third CC0 MAME source cohort against original Libretro DATs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/reconcile-mame-v3-media.yml
+      - tools/reconcile_mame_v3_media.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reconcile-mame-v3-media-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Preserve full prior 65-list MAME and 75-scope Libretro source evidence
+        run: |
+          python tools/reconcile_mame_media.py --check
+          python tools/acquire_mame_softlists.py --cohort v3 --check
+          python tools/index_mame_softlists.py --cohort v3 --check
+      - name: Build and verify separate four-list original SHA1 comparison
+        run: |
+          python tools/reconcile_mame_v3_media.py --write
+          python tools/reconcile_mame_v3_media.py --check
+      - name: Commit only attributable review candidates and explicit size conflicts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/mame-libretro-sha1-v3/links.jsonl data/reconciliation/mame-libretro-sha1-v3/size-disagreements.jsonl reports/mame-libretro-sha1-v3-summary.json
+          if git diff --cached --quiet; then
+            echo "Third MAME source-cohort evidence already verified"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin independent v3 MAME-Libretro SHA1 review evidence'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Could not publish independently pinned new source evidence" >&2
+          exit 1

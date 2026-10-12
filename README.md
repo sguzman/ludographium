@@ -200,6 +200,16 @@ python tools/query_mame_sources.py --cohort all --list a5200 --limit 5
 The older `--without-review-leads` filter remains restricted to v1–v2
 because the third cohort has not been through the cross-provider reviewer.
 
+The [separate third-cohort SHA-1 matcher](tools/reconcile_mame_v3_media.py)
+compares the new four CC0 software lists against all 75 original Libretro
+DAT sources while preserving both providers' originals. Its
+[pinned source report](reports/mame-libretro-sha1-v3-summary.json) and
+[raw evidence index](data/reconciliation/mame-libretro-sha1-v3/links.jsonl)
+are kept independent from the existing 19,025-pair, 65-list baseline.
+Matching SHA-1/size evidence is a **candidate**, not an accepted cross-provider
+game, edition, release or platform identity.
+
+
 
 ### Three-provider bulk acquisition coverage
 
