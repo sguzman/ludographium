@@ -173,6 +173,20 @@ not a canonical game or release identity registry. The
 builds and tests it temporarily and deletes the binary afterward; SQLite
 files are not committed or published.
 
+### Independent Libretro collections sharing original media fingerprints
+
+The [cross-scope source auditor](tools/audit_libretro_cross_scope_sha1.py)
+rebuilds all **117,145 original Libretro media SHA-1 claims** from 75
+blob-pinned DAT sources and records fingerprint groups appearing in more
+than one independent platform collection. The
+[source-level report](reports/libretro-cross-scope-sha1-v1.json)
+and [pinned claim groups](data/reconciliation/libretro-cross-scope-sha1-v1/groups.jsonl)
+retain every source title, DAT path, blob SHA, media ordinal, declared
+media size, and the exact shared fingerprint. Equal hashes across different
+collections are evidence of byte-identical media claims, **not** verified
+game equality, platform compatibility, or a platform-assignment error.
+Declared-size discrepancies remain explicit.
+
 ### Source-name variance among exact media fingerprint observations
 
 A [cross-provider title-variance auditor](tools/audit_mame_title_variance.py)

@@ -1,0 +1,55 @@
+name: Audit reused Libretro media hashes across distinct source scopes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-libretro-cross-scope-sha1.yml
+      - tools/audit_libretro_cross_scope_sha1.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-libretro-cross-scope-sha1-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Test conservative original fingerprint source grouping
+        run: python -m unittest discover -s tests -p test_libretro_cross_scope_sha1.py -v
+      - name: Verify source-pinned 75-collection reuse group inventory
+        run: |
+          python tools/audit_libretro_cross_scope_sha1.py --write
+          python tools/audit_libretro_cross_scope_sha1.py --check
+      - name: Pin source evidence and cross-scope fingerprint audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/libretro-cross-scope-sha1-v1/groups.jsonl reports/libretro-cross-scope-sha1-v1.json
+          if git diff --cached --quiet; then
+            echo "Original media fingerprint overlap evidence unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin cross-scope Libretro SHA1 media evidence'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo 'Cannot publish pinned independent source reuse observations' >&2
+          exit 1
