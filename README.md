@@ -167,6 +167,22 @@ records are **unreviewed evidence, not canonical works or releases**.
 The [CI source queue workflow](.github/workflows/build-source-review-units-v1.yml)
 rebuilds and validates this text-only review queue from the original sources.
 
+The [stable-ID source review query](tools/query_source_review_units.py)
+verifies the entire queue and both parent evidence indexes before returning
+source-scoped results. It searches by stable review ID, original MAME list,
+Libretro collection, title, ambiguity and evidence class. Optional
+`--include-evidence` expands original SHA-1 and exact-title JSONL evidence
+without implying confirmed game identities:
+
+```sh
+python tools/query_source_review_units.py --ambiguous-only --limit 3
+python tools/query_source_review_units.py --platform nes --evidence-type title --limit 3
+python tools/query_source_review_units.py --mame-list gamecom --include-evidence --limit 2
+python tools/query_source_review_units.py --review-id lgreview:v1:<64-hex-digest> --include-evidence
+```
+
+The IDs identify **original-source review tasks**, not canonical games.
+
 ## Additional platform source accession
 
 A separate pinned Wikidata CC0 accession now covers **Atari 7800,
