@@ -31,6 +31,21 @@ attributes; the [aggregate report](reports/mame-software-observations-v1-summary
 remains separate from canonical game or release identity. Build/verify with
 `python tools/index_mame_softlists.py --build` or `--check`.
 
+### Offline source-only MAME search
+
+The two lightweight read-only consumers query original source observations
+without mixing source licenses or promoting identities:
+
+```sh
+python tools/query_mame_sources.py --list gamecom --title Batman --limit 5
+python tools/query_mame_sources.py --publisher "Tiger Electronics" --limit 5
+python tools/query_mame_media.py --platform tigergamecom --limit 5
+python tools/query_mame_media.py --mame-list gameboy --limit 5
+```
+
+These tools verify their source index SHA-256 and retain original supplier
+attribution, media size evidence, and review-only matching semantics.
+
 ### Cross-source media SHA-1 correspondence
 
 A [provenance-preserving bulk SHA-1 comparator](tools/reconcile_mame_media.py)
