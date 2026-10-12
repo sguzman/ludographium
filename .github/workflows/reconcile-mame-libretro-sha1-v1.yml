@@ -6,6 +6,9 @@ on:
     branches: [main]
     paths:
       - .github/workflows/reconcile-mame-libretro-sha1-v1.yml
+      - tools/reconcile_mame_media.py
+      - tools/index_mame_softlists.py
+      - sources/mame-softlists-v1.json
 
 permissions:
   contents: write
