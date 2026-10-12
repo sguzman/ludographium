@@ -96,6 +96,7 @@ jobs:
           assert all(not item["review_only_mame_media_links"]
                      and not item["separate_unverified_title_review_leads"]
                      for item in results[8]["records"])
+          assert all(item["source_platform"] == "n64" for item in results[8]["records"])
           print("Verified nine source-scoped search modes with pinned independent licenses")
           PY
       - name: Confirm no binary database is committed or published
