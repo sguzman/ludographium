@@ -23,9 +23,11 @@ def fold(value):
 
 
 def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
-          sha1=None, without_review_leads=False, limit=20):
+          sha1=None, without_review_leads=False, limit=20, offset=0):
     if type(limit) is not int or not 1 <= limit <= 200:
         raise ValueError("source result limit must be 1..200")
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("source result offset must be 0..1000000")
     for field, value in (
         ("platform", platform), ("title", title), ("region", region),
         ("serial", serial)
@@ -97,7 +99,7 @@ def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
             ):
                 continue
             total_matches += 1
-            if len(returned) < limit:
+            if total_matches > offset and len(returned) < limit:
                 returned.append({
                     "original_source_record": record,
                     "source_platform": parsed["platform"],
@@ -117,6 +119,11 @@ def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
         "source_scopes_scanned": len(selected_scopes),
         "total_filtered_original_source_records": total_matches,
         "returned_original_source_records": len(returned),
+        "offset": offset,
+        "next_offset": (
+            offset + len(returned)
+            if offset + len(returned) < total_matches else None
+        ),
         "without_review_leads": without_review_leads,
         "records": returned,
         "interpretation": (
@@ -136,11 +143,14 @@ def main():
     parser.add_argument("--sha1")
     parser.add_argument("--without-review-leads", action="store_true")
     parser.add_argument("--limit", type=int, default=20)
+    parser.add_argument("--offset", type=int, default=0,
+                        help="filtered original DAT records to skip")
     args = parser.parse_args()
     result = query(
         ROOT, platform=args.platform, title=args.title, region=args.region,
         serial=args.serial, sha1=args.sha1,
         without_review_leads=args.without_review_leads, limit=args.limit,
+        offset=args.offset,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
