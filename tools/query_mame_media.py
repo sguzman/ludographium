@@ -108,9 +108,11 @@ def verified_rows(root, *, source):
 
 
 def query(root=ROOT, *, sha1=None, libretro_platform=None, mame_list=None,
-          title=None, limit=20, cohort="baseline"):
+          title=None, limit=20, cohort="baseline", offset=0):
     if not isinstance(limit, int) or not 1 <= limit <= 200:
         raise ValueError("limit must be 1..=200")
+    if type(offset) is not int or not 0 <= offset <= 1_000_000:
+        raise ValueError("offset must be 0..1000000")
     if cohort not in ("baseline", "v3", "combined"):
         raise ValueError("cohort must be baseline, v3 or combined")
     if sha1 is not None and not re.fullmatch(r"[a-fA-F0-9]{40}", sha1):
@@ -145,7 +147,7 @@ def query(root=ROOT, *, sha1=None, libretro_platform=None, mame_list=None,
             ):
                 continue
             total += 1
-            if len(results) < limit:
+            if total > offset and len(results) < limit:
                 # Preserve the original source claim fields. Cohort annotation
                 # is additive and only used in non-legacy query modes.
                 results.append(row if cohort == "baseline" else {
@@ -168,6 +170,11 @@ def query(root=ROOT, *, sha1=None, libretro_platform=None, mame_list=None,
         "total_original_candidate_pairs": total_all,
         "total_filtered_candidate_pairs": total,
         "returned_candidate_pairs": len(results),
+        "offset": offset,
+        "next_offset": (
+            offset + len(results)
+            if offset + len(results) < total else None
+        ),
         "source_digest_sha256": (
             digest_info["baseline"] if cohort == "baseline"
             else digest_info["v3"] if cohort == "v3"
@@ -193,11 +200,13 @@ def main():
     parser.add_argument("--cohort", choices=("baseline", "v3", "combined"),
                         default="baseline")
     parser.add_argument("--limit", type=int, default=20)
+    parser.add_argument("--offset", type=int, default=0,
+                        help="filtered evidence pairs to skip (stable cohort order)")
     args = parser.parse_args()
     print(json.dumps(query(
         ROOT, sha1=args.sha1, libretro_platform=args.platform,
         mame_list=args.mame_list, title=args.title, cohort=args.cohort,
-        limit=args.limit,
+        limit=args.limit, offset=args.offset,
     ), ensure_ascii=False, indent=2))
 
 
