@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v3/advision/manifest.json",
+  "original_xml_sha256": "865a29bfd0e69ba63120efebbe536766f827a47bf4c26a2884e302f862cbab6f",
+  "original_source_list": "advision",
+  "original_xml_path": "data/mame/softlists-v3/advision/advision.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "0c7a6553b8a8be91c642c5adcd818e1dbbf85e787668a264c1cf1b38a4289327",
+  "index_bytes": 4534,
+  "index_rows": 5,
+  "source_observation_counts": {
+    "software_entries": 5,
+    "rom_sha1_claims": 5,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 5,
+    "entries_with_publisher": 5,
+    "entries_with_serial": 4
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

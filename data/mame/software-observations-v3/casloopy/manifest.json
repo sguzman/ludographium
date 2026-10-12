@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v3/casloopy/manifest.json",
+  "original_xml_sha256": "fa74a2b96bf9b1a50072d51785771b5254d3a39a215cc1d0aea67de9202445ca",
+  "original_source_list": "casloopy",
+  "original_xml_path": "data/mame/softlists-v3/casloopy/casloopy.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "f23b176977650c5a705ebb8b5feee1a276a167dbb502f522a452b7045d58b084",
+  "index_bytes": 12386,
+  "index_rows": 11,
+  "source_observation_counts": {
+    "software_entries": 11,
+    "rom_sha1_claims": 13,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 11,
+    "entries_with_publisher": 11,
+    "entries_with_serial": 11
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

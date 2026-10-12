@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-softlist-source-yield-report",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "source_register": "sources/mame-softlists-v3.json",
+  "source_license": "CC0-1.0",
+  "software_list_partitions": 4,
+  "source_observation_totals": {
+    "source_software_entries": 166,
+    "source_rom_sha1_observations": 199,
+    "source_disk_sha1_observations": 0,
+    "source_year_observations": 166,
+    "source_publisher_observations": 166
+  },
+  "partitions": [
+    {
+      "source_file": "hash/a5200.xml",
+      "source_list_name": "a5200",
+      "source_software_entries": 111,
+      "source_rom_sha1_observations": 117,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 111,
+      "source_publisher_observations": 111,
+      "source_manifest": "data/mame/softlists-v3/a5200/manifest.json",
+      "source_sha256": "2121303f24afb8d282b257385f561ee21341473f2100389d4c4c8f18186b2368"
+    },
+    {
+      "source_file": "hash/advision.xml",
+      "source_list_name": "advision",
+      "source_software_entries": 5,
+      "source_rom_sha1_observations": 5,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 5,
+      "source_publisher_observations": 5,
+      "source_manifest": "data/mame/softlists-v3/advision/manifest.json",
+      "source_sha256": "865a29bfd0e69ba63120efebbe536766f827a47bf4c26a2884e302f862cbab6f"
+    },
+    {
+      "source_file": "hash/casloopy.xml",
+      "source_list_name": "casloopy",
+      "source_software_entries": 11,
+      "source_rom_sha1_observations": 13,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 11,
+      "source_publisher_observations": 11,
+      "source_manifest": "data/mame/softlists-v3/casloopy/manifest.json",
+      "source_sha256": "fa74a2b96bf9b1a50072d51785771b5254d3a39a215cc1d0aea67de9202445ca"
+    },
+    {
+      "source_file": "hash/crvision.xml",
+      "source_list_name": "crvision",
+      "source_software_entries": 39,
+      "source_rom_sha1_observations": 64,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 39,
+      "source_publisher_observations": 39,
+      "source_manifest": "data/mame/softlists-v3/crvision/manifest.json",
+      "source_sha256": "ae5018727fb5802a1b16f97a3b1fb9d2c70f2e21cc5e728e4292ba19e18a92be"
+    }
+  ],
+  "interpretation": "Attributable original MAME source software/media observations, not verified canonical works, regions, releases, or merged Libretro identities. No game media was acquired."
+}

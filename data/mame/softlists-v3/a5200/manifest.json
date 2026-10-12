@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v3.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/a5200.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/a5200.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "a5200.xml",
+  "original_xml_bytes": 58131,
+  "original_xml_sha256": "2121303f24afb8d282b257385f561ee21341473f2100389d4c4c8f18186b2368",
+  "source_list_name": "a5200",
+  "source_list_description": "Atari 5200 cartridges",
+  "source_software_entries": 111,
+  "source_description_observations": 111,
+  "source_year_observations": 111,
+  "source_publisher_observations": 111,
+  "source_serial_observations": 86,
+  "source_rom_sha1_observations": 117,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-entry-projection",
+  "source_register": "sources/mame-softlists-v3.json",
+  "original_capture_summary": "reports/mame-softlists-v3-summary.json",
+  "indexed_source_partitions": 4,
+  "source_observation_totals": {
+    "software_entries": 166,
+    "rom_sha1_claims": 199,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 166,
+    "entries_with_publisher": 166,
+    "entries_with_serial": 137
+  },
+  "partitions": [
+    {
+      "source_list": "a5200",
+      "original_xml_path": "data/mame/softlists-v3/a5200/a5200.xml",
+      "original_xml_sha256": "2121303f24afb8d282b257385f561ee21341473f2100389d4c4c8f18186b2368",
+      "index_manifest": "data/mame/software-observations-v3/a5200/manifest.json",
+      "index_sha256": "b8d4b83dfbce14a9dd2fc6d235d0d8d649ec72b4c0f1086a2c9b1f954cf6d230",
+      "counts": {
+        "software_entries": 111,
+        "rom_sha1_claims": 117,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 111,
+        "entries_with_publisher": 111,
+        "entries_with_serial": 86
+      }
+    },
+    {
+      "source_list": "advision",
+      "original_xml_path": "data/mame/softlists-v3/advision/advision.xml",
+      "original_xml_sha256": "865a29bfd0e69ba63120efebbe536766f827a47bf4c26a2884e302f862cbab6f",
+      "index_manifest": "data/mame/software-observations-v3/advision/manifest.json",
+      "index_sha256": "0c7a6553b8a8be91c642c5adcd818e1dbbf85e787668a264c1cf1b38a4289327",
+      "counts": {
+        "software_entries": 5,
+        "rom_sha1_claims": 5,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 5,
+        "entries_with_publisher": 5,
+        "entries_with_serial": 4
+      }
+    },
+    {
+      "source_list": "casloopy",
+      "original_xml_path": "data/mame/softlists-v3/casloopy/casloopy.xml",
+      "original_xml_sha256": "fa74a2b96bf9b1a50072d51785771b5254d3a39a215cc1d0aea67de9202445ca",
+      "index_manifest": "data/mame/software-observations-v3/casloopy/manifest.json",
+      "index_sha256": "f23b176977650c5a705ebb8b5feee1a276a167dbb502f522a452b7045d58b084",
+      "counts": {
+        "software_entries": 11,
+        "rom_sha1_claims": 13,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 11,
+        "entries_with_publisher": 11,
+        "entries_with_serial": 11
+      }
+    },
+    {
+      "source_list": "crvision",
+      "original_xml_path": "data/mame/softlists-v3/crvision/crvision.xml",
+      "original_xml_sha256": "ae5018727fb5802a1b16f97a3b1fb9d2c70f2e21cc5e728e4292ba19e18a92be",
+      "index_manifest": "data/mame/software-observations-v3/crvision/manifest.json",
+      "index_sha256": "48bae2391fc858f4d98691b16feb4dc2bebdd118da1b2e0735f1a998366026d6",
+      "counts": {
+        "software_entries": 39,
+        "rom_sha1_claims": 64,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 39,
+        "entries_with_publisher": 39,
+        "entries_with_serial": 36
+      }
+    }
+  ],
+  "interpretation": "Exactly pinned MAME XML claims projected to independent JSONL records. Original publishers, years, titles, media SHA1/CRC, serials and regional notes are evidence, not adjudicated canonical work/release identities."
+}

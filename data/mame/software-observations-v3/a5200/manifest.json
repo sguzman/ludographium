@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v3/a5200/manifest.json",
+  "original_xml_sha256": "2121303f24afb8d282b257385f561ee21341473f2100389d4c4c8f18186b2368",
+  "original_source_list": "a5200",
+  "original_xml_path": "data/mame/softlists-v3/a5200/a5200.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "b8d4b83dfbce14a9dd2fc6d235d0d8d649ec72b4c0f1086a2c9b1f954cf6d230",
+  "index_bytes": 101882,
+  "index_rows": 111,
+  "source_observation_counts": {
+    "software_entries": 111,
+    "rom_sha1_claims": 117,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 111,
+    "entries_with_publisher": 111,
+    "entries_with_serial": 86
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

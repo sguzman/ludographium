@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "source_register": "sources/mame-softlists-v3.json",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_source_path": "hash/crvision.xml",
+  "original_source_url": "https://raw.githubusercontent.com/mamedev/mame/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/hash/crvision.xml",
+  "license": "CC0-1.0",
+  "original_xml_path": "crvision.xml",
+  "original_xml_bytes": 29078,
+  "original_xml_sha256": "ae5018727fb5802a1b16f97a3b1fb9d2c70f2e21cc5e728e4292ba19e18a92be",
+  "source_list_name": "crvision",
+  "source_list_description": "V-Tech Creativision cartridges",
+  "source_software_entries": 39,
+  "source_description_observations": 39,
+  "source_year_observations": 39,
+  "source_publisher_observations": 39,
+  "source_serial_observations": 36,
+  "source_rom_sha1_observations": 64,
+  "source_disk_sha1_observations": 0,
+  "source_interpretation": "unjoined-source-observations-not-canonical-game-or-media-identities"
+}
