@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "kind": "stable-source-observation-review-unit-queue",
+  "source_media_report": "reports/mame-libretro-media-sha1-v1-summary.json",
+  "source_media_index_sha256": "7665360bfe8ef4bd65012206a4b4a6c27450f7f4cfe30a02d0caec151940373f",
+  "source_title_report": "reports/mame-libretro-title-review-v1-summary.json",
+  "source_title_index_sha256": "ccb351eed9f6f89dad30f75bccdb525ff42562761640e1d727dd21690325892e",
+  "media_candidate_rows": 19025,
+  "title_candidate_rows": 6825,
+  "original_mame_records_with_media_evidence": 19013,
+  "original_mame_records_with_title_only_evidence": 2699,
+  "source_review_units": 21712,
+  "source_review_priority_class_counts": {
+    "multiple-exact-title-source-targets": 2031,
+    "multiple-media-supported-source-targets": 11,
+    "single-exact-title-source-target": 668,
+    "single-media-supported-source-target": 19002
+  },
+  "source_review_ambiguity_counts": {
+    "ambiguous_source_units": 2042,
+    "single_target_source_units": 19670
+  },
+  "stable_review_id_specification": "lgreview:v1:sha256(UTF-8('mame-source-review-v1\\0'+source_list+'\\0'+original_xml_sha256+'\\0'+decimal_source_ordinal))",
+  "review_index_path": "data/reconciliation/source-review-units-v1/units.jsonl",
+  "review_index_sha256": "ef23205607645d3b73b8bf70d397d45c1b5ec7900633ff393ed984d821c033fc",
+  "review_index_bytes": 24785458,
+  "interpretation": "Stable IDs name original MAME source-observation review tasks only. Even a one-target media-SHA1 source lead never becomes a verified game, work, release, regional edition or cross-provider source identity. Title leads have no authority beyond exact names in supported source scopes."
+}
