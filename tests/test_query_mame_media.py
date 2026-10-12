@@ -34,6 +34,33 @@ class PinnedMediaEvidencePaginationTests(unittest.TestCase):
         self.assertEqual(empty["returned_candidate_pairs"], 0)
         self.assertIsNone(empty["next_offset"])
 
+    def test_fourth_cohort_and_full_77_list_media_evidence_are_independent(self):
+        fourth = query(ROOT, cohort="v4", limit=3)
+        self.assertEqual(fourth["total_original_candidate_pairs"], 70)
+        self.assertEqual(fourth["total_filtered_candidate_pairs"], 70)
+        self.assertEqual(fourth["independent_mame_source_lists"], 8)
+        self.assertTrue(all(
+            row["source_evidence_cohort"] == "v4"
+            and row["mame"]["source_list"] == "svision"
+            and row["libretro"]["platform"] == "watarasupervision"
+            and row["size_corroborated"]
+            for row in fourth["pairs"]
+        ))
+        all_pinned = query(ROOT, cohort="all-pinned", offset=19150, limit=4)
+        self.assertEqual(all_pinned["total_original_candidate_pairs"], 19222)
+        self.assertEqual(all_pinned["independent_mame_source_lists"], 77)
+        self.assertEqual(all_pinned["source_cohorts"], ["baseline", "v3", "v4"])
+        self.assertEqual(
+            [row["source_evidence_cohort"] for row in all_pinned["pairs"]],
+            ["v3", "v3", "v4", "v4"],
+        )
+        self.assertEqual(all_pinned["next_offset"], 19154)
+        end = query(ROOT, cohort="v4", offset=69, limit=3)
+        self.assertEqual(end["returned_candidate_pairs"], 1)
+        self.assertIsNone(end["next_offset"])
+        original = query(ROOT, cohort="combined", limit=1)
+        self.assertEqual(original["total_original_candidate_pairs"], 19152)
+
     def test_bounded_offsets_are_checked_before_reading_original_sources(self):
         for offset in (-1, True, "4", 1_000_001):
             with self.subTest(offset=offset), self.assertRaises(ValueError):
