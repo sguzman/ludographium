@@ -65,6 +65,9 @@ Ludographium is growing from a source-faithful identification index into a catal
 - [x] Pin 70 additional stable fourth-cohort source review tasks, bringing the separately attributable original source-review queue to 21,915, with source readers covering 77 original MAME lists and 33,492 software observations without silently changing the 69-list SQLite scope.
 - [x] Publish an all-pinned 77-list Libretro source-gap matrix across 75 original DAT collections: 93,841 source records without current independent MAME review leads, and 20 collections without any lead.
 
+- [x] Extend the optional local derived SQLite to all 77 fourth-cohort source lists through a separate opt-in build, while keeping the original 69-list database as the default and checking 19,222 corroborated media links, 6,833 title leads, and 21,915 unreviewed source tasks.
+- [x] Pin six fifth-cohort CC0 console/handheld source lists (CD-i, Mega-CD, Neo Geo, CDTV, Gamate, 3DO M2), adding 1,652 original source software observations and separate 3,601 ROM and 1,381 disc SHA-1 claims. Original XML, per-list SHA-256 and source-native record ordinals remain intact.
+- [x] Search all 83 independently pinned MAME source lists (35,144 original software observations) with a new opt-in read-only cohort preserving legacy 69-list and 77-list query results.
 - [ ] Expand independent source coverage for unmatched digital/optical and later-generation platforms with provider-specific licensing and provenance review; treat no-match as an evidence gap, not proof of a missing game.
 
 ## Identity and curation
