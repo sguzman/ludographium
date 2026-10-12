@@ -980,7 +980,9 @@ fn corpus_wide_multilingual_candidate_review_preserves_evidence_and_ambiguity() 
             .len(),
         65
     );
-    let total = combined["summary"]["total_candidate_pairs"].as_u64().unwrap();
+    let total = combined["summary"]["total_candidate_pairs"]
+        .as_u64()
+        .unwrap();
     assert!(total > 0);
     assert_eq!(combined["total_filtered_candidate_pairs"], total);
     assert_eq!(combined["returned_candidate_pairs"], 1);
@@ -1004,7 +1006,9 @@ fn corpus_wide_multilingual_candidate_review_preserves_evidence_and_ambiguity() 
         expanded["summary"]["platforms_searched"],
         serde_json::json!(["gg"])
     );
-    assert!(expanded["summary"]["total_candidate_pairs"].as_u64().is_some());
+    assert!(expanded["summary"]["total_candidate_pairs"]
+        .as_u64()
+        .is_some());
 }
 
 #[test]

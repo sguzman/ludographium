@@ -1,8 +1,8 @@
 //! Same-platform localized-label and alternate-title equality candidates.
 //! These are independent source claims, not work, region or release identities.
 use crate::original_dat::OriginalDatCatalog;
-use crate::wikidata_expanded_candidates::ExpandedTitleCandidateCatalog;
 use crate::wikidata_candidates::{title_key, WikidataCandidateCatalog};
+use crate::wikidata_expanded_candidates::ExpandedTitleCandidateCatalog;
 use crate::wikidata_localized_titles::WikidataLocalizedTitleCatalog;
 use crate::CatalogError;
 use serde::Serialize;
