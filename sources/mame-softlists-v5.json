@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-list-snapshots",
+  "accession_cohort": "v5",
+  "source": "MAME",
+  "upstream_repository": "mamedev/mame",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_path": "hash",
+  "license": "CC0-1.0",
+  "prior_source_register": "sources/mame-softlists-v4.json",
+  "source_license_reference": "https://github.com/mamedev/mame/blob/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/COPYING",
+  "files": [
+    "3do_m2.xml",
+    "cdi.xml",
+    "cdtv.xml",
+    "gamate.xml",
+    "megacd.xml",
+    "neogeo.xml"
+  ],
+  "policy": "Six additional original source lists: 3DO M2, Philips CD-i, Commodore CDTV, Bit Corp Gamate, Sega Mega-CD, SNK Neo Geo. Acquire only individual CC0-header-validated original MAME XML and original software observations, with per-file SHA-256 and source ordinals. Do not obtain ROM, disc image, firmware, or game binaries; retain claims without cross-provider work/release/media identity joins."
+}
