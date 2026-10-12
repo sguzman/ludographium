@@ -186,6 +186,19 @@ record number, without rewriting source metadata. Distinct names can reflect
 localization, conventions or other source choices; **this is not a verified
 naming error or a canonical game-identity decision**.
 
+The [read-only variance query](tools/query_mame_title_variance.py) verifies
+all original 19,025 media candidates and the exact pinned variance projection
+before returning bounded source evidence. The current audit preserves
+**9,373 title-variance records**; the search accepts provider scope, name,
+variance class, SHA-1 or exact evidence-row coordinate:
+
+```sh
+python tools/query_mame_title_variance.py --platform genesis --limit 5
+python tools/query_mame_title_variance.py --class different-normalized-titles --title "Mario" --limit 5
+python tools/query_mame_title_variance.py --mame-list gamecom --limit 5
+```
+
+
 ### Source-grounded exact-title review without ROM hashes
 
 The [conservative cross-source title auditor](tools/reconcile_mame_titles.py)
