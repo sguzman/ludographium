@@ -447,10 +447,16 @@ separates **18,729 media-only, 4,243 title-only, 127 dual-evidence,
 and 94,046 currently unlinked** original Libretro records; 25 source
 collections have no current review lead. It also records per-scope source
 revision, original Git blob SHA and license.
-Its [automated workflow](.github/workflows/audit-libretro-review-gaps-v1.yml)
-rebuilds the report from independently pinned originals. A record without a
-lead is a **provider-acquisition priority**, never an assertion that a game
-is absent or that source identities have been adjudicated.
+Its [baseline workflow](.github/workflows/audit-libretro-review-gaps-v1.yml)
+rebuilds the original snapshot. The [additive 69-list gap report](reports/libretro-source-review-acquisition-gaps-v2.json)
+independently includes the third MAME cohort, verifying **18,856 media-only,
+4,251 title-only, 127 dual-evidence, and 93,911 without-review-lead**
+original Libretro records. Review evidence is present in 54 of the 75
+collections; 21 have no current review lead. The
+[combined workflow](.github/workflows/audit-libretro-review-gaps-v2.yml)
+reproduces both source-cohort summaries without changing the baseline.
+A record without a lead is a **provider-acquisition priority**, never an
+assertion that a game is absent or that source identities were adjudicated.
 
 The IDs identify **original-source review tasks**, not canonical games.
 The optional [local SQLite source reader](tools/build_mame_catalog_sqlite.py)
