@@ -34,30 +34,38 @@ jobs:
           import json,sys
           with open(sys.argv[1],encoding="utf-8") as source:
               value=json.load(source)
-          assert value["source_lists"] == 65
-          assert value["software"] == 32953
+          assert value["source_lists"] == 69
+          assert value["software"] == 33119
           assert value["libretro_sources"] == 75
           assert value["libretro_records"] == 117145
           assert value["libretro_media"] == 117145
-          assert value["exact_media_links"] == 19025
+          assert value["exact_media_links"] == 19152
           assert value["rejected_size_conflicts"] == 1
-          assert value["title_review_candidates"] == 6825
-          assert value["provenance"] == 88
-          assert value["source_review_units"] == 21712
-          assert value["source_review_targets"] >= 21712
+          assert value["title_review_candidates"] == 6833
+          assert value["provenance"] == 97
+          assert value["source_review_units"] == 21845
+          assert value["source_review_targets"] >= 21845
           assert value["media_claims"] > 38000
-          print("Verified comprehensive local source-evidence reader:",value)
+          assert value["rejected_size_conflicts"] == 1
+          print("Verified comprehensive 69-list local source-evidence reader:",value)
           import sqlite3
           db_path=sys.argv[1].replace("summary.json","ludographium-mame.sqlite")
           with sqlite3.connect(db_path) as db:
-              assert db.execute("SELECT count(*) FROM title_review_candidates").fetchone()[0] == 6825
-              assert db.execute("SELECT count(*) FROM source_review_units").fetchone()[0] == 21712
-              assert db.execute("SELECT count(*) FROM source_review_units WHERE ambiguous=1").fetchone()[0] == 2042
+              assert db.execute("SELECT count(*) FROM title_review_candidates").fetchone()[0] == 6833
+              assert db.execute("SELECT count(*) FROM source_review_units").fetchone()[0] == 21845
+              assert db.execute("SELECT count(*) FROM source_review_units WHERE ambiguous=1").fetchone()[0] == 2044
+              assert db.execute("SELECT count(*) FROM source_lists WHERE cohort='v3'").fetchone()[0] == 4
+              assert db.execute("SELECT count(*) FROM software s JOIN source_lists l USING(source_list) WHERE l.cohort='v3'").fetchone()[0] == 166
+              assert db.execute("SELECT count(*) FROM exact_media_links WHERE source_ordinal>19025").fetchone()[0] == 127
+              assert db.execute("SELECT count(*) FROM title_review_candidates WHERE source_ordinal>6825").fetchone()[0] == 8
+              assert db.execute("SELECT count(*) FROM source_review_units r JOIN source_lists l ON r.mame_list=l.source_list WHERE l.cohort='v3'").fetchone()[0] == 133
               assert db.execute("""SELECT count(*) FROM title_review_candidates t
                 JOIN exact_media_links l ON t.mame_list=l.mame_list
                 AND t.mame_software_ordinal=l.mame_software_ordinal""").fetchone()[0] == 0
           PY
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list gamecom --title Batman --limit 2 > "$temp/gamecom.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query --list a5200 --linked-only --limit 2 > "$temp/a5200.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --list a5200 --limit 2 > "$temp/a5200-review.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list psx --without-review-leads --limit 2 > "$temp/unlinked.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --list wswan --linked-only --limit 2 > "$temp/wswan.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --libretro-platform tigergamecom --limit 3 > "$temp/links.json"
@@ -71,9 +79,16 @@ jobs:
           fi
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --evidence-type title --ambiguous-only --limit 2 > "$temp/review.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --platform tigergamecom --limit 2 > "$temp/gamecom-review.json"
-          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" "$temp/libretro-gaps.json" "$temp/both.json" <<'PY'
+          python - "$temp/a5200.json" "$temp/a5200-review.json" "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" "$temp/libretro-gaps.json" "$temp/both.json" <<'PY'
           import json,sys
-          results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
+          additional=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:3]]
+          assert additional[0]["source_software_entries"] == 33119
+          assert additional[0]["total_filtered_source_observations"] > 0
+          assert additional[0]["records"][0]["original_source_observation"]["source_list"] == "a5200"
+          assert additional[1]["total_pinned_source_review_units"] == 21845
+          assert additional[1]["total_filtered_review_units"] > 0
+          assert all(item["mame"]["source_cohort"] == "v3" for item in additional[1]["units"])
+          results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[3:]]
           assert all(item["total_filtered_source_observations"] > 0 for item in results[:5])
           assert all(item["returned_source_observations"] > 0 for item in results[:5])
           assert all(item["total_filtered_review_units"] > 0 for item in results[5:7])
@@ -86,7 +101,7 @@ jobs:
           assert results[3]["independent_libretro_source_collections"] == 75
           assert results[3]["original_libretro_source_records"] == 117145
           assert all(item["source_license"] == "CC-BY-SA-4.0" for item in results[3]["records"])
-          assert results[5]["total_pinned_source_review_units"] == 21712
+          assert results[5]["total_pinned_source_review_units"] == 21845
           assert all(unit["multiple_source_target_alternatives"] for unit in results[5]["units"])
           assert all(unit["title_evidence_jsonl_source_ordinals"] for unit in results[5]["units"])
           assert all(unit["stable_review_id"].startswith("lgreview:v1:") for unit in results[6]["units"])
