@@ -1,0 +1,6 @@
+SELECT DISTINCT ?item ?itemType WHERE {
+  ?item wdt:P400 wd:Q25389541 .
+  OPTIONAL { ?item wdt:P31 ?itemType . }
+}
+ORDER BY ?item ?itemType
+LIMIT 20000

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "source": "Wikidata",
+  "license": "CC0-1.0",
+  "source_revision": "live-query-capture",
+  "source_register": "reports/wikidata-source-coverage-matrix-v1.json",
+  "platform": "gameparkgp32",
+  "wikidata_platform": "Q426119",
+  "captured_at_utc": "2026-10-12T00:17:52Z",
+  "source_query_path": "query.rq",
+  "source_query_sha256": "9b32d7863af02e5eacb9862242ae00dd86b0180eee3bad9af0e33bef2fbcdb41",
+  "source_query_bytes": 150,
+  "source_response_path": "response.json",
+  "source_response_sha256": "ec3f71b9a32a7e932861a248b9e95b36c329a0348633ac1e4276d3d4b5d2c2a5",
+  "source_response_bytes": 561,
+  "source_bindings_path": "bindings.jsonl",
+  "source_bindings_sha256": "553a8d4a3652910f0752c8cb913c6a2e39a6e5efb6e485b593fddedbdf7784f6",
+  "source_bindings_bytes": 300,
+  "source_rows": 2,
+  "distinct_items": 1,
+  "typed_rows": 2,
+  "untyped_rows": 0,
+  "item_type_counts": {
+    "http://www.wikidata.org/entity/Q676202": 1,
+    "http://www.wikidata.org/entity/Q9135": 1
+  },
+  "query_limit": 20000,
+  "query_class": "direct-P400-with-optional-P31-no-game-type-inference",
+  "interpretation": "Original source observations only. Results may be non-game entities; no accepted platform game or release identity is inferred. Empty results do not prove a game library is absent."
+}

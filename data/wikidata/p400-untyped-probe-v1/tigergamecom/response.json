@@ -1,0 +1,17 @@
+{
+  "head" : {
+    "vars" : [ "item", "itemType" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q220260"
+      },
+      "itemType" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q196600"
+      }
+    } ]
+  }
+}
