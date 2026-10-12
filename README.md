@@ -137,6 +137,22 @@ and returns **two independently attributed source-result sets**. It does
 not merge provider records, accept extra provider-specific filters, or
 infer canonical game/release identities.
 
+For **bulk offline lookups**, use the
+[bounded JSONL batch-search reader](tools/batch_query_game_sources.py).
+It opens and verifies the local source database once, then streams separately
+attributed provider results for up to 1,000 title/SHA-1 queries. Example
+input lines:
+
+```jsonl
+{"id":"tetris","title":"Tetris","limit":2}
+{"id":"mario","title":"Mario","limit":2}
+```
+
+Run `python tools/batch_query_game_sources.py --db /tmp/ludographium-mame.sqlite
+--input queries.jsonl > results.jsonl`. Inputs are bounded to 1 MiB,
+require unique request IDs, and reject unknown fields rather than ignoring
+constraints. No database or generated results are committed automatically.
+
 Title and publisher substring searches use Unicode NFKC normalization and
 casefolding for **lookup only**, preserving source literals verbatim (including
 accented titles and scripts outside ASCII).
