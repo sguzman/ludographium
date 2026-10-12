@@ -1,0 +1,54 @@
+name: Accession CC0 MAME console and handheld software lists
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/mame-softlists-v1.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mame-softlists-v1-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Capture 49 original CC0 console and handheld software lists
+        run: |
+          python tools/acquire_mame_softlists.py --acquire
+          python tools/acquire_mame_softlists.py --check
+          test "$(find data/mame/softlists-v1 -name manifest.json | wc -l)" -eq 49
+      - name: Pin original XML and provenance-only manifest/report text
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add data/mame/softlists-v1 reports/mame-softlists-v1-summary.json
+          if git diff --cached --quiet; then
+            echo "All original MAME source files already pinned"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin 49 independent CC0 software list source captures'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Failed to pin original XML source evidence" >&2
+          exit 1

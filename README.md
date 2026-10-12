@@ -8,6 +8,20 @@ It catalogs titles, versions, regions, publication facts, product identifiers, a
 
 **Source data are plain text, not binary databases.** The [Wikidata accession is checked into Git as small per-platform JSONL files](data/wikidata/v1/); SQLite is only an optional derived offline index. See the [source-format policy](docs/DATA-FORMATS.md). The earlier SQLite Release assets remain available for backward compatibility, but new releases will not publish those large binary databases.
 
+## CC0 MAME software-list bulk accession
+
+A separate [source register](sources/mame-softlists-v1.json) pins **49
+original console and handheld software-list XML files** to a single immutable
+upstream MAME commit. The [acquisition tool](tools/acquire_mame_softlists.py)
+and [workflow](.github/workflows/mame-softlists-v1.yml) verify per-file
+CC0-1.0 headers, original XML structure, source bytes and SHA-256 checksums.
+The [source-yield report](reports/mame-softlists-v1-summary.json) records
+original software, year, publisher, and media-digest observations. MAME's
+software-list statements are independent evidence: matching ROM hashes,
+titles, and years will **not** automatically merge MAME, Libretro and
+Wikidata game, release, or media identities. No ROM/media binaries are
+downloaded.
+
 ## Additional platform source accession
 
 A separate pinned Wikidata CC0 accession now covers **Atari 7800,
