@@ -187,6 +187,17 @@ collections are evidence of byte-identical media claims, **not** verified
 game equality, platform compatibility, or a platform-assignment error.
 Declared-size discrepancies remain explicit.
 
+The [read-only cross-scope query](tools/query_libretro_cross_scope_sha1.py)
+reproduces this original-source audit and permits bounded searches by
+platform, media SHA-1, title, minimum independent scope count, or
+contradictory declared sizes:
+
+```sh
+python tools/query_libretro_cross_scope_sha1.py --platform n64 --limit 5
+python tools/query_libretro_cross_scope_sha1.py --conflicting-sizes-only --limit 5
+```
+
+
 ### Source-name variance among exact media fingerprint observations
 
 A [cross-provider title-variance auditor](tools/audit_mame_title_variance.py)
