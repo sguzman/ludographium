@@ -7,7 +7,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 from build_mame_catalog_sqlite import (
-    numeric_size, optional_sha1, query, query_libretro, query_review, unicode_casefold,
+    numeric_size, optional_sha1, query, query_libretro, query_review,
+    query_both_sources, unicode_casefold,
     unsupported_mode_filters
 )
 
@@ -42,6 +43,11 @@ class SqliteMameSourceGuards(unittest.TestCase):
         with self.assertRaises(ValueError):
             query_libretro(None, linked_only=True, without_review_leads=True)
 
+    def test_joint_source_query_requires_explicit_shared_search_key(self):
+        for kwargs in ({}, {"title": " "}, {"sha1": "invalid"}, {"limit": 201}):
+            with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
+                query_both_sources(None, **kwargs)
+
     def test_source_mode_rejects_cross_provider_flags(self):
         values = {
             "list": None, "publisher": None, "year": None,
@@ -60,6 +66,12 @@ class SqliteMameSourceGuards(unittest.TestCase):
         )
         review.sha1 = "a" * 40
         self.assertEqual(unsupported_mode_filters(review), ["sha1"])
+        both = argparse.Namespace(
+            **values, query=False, query_libretro=False,
+            query_review=False, query_all=True
+        )
+        both.publisher = "Nintendo"
+        self.assertEqual(unsupported_mode_filters(both), ["publisher"])
         builds = argparse.Namespace(**values, query=False, query_libretro=False)
         builds.title = "unwanted"
         self.assertEqual(unsupported_mode_filters(builds), ["title"])

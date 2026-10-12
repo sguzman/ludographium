@@ -64,9 +64,10 @@ jobs:
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform tigergamecom --linked-only --limit 3 > "$temp/libretro.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform gb --title Pokemon --limit 2 > "$temp/gameboy.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform n64 --without-review-leads --limit 2 > "$temp/libretro-gaps.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query-all --title Tetris --limit 2 > "$temp/both.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --evidence-type title --ambiguous-only --limit 2 > "$temp/review.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --platform tigergamecom --limit 2 > "$temp/gamecom-review.json"
-          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" "$temp/libretro-gaps.json" <<'PY'
+          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" "$temp/libretro-gaps.json" "$temp/both.json" <<'PY'
           import json,sys
           results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
           assert all(item["total_filtered_source_observations"] > 0 for item in results[:5])
@@ -97,7 +98,11 @@ jobs:
                      and not item["separate_unverified_title_review_leads"]
                      for item in results[8]["records"])
           assert all(item["source_platform"] == "n64" for item in results[8]["records"])
-          print("Verified nine source-scoped search modes with pinned independent licenses")
+          assert results[9]["source_mode"] == "separate-original-MAME-and-Libretro-provider-lookups"
+          assert results[9]["mame"]["total_filtered_source_observations"] > 0
+          assert results[9]["libretro"]["total_filtered_source_observations"] > 0
+          assert "no-cross-source" in results[9]["matching_policy"]
+          print("Verified ten source-scoped search modes with pinned independent licenses")
           PY
       - name: Confirm no binary database is committed or published
         shell: bash

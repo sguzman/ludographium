@@ -111,7 +111,13 @@ python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --q
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --libretro-platform tigergamecom --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform gb --title Tetris --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform n64 --without-review-leads --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-all --title "Tetris" --limit 5
 ```
+
+The `--query-all` mode accepts only `--title` and/or `--sha1`
+and returns **two independently attributed source-result sets**. It does
+not merge provider records, accept extra provider-specific filters, or
+infer canonical game/release identities.
 
 Title and publisher substring searches use Unicode NFKC normalization and
 casefolding for **lookup only**, preserving source literals verbatim (including

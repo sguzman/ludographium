@@ -1036,6 +1036,37 @@ def query_review(conn, *, review_id=None, source_list=None, platform=None,
     }
 
 
+
+def query_both_sources(conn, *, title=None, sha1=None, limit=20):
+    """Run independent original-source searches without joining work identities."""
+    if title is None and sha1 is None:
+        raise ValueError("cross-provider lookup requires --title or --sha1")
+    if type(limit) is not int or not 1 <= limit <= 200:
+        raise ValueError("source query limit must be 1..200")
+    if title is not None and (not isinstance(title, str)
+                              or not title.strip() or len(title) > 250):
+        raise ValueError("invalid cross-provider original title search")
+    if sha1 is not None and not re.fullmatch("[0-9a-fA-F]{40}", sha1):
+        raise ValueError("cross-provider source SHA-1 requires 40 hex digits")
+    mame = query(conn, title=title, media_sha1=sha1, limit=limit)
+    libretro = query_libretro(conn, title=title, sha1=sha1, limit=limit)
+    return {
+        "source_mode": "separate-original-MAME-and-Libretro-provider-lookups",
+        "matching_policy": "no-cross-source-work-or-release-identity-merge",
+        "mame": mame,
+        "libretro": libretro,
+        "returned_source_observations": (
+            mame["returned_source_observations"]
+            + libretro["returned_source_observations"]
+        ),
+        "interpretation": (
+            "MAME CC0 and Libretro CC-BY-SA-4.0 observations are independent. "
+            "These are source searches, not canonical game, edition, release "
+            "or platform records. Equal media SHA-1 and names remain review-only."
+        ),
+    }
+
+
 def unsupported_mode_filters(args):
     """Return explicit unsupported filters, never silently ignore user constraints."""
     if args.query:
@@ -1048,6 +1079,12 @@ def unsupported_mode_filters(args):
         fields = ("publisher", "year", "serial", "sha1",
                   "libretro_platform", "region", "linked_only",
                   "without_review_leads")
+    elif getattr(args, "query_all", False):
+        fields = (
+            "list", "publisher", "year", "serial", "libretro_platform",
+            "platform", "region", "linked_only", "without_review_leads",
+            "review_id", "priority_class", "ambiguous_only", "evidence_type",
+        )
     else:
         fields = (
             "list", "title", "publisher", "year", "serial", "sha1",
@@ -1070,6 +1107,7 @@ def main():
     mode.add_argument("--query", action="store_true")
     mode.add_argument("--query-libretro", action="store_true")
     mode.add_argument("--query-review", action="store_true")
+    mode.add_argument("--query-all", action="store_true")
     parser.add_argument("--list")
     parser.add_argument("--title")
     parser.add_argument("--publisher")
@@ -1113,6 +1151,11 @@ def main():
                     priority_class=args.priority_class,
                     ambiguous_only=args.ambiguous_only,
                     evidence_type=args.evidence_type, limit=args.limit,
+                )
+            elif args.query_all:
+                verify(db, ROOT)
+                result = query_both_sources(
+                    db, title=args.title, sha1=args.sha1, limit=args.limit,
                 )
             elif args.query_libretro:
                 verify(db, ROOT)
