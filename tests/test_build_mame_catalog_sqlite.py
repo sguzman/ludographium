@@ -40,6 +40,18 @@ class SqliteMameSourceGuards(unittest.TestCase):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query(None, **kwargs)
 
+    def test_query_modes_reject_unsafe_pagination_before_database_access(self):
+        for function, options in (
+            (query, {}),
+            (query_libretro, {}),
+            (query_review, {}),
+            (query_both_sources, {"title": "Tetris"}),
+        ):
+            for offset in (-1, True, "2", 1_000_001):
+                with self.subTest(mode=function.__name__, offset=offset):
+                    with self.assertRaises(ValueError):
+                        function(None, offset=offset, **options)
+
     def test_unlinked_libretro_filter_rejects_conflicting_link_requirement(self):
         with self.assertRaises(ValueError):
             query_libretro(None, linked_only=True, without_review_leads=True)
