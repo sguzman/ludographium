@@ -12,7 +12,10 @@ import unicodedata
 from acquire_mame_softlists import ROOT
 from build_mame_catalog_sqlite import libretro_original_scopes, source_bytes
 from import_dat import import_dat
-from query_source_review_units import validate as validate_review_units
+from query_source_review_units import (
+    validate as validate_review_units,
+    validate_v3 as validate_v3_review_units,
+)
 
 ORIGINAL_GAP_REPORT = "reports/libretro-source-review-acquisition-gaps-v1.json"
 SHA1 = re.compile(r"[0-9a-fA-F]{40}\Z")
@@ -23,11 +26,16 @@ def fold(value):
 
 
 def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
-          sha1=None, without_review_leads=False, limit=20, offset=0):
+          sha1=None, without_review_leads=False, limit=20, offset=0,
+          review_cohort="baseline"):
     if type(limit) is not int or not 1 <= limit <= 200:
         raise ValueError("source result limit must be 1..200")
     if type(offset) is not int or not 0 <= offset <= 1_000_000:
         raise ValueError("source result offset must be 0..1000000")
+    if review_cohort not in ("baseline", "combined"):
+        raise ValueError("review evidence cohort must be baseline or combined")
+    if review_cohort != "baseline" and not without_review_leads:
+        raise ValueError("combined review cohort requires --without-review-leads")
     for field, value in (
         ("platform", platform), ("title", title), ("region", region),
         ("serial", serial)
@@ -65,6 +73,13 @@ def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
             (target["platform"], target["original_source_ordinal"])
             for unit in units for target in unit["candidate_libretro_targets"]
         }
+        if review_cohort == "combined":
+            _, additive_units, _ = validate_v3_review_units(root)
+            excluded.update(
+                (target["platform"], target["original_source_ordinal"])
+                for unit in additive_units
+                for target in unit["candidate_libretro_targets"]
+            )
     returned = []
     total_matches = 0
     total_scanned = 0
@@ -125,6 +140,9 @@ def query(root=ROOT, *, platform=None, title=None, region=None, serial=None,
             if offset + len(returned) < total_matches else None
         ),
         "without_review_leads": without_review_leads,
+        "review_evidence_cohorts": (
+            ["baseline", "v3"] if review_cohort == "combined" else ["baseline"]
+        ),
         "records": returned,
         "interpretation": (
             "Original CC-BY-SA-4.0 Libretro source observations only. "
@@ -142,6 +160,8 @@ def main():
     parser.add_argument("--serial")
     parser.add_argument("--sha1")
     parser.add_argument("--without-review-leads", action="store_true")
+    parser.add_argument("--review-cohort", choices=("baseline", "combined"),
+                        default="baseline")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--offset", type=int, default=0,
                         help="filtered original DAT records to skip")
@@ -150,7 +170,7 @@ def main():
         ROOT, platform=args.platform, title=args.title, region=args.region,
         serial=args.serial, sha1=args.sha1,
         without_review_leads=args.without_review_leads, limit=args.limit,
-        offset=args.offset,
+        offset=args.offset, review_cohort=args.review_cohort,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
