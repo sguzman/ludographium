@@ -9,6 +9,7 @@ import re
 from acquire_mame_softlists import ROOT, source_register, verify_one
 
 INDEX_BASE = Path("data/mame/software-observations-v1")
+INDEX_BASE_V2 = Path("data/mame/software-observations-v2")
 REPORT = Path("reports/mame-software-observations-v1-summary.json")
 
 
@@ -18,9 +19,10 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def original_index_rows(root, filename, original):
+def original_index_rows(root, filename, original, cohort="v1"):
     stem = filename.removesuffix(".xml")
-    directory = root / INDEX_BASE / stem
+    base = INDEX_BASE if cohort == "v1" else INDEX_BASE_V2
+    directory = root / base / stem
     manifest = read_json(directory / "manifest.json")
     rows_path = directory / "observations.jsonl"
     if rows_path.is_symlink():
@@ -62,50 +64,63 @@ def query(root, *, source_list=None, title=None, publisher=None, year=None,
     if any(value is not None and not value.strip()
            for value in (source_list, title, publisher, year, software_name)):
         raise ValueError("source filters must not be blank")
-    register = source_register(root)
-    valid_lists = {filename.removesuffix(".xml") for filename in register["files"]}
+    registers = [
+        (cohort, source_register(root, cohort))
+        for cohort in ("v1", "v2")
+    ]
+    valid_lists = {
+        filename.removesuffix(".xml")
+        for _, register in registers for filename in register["files"]
+    }
+    if len(valid_lists) != 65:
+        raise ValueError("expected 65 independent MAME source lists")
     if source_list is not None and source_list not in valid_lists:
         raise ValueError(f"unregistered MAME software-list source: {source_list}")
     summary = read_json(root / REPORT)
-    if summary["indexed_source_partitions"] != 49 or (
-        summary["source_observation_totals"]["software_entries"] != 31464
+    second = read_json(root / "reports/mame-software-observations-v2-summary.json")
+    if (
+        summary["indexed_source_partitions"] != 49
+        or summary["source_observation_totals"]["software_entries"] != 31464
+        or second["indexed_source_partitions"] != 16
+        or second["source_observation_totals"]["software_entries"] != 1489
     ):
         raise ValueError("MAME source inventory count changed")
     candidates = []
     matched_count = 0
     search_sha = media_sha1.lower() if media_sha1 else None
-    for filename in register["files"]:
-        if source_list is not None and source_list != filename.removesuffix(".xml"):
-            continue
-        original = verify_one(root, register, filename)
-        for row in original_index_rows(root, filename, original):
-            if title is not None and title.casefold() not in (
-                row["original_title"] or ""
-            ).casefold():
+    for cohort, register in registers:
+        for filename in register["files"]:
+            if source_list is not None and source_list != filename.removesuffix(".xml"):
                 continue
-            if publisher is not None and publisher.casefold() not in (
-                row["original_publisher_literal"] or ""
-            ).casefold():
-                continue
-            if year is not None and row["original_year_literal"] != year:
-                continue
-            if software_name is not None and (
-                row["original_software_attributes"]["name"] != software_name
-            ):
-                continue
-            if search_sha is not None and not any(
-                media["original_media_attributes"].get("sha1", "").lower() == search_sha
-                for media in row["original_media_claims"]
-            ):
-                continue
-            matched_count += 1
-            if len(candidates) < limit:
-                candidates.append(row)
+            original = verify_one(root, register, filename)
+            for row in original_index_rows(root, filename, original, cohort):
+                if title is not None and title.casefold() not in (
+                    row["original_title"] or ""
+                ).casefold():
+                    continue
+                if publisher is not None and publisher.casefold() not in (
+                    row["original_publisher_literal"] or ""
+                ).casefold():
+                    continue
+                if year is not None and row["original_year_literal"] != year:
+                    continue
+                if software_name is not None and (
+                    row["original_software_attributes"]["name"] != software_name
+                ):
+                    continue
+                if search_sha is not None and not any(
+                    media["original_media_attributes"].get("sha1", "").lower() == search_sha
+                    for media in row["original_media_claims"]
+                ):
+                    continue
+                matched_count += 1
+                if len(candidates) < limit:
+                    candidates.append(row)
     return {
         "source_mode": "verified-mame-cc0-original-software-records",
         "source_register": "sources/mame-softlists-v1.json",
-        "source_software_entries": 31464,
-        "original_source_lists": 49,
+        "source_software_entries": 32953,
+        "original_source_lists": 65,
         "total_filtered_original_records": matched_count,
         "returned_original_records": len(candidates),
         "records": candidates,

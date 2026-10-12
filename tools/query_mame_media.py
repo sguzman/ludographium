@@ -30,7 +30,7 @@ def query(root, *, sha1=None, libretro_platform=None, mame_list=None,
     if (
         report["schema_version"] != 1
         or report["kind"] != "independent-cross-source-media-sha1-exact-match-review"
-        or report["mame_software_lists"] != 49
+        or report["mame_software_lists"] != 65
         or report["libretro_source_platforms"] != 75
         or report["match_index_path"] != str(INDEX)
         or report["match_index_sha256"] != hashlib.sha256(raw).hexdigest()

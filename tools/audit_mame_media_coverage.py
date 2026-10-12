@@ -18,6 +18,7 @@ from build_expanded_corpus import pinned_manifest
 LINKS = Path("data/reconciliation/mame-libretro-sha1-v1/links.jsonl")
 SOURCE_REPORT = Path("reports/mame-libretro-media-sha1-v1-summary.json")
 MAME_REPORT = Path("reports/mame-softlists-v1-summary.json")
+MAME_REPORT_V2 = Path("reports/mame-softlists-v2-summary.json")
 OUTPUT = Path("reports/mame-libretro-source-coverage-v1.json")
 POLICY = (
     "These are independent source-row overlap diagnostics, not a count of "
@@ -36,6 +37,7 @@ def read_json(path):
 def build_report(root=ROOT):
     match_summary = read_json(root / SOURCE_REPORT)
     mame_summary = read_json(root / MAME_REPORT)
+    mame_summary_v2 = read_json(root / MAME_REPORT_V2)
     target = root / LINKS
     if target.is_symlink():
         raise ValueError("symlinked cross-source media index")
@@ -45,9 +47,10 @@ def build_report(root=ROOT):
         or match_summary["match_index_path"] != str(LINKS)
         or match_summary["match_index_bytes"] != len(raw)
         or match_summary["match_index_sha256"] != hashlib.sha256(raw).hexdigest()
-        or match_summary["mame_software_lists"] != 49
+        or match_summary["mame_software_lists"] != 65
         or match_summary["libretro_source_platforms"] != 75
         or mame_summary["software_list_partitions"] != 49
+        or mame_summary_v2["software_list_partitions"] != 16
     ):
         raise ValueError("pinned source summary or media correspondence digest mismatch")
     index, libretro_totals = read_libretro(root)
@@ -67,9 +70,13 @@ def build_report(root=ROOT):
     for platform in declared_scopes:
         original_by_scope[platform]  # Empty original DAT sources remain explicit.
     mame_by_source = {
-        item["source_list_name"]: item for item in mame_summary["partitions"]
+        item["source_list_name"]: item
+        for item in [
+            *mame_summary["partitions"],
+            *mame_summary_v2["partitions"],
+        ]
     }
-    if len(mame_by_source) != 49:
+    if len(mame_by_source) != 65:
         raise ValueError("repeated or incomplete independent MAME source scope")
     links_count = 0
     matched_mame = defaultdict(set)
@@ -154,7 +161,7 @@ def build_report(root=ROOT):
         ),
     }
     if (
-        mame_totals["original_software_records"] != 31464
+        mame_totals["original_software_records"] != 32953
         or libretro_total["original_dat_records"] != libretro_totals["libretro_source_records"]
     ):
         raise ValueError("original source inventory changed")

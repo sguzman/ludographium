@@ -22,10 +22,18 @@ class MameQueryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             source_query(ROOT, source_list="not-a-real-platform")
 
+    def test_new_software_source_cohort_is_searchable_without_identity_joins(self):
+        newer = source_query(ROOT, source_list="wswan", limit=2)
+        self.assertGreater(newer["total_filtered_original_records"], 0)
+        self.assertEqual(newer["source_software_entries"], 32953)
+        self.assertTrue(all(
+            item["source_list"] == "wswan" for item in newer["records"]
+        ))
+
     def test_exact_sha1_candidates_keep_original_source_provenance(self):
         result = candidate_query(ROOT, libretro_platform="tigergamecom", limit=2)
         self.assertGreater(result["total_filtered_candidate_pairs"], 0)
-        self.assertEqual(result["total_original_candidate_pairs"], 17734)
+        self.assertGreater(result["total_original_candidate_pairs"], 17734)
         self.assertTrue(all(
             row["libretro"]["platform"] == "tigergamecom"
             and row["size_corroborated"]

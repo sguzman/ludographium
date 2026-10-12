@@ -33,8 +33,9 @@ remains separate from canonical game or release identity. Build/verify with
 
 ### Offline source-only MAME search
 
-The two lightweight read-only consumers query original source observations
-without mixing source licenses or promoting identities:
+The two lightweight read-only consumers query all **65 MAME source lists
+(32,953 software observations)** and source correspondence records without
+mixing provider licenses or promoting identities:
 
 ```sh
 python tools/query_mame_sources.py --list gamecom --title Batman --limit 5
@@ -70,9 +71,16 @@ without modifying the first 31,464-entry index.
 A [provenance-preserving bulk SHA-1 comparator](tools/reconcile_mame_media.py)
 has a dedicated [GitHub Actions accession
 workflow](.github/workflows/reconcile-mame-libretro-sha1-v1.yml). It checks
-original files and compares source-declared SHA-1 digests across the **49 MAME
+original files and compares source-declared SHA-1 digests across the **65 MAME
 software lists and 75 original Libretro DAT collections**, retaining source
 ordinals, titles, media names, source paths, and SHA-256/Git-blob provenance.
+The [current cross-source report](reports/mame-libretro-media-sha1-v1-summary.json)
+records **19,025 size-corroborated exact media-fingerprint candidate pairs**,
+retaining one contradictory declared-size observation separately. A
+[source-coverage audit](reports/mame-libretro-source-coverage-v1.json)
+prioritizes independent provider-acquisition gaps without treating
+nonmatching dumps as absent games.
+
 Matching a media part/chip digest is review evidence **only**, not a confirmed
 game, edition, release or platform identity. Unlike title matching, this
 comparison does not infer a game correspondence from spelling or localization.
