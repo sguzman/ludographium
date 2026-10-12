@@ -1,0 +1,62 @@
+name: Validate disposable MAME source-evidence SQLite reader
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/verify-mame-sqlite-v1.yml
+      - tools/build_mame_catalog_sqlite.py
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build full local-only index from CC0 original text evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          temp="$(mktemp -d)"
+          trap 'rm -rf "$temp"' EXIT
+          database="$temp/ludographium-mame.sqlite"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --build > "$temp/built.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --verify > "$temp/verified.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --summary > "$temp/summary.json"
+          python - "$temp/summary.json" <<'PY'
+          import json,sys
+          with open(sys.argv[1],encoding="utf-8") as source:
+              value=json.load(source)
+          assert value["source_lists"] == 65
+          assert value["software"] == 32953
+          assert value["exact_media_links"] == 19025
+          assert value["rejected_size_conflicts"] == 1
+          assert value["media_claims"] > 38000
+          print("Verified comprehensive local source-evidence reader:",value)
+          PY
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query --list gamecom --title Batman --limit 2 > "$temp/gamecom.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query --list wswan --linked-only --limit 2 > "$temp/wswan.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query --libretro-platform tigergamecom --limit 3 > "$temp/links.json"
+          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" <<'PY'
+          import json,sys
+          results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
+          assert all(item["total_filtered_source_observations"] > 0 for item in results)
+          assert all(item["returned_source_observations"] > 0 for item in results)
+          assert all(item["interpretation"].find("not-canonical") >= 0 for item in results)
+          print("Verified three source-scoped search modes")
+          PY
+      - name: Confirm no binary database is committed or published
+        shell: bash
+        run: |
+          if git ls-files | grep -Ei '\.(sqlite|sqlite3|db|mdb)$'; then
+            echo "Derived SQLite must not be committed"
+            exit 1
+          fi
+          echo "Original text sources only; no SQLite uploaded"

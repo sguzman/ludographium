@@ -85,6 +85,29 @@ Matching a media part/chip digest is review evidence **only**, not a confirmed
 game, edition, release or platform identity. Unlike title matching, this
 comparison does not infer a game correspondence from spelling or localization.
 
+### Optional complete offline SQLite source-evidence reader
+
+The [derived MAME SQLite builder](tools/build_mame_catalog_sqlite.py) locally
+materializes all **32,953 pinned MAME software observations**, their original
+media/serial fields, and **19,025 exact SHA-1 media-evidence links**. It retains
+65 original source-list partitions, raw attributed claims, and the separately
+rejected declared-size conflict. Build atomically from checked-in text:
+
+```sh
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --build
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --verify
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --title "Batman" --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --libretro-platform tigergamecom --limit 5
+```
+
+Search also accepts `--list`, `--publisher`, `--year`, `--serial`,
+`--sha1`, and `--linked-only`; results remain original software claims
+with optional review-only media links. This is an **optional local cache**,
+not a canonical game or release identity registry. The
+[full-corpus CI verification](.github/workflows/verify-mame-sqlite-v1.yml)
+builds and tests it temporarily and deletes the binary afterward; SQLite
+files are not committed or published.
+
 ## Additional platform source accession
 
 A separate pinned Wikidata CC0 accession now covers **Atari 7800,
