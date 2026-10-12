@@ -187,6 +187,19 @@ record counts. Its four evidence-coverage classes guide future bulk source
 acquisition; they do not establish game or platform identity or imply
 that games are absent from zero-row source queries.
 
+Use the [offline coverage query](tools/query_three_provider_source_coverage.py)
+to search or prioritize the original scopes from the reproducible report:
+
+```sh
+python tools/query_three_provider_source_coverage.py --class neither-secondary-source-family-observed --limit 20
+python tools/query_three_provider_source_coverage.py --wikidata-registered no --limit 20
+python tools/query_three_provider_source_coverage.py --platform arduboyincarduboy
+```
+
+Every query rebuild-checks the underlying source SHA-1 evidence before returning
+claims. No platform/game correspondence is added or accepted.
+
+
 ### Independent Libretro collections sharing original media fingerprints
 
 The [cross-scope source auditor](tools/audit_libretro_cross_scope_sha1.py)
