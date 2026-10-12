@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "kind": "independent-fourth-mame-cohort-media-sha1-evidence-audit",
+  "mame_source_register": "sources/mame-softlists-v4.json",
+  "original_observation_report": "reports/mame-software-observations-v4-summary.json",
+  "source_license_mame": "CC0-1.0",
+  "source_license_libretro": "CC-BY-SA-4.0",
+  "prior_media_source_report": "reports/mame-libretro-sha1-v3-summary.json",
+  "original_mame_source_lists": 8,
+  "original_mame_software_observations": 373,
+  "original_mame_rom_sha1_claims": 181,
+  "original_mame_disk_sha1_claims": 193,
+  "original_libretro_dat_collections": 75,
+  "original_libretro_records": 117145,
+  "source_corroborated_media_candidate_pairs": 70,
+  "source_sha1_equal_without_declared_mame_size_pairs": 0,
+  "source_same_sha1_declared_size_conflicts": 0,
+  "distinct_mame_software_with_corroborated_media_leads": 70,
+  "distinct_libretro_records_with_corroborated_media_leads": 70,
+  "source_scope_corroborated_pair_counts": [
+    {
+      "mame_source_list": "svision",
+      "libretro_platform": "watarasupervision",
+      "size_corroborated_media_candidate_pairs": 70
+    }
+  ],
+  "corroborated_candidate_path": "data/reconciliation/mame-libretro-sha1-v4/links.jsonl",
+  "corroborated_candidate_sha256": "590cdc9a99dab6610b03fc8eb41c446d2405d19a0bc08156c96c58234ad19415",
+  "corroborated_candidate_bytes": 69960,
+  "size_uncorroborated_path": "data/reconciliation/mame-libretro-sha1-v4/size-uncorroborated.jsonl",
+  "size_uncorroborated_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "size_uncorroborated_bytes": 0,
+  "rejected_size_conflicts_path": "data/reconciliation/mame-libretro-sha1-v4/size-disagreements.jsonl",
+  "rejected_size_conflicts_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "rejected_size_conflicts_bytes": 0,
+  "interpretation": "Independent fourth-cohort CC0 MAME original SHA1 claims checked against pinned CC-BY-SA-4.0 Libretro source DAT claims. A corroborated media pair requires equal SHA1 and equal independently declared byte-size evidence. SHA1 without declared MAME media size and contradictory source sizes are retained separately. No accepted game, platform, edition, release or media identity is inferred. Earlier source evidence ledgers remain immutable."
+}
