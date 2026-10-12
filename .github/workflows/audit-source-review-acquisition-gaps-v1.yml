@@ -1,0 +1,57 @@
+name: Audit original source observations lacking cross-provider review leads
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-source-review-acquisition-gaps-v1.yml
+      - tools/audit_source_review_gaps.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-source-review-acquisition-gaps-v1-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Revalidate pinned original MAME/Libretro media and source review units
+        run: |
+          python tools/build_source_review_units.py --check
+          python -m unittest discover -s tests -p test_audit_source_review_gaps.py -v
+      - name: Rebuild source-only bulk acquisition priorities
+        run: |
+          python tools/audit_source_review_gaps.py --write
+          python tools/audit_source_review_gaps.py --check
+      - name: Preserve text-only attributed bulk acquisition gap report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/source-review-acquisition-gaps-v1.json
+          if git diff --cached --quiet; then
+            echo "Source-review gaps unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin 65-list original-source acquisition gaps after review'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((2 * attempt))"
+          done
+          echo "Could not pin source-only acquisition priorities" >&2
+          exit 1
