@@ -10,10 +10,12 @@ from acquire_mame_softlists import (
     BASE as ORIGINAL_BASE,
     BASE_V2 as ORIGINAL_BASE_V2,
     BASE_V3 as ORIGINAL_BASE_V3,
+    BASE_V4 as ORIGINAL_BASE_V4,
     ROOT,
     REPORT as ORIGINAL_REPORT,
     REPORT_V2 as ORIGINAL_REPORT_V2,
     REPORT_V3 as ORIGINAL_REPORT_V3,
+    REPORT_V4 as ORIGINAL_REPORT_V4,
     source_register,
     verify_one,
 )
@@ -24,6 +26,8 @@ INDEX_BASE_V2 = Path("data/mame/software-observations-v2")
 SUMMARY_V2 = Path("reports/mame-software-observations-v2-summary.json")
 INDEX_BASE_V3 = Path("data/mame/software-observations-v3")
 SUMMARY_V3 = Path("reports/mame-software-observations-v3-summary.json")
+INDEX_BASE_V4 = Path("data/mame/software-observations-v4")
+SUMMARY_V4 = Path("reports/mame-software-observations-v4-summary.json")
 FIELDS = ("software_entries", "rom_sha1_claims", "disk_sha1_claims",
           "entries_with_year", "entries_with_publisher", "entries_with_serial")
 
@@ -83,9 +87,11 @@ def original_claims(xml, listname, source_sha, original_relative):
 def index_one(root, filename, raw_stats, cohort="v1"):
     source_base = {
         "v1": ORIGINAL_BASE, "v2": ORIGINAL_BASE_V2, "v3": ORIGINAL_BASE_V3,
+        "v4": ORIGINAL_BASE_V4,
     }[cohort]
     index_base = {
         "v1": INDEX_BASE, "v2": INDEX_BASE_V2, "v3": INDEX_BASE_V3,
+        "v4": INDEX_BASE_V4,
     }[cohort]
     base = source_base / filename.removesuffix(".xml")
     original = (root / base / filename).read_bytes()
@@ -157,9 +163,9 @@ def build_expected(root=ROOT, cohort="v1"):
         for field in FIELDS:
             totals[field] += index["source_observation_counts"][field]
     if (
-        len(manifests) != {"v1": 49, "v2": 16, "v3": 4}[cohort]
+        len(manifests) != {"v1": 49, "v2": 16, "v3": 4, "v4": 8}[cohort]
         or (cohort == "v1" and totals["software_entries"] != 31464)
-        or (cohort in ("v2", "v3") and totals["software_entries"] == 0)
+        or (cohort in ("v2", "v3", "v4") and totals["software_entries"] == 0)
     ):
         raise ValueError("incomplete original MAME source index")
     summary = {
@@ -170,6 +176,7 @@ def build_expected(root=ROOT, cohort="v1"):
             "v1": ORIGINAL_REPORT,
             "v2": ORIGINAL_REPORT_V2,
             "v3": ORIGINAL_REPORT_V3,
+            "v4": ORIGINAL_REPORT_V4,
         }[cohort]),
         "indexed_source_partitions": len(manifests),
         "source_observation_totals": totals,
@@ -194,7 +201,7 @@ def main():
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--build", action="store_true")
     mode.add_argument("--check", action="store_true")
-    parser.add_argument("--cohort", choices=["v1", "v2", "v3"], default="v1")
+    parser.add_argument("--cohort", choices=["v1", "v2", "v3", "v4"], default="v1")
     args = parser.parse_args()
     manifests, summary = build_expected(cohort=args.cohort)
     report = json.dumps(summary, ensure_ascii=False, indent=2) + "\n"
@@ -217,6 +224,7 @@ def main():
             parser.error(f"stale or missing original source index: {folder}")
     destination = ROOT / {
         "v1": SUMMARY, "v2": SUMMARY_V2, "v3": SUMMARY_V3,
+        "v4": SUMMARY_V4,
     }[args.cohort]
     if args.build:
         destination.write_text(report, encoding="utf-8")
