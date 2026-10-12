@@ -31,6 +31,24 @@ attributes; the [aggregate report](reports/mame-software-observations-v1-summary
 remains separate from canonical game or release identity. Build/verify with
 `python tools/index_mame_softlists.py --build` or `--check`.
 
+### Direct original Libretro DAT search without SQLite
+
+The [blob-verified Libretro source reader](tools/query_libretro_sources.py)
+searches the **75 pinned CC-BY-SA Libretro DAT collections directly**,
+without building SQLite or fetching game binaries. It verifies the original
+Git blob SHA for each selected source and returns unchanged title, serial,
+region, source ordinal and media-hash assertions with attribution.
+
+```sh
+python tools/query_libretro_sources.py --platform tigergamecom --limit 5
+python tools/query_libretro_sources.py --platform n64 --title Mario --limit 5
+python tools/query_libretro_sources.py --platform n64 --without-review-leads --limit 5
+```
+
+The optional missing-review-lead filter checks the original, SHA-256-pinned
+21,712-unit cross-provider review ledger. Unlinked means no current
+correspondence evidence, never a missing or rejected game.
+
 ### Offline source-only MAME search
 
 The two lightweight read-only consumers query all **65 MAME source lists
