@@ -872,6 +872,145 @@ def append_v3_evidence(conn, root):
                     raise ValueError("third-cohort review ID references unrelated evidence")
 
 
+
+def append_v4_evidence(conn, root):
+    """Add only separately corroborated fourth-cohort original source evidence."""
+    report, units, (media_raw, title_raw) = validated_v4_source_review_units(root)
+    media_manifest = source_json(root, V4_MEDIA_REPORT)
+    media = source_bytes(root, V4_MEDIA_INDEX)
+    if (
+        media != media_raw
+        or title_raw != b""
+        or report["source_media_index_sha256"] != hashlib.sha256(media).hexdigest()
+        or report["review_index_sha256"] != hashlib.sha256(
+            source_bytes(root, V4_REVIEW_INDEX)
+        ).hexdigest()
+        or report["additional_original_review_units"] != 70
+        or report["cumulative_separate_source_review_units"] != 21915
+        or len(units) != 70
+        or media_manifest["source_corroborated_media_candidate_pairs"] != 70
+        or media_manifest["source_sha1_equal_without_declared_mame_size_pairs"] != 0
+        or media_manifest["source_same_sha1_declared_size_conflicts"] != 0
+        or source_bytes(root, V4_UNKNOWN_SIZE) != b""
+        or source_bytes(root, V4_CONFLICTS) != b""
+    ):
+        raise ValueError("fourth-cohort original media-review accession is not verified")
+    rows = [json.loads(raw) for raw in media.splitlines()]
+    if len(rows) != 70:
+        raise ValueError("truncated fourth-cohort original media evidence")
+    evidence_targets = {}
+    for original_ordinal, row in enumerate(rows, 1):
+        mame, libretro = row["mame"], row["libretro"]
+        digest = optional_sha1(row["original_media_sha1"])
+        original_size = mame["original_declared_size_bytes"]
+        source = conn.execute(
+            "SELECT m.sha1,m.declared_size_bytes,m.media_kind,s.title_literal,"
+            "l.original_xml_sha256,l.cohort FROM media_claims m "
+            "JOIN software s ON s.source_list=m.source_list "
+            "AND s.source_ordinal=m.source_ordinal "
+            "JOIN source_lists l ON l.source_list=m.source_list "
+            "WHERE m.source_list=? AND m.source_ordinal=? AND m.media_ordinal=?",
+            (mame["source_list"], mame["original_software_ordinal"],
+             mame["source_media_ordinal"]),
+        ).fetchone()
+        target = conn.execute(
+            "SELECT m.sha1,m.media_size_bytes,r.title_literal,l.original_git_blob_sha "
+            "FROM libretro_media m JOIN libretro_records r ON "
+            "r.platform=m.platform AND r.source_ordinal=m.source_ordinal "
+            "JOIN libretro_sources l ON l.platform=m.platform "
+            "WHERE m.platform=? AND m.source_ordinal=? AND m.media_ordinal=?",
+            (libretro["platform"], libretro["original_source_ordinal"],
+             libretro["source_media_ordinal"]),
+        ).fetchone()
+        if (
+            row["schema_version"] != 1
+            or row["source_cohort"] != "v4"
+            or row["kind"] != "fourth-cohort-corroborated-media-review-candidate"
+            or row["size_corroborated"] is not True
+            or original_size is None
+            or original_size != libretro["original_media_size_bytes"]
+            or source != (
+                digest, original_size, mame["source_media_kind"],
+                mame["original_title"], mame["source_xml_sha256"], "v4"
+            )
+            or target != (
+                digest, original_size, libretro["original_title"],
+                libretro["original_git_blob_sha"]
+            )
+            or row["interpretation"] != (
+                "review-only-equal-sha1-and-byte-size-not-a-game-or-release-identity"
+            )
+        ):
+            raise ValueError(
+                f"fourth-cohort media candidate differs from original sources: {original_ordinal}"
+            )
+        conn.execute(
+            "INSERT INTO exact_media_links VALUES (?,?,?,?,?,?,?,?,?,?)",
+            (EXPECTED["links"] + original_ordinal,
+             mame["source_list"], mame["original_software_ordinal"],
+             mame["source_media_ordinal"], libretro["platform"],
+             libretro["original_source_ordinal"], libretro["source_media_ordinal"],
+             digest, original_size, compact(row)),
+        )
+        evidence_targets[original_ordinal] = (
+            mame["source_list"], mame["original_software_ordinal"],
+            libretro["platform"], libretro["original_source_ordinal"],
+        )
+    for unit in units:
+        mame = unit["mame"]
+        name, source_ordinal = mame["source_list"], mame["original_software_ordinal"]
+        source = conn.execute(
+            "SELECT s.title_literal,l.original_xml_sha256,l.cohort "
+            "FROM software s JOIN source_lists l ON l.source_list=s.source_list "
+            "WHERE s.source_list=? AND s.source_ordinal=?",
+            (name, source_ordinal),
+        ).fetchone()
+        if (
+            unit["schema_version"] != 1
+            or unit["review_status"] != "unreviewed-original-evidence"
+            or source != (mame["original_title"], mame["original_xml_sha256"], "v4")
+            or not unit["media_evidence_jsonl_source_ordinals"]
+            or unit["title_evidence_jsonl_source_ordinals"]
+        ):
+            raise ValueError("fourth-cohort stable review task differs from original source")
+        conn.execute(
+            "INSERT INTO source_review_units VALUES (?,?,?,?,?,?,?)",
+            (unit["stable_review_id"], name, source_ordinal,
+             unit["source_review_priority_class"],
+             int(unit["multiple_source_target_alternatives"]),
+             "media", compact(unit)),
+        )
+        targets = set()
+        for item in unit["candidate_libretro_targets"]:
+            key = (item["platform"], item["original_source_ordinal"])
+            target = conn.execute(
+                "SELECT r.title_literal,l.original_git_blob_sha "
+                "FROM libretro_records r JOIN libretro_sources l ON l.platform=r.platform "
+                "WHERE r.platform=? AND r.source_ordinal=?",
+                key,
+            ).fetchone()
+            if (
+                target != (item["original_title"], item["original_git_blob_sha"])
+                or item["has_equal_sha1_and_size_evidence"] is not True
+                or item["has_exact_normalized_title_review_evidence"] is not False
+            ):
+                raise ValueError("fourth-cohort stable review target differs from original DAT")
+            conn.execute(
+                "INSERT INTO source_review_targets VALUES (?,?,?,?,?,?)",
+                (unit["stable_review_id"], key[0], key[1], 1, 0, compact(item)),
+            )
+            targets.add(key)
+        for evidence_ordinal in unit["media_evidence_jsonl_source_ordinals"]:
+            link = evidence_targets.get(evidence_ordinal)
+            if (
+                link is None
+                or link[:2] != (name, source_ordinal)
+                or link[2:] not in targets
+            ):
+                raise ValueError("fourth-cohort stable review ID links unrelated source evidence")
+
+
+
 def counts(conn):
     result = {}
     for table in (
