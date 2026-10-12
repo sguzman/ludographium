@@ -45,6 +45,30 @@ class StableReviewQueryTest(unittest.TestCase):
             "total_filtered_source_review_units"
         ], 0)
 
+    def test_additive_source_review_cohort_is_searchable_without_conflation(self):
+        third = query(ROOT, cohort="v3", limit=2, include_evidence=True)
+        self.assertEqual(third["total_pinned_source_review_units"], 133)
+        self.assertEqual(third["returned_source_review_units"], 2)
+        self.assertTrue(all(
+            item["mame"]["source_cohort"] == "v3"
+            and item["review_status"] == "unreviewed-original-evidence"
+            and (
+                len(item["original_media_evidence"])
+                + len(item["original_title_evidence"])
+            ) > 0
+            for item in third["units"]
+        ))
+        self.assertEqual(
+            query(ROOT, cohort="v3", ambiguous_only=True, limit=1)[
+                "total_filtered_source_review_units"
+            ], 2
+        )
+        combined = query(ROOT, cohort="combined", limit=1)
+        self.assertEqual(combined["total_pinned_source_review_units"], 21845)
+        self.assertEqual(combined["source_cohorts"], ["baseline", "v3"])
+        with self.assertRaises(ValueError):
+            query(ROOT, cohort="unsafe")
+
     def test_rejects_unsafe_filters(self):
         for args in (
             {"review_id": "lgreview:v1:x"},

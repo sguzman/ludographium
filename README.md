@@ -381,8 +381,16 @@ without implying confirmed game identities:
 python tools/query_source_review_units.py --ambiguous-only --limit 3
 python tools/query_source_review_units.py --platform nes --evidence-type title --limit 3
 python tools/query_source_review_units.py --mame-list gamecom --include-evidence --limit 2
+python tools/query_source_review_units.py --cohort v3 --platform atari5200 --include-evidence --limit 2
+python tools/query_source_review_units.py --cohort combined --ambiguous-only --limit 2
 python tools/query_source_review_units.py --review-id lgreview:v1:<64-hex-digest> --include-evidence
 ```
+
+The default CLI query preserves the original 21,712-unit result.
+`--cohort v3` verifies the separately pinned 133-unit accession and its
+parent evidence row hashes; `--cohort combined` searches **21,845
+source-only review tasks** without changing any original stable IDs.
+Every returned unit remains unreviewed, including single-target matches.
 
 A complementary [Libretro-first source-gap auditor](tools/audit_libretro_source_review_gaps.py)
 checks all **117,145 source DAT records across 75 Libretro collections**

@@ -15,6 +15,11 @@ from build_source_review_units import (
     ROOT, OUTPUT, SUMMARY, MEDIA_INDEX, MEDIA_REPORT,
     TITLE_INDEX, TITLE_REPORT, original_review_id,
 )
+from build_source_review_units_v3 import (
+    OUTPUT as V3_OUTPUT, REPORT as V3_REPORT,
+    MEDIA_INDEX as V3_MEDIA_INDEX, TITLE_INDEX as V3_TITLE_INDEX,
+    build_expected as build_v3_review_expected,
+)
 
 CLASSES = (
     "multiple-exact-title-source-targets",
@@ -152,10 +157,34 @@ def validate(root=ROOT):
     return manifest, unit_rows, (media_raw, title_raw)
 
 
+def validate_v3(root=ROOT):
+    """Re-derive every independent third-cohort unit from original pinned rows."""
+    expected_raw, expected_summary = build_v3_review_expected(root)
+    pinned_raw = source_bytes(root, V3_OUTPUT)
+    pinned_summary = source_bytes(root, V3_REPORT).decode("utf-8")
+    if pinned_raw != expected_raw or pinned_summary != expected_summary:
+        raise ValueError("additive third-cohort review queue differs from pinned originals")
+    report = json.loads(expected_summary)
+    if (
+        report["schema_version"] != 1
+        or report["kind"] != "additive-third-mame-cohort-stable-source-review-queue"
+        or report["unchanged_prior_source_review_units"] != 21712
+        or report["additional_original_review_units"] != 133
+        or report["cumulative_separate_source_review_units"] != 21845
+        or report["review_index_path"] != str(V3_OUTPUT)
+    ):
+        raise ValueError("unsupported additive original source review queue")
+    records = [json.loads(line) for line in expected_raw.splitlines()]
+    return report, records, (
+        source_bytes(root, V3_MEDIA_INDEX),
+        source_bytes(root, V3_TITLE_INDEX),
+    )
+
+
 def query(root=ROOT, *, review_id=None, mame_list=None,
           libretro_platform=None, title=None, priority_class=None,
           ambiguous_only=False, evidence_type=None, include_evidence=False,
-          limit=20):
+          limit=20, cohort="baseline"):
     if type(limit) is not int or not 1 <= limit <= 200:
         raise ValueError("review search limit must be 1..200")
     if review_id is not None and not REVIEW_ID.fullmatch(review_id):
@@ -169,7 +198,47 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
         raise ValueError("unrecognized source review priority class")
     if evidence_type not in (None, "media", "title"):
         raise ValueError("source evidence type must be media or title")
-    summary, records, raw_evidence = validate(root)
+    if cohort not in ("baseline", "v3", "combined"):
+        raise ValueError("unsupported independently pinned review source cohort")
+    if cohort == "combined":
+        selected = dict(
+            review_id=review_id, mame_list=mame_list,
+            libretro_platform=libretro_platform, title=title,
+            priority_class=priority_class, ambiguous_only=ambiguous_only,
+            evidence_type=evidence_type, include_evidence=include_evidence,
+            limit=limit,
+        )
+        older = query(root, **selected, cohort="baseline")
+        newer = query(root, **selected, cohort="v3")
+        combined = (
+            [{**row, "source_evidence_cohort": "baseline"} for row in older["units"]]
+            + [{**row, "source_evidence_cohort": "v3"} for row in newer["units"]]
+        )[:limit]
+        return {
+            "source_mode": "separate-original-source-review-cohort-aggregation",
+            "source_cohorts": ["baseline", "v3"],
+            "total_pinned_source_review_units": (
+                older["total_pinned_source_review_units"]
+                + newer["total_pinned_source_review_units"]
+            ),
+            "total_filtered_source_review_units": (
+                older["total_filtered_source_review_units"]
+                + newer["total_filtered_source_review_units"]
+            ),
+            "returned_source_review_units": len(combined),
+            "review_index_sha256": {
+                "baseline": older["review_index_sha256"],
+                "v3": newer["review_index_sha256"],
+            },
+            "units": combined,
+            "interpretation": (
+                "Independent stable source review tasks, never canonical game, "
+                "work, release or cross-provider identities."
+            ),
+        }
+    summary, records, raw_evidence = (
+        validate(root) if cohort == "baseline" else validate_v3(root)
+    )
     matched, returned = 0, []
     media_lines = title_lines = None
     for row in records:
@@ -217,8 +286,15 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
             ]
         returned.append(projected)
     return {
-        "source_mode": "verified-noncanonical-original-source-review-units",
-        "total_pinned_source_review_units": summary["source_review_units"],
+        "source_mode": (
+            "verified-noncanonical-original-source-review-units"
+            if cohort == "baseline" else
+            "verified-additive-third-cohort-noncanonical-source-review-units"
+        ),
+        "total_pinned_source_review_units": (
+            summary["source_review_units"] if cohort == "baseline"
+            else summary["additional_original_review_units"]
+        ),
         "total_filtered_source_review_units": matched,
         "returned_source_review_units": len(returned),
         "review_index_sha256": summary["review_index_sha256"],
@@ -240,6 +316,8 @@ def main():
     parser.add_argument("--ambiguous-only", action="store_true")
     parser.add_argument("--evidence-type", choices=["media", "title"])
     parser.add_argument("--include-evidence", action="store_true")
+    parser.add_argument("--cohort", choices=("baseline", "v3", "combined"),
+                        default="baseline")
     parser.add_argument("--limit", type=int, default=20)
     args = parser.parse_args()
     result = query(
@@ -247,7 +325,7 @@ def main():
         libretro_platform=args.platform, title=args.title,
         priority_class=args.priority_class, ambiguous_only=args.ambiguous_only,
         evidence_type=args.evidence_type, include_evidence=args.include_evidence,
-        limit=args.limit,
+        cohort=args.cohort, limit=args.limit,
     )
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
