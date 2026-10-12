@@ -32,6 +32,19 @@ jobs:
           python -m unittest discover -s tests -p test_audit_libretro_source_review_gaps.py -v
           python tools/audit_libretro_source_review_gaps.py --write
           python tools/audit_libretro_source_review_gaps.py --check
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path("reports/libretro-source-review-acquisition-gaps-v1.json").read_text())
+          assert report["libretro_source_collections"] == 75
+          assert report["original_source_record_totals"]["original_dat_records"] == 117145
+          assert len(report["libretro_collections_ranked_by_no_review_evidence"]) == 75
+          assert sum(
+              row["records_with_no_cross_provider_review_lead"]
+              for row in report["libretro_collections_ranked_by_no_review_evidence"]
+          ) == report["original_source_record_totals"]["original_records_without_any_review_lead"]
+          print("Verified all 75 original DAT source-gap partitions")
+          PY
       - name: Commit deterministic 75-platform source acquisition diagnostic
         shell: bash
         run: |
