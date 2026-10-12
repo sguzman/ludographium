@@ -835,8 +835,11 @@ def query(conn, *, source_list=None, title=None, publisher=None, year=None,
 
 
 def query_libretro(conn, *, platform=None, title=None, region=None,
-                   serial=None, sha1=None, linked_only=False, limit=20):
+                   serial=None, sha1=None, linked_only=False,
+                   without_review_leads=False, limit=20):
     """Read original Libretro DAT statements, with separately attributable MAME links."""
+    if without_review_leads and linked_only:
+        raise ValueError("unlinked Libretro source filter conflicts with linked-only")
     if not 1 <= limit <= 200:
         raise ValueError("limit must be between 1 and 200")
     for value in (platform, title, region, serial):
@@ -867,6 +870,12 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
         clauses.append(
             "EXISTS (SELECT 1 FROM exact_media_links x WHERE "
             "x.libretro_platform=r.platform AND x.libretro_software_ordinal=r.source_ordinal)"
+        )
+    if without_review_leads:
+        clauses.append(
+            "NOT EXISTS (SELECT 1 FROM source_review_targets t WHERE "
+            "t.libretro_platform=r.platform "
+            "AND t.libretro_software_ordinal=r.source_ordinal)"
         )
     tail = " FROM libretro_records r"
     if clauses:
@@ -925,10 +934,15 @@ def query_libretro(conn, *, platform=None, title=None, region=None,
         "source_mode": "local-derived-read-only-attributed-libretro-original-dat",
         "independent_libretro_source_collections": EXPECTED["libretro_sources"],
         "original_libretro_source_records": EXPECTED["libretro_records"],
+        "without_any_cross_provider_review_lead": without_review_leads,
         "total_filtered_source_observations": total,
         "returned_source_observations": len(hits),
         "records": hits,
-        "interpretation": "original-CC-BY-SA-source-records-with-optional-CC0-MAME-media-review-evidence-not-canonical-identity",
+        "interpretation": (
+            "original-Libretro-records-without-current-MAME-source-review-evidence-not-canonical-identity"
+            if without_review_leads else
+            "original-CC-BY-SA-source-records-with-optional-CC0-MAME-media-review-evidence-not-canonical-identity"
+        ),
     }
 
 
@@ -1029,8 +1043,7 @@ def unsupported_mode_filters(args):
                   "ambiguous_only", "evidence_type")
     elif args.query_libretro:
         fields = ("list", "publisher", "year", "libretro_platform",
-                  "review_id", "priority_class", "ambiguous_only", "evidence_type",
-                  "without_review_leads")
+                  "review_id", "priority_class", "ambiguous_only", "evidence_type")
     elif getattr(args, "query_review", False):
         fields = ("publisher", "year", "serial", "sha1",
                   "libretro_platform", "region", "linked_only",
@@ -1106,7 +1119,9 @@ def main():
                 result = query_libretro(
                     db, platform=args.platform, title=args.title,
                     region=args.region, serial=args.serial, sha1=args.sha1,
-                    linked_only=args.linked_only, limit=args.limit,
+                    linked_only=args.linked_only,
+                    without_review_leads=args.without_review_leads,
+                    limit=args.limit,
                 )
             else:
                 verify(db, ROOT)

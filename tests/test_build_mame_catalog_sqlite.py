@@ -38,6 +38,10 @@ class SqliteMameSourceGuards(unittest.TestCase):
             with self.subTest(kwargs=kwargs), self.assertRaises(ValueError):
                 query(None, **kwargs)
 
+    def test_unlinked_libretro_filter_rejects_conflicting_link_requirement(self):
+        with self.assertRaises(ValueError):
+            query_libretro(None, linked_only=True, without_review_leads=True)
+
     def test_source_mode_rejects_cross_provider_flags(self):
         values = {
             "list": None, "publisher": None, "year": None,

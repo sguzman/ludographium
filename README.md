@@ -110,6 +110,7 @@ python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --v
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --title "Batman" --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query --libretro-platform tigergamecom --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform gb --title Tetris --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform n64 --without-review-leads --limit 5
 ```
 
 Title and publisher substring searches use Unicode NFKC normalization and
@@ -117,7 +118,10 @@ casefolding for **lookup only**, preserving source literals verbatim (including
 accented titles and scripts outside ASCII).
 
 Search also accepts `--list`, `--publisher`, `--year`, `--serial`,
-`--sha1`, and `--linked-only`; both source search modes display exact media
+`--sha1`, `--linked-only`, and `--without-review-leads`. The last filter
+selects only original source records lacking a current cross-provider review
+lead, independently for MAME or Libretro; it cannot be combined with
+`--linked-only`. Both source search modes display exact media
 links and unverified title-review alternatives separately; the separate
 `--query-libretro` mode accepts `--platform`, `--region`, `--serial`,
 `--title`, and `--linked-only`. Results remain original source claims

@@ -63,9 +63,10 @@ jobs:
           python tools/build_mame_catalog_sqlite.py --db "$database" --query --libretro-platform tigergamecom --limit 3 > "$temp/links.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform tigergamecom --linked-only --limit 3 > "$temp/libretro.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform gb --title Pokemon --limit 2 > "$temp/gameboy.json"
+          python tools/build_mame_catalog_sqlite.py --db "$database" --query-libretro --platform n64 --without-review-leads --limit 2 > "$temp/libretro-gaps.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --evidence-type title --ambiguous-only --limit 2 > "$temp/review.json"
           python tools/build_mame_catalog_sqlite.py --db "$database" --query-review --platform tigergamecom --limit 2 > "$temp/gamecom-review.json"
-          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" <<'PY'
+          python - "$temp/gamecom.json" "$temp/wswan.json" "$temp/links.json" "$temp/libretro.json" "$temp/gameboy.json" "$temp/review.json" "$temp/gamecom-review.json" "$temp/unlinked.json" "$temp/libretro-gaps.json" <<'PY'
           import json,sys
           results=[json.load(open(name,encoding="utf-8")) for name in sys.argv[1:]]
           assert all(item["total_filtered_source_observations"] > 0 for item in results[:5])
@@ -89,7 +90,13 @@ jobs:
           assert all(not x["exact_media_evidence_links"] and
                      not x["separate_unverified_title_review_leads"]
                      for x in results[7]["records"])
-          print("Verified eight source-scoped search modes with pinned independent licenses")
+          assert results[8]["total_filtered_source_observations"] > 0
+          assert results[8]["returned_source_observations"] > 0
+          assert results[8]["without_any_cross_provider_review_lead"]
+          assert all(not item["review_only_mame_media_links"]
+                     and not item["separate_unverified_title_review_leads"]
+                     for item in results[8]["records"])
+          print("Verified nine source-scoped search modes with pinned independent licenses")
           PY
       - name: Confirm no binary database is committed or published
         shell: bash
