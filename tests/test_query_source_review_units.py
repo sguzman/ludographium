@@ -69,6 +69,46 @@ class StableReviewQueryTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             query(ROOT, cohort="unsafe")
 
+    def test_pages_across_original_and_additive_review_cohorts(self):
+        # Deterministic original-source order, including the cross-cohort
+        # boundary. No previously assigned stable review ID is reissued.
+        boundary = query(ROOT, cohort="combined", offset=21710, limit=5)
+        self.assertEqual(boundary["total_filtered_source_review_units"], 21845)
+        self.assertEqual(boundary["offset"], 21710)
+        self.assertEqual(boundary["next_offset"], 21715)
+        self.assertEqual(
+            [r["source_evidence_cohort"] for r in boundary["units"]],
+            ["baseline", "baseline", "v3", "v3", "v3"],
+        )
+        self.assertEqual(
+            len({r["stable_review_id"] for r in boundary["units"]}), 5
+        )
+        # Pagination is over matching rows, including filters, not raw ordinals.
+        filtered = query(
+            ROOT, cohort="v3", evidence_type="title", offset=1, limit=2,
+            include_evidence=True,
+        )
+        self.assertEqual(filtered["total_filtered_source_review_units"], 6)
+        self.assertEqual(filtered["offset"], 1)
+        self.assertEqual(filtered["next_offset"], 3)
+        self.assertEqual(len(filtered["units"]), 2)
+        self.assertTrue(all(
+            row["original_title_evidence"]
+            and not row["original_media_evidence"]
+            for row in filtered["units"]
+        ))
+        last = query(ROOT, cohort="v3", offset=132, limit=5)
+        self.assertEqual(last["returned_source_review_units"], 1)
+        self.assertIsNone(last["next_offset"])
+        past_end = query(ROOT, cohort="v3", offset=133, limit=5)
+        self.assertEqual(past_end["returned_source_review_units"], 0)
+        self.assertIsNone(past_end["next_offset"])
+
+    def test_rejects_unsafe_offsets(self):
+        for value in (-1, True, "10", 1_000_001):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                query(ROOT, cohort="combined", offset=value)
+
     def test_rejects_unsafe_filters(self):
         for args in (
             {"review_id": "lgreview:v1:x"},
