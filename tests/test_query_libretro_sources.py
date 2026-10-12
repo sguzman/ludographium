@@ -25,6 +25,28 @@ class OriginalDatSearchTest(unittest.TestCase):
             for row in result["records"]
         ))
 
+    def test_original_records_can_be_paged_without_reidentification(self):
+        initial = query(ROOT, platform="tigergamecom", limit=3)
+        shifted = query(ROOT, platform="tigergamecom", offset=1, limit=2)
+        self.assertEqual(
+            initial["total_filtered_original_source_records"],
+            shifted["total_filtered_original_source_records"],
+        )
+        self.assertEqual(initial["records"][1:], shifted["records"])
+        self.assertEqual(shifted["offset"], 1)
+        self.assertEqual(shifted["next_offset"], 3)
+        self.assertTrue(all(
+            item["source_license"] == "CC-BY-SA-4.0"
+            for item in shifted["records"]
+        ))
+        count = initial["total_filtered_original_source_records"]
+        last = query(ROOT, platform="tigergamecom", offset=count - 1, limit=2)
+        self.assertEqual(last["returned_original_source_records"], 1)
+        self.assertIsNone(last["next_offset"])
+        for offset in (-1, True, "1", 1_000_001):
+            with self.subTest(offset=offset), self.assertRaises(ValueError):
+                query(ROOT / "nonexistent", offset=offset)
+
     def test_invalid_filters_are_rejected_without_source_reads(self):
         for kwargs in (
             {"platform": "not-a-platform"},
