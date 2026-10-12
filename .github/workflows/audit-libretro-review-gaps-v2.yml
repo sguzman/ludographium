@@ -1,0 +1,90 @@
+name: Publish additive 69-list Libretro original-source review gap matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-libretro-review-gaps-v2.yml
+      - tools/audit_libretro_source_review_gaps.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-libretro-review-gaps-v2-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Reconcile 75 independently pinned DAT scopes across both MAME cohorts
+        run: |
+          set -euo pipefail
+          python tools/build_source_review_units.py --check
+          python tools/build_source_review_units_v3.py --check
+          python tools/audit_libretro_source_review_gaps.py --check
+          python tools/audit_libretro_source_review_gaps.py --cohort combined --write
+          python tools/audit_libretro_source_review_gaps.py --cohort combined --check
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root = Path("reports")
+          baseline = json.loads((root / "libretro-source-review-acquisition-gaps-v1.json").read_text())
+          combined = json.loads((root / "libretro-source-review-acquisition-gaps-v2.json").read_text())
+          old = baseline["original_source_record_totals"]
+          current = combined["original_source_record_totals"]
+          assert baseline["mame_source_lists"] == 65
+          assert combined["mame_source_lists"] == 69
+          assert combined["source_evidence_cohorts"] == ["baseline", "v3"]
+          assert combined["cumulative_source_review_units"] == 21845
+          assert current["original_dat_records"] == old["original_dat_records"] == 117145
+          assert current["original_records_with_any_review_lead"] > old["original_records_with_any_review_lead"]
+          assert current["original_records_without_any_review_lead"] < old["original_records_without_any_review_lead"]
+          assert len(combined["libretro_collections_ranked_by_no_review_evidence"]) == 75
+          old_empty = set(baseline["libretro_platforms_with_no_source_review_evidence"])
+          new_empty = set(combined["libretro_platforms_with_no_source_review_evidence"])
+          regained = {"atari5200", "entexadventurevision", "casioloopy", "vtechcreativision"}
+          assert len(old_empty) == 25
+          assert regained <= old_empty
+          assert new_empty == old_empty - regained
+          assert sum(
+              current[key] for key in (
+                  "exact_media_only_source_records",
+                  "conservative_title_only_source_records",
+                  "records_with_both_media_and_title_leads",
+                  "original_records_without_any_review_lead",
+              )
+          ) == 117145
+          assert current["exact_media_only_source_records"] + current["records_with_both_media_and_title_leads"] == 18983
+          print("Verified combined source-only gap coverage", current)
+          PY
+      - name: Commit additive source-only review gap report directly to main
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/libretro-source-review-acquisition-gaps-v2.json
+          if git diff --cached --quiet; then
+            echo "Combined Libretro source gap report unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin 69-list combined Libretro original-source review gaps'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo 'Could not publish combined Libretro source-only gap report' >&2
+          exit 1
