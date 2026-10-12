@@ -173,6 +173,19 @@ not a canonical game or release identity registry. The
 builds and tests it temporarily and deletes the binary afterward; SQLite
 files are not committed or published.
 
+### Source-name variance among exact media fingerprint observations
+
+A [cross-provider title-variance auditor](tools/audit_mame_title_variance.py)
+examines the 19,025 original media SHA-1/size correspondence rows and
+classifies the **original source display names** as literal-equal,
+equal after conservative region/language normalization, contained phrase,
+or different. Its [pinned report](reports/mame-libretro-media-title-variance-v1.json)
+and [separate review evidence](data/reconciliation/mame-libretro-title-variance-v1/differences.jsonl)
+preserve original titles, source checksums and the one-based media-evidence
+record number, without rewriting source metadata. Distinct names can reflect
+localization, conventions or other source choices; **this is not a verified
+naming error or a canonical game-identity decision**.
+
 ### Source-grounded exact-title review without ROM hashes
 
 The [conservative cross-source title auditor](tools/reconcile_mame_titles.py)

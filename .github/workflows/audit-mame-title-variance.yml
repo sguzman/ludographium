@@ -1,0 +1,57 @@
+name: Audit cross-provider title variances on exact source hashes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-mame-title-variance.yml
+      - tools/audit_mame_title_variance.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-mame-title-variance-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify original source-index input and strict title variance categories
+        run: |
+          python tools/reconcile_mame_media.py --check
+          python -m unittest discover -s tests -p test_mame_title_variance.py -v
+      - name: Build and verify original title-variance review evidence
+        run: |
+          python tools/audit_mame_title_variance.py --write
+          python tools/audit_mame_title_variance.py --check
+      - name: Commit deterministic evidence-only title-variance index and audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/mame-libretro-title-variance-v1/differences.jsonl reports/mame-libretro-media-title-variance-v1.json
+          if git diff --cached --quiet; then
+            echo "Pinned title-variance evidence unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin original title variance on exact media source claims'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo 'Could not publish independent source-name review evidence' >&2
+          exit 1
