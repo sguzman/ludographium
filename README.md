@@ -86,6 +86,13 @@ cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v3 
 The original 16-platform mode remains the default. Zero-row queries indicate
 only source-specific Wikidata noncoverage, not absence of games.
 
+A [type-agnostic source probe](.github/workflows/wikidata-p400-untyped-probe-v1.yml)
+bulk-queries all ten completely empty P400 scopes without requiring their
+items to have the Wikidata video-game instance type. Its separate source
+captures retain raw responses, query bytes, hashes, and optional P31 types.
+Any returned QIDs are **unreviewed evidence**, not automatically games or
+accepted release/platform mappings.
+
 A [source-yield coverage matrix](reports/wikidata-source-coverage-matrix-v1.json)
 cross-tabulates the 65 registered query scopes across original game facts,
 localized names, developer/publisher/genre statements, and

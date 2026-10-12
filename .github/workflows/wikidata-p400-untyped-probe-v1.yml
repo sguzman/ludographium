@@ -1,0 +1,162 @@
+name: Probe direct P400 statements in zero-yield platform scopes
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/wikidata-p400-untyped-probe-v1.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-p400-untyped-probe-v1-main
+  cancel-in-progress: false
+
+jobs:
+  accession:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Probe direct P400 relations without assuming a video-game instance class
+        shell: bash
+        run: |
+          set -euo pipefail
+          base=data/wikidata/p400-untyped-probe-v1
+          mkdir -p "$base"
+          python tools/audit_wikidata_evidence_matrix.py --check
+          test "$(jq '[.registered_scopes[] | select(.all_four_families_empty)] | length' reports/wikidata-source-coverage-matrix-v1.json)" -eq 10
+          while IFS=$'\t' read -r platform qid; do
+            [[ "$platform" =~ ^[a-z0-9]+$ ]]
+            [[ "$qid" =~ ^Q[1-9][0-9]*$ ]]
+            out="$base/$platform"
+            if test -f "$out/manifest.json"; then
+              test "$(jq -r '.wikidata_platform' "$out/manifest.json")" = "$qid"
+              test "$(jq -r '.platform' "$out/manifest.json")" = "$platform"
+              for spec in 'query query.rq' 'response response.json' 'bindings bindings.jsonl'; do
+                read -r key filename <<< "$spec"
+                expected="$(jq -r --arg key "$key" '.["source_" + $key + "_sha256"]' "$out/manifest.json")"
+                actual="$(sha256sum "$out/$filename" | cut -d' ' -f1)"
+                test "$expected" = "$actual"
+                echo "Verified original untyped-P400 evidence: $platform $filename"
+              done
+              continue
+            fi
+            mkdir -p "$out"
+            cat > "$out/query.rq" <<EOF
+          SELECT DISTINCT ?item ?itemType WHERE {
+            ?item wdt:P400 wd:$qid .
+            OPTIONAL { ?item wdt:P31 ?itemType . }
+          }
+          ORDER BY ?item ?itemType
+          LIMIT 20000
+          EOF
+            curl --fail --location --get --retry 5 --retry-all-errors \
+              --retry-delay 7 --max-time 150 --silent --show-error \
+              -H 'User-Agent: Ludographium/1.0 (https://github.com/sguzman/ludographium; CC0 source-only research)' \
+              -H 'Accept: application/sparql-results+json' \
+              --data-urlencode 'format=json' \
+              --data-urlencode "query@$out/query.rq" \
+              'https://query.wikidata.org/sparql' \
+              -o "$out/response.json"
+            test "$(wc -c < "$out/response.json")" -lt 20000000
+            jq -e '
+              .head.vars == ["item","itemType"]
+              and (.results.bindings | type == "array" and length < 20000)
+              and all(.results.bindings[];
+                .item.type == "uri"
+                and (.item.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$"))
+                and ((has("itemType") | not) or
+                  (.itemType.type == "uri" and
+                   (.itemType.value | test("^https?://www[.]wikidata[.]org/entity/Q[1-9][0-9]*$"))))
+              )
+            ' "$out/response.json" > /dev/null
+            jq -cS '.results.bindings[]' "$out/response.json" > "$out/bindings.jsonl"
+            jq -n \
+              --arg platform "$platform" --arg platform_qid "$qid" \
+              --arg register "reports/wikidata-source-coverage-matrix-v1.json" \
+              --arg captured_at "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+              --arg query_sha "$(sha256sum "$out/query.rq" | cut -d' ' -f1)" \
+              --arg response_sha "$(sha256sum "$out/response.json" | cut -d' ' -f1)" \
+              --arg bindings_sha "$(sha256sum "$out/bindings.jsonl" | cut -d' ' -f1)" \
+              --argjson query_bytes "$(wc -c < "$out/query.rq")" \
+              --argjson response_bytes "$(wc -c < "$out/response.json")" \
+              --argjson bindings_bytes "$(wc -c < "$out/bindings.jsonl")" \
+              --slurpfile response "$out/response.json" \
+              '{
+                schema_version: 1,
+                source: "Wikidata",
+                license: "CC0-1.0",
+                source_revision: "live-query-capture",
+                source_register: $register,
+                platform: $platform,
+                wikidata_platform: $platform_qid,
+                captured_at_utc: $captured_at,
+                source_query_path: "query.rq",
+                source_query_sha256: $query_sha,
+                source_query_bytes: $query_bytes,
+                source_response_path: "response.json",
+                source_response_sha256: $response_sha,
+                source_response_bytes: $response_bytes,
+                source_bindings_path: "bindings.jsonl",
+                source_bindings_sha256: $bindings_sha,
+                source_bindings_bytes: $bindings_bytes,
+                source_rows: ($response[0].results.bindings | length),
+                distinct_items: ([$response[0].results.bindings[].item.value] | unique | length),
+                typed_rows: ([$response[0].results.bindings[] | select(has("itemType"))] | length),
+                untyped_rows: ([$response[0].results.bindings[] | select(has("itemType") | not)] | length),
+                item_type_counts: (
+                  $response[0].results.bindings
+                  | map(select(has("itemType")) | .itemType.value)
+                  | group_by(.) | map({key: .[0], value: length}) | from_entries
+                ),
+                query_limit: 20000,
+                query_class: "direct-P400-with-optional-P31-no-game-type-inference",
+                interpretation: "Original source observations only. Results may be non-game entities; no accepted platform game or release identity is inferred. Empty results do not prove a game library is absent."
+              }' > "$out/manifest.json"
+            jq -e '
+              .source_rows == (.typed_rows + .untyped_rows)
+              and .distinct_items <= .source_rows
+              and .source_rows < .query_limit
+              and .source == "Wikidata"
+              and .license == "CC0-1.0"
+            ' "$out/manifest.json" > /dev/null
+            jq -r --arg platform "$platform" '"\($platform): \(.source_rows) P400 rows, \(.distinct_items) distinct item QIDs"' "$out/manifest.json"
+            sleep 2
+          done < <(
+            jq -r '.registered_scopes[] | select(.all_four_families_empty) | "\(.platform)\t\(.wikidata_platform)"' \
+              reports/wikidata-source-coverage-matrix-v1.json
+          )
+          test "$(find "$base" -name manifest.json | wc -l)" -eq 10
+          jq -s '{
+            partitions: length,
+            source_rows: (map(.source_rows) | add),
+            distinct_item_scope_observations: (map(.distinct_items) | add),
+            zero_row_partitions: [.[] | select(.source_rows == 0) | .platform]
+          }' "$base"/*/manifest.json
+      - name: Preserve ten independent Wikidata query snapshots
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          git add data/wikidata/p400-untyped-probe-v1
+          if git diff --cached --quiet; then
+            echo "Original P400 probe snapshots already verified"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(wikidata): pin ten type-agnostic P400 platform source probes'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Failed to publish scoped original Wikidata probe evidence" >&2
+          exit 1
