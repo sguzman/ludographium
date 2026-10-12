@@ -174,7 +174,18 @@ review tasks**. The original 65-list cohorts and their 19,025 media links,
 6,825 title leads and 21,712 review IDs are retained intact; the third cohort
 adds 166 software observations, 127 media pairs, eight title leads and 133
 new review units. One original declared-size conflict remains rejected.
-No cross-provider game or release identity is inferred. Build atomically from checked-in text:
+No cross-provider game or release identity is inferred. The default
+SQLite build remains exactly this **69-list** source census for compatibility.
+To materialize the separately pinned fourth cohort, use `--include-v4`
+**only when building**, with a different output filename. That opt-in build
+adds eight CC0 source lists and 373 software observations, including 70
+original Watara SHA-1-and-byte-size candidate links and 70 source-stable
+review tasks: **77 lists, 33,492 MAME observations, 19,222 corroborated
+media-evidence links, 6,833 title-review pairs and 21,915 review tasks**.
+Both modes retain the same 75 original Libretro DAT source scopes, and the
+original 65-list/69-list evidence identifiers and media ordinals are unchanged.
+Source claims and licenses are preserved independently; no game or release
+identity is inferred. Build atomically from checked-in text:
 
 ```sh
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --build
@@ -187,6 +198,17 @@ python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --q
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform gb --title Tetris --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-libretro --platform n64 --without-review-leads --limit 5
 python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-mame.sqlite --query-all --title "Tetris" --limit 5
+```
+
+To build and search the opt-in fourth cohort in a **separate disposable**
+local database, preserving the existing 69-list file:
+
+```sh
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-all-pinned.sqlite --build --include-v4
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-all-pinned.sqlite --verify
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-all-pinned.sqlite --query --list svision --linked-only --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-all-pinned.sqlite --query-review --list svision --limit 5
+python tools/build_mame_catalog_sqlite.py --db /tmp/ludographium-all-pinned.sqlite --query-libretro --platform watarasupervision --linked-only --limit 5
 ```
 
 All local SQLite search modes support bounded `--offset` and `--limit`
