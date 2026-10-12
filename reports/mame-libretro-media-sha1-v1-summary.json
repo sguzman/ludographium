@@ -64,6 +64,10 @@
   "match_index_path": "data/reconciliation/mame-libretro-sha1-v1/links.jsonl",
   "match_index_sha256": "8bfc39accfa5aa1022f7a76f68eb9b46f38d0a00bf95ed860f54f7f93abe4bdd",
   "match_index_bytes": 20031476,
+  "size_disagreement_rows": 1,
+  "size_disagreement_path": "data/reconciliation/mame-libretro-sha1-v1/size-disagreements.jsonl",
+  "size_disagreement_sha256": "b0a94d88987c1cadb64986a1bca37dbf398adbbb3b09fb08ef0213eb148884f5",
+  "size_disagreement_bytes": 1048,
   "per_mame_source_list": [
     {
       "source_list": "32x",
