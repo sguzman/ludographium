@@ -16,11 +16,13 @@ from import_dat import import_dat
 from query_source_review_units import (
     validate as validate_review_units,
     validate_v3 as validate_v3_review_units,
+    validate_v4 as validate_v4_review_units,
 )
 from query_mame_media import REPORT as MEDIA_REPORT
 
 OUTPUT = Path("reports/libretro-source-review-acquisition-gaps-v1.json")
 OUTPUT_V2 = Path("reports/libretro-source-review-acquisition-gaps-v2.json")
+OUTPUT_V3 = Path("reports/libretro-source-review-acquisition-gaps-v3.json")
 SUMMARY = Path("reports/source-review-units-v1-summary.json")
 INTERPRETATION = (
     "Each count represents independently pinned Libretro DAT source records. "
@@ -48,7 +50,7 @@ def load_source_json(root, path):
 
 
 def build_report(root=ROOT, *, cohort="baseline"):
-    if cohort not in ("baseline", "combined"):
+    if cohort not in ("baseline", "combined", "all-pinned"):
         raise ValueError("unregistered cross-provider review evidence cohort")
     manifest, review_units, _ = validate_review_units(root)
     media_report = load_source_json(root, MEDIA_REPORT)
@@ -59,8 +61,9 @@ def build_report(root=ROOT, *, cohort="baseline"):
     ):
         raise ValueError("original cross-provider review inventory changed")
     additive_summary = None
+    fourth_summary = None
     expected_media_records = media_report["distinct_matched_libretro_records"]
-    if cohort == "combined":
+    if cohort in ("combined", "all-pinned"):
         additive_summary, newer, _ = validate_v3_review_units(root)
         if (
             additive_summary["unchanged_prior_source_review_units"] != 21712
@@ -73,6 +76,18 @@ def build_report(root=ROOT, *, cohort="baseline"):
         # All four third-cohort Libretro scopes had zero baseline review
         # candidates. No baseline media record can be double-counted.
         expected_media_records += 127
+    if cohort == "all-pinned":
+        fourth_summary, newer, _ = validate_v4_review_units(root)
+        if (
+            fourth_summary["unchanged_prior_source_review_units"] != 21845
+            or fourth_summary["additional_original_review_units"] != 70
+            or fourth_summary["original_media_candidate_pairs"] != 70
+            or fourth_summary["cumulative_separate_source_review_units"] != 21915
+        ):
+            raise ValueError("unverified independently pinned fourth-cohort review evidence")
+        review_units = [*review_units, *newer]
+        # Watara was uncovered by the prior 69-list review ledger.
+        expected_media_records += 70
     target_flags = defaultdict(lambda: {"media": False, "title": False})
     target_snapshots = {}
     target_titles = {}
@@ -206,6 +221,8 @@ def build_report(root=ROOT, *, cohort="baseline"):
     result = {
         "schema_version": 1,
         "kind": (
+            "additive-77-mame-list-libretro-source-review-acquisition-backlog"
+            if cohort == "all-pinned" else
             "additive-69-mame-list-libretro-source-review-acquisition-backlog"
             if cohort == "combined" else
             "pinned-libretro-source-record-review-acquisition-backlog"
@@ -214,7 +231,9 @@ def build_report(root=ROOT, *, cohort="baseline"):
         "original_review_units_sha256": manifest["review_index_sha256"],
         "original_media_evidence_sha256": media_report["match_index_sha256"],
         "libretro_source_collections": len(grouped),
-        "mame_source_lists": 69 if cohort == "combined" else 65,
+        "mame_source_lists": (
+            77 if cohort == "all-pinned" else 69 if cohort == "combined" else 65
+        ),
         "original_source_record_totals": totals,
         "libretro_platforms_with_no_source_review_evidence": [
             item["source_platform"] for item in ranked
@@ -225,7 +244,7 @@ def build_report(root=ROOT, *, cohort="baseline"):
         "libretro_collections_ranked_by_no_review_evidence": ranked,
         "interpretation": INTERPRETATION,
     }
-    if cohort == "combined":
+    if cohort in ("combined", "all-pinned"):
         result.update({
             "source_evidence_cohorts": ["baseline", "v3"],
             "original_baseline_review_units": 21712,
@@ -237,6 +256,16 @@ def build_report(root=ROOT, *, cohort="baseline"):
             "additive_title_evidence_sha256": additive_summary["source_title_index_sha256"],
             "prior_baseline_gap_report": str(OUTPUT),
         })
+    if cohort == "all-pinned":
+        result.update({
+            "source_evidence_cohorts": ["baseline", "v3", "v4"],
+            "fourth_cohort_additional_review_units": 70,
+            "cumulative_source_review_units": 21915,
+            "fourth_review_units_manifest": "reports/source-review-units-v4-summary.json",
+            "fourth_review_units_sha256": fourth_summary["review_index_sha256"],
+            "fourth_media_evidence_sha256": fourth_summary["source_media_index_sha256"],
+            "prior_combined_gap_report": str(OUTPUT_V2),
+        })
     return result
 
 
@@ -245,11 +274,14 @@ def main():
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("--write", action="store_true")
     group.add_argument("--check", action="store_true")
-    parser.add_argument("--cohort", choices=("baseline", "combined"),
+    parser.add_argument("--cohort", choices=("baseline", "combined", "all-pinned"),
                         default="baseline")
     args = parser.parse_args()
     value = json.dumps(build_report(cohort=args.cohort), ensure_ascii=False, indent=2) + "\n"
-    path = ROOT / (OUTPUT_V2 if args.cohort == "combined" else OUTPUT)
+    path = ROOT / (
+        OUTPUT_V3 if args.cohort == "all-pinned" else
+        OUTPUT_V2 if args.cohort == "combined" else OUTPUT
+    )
     if args.write:
         path.write_text(value, encoding="utf-8")
     elif path.is_symlink() or not path.exists() or path.read_text(encoding="utf-8") != value:
