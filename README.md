@@ -197,8 +197,10 @@ A complementary [Libretro-first source-gap auditor](tools/audit_libretro_source_
 checks all **117,145 source DAT records across 75 Libretro collections**
 against the original MAME-target review queue. The
 [75-platform coverage report](reports/libretro-source-review-acquisition-gaps-v1.json)
-separates media-only, title-only, both, and no-review-evidence records;
-it also records per-scope source revision, original Git blob SHA and license.
+separates **18,729 media-only, 4,243 title-only, 127 dual-evidence,
+and 94,046 currently unlinked** original Libretro records; 25 source
+collections have no current review lead. It also records per-scope source
+revision, original Git blob SHA and license.
 Its [automated workflow](.github/workflows/audit-libretro-review-gaps-v1.yml)
 rebuilds the report from independently pinned originals. A record without a
 lead is a **provider-acquisition priority**, never an assertion that a game
