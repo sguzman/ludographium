@@ -89,6 +89,30 @@ class MameQueryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             source_query(ROOT, cohort="all", without_review_leads=True)
 
+    def test_original_source_pagination_and_selected_cohort_label(self):
+        combined = source_query(ROOT, cohort="all", offset=32951, limit=4)
+        self.assertEqual(combined["source_query_cohort"], "all")
+        self.assertEqual(combined["source_software_entries"], 33119)
+        self.assertEqual(combined["total_filtered_original_records"], 33119)
+        self.assertEqual(combined["offset"], 32951)
+        self.assertEqual(combined["next_offset"], 32955)
+        self.assertEqual(combined["returned_original_records"], 4)
+        third_lists = {"a5200", "advision", "casloopy", "crvision"}
+        self.assertEqual(
+            [row["source_list"] in third_lists for row in combined["records"]],
+            [False, False, True, True],
+        )
+        tail = source_query(
+            ROOT, cohort="v3", source_list="casloopy", offset=10, limit=3
+        )
+        self.assertEqual(tail["source_query_cohort"], "v3")
+        self.assertEqual(tail["total_filtered_original_records"], 11)
+        self.assertEqual(tail["returned_original_records"], 1)
+        self.assertIsNone(tail["next_offset"])
+        for offset in (-1, True, "1", 1_000_001):
+            with self.subTest(offset=offset), self.assertRaises(ValueError):
+                source_query(ROOT, offset=offset)
+
     def test_exact_sha1_candidates_keep_original_source_provenance(self):
         result = candidate_query(ROOT, libretro_platform="tigergamecom", limit=2)
         self.assertGreater(result["total_filtered_candidate_pairs"], 0)
