@@ -3,6 +3,61 @@
   "kind": "source-only-mame-libretro-exact-sha1-gap-analysis",
   "source_media_report": "reports/mame-libretro-media-sha1-v1-summary.json",
   "source_media_sha256": "7665360bfe8ef4bd65012206a4b4a6c27450f7f4cfe30a02d0caec151940373f",
+  "mame_source_list_count": 65,
+  "libretro_source_collections": 75,
+  "exact_media_sha1_candidate_pairs": 19025,
+  "mame_source_observation_totals": {
+    "original_software_records": 32953,
+    "records_with_exact_media_sha1_overlap": 19013,
+    "records_without_exact_media_sha1_overlap": 13940
+  },
+  "libretro_source_observation_totals": {
+    "original_dat_records": 117145,
+    "records_with_exact_media_sha1_overlap": 18856,
+    "records_without_exact_media_sha1_overlap": 98289
+  },
+  "mame_lists_with_no_media_overlap": [
+    "famicom_cass",
+    "leapfrog_ltleappad_cart",
+    "leapfrog_mfleappad_cart",
+    "leapster_explorer_cart",
+    "n64dd",
+    "nes_kstudio",
+    "pcecd",
+    "pockchalw",
+    "psx",
+    "saturn",
+    "snes_vkun",
+    "vsmile_cd"
+  ],
+  "libretro_scopes_with_no_media_overlap": [
+    "arduboyincarduboy",
+    "atari5200",
+    "casioloopy",
+    "entexadventurevision",
+    "microsoftxbox360",
+    "microsoftxbox360digital",
+    "microsoftxbox360gamesondemand",
+    "mobilezeebo",
+    "necpcenginesupergrafx",
+    "nintendonewnintendo3ds",
+    "nintendonewnintendo3dsdigital",
+    "nintendonintendo3ds",
+    "nintendonintendo3dsdigital",
+    "nintendonintendo64dd",
+    "nintendonintendodsdownloadplay",
+    "nintendonintendodsi",
+    "nintendowiidigital",
+    "nintendowiiudigital",
+    "sonyplaystation3psn",
+    "sonyplaystationportable",
+    "sonyplaystationportablepsn",
+    "sonyplaystationportablepsx2psp",
+    "sonyplaystationvita",
+    "sonyplaystationvitapsn",
+    "vtechcreativision",
+    "watarasupervision"
+  ],
   "mame_source_lists": [
     {
       "source_list": "32x",
@@ -524,60 +579,6 @@
       "original_cross_source_candidate_pairs": 122,
       "original_source_sha256": "89dd1a07ede5c0267045849bd3bef2e37f88eff3fb191b4e0f3009ffb38b68d4"
     }
-  ],
-  "libretro_source_collections": 75,
-  "exact_media_sha1_candidate_pairs": 19025,
-  "mame_source_observation_totals": {
-    "original_software_records": 32953,
-    "records_with_exact_media_sha1_overlap": 19013,
-    "records_without_exact_media_sha1_overlap": 13940
-  },
-  "libretro_source_observation_totals": {
-    "original_dat_records": 117145,
-    "records_with_exact_media_sha1_overlap": 18856,
-    "records_without_exact_media_sha1_overlap": 98289
-  },
-  "mame_lists_with_no_media_overlap": [
-    "famicom_cass",
-    "leapfrog_ltleappad_cart",
-    "leapfrog_mfleappad_cart",
-    "leapster_explorer_cart",
-    "n64dd",
-    "nes_kstudio",
-    "pcecd",
-    "pockchalw",
-    "psx",
-    "saturn",
-    "snes_vkun",
-    "vsmile_cd"
-  ],
-  "libretro_scopes_with_no_media_overlap": [
-    "arduboyincarduboy",
-    "atari5200",
-    "casioloopy",
-    "entexadventurevision",
-    "microsoftxbox360",
-    "microsoftxbox360digital",
-    "microsoftxbox360gamesondemand",
-    "mobilezeebo",
-    "necpcenginesupergrafx",
-    "nintendonewnintendo3ds",
-    "nintendonewnintendo3dsdigital",
-    "nintendonintendo3ds",
-    "nintendonintendo3dsdigital",
-    "nintendonintendo64dd",
-    "nintendonintendodsdownloadplay",
-    "nintendonintendodsi",
-    "nintendowiidigital",
-    "nintendowiiudigital",
-    "sonyplaystation3psn",
-    "sonyplaystationportable",
-    "sonyplaystationportablepsn",
-    "sonyplaystationportablepsx2psp",
-    "sonyplaystationvita",
-    "sonyplaystationvitapsn",
-    "vtechcreativision",
-    "watarasupervision"
   ],
   "libretro_source_scopes": [
     {
