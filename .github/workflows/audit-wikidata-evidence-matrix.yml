@@ -1,0 +1,54 @@
+name: Pin systematic Wikidata source coverage matrix
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-wikidata-evidence-matrix.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wikidata-source-coverage-matrix-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Build complete 65-scope four-family yield matrix
+        run: |
+          python tools/audit_wikidata_platform_gaps.py --check
+          python tools/audit_wikidata_evidence_matrix.py --write
+          python tools/audit_wikidata_evidence_matrix.py --check
+          python -m unittest discover -s tests -p test_wikidata_evidence_matrix.py -v
+      - name: Commit deterministic source-yield matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/wikidata-source-coverage-matrix-v1.json
+          if git diff --cached --quiet; then
+            echo "Source-yield matrix is unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin full 65-scope Wikidata source-yield matrix'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((2 * attempt))"
+          done
+          echo "Could not publish source-yield report" >&2
+          exit 1

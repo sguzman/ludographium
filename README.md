@@ -86,6 +86,15 @@ cargo run --locked -- --wikidata-localized-titles --metadata-cohort expanded-v3 
 The original 16-platform mode remains the default. Zero-row queries indicate
 only source-specific Wikidata noncoverage, not absence of games.
 
+A [source-yield coverage matrix](reports/wikidata-source-coverage-matrix-v1.json)
+cross-tabulates the 65 registered query scopes across original game facts,
+localized names, developer/publisher/genre statements, and
+relation/identifier statements. It also tracks the ten remaining unregistered
+source collections. This is an **acquisition-priority diagnostic**, not a game
+count or evidence of platform completeness. Rebuild with
+`python tools/audit_wikidata_evidence_matrix.py --write`, or verify the
+pinned report with `--check`.
+
 A [deterministic 75-collection scope coverage audit](reports/wikidata-p400-platform-gaps-v2.json)
 checks all current source registers offline and identifies ten remaining
 unregistered Libretro source partitions: eight distribution-specific collections
