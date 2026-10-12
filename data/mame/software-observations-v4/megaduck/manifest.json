@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v4/megaduck/manifest.json",
+  "original_xml_sha256": "7aa5e10dca4a8838ce8ef7c36f064f23c7392b6f71847164bfe9a70220096438",
+  "original_source_list": "megaduck",
+  "original_xml_path": "data/mame/softlists-v4/megaduck/megaduck.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "9296a575a18508c4a47a62e9821f59621418c654accf97f846e9bb4f9d7ba15b",
+  "index_bytes": 42895,
+  "index_rows": 48,
+  "source_observation_counts": {
+    "software_entries": 48,
+    "rom_sha1_claims": 48,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 48,
+    "entries_with_publisher": 48,
+    "entries_with_serial": 25
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

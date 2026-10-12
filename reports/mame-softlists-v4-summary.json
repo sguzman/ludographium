@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-softlist-source-yield-report",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "source_register": "sources/mame-softlists-v4.json",
+  "source_license": "CC0-1.0",
+  "software_list_partitions": 8,
+  "source_observation_totals": {
+    "source_software_entries": 373,
+    "source_rom_sha1_observations": 181,
+    "source_disk_sha1_observations": 193,
+    "source_year_observations": 373,
+    "source_publisher_observations": 373
+  },
+  "partitions": [
+    {
+      "source_file": "hash/3do.xml",
+      "source_list_name": "3do",
+      "source_software_entries": 45,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 45,
+      "source_year_observations": 45,
+      "source_publisher_observations": 45,
+      "source_manifest": "data/mame/softlists-v4/3do/manifest.json",
+      "source_sha256": "e679db3d63785004a3387039829139aaed7a28210dce966d300d4993fc43b087"
+    },
+    {
+      "source_file": "hash/cd32.xml",
+      "source_list_name": "cd32",
+      "source_software_entries": 132,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 132,
+      "source_year_observations": 132,
+      "source_publisher_observations": 132,
+      "source_manifest": "data/mame/softlists-v4/cd32/manifest.json",
+      "source_sha256": "ee226f00bb2ba83eb942ee1364d565a50ccf55a286c5be209a3eb105d7df5bb9"
+    },
+    {
+      "source_file": "hash/gameking.xml",
+      "source_list_name": "gameking",
+      "source_software_entries": 45,
+      "source_rom_sha1_observations": 45,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 45,
+      "source_publisher_observations": 45,
+      "source_manifest": "data/mame/softlists-v4/gameking/manifest.json",
+      "source_sha256": "35f5e4d253940d85287be4711adae73a5c4194e0f3fe61e9bd0275fba5ba4fbb"
+    },
+    {
+      "source_file": "hash/gameking3.xml",
+      "source_list_name": "gameking3",
+      "source_software_entries": 10,
+      "source_rom_sha1_observations": 10,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 10,
+      "source_publisher_observations": 10,
+      "source_manifest": "data/mame/softlists-v4/gameking3/manifest.json",
+      "source_sha256": "f817bbfbbe42edb89060344a7ef4e959de539fd7b0ee5e6af823444cc0eb6157"
+    },
+    {
+      "source_file": "hash/gamepock.xml",
+      "source_list_name": "gamepock",
+      "source_software_entries": 6,
+      "source_rom_sha1_observations": 6,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 6,
+      "source_publisher_observations": 6,
+      "source_manifest": "data/mame/softlists-v4/gamepock/manifest.json",
+      "source_sha256": "ace35c09e6967f90292a20c9431085ad60a359decff686a30ffe968bd1ff1373"
+    },
+    {
+      "source_file": "hash/megaduck.xml",
+      "source_list_name": "megaduck",
+      "source_software_entries": 48,
+      "source_rom_sha1_observations": 48,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 48,
+      "source_publisher_observations": 48,
+      "source_manifest": "data/mame/softlists-v4/megaduck/manifest.json",
+      "source_sha256": "7aa5e10dca4a8838ce8ef7c36f064f23c7392b6f71847164bfe9a70220096438"
+    },
+    {
+      "source_file": "hash/pcfx.xml",
+      "source_list_name": "pcfx",
+      "source_software_entries": 15,
+      "source_rom_sha1_observations": 0,
+      "source_disk_sha1_observations": 16,
+      "source_year_observations": 15,
+      "source_publisher_observations": 15,
+      "source_manifest": "data/mame/softlists-v4/pcfx/manifest.json",
+      "source_sha256": "6f10d89601fcaa72f8475b5044a2989be8dc98bf2fc5e529caf543e9797dd12f"
+    },
+    {
+      "source_file": "hash/svision.xml",
+      "source_list_name": "svision",
+      "source_software_entries": 72,
+      "source_rom_sha1_observations": 72,
+      "source_disk_sha1_observations": 0,
+      "source_year_observations": 72,
+      "source_publisher_observations": 72,
+      "source_manifest": "data/mame/softlists-v4/svision/manifest.json",
+      "source_sha256": "604af4e5611f7af6814c99a98afa72ac217245d1355f8cefeb35d35dbe75fef9"
+    }
+  ],
+  "interpretation": "Attributable original MAME source software/media observations, not verified canonical works, regions, releases, or merged Libretro identities. No game media was acquired."
+}

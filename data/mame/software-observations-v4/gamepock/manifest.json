@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v4/gamepock/manifest.json",
+  "original_xml_sha256": "ace35c09e6967f90292a20c9431085ad60a359decff686a30ffe968bd1ff1373",
+  "original_source_list": "gamepock",
+  "original_xml_path": "data/mame/softlists-v4/gamepock/gamepock.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "32ae2a21d2aab6355c706a6aeb380b3616b86a6a9ec9b3679022b5b13139b1d8",
+  "index_bytes": 5429,
+  "index_rows": 6,
+  "source_observation_counts": {
+    "software_entries": 6,
+    "rom_sha1_claims": 6,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 6,
+    "entries_with_publisher": 6,
+    "entries_with_serial": 5
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}

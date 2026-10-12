@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-entry-projection",
+  "source_register": "sources/mame-softlists-v4.json",
+  "original_capture_summary": "reports/mame-softlists-v4-summary.json",
+  "indexed_source_partitions": 8,
+  "source_observation_totals": {
+    "software_entries": 373,
+    "rom_sha1_claims": 181,
+    "disk_sha1_claims": 193,
+    "entries_with_year": 373,
+    "entries_with_publisher": 373,
+    "entries_with_serial": 109
+  },
+  "partitions": [
+    {
+      "source_list": "3do",
+      "original_xml_path": "data/mame/softlists-v4/3do/3do.xml",
+      "original_xml_sha256": "e679db3d63785004a3387039829139aaed7a28210dce966d300d4993fc43b087",
+      "index_manifest": "data/mame/software-observations-v4/3do/manifest.json",
+      "index_sha256": "6c1d945af4521e3a34df3280d767fe2224d0ca4a514dc9103f85948b68252704",
+      "counts": {
+        "software_entries": 45,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 45,
+        "entries_with_year": 45,
+        "entries_with_publisher": 45,
+        "entries_with_serial": 26
+      }
+    },
+    {
+      "source_list": "cd32",
+      "original_xml_path": "data/mame/softlists-v4/cd32/cd32.xml",
+      "original_xml_sha256": "ee226f00bb2ba83eb942ee1364d565a50ccf55a286c5be209a3eb105d7df5bb9",
+      "index_manifest": "data/mame/software-observations-v4/cd32/manifest.json",
+      "index_sha256": "e023a50b23c5398e5c7dac67787b8ad2138bf06d5c5da3fa08446314dfafa71e",
+      "counts": {
+        "software_entries": 132,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 132,
+        "entries_with_year": 132,
+        "entries_with_publisher": 132,
+        "entries_with_serial": 8
+      }
+    },
+    {
+      "source_list": "gameking",
+      "original_xml_path": "data/mame/softlists-v4/gameking/gameking.xml",
+      "original_xml_sha256": "35f5e4d253940d85287be4711adae73a5c4194e0f3fe61e9bd0275fba5ba4fbb",
+      "index_manifest": "data/mame/software-observations-v4/gameking/manifest.json",
+      "index_sha256": "44ee82476c32e0d5d8baa10c486b6bfe105c63c16ec696cf6e06d01c28c9efde",
+      "counts": {
+        "software_entries": 45,
+        "rom_sha1_claims": 45,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 45,
+        "entries_with_publisher": 45,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "gameking3",
+      "original_xml_path": "data/mame/softlists-v4/gameking3/gameking3.xml",
+      "original_xml_sha256": "f817bbfbbe42edb89060344a7ef4e959de539fd7b0ee5e6af823444cc0eb6157",
+      "index_manifest": "data/mame/software-observations-v4/gameking3/manifest.json",
+      "index_sha256": "910d2e94f540463c01c7ec985eeadd61d431a94ee412bc435678a86e1e3639f7",
+      "counts": {
+        "software_entries": 10,
+        "rom_sha1_claims": 10,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 10,
+        "entries_with_publisher": 10,
+        "entries_with_serial": 0
+      }
+    },
+    {
+      "source_list": "gamepock",
+      "original_xml_path": "data/mame/softlists-v4/gamepock/gamepock.xml",
+      "original_xml_sha256": "ace35c09e6967f90292a20c9431085ad60a359decff686a30ffe968bd1ff1373",
+      "index_manifest": "data/mame/software-observations-v4/gamepock/manifest.json",
+      "index_sha256": "32ae2a21d2aab6355c706a6aeb380b3616b86a6a9ec9b3679022b5b13139b1d8",
+      "counts": {
+        "software_entries": 6,
+        "rom_sha1_claims": 6,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 6,
+        "entries_with_publisher": 6,
+        "entries_with_serial": 5
+      }
+    },
+    {
+      "source_list": "megaduck",
+      "original_xml_path": "data/mame/softlists-v4/megaduck/megaduck.xml",
+      "original_xml_sha256": "7aa5e10dca4a8838ce8ef7c36f064f23c7392b6f71847164bfe9a70220096438",
+      "index_manifest": "data/mame/software-observations-v4/megaduck/manifest.json",
+      "index_sha256": "9296a575a18508c4a47a62e9821f59621418c654accf97f846e9bb4f9d7ba15b",
+      "counts": {
+        "software_entries": 48,
+        "rom_sha1_claims": 48,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 48,
+        "entries_with_publisher": 48,
+        "entries_with_serial": 25
+      }
+    },
+    {
+      "source_list": "pcfx",
+      "original_xml_path": "data/mame/softlists-v4/pcfx/pcfx.xml",
+      "original_xml_sha256": "6f10d89601fcaa72f8475b5044a2989be8dc98bf2fc5e529caf543e9797dd12f",
+      "index_manifest": "data/mame/software-observations-v4/pcfx/manifest.json",
+      "index_sha256": "a19fab63a39b150aceec029856ff9dcfb2894e47fc0b8a963f2a30a0fcfa7d8c",
+      "counts": {
+        "software_entries": 15,
+        "rom_sha1_claims": 0,
+        "disk_sha1_claims": 16,
+        "entries_with_year": 15,
+        "entries_with_publisher": 15,
+        "entries_with_serial": 3
+      }
+    },
+    {
+      "source_list": "svision",
+      "original_xml_path": "data/mame/softlists-v4/svision/svision.xml",
+      "original_xml_sha256": "604af4e5611f7af6814c99a98afa72ac217245d1355f8cefeb35d35dbe75fef9",
+      "index_manifest": "data/mame/software-observations-v4/svision/manifest.json",
+      "index_sha256": "f40b2437a71d3d4f4ee2316323c03eedcda8a6cbaeea486767f2d6c87c92bc37",
+      "counts": {
+        "software_entries": 72,
+        "rom_sha1_claims": 72,
+        "disk_sha1_claims": 0,
+        "entries_with_year": 72,
+        "entries_with_publisher": 72,
+        "entries_with_serial": 42
+      }
+    }
+  ],
+  "interpretation": "Exactly pinned MAME XML claims projected to independent JSONL records. Original publishers, years, titles, media SHA1/CRC, serials and regional notes are evidence, not adjudicated canonical work/release identities."
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "source": "MAME",
+  "license": "CC0-1.0",
+  "original_source_manifest": "data/mame/softlists-v4/gameking3/manifest.json",
+  "original_xml_sha256": "f817bbfbbe42edb89060344a7ef4e959de539fd7b0ee5e6af823444cc0eb6157",
+  "original_source_list": "gameking3",
+  "original_xml_path": "data/mame/softlists-v4/gameking3/gameking3.xml",
+  "index_path": "observations.jsonl",
+  "index_sha256": "910d2e94f540463c01c7ec985eeadd61d431a94ee412bc435678a86e1e3639f7",
+  "index_bytes": 8970,
+  "index_rows": 10,
+  "source_observation_counts": {
+    "software_entries": 10,
+    "rom_sha1_claims": 10,
+    "disk_sha1_claims": 0,
+    "entries_with_year": 10,
+    "entries_with_publisher": 10,
+    "entries_with_serial": 0
+  },
+  "identity_policy": "Source-observation projection; no inferred work, media, title or release identity join"
+}
