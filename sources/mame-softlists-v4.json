@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "independent-cc0-mame-software-list-snapshots",
+  "accession_cohort": "v4",
+  "source": "MAME",
+  "upstream_repository": "mamedev/mame",
+  "upstream_commit_sha": "58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a",
+  "upstream_path": "hash",
+  "license": "CC0-1.0",
+  "prior_source_register": "sources/mame-softlists-v3.json",
+  "source_license_reference": "https://github.com/mamedev/mame/blob/58f90f43e7d1e2ae7078ba8a3c6d9f9cf879cb7a/COPYING",
+  "files": [
+    "3do.xml",
+    "cd32.xml",
+    "gameking.xml",
+    "gameking3.xml",
+    "gamepock.xml",
+    "megaduck.xml",
+    "pcfx.xml",
+    "svision.xml"
+  ],
+  "policy": "Eight independently retained original CC0 software-list source snapshots: 3DO Interactive Multiplayer, Amiga CD32, TimeTop GameKing and GameKing 3, Epoch Game Pocket Computer, Creatronic Mega Duck, NEC PC-FX and Watara Supervision. Preserve original XML bytes, checksums, original software ordinals, media fingerprints, years and publisher claims. These are source observations only, not canonical games or release identities; no ROM or disc image content."
+}
