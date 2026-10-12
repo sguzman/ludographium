@@ -12,6 +12,7 @@ import json
 from pathlib import Path
 
 from reconcile_mame_media import ROOT, read_libretro
+from build_expanded_corpus import pinned_manifest
 
 INDEX = Path("data/reconciliation/libretro-cross-scope-sha1-v1/groups.jsonl")
 REPORT = Path("reports/libretro-cross-scope-sha1-v1.json")
@@ -88,8 +89,15 @@ def build_expected(root=ROOT):
             cross_scope.append(normalized_group(sha1, claims))
     if original_sha1_claims != source_totals["libretro_sha1_claims"]:
         raise ValueError("source hash-bearing claims were lost in grouping")
-    if len(observed_scopes) != 75:
-        raise ValueError("source scope observations missing from original DAT inventory")
+    first_register = json.loads((root / "sources/libretro-no-intro.json").read_text(encoding="utf-8"))
+    expanded_register = pinned_manifest(root)
+    declared_scopes = {
+        item["platform"] for item in first_register["files"]
+    } | {
+        item["platform"] for item in expanded_register["platforms"]
+    }
+    if len(declared_scopes) != 75 or observed_scopes - declared_scopes:
+        raise ValueError("unexpected independent DAT source scope inventory")
     data = ("\n".join(compact(row) for row in cross_scope)
             + ("\n" if cross_scope else "")).encode("utf-8")
     scope_pair_counts = Counter()
@@ -106,7 +114,9 @@ def build_expected(root=ROOT):
             "sources/bulk-expansion-v1.json",
         ],
         "source_license": "CC-BY-SA-4.0",
-        "independent_libretro_dat_scopes": len(observed_scopes),
+        "independent_libretro_dat_scopes": len(declared_scopes),
+        "source_scopes_with_original_sha1_claims": len(observed_scopes),
+        "source_scopes_with_no_sha1_claims": sorted(declared_scopes - observed_scopes),
         "original_sha1_media_claims": original_sha1_claims,
         "distinct_source_sha1_values": len(fingerprint_index),
         "sha1_groups_reused_within_at_least_one_scope": reused_within_source_scopes,
