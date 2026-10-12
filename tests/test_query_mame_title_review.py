@@ -36,7 +36,7 @@ class ConservativeTitleQueryTests(unittest.TestCase):
                 first, ensure_ascii=False, sort_keys=True,
                 separators=(",", ":")
             ).encode("utf-8")
-            altered = b"\\n".join(lines) + b"\\n"
+            altered = b"\n".join(lines) + b"\n"
             (base / INDEX).write_bytes(altered)
             report = json.loads((ROOT / SUMMARY).read_text(encoding="utf-8"))
             report["candidate_sha256"] = hashlib.sha256(altered).hexdigest()
