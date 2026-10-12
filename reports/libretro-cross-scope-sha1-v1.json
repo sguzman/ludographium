@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "attributed-libretro-cross-scope-media-sha1-overlap",
+  "source_registers": [
+    "sources/libretro-no-intro.json",
+    "sources/bulk-expansion-v1.json"
+  ],
+  "source_license": "CC-BY-SA-4.0",
+  "independent_libretro_dat_scopes": 75,
+  "source_scopes_with_original_sha1_claims": 74,
+  "source_scopes_with_no_sha1_claims": [
+    "microsoftxbox360gamesondemand"
+  ],
+  "original_sha1_media_claims": 117145,
+  "distinct_source_sha1_values": 111293,
+  "sha1_groups_reused_within_at_least_one_scope": 295,
+  "sha1_groups_observed_across_independent_scopes": 5556,
+  "source_media_claims_in_cross_scope_groups": 11120,
+  "cross_scope_groups_with_declared_size_disagreement": 0,
+  "source_scope_pairs_with_sha1_overlap": 7,
+  "source_scope_pair_evidence": [
+    {
+      "left_source_scope": "genesis",
+      "right_source_scope": "sms",
+      "distinct_shared_original_sha1_observations": 1
+    },
+    {
+      "left_source_scope": "gg",
+      "right_source_scope": "sms",
+      "distinct_shared_original_sha1_observations": 1
+    },
+    {
+      "left_source_scope": "microsoftxbox360",
+      "right_source_scope": "microsoftxbox360digital",
+      "distinct_shared_original_sha1_observations": 5550
+    },
+    {
+      "left_source_scope": "mobilezeebo",
+      "right_source_scope": "sonyplaystationportablepsn",
+      "distinct_shared_original_sha1_observations": 1
+    },
+    {
+      "left_source_scope": "mobilezeebo",
+      "right_source_scope": "sonyplaystationportablepsx2psp",
+      "distinct_shared_original_sha1_observations": 1
+    },
+    {
+      "left_source_scope": "sonyplaystationportable",
+      "right_source_scope": "sonyplaystationportablepsn",
+      "distinct_shared_original_sha1_observations": 3
+    },
+    {
+      "left_source_scope": "sonyplaystationportablepsn",
+      "right_source_scope": "sonyplaystationportablepsx2psp",
+      "distinct_shared_original_sha1_observations": 1
+    }
+  ],
+  "candidate_index_path": "data/reconciliation/libretro-cross-scope-sha1-v1/groups.jsonl",
+  "candidate_index_sha256": "f9c87babbc5e68ec98dfb187c9efa8e797938617217a0a37f34dd471767c19fa",
+  "candidate_index_bytes": 7670708,
+  "interpretation": "Identical SHA1 media claims in more than one independent Libretro DAT scope are source-level fingerprint overlaps only. Such reuse does not establish matching games, releases, formats, platform compatibility, or mistaken assignments. Contradictory declared sizes remain unresolved."
+}
