@@ -45,6 +45,7 @@ python tools/query_libretro_sources.py --platform n64 --title Mario --limit 5
 python tools/query_libretro_sources.py --platform n64 --without-review-leads --limit 5
 python tools/query_libretro_sources.py --platform n64 --offset 200 --limit 100
 python tools/query_libretro_sources.py --platform atari5200 --without-review-leads --review-cohort combined --limit 5
+python tools/query_libretro_sources.py --platform watarasupervision --without-review-leads --review-cohort all-pinned --limit 5
 ```
 
 The optional missing-review-lead filter checks the original, SHA-256-pinned
@@ -77,6 +78,8 @@ python tools/query_mame_media.py --platform tigergamecom --limit 5
 python tools/query_mame_media.py --cohort v3 --platform atari5200 --limit 5
 python tools/query_mame_media.py --cohort combined --limit 5
 python tools/query_mame_media.py --cohort combined --offset 19023 --limit 4
+python tools/query_mame_media.py --cohort v4 --platform watarasupervision --limit 5
+python tools/query_mame_media.py --cohort all-pinned --offset 19150 --limit 4
 python tools/query_mame_media.py --mame-list gameboy --limit 5
 ```
 
@@ -92,9 +95,10 @@ these records alone or `--cohort all-pinned` for **77 original MAME source
 lists, 33,492 software observations**, without changing older results.
 Each source is hash-pinned to its original CC0 XML; optional bounded
 `--offset`/`--limit` page over source-native record order.
-The derived SQLite and cross-provider review reports currently describe the
-prior 69-list evidence scope; fourth-cohort source accessions are not yet
-promoted into those review indexes or any canonical game identities.
+The optional derived SQLite retains its independently verified **69-list**
+scope. Fourth-cohort source observations, media-evidence comparisons, stable
+review tasks and coverage audits are independently pinned outside that SQLite
+database; no canonical game, release or media identity is promoted.
 
 The media query defaults to the original **65-list** pinned source snapshot,
 preserving existing results. Choose `--cohort v3` for four independently
@@ -103,10 +107,15 @@ registered newer MAME lists (127 source-media candidates) or
 combined result explicitly identifies its original evidence cohort; source
 fields and conflicting-size exclusions are not overwritten or promoted to
 accepted game or release identities.
-Use `--offset` with `--limit` to traverse the complete filtered
-SHA-1 evidence inventory in baseline-first order, including across the
-65-list/4-list boundary. Results report `offset` and `next_offset`
-(null when exhausted) alongside full filtered and source totals.
+The separate [fourth-cohort media audit](reports/mame-libretro-sha1-v4-summary.json)
+adds **70 Watara Supervision corroborated SHA-1-and-byte-size pairs**, with
+zero source-declared size conflicts and zero equal-hash, unknown-size pairs.
+All 193 fourth-cohort disc SHA-1 claims remain source metadata, not
+automatically comparable Libretro dumps. Choose `--cohort v4` or
+`--cohort all-pinned` for **19,222 separately pinned media evidence pairs**
+over 77 MAME lists. Legacy `combined` remains the original 69-list result.
+Bounded `--offset`/`--limit` page in baseline-first order and report
+`next_offset` (null at exhaustion).
 
 The `--without-review-leads` source filter cross-checks the complete
 [bulk acquisition gap audit](reports/source-review-acquisition-gaps-v1.json).
@@ -416,9 +425,12 @@ and [source report](reports/source-review-units-v3-summary.json) pin
 captured MAME lists: 127 SHA-1/size-evidence units and 6 title-only
 units. Two of those six retain multiple competing source targets.
 The preceding 21,712 review-unit records and their stable IDs remain
-unchanged; the combined number of separately pinned review units is
-**21,845**. Neither a source review ID nor a unique candidate certifies
-a game or release identity.
+unchanged; the original 69-list combined number is **21,845**.
+The [fourth-cohort review report](reports/source-review-units-v4-summary.json)
+pins **70 additional Watara Supervision stable source review tasks** derived
+from equal SHA-1 and declared byte-size evidence. Across all 77 MAME lists
+the three separate ledgers contain **21,915** original-source tasks. Neither
+a review ID nor a unique candidate certifies game or release identity.
 
 The [stable-ID source review query](tools/query_source_review_units.py)
 verifies the entire queue and both parent evidence indexes before returning
@@ -434,13 +446,17 @@ python tools/query_source_review_units.py --mame-list gamecom --include-evidence
 python tools/query_source_review_units.py --cohort v3 --platform atari5200 --include-evidence --limit 2
 python tools/query_source_review_units.py --cohort combined --ambiguous-only --limit 2
 python tools/query_source_review_units.py --cohort combined --offset 21710 --limit 5
+python tools/query_source_review_units.py --cohort v4 --mame-list svision --limit 5
+python tools/query_source_review_units.py --cohort all-pinned --offset 21843 --limit 5
 python tools/query_source_review_units.py --review-id lgreview:v1:<64-hex-digest> --include-evidence
 ```
 
 The default CLI query preserves the original 21,712-unit result.
 `--cohort v3` verifies the separately pinned 133-unit accession and its
-parent evidence row hashes; `--cohort combined` searches **21,845
-source-only review tasks** without changing any original stable IDs.
+parent evidence row hashes; `--cohort combined` searches the historical
+**21,845 source-only review tasks**, while `--cohort v4` searches the 70
+new Watara tasks and `--cohort all-pinned` searches **21,915** original
+source review tasks with unmodified stable IDs.
 The bounded `--offset`/`--limit` pair pages through filtered source review
 units in a stable, baseline-first order, including across the third-cohort
 boundary. Each result reports `offset` and `next_offset` (null at the end),
@@ -465,12 +481,21 @@ original Libretro records. Review evidence is present in 54 of the 75
 collections; 21 have no current review lead. The
 [combined workflow](.github/workflows/audit-libretro-review-gaps-v2.yml)
 reproduces both source-cohort summaries without changing the baseline.
-A record without a lead is a **provider-acquisition priority**, never an
-assertion that a game is absent or that source identities were adjudicated.
+The [77-list source-gap report](reports/libretro-source-review-acquisition-gaps-v3.json)
+extends that comparison to fourth-cohort Watara evidence. It records
+**18,926 media-only, 4,251 title-only, 127 dual-evidence, and 93,841
+without-review-lead** original DAT records, leaving **20 of 75
+collections without any current review lead**. Its
+[validation workflow](.github/workflows/audit-libretro-review-gaps-v3.yml)
+reproduces the complete independent-provider inventory without rewriting
+earlier reports. A record without a lead is a **provider-acquisition
+priority**, never an assertion that a game is absent or source identities
+were adjudicated.
 
 The IDs identify **original-source review tasks**, not canonical games.
 The optional [local SQLite source reader](tools/build_mame_catalog_sqlite.py)
-also supports `--query-review`, indexing all 21,845 task IDs and their
+also supports `--query-review`, indexing the independently pinned 69-list
+SQLite scope of 21,845 task IDs and their
 original competing Libretro targets for fast exact-ID, source-class,
 ambiguity, title and evidence-family searches. Run:
 
