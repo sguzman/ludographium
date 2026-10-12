@@ -21,6 +21,9 @@ V3_OUTPUT = Path("data/reconciliation/source-review-units-v3/units.jsonl")
 V3_REPORT = Path("reports/source-review-units-v3-summary.json")
 V3_MEDIA_INDEX = Path("data/reconciliation/mame-libretro-sha1-v3/links.jsonl")
 V3_TITLE_INDEX = Path("data/reconciliation/mame-libretro-title-review-v3/candidates.jsonl")
+V4_OUTPUT = Path("data/reconciliation/source-review-units-v4/units.jsonl")
+V4_REPORT = Path("reports/source-review-units-v4-summary.json")
+V4_MEDIA_INDEX = Path("data/reconciliation/mame-libretro-sha1-v4/links.jsonl")
 
 CLASSES = (
     "multiple-exact-title-source-targets",
@@ -184,6 +187,29 @@ def validate_v3(root=ROOT):
     )
 
 
+def validate_v4(root=ROOT):
+    """Independently rederive every fourth-cohort stable review ID and media row."""
+    from build_source_review_units_v4 import build_expected as build_v4_review_expected
+
+    expected_raw, expected_summary = build_v4_review_expected(root)
+    pinned_raw = source_bytes(root, V4_OUTPUT)
+    pinned_summary = source_bytes(root, V4_REPORT).decode("utf-8")
+    if pinned_raw != expected_raw or pinned_summary != expected_summary:
+        raise ValueError("additive fourth-cohort review tasks differ from original evidence")
+    report = json.loads(expected_summary)
+    if (
+        report["schema_version"] != 1
+        or report["kind"] != "additive-fourth-mame-cohort-stable-source-review-queue"
+        or report["unchanged_prior_source_review_units"] != 21845
+        or report["additional_original_review_units"] != 70
+        or report["cumulative_separate_source_review_units"] != 21915
+        or report["review_index_path"] != str(V4_OUTPUT)
+    ):
+        raise ValueError("unsupported additive fourth-cohort review evidence")
+    records = [json.loads(line) for line in expected_raw.splitlines()]
+    return report, records, (source_bytes(root, V4_MEDIA_INDEX), b"")
+
+
 def query(root=ROOT, *, review_id=None, mame_list=None,
           libretro_platform=None, title=None, priority_class=None,
           ambiguous_only=False, evidence_type=None, include_evidence=False,
@@ -203,8 +229,52 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
         raise ValueError("unrecognized source review priority class")
     if evidence_type not in (None, "media", "title"):
         raise ValueError("source evidence type must be media or title")
-    if cohort not in ("baseline", "v3", "combined"):
+    if cohort not in ("baseline", "v3", "v4", "combined", "all-pinned"):
         raise ValueError("unsupported independently pinned review source cohort")
+    if cohort == "all-pinned":
+        selection = dict(
+            review_id=review_id, mame_list=mame_list,
+            libretro_platform=libretro_platform, title=title,
+            priority_class=priority_class, ambiguous_only=ambiguous_only,
+            evidence_type=evidence_type, include_evidence=include_evidence,
+            limit=limit,
+        )
+        previous = query(root, **selection, cohort="combined", offset=offset)
+        after_previous = max(
+            0, offset - previous["total_filtered_source_review_units"]
+        )
+        fourth = query(root, **selection, cohort="v4", offset=after_previous)
+        combined = (
+            previous["units"]
+            + [{**row, "source_evidence_cohort": "v4"} for row in fourth["units"]]
+        )[:limit]
+        total = (
+            previous["total_filtered_source_review_units"]
+            + fourth["total_filtered_source_review_units"]
+        )
+        return {
+            "source_mode": "separately-pinned-all-original-source-review-cohorts",
+            "source_cohorts": ["baseline", "v3", "v4"],
+            "total_pinned_source_review_units": (
+                previous["total_pinned_source_review_units"]
+                + fourth["total_pinned_source_review_units"]
+            ),
+            "total_filtered_source_review_units": total,
+            "returned_source_review_units": len(combined),
+            "offset": offset,
+            "next_offset": (
+                offset + len(combined) if offset + len(combined) < total else None
+            ),
+            "review_index_sha256": {
+                **previous["review_index_sha256"],
+                "v4": fourth["review_index_sha256"],
+            },
+            "units": combined,
+            "interpretation": (
+                "Independent original-source review tasks, never canonical "
+                "game, media, work, release or provider identities."
+            ),
+        }
     if cohort == "combined":
         selected = dict(
             review_id=review_id, mame_list=mame_list,
@@ -253,7 +323,8 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
             ),
         }
     summary, records, raw_evidence = (
-        validate(root) if cohort == "baseline" else validate_v3(root)
+        validate(root) if cohort == "baseline" else
+        validate_v3(root) if cohort == "v3" else validate_v4(root)
     )
     matched, returned = 0, []
     media_lines = title_lines = None
@@ -306,6 +377,8 @@ def query(root=ROOT, *, review_id=None, mame_list=None,
             "verified-noncanonical-original-source-review-units"
             if cohort == "baseline" else
             "verified-additive-third-cohort-noncanonical-source-review-units"
+            if cohort == "v3" else
+            "verified-additive-fourth-cohort-noncanonical-source-review-units"
         ),
         "total_pinned_source_review_units": (
             summary["source_review_units"] if cohort == "baseline"
@@ -337,7 +410,7 @@ def main():
     parser.add_argument("--ambiguous-only", action="store_true")
     parser.add_argument("--evidence-type", choices=["media", "title"])
     parser.add_argument("--include-evidence", action="store_true")
-    parser.add_argument("--cohort", choices=("baseline", "v3", "combined"),
+    parser.add_argument("--cohort", choices=("baseline", "v3", "v4", "combined", "all-pinned"),
                         default="baseline")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--offset", type=int, default=0,
