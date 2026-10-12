@@ -360,6 +360,16 @@ records are **unreviewed evidence, not canonical works or releases**.
 The [CI source queue workflow](.github/workflows/build-source-review-units-v1.yml)
 rebuilds and validates this text-only review queue from the original sources.
 
+The [additive third-cohort review builder](tools/build_source_review_units_v3.py)
+and [source report](reports/source-review-units-v3-summary.json) pin
+**133 additional original-source review tasks** from four independently
+captured MAME lists: 127 SHA-1/size-evidence units and 6 title-only
+units. Two of those six retain multiple competing source targets.
+The preceding 21,712 review-unit records and their stable IDs remain
+unchanged; the combined number of separately pinned review units is
+**21,845**. Neither a source review ID nor a unique candidate certifies
+a game or release identity.
+
 The [stable-ID source review query](tools/query_source_review_units.py)
 verifies the entire queue and both parent evidence indexes before returning
 source-scoped results. It searches by stable review ID, original MAME list,
