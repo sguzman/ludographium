@@ -1,0 +1,92 @@
+name: Audit fourth-cohort MAME-Libretro SHA1 and size evidence
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/reconcile-mame-v4-media.yml
+      - tools/reconcile_mame_v4_media.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reconcile-mame-v4-media-main
+  cancel-in-progress: false
+
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify unchanged original fourth-cohort and earlier source evidence
+        run: |
+          set -euo pipefail
+          python tools/acquire_mame_softlists.py --cohort v4 --check
+          python tools/index_mame_softlists.py --cohort v4 --check
+          python tools/reconcile_mame_v3_media.py --check
+          python -m unittest discover -s tests -p test_reconcile_mame_v4_media.py -v
+      - name: Reconcile independently declared media sizes across pinned source providers
+        run: |
+          set -euo pipefail
+          python tools/reconcile_mame_v4_media.py --write
+          python tools/reconcile_mame_v4_media.py --check
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          report=json.loads(Path("reports/mame-libretro-sha1-v4-summary.json").read_text())
+          assert report["schema_version"] == 1
+          assert report["mame_source_register"] == "sources/mame-softlists-v4.json"
+          assert report["original_mame_source_lists"] == 8
+          assert report["original_mame_software_observations"] == 373
+          assert report["original_mame_rom_sha1_claims"] == 181
+          assert report["original_mame_disk_sha1_claims"] == 193
+          assert report["original_libretro_dat_collections"] == 75
+          assert report["original_libretro_records"] == 117145
+          assert report["source_corroborated_media_candidate_pairs"] > 0
+          for path_key,digest_key,length_key in (
+              ("corroborated_candidate_path","corroborated_candidate_sha256","corroborated_candidate_bytes"),
+              ("size_uncorroborated_path","size_uncorroborated_sha256","size_uncorroborated_bytes"),
+              ("rejected_size_conflicts_path","rejected_size_conflicts_sha256","rejected_size_conflicts_bytes"),
+          ):
+              raw=Path(report[path_key]).read_bytes()
+              assert hashlib.sha256(raw).hexdigest() == report[digest_key]
+              assert len(raw) == report[length_key]
+          links=[
+              json.loads(row) for row in Path(report["corroborated_candidate_path"]).read_text().splitlines()
+          ]
+          assert len(links) == report["source_corroborated_media_candidate_pairs"]
+          assert all(item["size_corroborated"] for item in links)
+          assert all(item["mame"]["original_declared_size_bytes"] == item["libretro"]["original_media_size_bytes"] for item in links)
+          assert all(item["interpretation"].startswith("review-only") for item in links)
+          assert any(item["mame"]["source_list"]=="svision" and item["libretro"]["platform"]=="watarasupervision" for item in links)
+          print("Pinned independently corroborated SHA1/size evidence, no identity joins",report["source_corroborated_media_candidate_pairs"])
+          PY
+      - name: Commit read-only fourth-cohort original media comparison records
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/mame-libretro-sha1-v4 reports/mame-libretro-sha1-v4-summary.json
+          if git diff --cached --quiet; then
+            echo "Fourth-cohort media comparison already reproducible"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data(mame): pin fourth-cohort noncanonical SHA1 and size comparison'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo "Unable to commit original cross-provider fourth-cohort comparison" >&2
+          exit 1
