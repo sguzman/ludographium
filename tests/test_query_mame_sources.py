@@ -34,6 +34,27 @@ class MameQueryTests(unittest.TestCase):
             item["source_list"] == "wswan" for item in newer["records"]
         ))
 
+    def test_separate_v3_media_evidence_is_independently_searchable(self):
+        supplement = candidate_query(
+            ROOT, cohort="v3", libretro_platform="atari5200", limit=2
+        )
+        self.assertEqual(supplement["total_original_candidate_pairs"], 127)
+        self.assertGreater(supplement["total_filtered_candidate_pairs"], 0)
+        self.assertEqual(supplement["source_cohorts"], ["v3"])
+        self.assertTrue(all(
+            row["source_evidence_cohort"] == "v3"
+            and row["kind"] ==
+            "review-only-v3-mame-libretro-exact-media-sha1-candidate"
+            and row["size_corroborated"]
+            for row in supplement["pairs"]
+        ))
+        combined = candidate_query(ROOT, cohort="combined", limit=1)
+        self.assertEqual(combined["total_original_candidate_pairs"], 19152)
+        self.assertEqual(combined["independent_mame_source_lists"], 69)
+        self.assertEqual(combined["source_cohorts"], ["baseline", "v3"])
+        with self.assertRaises(ValueError):
+            candidate_query(ROOT, cohort="not-a-verified-cohort")
+
     def test_source_only_acquisition_gaps_are_searchable_without_identity_inference(self):
         report = source_query(ROOT, without_review_leads=True, limit=2)
         self.assertEqual(report["total_filtered_original_records"], 11241)

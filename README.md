@@ -60,11 +60,21 @@ python tools/query_mame_sources.py --list gamecom --title Batman --limit 5
 python tools/query_mame_sources.py --publisher "Tiger Electronics" --limit 5
 python tools/query_mame_sources.py --without-review-leads --list nes --limit 5
 python tools/query_mame_media.py --platform tigergamecom --limit 5
+python tools/query_mame_media.py --cohort v3 --platform atari5200 --limit 5
+python tools/query_mame_media.py --cohort combined --limit 5
 python tools/query_mame_media.py --mame-list gameboy --limit 5
 ```
 
 These tools verify their source index SHA-256 and retain original supplier
 attribution, media size evidence, and review-only matching semantics.
+
+The media query defaults to the original **65-list** pinned source snapshot,
+preserving existing results. Choose `--cohort v3` for four independently
+registered newer MAME lists (127 source-media candidates) or
+`--cohort combined` for **19,152 observations across 69 MAME lists**. Each
+combined result explicitly identifies its original evidence cohort; source
+fields and conflicting-size exclusions are not overwritten or promoted to
+accepted game or release identities.
 
 The `--without-review-leads` source filter cross-checks the complete
 [bulk acquisition gap audit](reports/source-review-acquisition-gaps-v1.json).
