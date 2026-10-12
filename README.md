@@ -113,6 +113,21 @@ not a canonical game or release identity registry. The
 builds and tests it temporarily and deletes the binary afterward; SQLite
 files are not committed or published.
 
+### Source-grounded exact-title review without ROM hashes
+
+The [conservative cross-source title auditor](tools/reconcile_mame_titles.py)
+analyzes original MAME and Libretro source-name observations **only when
+the two source scopes already have at least three distinct MAME entries
+corroborated by equal-SHA-1/equal-size media evidence**. It considers MAME
+entries not already linked by SHA-1, normalizes case and whitespace, removes
+recognized trailing region/language/revision tags, and retains **only exact
+remaining title equalities**. The
+[audit workflow](.github/workflows/audit-mame-libretro-titles-v1.yml)
+publishes an independent [review report](reports/mame-libretro-title-review-v1-summary.json)
+and source-ordained candidates without asserting game, platform, release,
+region, translation or edition identity. Unsupported source-scope pairings
+are not guessed.
+
 ## Additional platform source accession
 
 A separate pinned Wikidata CC0 accession now covers **Atari 7800,

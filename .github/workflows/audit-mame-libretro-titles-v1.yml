@@ -1,0 +1,57 @@
+name: Audit SHA-1-grounded cross-source exact title review leads
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/audit-mame-libretro-titles-v1.yml
+      - tools/reconcile_mame_titles.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audit-mame-libretro-titles-v1-main
+  cancel-in-progress: false
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Verify original multi-provider evidence and title-key parser
+        run: |
+          python tools/reconcile_mame_media.py --check
+          python -m unittest discover -s tests -p test_mame_title_review.py -v
+      - name: Reproduce conservative title correspondences across all original scopes
+        run: |
+          python tools/reconcile_mame_titles.py --write
+          python tools/reconcile_mame_titles.py --check
+      - name: Pin only original-source review leads and provenance report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add data/reconciliation/mame-libretro-title-review-v1/candidates.jsonl reports/mame-libretro-title-review-v1-summary.json
+          if git diff --cached --quiet; then
+            echo "Conservative original-title evidence remains unchanged"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'reports: pin conservative cross-source title review candidates'
+          for attempt in 1 2 3 4 5 6; do
+            git pull --rebase origin main
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((attempt * 2))"
+          done
+          echo 'Cannot pin SHA1-grounded title evidence' >&2
+          exit 1
