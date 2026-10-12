@@ -932,6 +932,8 @@ fn expanded_localized_source_cohorts_preserve_raw_languages_and_scoped_noncovera
             "all",
             "--metadata-cohort",
             "expanded-v1",
+            "--language",
+            "es",
         ],
         vec![
             "--wikidata-properties",
